@@ -1,0 +1,278 @@
+#!/usr/bin/env node
+/*
+ * Builds index.html — one self-contained static file.
+ *
+ * No framework, no bundler, no runtime dependency. The logo SVGs are inlined
+ * from ../logo/ai/ at build time, so the site can never drift from the mark,
+ * and the deployed artefact makes zero external requests. That is both the
+ * cheapest thing to host and the fastest thing to load.
+ *
+ * Run: node build-site.js   ->   dist/index.html
+ */
+const fs = require('fs');
+const path = require('path');
+
+const LOGO = path.join(__dirname, 'logo', 'ai');
+const DIST = path.join(__dirname, '..');   // repo root — Pages serves from here
+fs.mkdirSync(DIST, { recursive: true });
+
+const svg = n => fs.readFileSync(path.join(LOGO, n), 'utf8')
+  .replace(/<\?xml[^>]*>/, '')
+  .replace(/ width="\d+" height="\d+"/, '')
+  .trim();
+
+const EMAIL = 'john@crinaro.ai';
+const CLAIM = 'Custom software at platform speed.';
+
+const problems = [
+  ['The data was never ready',
+   'Thirty years of records, no clean identifier, no lineage, and no owner who can say what a field means.'],
+  ['Nobody owns the risk',
+   'A demo has no audit trail, no evaluation harness, and no answer for what happens when it is wrong.'],
+  ['The pilot was never the system',
+   'It was built to be shown, not run — so the second version starts again from zero.'],
+];
+
+const verticals = [
+  ['Healthcare', 'Records that cannot answer the question at the bedside'],
+  ['GovTech', 'Policy that never reaches the citizen as a working service'],
+  ['Travel', 'Fragmented inventory that fails the moment something goes wrong'],
+  ['Retail', 'Transaction exhaust nobody stocks against'],
+  ['Recruiting', 'Volume without judgment'],
+];
+
+const weeks = [
+  ['Week 1', 'We go and look. Real data, real constraints, and the people who own the process.'],
+  ['Weeks 2–4', 'The factory builds the narrowest thing that proves or kills the idea — in your environment, on your data.'],
+  ['Weeks 5–6', 'Evaluation harness, failure modes, and a recommendation. Including “do not build this.”'],
+];
+
+const html = `<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Crinaro.AI — Custom software at platform speed</title>
+<meta name="description" content="Crinaro builds production software for regulated industries using a factory of specialist agents. Start with a fixed-price Proof sprint that ends in running code.">
+<meta property="og:title" content="Crinaro.AI">
+<meta property="og:description" content="${CLAIM} Built by a factory of specialist agents. For regulated industries.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://crinaro.ai/">
+<link rel="icon" href="data:image/svg+xml,${encodeURIComponent(svg('crinaro-ai-mark-small.svg'))}">
+<style>
+  /* The brand commits to one visual world — navy and paper — rather than
+     following the viewer's theme. Every ground is painted explicitly. */
+  :root {
+    --navy:#0B2545; --navy-2:#123256; --paper:#F2F6F8; --ground:#FFFFFF;
+    --green:#1B5C46; --rgreen:#4FA98A; --blue:#5B84A9; --rblue:#93B8D4;
+    --ink:#0B2545; --ink-2:#3D5570; --muted:#6A8095; --hair:#DCE4EA;
+    --head:Futura,"Century Gothic","Avenir Next",Avenir,"Trebuchet MS",sans-serif;
+    --body:"Helvetica Neue",Helvetica,Arial,system-ui,sans-serif;
+    --mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+  }
+  *,*::before,*::after { box-sizing:border-box; }
+  html { scroll-behavior:smooth; }
+  @media (prefers-reduced-motion:reduce) {
+    html { scroll-behavior:auto; }
+    *,*::before,*::after { animation-duration:.01ms !important; animation-iteration-count:1 !important; }
+  }
+  body {
+    margin:0; background:var(--ground); color:var(--ink);
+    font:17px/1.65 var(--body); -webkit-font-smoothing:antialiased;
+  }
+  .wrap { max-width:62rem; margin:0 auto; padding:0 1.5rem; }
+  .narrow { max-width:40rem; }
+
+  h1,h2,h3 { font-family:var(--head); font-weight:500; letter-spacing:.005em;
+             text-wrap:balance; margin:0; }
+  h1 { font-size:clamp(2rem,5.6vw,3.4rem); line-height:1.05; }
+  h2 { font-size:clamp(1.6rem,3.8vw,2.3rem); line-height:1.12; }
+  h3 { font-size:1.08rem; font-weight:700; font-family:var(--body); letter-spacing:-.01em; }
+  p { margin:0; color:var(--ink-2); }
+  .eyebrow { font-family:var(--mono); font-size:.7rem; letter-spacing:.2em;
+             text-transform:uppercase; color:var(--muted); margin:0; }
+
+  section { padding:5.5rem 0; border-top:1px solid var(--hair); }
+  .stack { display:flex; flex-direction:column; gap:1.1rem; }
+  .head { display:flex; flex-direction:column; gap:.75rem; margin-bottom:2.6rem; }
+
+  /* ---- hero ---- */
+  .hero { background:var(--navy); border:0; padding:0; }
+  .hero .wrap { padding-top:4rem; padding-bottom:4.5rem;
+                display:flex; flex-direction:column; gap:2.4rem; }
+  .hero svg { width:100%; max-width:26rem; height:auto; display:block; }
+  .hero h1 { color:#FFFFFF; max-width:20ch; }
+  .hero p { color:var(--rblue); font-size:1.1rem; max-width:44ch; }
+
+  .cta {
+    display:inline-flex; align-items:center; gap:.6rem; align-self:flex-start;
+    font-family:var(--head); font-size:1rem; letter-spacing:.04em;
+    text-decoration:none; padding:.85rem 1.5rem; border-radius:2px;
+    background:var(--rgreen); color:var(--navy); font-weight:700;
+    transition:background .15s ease, transform .15s ease;
+  }
+  .cta:hover { background:#6FC4A5; transform:translateY(-1px); }
+  .cta.dark { background:var(--green); color:#FFFFFF; }
+  .cta.dark:hover { background:#25755A; }
+
+  /* ---- content blocks ---- */
+  .cols { display:grid; grid-template-columns:1fr; gap:2rem; }
+  @media (min-width:48rem) { .cols { grid-template-columns:repeat(3,1fr); gap:2.4rem; } }
+  .col { display:flex; flex-direction:column; gap:.5rem; }
+  .col .rule { width:2rem; height:3px; background:var(--green); border-radius:2px; margin-bottom:.4rem; }
+
+  .steps { display:flex; flex-direction:column; gap:0; }
+  .step { display:grid; grid-template-columns:1fr; gap:.3rem;
+          padding:1.35rem 0; border-bottom:1px solid var(--hair); }
+  @media (min-width:44rem) { .step { grid-template-columns:9rem 1fr; gap:2rem; align-items:baseline; } }
+  .step:last-child { border-bottom:0; }
+  .step .when { font-family:var(--mono); font-size:.72rem; letter-spacing:.14em;
+                text-transform:uppercase; color:var(--green); }
+
+  .verts { display:grid; grid-template-columns:1fr; gap:0;
+           border-top:1px solid var(--hair); }
+  .vert { display:grid; grid-template-columns:1fr; gap:.2rem;
+          padding:1.15rem 0; border-bottom:1px solid var(--hair); }
+  @media (min-width:44rem) { .vert { grid-template-columns:12rem 1fr; gap:2rem; align-items:baseline; } }
+  .vert b { font-family:var(--head); font-size:1.15rem; font-weight:500; color:var(--ink); }
+  .vert span { color:var(--ink-2); }
+
+  /* ---- dark band ---- */
+  .band { background:var(--navy); border:0; }
+  .band h2, .band h3 { color:#FFFFFF; }
+  .band p { color:var(--rblue); }
+  .band .eyebrow { color:var(--blue); }
+  .band .rule { background:var(--rgreen); }
+  .band .step { border-color:var(--navy-2); }
+  .band .step .when { color:var(--rgreen); }
+
+  /* ---- footer ---- */
+  footer { background:var(--navy); padding:3rem 0 3.5rem; }
+  footer .wrap { display:flex; flex-direction:column; gap:1.6rem; }
+  footer svg { width:100%; max-width:15rem; height:auto; }
+  footer a { color:var(--rblue); }
+  .fine { font-size:.82rem; color:#6C88A4; }
+
+  a { color:var(--green); }
+  :focus-visible { outline:2px solid var(--rgreen); outline-offset:3px; }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    ${svg('crinaro-ai-animated.svg')}
+    <h1>${CLAIM}</h1>
+    <p>Built by a factory of specialist agents. For regulated industries.</p>
+    <a class="cta" href="mailto:${EMAIL}?subject=Proof%20sprint">Start with a Proof sprint</a>
+  </div>
+</header>
+
+<main>
+
+<section>
+  <div class="wrap">
+    <div class="head narrow">
+      <p class="eyebrow">The problem</p>
+      <h2>Everyone has pilots. Almost nobody has production.</h2>
+      <p>The hard part was never the model. It is everything the model touches on the way to a
+         real user in a regulated environment.</p>
+    </div>
+    <div class="cols">
+      ${problems.map(([h, b]) => `<div class="col"><div class="rule"></div>
+        <h3>${h}</h3><p>${b}</p></div>`).join('\n      ')}
+    </div>
+  </div>
+</section>
+
+<section class="band">
+  <div class="wrap">
+    <div class="head narrow">
+      <p class="eyebrow">How it is possible</p>
+      <h2>A factory of specialist agents.</h2>
+      <p>Specialists running in parallel, each with one job, composing into a system — which is
+         why custom work can move at platform speed. Every engagement sharpens the tools, so the
+         next one is faster. That compounding is the business.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="head narrow">
+      <p class="eyebrow">Where to start</p>
+      <h2>Working software in weeks, or an honest no.</h2>
+      <p>Proof is a fixed-price sprint that ends in running code — four to six weeks, in your
+         environment, on your data.</p>
+    </div>
+    <div class="steps">
+      ${weeks.map(([w, b]) => `<div class="step"><div class="when">${w}</div><p>${b}</p></div>`).join('\n      ')}
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="head narrow">
+      <p class="eyebrow">Where we work</p>
+      <h2>Five industries. One problem shape.</h2>
+      <p>Regulated, legacy-heavy, and full of decisions that are judgment calls rather than
+         lookups.</p>
+    </div>
+    <div class="verts">
+      ${verticals.map(([n, d]) => `<div class="vert"><b>${n}</b><span>${d}</span></div>`).join('\n      ')}
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="narrow stack">
+      <p class="eyebrow">Next step</p>
+      <h2>Let us find one thing worth proving, and prove it in six weeks.</h2>
+      <p>Bring one candidate problem. If it is not worth building, that is a finding too.</p>
+      <p style="margin-top:.8rem">
+        <a class="cta dark" href="mailto:${EMAIL}?subject=Proof%20sprint">${EMAIL}</a>
+      </p>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    ${svg('crinaro-ai-horizontal-reversed.svg')}
+    <p class="fine">
+      <a href="mailto:${EMAIL}">${EMAIL}</a> &nbsp;·&nbsp; crinaro.ai
+    </p>
+  </div>
+</footer>
+
+</body>
+</html>
+`;
+
+fs.writeFileSync(path.join(DIST, 'index.html'), html);
+
+// GitHub Pages needs the custom domain declared in the repo itself. Setting it
+// in the web UI writes this file; committing it means a redeploy can never drop
+// the domain and fall back to <org>.github.io.
+fs.writeFileSync(path.join(DIST, 'CNAME'), 'crinaro.ai\n');
+
+// Skip Jekyll. Without this, Pages runs the site through Jekyll, which ignores
+// files and folders beginning with an underscore and rewrites things we did not
+// ask it to rewrite. This is a plain static site; it needs none of that.
+fs.writeFileSync(path.join(DIST, '.nojekyll'), '');
+
+fs.writeFileSync(path.join(DIST, 'robots.txt'),
+  'User-agent: *\nAllow: /\n\nSitemap: https://crinaro.ai/sitemap.xml\n');
+fs.writeFileSync(path.join(DIST, 'sitemap.xml'),
+  '<?xml version="1.0" encoding="UTF-8"?>\n' +
+  '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' +
+  '  <url><loc>https://crinaro.ai/</loc><changefreq>monthly</changefreq></url>\n' +
+  '</urlset>\n');
+
+const kb = (Buffer.byteLength(html) / 1024).toFixed(1);
+console.log(`wrote index.html — ${kb} KB, 0 external requests`);
+console.log('       CNAME, .nojekyll, robots.txt, sitemap.xml');

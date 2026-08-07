@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 620 250" width="620" height="250" role="img" aria-label="Crinaro">
+  <title>Crinaro AI — survey, reversed</title>
+  <rect width="620" height="250" fill="#0B2545"/>
+  <path d="M52 132 L150 132 L212 86 L252 104 L320 38 L376 106 L416 84 L466 132 L568 132" fill="none" stroke="#4FA98A" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="212" cy="86" r="7" fill="#F2F6F8" stroke="#0B2545" stroke-width="3.5"/>
+  <circle cx="252" cy="104" r="7" fill="#F2F6F8" stroke="#0B2545" stroke-width="3.5"/>
+  <circle cx="320" cy="38" r="10.5" fill="#F2F6F8" stroke="#0B2545" stroke-width="3.5"/>
+  <circle cx="376" cy="106" r="7" fill="#F2F6F8" stroke="#0B2545" stroke-width="3.5"/>
+  <circle cx="416" cy="84" r="7" fill="#F2F6F8" stroke="#0B2545" stroke-width="3.5"/>
+  <text x="316.8" y="212" text-anchor="middle" fill="#F2F6F8" font-family="Futura, 'Century Gothic', 'Avenir Next', Avenir, sans-serif" font-size="52" font-weight="500" letter-spacing="0.26em">CRINARO</text>
+</svg>
