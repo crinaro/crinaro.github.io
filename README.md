@@ -18,6 +18,16 @@ python3 build-email.py  # -> ../email/  (needs: pip install cairosvg)
 The logo SVGs are inlined at build time, so the page can never drift from the mark and the
 deployed file fetches nothing from anywhere.
 
+## Positioning
+
+The claim is **Make AI compound**. The argument: most organisations restart from zero on every AI
+project, and the fix has the same three moves whether you are making engineers productive
+(AI-SDLC) or making a business productive (internal marketplaces, curated data). Lead with that
+mechanism, never with "leverage AI effectively" — that sentence is the most crowded in the market.
+
+`YEARS` is a constant at the top of the builder. It reads "Years"; put the real number in if you
+want it stated.
+
 ## Deploy
 
 Settings → Pages → deploy from branch `main`, folder `/` (root). Push to `main` and it is live.

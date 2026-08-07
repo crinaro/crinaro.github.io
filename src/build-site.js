@@ -22,29 +22,43 @@ const svg = n => fs.readFileSync(path.join(LOGO, n), 'utf8')
   .trim();
 
 const EMAIL = 'john@crinaro.ai';
-const CLAIM = 'Custom software at platform speed.';
+const CLAIM = 'Make AI compound.';
+// Put the real figure here if you want it stated. "Years" stays vague until you do.
+const YEARS = 'Years';
 
 const problems = [
-  ['The data was never ready',
-   'Thirty years of records, no clean identifier, no lineage, and no owner who can say what a field means.'],
-  ['Nobody owns the risk',
-   'A demo has no audit trail, no evaluation harness, and no answer for what happens when it is wrong.'],
-  ['The pilot was never the system',
-   'It was built to be shown, not run — so the second version starts again from zero.'],
+  ['Project two starts at zero',
+   'Nothing from the first effort is discoverable. No shared agents, no shared prompts, no evaluation anyone else can pick up and trust.'],
+  ['The data has to be re-derived',
+   'No lineage, no catalogue, no owner who can say what a field means — so every project pays the same archaeology bill again.'],
+  ['The process still assumes people type everything',
+   'AI gets bolted onto a delivery method built for a different constraint, then blamed for not changing the outcome.'],
+];
+
+// The thesis, as a grid: same three moves, two altitudes.
+const mechanism = [
+  ['Reusable units',
+   'Agents, generators and evaluation harnesses that the next build starts from.',
+   'An internal marketplace of plugins and prompts people can actually find.'],
+  ['Shared data',
+   'Schemas, lineage and golden datasets, versioned like code.',
+   'Curated repositories that are catalogued and owned, not rediscovered.'],
+  ['Safe reuse',
+   'Evaluations in CI, so a change that breaks something is caught before release.',
+   'Measurement and human sign-off where the decision carries real risk.'],
 ];
 
 const verticals = [
-  ['Healthcare', 'Records that cannot answer the question at the bedside'],
+  ['Healthcare', 'Thirty years of record drift, and a clinician who will not tolerate a wrong answer'],
   ['GovTech', 'Policy that never reaches the citizen as a working service'],
   ['Travel', 'Fragmented inventory that fails the moment something goes wrong'],
-  ['Retail', 'Transaction exhaust nobody stocks against'],
-  ['Recruiting', 'Volume without judgment'],
 ];
 
-const weeks = [
-  ['Week 1', 'We go and look. Real data, real constraints, and the people who own the process.'],
-  ['Weeks 2–4', 'The factory builds the narrowest thing that proves or kills the idea — in your environment, on your data.'],
-  ['Weeks 5–6', 'Evaluation harness, failure modes, and a recommendation. Including “do not build this.”'],
+const doors = [
+  ['Build something', 'Proof',
+   'A fixed-price sprint that ends in working software and an honest read — including “do not build this.” Four to six weeks, in your environment, on your data.'],
+  ['Fix how things get built', 'Practice',
+   'The AI-SDLC work: the process, the factory of specialist agents, the evaluation harness, and the shared library that makes the next project cheaper than the last.'],
 ];
 
 const html = `<!doctype html>
@@ -52,10 +66,10 @@ const html = `<!doctype html>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Crinaro.AI — Custom software at platform speed</title>
-<meta name="description" content="Crinaro builds production software for regulated industries using a factory of specialist agents. Start with a fixed-price Proof sprint that ends in running code.">
-<meta property="og:title" content="Crinaro.AI">
-<meta property="og:description" content="${CLAIM} Built by a factory of specialist agents. For regulated industries.">
+<title>Crinaro.AI — Make AI compound</title>
+<meta name="description" content="Most organisations restart from zero on every AI project. Crinaro builds the shared parts, the process and the evaluation that make the next one faster — in software delivery and in the business itself. Travel, Healthcare, GovTech.">
+<meta property="og:title" content="Crinaro.AI — Make AI compound">
+<meta property="og:description" content="Most organisations restart from zero on every AI project. Shared parts, a process that produces them, and evaluation that makes reuse safe.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://crinaro.ai/">
 <link rel="icon" href="data:image/svg+xml,${encodeURIComponent(svg('crinaro-ai-mark-small.svg'))}">
@@ -153,6 +167,30 @@ const html = `<!doctype html>
   footer a { color:var(--rblue); }
   .fine { font-size:.82rem; color:#6C88A4; }
 
+  /* ---- the mechanism grid: one row per move, one column per altitude ---- */
+  .mech { display:grid; grid-template-columns:1fr; gap:0; }
+  .mrow { display:grid; grid-template-columns:1fr; gap:.5rem;
+          padding:1.6rem 0; border-top:1px solid var(--navy-2); }
+  @media (min-width:52rem) {
+    .mrow { grid-template-columns:10rem 1fr 1fr; gap:2.2rem; align-items:start; }
+  }
+  .mrow .move { font-family:var(--head); font-size:1.05rem; color:#FFFFFF; }
+  .mhead { display:none; }
+  @media (min-width:52rem) {
+    .mhead { display:grid; grid-template-columns:10rem 1fr 1fr; gap:2.2rem;
+             padding-bottom:.9rem; }
+    .mhead span { font-family:var(--mono); font-size:.68rem; letter-spacing:.16em;
+                  text-transform:uppercase; color:var(--rgreen); }
+  }
+
+  /* ---- two doors ---- */
+  .doors { display:grid; grid-template-columns:1fr; gap:1.5rem; }
+  @media (min-width:48rem) { .doors { grid-template-columns:1fr 1fr; gap:2.2rem; } }
+  .door { border:1px solid var(--hair); border-radius:4px; padding:1.7rem;
+          display:flex; flex-direction:column; gap:.55rem; }
+  .door .tag { font-family:var(--mono); font-size:.68rem; letter-spacing:.16em;
+               text-transform:uppercase; color:var(--green); }
+
   a { color:var(--green); }
   :focus-visible { outline:2px solid var(--rgreen); outline-offset:3px; }
 </style>
@@ -163,8 +201,10 @@ const html = `<!doctype html>
   <div class="wrap">
     ${svg('crinaro-ai-animated.svg')}
     <h1>${CLAIM}</h1>
-    <p>Built by a factory of specialist agents. For regulated industries.</p>
-    <a class="cta" href="mailto:${EMAIL}?subject=Proof%20sprint">Start with a Proof sprint</a>
+    <p>Most organisations restart from zero on every AI project. ${YEARS} in Travel, Healthcare
+       and GovTech — now spent on the shared parts, the process and the evaluation that make the
+       next one faster.</p>
+    <a class="cta" href="mailto:${EMAIL}?subject=Crinaro">Start a conversation</a>
   </div>
 </header>
 
@@ -174,9 +214,10 @@ const html = `<!doctype html>
   <div class="wrap">
     <div class="head narrow">
       <p class="eyebrow">The problem</p>
-      <h2>Everyone has pilots. Almost nobody has production.</h2>
-      <p>The hard part was never the model. It is everything the model touches on the way to a
-         real user in a regulated environment.</p>
+      <h2>Everyone has pilots. Nothing accumulates.</h2>
+      <p>The models are not the bottleneck and have not been for a while. The bottleneck is that
+         effort banks as spend instead of as capability — so the tenth project costs what the
+         first one did.</p>
     </div>
     <div class="cols">
       ${problems.map(([h, b]) => `<div class="col"><div class="rule"></div>
@@ -188,11 +229,18 @@ const html = `<!doctype html>
 <section class="band">
   <div class="wrap">
     <div class="head narrow">
-      <p class="eyebrow">How it is possible</p>
-      <h2>A factory of specialist agents.</h2>
-      <p>Specialists running in parallel, each with one job, composing into a system — which is
-         why custom work can move at platform speed. Every engagement sharpens the tools, so the
-         next one is faster. That compounding is the business.</p>
+      <p class="eyebrow">The mechanism</p>
+      <h2>Two arenas. The same three moves.</h2>
+      <p>Making engineers productive with AI and making a business productive with AI are the same
+         problem at different altitudes. Both need parts worth reusing, a substrate worth building
+         on, and a way to know reuse is safe.</p>
+    </div>
+    <div class="mech">
+      <div class="mhead">
+        <span></span><span>AI-SDLC — how software gets built</span><span>The business — how work gets done</span>
+      </div>
+      ${mechanism.map(([m, a, b]) => `<div class="mrow">
+        <div class="move">${m}</div><p>${a}</p><p>${b}</p></div>`).join('\n      ')}
     </div>
   </div>
 </section>
@@ -200,13 +248,11 @@ const html = `<!doctype html>
 <section>
   <div class="wrap">
     <div class="head narrow">
-      <p class="eyebrow">Where to start</p>
-      <h2>Working software in weeks, or an honest no.</h2>
-      <p>Proof is a fixed-price sprint that ends in running code — four to six weeks, in your
-         environment, on your data.</p>
-    </div>
-    <div class="steps">
-      ${weeks.map(([w, b]) => `<div class="step"><div class="when">${w}</div><p>${b}</p></div>`).join('\n      ')}
+      <p class="eyebrow">Built, not just advised</p>
+      <h2>A marketplace of job-search plugins, in build now.</h2>
+      <p>Plugins that help an individual get real leverage out of Claude while looking for their
+         next role. It is a public instance of the private pattern — discoverable units, a shared
+         substrate, reuse that compounds. The same shape you would want inside a company.</p>
     </div>
   </div>
 </section>
@@ -214,10 +260,10 @@ const html = `<!doctype html>
 <section>
   <div class="wrap">
     <div class="head narrow">
-      <p class="eyebrow">Where we work</p>
-      <h2>Five industries. One problem shape.</h2>
-      <p>Regulated, legacy-heavy, and full of decisions that are judgment calls rather than
-         lookups.</p>
+      <p class="eyebrow">Where the experience is</p>
+      <h2>Regulated, legacy-heavy, and full of judgment calls.</h2>
+      <p>Three industries where the constraints are real, the data is old, and being wrong has a
+         cost somebody can name.</p>
     </div>
     <div class="verts">
       ${verticals.map(([n, d]) => `<div class="vert"><b>${n}</b><span>${d}</span></div>`).join('\n      ')}
@@ -227,12 +273,26 @@ const html = `<!doctype html>
 
 <section>
   <div class="wrap">
+    <div class="head narrow">
+      <p class="eyebrow">Two ways in</p>
+      <h2>Build something, or fix how things get built.</h2>
+    </div>
+    <div class="doors">
+      ${doors.map(([h, tag, b]) => `<div class="door"><div class="tag">${tag}</div>
+        <h3>${h}</h3><p>${b}</p></div>`).join('\n      ')}
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
     <div class="narrow stack">
       <p class="eyebrow">Next step</p>
-      <h2>Let us find one thing worth proving, and prove it in six weeks.</h2>
-      <p>Bring one candidate problem. If it is not worth building, that is a finding too.</p>
+      <h2>Bring one problem worth proving.</h2>
+      <p>If it is not worth building, that is a finding too — and it is cheaper to learn in six
+         weeks than in six quarters.</p>
       <p style="margin-top:.8rem">
-        <a class="cta dark" href="mailto:${EMAIL}?subject=Proof%20sprint">${EMAIL}</a>
+        <a class="cta dark" href="mailto:${EMAIL}?subject=Crinaro">${EMAIL}</a>
       </p>
     </div>
   </div>
