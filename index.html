@@ -3,10 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Crinaro.AI — Make AI compound</title>
-<meta name="description" content="Most organisations restart from zero on every AI project. Crinaro builds the shared parts, the process and the evaluation that make the next one faster — in software delivery and in the business itself. Travel, Healthcare, GovTech.">
-<meta property="og:title" content="Crinaro.AI — Make AI compound">
-<meta property="og:description" content="Most organisations restart from zero on every AI project. Shared parts, a process that produces them, and evaluation that makes reuse safe.">
+<title>Crinaro.AI — Custom software at platform speed</title>
+<meta name="description" content="Crinaro builds production software for regulated industries using a factory of specialist agents. Start with a fixed-price Proof sprint that ends in running code.">
+<meta property="og:title" content="Crinaro.AI">
+<meta property="og:description" content="Custom software at platform speed. Built by a factory of specialist agents. For regulated industries.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://crinaro.ai/">
 <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20256%20160%22%20role%3D%22img%22%20aria-label%3D%22Crinaro%22%3E%0A%20%20%3Ctitle%3ECrinaro%20%E2%80%94%20mark%2C%20small%3C%2Ftitle%3E%0A%20%20%3Cg%20transform%3D%22translate(-123.2%2C4.8)%20scale(0.8)%22%3E%0A%20%20%20%20%3Cpath%20d%3D%22M178%20150%20L212%2086%20L252%20104%20L320%2038%20L376%20106%20L416%2084%20L450%20150%22%20fill%3D%22none%22%20stroke%3D%22%231B5C46%22%20stroke-width%3D%2218%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%2F%3E%0A%20%20%20%20%3Ccircle%20cx%3D%22320%22%20cy%3D%2238%22%20r%3D%2215%22%20fill%3D%22%230B2545%22%20stroke%3D%22%23F2F6F8%22%20stroke-width%3D%225%22%2F%3E%0A%20%20%3C%2Fg%3E%0A%3C%2Fsvg%3E">
@@ -104,30 +104,6 @@
   footer a { color:var(--rblue); }
   .fine { font-size:.82rem; color:#6C88A4; }
 
-  /* ---- the mechanism grid: one row per move, one column per altitude ---- */
-  .mech { display:grid; grid-template-columns:1fr; gap:0; }
-  .mrow { display:grid; grid-template-columns:1fr; gap:.5rem;
-          padding:1.6rem 0; border-top:1px solid var(--navy-2); }
-  @media (min-width:52rem) {
-    .mrow { grid-template-columns:10rem 1fr 1fr; gap:2.2rem; align-items:start; }
-  }
-  .mrow .move { font-family:var(--head); font-size:1.05rem; color:#FFFFFF; }
-  .mhead { display:none; }
-  @media (min-width:52rem) {
-    .mhead { display:grid; grid-template-columns:10rem 1fr 1fr; gap:2.2rem;
-             padding-bottom:.9rem; }
-    .mhead span { font-family:var(--mono); font-size:.68rem; letter-spacing:.16em;
-                  text-transform:uppercase; color:var(--rgreen); }
-  }
-
-  /* ---- two doors ---- */
-  .doors { display:grid; grid-template-columns:1fr; gap:1.5rem; }
-  @media (min-width:48rem) { .doors { grid-template-columns:1fr 1fr; gap:2.2rem; } }
-  .door { border:1px solid var(--hair); border-radius:4px; padding:1.7rem;
-          display:flex; flex-direction:column; gap:.55rem; }
-  .door .tag { font-family:var(--mono); font-size:.68rem; letter-spacing:.16em;
-               text-transform:uppercase; color:var(--green); }
-
   a { color:var(--green); }
   :focus-visible { outline:2px solid var(--rgreen); outline-offset:3px; }
 </style>
@@ -171,11 +147,9 @@
   <circle class="node n5" cx="416" cy="84" r="7" fill="#F2F6F8" stroke="#0B2545" stroke-width="3.5"/>
   <text x="316.8" y="212" text-anchor="middle" fill="#F2F6F8" font-family="Futura, 'Century Gothic', 'Avenir Next', Avenir, sans-serif" font-size="52" font-weight="500" letter-spacing="0.26em">CRINARO<tspan fill="#4FA98A">.AI</tspan></text>
 </svg>
-    <h1>Make AI compound.</h1>
-    <p>Most organisations restart from zero on every AI project. Years in Travel, Healthcare
-       and GovTech — now spent on the shared parts, the process and the evaluation that make the
-       next one faster.</p>
-    <a class="cta" href="mailto:john@crinaro.ai?subject=Crinaro">Start a conversation</a>
+    <h1>Custom software at platform speed.</h1>
+    <p>Built by a factory of specialist agents. For regulated industries.</p>
+    <a class="cta" href="mailto:john@crinaro.ai?subject=Proof%20sprint">Start with a Proof sprint</a>
   </div>
 </header>
 
@@ -185,18 +159,17 @@
   <div class="wrap">
     <div class="head narrow">
       <p class="eyebrow">The problem</p>
-      <h2>Everyone has pilots. Nothing accumulates.</h2>
-      <p>The models are not the bottleneck and have not been for a while. The bottleneck is that
-         effort banks as spend instead of as capability — so the tenth project costs what the
-         first one did.</p>
+      <h2>Everyone has pilots. Almost nobody has production.</h2>
+      <p>The hard part was never the model. It is everything the model touches on the way to a
+         real user in a regulated environment.</p>
     </div>
     <div class="cols">
       <div class="col"><div class="rule"></div>
-        <h3>Project two starts at zero</h3><p>Nothing from the first effort is discoverable. No shared agents, no shared prompts, no evaluation anyone else can pick up and trust.</p></div>
+        <h3>The data was never ready</h3><p>Thirty years of records, no clean identifier, no lineage, and no owner who can say what a field means.</p></div>
       <div class="col"><div class="rule"></div>
-        <h3>The data has to be re-derived</h3><p>No lineage, no catalogue, no owner who can say what a field means — so every project pays the same archaeology bill again.</p></div>
+        <h3>Nobody owns the risk</h3><p>A demo has no audit trail, no evaluation harness, and no answer for what happens when it is wrong.</p></div>
       <div class="col"><div class="rule"></div>
-        <h3>The process still assumes people type everything</h3><p>AI gets bolted onto a delivery method built for a different constraint, then blamed for not changing the outcome.</p></div>
+        <h3>The pilot was never the system</h3><p>It was built to be shown, not run — so the second version starts again from zero.</p></div>
     </div>
   </div>
 </section>
@@ -204,22 +177,11 @@
 <section class="band">
   <div class="wrap">
     <div class="head narrow">
-      <p class="eyebrow">The mechanism</p>
-      <h2>Two arenas. The same three moves.</h2>
-      <p>Making engineers productive with AI and making a business productive with AI are the same
-         problem at different altitudes. Both need parts worth reusing, a substrate worth building
-         on, and a way to know reuse is safe.</p>
-    </div>
-    <div class="mech">
-      <div class="mhead">
-        <span></span><span>AI-SDLC — how software gets built</span><span>The business — how work gets done</span>
-      </div>
-      <div class="mrow">
-        <div class="move">Reusable units</div><p>Agents, generators and evaluation harnesses that the next build starts from.</p><p>An internal marketplace of plugins and prompts people can actually find.</p></div>
-      <div class="mrow">
-        <div class="move">Shared data</div><p>Schemas, lineage and golden datasets, versioned like code.</p><p>Curated repositories that are catalogued and owned, not rediscovered.</p></div>
-      <div class="mrow">
-        <div class="move">Safe reuse</div><p>Evaluations in CI, so a change that breaks something is caught before release.</p><p>Measurement and human sign-off where the decision carries real risk.</p></div>
+      <p class="eyebrow">How it is possible</p>
+      <h2>A factory of specialist agents.</h2>
+      <p>Specialists running in parallel, each with one job, composing into a system — which is
+         why custom work can move at platform speed. Every engagement sharpens the tools, so the
+         next one is faster. That compounding is the business.</p>
     </div>
   </div>
 </section>
@@ -227,11 +189,15 @@
 <section>
   <div class="wrap">
     <div class="head narrow">
-      <p class="eyebrow">Built, not just advised</p>
-      <h2>A marketplace of job-search plugins, in build now.</h2>
-      <p>Plugins that help an individual get real leverage out of Claude while looking for their
-         next role. It is a public instance of the private pattern — discoverable units, a shared
-         substrate, reuse that compounds. The same shape you would want inside a company.</p>
+      <p class="eyebrow">Where to start</p>
+      <h2>Working software in weeks, or an honest no.</h2>
+      <p>Proof is a fixed-price sprint that ends in running code — four to six weeks, in your
+         environment, on your data.</p>
+    </div>
+    <div class="steps">
+      <div class="step"><div class="when">Week 1</div><p>We go and look. Real data, real constraints, and the people who own the process.</p></div>
+      <div class="step"><div class="when">Weeks 2–4</div><p>The factory builds the narrowest thing that proves or kills the idea — in your environment, on your data.</p></div>
+      <div class="step"><div class="when">Weeks 5–6</div><p>Evaluation harness, failure modes, and a recommendation. Including “do not build this.”</p></div>
     </div>
   </div>
 </section>
@@ -239,13 +205,13 @@
 <section>
   <div class="wrap">
     <div class="head narrow">
-      <p class="eyebrow">Where the experience is</p>
-      <h2>Regulated, legacy-heavy, and full of judgment calls.</h2>
-      <p>Three industries where the constraints are real, the data is old, and being wrong has a
-         cost somebody can name.</p>
+      <p class="eyebrow">Where we work</p>
+      <h2>Three industries. One problem shape.</h2>
+      <p>Regulated, legacy-heavy, and full of decisions that are judgment calls rather than
+         lookups.</p>
     </div>
     <div class="verts">
-      <div class="vert"><b>Healthcare</b><span>Thirty years of record drift, and a clinician who will not tolerate a wrong answer</span></div>
+      <div class="vert"><b>Healthcare</b><span>Records that cannot answer the question at the bedside</span></div>
       <div class="vert"><b>GovTech</b><span>Policy that never reaches the citizen as a working service</span></div>
       <div class="vert"><b>Travel</b><span>Fragmented inventory that fails the moment something goes wrong</span></div>
     </div>
@@ -254,28 +220,12 @@
 
 <section>
   <div class="wrap">
-    <div class="head narrow">
-      <p class="eyebrow">Two ways in</p>
-      <h2>Build something, or fix how things get built.</h2>
-    </div>
-    <div class="doors">
-      <div class="door"><div class="tag">Proof</div>
-        <h3>Build something</h3><p>A fixed-price sprint that ends in working software and an honest read — including “do not build this.” Four to six weeks, in your environment, on your data.</p></div>
-      <div class="door"><div class="tag">Practice</div>
-        <h3>Fix how things get built</h3><p>The AI-SDLC work: the process, the factory of specialist agents, the evaluation harness, and the shared library that makes the next project cheaper than the last.</p></div>
-    </div>
-  </div>
-</section>
-
-<section>
-  <div class="wrap">
     <div class="narrow stack">
       <p class="eyebrow">Next step</p>
-      <h2>Bring one problem worth proving.</h2>
-      <p>If it is not worth building, that is a finding too — and it is cheaper to learn in six
-         weeks than in six quarters.</p>
+      <h2>Let us find one thing worth proving, and prove it in six weeks.</h2>
+      <p>Bring one candidate problem. If it is not worth building, that is a finding too.</p>
       <p style="margin-top:.8rem">
-        <a class="cta dark" href="mailto:john@crinaro.ai?subject=Crinaro">john@crinaro.ai</a>
+        <a class="cta dark" href="mailto:john@crinaro.ai?subject=Proof%20sprint">john@crinaro.ai</a>
       </p>
     </div>
   </div>
