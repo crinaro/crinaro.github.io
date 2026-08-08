@@ -7,9 +7,11 @@ is table-based with inline styles only.
 
     python3 build-email.py     ->  dist/email/
 """
+import io
 import os
 import re
 import cairosvg
+from PIL import Image
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 LOGO = os.path.join(HERE, 'logo', 'ai')
@@ -29,8 +31,8 @@ DISPLAY_W = 220
 SCALE = 3
 
 
-def raster(src, dst, display_w):
-    """Rasterise a logo SVG, forcing a real geometric face for the wordmark."""
+def _render(src, width):
+    """Rasterise a logo SVG to a PIL image, forcing a real geometric face."""
     svg = open(os.path.join(LOGO, src)).read()
     # The shipped SVGs name Futura first; nothing here has it, and a silent
     # fallback would bake the wrong letterforms into a PNG nobody re-checks.
@@ -38,17 +40,47 @@ def raster(src, dst, display_w):
         "font-family=\"Futura, 'Century Gothic', 'Avenir Next', Avenir, sans-serif\"",
         'font-family="Poppins"')
     vb = [float(v) for v in re.search(r'viewBox="([^"]+)"', svg).group(1).split()]
-    ratio = vb[3] / vb[2]
-    cairosvg.svg2png(bytestring=svg.encode(), write_to=os.path.join(OUT, dst),
-                     output_width=display_w * SCALE,
-                     output_height=int(round(display_w * ratio * SCALE)))
-    return int(round(display_w * ratio))
+    png = cairosvg.svg2png(bytestring=svg.encode(), output_width=width,
+                           output_height=int(round(width * vb[3] / vb[2])))
+    return Image.open(io.BytesIO(png)).convert('RGBA')
 
 
-h_light = raster('crinaro-ai-horizontal.svg', 'crinaro-signature.png', DISPLAY_W)
-h_dark = raster('crinaro-ai-horizontal-reversed.svg', 'crinaro-signature-reversed.png', DISPLAY_W)
-print(f'  crinaro-signature.png           {DISPLAY_W}x{h_light} displayed ({SCALE}x rendered)')
-print(f'  crinaro-signature-reversed.png  {DISPLAY_W}x{h_dark} displayed ({SCALE}x rendered)')
+def rasterise_signature_pair():
+    """Write both signature PNGs, cropped tight to the artwork.
+
+    The shipped lockup carries transparent padding: translate(10,4) plus the
+    path's own x=52 origin leave roughly 11px empty at the left edge once
+    scaled to 220px. In a signature that reads as the logo being indented
+    against the name and address beneath it, which is the defect John saw.
+    Cropping to the ink makes the lockup flush left with the text, and lets
+    the gap below it be set deliberately in the table rather than inherited
+    from whitespace nobody chose.
+
+    The reversed variant paints a navy rectangle across the whole canvas, so
+    its own alpha bounding box is the entire frame. It is cropped by the
+    fractions measured from the light version — same artwork, same geometry.
+    """
+    work = DISPLAY_W * SCALE * 2          # measure big, then downscale
+    light = _render('crinaro-ai-horizontal.svg', work)
+    box = light.getbbox()                 # alpha bounds of the ink
+    if box is None:
+        raise SystemExit('logo rasterised empty — check the SVG')
+
+    out_w = DISPLAY_W * SCALE
+    results = []
+    for src, dst in (('crinaro-ai-horizontal.svg', 'crinaro-signature.png'),
+                     ('crinaro-ai-horizontal-reversed.svg', 'crinaro-signature-reversed.png')):
+        im = light if src.endswith('horizontal.svg') else _render(src, work)
+        im = im.crop(box)
+        h = int(round(out_w * im.height / im.width))
+        im.resize((out_w, h), Image.LANCZOS).save(os.path.join(OUT, dst))
+        results.append(int(round(DISPLAY_W * im.height / im.width)))
+    return results
+
+
+h_light, h_dark = rasterise_signature_pair()
+print(f'  crinaro-signature.png           {DISPLAY_W}x{h_light} displayed ({SCALE}x, cropped flush)')
+print(f'  crinaro-signature-reversed.png  {DISPLAY_W}x{h_dark} displayed ({SCALE}x, cropped flush)')
 
 IMG_URL = f'https://{SITE}/email/crinaro-signature.png'
 
@@ -57,7 +89,7 @@ title_row = (f'<div style="font-size:13px;line-height:19px;color:{MUTED};">{TITL
 
 signature = f'''<table cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;font-family:Arial,Helvetica,sans-serif;">
   <tr>
-    <td style="padding:0 0 10px 0;">
+    <td style="padding:0 0 13px 0;">
       <a href="https://{SITE}" style="text-decoration:none;border:0;">
         <img src="{IMG_URL}" width="{DISPLAY_W}" height="{h_light}"
              alt="Crinaro.AI" style="display:block;border:0;outline:none;text-decoration:none;">
@@ -101,7 +133,7 @@ page = f'''<!doctype html>
   <div class="card">
     <div class="label">How it looks</div>
     <table cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;font-family:Arial,Helvetica,sans-serif;">
-      <tr><td style="padding:0 0 10px 0;">
+      <tr><td style="padding:0 0 13px 0;">
         <img src="crinaro-signature.png" width="{DISPLAY_W}" height="{h_light}" alt="Crinaro.AI" style="display:block;border:0;">
       </td></tr>
       <tr><td style="padding:0;">
