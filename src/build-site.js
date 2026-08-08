@@ -22,15 +22,46 @@ const svg = n => fs.readFileSync(path.join(LOGO, n), 'utf8')
   .trim();
 
 const EMAIL = 'john@crinaro.ai';
-const CLAIM = 'Custom software at platform speed.';
+const CLAIM = 'AI from higher ground.';
+// The hero breaks at the sentence, never mid-clause — left to text-wrap:balance
+// it strands "Then" at the end of a line. Meta tags keep the unbroken string.
+const CLAIM_HTML = CLAIM.replace(/\. /, '.<br>');
 
+// The problem is reuse, not delivery. Crinaro is not a custom development shop
+// — it builds services others can use, and advises the teams using them. The
+// old problem copy described a bespoke build engagement and was wrong for that.
 const problems = [
-  ['The data was never ready',
-   'Thirty years of records, no clean identifier, no lineage, and no owner who can say what a field means.'],
-  ['Nobody owns the risk',
-   'A demo has no audit trail, no evaluation harness, and no answer for what happens when it is wrong.'],
-  ['The pilot was never the system',
-   'It was built to be shown, not run — so the second version starts again from zero.'],
+  ['Everyone rebuilds the same thing',
+   'Each team writes its own scaffolding, its own prompts, its own evaluation. None of it is shared, so the next project starts at zero.'],
+  ['Good work stays trapped',
+   'One team solves it properly and has nowhere to put it. Without a shelf, solving a problem twice is cheaper than finding it once.'],
+  ['Reuse without evidence is a gamble',
+   'Nobody will build on someone else’s work if there is no way to tell whether it holds. So nothing is reused, and everything is rebuilt.'],
+];
+
+// The services, each with the audience it is for. Careers is described as
+// in-build because it is; advisory is described as available because it is.
+// Do not upgrade either — see decisions/03-positioning.md.
+const builds = [
+  ['Careers Plugins', 'For individuals',
+   'A marketplace of job-search plugins that help people get more out of Claude. In build now, not yet shipped.'],
+  ['AI-SDLC', 'For teams who build software',
+   'The patterns, the specialist agents and the evaluation harness that make reuse safe. Available as advice today.'],
+  ['Internal marketplaces', 'For businesses',
+   'A shelf your own teams publish to and pull from — plugins, prompts and data, with the evaluation that makes reuse safe.'],
+];
+
+// Distribution is the differentiator for regulated buyers: components install
+// into the customer's own environment rather than calling a hosted service.
+// These are architectural commitments, NOT compliance claims. Never write
+// HIPAA, SOC 2 or FedRAMP here — none of them have been certified.
+const delivery = [
+  ['It installs where you already work',
+   'Components and patterns deploy inside your environment, alongside the systems you run. There is no hosted service in the middle.'],
+  ['Your data does not move',
+   'The work happens where the data already lives, against your own model endpoint and your own keys. Nothing is sent back to us, because there is no path for it.'],
+  ['You can run it without us',
+   'The evaluation harness ships inside the component, so your team can prove it still works on their own. Support is advice, not access.'],
 ];
 
 // Three, not five. Retail and Recruiting were padding — John has named three
@@ -42,10 +73,12 @@ const verticals = [
   ['Travel', 'Fragmented inventory that fails the moment something goes wrong'],
 ];
 
+// Advisory that leaves something behind — not a bespoke build. The engagement
+// ends with the client's own team running it, which is the point.
 const weeks = [
-  ['Week 1', 'We go and look. Real data, real constraints, and the people who own the process.'],
-  ['Weeks 2–4', 'The factory builds the narrowest thing that proves or kills the idea — in your environment, on your data.'],
-  ['Weeks 5–6', 'Evaluation harness, failure modes, and a recommendation. Including “do not build this.”'],
+  ['Week 1', 'We look at how your teams build today. The tools, the handoffs, and what already exists that nobody can find.'],
+  ['Weeks 2–4', 'We stand up the smallest useful thing — a shared pattern, a working evaluation, or a shelf people can publish to.'],
+  ['Weeks 5–6', 'Your team runs it without us. You keep the patterns and the harness, and get a recommendation. Including “do not build this.”'],
 ];
 
 const html = `<!doctype html>
@@ -53,10 +86,10 @@ const html = `<!doctype html>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Crinaro.AI — Custom software at platform speed</title>
-<meta name="description" content="Crinaro builds production software for regulated industries using a factory of specialist agents. Start with a fixed-price Proof sprint that ends in running code.">
+<title>Crinaro.AI — AI from higher ground</title>
+<meta name="description" content="Crinaro builds AI services that businesses and individuals can use — a job-search plugin marketplace, AI-SDLC patterns, and internal marketplaces — installed in your own environment. Patterns learned in healthcare, government and travel.">
 <meta property="og:title" content="Crinaro.AI">
-<meta property="og:description" content="${CLAIM} Built by a factory of specialist agents. For regulated industries.">
+<meta property="og:description" content="${CLAIM} Services that businesses and individuals can use, and advice for the teams putting AI to work.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://crinaro.ai/">
 <link rel="icon" href="data:image/svg+xml,${encodeURIComponent(svg('crinaro-ai-mark-small.svg'))}">
@@ -102,7 +135,7 @@ const html = `<!doctype html>
   .hero .wrap { padding-top:4rem; padding-bottom:4.5rem;
                 display:flex; flex-direction:column; gap:2.4rem; }
   .hero svg { width:100%; max-width:26rem; height:auto; display:block; }
-  .hero h1 { color:#FFFFFF; max-width:20ch; }
+  .hero h1 { color:#FFFFFF; max-width:32ch; }
   .hero p { color:var(--rblue); font-size:1.1rem; max-width:44ch; }
 
   .cta {
@@ -163,9 +196,10 @@ const html = `<!doctype html>
 <header class="hero">
   <div class="wrap">
     ${svg('crinaro-ai-animated.svg')}
-    <h1>${CLAIM}</h1>
-    <p>Built by a factory of specialist agents. For regulated industries.</p>
-    <a class="cta" href="mailto:${EMAIL}?subject=Proof%20sprint">Start with a Proof sprint</a>
+    <h1>${CLAIM_HTML}</h1>
+    <p>Services that businesses and individuals can use, and advice for the teams putting AI to
+       work.</p>
+    <a class="cta" href="mailto:${EMAIL}?subject=Crinaro">Start a conversation</a>
   </div>
 </header>
 
@@ -175,9 +209,9 @@ const html = `<!doctype html>
   <div class="wrap">
     <div class="head narrow">
       <p class="eyebrow">The problem</p>
-      <h2>Everyone has pilots. Almost nobody has production.</h2>
-      <p>The hard part was never the model. It is everything the model touches on the way to a
-         real user in a regulated environment.</p>
+      <h2>Everyone is building the same things, separately.</h2>
+      <p>The hard part was never the model. It is that almost nothing built with one survives to
+         be used twice.</p>
     </div>
     <div class="cols">
       ${problems.map(([h, b]) => `<div class="col"><div class="rule"></div>
@@ -189,11 +223,11 @@ const html = `<!doctype html>
 <section class="band">
   <div class="wrap">
     <div class="head narrow">
-      <p class="eyebrow">How it is possible</p>
-      <h2>A factory of specialist agents.</h2>
-      <p>Specialists running in parallel, each with one job, composing into a system — which is
-         why custom work can move at platform speed. Every engagement sharpens the tools, so the
-         next one is faster. That compounding is the business.</p>
+      <p class="eyebrow">How we think</p>
+      <h2>See into both valleys at once.</h2>
+      <p>Crinaro is a ridge line — from the Italian <i>crinale</i>, the crest path where you can
+         see down both sides. That is the method. Stand where the whole system is visible, then
+         design end to end, rather than improving one step and moving the cost somewhere else.</p>
     </div>
   </div>
 </section>
@@ -201,10 +235,42 @@ const html = `<!doctype html>
 <section>
   <div class="wrap">
     <div class="head narrow">
-      <p class="eyebrow">Where to start</p>
-      <h2>Working software in weeks, or an honest no.</h2>
-      <p>Proof is a fixed-price sprint that ends in running code — four to six weeks, in your
-         environment, on your data.</p>
+      <p class="eyebrow">What we build</p>
+      <h2>Components other people run.</h2>
+      <p>Technology and patterns you install and use yourself. Three of them, each the same move
+         for a different audience: build the reusable unit, make it findable, and prove it works
+         before anyone depends on it.</p>
+    </div>
+    <div class="cols">
+      ${builds.map(([n, role, b]) => `<div class="col"><div class="rule"></div>
+        <p class="eyebrow">${role}</p><h3>${n}</h3><p>${b}</p></div>`).join('\n      ')}
+    </div>
+  </div>
+</section>
+
+<section class="band">
+  <div class="wrap">
+    <div class="head narrow">
+      <p class="eyebrow">How it runs</p>
+      <h2>In your shop, not ours.</h2>
+      <p>AI is going to be distributed — the work moving to where the data already is, rather than
+         the data moving to the work. That suits a hospital or an agency, and it is how these
+         components are built.</p>
+    </div>
+    <div class="cols">
+      ${delivery.map(([h, b]) => `<div class="col"><div class="rule"></div>
+        <h3>${h}</h3><p>${b}</p></div>`).join('\n      ')}
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="head narrow">
+      <p class="eyebrow">Advisory</p>
+      <h2>Advice that leaves something behind.</h2>
+      <p>A fixed-price sprint of four to six weeks, working alongside your teams. It ends with
+         them running it without us.</p>
     </div>
     <div class="steps">
       ${weeks.map(([w, b]) => `<div class="step"><div class="when">${w}</div><p>${b}</p></div>`).join('\n      ')}
@@ -215,10 +281,11 @@ const html = `<!doctype html>
 <section>
   <div class="wrap">
     <div class="head narrow">
-      <p class="eyebrow">Where we work</p>
-      <h2>Three industries. One problem shape.</h2>
-      <p>Regulated, legacy-heavy, and full of decisions that are judgment calls rather than
-         lookups.</p>
+      <p class="eyebrow">Where this comes from</p>
+      <h2>Patterns learned in hard places.</h2>
+      <p>The components are not industry-specific. The experience behind them is — regulated,
+         legacy-heavy, and full of decisions that are judgment calls rather than lookups. What
+         holds up there travels.</p>
     </div>
     <div class="verts">
       ${verticals.map(([n, d]) => `<div class="vert"><b>${n}</b><span>${d}</span></div>`).join('\n      ')}
@@ -230,10 +297,11 @@ const html = `<!doctype html>
   <div class="wrap">
     <div class="narrow stack">
       <p class="eyebrow">Next step</p>
-      <h2>Let us find one thing worth proving, and prove it in six weeks.</h2>
-      <p>Bring one candidate problem. If it is not worth building, that is a finding too.</p>
+      <h2>Find the thing worth building once, and building well.</h2>
+      <p>Bring the problem your teams keep solving separately. If it is not worth building, that
+         is a finding too.</p>
       <p style="margin-top:.8rem">
-        <a class="cta dark" href="mailto:${EMAIL}?subject=Proof%20sprint">${EMAIL}</a>
+        <a class="cta dark" href="mailto:${EMAIL}?subject=Crinaro">${EMAIL}</a>
       </p>
     </div>
   </div>
