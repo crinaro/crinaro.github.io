@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 160" width="256" height="160" role="img" aria-label="Crinaro">
+  <title>Crinaro — mark, reversed</title>
+  <rect width="256" height="160" fill="#0B2545"/>
+  <g transform="translate(-132,2.2) scale(0.828)">
+    <path d="M178 150 L212 86 L252 104 L320 38 L376 106 L416 84 L450 150" fill="none" stroke="#4FA98A" stroke-width="13" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="212" cy="86" r="8.049999999999999" fill="#F2F6F8" stroke="#0B2545" stroke-width="4.0249999999999995"/>
+  <circle cx="252" cy="104" r="8.049999999999999" fill="#F2F6F8" stroke="#0B2545" stroke-width="4.0249999999999995"/>
+  <circle cx="320" cy="38" r="12.075" fill="#F2F6F8" stroke="#0B2545" stroke-width="4.0249999999999995"/>
+  <circle cx="376" cy="106" r="8.049999999999999" fill="#F2F6F8" stroke="#0B2545" stroke-width="4.0249999999999995"/>
+  <circle cx="416" cy="84" r="8.049999999999999" fill="#F2F6F8" stroke="#0B2545" stroke-width="4.0249999999999995"/>
+  </g>
+</svg>
