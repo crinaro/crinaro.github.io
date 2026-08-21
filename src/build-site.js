@@ -100,8 +100,15 @@ const assets = [
   // states and that one read as *there are clients*. There are none. Flagged
   // independently by brand-critic twice, and forbidden outright by the AI-SDLC
   // pack's rule against implying customers or deployments.
-  ['The AI-SDLC reference', 'Private — not published',
-   'How an agentic SDLC runs across an organization rather than one team’s repos. Re-sourced continuously, because a reference nobody maintains is worse than none.'],
+  //
+  // The eyebrow carries a count, like the other two, because a status column
+  // where one cell counts a team and the next does not reads as though the
+  // first has no team. It does: twelve agents, verified against the repo by
+  // check-claims.sh, not carried forward from a document. "Not published" moved
+  // out of this cell and is stated plainly in the note under the diagram below,
+  // which is where a reader who wants to go and look would hit it anyway.
+  ['The AI-SDLC reference', 'Private — twelve agents',
+   'Delivery end to end on an agentic model, not one team’s repos: what gets asked for, how it is built, how you know it shipped. Worked into patterns another team can pick up.'],
   ['This brand', 'Internal — three agents',
    'The page you are reading, the deck, the identity and the rules that govern them. A critic, a copy editor, and one that renders every visual and looks at it before anything ships.'],
   // "Running daily for one person, not yet a second" was here, and it WAS
