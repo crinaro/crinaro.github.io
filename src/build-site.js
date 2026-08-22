@@ -118,8 +118,8 @@ const assets = [
   // claim for the caveat to bound: it says what the marketplace is for and that
   // agent teams get run in it, and says nothing about who uses it. If a usage or
   // adoption claim ever comes back, the caveat has to come back with it.
-  ['The plugin marketplace', 'Public — two plugins',
-   'Claude Code plugins kept in the open: an agent team for the job search, and a connector for working across several mailboxes. How each is put together, and what every agent owns.',
+  ['The plugin marketplace', 'Public — installable',
+   'Where the AI-SDLC reference gets tested in public. The utilities are what comes out along the way: an agent team for the job search, and a connector for several mailboxes.',
    'https://github.com/crinaro/marketplace', 'Read the marketplace'],
 ];
 
@@ -642,9 +642,9 @@ ${CSS}
       ${factory.map(([n, d]) => `<div class="vert"><b>${n}</b><span>${d}</span></div>`).join('\n      ')}
     </div>
     <p class="note">Those six are agent definitions in the private repository that maintains the
-       marketplace, so you cannot read them. What they maintain is public: two plugins —
-       nine installable agents in one, a mail connector in the other — their documentation, and
-       a version history you can walk back.</p>
+       marketplace, so you cannot read them. What they maintain is public: a plugin carrying nine
+       installable agents, a connector, their documentation, and a version history you can walk
+       back. That is one repository run this way, not an organization.</p>
     <!-- The only route to the written pieces. Still no "Writing" heading: two
          pieces do not make a series, and a section header promises one. When
          there is a third, this becomes a list on its own page. -->
