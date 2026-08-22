@@ -62,7 +62,7 @@ const problems = [
 ];
 
 // The maintenance team, by role. These are real agent definitions — the six in
-// crinaro/careers-plugins-dev under .claude/agents/. That repo is PRIVATE: it is
+// crinaro/marketplace-dev under .claude/agents/. That repo is PRIVATE: it is
 // the dev repo that maintains the public marketplace. See the dev/public split in
 // CLAUDE.md. So they are real and a buyer cannot read them — never write a line
 // inviting anyone to go and do so. Keep each description faithful to what the
@@ -83,7 +83,7 @@ const factory = [
 
 // What the factory maintains. Framed as living assets rather than products,
 // because that is the actual claim: not that these were built with AI, but
-// that they are kept alive by agent teams. Careers Plugins is public and
+// that they are kept alive by agent teams. The marketplace is public and
 // installable. Nothing here may imply adoption — that rule stands. What changed
 // on 2026-08-20 is that the cards stopped making usage claims at all, so the
 // caveat that used to bound one is no longer needed. See the note on the
@@ -118,9 +118,9 @@ const assets = [
   // claim for the caveat to bound: it says what the marketplace is for and that
   // agent teams get run in it, and says nothing about who uses it. If a usage or
   // adoption claim ever comes back, the caveat has to come back with it.
-  ['Careers Plugins', 'Public — nine agents',
-   'A Claude Code marketplace for career search and development, and where agent teams get run in the open: how one is structured, and what each agent owns.',
-   'https://github.com/crinaro/careers-plugins', 'Read the agents'],
+  ['The plugin marketplace', 'Public — two plugins',
+   'Claude Code plugins kept in the open: an agent team for the job search, and a connector for working across several mailboxes. How each is put together, and what every agent owns.',
+   'https://github.com/crinaro/marketplace', 'Read the marketplace'],
 ];
 
 // The AI-SDLC span, drawn rather than described. The reference is private and
@@ -161,7 +161,7 @@ const flow = `<svg viewBox="0 0 1000 272" role="img"
 // This is the advisory product: not a recommendation, a way of deciding.
 const method = [
   ['The options',
-   'Every organization arrives with different constraints. Each decision names the real alternatives rather than one best practice.'],
+   'Constraints differ by organization. Each decision names the real alternatives rather than one best practice.'],
   ['The signal',
    'A decision table that picks between them, against things you can actually observe. Not “it depends”.'],
   ['The trigger',
@@ -185,10 +185,10 @@ const method = [
 // No span of years is attached to any of them, on the site or in the meta: John
 // has given no figure and one must not be inferred. See decisions/03-positioning.md.
 //
-// The section heading above this list is now "Crinaro is John Kelly.", which no
-// longer bridges to the industries the way "Patterns learned in hard places" did.
-// The prose names them instead, so this list and that sentence have to move
-// together — and both have to match the meta description.
+// The heading above this list is "Patterns learned in hard places." It briefly
+// read "Crinaro is John Kelly." and was reverted the same day, 2026-08-20 — the
+// brand is not tied to a named person. Do not restore that. This list and the
+// heading have to move together, and both have to match the meta description.
 const verticals = [
   ['Healthcare', 'Records that cannot answer the question at the bedside'],
   ['GovTech', 'Policy that never reaches the citizen as a working service'],
@@ -207,9 +207,10 @@ const verticals = [
 // That paragraph opened "Working alongside your teams, not in place of them",
 // which said the same thing as its own last sentence — the team ends up running
 // it — and said it as a negation of what a supplier does. The positive half is
-// kept and the negation is gone. It still says "without us": the page uses the
-// company voice throughout, and swapping one paragraph to the singular would
-// leave the page half-migrated, which reads worse than either.
+// kept and the negation is gone. "without us" is also gone, and so is the
+// company voice it belonged to — John's call, 2026-08-20: the page read as a
+// consultancy, which risks disqualifying him from a full-time role. There is no
+// first-person plural anywhere in the copy now. Do not reintroduce one.
 
 
 // One stylesheet, shared by every page this generator writes. Extracted so a
@@ -272,6 +273,9 @@ const CSS = `${FONTS}
   .hero svg { width:100%; max-width:26rem; height:auto; display:block; }
   .hero h1 { color:#FFFFFF; max-width:32ch; }
   .hero p { color:var(--rblue); font-size:1.1rem; max-width:44ch; }
+  .hero .src { color:var(--rblue); border-bottom-color:rgba(147,184,212,.45);
+               align-self:flex-start; margin-top:.4rem; }
+  .hero .src:hover { color:#FFFFFF; border-bottom-color:#FFFFFF; }
 
   .cta {
     display:inline-flex; align-items:center; gap:.6rem; align-self:flex-start;
@@ -586,7 +590,7 @@ ${CSS}
     ${svg('crinaro-ai-animated.svg')}
     <h1>${CLAIM_HTML}</h1>
     <p>Ideas and patterns worked out over a career, now applied with agents.</p>
-    <a class="cta" href="mailto:${EMAIL}?subject=Crinaro">Start a conversation</a>
+    <a class="src" href="#notes">Read the notes <span aria-hidden="true">&darr;</span></a>
   </div>
 </header>
 
@@ -610,7 +614,7 @@ ${CSS}
 <section class="band">
   <div class="wrap">
     <div class="head narrow">
-      <p class="eyebrow">How we think</p>
+      <p class="eyebrow">The method</p>
       <h2>The whole view decides the design.</h2>
       <p>Crinaro is a ridge line — from the Italian <i>crinale</i>, the crest path where you can
          see down both sides. That is the method. Stand where the whole system is visible, then
@@ -638,12 +642,13 @@ ${CSS}
       ${factory.map(([n, d]) => `<div class="vert"><b>${n}</b><span>${d}</span></div>`).join('\n      ')}
     </div>
     <p class="note">Those six are agent definitions in the private repository that maintains the
-       marketplace, so you cannot read them. What they maintain is public: nine installable agents,
-       their documentation, and a version history you can walk back.</p>
+       marketplace, so you cannot read them. What they maintain is public: two plugins —
+       nine installable agents in one, a mail connector in the other — their documentation, and
+       a version history you can walk back.</p>
     <!-- The only route to the written pieces. Still no "Writing" heading: two
          pieces do not make a series, and a section header promises one. When
          there is a third, this becomes a list on its own page. -->
-    <p class="note">The argument above is written up at length in
+    <p class="note" id="notes">The argument above is written up at length in
        <a class="src" href="/notes/${NOTE.slug}/">${NOTE.title}</a>, and what it costs to run is in
        <a class="src" href="/notes/${NOTE_CADENCE.slug}/">${NOTE_CADENCE.title}</a>.</p>
   </div>
@@ -689,13 +694,12 @@ ${CSS}
 <section>
   <div class="wrap">
     <div class="head narrow">
-      <p class="eyebrow">Advisory</p>
+      <p class="eyebrow">On advisory work</p>
       <h2>Advice that leaves something behind.</h2>
-      <p>The work happens alongside your teams: looking at how they build today, then standing up
-         the smallest useful thing — a shared pattern, a working evaluation, a place to publish
-         where another team will find it. It ends with your team running it without us, keeping
-         the patterns and the harness, and a recommendation. Sometimes that recommendation is
-         “do not build this.”</p>
+      <p>The advice that gets used leaves something running behind it: a shared pattern, a
+         working evaluation, a place to publish where another team will find it. The test is
+         whether a team still has the thing a year later, and whether “do not build this” was
+         ever an available answer.</p>
     </div>
   </div>
 </section>
@@ -737,7 +741,7 @@ ${CSS}
          piece of it does not hold — in your architecture, at your size, with the constraints you
          actually have. That is a conversation worth having whether or not anything follows it.</p>
       <p style="margin-top:.8rem">
-        <a class="cta dark" href="mailto:${EMAIL}?subject=Crinaro">${EMAIL}</a>
+        <a class="src" href="mailto:${EMAIL}?subject=Crinaro">${EMAIL}</a>
       </p>
     </div>
   </div>
