@@ -227,15 +227,22 @@
 <p>Take an API team, working the old way. They get an epic — the work for the delivery cycle — and
    break it into user stories. The stories usually name an <em>outcome</em>: the API. But the outcome
    is delivered through changes across several components, often across several repositories. Those
-   are the tasks, and most of the time nobody wrote them down. The engineers understood the system
-   well enough to execute without being told, so the detail stayed in their heads.</p>
+   are the tasks, and how much of that got written down varied by team.</p>
 
-<p>The bridge from the outcome to the components that implement it was real work, done reliably, and
+<p>Some broke it down and recorded it. Most, in my experience, minimize documentation wherever they
+   are allowed to — not out of carelessness, but because the engineers understood the system well
+   enough to execute without being told, and writing it down bought them nothing at the time. The
+   bridge from the outcome to the components that implement it was real work, done reliably, and
    invisible. It never needed to be written down in order to happen.</p>
 
 <p>Agents have no such bridge. Nothing fills the gap between “build the API” and the specific changes
    in the specific components. So the work has to be broken down to the teams that maintain those
-   components — explicitly, in a way it never had to be before.</p>
+   components — explicitly, in a way it never had to be before. What used to live in an engineer's
+   head has to exist as text before an agent can decompose a specification against it.</p>
+
+<p>Which means the teams that already had the discipline start ahead. Documentation that read as
+   overhead for years is now the input. That is an uncomfortable thing to tell a team that has been
+   running lean on it, and it is the most concrete advantage I have seen change hands so far.</p>
 
 <p>This is also where the cost of skipping it changed. Generation is cheap now, and it gets cheaper.
    A team that is not aligned to the components it maintains still produces the work — faster than
