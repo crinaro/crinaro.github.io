@@ -369,15 +369,18 @@ const NOTE = {
   author: 'John Kelly',
   date: '2026-08-20',
   dateHuman: '20 August 2026',
-  standfirst: 'A delivery cadence matters less than what the teams inside it are aligned to. ' +
-              'That alignment belongs on the architecture — and agentic delivery pushes it a level ' +
-              'deeper than it used to go.',
+  standfirst: 'A cadence carries communication across the organization. What the teams inside ' +
+              'it are aligned to decides what the software costs to keep. Both have to hold, and ' +
+              'agents raise the price of getting the second one wrong.',
   body: `
 <p>The shape I have used is a ten-week delivery cycle: five two-week sprints inside it, four of them
-   on delivery and one on innovation and planning the next cycle. It is a useful rhythm. It is also
-   the part that matters least.</p>
+   on delivery and one on innovation and planning the next cycle. Nothing else here survives contact
+   with an organization without a rhythm like that. It is how a dozen teams find out what the others
+   are doing and when, how a dependency gets raised before it is a crisis, and how anyone outside
+   engineering knows what is coming. Get it wrong and the rest fails regardless. It is necessary. It
+   is not sufficient.</p>
 
-<p>What decides whether a cycle works is what the teams are aligned to. If that changes every time
+<p>What it is not sufficient for is what the teams inside it are aligned to. If that changes every time
    priorities do, nothing accumulates. Each initiative re-forms the teams, and the patterns and the
    shared components never get an owner long enough to become real. So the alignment has to sit on
    an axis that is stable and does not change often.</p>
@@ -419,6 +422,13 @@ const NOTE = {
 <p>Agents have no such bridge. Nothing fills the gap between “build the API” and the specific changes
    in the specific components. So the work has to be broken down to the teams that maintain those
    components — explicitly, in a way it never had to be before.</p>
+
+<p>This is also where the cost of skipping it changed. Generation is cheap now, and it gets cheaper.
+   A team that is not aligned to the components it maintains still produces the work — faster than
+   before — it just produces it in places nobody is answerable for. That used to be limited by how
+   much a team could write by hand. It is not limited by that any more, and my own view is that
+   debt now accumulates faster than an organization can pay it down. Alignment to the asset is
+   what keeps the volume landing somewhere it will be maintained.</p>
 
 <h2>What that looks like in practice</h2>
 
