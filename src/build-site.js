@@ -73,12 +73,12 @@ const problems = [
 // maintenance half, which is the half that decides whether an AI-built thing is
 // still alive in six months.
 const factory = [
-  ['Architect', 'The shape of the thing — what is an agent, what is a script, what belongs in a manifest.'],
-  ['Deployment auditor', 'Where it can actually run: a desktop, a schedule, a headless container — and whether the docs say so truthfully.'],
+  ['Architect', 'The shape of the thing: what is an agent, what is a script, what belongs in a manifest.'],
+  ['Deployment auditor', 'Where it can actually run: a desktop, a schedule, a headless container, and whether the docs say so truthfully.'],
   ['Gate keeper', 'The checks. The regression suite, the fixtures, and whether CI agrees with what passed locally.'],
-  ['Docs steward', 'The written record — decisions, rulebooks, and stale claims about a system that has moved on.'],
+  ['Docs steward', 'The written record: decisions, rulebooks, and stale claims about a system that has moved on.'],
   ['Release manager', 'Shipping, so it actually loads for someone. Versions, catalog, cache, and a check from a fresh session.'],
-  ['Delivery verifier', 'What people actually install after the push — whether it matches what shipped, and whether a claimed fix is really in it.'],
+  ['Delivery verifier', 'What people actually install after the push: whether it matches what shipped, and whether a claimed fix is really in it.'],
 ];
 
 // What the factory maintains. Framed as living assets rather than products,
@@ -107,9 +107,9 @@ const assets = [
   // check-claims.sh, not carried forward from a document. "Not published" moved
   // out of this cell and is stated plainly in the note under the diagram below,
   // which is where a reader who wants to go and look would hit it anyway.
-  ['The AI-SDLC reference', 'Private — twelve agents',
+  ['The AI-SDLC reference', 'Private · twelve agents',
    'Delivery end to end on an agentic model, not one team’s repos: what gets asked for, how it is built, how you know it shipped. Worked into patterns another team can pick up.'],
-  ['This brand', 'Internal — three agents',
+  ['This brand', 'Internal · three agents',
    'The page you are reading, the deck, the identity and the rules that govern them. A critic, a copy editor, and one that renders every visual and looks at it before anything ships.'],
   // "Running daily for one person, not yet a second" was here, and it WAS
   // load-bearing for as long as the card described a product — it was the clause
@@ -118,7 +118,7 @@ const assets = [
   // claim for the caveat to bound: it says what the marketplace is for and that
   // agent teams get run in it, and says nothing about who uses it. If a usage or
   // adoption claim ever comes back, the caveat has to come back with it.
-  ['The plugin marketplace', 'Public — installable',
+  ['The plugin marketplace', 'Public · installable',
    'Where the AI-SDLC reference gets tested in public. The utilities are what comes out along the way: an agent team for the job search, and a connector for several mailboxes.',
    'https://github.com/crinaro/marketplace', 'Read the marketplace'],
 ];
@@ -138,7 +138,7 @@ const STAGES = [
 ];
 const BOX_W = 176, BOX_GAP = 30, BOX_Y = 26, BOX_H = 86, KB_Y = 196;
 const flow = `<svg viewBox="0 0 1000 272" role="img"
-     aria-label="A capability spec becomes work items across repos, built by agents on routed compute, then merged and reconciled against the original spec — with a knowledge layer underneath every stage">
+     aria-label="A capability spec becomes work items across repos, built by agents on routed compute, then merged and reconciled against the original spec, with a knowledge layer underneath every stage">
   ${STAGES.map(([t, s], i) => {
     const x = i * (BOX_W + BOX_GAP), cx = x + BOX_W / 2;
     return `<g>
@@ -154,7 +154,7 @@ const flow = `<svg viewBox="0 0 1000 272" role="img"
   }).join('\n  ')}
   <rect x="0" y="${KB_Y}" width="1000" height="66" rx="3" fill="#0B2545"/>
   <text x="24" y="${KB_Y + 28}" fill="#FFFFFF" font-family="${HEAD_SVG}" font-size="16" font-weight="500">The knowledge layer</text>
-  <text x="24" y="${KB_Y + 50}" fill="#93B8D4" font-family="Helvetica,Arial,sans-serif" font-size="13">Current-state index and deep-research memory — queried, never re-derived.</text>
+  <text x="24" y="${KB_Y + 50}" fill="#93B8D4" font-family="Helvetica,Arial,sans-serif" font-size="13">Current-state index and deep-research memory: queried, never re-derived.</text>
 </svg>`;
 
 // What makes the reference different from every other set of AI-SDLC docs.
@@ -165,7 +165,7 @@ const method = [
   ['The signal',
    'A decision table that picks between them, against things you can actually observe. Not “it depends”.'],
   ['The trigger',
-   'The specific, felt pain that says it is time for the more complex option — so you never buy infrastructure for a problem you do not have yet.'],
+   'The specific, felt pain that says it is time for the more complex option, so you never buy infrastructure for a problem you do not have yet.'],
 ];
 
 // Distribution is the differentiator for regulated buyers: components install
@@ -224,7 +224,7 @@ const CSS = `${FONTS}
     --green:#1B5C46; --rgreen:#4FA98A; --blue:#5B84A9; --rblue:#93B8D4;
     /* --muted was #6A8095 and failed AA as text: 3.76 on paper, 4.09 on white,
        set at 11.2px for eyebrows. Darkened to 43% lightness at the same hue and
-       saturation — 4.84 on paper, 5.27 on white. It is the same grey, deeper. */
+       saturation — 4.84 on paper, 5.27 on white. It is the same gray, deeper. */
     --ink:#0B2545; --ink-2:#3D5570; --muted:#5B6E80; --hair:#DCE4EA;
     /* Poppins is embedded (see FONTS above) and therefore FIRST — the point is
        that every visitor sees the same face. Naming Futura first meant the
@@ -402,7 +402,7 @@ const NOTE = {
    difficulty is not that the idea is complicated. The cost arrives first and the payoff arrives
    later. Judged on a short horizon, component ownership reads as overhead: a team declining work
    that is not theirs, an interface argued over rather than a feature shipped. It takes sustained
-   work, the way most things with a real return do — and the return does not show up inside one
+   work, the way most things with a real return do, and the return does not show up inside one
    quarter.</p>
 
 <h2>What agentic delivery changes</h2>
@@ -410,20 +410,20 @@ const NOTE = {
 <p>It pushes the alignment a level deeper: to the components in the architecture, and to how those
    components are managed.</p>
 
-<p>Take an API team, working the old way. They get an epic — the work for the delivery cycle — and
+<p>Take an API team, working the old way. They get an epic, which is the work for the delivery cycle, and
    break it into user stories. The stories usually name an <em>outcome</em>: the API. But the outcome
    is delivered through changes across several components, often across several repositories. Those
    are the tasks, and how much of that got written down varied by team.</p>
 
 <p>Some broke it down and recorded it. Most, in my experience, minimize documentation wherever they
-   are allowed to — not out of carelessness, but because the engineers understood the system well
+   are allowed to. Not out of carelessness: the engineers understood the system well
    enough to execute without being told, and writing it down bought them nothing at the time. The
    bridge from the outcome to the components that implement it was real work, done reliably, and
    invisible. It never needed to be written down in order to happen.</p>
 
 <p>Agents have no such bridge. Nothing fills the gap between “build the API” and the specific changes
    in the specific components. So the work has to be broken down to the teams that maintain those
-   components — explicitly, in a way it never had to be before. What used to live in an engineer's
+   components, explicitly, in a way it never had to be before. What used to live in an engineer's
    head has to exist as text before an agent can decompose a specification against it.</p>
 
 <p>Which means the teams that already had the discipline start ahead. Documentation that read as
@@ -431,8 +431,8 @@ const NOTE = {
    running lean on it, and it is the most concrete advantage I have seen change hands so far.</p>
 
 <p>This is also where the cost of skipping it changed. Generation is cheap now, and it gets cheaper.
-   A team that is not aligned to the components it maintains still produces the work — faster than
-   before — it just produces it in places nobody is answerable for. That used to be limited by how
+   A team that is not aligned to the components it maintains still produces the work, faster than
+   before. It just produces it in places nobody is answerable for. That used to be limited by how
    much a team could write by hand. It is not limited by that any more, and my own view is that
    debt now accumulates faster than an organization can pay it down. Alignment to the asset is
    what keeps the volume landing somewhere it will be maintained.</p>
@@ -455,7 +455,7 @@ const NOTE = {
    the software asset that enables it. Expect to define it, and then to keep refining it.</p>
 
 <p>Two kinds of capability follow from where that line falls. Some skills and agents are used across
-   teams — the shared layer, the same idea a shared stack has always been. Others are specific to
+   teams: the shared layer, the same idea a shared stack has always been. Others are specific to
    the boundary a team owns. Both exist, and confusing them is how a shared capability ends up
    maintained by nobody.</p>
 
@@ -481,7 +481,7 @@ const NOTE = {
    holds once the pieces land.</p>
 
 <p>The components carry their own unit and system-level tests. The orchestration layer adds the
-   capability-level test — whether the thing the business asked for works across the components
+   capability-level test: whether the thing the business asked for works across the components
    that implement it. With a robust enough integration capability you spin up an environment and run
    that end to end.</p>
 
@@ -510,6 +510,97 @@ const NOTE = {
 // cadence and gives the decomposition-as-artifact; putting the second inside the
 // first is the argument this piece makes. Flagged so nobody later mistakes it
 // for something he said.
+// Third piece, 2026-08-23. Built from section 7.3 of the AI-SDLC content pack,
+// which is Crinaro's own material, so the argument may be stated directly. Four
+// lines here are the pack's pull-quote-safe list, verbatim and deliberately: it
+// exists so a hedge never gets lifted off by accident.
+//
+// The closing section is the one to be careful with. It is written as a PROPERTY
+// of how git and the hosts behave, not as an incident report: no repository is
+// named, no commit hash, no description of what the data was, and nothing that
+// tells a reader where to go looking. That is not modesty. A piece about
+// recoverable history must not itself be a lookup path.
+const NOTE_BOUNDARY = {
+  slug: 'the-repository-boundary',
+  title: 'The repository boundary you cannot add later',
+  author: 'John Kelly',
+  date: '2026-08-23',
+  dateHuman: '23 August 2026',
+  standfirst: 'Making a repository public exposes what it was, not what it is. Three cheaper ' +
+              'arrangements all fail for the same reason, and the one that looks safest is the ' +
+              'one that is not.',
+  body: `
+<p>Every commit a repository has ever held is in its object store. Not the files at the current
+   head: every blob, every version, reachable by anyone who can clone it. Delete a file today and
+   the version you deleted is still fetchable tomorrow by anyone who knows, or guesses, where to
+   look.</p>
+
+<p>That one property decides how a private working repository becomes a public one, and it rules
+   out the three arrangements people reach for first.</p>
+
+<h2>The three that look cheaper</h2>
+
+<p><b>Delete the maintenance material, then publish.</b> The files are gone from the head and every
+   historical blob is still there. The design record you deleted is recoverable from the log by
+   anyone who wants it.</p>
+
+<p><b>Publish it all and let readers sort it out.</b> They will not. A rulebook addressed to
+   maintainers reads as instructions to a user, and in-flight team state becomes a published
+   artifact that somebody acts on.</p>
+
+<p><b>Keep a private branch for maintenance and publish a different one.</b> This is the option
+   that looks safe and is not. Branches are not isolation. They share one object store, and a blob
+   committed on any branch is fetchable from the repository.</p>
+
+<h2>Never held, not no longer holds</h2>
+
+<p>Only a copy across a repository boundary gives the property that matters: the public repository
+   never held a blob that was not deliberately published. Not “no longer holds”. Never held.</p>
+
+<p>That property is free on the day the second repository is created and cannot be bought
+   afterward at any price. It is one of the few structural decisions where the cheap moment and
+   the right moment are the same moment, and where being late is not a matter of degree.</p>
+
+<h2>The public repository is an artifact, not a workspace</h2>
+
+<p>Nobody works in it. Its history is a publish log rather than a record of thinking, and a hand
+   edit there is a defect twice over: it is a change no gate reviewed, and the next publish will
+   silently revert it. If a fix belongs in the public repository, it belongs in the generator that
+   produces it.</p>
+
+<h2>The direction people forget</h2>
+
+<p>Every arrow crossing that boundary crosses a trust domain, and the two directions are not
+   symmetric. Outbound carries the risk of publishing something that should not have left. Inbound
+   carries the risk of importing text that an agent will read as instructions. A design that guards
+   only one direction has guarded the easy one, and outbound is the easy one, because everybody can
+   already picture that failure.</p>
+
+<h2>Rewriting history is not the answer</h2>
+
+<p>The obvious objection is that history can be rewritten. It can. You can build a fresh commit,
+   force-push it, and the old commits stop being reachable from any branch.</p>
+
+<p>They do not stop existing. Unreachable objects survive on the hosting platform until it collects
+   them, and a commit stays addressable by its hash whether or not anything points at it. Anyone
+   holding an old hash can still fetch what you removed, and that includes caches, forks, and
+   anything that ever scraped the repository. On the large hosts you cannot run that collection
+   yourself. You file a request and you wait.</p>
+
+<p>I have had to do this. It works, and the interval between the rewrite and the collection is a
+   window in which the thing you removed is still there for anyone holding a reference to it. That
+   window is the whole argument for the boundary, in one sentence: a boundary is a property you
+   hold from the first commit, and a cleanup is a request you file afterward and cannot fully
+   verify.</p>
+
+<h2>Why it is worth a decision rather than a habit</h2>
+
+<p>None of this is exotic. It is one property of how version control stores things, followed to its
+   conclusion. It is worth stating as a decision because the decision is available exactly once, at
+   the beginning, for nothing, and every substitute for it costs more and delivers less.</p>
+`,
+};
+
 const NOTE_CADENCE = {
   slug: 'improving-the-agents',
   title: 'From writing the code to improving the agents',
@@ -517,14 +608,14 @@ const NOTE_CADENCE = {
   date: '2026-08-20',
   dateHuman: '20 August 2026',
   standfirst: 'Teams moving to an agentic approach need time to refine their agents and skills. ' +
-              'Most are not given it — and the sprint that was supposed to hold that time is usually already spent.',
+              'Most are not given it, and the sprint that was supposed to hold that time is usually already spent.',
   body: `
 <p>A ten-week delivery cycle, five two-week sprints. Four on delivery, and the fifth on innovation
    and planning the next cycle. That is the shape I have used, and the fifth sprint is where the
    interesting failure lives.</p>
 
 <p>It is supposed to absorb the overrun. Teams underestimate what it will take to finish something
-   — that is not a character flaw, it is what estimating under uncertainty does — and the fifth
+   That is not a character flaw, it is what estimating under uncertainty does, and the fifth
    sprint is where that lands. Used that way once, it is doing its job. Used that way every cycle,
    the innovation and the planning never happen, and the estimating does not improve either, because
    the consequence keeps being absorbed before anyone has to look at it.</p>
@@ -549,7 +640,7 @@ const NOTE_CADENCE = {
 <h2>The shift this is really asking for</h2>
 
 <p>The change is bigger than a calendar. Engineers move from writing the code to improving the
-   agents that write it — the design they work to, the coding practices they apply, the unit tests
+   agents that write it: the design they work to, the coding practices they apply, the unit tests
    they produce, how the thing gets tested, what gets documented. The output is still code. The work
    has moved upstream of it.</p>
 
@@ -560,13 +651,13 @@ const NOTE_CADENCE = {
 
 <p>Which is why the capacity question is not really about scheduling. A team told to improve its
    agents in time it does not have will conclude the organization was not serious, and go back to
-   writing the code — because that, at least, is visibly delivery.</p>
+   writing the code, because that, at least, is visibly delivery.</p>
 
 <h2>What to protect</h2>
 
 <p>Not the number, and not the sprint. Ten weeks and five sprints is one arrangement that works.
    What has to be true is that the time to maintain and improve the agent team is dedicated, named
-   and defended — and that it is not the same time last cycle's overrun is quietly spending.</p>
+   and defended, and that it is not the same time last cycle's overrun is quietly spending.</p>
 `,
 };
 
@@ -575,7 +666,7 @@ const html = `<!doctype html>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Crinaro.AI — AI from higher ground</title>
+<title>Crinaro.AI · AI from higher ground</title>
 <!-- No person named here, on purpose — see the note on the "Where this comes
      from" section. "Installed in your own environment" stays dropped: it was a
      deployment claim, sitting in the tag that shows in a search result. -->
@@ -587,7 +678,7 @@ const html = `<!doctype html>
 <meta property="og:image" content="https://crinaro.ai/icons/crinaro-og-1200x630.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Crinaro.AI — AI from higher ground">
+<meta property="og:image:alt" content="Crinaro.AI · AI from higher ground">
 <meta name="twitter:card" content="summary_large_image">
 <!-- The SVG favicon is first and wins wherever it is supported: it stays sharp
      at any size and costs no request. The PNGs are there for Safari and for
@@ -633,7 +724,7 @@ ${CSS}
     <div class="head narrow">
       <p class="eyebrow">The method</p>
       <h2>The whole view decides the design.</h2>
-      <p>Crinaro is a ridge line — from the Italian <i>crinale</i>, the crest path where you can
+      <p>Crinaro is a ridge line, from the Italian <i>crinale</i>: the crest path where you can
          see down both sides. That is the method. Stand where the whole system is visible, then
          design end to end, rather than improving one step and moving the cost somewhere else.</p>
     </div>
@@ -645,13 +736,13 @@ ${CSS}
     <div class="head narrow">
       <p class="eyebrow">How the work gets done</p>
       <h2>A factory that maintains, not just builds.</h2>
-      <p>A user story used to name an outcome — <em>the API</em> — and the engineers filled in the
+      <p>A user story used to name an outcome, <em>the API</em>, and the engineers filled in the
          rest. The work landed across several components, in several repositories, and nobody wrote
          that part down because nobody needed to. Agents have no such shortcut, so the work has to
          be broken down to the teams that maintain each component. That is why a component has a
          team at all.</p>
       <p>Generating something with AI is the easy half now. The half that decides whether it is
-         still alive in six months is the one nobody automates — keeping the documents true, the
+         still alive in six months is the one nobody automates: keeping the documents true, the
          gates green, the releases loading, and the claims about the system honest. That is what
          these agents do. None of them writes features.</p>
     </div>
@@ -666,8 +757,10 @@ ${CSS}
          pieces do not make a series, and a section header promises one. When
          there is a third, this becomes a list on its own page. -->
     <p class="note" id="notes">The argument above is written up at length in
-       <a class="src" href="/notes/${NOTE.slug}/">${NOTE.title}</a>, and what it costs to run is in
-       <a class="src" href="/notes/${NOTE_CADENCE.slug}/">${NOTE_CADENCE.title}</a>.</p>
+       <a class="src" href="/notes/${NOTE.slug}/">${NOTE.title}</a>. What it costs to run is in
+       <a class="src" href="/notes/${NOTE_CADENCE.slug}/">${NOTE_CADENCE.title}</a>, and the split
+       between the private repository and the public one is in
+       <a class="src" href="/notes/${NOTE_BOUNDARY.slug}/">${NOTE_BOUNDARY.title}</a>.</p>
   </div>
 </section>
 
@@ -692,7 +785,7 @@ ${CSS}
     <div class="head narrow">
       <p class="eyebrow">Inside AI-SDLC</p>
       <h2>One capability, across every team it touches.</h2>
-      <p>Most AI-SDLC advice stops at one team’s repository. This spans the whole path — the spec a
+      <p>Most AI-SDLC advice stops at one team’s repository. This spans the whole path: the spec a
          roadmap team writes, the work it becomes across other people’s repos, and whether what
          shipped is what was asked for.</p>
     </div>
@@ -701,7 +794,7 @@ ${CSS}
       ${method.map(([h, b]) => `<div class="col"><div class="rule"></div>
         <h3>${h}</h3><p>${b}</p></div>`).join('\n      ')}
     </div>
-    <p class="note">Kept current as the ground moves — the tools, the vendors and the limits all
+    <p class="note">Kept current as the ground moves. The tools, the vendors and the limits all
        change, and a reference that is not re-sourced is worse than none. It is not published, so
        the diagram above shows how far the work reaches, not the decisions inside it.</p>
   </div>
@@ -733,7 +826,7 @@ ${CSS}
            Reverted 2026-08-20, same day it was added. -->
       <p class="eyebrow">Where this comes from</p>
       <h2>Patterns learned in hard places.</h2>
-      <p>The components are not industry-specific. The experience behind them is — regulated,
+      <p>The components are not industry-specific. The experience behind them is: regulated,
          legacy-heavy, and full of decisions that are judgment calls rather than lookups. What
          holds up there travels.</p>
     </div>
@@ -755,7 +848,7 @@ ${CSS}
       <p class="eyebrow">If any of this is useful</p>
       <h2>Say where it breaks.</h2>
       <p>These are patterns, not prescriptions, and the interesting mail is the mail that says a
-         piece of it does not hold — in your architecture, at your size, with the constraints you
+         piece of it does not hold: in your architecture, at your size, with the constraints you
          actually have. That is a conversation worth having whether or not anything follows it.</p>
       <p style="margin-top:.8rem">
         <a class="src" href="mailto:${EMAIL}?subject=Crinaro">${EMAIL}</a>
@@ -781,7 +874,7 @@ ${CSS}
 
 fs.writeFileSync(path.join(DIST, 'index.html'), html);
 
-const NOTES = [NOTE, NOTE_CADENCE];
+const NOTES = [NOTE, NOTE_CADENCE, NOTE_BOUNDARY];
 
 for (const note of NOTES) {
 const other = NOTES.filter(n => n.slug !== note.slug);
@@ -792,7 +885,7 @@ fs.writeFileSync(path.join(notePath, 'index.html'), `<!doctype html>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>${note.title} — Crinaro.AI</title>
+<title>${note.title} · Crinaro.AI</title>
 <meta name="description" content="${note.standfirst}">
 <meta name="author" content="${note.author}">
 <meta property="og:title" content="${note.title}">
@@ -862,7 +955,7 @@ fs.writeFileSync(path.join(DIST, 'sitemap.xml'),
   '<?xml version="1.0" encoding="UTF-8"?>\n' +
   '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' +
   '  <url><loc>https://crinaro.ai/</loc><changefreq>monthly</changefreq></url>\n' +
-  [NOTE, NOTE_CADENCE].map(n =>
+  [NOTE, NOTE_CADENCE, NOTE_BOUNDARY].map(n =>
     `  <url><loc>https://crinaro.ai/notes/${n.slug}/</loc><lastmod>${n.date}</lastmod></url>\n`).join('') +
   '</urlset>\n');
 
