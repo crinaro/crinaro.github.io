@@ -199,25 +199,41 @@
    shared components never get an owner long enough to become real. So the alignment has to sit on
    an axis that is stable and does not change often.</p>
 
-<p>In my experience that axis is the architecture. Align teams by the stack and the org chart starts
-   reinforcing the architecture, the patterns and the reuse instead of working against them.
-   Products change and priorities change. The stack changes slowly, and that is what makes it
-   something worth aligning to.</p>
+<p>None of that is an argument against organizing around value. Value is the point. It is an
+   argument that there is more than one way to reach it, and that the ways are not equivalent in
+   what they cost or in where the cost falls.</p>
+
+<h2>Two ways to organize around value</h2>
+
+<p>One is a full-stack team, or several, working the same codebase. Decomposition is nearly free,
+   because the team receiving the work owns every part of it. Whatever is not written down is known
+   by somebody in the room.</p>
+
+<p>The other is stack or component teams, aligned inside a release train, delivering the capability
+   between them. Decomposition is not free here. It has to happen before the work is handed out,
+   and it has to be right, because a team that receives a badly cut piece of work cannot fix it
+   from where it sits.</p>
+
+<p>The trade is where the effort lands. The second shape moves it inbound: more design, more work
+   breaking a requirement down to the teams that will execute it. What it buys back shows up on
+   the quality and delivery side, where problems are more expensive. My own view is that a little
+   more work up front on the design of your teams, done in conjunction with what creates value, is
+   worth paying for.</p>
+
+<p>It is also the harder sell, and not for a technical reason. The decomposition is work, and the
+   project view hides it. A leader who wants the view by project can still have it, but somebody
+   has to do the breaking down underneath, and that is the part people are declining when they
+   decline this.</p>
 
 <h2>Ownership is the part that decides it</h2>
 
-<p>The argument about full-stack teams versus teams aligned to a layer of the stack has run for a
-   long time, and I no longer think it is the interesting question. What decides success is whether
-   a team truly owns something. A team that owns an asset, and expects to still be answerable for
-   it next quarter, behaves differently from a team assembled around an initiative.</p>
-
-<p>My own preference is teams that own components of the stack, because that is what drives
-   reusability and scalability for the organization. It is also hard to hold onto, and the
+<p>Under either shape, what decides success is whether a team truly owns something. A team that
+   owns an asset, and expects to still be answerable for it next quarter, behaves differently from
+   a team assembled around an initiative. Component ownership is hard to hold onto, and the
    difficulty is not that the idea is complicated. The cost arrives first and the payoff arrives
-   later. Judged on a short horizon, component ownership reads as overhead: a team declining work
-   that is not theirs, an interface argued over rather than a feature shipped. It takes sustained
-   work, the way most things with a real return do, and the return does not show up inside one
-   quarter.</p>
+   later. Judged on a short horizon it reads as overhead: a team declining work that is not theirs,
+   an interface argued over rather than a feature shipped. It takes sustained work, the way most
+   things with a real return do, and the return does not show up inside one quarter.</p>
 
 <h2>What agentic delivery changes</h2>
 
@@ -239,6 +255,29 @@
    in the specific components. So the work has to be broken down to the teams that maintain those
    components, explicitly, in a way it never had to be before. What used to live in an engineer's
    head has to exist as text before an agent can decompose a specification against it.</p>
+
+<h2>Where the decomposition actually stops</h2>
+
+<p>The chain I have used runs from an initiative to a capability, and a capability is the level a
+   product manager can still explain to the extended team: this is what we want for the sales team,
+   or for the customer. From there it becomes component deliveries, one per stack team. UI changes,
+   API changes, core business logic, analytics, reporting.</p>
+
+<p>That is where it used to stop, and stopping there was fine, because the teams did the rest of
+   the decomposition themselves. With agent teams it is one level short.</p>
+
+<p>Take the API change. Say the new capability needs a new experience, that experience needs a new
+   facade layer interface, and the facade calls three domain services. That single line on the plan
+   is four specifications for four agent teams: one for the facade and one for each domain service.
+   How many depends on the repositories and the architecture rather than on the requirement, which
+   is worth sitting with, because it means the same capability decomposes differently at two
+   companies and neither of them is wrong.</p>
+
+<p>None of those four can write the others. The facade team cannot specify a domain service it does
+   not own, and no domain team can see the whole path. Somebody has to make that cut before any of
+   it is handed out, and being wrong about it does not surface as a bad specification. It surfaces
+   as four teams delivering exactly what they were asked for and a capability that does not
+   work.</p>
 
 <p>Which means the teams that already had the discipline start ahead. Documentation that read as
    overhead for years is now the input. That is an uncomfortable thing to tell a team that has been
