@@ -522,82 +522,105 @@ const NOTE = {
 // recoverable history must not itself be a lookup path.
 const NOTE_BOUNDARY = {
   slug: 'the-repository-boundary',
-  title: 'The repository boundary you cannot add later',
+  title: 'Two repositories, and the traffic between them',
   author: 'John Kelly',
-  date: '2026-08-23',
-  dateHuman: '23 August 2026',
-  standfirst: 'Making a repository public exposes what it was, not what it is. Three cheaper ' +
-              'arrangements all fail for the same reason, and the one that looks safest is the ' +
-              'one that is not.',
+  date: '2026-08-24',
+  dateHuman: '24 August 2026',
+  standfirst: 'The agent team that maintains a product, and the decisions taken to make that team ' +
+              'work, are not part of the product. That is the reason for two repositories. The ' +
+              'interesting part is what has to cross between them.',
   body: `
-<p>Every commit a repository has ever held is in its object store. Not the files at the current
-   head: every blob, every version, reachable by anyone who can clone it. Delete a file today and
-   the version you deleted is still fetchable tomorrow by anyone who knows, or guesses, where to
-   look.</p>
+<p>A public repository is a product. Someone installs what is in it and runs it. The agent team
+   that maintains that product, the roster saying which agent owns what, and the architecture
+   decisions taken to make the team work at all: none of that is the product. It is machinery,
+   addressed to maintainers, and a user who reads it acts on the wrong document.</p>
 
-<p>That one property decides how a private working repository becomes a public one, and it rules
-   out the three arrangements people reach for first.</p>
+<p>That is the reason for two repositories, and it comes before any argument about history or
+   leaks. The private one is where the team lives and where the reasoning is kept. The public one
+   is what a user installs. A publish step moves the second out of the first.</p>
 
-<h2>The three that look cheaper</h2>
+<h2>Public is only the visible case</h2>
 
-<p><b>Delete the maintenance material, then publish.</b> The files are gone from the head and every
-   historical blob is still there. The design record you deleted is recoverable from the log by
-   anyone who wants it.</p>
+<p>Nothing in that reason depends on either repository being public. The line is audience, not
+   visibility, and the same split turns up between two private ones.</p>
 
-<p><b>Publish it all and let readers sort it out.</b> They will not. A rulebook addressed to
-   maintainers reads as instructions to a user, and in-flight team state becomes a published
-   artifact that somebody acts on.</p>
+<p>Inside an organization the outer repository is internal in the ordinary sense. Every engineer
+   in the company can read it, and it is where a consuming team goes to install a component, read
+   its documentation and report a defect. The inner one is restricted to the team that maintains
+   the component, and it holds the agent roster, the decisions behind it, and the work in flight.</p>
 
-<p><b>Keep a private branch for maintenance and publish a different one.</b> This is the option
-   that looks safe and is not. Branches are not isolation. They share one object store, and a blob
-   committed on any branch is fetchable from the repository.</p>
+<p>The reason to separate them does not change. A maintainer's rulebook is addressed to
+   maintainers. An engineer in another division who finds it reads it as guidance and acts on it,
+   and a decision taken for one team is now loose in the organization as though it were policy.
+   The same goes for in-flight state: a half-finished design read as a settled one is worse than
+   no document, because it carries the authority of the team that owns the component.</p>
 
-<h2>Never held, not no longer holds</h2>
+<p>Every mechanism below applies unchanged. Only the word “public” moves, and it moves to
+   “everyone at work”, which for an internal component is the audience that will actually install
+   the thing and file the tickets.</p>
 
-<p>Only a copy across a repository boundary gives the property that matters: the public repository
-   never held a blob that was not deliberately published. Not “no longer holds”. Never held.</p>
+<h2>Publishing is a filter, not a branch</h2>
 
-<p>That property is free on the day the second repository is created and cannot be bought
-   afterward at any price. It is one of the few structural decisions where the cheap moment and
-   the right moment are the same moment, and where being late is not a matter of degree.</p>
+<p>The step that matters is that publishing writes a tree rather than a history. Each release
+   lands as a single commit carrying the current published set, at the same paths the files
+   occupy in private, so a link that resolves in one resolves in the other.</p>
 
-<h2>The public repository is an artifact, not a workspace</h2>
+<p>That also answers a problem most people meet the hard way. A repository keeps every blob it has
+   ever held, so deleting a file at the head does not remove the version you deleted: anyone who
+   can clone can still fetch it. Publishing a tree rather than a history means the public
+   repository never held the blob at all. Not “no longer holds”. Never held. The same reasoning
+   rules out the arrangement that looks safest and is not, a private branch and a public branch
+   inside one repository, where both share a single object store and a blob committed on either
+   is fetchable from the whole thing.</p>
 
-<p>Nobody works in it. Its history is a publish log rather than a record of thinking, and a hand
-   edit there is a defect twice over: it is a change no gate reviewed, and the next publish will
-   silently revert it. If a fix belongs in the public repository, it belongs in the generator that
-   produces it.</p>
+<p>The corollary is that nobody works in the public repository. Its history is a publish log. A
+   hand edit there is a defect twice over: it is a change no gate reviewed, and the next publish
+   will silently revert it.</p>
+
+<h2>The traffic that actually matters</h2>
+
+<p>Publishing is the easy direction. The harder problem is that the front door is public and the
+   work is private.</p>
+
+<p>Someone who installed a plugin reports a defect where they found it, on the public repository.
+   That is correct, and they should not have to know anything about how the thing is maintained.
+   But the team that can fix it works in the private repository, often against real data, and the
+   fix has to arrive back on the public side as a release.</p>
+
+<p>So reports are mirrored across the boundary: read public, write private, one direction, with
+   nothing in that path able to push private content outward. That constraint is what makes it
+   safe to run unattended. Acknowledging the reporter on the public thread is a separate,
+   deliberate step, because posting outward is a different act from reading inward and should
+   never be a side effect of a mirror.</p>
+
+<p>Filing runs the same way from the inside. A request against the team that owns a capability is
+   an issue on that team's repository, which is the private one, and the tool that files it
+   refuses outright when the target is public. A public issue is permanent, the scan that would
+   catch a leak is a pattern match, and a pattern match cannot see an employer's name inside a
+   URL slug. It also never files partially: either an issue URL comes back or a refusal does,
+   with a non-zero exit. A printed report is not a filed report.</p>
 
 <h2>The direction people forget</h2>
 
-<p>Every arrow crossing that boundary crosses a trust domain, and the two directions are not
-   symmetric. Outbound carries the risk of publishing something that should not have left. Inbound
-   carries the risk of importing text that an agent will read as instructions. A design that guards
-   only one direction has guarded the easy one, and outbound is the easy one, because everybody can
-   already picture that failure.</p>
+<p>Every arrow crossing that boundary crosses a trust domain, and the two are not symmetric.
+   Outbound risks publishing something that should not have left, and everybody can picture that
+   failure. Inbound risks importing text that an agent will read as instructions.</p>
 
-<h2>Rewriting history is not the answer</h2>
+<p>A mirrored issue body is written by anyone with an account, and it lands in a repository where
+   agents read issues and act on them. So it is carried across fenced and labeled as
+   reporter-supplied data. An agent acting on “please run X” found inside an issue body is
+   executing a stranger's instructions. A design that guards only one direction has guarded the
+   easy one.</p>
 
-<p>The obvious objection is that history can be rewritten. It can. You can build a fresh commit,
-   force-push it, and the old commits stop being reachable from any branch.</p>
+<h2>What it costs, and what it buys</h2>
 
-<p>They do not stop existing. Unreachable objects survive on the hosting platform until it collects
-   them, and a commit stays addressable by its hash whether or not anything points at it. Anyone
-   holding an old hash can still fetch what you removed, and that includes caches, forks, and
-   anything that ever scraped the repository. On the large hosts you cannot run that collection
-   yourself. You file a request and you wait.</p>
+<p>Two repositories, a publish step, a mirror, and a filing tool that refuses more often than it
+   files. That is real work, and it is worth being honest that the split creates most of it. What
+   it buys is narrow and worth having: what a user installs is the product and only the product,
+   and everything said about how it is built stays where it was said.</p>
 
-<p>I have had to do this. It works, and the interval between the rewrite and the collection is a
-   window in which the thing you removed is still there for anyone holding a reference to it. That
-   window is the whole argument for the boundary, in one sentence: a boundary is a property you
-   hold from the first commit, and a cleanup is a request you file afterward and cannot fully
-   verify.</p>
-
-<h2>Why it is worth a decision rather than a habit</h2>
-
-<p>None of this is exotic. It is one property of how version control stores things, followed to its
-   conclusion. It is worth stating as a decision because the decision is available exactly once, at
-   the beginning, for nothing, and every substitute for it costs more and delivers less.</p>
+<p>Every cheaper arrangement gives one of those up somewhere. The place it gives it up is usually
+   not visible until somebody else finds it.</p>
 `,
 };
 
@@ -698,7 +721,7 @@ ${CSS}
     ${svg('crinaro-ai-animated.svg')}
     <h1>${CLAIM_HTML}</h1>
     <p>Ideas and patterns worked out over a career, now applied with agents.</p>
-    <a class="src" href="#notes">Read the notes <span aria-hidden="true">&darr;</span></a>
+    <a class="src" href="/notes/">Read the notes <span aria-hidden="true">&rarr;</span></a>
   </div>
 </header>
 
@@ -757,10 +780,8 @@ ${CSS}
          pieces do not make a series, and a section header promises one. When
          there is a third, this becomes a list on its own page. -->
     <p class="note" id="notes">The argument above is written up at length in
-       <a class="src" href="/notes/${NOTE.slug}/">${NOTE.title}</a>. What it costs to run is in
-       <a class="src" href="/notes/${NOTE_CADENCE.slug}/">${NOTE_CADENCE.title}</a>, and the split
-       between the private repository and the public one is in
-       <a class="src" href="/notes/${NOTE_BOUNDARY.slug}/">${NOTE_BOUNDARY.title}</a>.</p>
+       <a class="src" href="/notes/${NOTE.slug}/">${NOTE.title}</a>. That and the rest are in
+       <a class="src" href="/notes/">the notes</a>.</p>
   </div>
 </section>
 
@@ -876,29 +897,84 @@ fs.writeFileSync(path.join(DIST, 'index.html'), html);
 
 const NOTES = [NOTE, NOTE_CADENCE, NOTE_BOUNDARY];
 
-for (const note of NOTES) {
-const other = NOTES.filter(n => n.slug !== note.slug);
-const notePath = path.join(DIST, 'notes', note.slug);
-fs.mkdirSync(notePath, { recursive: true });
-fs.writeFileSync(path.join(notePath, 'index.html'), `<!doctype html>
+// Shared by the article pages and the index. Extracted 2026-08-24 when /notes/
+// became real: two pages carrying two copies of the same <head> is how one of
+// them quietly stops matching the other.
+const noteHead = (title, desc, url) => `<!doctype html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>${note.title} · Crinaro.AI</title>
-<meta name="description" content="${note.standfirst}">
-<meta name="author" content="${note.author}">
-<meta property="og:title" content="${note.title}">
-<meta property="og:description" content="${note.standfirst}">
-<meta property="og:type" content="article">
-<meta property="og:url" content="https://crinaro.ai/notes/${note.slug}/">
+<title>${title} · Crinaro.AI</title>
+<meta name="description" content="${desc}">
+<meta property="og:title" content="${title}">
+<meta property="og:description" content="${desc}">
+<meta property="og:url" content="${url}">
 <meta property="og:image" content="https://crinaro.ai/icons/crinaro-og-1200x630.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="data:image/svg+xml,${encodeURIComponent(svg('crinaro-ai-mark-small.svg'))}">
 <link rel="icon" type="image/png" sizes="32x32" href="/icons/crinaro-favicon-32.png">
-<link rel="apple-touch-icon" sizes="180x180" href="/icons/crinaro-icon-180.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/icons/crinaro-icon-180.png">`;
+
+// Newest first. Generated from NOTES, so a piece cannot be added to the site and
+// left off its own index.
+const byNewest = [...NOTES].sort((a, b) => b.date.localeCompare(a.date));
+
+fs.mkdirSync(path.join(DIST, 'notes'), { recursive: true });
+fs.writeFileSync(path.join(DIST, 'notes', 'index.html'), `${noteHead(
+  'Notes', 'Pieces on delivery, ownership and agentic development, written as they are worked out.',
+  'https://crinaro.ai/notes/')}
+<style>
+${CSS}
+  .note-wrap { max-width:38rem; margin:0 auto; padding:3.5rem 1.5rem 5rem; }
+  .note-home { display:inline-block; margin-bottom:3rem; }
+  .note-home svg { width:11rem; height:auto; display:block; }
+  h1 { font-family:var(--head); font-weight:500; font-size:clamp(1.8rem,4vw,2.6rem);
+       line-height:1.12; margin:0 0 1rem; }
+  .standfirst { font-size:1.12rem; color:var(--ink-2); margin:0 0 3rem;
+                padding-bottom:2.6rem; border-bottom:1px solid var(--hair); }
+  .entry { margin:0 0 2.8rem; }
+  .entry time { font-family:var(--mono); font-size:.72rem; letter-spacing:.14em;
+                text-transform:uppercase; color:var(--muted); display:block; margin-bottom:.5rem; }
+  .entry h2 { font-family:var(--head); font-weight:500; font-size:1.3rem; margin:0 0 .5rem;
+              line-height:1.25; }
+  .entry h2 a { color:var(--ink); text-decoration:none;
+                border-bottom:1px solid rgba(27,92,70,.35); padding-bottom:1px; }
+  .entry h2 a:hover { border-bottom-color:var(--green); }
+  .entry p { margin:0; color:var(--ink-2); }
+  .index-foot { margin-top:3.5rem; padding-top:1.6rem; border-top:1px solid var(--hair);
+                font-size:.92rem; color:var(--ink-2); }
+</style>
+</head>
+<body>
+<div class="note-wrap">
+  <a class="note-home" href="/" aria-label="Crinaro.AI">${svg('crinaro-ai-horizontal.svg')}</a>
+  <h1>Notes</h1>
+  <p class="standfirst">Pieces on delivery, ownership and agentic development, written as they
+     are worked out rather than after the fact.</p>
+  ${byNewest.map(n => `<div class="entry">
+    <time datetime="${n.date}">${n.dateHuman}</time>
+    <h2><a href="/notes/${n.slug}/">${n.title}</a></h2>
+    <p>${n.standfirst}</p>
+  </div>`).join('\n  ')}
+  <p class="index-foot">Written by John Kelly. Questions or disagreement to
+     <a class="src" href="mailto:${EMAIL}">${EMAIL}</a>.</p>
+</div>
+</body>
+</html>
+`);
+console.log(`       dist/notes/ — index of ${NOTES.length}`);
+
+for (const note of NOTES) {
+const other = NOTES.filter(n => n.slug !== note.slug);
+const notePath = path.join(DIST, 'notes', note.slug);
+fs.mkdirSync(notePath, { recursive: true });
+fs.writeFileSync(path.join(notePath, 'index.html'), `${noteHead(
+  note.title, note.standfirst, `https://crinaro.ai/notes/${note.slug}/`)}
+<meta name="author" content="${note.author}">
+<meta property="og:type" content="article">
 <style>
 ${CSS}
   /* Article-only. The home page has no long-form prose, so these rules exist
@@ -929,8 +1005,8 @@ ${CSS}
 ${note.body.trim()}
   </article>
   <p class="note-foot">Written by ${note.author}. Questions or disagreement to
-     <a class="src" href="mailto:${EMAIL}">${EMAIL}</a>.${other.length ? `<br>Also:
-     ${other.map(o => `<a class="src" href="/notes/${o.slug}/">${o.title}</a>`).join(', ')}.` : ''}</p>
+     <a class="src" href="mailto:${EMAIL}">${EMAIL}</a>.${other.length ? `<br>The rest are in
+     <a class="src" href="/notes/">the notes</a>.` : ''}</p>
 </div>
 </body>
 </html>
@@ -955,7 +1031,8 @@ fs.writeFileSync(path.join(DIST, 'sitemap.xml'),
   '<?xml version="1.0" encoding="UTF-8"?>\n' +
   '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' +
   '  <url><loc>https://crinaro.ai/</loc><changefreq>monthly</changefreq></url>\n' +
-  [NOTE, NOTE_CADENCE, NOTE_BOUNDARY].map(n =>
+  `  <url><loc>https://crinaro.ai/notes/</loc><changefreq>monthly</changefreq></url>\n` +
+  NOTES.map(n =>
     `  <url><loc>https://crinaro.ai/notes/${n.slug}/</loc><lastmod>${n.date}</lastmod></url>\n`).join('') +
   '</urlset>\n');
 
