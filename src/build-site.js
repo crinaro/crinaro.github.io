@@ -385,6 +385,27 @@ const NOTE = {
    shared components never get an owner long enough to become real. So the alignment has to sit on
    an axis that is stable and does not change often.</p>
 
+<h2>Why do we have five user APIs</h2>
+
+<p>Every organization I have worked in has asked a version of that question, and it is worth
+   understanding where it comes from, because it is not incompetence and nobody ever decided it.</p>
+
+<p>Under a project view the architecture ends up being driven by the teams rather than the other way
+   round. A project defines the system it needs, the team stands that system up, and when the
+   project ends the team is left owning the whole of what it touched, because that is what the
+   project defined. Do it again next year with a different project and a different team and you have
+   two. Do it for a decade and somebody in an architecture review asks why there are five user APIs,
+   four different API security models, three customer portals.</p>
+
+<p>Each of those was a reasonable decision. Every project was right locally. Nothing in the process
+   was capable of noticing that the thing being asked for already existed somewhere else, because
+   nothing in the process was looking at the whole.</p>
+
+<p>That is what makes this a systems problem rather than a team-structure preference. Systems
+   thinking, enterprise architecture in the old sense of the phrase, is what defines the system
+   architecture, and the architecture is what defines the breakdown into teams. The order matters:
+   teams downstream of the architecture, not the architecture downstream of whoever shipped last.</p>
+
 <p>None of that is an argument against organizing around value. Value is the point. It is an
    argument that there is more than one way to reach it, and that the ways are not equivalent in
    what they cost or in where the cost falls.</p>
