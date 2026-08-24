@@ -196,15 +196,19 @@
    leaks. The private one is where the team lives and where the reasoning is kept. The public one
    is what a user installs. A publish step moves the second out of the first.</p>
 
-<h2>Public is only the visible case</h2>
+<h2>It is not about secrecy</h2>
 
-<p>Nothing in that reason depends on either repository being public. The line is audience, not
-   visibility, and the same split turns up between two private ones.</p>
+<p>Nothing in that reason turns on either repository being secret. The maintainer's material is
+   not separated because it is sensitive. It is separated because it is addressed to somebody
+   else, and a document that reaches the wrong reader does damage whether or not it was ever
+   confidential.</p>
 
-<p>Inside an organization the outer repository is internal in the ordinary sense. Every engineer
-   in the company can read it, and it is where a consuming team goes to install a component, read
-   its documentation and report a defect. The inner one is restricted to the team that maintains
-   the component, and it holds the agent roster, the decisions behind it, and the work in flight.</p>
+<p>Which is why the same split appears between two repositories that are both private. Inside an
+   organization the outer one is internal in the ordinary sense: every engineer in the company can
+   read it, and it is where a consuming team goes to install a component, read its documentation
+   and report a defect. The inner one belongs to the team that maintains the component, and holds
+   the agent roster, the decisions behind it, and the work in flight. Neither is secret from
+   anyone who works there. The split is still worth having.</p>
 
 <p>The reason to separate them does not change. A maintainer's rulebook is addressed to
    maintainers. An engineer in another division who finds it reads it as guidance and acts on it,
