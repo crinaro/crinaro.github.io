@@ -178,9 +178,9 @@
           border-left:2px solid var(--green); }
   .gist p { font-family:var(--mono); font-size:.68rem; letter-spacing:.14em;
             text-transform:uppercase; color:var(--muted); margin:0 0 .8rem; }
-  .gist ul { margin:0; padding-left:1.1rem; }
-  .gist li { color:var(--ink-2); margin:0 0 .5rem; font-size:.97rem; }
-  .gist li:last-child { margin-bottom:0; }
+  .gist > div p { font-family:inherit; font-size:1rem; letter-spacing:0;
+                  text-transform:none; color:var(--ink-2); margin:0 0 .9rem; }
+  .gist > div p:last-child { margin-bottom:0; }
   @media (min-width:62rem) {
     article .flow { width:52rem; margin-left:-7rem; }
     article .flow svg { min-width:0; }
@@ -203,12 +203,11 @@
     <h1>Aligning teams to the architecture, and what agents change</h1>
     <p class="standfirst">A cadence carries communication across the organization. What the teams inside it are aligned to decides what the software costs to keep. Both have to hold, and agents raise the price of getting the second one wrong.</p>
     <p class="byline">John Kelly &nbsp;·&nbsp; <time datetime="2026-08-20">20 August 2026</time></p>
-    <div class="gist"><p>In short</p><ul>
-      <li>A cadence and what the teams inside it are aligned to do different jobs, and both have to hold.</li>
-      <li>Duplicate systems are not incompetence. They are what a project view produces when nothing is looking at the whole.</li>
-      <li>Agents cannot make the last decomposition hop, so what lived in an engineer's head has to exist as text.</li>
-      <li>A shared skill distributes a convention. It does not make the output consistent.</li>
-    </ul></div>
+    <div class="gist"><p>The argument</p><div>
+      <p>Deliver the project, or look after the system. The conflict is old, and it has always resolved the same way, because the project has a date and the system does not.</p>
+      <p>Agents change the terms. The decomposition that used to live in an engineer's head now has to be written down before anything can be built, and that same decomposition is what says which components a change actually touches.</p>
+      <p>Set up properly, the act that delivers the project is the act that keeps the system coherent. Short-term delivery and long-term value out of one mechanism, rather than one paid for with the other.</p>
+    </div></div>
 <p>The shape I have used is a ten-week delivery cycle: five two-week sprints inside it, four of them
    on delivery and one on innovation and planning the next cycle. Nothing else here survives contact
    with an organization without a rhythm like that. It is how a dozen teams find out what the others

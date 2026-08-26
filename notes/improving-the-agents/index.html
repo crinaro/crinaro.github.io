@@ -178,9 +178,9 @@
           border-left:2px solid var(--green); }
   .gist p { font-family:var(--mono); font-size:.68rem; letter-spacing:.14em;
             text-transform:uppercase; color:var(--muted); margin:0 0 .8rem; }
-  .gist ul { margin:0; padding-left:1.1rem; }
-  .gist li { color:var(--ink-2); margin:0 0 .5rem; font-size:.97rem; }
-  .gist li:last-child { margin-bottom:0; }
+  .gist > div p { font-family:inherit; font-size:1rem; letter-spacing:0;
+                  text-transform:none; color:var(--ink-2); margin:0 0 .9rem; }
+  .gist > div p:last-child { margin-bottom:0; }
   @media (min-width:62rem) {
     article .flow { width:52rem; margin-left:-7rem; }
     article .flow svg { min-width:0; }

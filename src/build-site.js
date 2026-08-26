@@ -370,12 +370,14 @@ const NOTE = {
   date: '2026-08-20',
   dateHuman: '20 August 2026',
   gist: [
-    'A cadence and what the teams inside it are aligned to do different jobs, and both have to hold.',
-    'Duplicate systems are not incompetence. They are what a project view produces when nothing is ' +
-      'looking at the whole.',
-    'Agents cannot make the last decomposition hop, so what lived in an engineer\'s head has to ' +
-      'exist as text.',
-    'A shared skill distributes a convention. It does not make the output consistent.',
+    'Deliver the project, or look after the system. The conflict is old, and it has always ' +
+      'resolved the same way, because the project has a date and the system does not.',
+    'Agents change the terms. The decomposition that used to live in an engineer\'s head now has ' +
+      'to be written down before anything can be built, and that same decomposition is what says ' +
+      'which components a change actually touches.',
+    'Set up properly, the act that delivers the project is the act that keeps the system coherent. ' +
+      'Short-term delivery and long-term value out of one mechanism, rather than one paid for with ' +
+      'the other.',
   ],
   standfirst: 'A cadence carries communication across the organization. What the teams inside ' +
               'it are aligned to decides what the software costs to keep. Both have to hold, and ' +
@@ -1146,9 +1148,9 @@ ${CSS}
           border-left:2px solid var(--green); }
   .gist p { font-family:var(--mono); font-size:.68rem; letter-spacing:.14em;
             text-transform:uppercase; color:var(--muted); margin:0 0 .8rem; }
-  .gist ul { margin:0; padding-left:1.1rem; }
-  .gist li { color:var(--ink-2); margin:0 0 .5rem; font-size:.97rem; }
-  .gist li:last-child { margin-bottom:0; }
+  .gist > div p { font-family:inherit; font-size:1rem; letter-spacing:0;
+                  text-transform:none; color:var(--ink-2); margin:0 0 .9rem; }
+  .gist > div p:last-child { margin-bottom:0; }
   @media (min-width:62rem) {
     article .flow { width:52rem; margin-left:-7rem; }
     article .flow svg { min-width:0; }
@@ -1162,9 +1164,9 @@ ${CSS}
     <h1>${note.title}</h1>
     <p class="standfirst">${note.standfirst}</p>
     <p class="byline">${note.author} &nbsp;·&nbsp; <time datetime="${note.date}">${note.dateHuman}</time></p>
-${note.gist ? `    <div class="gist"><p>In short</p><ul>
-      ${note.gist.map(g => `<li>${g}</li>`).join('\n      ')}
-    </ul></div>` : ''}
+${note.gist ? `    <div class="gist"><p>The argument</p><div>
+      ${note.gist.map(g => `<p>${g}</p>`).join('\n      ')}
+    </div></div>` : ''}
 ${note.body.trim()}
   </article>
   <p class="note-foot">Written by ${note.author}. Questions or disagreement to
