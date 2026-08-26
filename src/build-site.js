@@ -530,8 +530,10 @@ const NOTE = {
    keep their ownership. The person asking keeps the simple question. The complexity moves to a
    layer built to hold it.</p>
 
-<p>So the choice between full-stack teams and component-aligned teams stops being a choice. That
-   trade was real, and it is why the argument never resolved.</p>
+<p>That does not dissolve the choice, and I would not claim it does. It moves the cost to a place
+   built to carry it, which is a different thing and a smaller one. The teams that pay for the
+   transfer are the ones asked to give up work they could have done themselves, and what would make
+   that transfer acceptable to them is the part nobody has built yet.</p>
 
 <h2>The hard part is continuous integration</h2>
 
