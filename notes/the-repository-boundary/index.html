@@ -28,7 +28,7 @@
   :root {
     --navy:#0B2545; --navy-2:#123256; --paper:#F2F6F8; --ground:#FFFFFF;
     --green:#1B5C46; --rgreen:#4FA98A; --blue:#5B84A9; --rblue:#93B8D4;
-    /* --muted was #6A8095 and failed AA as text: 3.76 on paper, 4.09 on white,
+    /* --muted was #5B6E80 and failed AA as text: 3.76 on paper, 4.09 on white,
        set at 11.2px for eyebrows. Darkened to 43% lightness at the same hue and
        saturation — 4.84 on paper, 5.27 on white. It is the same gray, deeper. */
     --ink:#0B2545; --ink-2:#3D5570; --muted:#5B6E80; --hair:#DCE4EA;
@@ -169,6 +169,22 @@
   article p { margin:0 0 1.2rem; color:var(--ink-2); }
   .note-foot { margin-top:3.5rem; padding-top:1.6rem; border-top:1px solid var(--hair);
                font-size:.92rem; color:var(--ink-2); }
+  /* A figure may run wider than the measure. Inside the 38rem article column
+     the shared .flow min-width overflows and clips its right-hand boxes. */
+  article .flow { margin:2.4rem 0 2.8rem; }
+  /* Nine minutes is a long read to enter blind. The gist lets somebody decide
+     in ten seconds whether the rest is for them. */
+  .gist { margin:0 0 2.8rem; padding:1.3rem 1.5rem; background:var(--paper);
+          border-left:2px solid var(--green); }
+  .gist p { font-family:var(--mono); font-size:.68rem; letter-spacing:.14em;
+            text-transform:uppercase; color:var(--muted); margin:0 0 .8rem; }
+  .gist ul { margin:0; padding-left:1.1rem; }
+  .gist li { color:var(--ink-2); margin:0 0 .5rem; font-size:.97rem; }
+  .gist li:last-child { margin-bottom:0; }
+  @media (min-width:62rem) {
+    article .flow { width:52rem; margin-left:-7rem; }
+    article .flow svg { min-width:0; }
+  }
 </style>
 </head>
 <body>
@@ -187,6 +203,7 @@
     <h1>Two repositories, and the traffic between them</h1>
     <p class="standfirst">The agent team that maintains a product, and the decisions taken to make that team work, are not part of the product. That is the reason for two repositories. The interesting part is what has to cross between them.</p>
     <p class="byline">John Kelly &nbsp;·&nbsp; <time datetime="2026-08-24">24 August 2026</time></p>
+
 <p>A public repository is a product. Someone installs what is in it and runs it. The agent team
    that maintains that product, the roster saying which agent owns what, and the architecture
    decisions taken to make the team work at all: none of that is the product. It is machinery,

@@ -144,7 +144,7 @@ const flow = `<svg viewBox="0 0 1000 272" role="img"
     return `<g>
     <rect x="${x}" y="${BOX_Y}" width="${BOX_W}" height="${BOX_H}" rx="3" fill="#F2F6F8" stroke="#DCE4EA"/>
     <text x="${cx}" y="${BOX_Y + 38}" text-anchor="middle" fill="#0B2545" font-family="${HEAD_SVG}" font-size="17" font-weight="500">${t}</text>
-    <text x="${cx}" y="${BOX_Y + 60}" text-anchor="middle" fill="#6A8095" font-family="Helvetica,Arial,sans-serif" font-size="12.5">${s}</text>
+    <text x="${cx}" y="${BOX_Y + 60}" text-anchor="middle" fill="#5B6E80" font-family="Helvetica,Arial,sans-serif" font-size="12.5">${s}</text>
     <path d="M${cx} ${BOX_Y + BOX_H} L${cx} ${KB_Y}" stroke="#93B8D4" stroke-width="1.5" stroke-dasharray="3 5"/>
   </g>`;
   }).join('\n  ')}
@@ -222,7 +222,7 @@ const CSS = `${FONTS}
   :root {
     --navy:#0B2545; --navy-2:#123256; --paper:#F2F6F8; --ground:#FFFFFF;
     --green:#1B5C46; --rgreen:#4FA98A; --blue:#5B84A9; --rblue:#93B8D4;
-    /* --muted was #6A8095 and failed AA as text: 3.76 on paper, 4.09 on white,
+    /* --muted was #5B6E80 and failed AA as text: 3.76 on paper, 4.09 on white,
        set at 11.2px for eyebrows. Darkened to 43% lightness at the same hue and
        saturation — 4.84 on paper, 5.27 on white. It is the same gray, deeper. */
     --ink:#0B2545; --ink-2:#3D5570; --muted:#5B6E80; --hair:#DCE4EA;
@@ -369,6 +369,14 @@ const NOTE = {
   author: 'John Kelly',
   date: '2026-08-20',
   dateHuman: '20 August 2026',
+  gist: [
+    'A cadence and what the teams inside it are aligned to do different jobs, and both have to hold.',
+    'Duplicate systems are not incompetence. They are what a project view produces when nothing is ' +
+      'looking at the whole.',
+    'Agents cannot make the last decomposition hop, so what lived in an engineer\'s head has to ' +
+      'exist as text.',
+    'A shared skill distributes a convention. It does not make the output consistent.',
+  ],
   standfirst: 'A cadence carries communication across the organization. What the teams inside ' +
               'it are aligned to decides what the software costs to keep. Both have to hold, and ' +
               'agents raise the price of getting the second one wrong.',
@@ -465,20 +473,72 @@ const NOTE = {
 
 <h2>Where the decomposition actually stops</h2>
 
-<p>The chain I have used runs from an initiative to a capability, and a capability is the level a
-   product manager can still explain to the extended team: this is what we want for the sales team,
-   or for the customer. From there it becomes component deliveries, one per stack team. UI changes,
-   API changes, core business logic, analytics, reporting.</p>
+<p>The chain runs from an initiative to a capability, and the capability is the level a product
+   manager can still explain to the extended team. From there it becomes component deliveries, one
+   per stack team, and that is where it used to stop. Stopping there was fine, because the teams did
+   the rest of the decomposition themselves. With agent teams it is one level short.</p>
 
-<p>That is where it used to stop, and stopping there was fine, because the teams did the rest of
-   the decomposition themselves. With agent teams it is one level short.</p>
+<div class="flow"><svg viewBox="0 0 1000 400" role="img"
+     aria-label="An initiative becomes one capability, the capability becomes one component delivery per stack team, and the API delivery alone becomes four specifications: a facade and three domain services. A dashed line marks where decomposition used to stop, above the specification row.">
+  <text x="140" y="46" text-anchor="end" fill="#5B6E80" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="11" letter-spacing="1.4">INITIATIVE</text>
+  <rect x="160" y="16" width="840" height="46" rx="3" fill="#F2F6F8" stroke="#DCE4EA"/>
+  <text x="580" y="45" text-anchor="middle" fill="#0B2545" font-family="${HEAD_SVG}" font-size="16" font-weight="500">One thing the business asked for</text>
+  <path d="M580 62 L580 90" stroke="#93B8D4" stroke-width="1.5"/>
 
-<p>Take the API change. Say the new capability needs a new experience, that experience needs a new
-   facade layer interface, and the facade calls three domain services. That single line on the plan
-   is four specifications for four agent teams: one for the facade and one for each domain service.
-   How many depends on the repositories and the architecture rather than on the requirement, which
-   is worth sitting with, because it means the same capability decomposes differently at two
-   companies and neither of them is wrong.</p>
+  <text x="140" y="120" text-anchor="end" fill="#5B6E80" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="11" letter-spacing="1.4">CAPABILITY</text>
+  <rect x="160" y="90" width="840" height="54" rx="3" fill="#F2F6F8" stroke="#DCE4EA"/>
+  <text x="580" y="114" text-anchor="middle" fill="#0B2545" font-family="${HEAD_SVG}" font-size="16" font-weight="500">What we want for the sales team, or the customer</text>
+  <text x="580" y="133" text-anchor="middle" fill="#5B6E80" font-family="Helvetica,Arial,sans-serif" font-size="12.5">the level a product manager can still explain</text>
+    <path d="M580 144 C580 162 238 158 238 176" stroke="#93B8D4" stroke-width="1.5" fill="none"/>
+  <path d="M580 144 C580 162 408 158 408 176" stroke="#93B8D4" stroke-width="1.5" fill="none"/>
+  <path d="M580 144 C580 162 578 158 578 176" stroke="#93B8D4" stroke-width="1.5" fill="none"/>
+  <path d="M580 144 C580 162 748 158 748 176" stroke="#93B8D4" stroke-width="1.5" fill="none"/>
+  <path d="M580 144 C580 162 918 158 918 176" stroke="#93B8D4" stroke-width="1.5" fill="none"/>
+
+  <text x="140" y="205" text-anchor="end" fill="#5B6E80" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="11" letter-spacing="1.4">COMPONENT</text>
+  <text x="140" y="220" text-anchor="end" fill="#5B6E80" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="11" letter-spacing="1.4">DELIVERY</text>
+    <rect x="160" y="176" width="156" height="54" rx="3" fill="#F2F6F8" stroke="#DCE4EA"/>
+  <text x="238" y="208" text-anchor="middle" fill="#0B2545" font-family="${HEAD_SVG}" font-size="15" font-weight="500">UI</text>
+  <rect x="330" y="176" width="156" height="54" rx="3" fill="#EAF3EE" stroke="#A8D5C0"/>
+  <text x="408" y="200" text-anchor="middle" fill="#1B5C46" font-family="${HEAD_SVG}" font-size="15" font-weight="500">API</text>
+  <text x="408" y="218" text-anchor="middle" fill="#5B6E80" font-family="Helvetica,Arial,sans-serif" font-size="11.5">the one worked below</text>
+  <rect x="500" y="176" width="156" height="54" rx="3" fill="#F2F6F8" stroke="#DCE4EA"/>
+  <text x="578" y="208" text-anchor="middle" fill="#0B2545" font-family="${HEAD_SVG}" font-size="15" font-weight="500">Core logic</text>
+  <rect x="670" y="176" width="156" height="54" rx="3" fill="#F2F6F8" stroke="#DCE4EA"/>
+  <text x="748" y="208" text-anchor="middle" fill="#0B2545" font-family="${HEAD_SVG}" font-size="15" font-weight="500">Analytics</text>
+  <rect x="840" y="176" width="156" height="54" rx="3" fill="#F2F6F8" stroke="#DCE4EA"/>
+  <text x="918" y="208" text-anchor="middle" fill="#0B2545" font-family="${HEAD_SVG}" font-size="15" font-weight="500">Reporting</text>
+
+  <path d="M160 268 L1000 268" stroke="#B9C6D0" stroke-width="1" stroke-dasharray="4 5"/>
+  <rect x="160" y="255" width="196" height="17" fill="#FFFFFF"/>
+  <text x="164" y="268" fill="#0B2545" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="11" letter-spacing="1.2">WHERE IT USED TO STOP</text>
+    <path d="M408 230 C408 272 257 262 257 300" stroke="#7DBFA3" stroke-width="1.5" fill="none"/>
+  <path d="M408 230 C408 272 472 262 472 300" stroke="#7DBFA3" stroke-width="1.5" fill="none"/>
+  <path d="M408 230 C408 272 687 262 687 300" stroke="#7DBFA3" stroke-width="1.5" fill="none"/>
+  <path d="M408 230 C408 272 902 262 902 300" stroke="#7DBFA3" stroke-width="1.5" fill="none"/>
+
+  <text x="140" y="335" text-anchor="end" fill="#1B5C46" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="11" letter-spacing="1.4">SPEC</text>
+  <text x="140" y="350" text-anchor="end" fill="#5B6E80" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="11" letter-spacing="1.4">PER TEAM</text>
+    <rect x="160" y="300" width="195" height="58" rx="3" fill="#EAF3EE" stroke="#A8D5C0"/>
+  <text x="257" y="326" text-anchor="middle" fill="#1B5C46" font-family="${HEAD_SVG}" font-size="15" font-weight="500">Facade layer</text>
+  <text x="257" y="344" text-anchor="middle" fill="#5B6E80" font-family="Helvetica,Arial,sans-serif" font-size="11.5">new interface</text>
+  <rect x="375" y="300" width="195" height="58" rx="3" fill="#EAF3EE" stroke="#A8D5C0"/>
+  <text x="472" y="326" text-anchor="middle" fill="#1B5C46" font-family="${HEAD_SVG}" font-size="15" font-weight="500">Domain service</text>
+  <text x="472" y="344" text-anchor="middle" fill="#5B6E80" font-family="Helvetica,Arial,sans-serif" font-size="11.5">one</text>
+  <rect x="590" y="300" width="195" height="58" rx="3" fill="#EAF3EE" stroke="#A8D5C0"/>
+  <text x="687" y="326" text-anchor="middle" fill="#1B5C46" font-family="${HEAD_SVG}" font-size="15" font-weight="500">Domain service</text>
+  <text x="687" y="344" text-anchor="middle" fill="#5B6E80" font-family="Helvetica,Arial,sans-serif" font-size="11.5">two</text>
+  <rect x="805" y="300" width="195" height="58" rx="3" fill="#EAF3EE" stroke="#A8D5C0"/>
+  <text x="902" y="326" text-anchor="middle" fill="#1B5C46" font-family="${HEAD_SVG}" font-size="15" font-weight="500">Domain service</text>
+  <text x="902" y="344" text-anchor="middle" fill="#5B6E80" font-family="Helvetica,Arial,sans-serif" font-size="11.5">three</text>
+</svg></div>
+
+<p>Take the API delivery. The new experience needs a facade layer interface, and the facade calls
+   three domain services, so one line on the plan is four specifications for four agent teams. How
+   many depends on the repositories and the architecture rather than on the requirement, which is
+   worth sitting with: two organizations handed the same capability will staff it differently and
+   both can be right. Deciding team structure from the shape of the backlog means reading the wrong
+   document.</p>
 
 <p>None of those four can write the others. The facade team cannot specify a domain service it does
    not own, and no domain team can see the whole path. Somebody has to make that cut before any of
@@ -491,21 +551,11 @@ const NOTE = {
    running lean on it, and it is the most concrete advantage I have seen change hands so far.</p>
 
 <p>This is also where the cost of skipping it changed. Generation is cheap now, and it gets cheaper.
-   A team that is not aligned to the components it maintains still produces the work, faster than
-   before. It just produces it in places nobody is answerable for. That used to be limited by how
-   much a team could write by hand. It is not limited by that any more, and my own view is that
-   debt now accumulates faster than an organization can pay it down. Alignment to the asset is
-   what keeps the volume landing somewhere it will be maintained.</p>
-
-<h2>What that looks like in practice</h2>
-
-<p>Say the API in question is a facade layer over three services at the data-access layer. On one
-   architecture that is two agent teams; on another it is four. Which of those it is depends on how
-   complex the data is at that layer, not on how the story was written.</p>
-
-<p>The number of teams is a property of the architecture, not of the requirement. Two organizations
-   handed the same user story will staff it differently, and both can be right. Deciding team
-   structure from the shape of the backlog means reading the wrong document.</p>
+   A team that is not aligned to the components it maintains still produces the work. It just
+   produces it in places nobody is answerable for. That used to be limited by how much a team could
+   write by hand. It is not limited by that any more, and my own view is that debt now accumulates
+   faster than an organization can pay it down. Alignment to the asset is what keeps the volume
+   landing somewhere it will be maintained.</p>
 
 <h2>The boundary is the asset, not the repository</h2>
 
@@ -534,6 +584,34 @@ const NOTE = {
    built to carry it, which is a different thing and a smaller one. The teams that pay for the
    transfer are the ones asked to give up work they could have done themselves, and what would make
    that transfer acceptable to them is the part nobody has built yet.</p>
+
+<h2>Consistency inside one layer is a different problem</h2>
+
+<p>Orchestration handles a request that spans components. It does nothing about several teams inside
+   one of them. Four API teams means four agent teams producing API code, and nothing in the
+   decomposition makes their output agree with each other.</p>
+
+<p>Standards, review boards, reference implementations and templates have all been the answer to
+   this at different times, and they degrade the same way. Each team reads the document slightly
+   differently, and what the teams actually do drifts from what it says.</p>
+
+<p>A shared skill looks like it fixes that, and it half does. Publish the convention once, install
+   it everywhere, and the same instruction is executing in every team rather than a document each
+   team interprets. That is real, and it removes the step where a human re-reads a standard once per
+   team.</p>
+
+<p>What it does not do is make the output consistent. The instruction is executed by a model, once
+   per team, against a different codebase with a different existing shape, so conforming installs
+   can still produce divergent work while every report reads clean, because what is being compared
+   is the file rather than what the file produced. <b>A shared capability is the distribution
+   mechanism for consistency. It is not the consistency mechanism.</b></p>
+
+<p>Interpretation did not leave the system when the standard became a shared file. It moved
+   somewhere less observable. A human who reads a standard differently argues about it in review. A
+   model that reads it differently ships work that conforms in appearance.</p>
+
+<p>What would close that is a check on the output rather than on the file, published alongside the
+   convention and run by whoever installs it. I have not built it, and I have not seen it built.</p>
 
 <h2>The hard part is continuous integration</h2>
 
@@ -1059,6 +1137,22 @@ ${CSS}
   article p { margin:0 0 1.2rem; color:var(--ink-2); }
   .note-foot { margin-top:3.5rem; padding-top:1.6rem; border-top:1px solid var(--hair);
                font-size:.92rem; color:var(--ink-2); }
+  /* A figure may run wider than the measure. Inside the 38rem article column
+     the shared .flow min-width overflows and clips its right-hand boxes. */
+  article .flow { margin:2.4rem 0 2.8rem; }
+  /* Nine minutes is a long read to enter blind. The gist lets somebody decide
+     in ten seconds whether the rest is for them. */
+  .gist { margin:0 0 2.8rem; padding:1.3rem 1.5rem; background:var(--paper);
+          border-left:2px solid var(--green); }
+  .gist p { font-family:var(--mono); font-size:.68rem; letter-spacing:.14em;
+            text-transform:uppercase; color:var(--muted); margin:0 0 .8rem; }
+  .gist ul { margin:0; padding-left:1.1rem; }
+  .gist li { color:var(--ink-2); margin:0 0 .5rem; font-size:.97rem; }
+  .gist li:last-child { margin-bottom:0; }
+  @media (min-width:62rem) {
+    article .flow { width:52rem; margin-left:-7rem; }
+    article .flow svg { min-width:0; }
+  }
 </style>
 </head>
 <body>
@@ -1068,6 +1162,9 @@ ${CSS}
     <h1>${note.title}</h1>
     <p class="standfirst">${note.standfirst}</p>
     <p class="byline">${note.author} &nbsp;·&nbsp; <time datetime="${note.date}">${note.dateHuman}</time></p>
+${note.gist ? `    <div class="gist"><p>In short</p><ul>
+      ${note.gist.map(g => `<li>${g}</li>`).join('\n      ')}
+    </ul></div>` : ''}
 ${note.body.trim()}
   </article>
   <p class="note-foot">Written by ${note.author}. Questions or disagreement to
