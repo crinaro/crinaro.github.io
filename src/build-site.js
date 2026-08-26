@@ -377,7 +377,7 @@ const NOTE = {
       'which components a change actually touches.',
     'Set up properly, the act that delivers the project is the act that keeps the system coherent. ' +
       'Short-term delivery and long-term value out of one mechanism, rather than one paid for with ' +
-      'the other.',
+      'the other. Set up without ownership, the same mechanism produces the old failure faster.',
   ],
   standfirst: 'A cadence carries communication across the organization. What the teams inside ' +
               'it are aligned to decides what the software costs to keep. Both have to hold, and ' +
@@ -415,6 +415,13 @@ const NOTE = {
    thinking, enterprise architecture in the old sense of the phrase, is what defines the system
    architecture, and the architecture is what defines the breakdown into teams. The order matters:
    teams downstream of the architecture, not the architecture downstream of whoever shipped last.</p>
+
+<p>And this is the part I would not treat as history. Without ownership settled for the agent teams,
+   that failure does not merely continue. It speeds up. Every agent team is scoped to a component,
+   so an organization that has never said which team owns what has not slowed anything down. It has
+   taken the brake off: a team that cannot reach an existing owner builds its own, and the cost of
+   building its own has collapsed. The conditions that produced five user APIs are unchanged. What
+   has changed is how quickly they can produce the next five.</p>
 
 <p>None of that is an argument against organizing around value. Value is the point. It is an
    argument that there is more than one way to reach it, and that the ways are not equivalent in
