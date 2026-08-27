@@ -169,6 +169,10 @@
   .entry p { margin:0; color:var(--ink-2); }
   .index-foot { margin-top:3.5rem; padding-top:1.6rem; border-top:1px solid var(--hair);
                 font-size:.92rem; color:var(--ink-2); }
+  .series-head { font-family:var(--mono); font-size:.7rem; letter-spacing:.14em;
+                 text-transform:uppercase; color:var(--muted); margin:0 0 1.6rem;
+                 padding-bottom:.7rem; border-bottom:1px solid var(--hair); }
+  .entry + .series-head { margin-top:3.4rem; }
 </style>
 </head>
 <body>
@@ -184,8 +188,26 @@
   <text x="300" y="66" fill="#0B2545" font-family="Poppins,Futura,'Century Gothic','Avenir Next',Avenir,sans-serif" font-size="40" font-weight="500" letter-spacing="0.26em" dx="0 0 0 0 0 0 0 -5.20 -5.20 0">CRINARO<tspan fill="#1B5C46">.AI</tspan></text>
 </svg></a>
   <h1>Notes</h1>
-  <p class="standfirst">Pieces on delivery, ownership and agentic development, written as they
-     are worked out rather than after the fact.</p>
+  <p class="standfirst">If your organization has ended up with several systems doing the same
+     thing, and nobody can point at the decision that caused it, the first three of these are one
+     argument about why that happens and what an agentic model changes about it.</p>
+  <p class="series-head">The argument, in three parts</p>
+  <div class="entry">
+    <time datetime="2026-08-20">Part 1</time>
+    <h2><a href="/notes/aligning-teams/">Why do we have five user APIs</a></h2>
+    <p>Nobody ever decided to build the same component five times. It is what a project view produces when nothing is looking at the whole, and without ownership settled for the agent teams it gets faster rather than better.</p>
+  </div>
+  <div class="entry">
+    <time datetime="2026-08-22">Part 2</time>
+    <h2><a href="/notes/the-last-hop/">The last hop nobody wrote down</a></h2>
+    <p>Engineers always did the final decomposition in their heads, and it worked because they knew the system. Agents have no such bridge, which turns documentation from overhead into the input.</p>
+  </div>
+  <div class="entry">
+    <time datetime="2026-08-25">Part 3</time>
+    <h2><a href="/notes/shared-skills/">A shared skill is not a consistency mechanism</a></h2>
+    <p>Standards, review boards and reference implementations all degraded the same way: each team read them differently. A shared skill removes the re-reading. It does not remove the interpretation.</p>
+  </div>
+  <p class="series-head">On their own</p>
   <div class="entry">
     <time datetime="2026-08-24">24 August 2026</time>
     <h2><a href="/notes/the-repository-boundary/">Two repositories, and the traffic between them</a></h2>
@@ -193,16 +215,12 @@
   </div>
   <div class="entry">
     <time datetime="2026-08-20">20 August 2026</time>
-    <h2><a href="/notes/aligning-teams/">Aligning teams to the architecture, and what agents change</a></h2>
-    <p>A cadence carries communication across the organization. What the teams inside it are aligned to decides what the software costs to keep. Both have to hold, and agents raise the price of getting the second one wrong.</p>
-  </div>
-  <div class="entry">
-    <time datetime="2026-08-20">20 August 2026</time>
     <h2><a href="/notes/improving-the-agents/">From writing the code to improving the agents</a></h2>
     <p>Teams moving to an agentic approach need time to refine their agents and skills. Most are not given it, and the sprint that was supposed to hold that time is usually already spent.</p>
   </div>
-  <p class="index-foot">Written by John Kelly. Questions or disagreement to
-     <a class="src" href="mailto:john@crinaro.ai">john@crinaro.ai</a>.</p>
+  <p class="index-foot">Written by John Kelly. If a piece of this does not hold in your
+     architecture, at your size, that is the mail worth sending:
+     <a class="src" href="mailto:john@crinaro.ai">john@crinaro.ai</a>. Today I read it myself.</p>
 </div>
 </body>
 </html>

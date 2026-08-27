@@ -363,40 +363,31 @@ const CSS = `${FONTS}
 // The cadence and the DAO example live HERE and not on the home page. On the
 // page they would be arithmetic a reader tests and a second unit of time
 // competing with the advisory paragraph. In a piece they are the substance.
+// Split out of the 2,500-word alignment note on 2026-08-25. John: the notes
+// need to be short messages, driven by a diagram, and each one should run the
+// same shape — a challenge that is not new, and what an agentic model changes
+// about it. This is the first of the three that note was carrying.
 const NOTE = {
   slug: 'aligning-teams',
-  title: 'Aligning teams to the architecture, and what agents change',
+  part: 1,
+  next: ['the-last-hop', 'The last hop nobody wrote down',
+         'Ownership settles who answers for a component. The next piece is about the work of ' +
+         'getting a request to them at all.'],
+  title: 'Why do we have five user APIs',
   author: 'John Kelly',
   date: '2026-08-20',
   dateHuman: '20 August 2026',
+  standfirst: 'Nobody ever decided to build the same component five times. It is what a project ' +
+              'view produces when nothing is looking at the whole, and without ownership settled ' +
+              'for the agent teams it gets faster rather than better.',
   gist: [
     'Deliver the project, or look after the system. The conflict is old, and it has always ' +
       'resolved the same way, because the project has a date and the system does not.',
-    'Agents change the terms. The decomposition that used to live in an engineer\'s head now has ' +
-      'to be written down before anything can be built, and that same decomposition is what says ' +
-      'which components a change actually touches.',
-    'Set up properly, the act that delivers the project is the act that keeps the system coherent. ' +
-      'Short-term delivery and long-term value out of one mechanism, rather than one paid for with ' +
-      'the other. Set up without ownership, the same mechanism produces the old failure faster.',
+    'Agents do not resolve it by themselves. Every agent team is scoped to a component, so an ' +
+      'organization that never settled who owns what has taken the brake off rather than slowed ' +
+      'anything down.',
   ],
-  standfirst: 'A cadence carries communication across the organization. What the teams inside ' +
-              'it are aligned to decides what the software costs to keep. Both have to hold, and ' +
-              'agents raise the price of getting the second one wrong.',
   body: `
-<p>The shape I have used is a ten-week delivery cycle: five two-week sprints inside it, four of them
-   on delivery and one on innovation and planning the next cycle. Nothing else here survives contact
-   with an organization without a rhythm like that. It is how a dozen teams find out what the others
-   are doing and when, how a dependency gets raised before it is a crisis, and how anyone outside
-   engineering knows what is coming. Get it wrong and the rest fails regardless. It is necessary. It
-   is not sufficient.</p>
-
-<p>What it is not sufficient for is what the teams inside it are aligned to. If that changes every time
-   priorities do, nothing accumulates. Each initiative re-forms the teams, and the patterns and the
-   shared components never get an owner long enough to become real. So the alignment has to sit on
-   an axis that is stable and does not change often.</p>
-
-<h2>Why do we have five user APIs</h2>
-
 <p>Every organization I have worked in has asked a version of that question, and it is worth
    understanding where it comes from, because it is not incompetence and nobody ever decided it.</p>
 
@@ -404,88 +395,112 @@ const NOTE = {
    round. A project defines the system it needs, the team stands that system up, and when the
    project ends the team is left owning the whole of what it touched, because that is what the
    project defined. Do it again next year with a different project and a different team and you have
-   two. Do it for a decade and somebody in an architecture review asks why there are five user APIs,
-   four different API security models, three customer portals.</p>
+   two.</p>
+
+<div class="flow"><svg viewBox="0 0 1000 336" role="img"
+     aria-label="Three projects, each building its own slice of the system. Each slice contains a User API, so the same component exists three times. Nobody decided that.">
+  <text x="176" y="64" text-anchor="end" fill="#5B6E80" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="11" letter-spacing="1.2">ONE PROJECT</text>
+  <rect x="200" y="30" width="252" height="56" rx="3" fill="#F2F6F8" stroke="#DCE4EA"/>
+  <text x="326" y="64" text-anchor="middle" fill="#0B2545" font-family="${HEAD_SVG}" font-size="16" font-weight="500">Portal</text>
+  <rect x="468" y="30" width="252" height="56" rx="3" fill="#EAF3EE" stroke="#A8D5C0"/>
+  <text x="594" y="64" text-anchor="middle" fill="#1B5C46" font-family="${HEAD_SVG}" font-size="16" font-weight="500">User API</text>
+  <rect x="736" y="30" width="252" height="56" rx="3" fill="#F2F6F8" stroke="#DCE4EA"/>
+  <text x="862" y="64" text-anchor="middle" fill="#0B2545" font-family="${HEAD_SVG}" font-size="16" font-weight="500">Reporting</text>
+  <text x="176" y="150" text-anchor="end" fill="#5B6E80" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="11" letter-spacing="1.2">ANOTHER, LATER</text>
+  <rect x="200" y="116" width="252" height="56" rx="3" fill="#F2F6F8" stroke="#DCE4EA"/>
+  <text x="326" y="150" text-anchor="middle" fill="#0B2545" font-family="${HEAD_SVG}" font-size="16" font-weight="500">Checkout</text>
+  <rect x="468" y="116" width="252" height="56" rx="3" fill="#EAF3EE" stroke="#A8D5C0"/>
+  <text x="594" y="150" text-anchor="middle" fill="#1B5C46" font-family="${HEAD_SVG}" font-size="16" font-weight="500">User API</text>
+  <rect x="736" y="116" width="252" height="56" rx="3" fill="#F2F6F8" stroke="#DCE4EA"/>
+  <text x="862" y="150" text-anchor="middle" fill="#0B2545" font-family="${HEAD_SVG}" font-size="16" font-weight="500">Events</text>
+  <text x="176" y="236" text-anchor="end" fill="#5B6E80" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="11" letter-spacing="1.2">ANOTHER, LATER STILL</text>
+  <rect x="200" y="202" width="252" height="56" rx="3" fill="#F2F6F8" stroke="#DCE4EA"/>
+  <text x="326" y="236" text-anchor="middle" fill="#0B2545" font-family="${HEAD_SVG}" font-size="16" font-weight="500">Mobile</text>
+  <rect x="468" y="202" width="252" height="56" rx="3" fill="#EAF3EE" stroke="#A8D5C0"/>
+  <text x="594" y="236" text-anchor="middle" fill="#1B5C46" font-family="${HEAD_SVG}" font-size="16" font-weight="500">User API</text>
+  <rect x="736" y="202" width="252" height="56" rx="3" fill="#F2F6F8" stroke="#DCE4EA"/>
+  <text x="862" y="236" text-anchor="middle" fill="#0B2545" font-family="${HEAD_SVG}" font-size="16" font-weight="500">Search</text>
+  <path d="M468 274 L468 288 L720 288 L720 274" stroke="#7DBFA3" stroke-width="1.5" fill="none"/>
+  <text x="594" y="316" text-anchor="middle" fill="#0B2545" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="11.5" letter-spacing="1.2">THE SAME COMPONENT, THREE TIMES. NOBODY DECIDED IT.</text>
+</svg></div>
 
 <p>Each of those was a reasonable decision. Every project was right locally. Nothing in the process
    was capable of noticing that the thing being asked for already existed somewhere else, because
-   nothing in the process was looking at the whole.</p>
+   nothing in the process was looking at the whole. That is Conway's law read as a diagnostic rather
+   than as advice: the duplicates are the communication structure of the teams, made visible.</p>
 
-<p>That is what makes this a systems problem rather than a team-structure preference. Systems
-   thinking, enterprise architecture in the old sense of the phrase, is what defines the system
-   architecture, and the architecture is what defines the breakdown into teams. The order matters:
-   teams downstream of the architecture, not the architecture downstream of whoever shipped last.</p>
+<h2>The correction sits above team design</h2>
 
-<p>And this is the part I would not treat as history. Without ownership settled for the agent teams,
+<p>Systems thinking, enterprise architecture in the old sense of the phrase, is what defines the
+   system architecture, and the architecture is what defines the breakdown into teams. The order
+   matters: teams downstream of the architecture, not the architecture downstream of whoever shipped
+   last.</p>
+
+<p>A cadence still carries the communication across the organization, and it has to hold. But it is
+   not what decides this. What the teams inside it are aligned to is.</p>
+
+<h2>What agents change, and it is not what people expect</h2>
+
+<p>This is the part I would not treat as history. Without ownership settled for the agent teams,
    that failure does not merely continue. It speeds up. Every agent team is scoped to a component,
    so an organization that has never said which team owns what has not slowed anything down. It has
    taken the brake off: a team that cannot reach an existing owner builds its own, and the cost of
    building its own has collapsed. The conditions that produced five user APIs are unchanged. What
    has changed is how quickly they can produce the next five.</p>
 
-<p>None of that is an argument against organizing around value. Value is the point. It is an
-   argument that there is more than one way to reach it, and that the ways are not equivalent in
-   what they cost or in where the cost falls.</p>
+<p>Set up the other way, the same property is the fix. A team that owns an asset and expects to
+   still be answerable for it next quarter behaves differently from a team assembled around an
+   initiative, and an agent team is the most literal version of that there has ever been: it is
+   scoped to the component whether anybody writes the ownership down or not. The only question is
+   whether the organization chose the scope or inherited it.</p>
 
-<h2>Two ways to organize around value</h2>
+<h2>The question worth asking</h2>
 
-<p>One is a full-stack team, or several, working the same codebase. Decomposition is nearly free,
-   because the team receiving the work owns every part of it. Whatever is not written down is known
-   by somebody in the room.</p>
+<p>One question, asked at the organization level rather than the team level. Does it make sense for
+   this system to have more than one of these?</p>
 
-<p>The other is stack or component teams, aligned inside a release train, delivering the capability
-   between them. Decomposition is not free here. It has to happen before the work is handed out,
-   and it has to be right, because a team that receives a badly cut piece of work cannot fix it
-   from where it sits.</p>
+<p>If the answer is yes, there is no issue and nothing should block. Bounded contexts are a
+   perfectly good yes, and forcing one canonical model is its own well-documented mistake. If the
+   answer is no, the duplicate is not the problem. It is where the problem became visible. What I
+   object to is the case where nobody asked.</p>
+`,
+};
 
-<p>The trade is where the effort lands. The second shape moves it inbound: more design, more work
-   breaking a requirement down to the teams that will execute it. What it buys back shows up on
-   the quality and delivery side, where problems are more expensive. My own view is that a little
-   more work up front on the design of your teams, done in conjunction with what creates value, is
-   worth paying for.</p>
-
-<p>It is also the harder sell, and not for a technical reason. The decomposition is work, and the
-   project view hides it. A leader who wants the view by project can still have it, but somebody
-   has to do the breaking down underneath, and that is the part people are declining when they
-   decline this.</p>
-
-<h2>Ownership is the part that decides it</h2>
-
-<p>Under either shape, what decides success is whether a team truly owns something. A team that
-   owns an asset, and expects to still be answerable for it next quarter, behaves differently from
-   a team assembled around an initiative. Component ownership is hard to hold onto, and the
-   difficulty is not that the idea is complicated. The cost arrives first and the payoff arrives
-   later. Judged on a short horizon it reads as overhead: a team declining work that is not theirs,
-   an interface argued over rather than a feature shipped. It takes sustained work, the way most
-   things with a real return do, and the return does not show up inside one quarter.</p>
-
-<h2>What agentic delivery changes</h2>
-
-<p>It pushes the alignment a level deeper: to the components in the architecture, and to how those
-   components are managed.</p>
-
-<p>Take an API team, working the old way. They get an epic, which is the work for the delivery cycle, and
-   break it into user stories. The stories usually name an <em>outcome</em>: the API. But the outcome
-   is delivered through changes across several components, often across several repositories. Those
-   are the tasks, and how much of that got written down varied by team.</p>
+// Second of the three. The mechanism, and the only one of them that needed the
+// chain drawn.
+const NOTE_HOP = {
+  slug: 'the-last-hop',
+  part: 2,
+  next: ['shared-skills', 'A shared skill is not a consistency mechanism',
+         'Decomposition gets the work to the right teams. It does nothing about several teams ' +
+         'inside one layer, which is the last piece.'],
+  title: 'The last hop nobody wrote down',
+  author: 'John Kelly',
+  date: '2026-08-22',
+  dateHuman: '22 August 2026',
+  standfirst: 'Engineers always did the final decomposition in their heads, and it worked because ' +
+              'they knew the system. Agents have no such bridge, which turns documentation from ' +
+              'overhead into the input.',
+  gist: [
+    'The bridge from an outcome to the components that implement it was real work, done reliably, ' +
+      'and invisible. It never had to be written down in order to happen.',
+    'It does now. Which means the teams that already had the discipline start ahead, and the ones ' +
+      'running lean on it are further behind than they think.',
+  ],
+  body: `
+<p>Take an API team, working the old way. They get an epic and break it into user stories. The
+   stories usually name an outcome: the API. But the outcome is delivered through changes across
+   several components, often across several repositories, and how much of that got written down
+   varied by team.</p>
 
 <p>Some broke it down and recorded it. Most, in my experience, minimize documentation wherever they
-   are allowed to. Not out of carelessness: the engineers understood the system well
-   enough to execute without being told, and writing it down bought them nothing at the time. The
-   bridge from the outcome to the components that implement it was real work, done reliably, and
-   invisible. It never needed to be written down in order to happen.</p>
+   are allowed to. Not out of carelessness: the engineers understood the system well enough to
+   execute without being told, and writing it down bought them nothing at the time. The bridge from
+   the outcome to the components that implement it was real work, done reliably, and invisible.</p>
 
-<p>Agents have no such bridge. Nothing fills the gap between “build the API” and the specific changes
-   in the specific components. So the work has to be broken down to the teams that maintain those
-   components, explicitly, in a way it never had to be before. What used to live in an engineer's
-   head has to exist as text before an agent can decompose a specification against it.</p>
-
-<h2>Where the decomposition actually stops</h2>
-
-<p>The chain runs from an initiative to a capability, and the capability is the level a product
-   manager can still explain to the extended team. From there it becomes component deliveries, one
-   per stack team, and that is where it used to stop. Stopping there was fine, because the teams did
-   the rest of the decomposition themselves. With agent teams it is one level short.</p>
+<p>Agents have no such bridge. Nothing fills the gap between “build the API” and the specific
+   changes in the specific components, so the work has to be broken down to the teams that maintain
+   those components, explicitly, in a way it never had to be before.</p>
 
 <div class="flow"><svg viewBox="0 0 1000 400" role="img"
      aria-label="An initiative becomes one capability, the capability becomes one component delivery per stack team, and the API delivery alone becomes four specifications: a facade and three domain services. A dashed line marks where decomposition used to stop, above the specification row.">
@@ -544,61 +559,50 @@ const NOTE = {
 
 <p>Take the API delivery. The new experience needs a facade layer interface, and the facade calls
    three domain services, so one line on the plan is four specifications for four agent teams. How
-   many depends on the repositories and the architecture rather than on the requirement, which is
-   worth sitting with: two organizations handed the same capability will staff it differently and
-   both can be right. Deciding team structure from the shape of the backlog means reading the wrong
-   document.</p>
+   many depends on the repositories and the architecture rather than on the requirement: two
+   organizations handed the same capability will staff it differently and both can be right.
+   Deciding team structure from the shape of the backlog means reading the wrong document.</p>
 
 <p>None of those four can write the others. The facade team cannot specify a domain service it does
-   not own, and no domain team can see the whole path. Somebody has to make that cut before any of
-   it is handed out, and being wrong about it does not surface as a bad specification. It surfaces
-   as four teams delivering exactly what they were asked for and a capability that does not
-   work.</p>
+   not own, and no domain team can see the whole path. Being wrong about the cut does not surface as
+   a bad specification. It surfaces as four teams delivering exactly what they were asked for and a
+   capability that does not work.</p>
 
-<p>Which means the teams that already had the discipline start ahead. Documentation that read as
-   overhead for years is now the input. That is an uncomfortable thing to tell a team that has been
-   running lean on it, and it is the most concrete advantage I have seen change hands so far.</p>
+<h2>What that is worth, and to whom</h2>
 
-<p>This is also where the cost of skipping it changed. Generation is cheap now, and it gets cheaper.
-   A team that is not aligned to the components it maintains still produces the work. It just
-   produces it in places nobody is answerable for. That used to be limited by how much a team could
-   write by hand. It is not limited by that any more, and my own view is that debt now accumulates
-   faster than an organization can pay it down. Alignment to the asset is what keeps the volume
-   landing somewhere it will be maintained.</p>
+<p>The teams that already had the discipline start ahead. Documentation that read as overhead for
+   years is now the input. That is an uncomfortable thing to tell a team that has been running lean
+   on it, and it is the most concrete advantage I have seen change hands so far.</p>
 
-<h2>The boundary is the asset, not the repository</h2>
+<p>It also changes what skipping it costs. Generation is cheap now and getting cheaper, so a team
+   that is not aligned to the components it maintains still produces the work. It just produces it
+   in places nobody is answerable for. That used to be limited by how much a team could write by
+   hand, and it is not limited by that any more.</p>
+`,
+};
 
-<p>When I say stack here I mean the code asset a team owns. That may cross several repositories, it
-   may be a single repository, or it may be a path inside one. The boundary is not a fact about your
-   source control. It is a decision about what makes sense for the business, and about maintaining
-   the software asset that enables it. Expect to define it, and then to keep refining it.</p>
-
-<p>Two kinds of capability follow from where that line falls. Some skills and agents are used across
-   teams: the shared layer, the same idea a shared stack has always been. Others are specific to
-   the boundary a team owns. Both exist, and confusing them is how a shared capability ends up
-   maintained by nobody.</p>
-
-<h2>Orchestration is what makes component ownership affordable</h2>
-
-<p>Push ownership down to components and you get reuse and scale. You also get the old objection: a
-   request that spans the stack now spans several teams, and somebody has to carry it.</p>
-
-<p>That is what an orchestration team is for. The request arrives in the historic full-stack shape,
-   which is how a business actually asks for things, and the orchestration layer breaks it down to
-   the component teams that own the pieces and sees it through to fulfilled. The component teams
-   keep their ownership. The person asking keeps the simple question. The complexity moves to a
-   layer built to hold it.</p>
-
-<p>That does not dissolve the choice, and I would not claim it does. It moves the cost to a place
-   built to carry it, which is a different thing and a smaller one. The teams that pay for the
-   transfer are the ones asked to give up work they could have done themselves, and what would make
-   that transfer acceptable to them is the part nobody has built yet.</p>
-
-<h2>Consistency inside one layer is a different problem</h2>
-
-<p>Orchestration handles a request that spans components. It does nothing about several teams inside
-   one of them. Four API teams means four agent teams producing API code, and nothing in the
-   decomposition makes their output agree with each other.</p>
+// Third of the three, and the one the AI-SDLC team answered by disagreeing with
+// the premise, which made it better material than the question was.
+const NOTE_SKILL = {
+  slug: 'shared-skills',
+  part: 3,
+  title: 'A shared skill is not a consistency mechanism',
+  author: 'John Kelly',
+  date: '2026-08-25',
+  dateHuman: '25 August 2026',
+  standfirst: 'Standards, review boards and reference implementations all degraded the same way: ' +
+              'each team read them differently. A shared skill removes the re-reading. It does not ' +
+              'remove the interpretation.',
+  gist: [
+    'One layer is usually several teams. Four API teams now means four agent teams producing API ' +
+      'code, and nothing in the decomposition makes their output agree.',
+    'Publishing the convention once is a real advance and it is the distribution half. The half ' +
+      'that checks what each team actually produced does not exist yet.',
+  ],
+  body: `
+<p>Aligning teams to components handles a request that spans components. It does nothing about
+   several teams inside one of them. Four API teams means four agent teams producing API code, and
+   nothing in the decomposition makes their output agree with each other.</p>
 
 <p>Standards, review boards, reference implementations and templates have all been the answer to
    this at different times, and they degrade the same way. Each team reads the document slightly
@@ -608,6 +612,49 @@ const NOTE = {
    it everywhere, and the same instruction is executing in every team rather than a document each
    team interprets. That is real, and it removes the step where a human re-reads a standard once per
    team.</p>
+
+<div class="flow"><svg viewBox="0 0 1000 356" role="img"
+     aria-label="One published convention is installed by four teams. Every installed file is byte-identical and is checked. What each team then produced is different, and nothing checks that.">
+  <rect x="330" y="20" width="452" height="56" rx="3" fill="#F2F6F8" stroke="#DCE4EA"/>
+  <text x="556" y="53" text-anchor="middle" fill="#0B2545" font-family="${HEAD_SVG}" font-size="16" font-weight="500">One published convention</text>
+  <path d="M556 76 L556 92" stroke="#93B8D4" stroke-width="1.5"/>
+  <path d="M556 92 C556 116 222 110 222 134" stroke="#93B8D4" stroke-width="1.5" fill="none"/>
+  <rect x="130" y="134" width="184" height="56" rx="3" fill="#EAF3EE" stroke="#A8D5C0"/>
+  <text x="222" y="158" text-anchor="middle" fill="#1B5C46" font-family="${HEAD_SVG}" font-size="15" font-weight="500">Team A</text>
+  <text x="222" y="177" text-anchor="middle" fill="#5B6E80" font-family="Helvetica,Arial,sans-serif" font-size="11.5">installed file, identical</text>
+  <path d="M222 190 L222 250" stroke="#B9C6D0" stroke-width="1.5" stroke-dasharray="3 5"/>
+  <rect x="130" y="250" width="184" height="56" rx="3" fill="#FFFFFF" stroke="#DCE4EA"/>
+  <text x="222" y="274" text-anchor="middle" fill="#0B2545" font-family="${HEAD_SVG}" font-size="15" font-weight="500">what it produced</text>
+  <text x="222" y="293" text-anchor="middle" fill="#5B6E80" font-family="Helvetica,Arial,sans-serif" font-size="11.5">different codebase, different result</text>
+  <path d="M556 92 C556 116 440 110 440 134" stroke="#93B8D4" stroke-width="1.5" fill="none"/>
+  <rect x="348" y="134" width="184" height="56" rx="3" fill="#EAF3EE" stroke="#A8D5C0"/>
+  <text x="440" y="158" text-anchor="middle" fill="#1B5C46" font-family="${HEAD_SVG}" font-size="15" font-weight="500">Team B</text>
+  <text x="440" y="177" text-anchor="middle" fill="#5B6E80" font-family="Helvetica,Arial,sans-serif" font-size="11.5">installed file, identical</text>
+  <path d="M440 190 L440 250" stroke="#B9C6D0" stroke-width="1.5" stroke-dasharray="3 5"/>
+  <rect x="348" y="250" width="184" height="56" rx="3" fill="#FFFFFF" stroke="#DCE4EA"/>
+  <text x="440" y="274" text-anchor="middle" fill="#0B2545" font-family="${HEAD_SVG}" font-size="15" font-weight="500">what it produced</text>
+  <text x="440" y="293" text-anchor="middle" fill="#5B6E80" font-family="Helvetica,Arial,sans-serif" font-size="11.5">different codebase, different result</text>
+  <path d="M556 92 C556 116 658 110 658 134" stroke="#93B8D4" stroke-width="1.5" fill="none"/>
+  <rect x="566" y="134" width="184" height="56" rx="3" fill="#EAF3EE" stroke="#A8D5C0"/>
+  <text x="658" y="158" text-anchor="middle" fill="#1B5C46" font-family="${HEAD_SVG}" font-size="15" font-weight="500">Team C</text>
+  <text x="658" y="177" text-anchor="middle" fill="#5B6E80" font-family="Helvetica,Arial,sans-serif" font-size="11.5">installed file, identical</text>
+  <path d="M658 190 L658 250" stroke="#B9C6D0" stroke-width="1.5" stroke-dasharray="3 5"/>
+  <rect x="566" y="250" width="184" height="56" rx="3" fill="#FFFFFF" stroke="#DCE4EA"/>
+  <text x="658" y="274" text-anchor="middle" fill="#0B2545" font-family="${HEAD_SVG}" font-size="15" font-weight="500">what it produced</text>
+  <text x="658" y="293" text-anchor="middle" fill="#5B6E80" font-family="Helvetica,Arial,sans-serif" font-size="11.5">different codebase, different result</text>
+  <path d="M556 92 C556 116 876 110 876 134" stroke="#93B8D4" stroke-width="1.5" fill="none"/>
+  <rect x="784" y="134" width="184" height="56" rx="3" fill="#EAF3EE" stroke="#A8D5C0"/>
+  <text x="876" y="158" text-anchor="middle" fill="#1B5C46" font-family="${HEAD_SVG}" font-size="15" font-weight="500">Team D</text>
+  <text x="876" y="177" text-anchor="middle" fill="#5B6E80" font-family="Helvetica,Arial,sans-serif" font-size="11.5">installed file, identical</text>
+  <path d="M876 190 L876 250" stroke="#B9C6D0" stroke-width="1.5" stroke-dasharray="3 5"/>
+  <rect x="784" y="250" width="184" height="56" rx="3" fill="#FFFFFF" stroke="#DCE4EA"/>
+  <text x="876" y="274" text-anchor="middle" fill="#0B2545" font-family="${HEAD_SVG}" font-size="15" font-weight="500">what it produced</text>
+  <text x="876" y="293" text-anchor="middle" fill="#5B6E80" font-family="Helvetica,Arial,sans-serif" font-size="11.5">different codebase, different result</text>
+  <text x="112" y="166" text-anchor="end" fill="#1B5C46" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="11" letter-spacing="1.2">CHECKED</text>
+  <text x="112" y="276" text-anchor="end" fill="#0B2545" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="11" letter-spacing="1.2">NOT</text>
+  <text x="112" y="291" text-anchor="end" fill="#0B2545" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="11" letter-spacing="1.2">CHECKED</text>
+  <text x="556" y="340" text-anchor="middle" fill="#0B2545" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="11.5" letter-spacing="1.2">THE FILE IS THE SAME. THE WORK IS NOT.</text>
+</svg></div>
 
 <p>What it does not do is make the output consistent. The instruction is executed by a model, once
    per team, against a different codebase with a different existing shape, so conforming installs
@@ -619,56 +666,11 @@ const NOTE = {
    somewhere less observable. A human who reads a standard differently argues about it in review. A
    model that reads it differently ships work that conforms in appearance.</p>
 
-<p>What would close that is a check on the output rather than on the file, published alongside the
-   convention and run by whoever installs it. I have not built it, and I have not seen it built.</p>
-
-<h2>The hard part is continuous integration</h2>
-
-<p>In any of these shapes, the thing that decides whether it works is continuous integration and
-   continuous deployment. That is where an orchestration layer earns its place, and it is the right
-   challenge to put to one: not whether it can route work, but whether it can show the capability
-   holds once the pieces land.</p>
-
-<p>The components carry their own unit and system-level tests. The orchestration layer adds the
-   capability-level test: whether the thing the business asked for works across the components
-   that implement it. With a robust enough integration capability you spin up an environment and run
-   that end to end.</p>
-
-<h2>What follows from it</h2>
-
-<p>The decomposition that used to live in people’s heads becomes an artifact. That is a cost: it is
-   work that used to be free. It is also what makes the rest possible, because an explicit map of
-   which team owns which component is what lets work be routed at all.</p>
-
-<p>It also means maintenance stops being incidental. A component with a team has someone answerable
-   for whether its documents are still true, its checks still run, and its releases still load.
-   Without that, an agent-built component is alive until the first thing about it changes.</p>
-
-<p>Where exactly the component boundary falls is something I expect to keep getting wrong and
-   correcting. That it has to be drawn at all, and written down, is the part that has changed.</p>
+<p>What would close it is a check on the output rather than on the file, published alongside the
+   convention and run by whoever installs it. I have not built that, and I have not seen it built.</p>
 `,
 };
 
-// The second piece. Piece one calls the cadence "the part that matters least"
-// and moves on, which leaves the obvious question unanswered: then why that
-// shape, and why does one sprint in five not deliver anything? This answers it,
-// and joins it to piece one's conclusion that the decomposition is now explicit
-// work somebody has to do.
-//
-// The join is reasoning, not John's recorded words. His material gives the
-// cadence and gives the decomposition-as-artifact; putting the second inside the
-// first is the argument this piece makes. Flagged so nobody later mistakes it
-// for something he said.
-// Third piece, 2026-08-23. Built from section 7.3 of the AI-SDLC content pack,
-// which is Crinaro's own material, so the argument may be stated directly. Four
-// lines here are the pack's pull-quote-safe list, verbatim and deliberately: it
-// exists so a hedge never gets lifted off by accident.
-//
-// The closing section is the one to be careful with. It is written as a PROPERTY
-// of how git and the hosts behave, not as an incident report: no repository is
-// named, no commit hash, no description of what the data was, and nothing that
-// tells a reader where to go looking. That is not modesty. A piece about
-// recoverable history must not itself be a lookup path.
 const NOTE_BOUNDARY = {
   slug: 'the-repository-boundary',
   title: 'Two repositories, and the traffic between them',
@@ -932,9 +934,12 @@ ${CSS}
     <!-- The only route to the written pieces. Still no "Writing" heading: two
          pieces do not make a series, and a section header promises one. When
          there is a third, this becomes a list on its own page. -->
-    <p class="note" id="notes">The argument above is written up at length in
-       <a class="src" href="/notes/${NOTE.slug}/">${NOTE.title}</a>. That and the rest are in
-       <a class="src" href="/notes/">the notes</a>.</p>
+    <p class="note" id="notes">Most of this is argued at length in the notes, and the first three
+       are one argument: why an organization ends up with several systems doing the same thing, the
+       decomposition that used to live in an engineer's head, and why publishing a convention once
+       does not make the output agree. Start at
+       <a class="src" href="/notes/${NOTE.slug}/">${NOTE.title}</a>, or take
+       <a class="src" href="/notes/">all of them</a>.</p>
   </div>
 </section>
 
@@ -974,6 +979,27 @@ ${CSS}
   </div>
 </section>
 
+
+<section class="band">
+  <div class="wrap">
+    <div class="head narrow">
+      <p class="eyebrow">What it is aimed at</p>
+      <h2>Three outcomes, none of them measured.</h2>
+      <p>The model is aimed at three things: maintenance costing less, delivery moving faster, and
+         investment shifting from keeping what exists running to building what does not exist yet.
+         Those are the aims. Every claim in the material is a claim about mechanism rather than
+         about outcome. It argues how those would be reached rather than reporting having reached
+         them, and no outcome has been measured.</p>
+      <p>Saying that is the point rather than a hedge. A description of a method is exactly the
+         thing a reader supplies a payoff to, and staying quiet about the payoff is a different
+         position from stating it and declining to claim it.</p>
+      <p>The first attempt to measure one is on the record, and it did not work. In the material's
+         own words: <em>“It did not work as expected. The sequence is not falsified, but it is not
+         yet demonstrated either.”</em> Read the mechanism on its merits, and treat the outcomes as
+         open rather than as likely.</p>
+    </div>
+  </div>
+</section>
 
 <section>
   <div class="wrap">
@@ -1024,6 +1050,11 @@ ${CSS}
       <p>These are patterns, not prescriptions, and the interesting mail is the mail that says a
          piece of it does not hold: in your architecture, at your size, with the constraints you
          actually have. That is a conversation worth having whether or not anything follows it.</p>
+      <p>Today I read it myself, and I do not expect enough of it that I will not. If that changes,
+         the answer will be the one this whole page argues for: an agent team to help with the
+         replying, maintained the way the rest of this is, with the questions and the disagreement
+         going back to the team that keeps the material. Which is a fair test of whether any of it
+         works.</p>
       <p style="margin-top:.8rem">
         <a class="src" href="mailto:${EMAIL}?subject=Crinaro">${EMAIL}</a>
       </p>
@@ -1048,7 +1079,7 @@ ${CSS}
 
 fs.writeFileSync(path.join(DIST, 'index.html'), html);
 
-const NOTES = [NOTE, NOTE_CADENCE, NOTE_BOUNDARY];
+const NOTES = [NOTE, NOTE_HOP, NOTE_SKILL, NOTE_CADENCE, NOTE_BOUNDARY];
 
 // Shared by the article pages and the index. Extracted 2026-08-24 when /notes/
 // became real: two pages carrying two copies of the same <head> is how one of
@@ -1071,9 +1102,11 @@ const noteHead = (title, desc, url) => `<!doctype html>
 <link rel="icon" type="image/png" sizes="32x32" href="/icons/crinaro-favicon-32.png">
 <link rel="apple-touch-icon" sizes="180x180" href="/icons/crinaro-icon-180.png">`;
 
-// Newest first. Generated from NOTES, so a piece cannot be added to the site and
-// left off its own index.
-const byNewest = [...NOTES].sort((a, b) => b.date.localeCompare(a.date));
+// The three-part argument in reading order, then everything else newest first.
+// Sorting the whole list by date publishes a sequence backwards, which is how
+// the payoff ended up first and the setup last.
+const series = NOTES.filter(n => n.part).sort((a, b) => a.part - b.part);
+const standalone = NOTES.filter(n => !n.part).sort((a, b) => b.date.localeCompare(a.date));
 
 fs.mkdirSync(path.join(DIST, 'notes'), { recursive: true });
 fs.writeFileSync(path.join(DIST, 'notes', 'index.html'), `${noteHead(
@@ -1099,21 +1132,34 @@ ${CSS}
   .entry p { margin:0; color:var(--ink-2); }
   .index-foot { margin-top:3.5rem; padding-top:1.6rem; border-top:1px solid var(--hair);
                 font-size:.92rem; color:var(--ink-2); }
+  .series-head { font-family:var(--mono); font-size:.7rem; letter-spacing:.14em;
+                 text-transform:uppercase; color:var(--muted); margin:0 0 1.6rem;
+                 padding-bottom:.7rem; border-bottom:1px solid var(--hair); }
+  .entry + .series-head { margin-top:3.4rem; }
 </style>
 </head>
 <body>
 <div class="note-wrap">
   <a class="note-home" href="/" aria-label="Crinaro.AI">${svg('crinaro-ai-horizontal.svg')}</a>
   <h1>Notes</h1>
-  <p class="standfirst">Pieces on delivery, ownership and agentic development, written as they
-     are worked out rather than after the fact.</p>
-  ${byNewest.map(n => `<div class="entry">
+  <p class="standfirst">If your organization has ended up with several systems doing the same
+     thing, and nobody can point at the decision that caused it, the first three of these are one
+     argument about why that happens and what an agentic model changes about it.</p>
+  <p class="series-head">The argument, in three parts</p>
+  ${series.map((n, i) => `<div class="entry">
+    <time datetime="${n.date}">Part ${i + 1}</time>
+    <h2><a href="/notes/${n.slug}/">${n.title}</a></h2>
+    <p>${n.standfirst}</p>
+  </div>`).join('\n  ')}
+  <p class="series-head">On their own</p>
+  ${standalone.map(n => `<div class="entry">
     <time datetime="${n.date}">${n.dateHuman}</time>
     <h2><a href="/notes/${n.slug}/">${n.title}</a></h2>
     <p>${n.standfirst}</p>
   </div>`).join('\n  ')}
-  <p class="index-foot">Written by John Kelly. Questions or disagreement to
-     <a class="src" href="mailto:${EMAIL}">${EMAIL}</a>.</p>
+  <p class="index-foot">Written by John Kelly. If a piece of this does not hold in your
+     architecture, at your size, that is the mail worth sending:
+     <a class="src" href="mailto:${EMAIL}">${EMAIL}</a>. Today I read it myself.</p>
 </div>
 </body>
 </html>
@@ -1149,6 +1195,14 @@ ${CSS}
   /* A figure may run wider than the measure. Inside the 38rem article column
      the shared .flow min-width overflows and clips its right-hand boxes. */
   article .flow { margin:2.4rem 0 2.8rem; }
+  /* A finished note is a dead end unless it says what to read next and why. */
+  .onward { margin-top:3.5rem; padding-top:1.6rem; border-top:1px solid var(--hair); }
+  .onward .eyebrow { margin-bottom:.7rem; }
+  .onward h2 { margin:0 0 .5rem; font-size:1.2rem; }
+  .onward h2 a { color:var(--ink); text-decoration:none;
+                 border-bottom:1px solid rgba(27,92,70,.35); padding-bottom:1px; }
+  .onward h2 a:hover { border-bottom-color:var(--green); }
+  .onward p { margin:0; color:var(--ink-2); font-size:.97rem; }
   /* Nine minutes is a long read to enter blind. The gist lets somebody decide
      in ten seconds whether the rest is for them. */
   .gist { margin:0 0 2.8rem; padding:1.3rem 1.5rem; background:var(--paper);
@@ -1176,9 +1230,15 @@ ${note.gist ? `    <div class="gist"><p>The argument</p><div>
     </div></div>` : ''}
 ${note.body.trim()}
   </article>
-  <p class="note-foot">Written by ${note.author}. Questions or disagreement to
-     <a class="src" href="mailto:${EMAIL}">${EMAIL}</a>.${other.length ? `<br>The rest are in
-     <a class="src" href="/notes/">the notes</a>.` : ''}</p>
+${note.next ? `  <div class="onward">
+    <p class="eyebrow">Next</p>
+    <h2><a href="/notes/${note.next[0]}/">${note.next[1]}</a></h2>
+    <p>${note.next[2]}</p>
+  </div>` : ''}
+  <p class="note-foot">Written by ${note.author}. If a piece of this does not hold in your
+     architecture, at your size, that is the mail worth sending:
+     <a class="src" href="mailto:${EMAIL}">${EMAIL}</a>. Today I read it myself.${other.length ? `
+     <br>The rest are in <a class="src" href="/notes/">the notes</a>.` : ''}</p>
 </div>
 </body>
 </html>

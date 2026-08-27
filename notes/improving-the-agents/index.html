@@ -172,6 +172,14 @@
   /* A figure may run wider than the measure. Inside the 38rem article column
      the shared .flow min-width overflows and clips its right-hand boxes. */
   article .flow { margin:2.4rem 0 2.8rem; }
+  /* A finished note is a dead end unless it says what to read next and why. */
+  .onward { margin-top:3.5rem; padding-top:1.6rem; border-top:1px solid var(--hair); }
+  .onward .eyebrow { margin-bottom:.7rem; }
+  .onward h2 { margin:0 0 .5rem; font-size:1.2rem; }
+  .onward h2 a { color:var(--ink); text-decoration:none;
+                 border-bottom:1px solid rgba(27,92,70,.35); padding-bottom:1px; }
+  .onward h2 a:hover { border-bottom-color:var(--green); }
+  .onward p { margin:0; color:var(--ink-2); font-size:.97rem; }
   /* Nine minutes is a long read to enter blind. The gist lets somebody decide
      in ten seconds whether the rest is for them. */
   .gist { margin:0 0 2.8rem; padding:1.3rem 1.5rem; background:var(--paper);
@@ -253,9 +261,11 @@
    What has to be true is that the time to maintain and improve the agent team is dedicated, named
    and defended, and that it is not the same time last cycle's overrun is quietly spending.</p>
   </article>
-  <p class="note-foot">Written by John Kelly. Questions or disagreement to
-     <a class="src" href="mailto:john@crinaro.ai">john@crinaro.ai</a>.<br>The rest are in
-     <a class="src" href="/notes/">the notes</a>.</p>
+
+  <p class="note-foot">Written by John Kelly. If a piece of this does not hold in your
+     architecture, at your size, that is the mail worth sending:
+     <a class="src" href="mailto:john@crinaro.ai">john@crinaro.ai</a>. Today I read it myself.
+     <br>The rest are in <a class="src" href="/notes/">the notes</a>.</p>
 </div>
 </body>
 </html>
