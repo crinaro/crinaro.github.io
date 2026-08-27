@@ -221,6 +221,39 @@
    leaks. The private one is where the team lives and where the reasoning is kept. The public one
    is what a user installs. A publish step moves the second out of the first.</p>
 
+<div class="flow"><svg viewBox="0 0 1000 396" role="img"
+     aria-label="Two repositories. The private one holds the agent team, the decisions and the work in flight. The public one holds only what a user installs. Publishing sends one commit outward carrying the current tree. Mirroring sends reports inward only. Acknowledging a reporter is a separate outward step.">
+  <rect x="40" y="16" width="392" height="168" rx="3" fill="#F2F6F8" stroke="#DCE4EA"/>
+  <text x="64" y="48" fill="#0B2545" font-family="Poppins,Futura,'Century Gothic','Avenir Next',Avenir,sans-serif" font-size="16" font-weight="500">Private</text>
+  <text x="132" y="48" fill="#5B6E80" font-family="Helvetica,Arial,sans-serif" font-size="12.5">where the team works</text>
+  <text x="64" y="80" fill="#5B6E80" font-family="Helvetica,Arial,sans-serif" font-size="13">The agent team and its roster</text>
+  <text x="64" y="106" fill="#5B6E80" font-family="Helvetica,Arial,sans-serif" font-size="13">Architecture decisions</text>
+  <text x="64" y="132" fill="#5B6E80" font-family="Helvetica,Arial,sans-serif" font-size="13">Work in flight</text>
+  <text x="64" y="158" fill="#5B6E80" font-family="Helvetica,Arial,sans-serif" font-size="13">The source it all comes from</text>
+  <rect x="568" y="16" width="392" height="168" rx="3" fill="#EAF3EE" stroke="#A8D5C0"/>
+  <text x="592" y="48" fill="#1B5C46" font-family="Poppins,Futura,'Century Gothic','Avenir Next',Avenir,sans-serif" font-size="16" font-weight="500">Public</text>
+  <text x="654" y="48" fill="#5B6E80" font-family="Helvetica,Arial,sans-serif" font-size="12.5">what leaves the building</text>
+  <text x="592" y="80" fill="#5B6E80" font-family="Helvetica,Arial,sans-serif" font-size="13">What a user installs</text>
+  <text x="592" y="106" fill="#5B6E80" font-family="Helvetica,Arial,sans-serif" font-size="13">Its documentation</text>
+  <text x="592" y="132" fill="#5B6E80" font-family="Helvetica,Arial,sans-serif" font-size="13">A version history</text>
+  <text x="592" y="158" fill="#5B6E80" font-family="Helvetica,Arial,sans-serif" font-size="13">and nothing else</text>
+  <path d="M64 232 L930 232" stroke="#7DBFA3" stroke-width="1.5" fill="none"/>
+  <path d="M922 227 L932 232 L922 237 Z" fill="#7DBFA3"/>
+  <rect x="60" y="202" width="564" height="22" fill="#FFFFFF"/>
+  <text x="64" y="210" text-anchor="start" fill="#1B5C46" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="10.5" letter-spacing="1.2">PUBLISH</text>
+  <text x="64" y="226" text-anchor="start" fill="#5B6E80" font-family="Helvetica,Arial,sans-serif" font-size="12.5">One commit carrying the current tree. Never a history, so no old blob exists to leak.</text>
+  <path d="M70 300 L936 300" stroke="#93B8D4" stroke-width="1.5" fill="none"/>
+  <path d="M78 295 L68 300 L78 305 Z" fill="#93B8D4"/>
+  <rect x="376" y="270" width="564" height="22" fill="#FFFFFF"/>
+  <text x="936" y="278" text-anchor="end" fill="#0B2545" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="10.5" letter-spacing="1.2">MIRROR</text>
+  <text x="936" y="294" text-anchor="end" fill="#5B6E80" font-family="Helvetica,Arial,sans-serif" font-size="12.5">Reads public, writes private, one direction. Nothing in it can push private content out.</text>
+  <path d="M64 368 L930 368" stroke="#7DBFA3" stroke-width="1.5" fill="none"/>
+  <path d="M922 363 L932 368 L922 373 Z" fill="#7DBFA3"/>
+  <rect x="60" y="338" width="564" height="22" fill="#FFFFFF"/>
+  <text x="64" y="346" text-anchor="start" fill="#1B5C46" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="10.5" letter-spacing="1.2">ACKNOWLEDGE</text>
+  <text x="64" y="362" text-anchor="start" fill="#5B6E80" font-family="Helvetica,Arial,sans-serif" font-size="12.5">A separate, deliberate step. Posting outward is never a side effect of reading in.</text>
+</svg></div>
+
 <h2>It is not about secrecy</h2>
 
 <p>Nothing in that reason turns on either repository being secret. The maintainer's material is

@@ -3,10 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>From writing the code to improving the agents · Crinaro.AI</title>
-<meta name="description" content="Teams moving to an agentic approach need time to refine their agents and skills. Most are not given it, and the sprint that was supposed to hold that time is usually already spent.">
-<meta property="og:title" content="From writing the code to improving the agents">
-<meta property="og:description" content="Teams moving to an agentic approach need time to refine their agents and skills. Most are not given it, and the sprint that was supposed to hold that time is usually already spent.">
+<title>From prompting to specifying · Crinaro.AI</title>
+<meta name="description" content="The shift is not that engineers write less code. It is that when the output is wrong, the thing you edit stops being the prompt and becomes the spec or the agent definition.">
+<meta property="og:title" content="From prompting to specifying">
+<meta property="og:description" content="The shift is not that engineers write less code. It is that when the output is wrong, the thing you edit stops being the prompt and becomes the spec or the agent definition.">
 <meta property="og:url" content="https://crinaro.ai/notes/improving-the-agents/">
 <meta property="og:image" content="https://crinaro.ai/icons/crinaro-og-1200x630.png">
 <meta property="og:image:width" content="1200">
@@ -208,58 +208,81 @@
   <text x="300" y="66" fill="#0B2545" font-family="Poppins,Futura,'Century Gothic','Avenir Next',Avenir,sans-serif" font-size="40" font-weight="500" letter-spacing="0.26em" dx="0 0 0 0 0 0 0 -5.20 -5.20 0">CRINARO<tspan fill="#1B5C46">.AI</tspan></text>
 </svg></a>
   <article>
-    <h1>From writing the code to improving the agents</h1>
-    <p class="standfirst">Teams moving to an agentic approach need time to refine their agents and skills. Most are not given it, and the sprint that was supposed to hold that time is usually already spent.</p>
-    <p class="byline">John Kelly &nbsp;·&nbsp; <time datetime="2026-08-20">20 August 2026</time></p>
+    <h1>From prompting to specifying</h1>
+    <p class="standfirst">The shift is not that engineers write less code. It is that when the output is wrong, the thing you edit stops being the prompt and becomes the spec or the agent definition.</p>
+    <p class="byline">John Kelly &nbsp;·&nbsp; <time datetime="2026-08-26">26 August 2026</time></p>
+    <div class="gist"><p>The argument</p><div>
+      <p>A prompt is a conversation you have once. A spec and an agent definition are files you change, version and re-run, so the fix applies next time and to everybody.</p>
+      <p>Which creates a problem the old way never had. You cannot tell from a single run whether the change did what you wanted, so teams need several branches going at once.</p>
+    </div></div>
+<p>The first way anybody works with an agent is by prompting it. You ask, it answers, the answer is
+   not quite right, so you ask again with more detail. It works, and it is the right place to start.
+   What it does not do is accumulate. The understanding you built up getting to a good answer lives
+   in that session and goes when the session does, and the next person starts where you started.</p>
 
-<p>A ten-week delivery cycle, five two-week sprints. Four on delivery, and the fifth on innovation
-   and planning the next cycle. That is the shape I have used, and the fifth sprint is where the
-   interesting failure lives.</p>
+<div class="flow"><svg viewBox="0 0 1000 348" role="img"
+     aria-label="Two loops side by side. Prompting: you ask, it answers, it is not right so you ask again, and nothing persists. Specifying: the spec and the agent definition produce the work, it is not right so you change a file, and everyone gets it on the next run.">
+  <text x="40" y="26" fill="#0B2545" font-family="Poppins,Futura,'Century Gothic','Avenir Next',Avenir,sans-serif" font-size="16" font-weight="500">Prompting</text>
+  <text x="40" y="46" fill="#5B6E80" font-family="Helvetica,Arial,sans-serif" font-size="12.5">the fix lives in the session and dies with it</text>
+  <rect x="40" y="70" width="384" height="46" rx="3" fill="#F2F6F8" stroke="#DCE4EA"/>
+  <text x="232" y="98" text-anchor="middle" fill="#0B2545" font-family="Poppins,Futura,'Century Gothic','Avenir Next',Avenir,sans-serif" font-size="14.5" font-weight="500">You ask</text>
+  <path d="M232 116 L232 136" stroke="#93B8D4" stroke-width="1.5"/>
+  <rect x="40" y="136" width="384" height="46" rx="3" fill="#F2F6F8" stroke="#DCE4EA"/>
+  <text x="232" y="164" text-anchor="middle" fill="#0B2545" font-family="Poppins,Futura,'Century Gothic','Avenir Next',Avenir,sans-serif" font-size="14.5" font-weight="500">It answers</text>
+  <path d="M232 182 L232 202" stroke="#93B8D4" stroke-width="1.5"/>
+  <rect x="40" y="202" width="384" height="46" rx="3" fill="#F2F6F8" stroke="#DCE4EA"/>
+  <text x="232" y="230" text-anchor="middle" fill="#0B2545" font-family="Poppins,Futura,'Century Gothic','Avenir Next',Avenir,sans-serif" font-size="14.5" font-weight="500">Not right, so you ask again</text>
+  <text x="576" y="26" fill="#1B5C46" font-family="Poppins,Futura,'Century Gothic','Avenir Next',Avenir,sans-serif" font-size="16" font-weight="500">Specifying</text>
+  <text x="576" y="46" fill="#5B6E80" font-family="Helvetica,Arial,sans-serif" font-size="12.5">the fix is a file, and it applies next time</text>
+  <rect x="576" y="70" width="384" height="46" rx="3" fill="#EAF3EE" stroke="#A8D5C0"/>
+  <text x="768" y="98" text-anchor="middle" fill="#1B5C46" font-family="Poppins,Futura,'Century Gothic','Avenir Next',Avenir,sans-serif" font-size="14.5" font-weight="500">The spec and the agent definition</text>
+  <path d="M768 116 L768 136" stroke="#7DBFA3" stroke-width="1.5"/>
+  <rect x="576" y="136" width="384" height="46" rx="3" fill="#EAF3EE" stroke="#A8D5C0"/>
+  <text x="768" y="164" text-anchor="middle" fill="#1B5C46" font-family="Poppins,Futura,'Century Gothic','Avenir Next',Avenir,sans-serif" font-size="14.5" font-weight="500">They produce the work</text>
+  <path d="M768 182 L768 202" stroke="#7DBFA3" stroke-width="1.5"/>
+  <rect x="576" y="202" width="384" height="46" rx="3" fill="#EAF3EE" stroke="#A8D5C0"/>
+  <text x="768" y="230" text-anchor="middle" fill="#1B5C46" font-family="Poppins,Futura,'Century Gothic','Avenir Next',Avenir,sans-serif" font-size="14.5" font-weight="500">Not right, so you change a file</text>
+  <path d="M232 264 L232 300 L22 300 L22 84" stroke="#93B8D4" stroke-width="1.5" fill="none" stroke-dasharray="3 5"/>
+  <path d="M768 264 L768 300 L978 300 L978 84" stroke="#7DBFA3" stroke-width="1.5" fill="none"/>
+  <path d="M973 92 L978 80 L983 92 Z" fill="#7DBFA3"/>
+  <path d="M17 92 L22 80 L27 92 Z" fill="#93B8D4"/>
+  <text x="232" y="330" text-anchor="middle" fill="#5B6E80" font-family="Helvetica,Arial,sans-serif" font-size="12.5">nothing persists</text>
+  <text x="768" y="330" text-anchor="middle" fill="#1B5C46" font-family="Helvetica,Arial,sans-serif" font-size="12.5">and everyone gets it next run</text>
+</svg></div>
 
-<p>It is supposed to absorb the overrun. Teams underestimate what it will take to finish something
-   That is not a character flaw, it is what estimating under uncertainty does, and the fifth
-   sprint is where that lands. Used that way once, it is doing its job. Used that way every cycle,
-   the innovation and the planning never happen, and the estimating does not improve either, because
-   the consequence keeps being absorbed before anyone has to look at it.</p>
+<p>The shift is that when the output is wrong you stop reaching for a better prompt and start
+   changing one of two things: the specification the work was written against, or the definition of
+   the agent that did the work. Both are files. Both are versioned and reviewed like anything else.
+   Both apply on the next run, to everyone, without anybody having to be told.</p>
 
-<p>Without the discipline to change that behavior, teams do not change it. The cadence on its own
-   will not do it for you.</p>
+<p>That is a different skill from prompting, and it is closer to something engineers already know. A
+   bad output is a defect, and a defect has a cause that lives somewhere you can edit. The question
+   stops being <em>how do I ask for this better</em> and becomes <em>which file was wrong, the one
+   describing what I wanted or the one describing who does it</em>.</p>
 
-<h2>Agentic delivery puts a new demand on the same capacity</h2>
+<h2>The problem this creates</h2>
 
-<p>Teams moving to an agentic approach need time to refine their agents and their skills, because
-   that is what improves what the team produces. It is real work and it is not delivery, and it
-   competes for exactly the capacity the overrun has already taken.</p>
+<p>Prompting gives you an answer immediately. Changing a spec or an agent definition does not. You
+   have to run it again to find out whether the change did what you thought, and one run does not
+   tell you much, because the thing you are trying to move is how it behaves rather than what it
+   said once. You want the old version and the new one, on the same work, at the same time.</p>
 
-<p>What engineers in that position will tell you is that they are not being given that capacity.
-   They are right. In a transition you have to give it to them deliberately and say that you are
-   giving it, because the default is that it gets absorbed like everything else.</p>
+<p>That is why teams doing this seriously end up running several branches concurrently rather than
+   one at a time. Git worktrees are the cheapest way in and cost nothing to try. Past that it
+   becomes an environment question, and teams move to hosted development environments that will hand
+   them several isolated copies at once. Either way the change is the same: you are no longer
+   editing code and looking at the result, you are changing an instruction and comparing outcomes.</p>
 
-<p>Where it sits matters less than whether it is real. The fifth sprint is one answer. Spreading it
-   through the program increment is another. What does not work is assuming it will happen in the
-   gaps, because there are no gaps.</p>
+<h2>The question to keep asking</h2>
 
-<h2>The shift this is really asking for</h2>
+<p>Is it producing the outcome you wanted? Not is the code good, and not was the run green. Whether
+   the change you made to the spec or to the agent definition moved the work in the direction you
+   intended, and whether it will keep doing that when somebody else runs it.</p>
 
-<p>The change is bigger than a calendar. Engineers move from writing the code to improving the
-   agents that write it: the design they work to, the coding practices they apply, the unit tests
-   they produce, how the thing gets tested, what gets documented. The output is still code. The work
-   has moved upstream of it.</p>
-
-<p>That is a genuine shift for an engineering team, and people do not arrive at it at the same
-   speed. Someone who has spent a career being good at writing the code is being asked to be good at
-   something next to it, with a longer feedback loop: you do not find out whether the change worked
-   until the next thing the agent produces.</p>
-
-<p>Which is why the capacity question is not really about scheduling. A team told to improve its
-   agents in time it does not have will conclude the organization was not serious, and go back to
-   writing the code, because that, at least, is visibly delivery.</p>
-
-<h2>What to protect</h2>
-
-<p>Not the number, and not the sprint. Ten weeks and five sprints is one arrangement that works.
-   What has to be true is that the time to maintain and improve the agent team is dedicated, named
-   and defended, and that it is not the same time last cycle's overrun is quietly spending.</p>
+<p>Teams that get to this need time for it and most are not given it. Worth saying plainly, because
+   it is where the effort usually stops: refining an agent team is real work that produces nothing
+   shippable that week, so it is the first thing traded away when delivery is late. It is also the
+   thing that decides what every following week produces.</p>
   </article>
 
   <p class="note-foot">Written by John Kelly. If a piece of this does not hold in your
