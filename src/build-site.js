@@ -892,7 +892,9 @@ ${CSS}
       <p class="eyebrow">The problem</p>
       <h2>Everyone is building the same things, separately.</h2>
       <p>The hard part was never the model. It is that almost nothing built with one survives to
-         be used twice.</p>
+         be used twice. The same thing happens inside a single organization, where it is easier to
+         see and harder to excuse:
+         <a class="src" href="/notes/${NOTE.slug}/">why do we have five user APIs</a>.</p>
     </div>
     <div class="cols">
       ${problems.map(([h, b]) => `<div class="col"><div class="rule"></div>
