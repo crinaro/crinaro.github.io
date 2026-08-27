@@ -377,12 +377,13 @@ const NOTE = {
   author: 'John Kelly',
   date: '2026-08-20',
   dateHuman: '20 August 2026',
-  standfirst: 'Nobody ever decided to build the same component five times. It is what a project ' +
-              'view produces when nothing is looking at the whole, and without ownership settled ' +
-              'for the agent teams it gets faster rather than better.',
+  standfirst: 'Nobody ever decided to build the same component five times. Projects have goals, ' +
+              'and maintaining the platform is not one of them, so the system ends up being ' +
+              'whatever the projects left behind.',
   gist: [
     'Deliver the project, or look after the system. The conflict is old, and it has always ' +
-      'resolved the same way, because the project has a date and the system does not.',
+      'resolved the same way, because the project has a goal and a date and the system has ' +
+      'neither.',
     'Agents do not resolve it by themselves. Every agent team is scoped to a component, so an ' +
       'organization that never settled who owns what has taken the brake off rather than slowed ' +
       'anything down.',
@@ -391,11 +392,14 @@ const NOTE = {
 <p>Every organization I have worked in has asked a version of that question, and it is worth
    understanding where it comes from, because it is not incompetence and nobody ever decided it.</p>
 
-<p>Under a project view the architecture ends up being driven by the teams rather than the other way
-   round. A project defines the system it needs, the team stands that system up, and when the
-   project ends the team is left owning the whole of what it touched, because that is what the
-   project defined. Do it again next year with a different project and a different team and you have
-   two.</p>
+<p>We had projects, and a project has a goal. It is funded to deliver that goal, it is measured on
+   that goal, and maintaining the platform underneath is not on the list. That is not a criticism of
+   projects. It is what a project is for.</p>
+
+<p>So the project defines the system it needs in order to reach its goal, the team stands that
+   system up, and when the project ends the team is left owning the whole of what it touched,
+   because that is what got defined. Run another one next year, with a different goal and a
+   different team, and you have two.</p>
 
 <div class="flow"><svg viewBox="0 0 1000 336" role="img"
      aria-label="Three projects, each building its own slice of the system. Each slice contains a User API, so the same component exists three times. Nobody decided that.">
