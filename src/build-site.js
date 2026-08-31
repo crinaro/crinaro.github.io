@@ -675,24 +675,133 @@ const NOTE_SKILL = {
 `,
 };
 
+// Split 2026-08-26. The boundary note was 1,084 words and two messages: where
+// the machinery lives, and what crosses between the two repositories. This is
+// the first.
 const NOTE_BOUNDARY = {
   slug: 'the-repository-boundary',
-  title: 'Two repositories, and the traffic between them',
+  title: 'The team that maintains it is not the product',
   author: 'John Kelly',
   date: '2026-08-24',
   dateHuman: '24 August 2026',
-  standfirst: 'The agent team that maintains a product, and the decisions taken to make that team ' +
-              'work, are not part of the product. That is the reason for two repositories. The ' +
-              'interesting part is what has to cross between them.',
+  standfirst: 'A public repository is a product. The roster, the decisions and the work in flight ' +
+              'are machinery addressed to maintainers, and a reader who finds them acts on the ' +
+              'wrong document.',
+  gist: [
+    'This is not about secrecy. Two repositories that are both private need the same split, ' +
+      'because a maintainer\'s rulebook read by another division becomes policy it was never ' +
+      'meant to be.',
+    'Publishing a tree rather than a history is what makes it hold, and it answers the leak ' +
+      'problem by never creating it.',
+  ],
   body: `
-<p>A public repository is a product. Someone installs what is in it and runs it. The agent team
-   that maintains that product, the roster saying which agent owns what, and the architecture
-   decisions taken to make the team work at all: none of that is the product. It is machinery,
-   addressed to maintainers, and a user who reads it acts on the wrong document.</p>
+<p>A public repository is a product. Someone installs what is in it and runs it. The agent team that
+   maintains that product, the roster saying which agent owns what, and the architecture decisions
+   taken to make the team work at all: none of that is the product. It is machinery, addressed to
+   maintainers, and a user who reads it acts on the wrong document.</p>
 
-<p>That is the reason for two repositories, and it comes before any argument about history or
-   leaks. The private one is where the team lives and where the reasoning is kept. The public one
-   is what a user installs. A publish step moves the second out of the first.</p>
+<h2>It is not about secrecy</h2>
+
+<p>Nothing in that reason turns on either repository being secret. The maintainer's material is not
+   separated because it is sensitive. It is separated because it is addressed to somebody else, and
+   a document that reaches the wrong reader does damage whether or not it was ever confidential.</p>
+
+<p>Which is why the same split appears between two repositories that are both private. Inside an
+   organization the outer one is internal in the ordinary sense: every engineer can read it, and it
+   is where a consuming team goes to install a component and report a defect. The inner one belongs
+   to the team that maintains the component. Neither is secret from anyone who works there. The
+   split is still worth having, because a maintainer's rulebook read by another division becomes
+   policy it was never meant to be, and a half-finished design read as a settled one is worse than
+   no document at all.</p>
+
+<h2>Publishing is a filter, not a branch</h2>
+
+<p>The step that makes it hold is that publishing writes a tree rather than a history. Each release
+   lands as a single commit carrying the current published set, at the same paths the files occupy
+   in private, so a link that resolves in one resolves in the other.</p>
+
+<div class="flow"><svg viewBox="0 0 1000 340" role="img"
+     aria-label="A private repository holds every version it ever had, including a design record that was added and later deleted, still fetchable from the log. The public repository holds one commit per release, each carrying the whole current tree and nothing before it, so the deleted file was never there at all.">
+  <text x="150" y="62" text-anchor="end" fill="#5B6E80" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="11" letter-spacing="1.2">PRIVATE</text>
+  <path d="M180 62 L960 62" stroke="#93B8D4" stroke-width="1.5"/>
+  <circle cx="180" cy="62" r="4.5" fill="#93B8D4" stroke="#0B2545" stroke-width="0"/>
+  <circle cx="276" cy="62" r="4.5" fill="#93B8D4" stroke="#0B2545" stroke-width="0"/>
+  <circle cx="372" cy="62" r="6" fill="#FFFFFF" stroke="#0B2545" stroke-width="1.6"/>
+  <path d="M372 70 L372 88" stroke="#B9C6D0" stroke-width="1" stroke-dasharray="3 4"/>
+  <text x="372" y="104" text-anchor="middle" fill="#0B2545" font-family="Helvetica,Arial,sans-serif" font-size="12.5">design record added</text>
+  <circle cx="468" cy="62" r="4.5" fill="#93B8D4" stroke="#0B2545" stroke-width="0"/>
+  <circle cx="564" cy="62" r="6" fill="#FFFFFF" stroke="#0B2545" stroke-width="1.6"/>
+  <path d="M564 70 L564 88" stroke="#B9C6D0" stroke-width="1" stroke-dasharray="3 4"/>
+  <text x="564" y="104" text-anchor="middle" fill="#0B2545" font-family="Helvetica,Arial,sans-serif" font-size="12.5">and deleted</text>
+  <circle cx="660" cy="62" r="4.5" fill="#93B8D4" stroke="#0B2545" stroke-width="0"/>
+  <circle cx="756" cy="62" r="4.5" fill="#93B8D4" stroke="#0B2545" stroke-width="0"/>
+  <circle cx="852" cy="62" r="4.5" fill="#93B8D4" stroke="#0B2545" stroke-width="0"/>
+  <circle cx="948" cy="62" r="4.5" fill="#93B8D4" stroke="#0B2545" stroke-width="0"/>
+  <text x="180" y="132" fill="#5B6E80" font-family="Helvetica,Arial,sans-serif" font-size="12.5">every version it ever held, still fetchable from the log</text>
+  <text x="150" y="220" text-anchor="end" fill="#1B5C46" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="11" letter-spacing="1.2">PUBLIC</text>
+  <path d="M180 220 L960 220" stroke="#7DBFA3" stroke-width="1.5"/>
+  <circle cx="310" cy="220" r="7" fill="#EAF3EE" stroke="#1B5C46" stroke-width="1.6"/>
+  <path d="M310 228 L310 246" stroke="#A8D5C0" stroke-width="1"/>
+  <text x="310" y="262" text-anchor="middle" fill="#1B5C46" font-family="${HEAD_SVG}" font-size="14" font-weight="500">One commit</text>
+  <text x="310" y="280" text-anchor="middle" fill="#5B6E80" font-family="Helvetica,Arial,sans-serif" font-size="12">the whole current tree</text>
+  <circle cx="570" cy="220" r="7" fill="#EAF3EE" stroke="#1B5C46" stroke-width="1.6"/>
+  <path d="M570 228 L570 246" stroke="#A8D5C0" stroke-width="1"/>
+  <text x="570" y="262" text-anchor="middle" fill="#1B5C46" font-family="${HEAD_SVG}" font-size="14" font-weight="500">One commit</text>
+  <text x="570" y="280" text-anchor="middle" fill="#5B6E80" font-family="Helvetica,Arial,sans-serif" font-size="12">the whole current tree</text>
+  <circle cx="830" cy="220" r="7" fill="#EAF3EE" stroke="#1B5C46" stroke-width="1.6"/>
+  <path d="M830 228 L830 246" stroke="#A8D5C0" stroke-width="1"/>
+  <text x="830" y="262" text-anchor="middle" fill="#1B5C46" font-family="${HEAD_SVG}" font-size="14" font-weight="500">One commit</text>
+  <text x="830" y="280" text-anchor="middle" fill="#5B6E80" font-family="Helvetica,Arial,sans-serif" font-size="12">the whole current tree</text>
+  <text x="180" y="192" fill="#5B6E80" font-family="Helvetica,Arial,sans-serif" font-size="12.5">one per release, and nothing before it</text>
+  <text x="570" y="322" text-anchor="middle" fill="#0B2545" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="11.5" letter-spacing="1.2">DELETED IN PRIVATE. NEVER HELD IN PUBLIC.</text>
+</svg></div>
+
+<p>That answers a problem most people meet the hard way, by never creating it. A repository keeps
+   every blob it has ever held, so deleting a file at the head does not remove the version you
+   deleted: anyone who can clone can still fetch it. Publishing a tree means the public repository
+   never held the blob at all. Not "no longer holds". Never held.</p>
+
+<p>The same reasoning rules out the arrangement that looks safest and is not, a private branch and a
+   public branch inside one repository. Branches are not isolation. They share a single object
+   store, and a blob committed on either is fetchable from the whole thing.</p>
+
+<p>The corollary is that nobody works in the public repository. Its history is a publish log. A hand
+   edit there is a defect twice over: it is a change no gate reviewed, and the next publish will
+   silently revert it. If a fix belongs there, it belongs in the generator that produces it.</p>
+
+<p>None of that is free, and it is worth being honest that the split creates most of the work. What
+   it buys is narrow and worth having: what a user installs is the product and only the product, and
+   everything said about how it is built stays where it was said.</p>
+`,
+  next: ['crossing-the-boundary', 'The direction people forget',
+         'Publishing is the easy direction. What comes back the other way is the harder problem, ' +
+         'and it is the one most designs leave open.'],
+};
+
+// Second of the two. The traffic, and the asymmetry that is the whole point.
+const NOTE_CROSSING = {
+  slug: 'crossing-the-boundary',
+  title: 'The direction people forget',
+  author: 'John Kelly',
+  date: '2026-08-26',
+  dateHuman: '26 August 2026',
+  standfirst: 'The front door is public and the work is private, so reports have to cross inward. ' +
+              'Everyone guards the outbound direction. The inbound one carries text an agent will ' +
+              'read as instructions.',
+  gist: [
+    'A report arrives where somebody found the problem. The team that can fix it works somewhere ' +
+      'else, and the fix has to arrive back as a release.',
+    'Every arrow across that boundary crosses a trust domain, and the two directions are not ' +
+      'symmetric. A design that guards only one has guarded the easy one.',
+  ],
+  body: `
+<p>Publishing is the easy direction. The harder problem is that the front door is public and the
+   work is private.</p>
+
+<p>Someone who installed a plugin reports a defect where they found it, on the public repository.
+   That is correct, and they should not have to know anything about how the thing is maintained. But
+   the team that can fix it works in the private repository, often against real data, and the fix has
+   to arrive back on the public side as a release.</p>
 
 <div class="flow"><svg viewBox="0 0 1000 396" role="img"
      aria-label="Two repositories. The private one holds the agent team, the decisions and the work in flight. The public one holds only what a user installs. Publishing sends one commit outward carrying the current tree. Mirroring sends reports inward only. Acknowledging a reporter is a separate outward step.">
@@ -727,106 +836,33 @@ const NOTE_BOUNDARY = {
   <text x="64" y="362" text-anchor="start" fill="#5B6E80" font-family="Helvetica,Arial,sans-serif" font-size="12.5">A separate, deliberate step. Posting outward is never a side effect of reading in.</text>
 </svg></div>
 
-<h2>It is not about secrecy</h2>
+<p>So reports are mirrored across: read public, write private, one direction, with nothing in that
+   path able to push private content outward. That constraint is what makes it safe to run
+   unattended. Acknowledging the reporter on the public thread is a separate, deliberate step,
+   because posting outward is a different act from reading inward and should never be a side effect
+   of a mirror.</p>
 
-<p>Nothing in that reason turns on either repository being secret. The maintainer's material is
-   not separated because it is sensitive. It is separated because it is addressed to somebody
-   else, and a document that reaches the wrong reader does damage whether or not it was ever
-   confidential.</p>
-
-<p>Which is why the same split appears between two repositories that are both private. Inside an
-   organization the outer one is internal in the ordinary sense: every engineer in the company can
-   read it, and it is where a consuming team goes to install a component, read its documentation
-   and report a defect. The inner one belongs to the team that maintains the component, and holds
-   the agent roster, the decisions behind it, and the work in flight. Neither is secret from
-   anyone who works there. The split is still worth having.</p>
-
-<p>The reason to separate them does not change. A maintainer's rulebook is addressed to
-   maintainers. An engineer in another division who finds it reads it as guidance and acts on it,
-   and a decision taken for one team is now loose in the organization as though it were policy.
-   The same goes for in-flight state: a half-finished design read as a settled one is worse than
-   no document, because it carries the authority of the team that owns the component.</p>
-
-<p>Every mechanism below applies unchanged. Only the word “public” moves, and it moves to
-   “everyone at work”, which for an internal component is the audience that will actually install
-   the thing and file the tickets.</p>
-
-<h2>Publishing is a filter, not a branch</h2>
-
-<p>The step that matters is that publishing writes a tree rather than a history. Each release
-   lands as a single commit carrying the current published set, at the same paths the files
-   occupy in private, so a link that resolves in one resolves in the other.</p>
-
-<p>That also answers a problem most people meet the hard way. A repository keeps every blob it has
-   ever held, so deleting a file at the head does not remove the version you deleted: anyone who
-   can clone can still fetch it. Publishing a tree rather than a history means the public
-   repository never held the blob at all. Not “no longer holds”. Never held. The same reasoning
-   rules out the arrangement that looks safest and is not, a private branch and a public branch
-   inside one repository, where both share a single object store and a blob committed on either
-   is fetchable from the whole thing.</p>
-
-<p>The corollary is that nobody works in the public repository. Its history is a publish log. A
-   hand edit there is a defect twice over: it is a change no gate reviewed, and the next publish
-   will silently revert it.</p>
-
-<h2>The traffic that actually matters</h2>
-
-<p>Publishing is the easy direction. The harder problem is that the front door is public and the
-   work is private.</p>
-
-<p>Someone who installed a plugin reports a defect where they found it, on the public repository.
-   That is correct, and they should not have to know anything about how the thing is maintained.
-   But the team that can fix it works in the private repository, often against real data, and the
-   fix has to arrive back on the public side as a release.</p>
-
-<p>So reports are mirrored across the boundary: read public, write private, one direction, with
-   nothing in that path able to push private content outward. That constraint is what makes it
-   safe to run unattended. Acknowledging the reporter on the public thread is a separate,
-   deliberate step, because posting outward is a different act from reading inward and should
-   never be a side effect of a mirror.</p>
-
-<p>Filing runs the same way from the inside. A request against the team that owns a capability is
-   an issue on that team's repository, which is the private one, and the tool that files it
-   refuses outright when the target is public. A public issue is permanent, the scan that would
-   catch a leak is a pattern match, and a pattern match cannot see an employer's name inside a
-   URL slug. It also never files partially: either an issue URL comes back or a refusal does,
-   with a non-zero exit. A printed report is not a filed report.</p>
+<p>Filing runs the same way from the inside. A request against the team that owns a capability is an
+   issue on that team's repository, which is the private one, and the tool that files it refuses
+   outright when the target is public. A public issue is permanent, the scan that would catch a leak
+   is a pattern match, and a pattern match cannot see an employer's name inside a URL slug. It also
+   never files partially: either an issue URL comes back or a refusal does, with a non-zero exit. A
+   printed report is not a filed report.</p>
 
 <h2>The direction people forget</h2>
 
-<p>Every arrow crossing that boundary crosses a trust domain, and the two are not symmetric.
-   Outbound risks publishing something that should not have left, and everybody can picture that
-   failure. Inbound risks importing text that an agent will read as instructions.</p>
+<p>Every arrow crossing that boundary crosses a trust domain, and the two directions are not
+   symmetric. Outbound risks publishing something that should not have left, and everybody can
+   picture that failure. Inbound risks importing text that an agent will read as instructions.</p>
 
 <p>A mirrored issue body is written by anyone with an account, and it lands in a repository where
    agents read issues and act on them. So it is carried across fenced and labeled as
-   reporter-supplied data. An agent acting on “please run X” found inside an issue body is
-   executing a stranger's instructions. A design that guards only one direction has guarded the
-   easy one.</p>
-
-<h2>What it costs, and what it buys</h2>
-
-<p>Two repositories, a publish step, a mirror, and a filing tool that refuses more often than it
-   files. That is real work, and it is worth being honest that the split creates most of it. What
-   it buys is narrow and worth having: what a user installs is the product and only the product,
-   and everything said about how it is built stays where it was said.</p>
-
-<p>Every cheaper arrangement gives one of those up somewhere. The place it gives it up is usually
-   not visible until somebody else finds it.</p>
+   reporter-supplied data. An agent acting on <em>please run X</em> found inside an issue body is
+   executing a stranger's instructions. A design that guards only one direction has guarded the easy
+   one, and outbound is the easy one, because it is the one everybody already imagines.</p>
 `,
 };
 
-// Rewritten 2026-08-26. It used to argue about sprint time and the buffer that
-// gets spent, which is a scheduling point. John: the real shift for engineers is
-// method rather than calendar. You move from a prompt-style approach to a
-// spec-driven one, you change the spec or the agent definition rather than the
-// prompt, and validating a change means running several branches at once, which
-// is where worktrees come in.
-//
-// The tooling is named as a capability rather than a vendor. John said "coder".
-// Git worktrees is a git primitive and safe to name; a hosted development
-// environment is a category. A product name in a note decays on that product's
-// schedule, which is the AI-SDLC pack's item 1 and good practice anyway.
 const NOTE_CADENCE = {
   slug: 'improving-the-agents',
   title: 'From prompting to specifying',
@@ -1184,7 +1220,7 @@ ${CSS}
 
 fs.writeFileSync(path.join(DIST, 'index.html'), html);
 
-const NOTES = [NOTE, NOTE_HOP, NOTE_SKILL, NOTE_CADENCE, NOTE_BOUNDARY];
+const NOTES = [NOTE, NOTE_HOP, NOTE_SKILL, NOTE_BOUNDARY, NOTE_CROSSING, NOTE_CADENCE];
 
 // Shared by the article pages and the index. Extracted 2026-08-24 when /notes/
 // became real: two pages carrying two copies of the same <head> is how one of
