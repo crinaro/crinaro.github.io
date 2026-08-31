@@ -890,16 +890,39 @@ const NOTE_CADENCE = {
 
 <h2>The problem this creates</h2>
 
-<p>Prompting gives you an answer immediately. Changing a spec or an agent definition does not. You
-   have to run it again to find out whether the change did what you thought, and one run does not
-   tell you much, because the thing you are trying to move is how it behaves rather than what it
-   said once. You want the old version and the new one, on the same work, at the same time.</p>
+<p>Prompting answers immediately. Changing a spec or an agent definition does not, because what you
+   are moving is how it behaves rather than what it said once, and one run tells you little. You want
+   the old version and the new one on the same work at the same time.</p>
 
-<p>That is why teams doing this seriously end up running several branches concurrently rather than
-   one at a time. Git worktrees are the cheapest way in and cost nothing to try. Past that it
-   becomes an environment question, and teams move to hosted development environments that will hand
-   them several isolated copies at once. Either way the change is the same: you are no longer
-   editing code and looking at the result, you are changing an instruction and comparing outcomes.</p>
+<p>How you run them depends on what you changed, and it is a fork rather than a ladder. I had it as
+   a ladder until somebody corrected me.</p>
+
+<p>Change a <b>spec</b> and two working directories of one clone is right: one repository, two
+   directories, already comparing against a shared base.</p>
+
+<p>Change an <b>agent definition</b> and that shape tells you nothing. Two working directories are
+   one machine, so everything at the machine level, your environment, your tools, your authenticated
+   connections, is shared between the arms and cannot be varied. A change whose effect depends on any
+   of it reads as <em>no effect</em>. You need two environments, two machines or two workspaces in a
+   remote one, so that tier becomes something you can move. The bill is that a shared constant is now
+   a per-arm variable somebody has to equalize on purpose.</p>
+
+<h2>Two things to do before you believe the result</h2>
+
+<p><b>Freeze the task before you write the change.</b> A task picked afterwards is one the change
+   happens to help, and nothing in either run will show you that.</p>
+
+<p><b>Run an identical pair first.</b> Same task, same procedure, no change between the arms. If two
+   identical arms differ about as much as two different arms did, the method has no resolution on
+   that task and any verdict from it is noise. <em>Cannot tell</em> has to be an answer you are
+   willing to record, or you will only ever get the answer you went looking for.</p>
+
+<p>Two smaller ones, and neither is a control. Run the arms close together and note when each ran,
+   because the model can move underneath a stable name between them, and that is the one difference
+   nobody can find afterwards. Read the results without knowing which is which, if you can. The
+   timing note bounds how much drift could explain rather than removing it, and where one person
+   writes the change and reads the results, which is most of the time, reading blind is not available
+   at all.</p>
 
 <h2>The question to keep asking</h2>
 
@@ -907,10 +930,15 @@ const NOTE_CADENCE = {
    the change you made to the spec or to the agent definition moved the work in the direction you
    intended, and whether it will keep doing that when somebody else runs it.</p>
 
-<p>Teams that get to this need time for it and most are not given it. Worth saying plainly, because
-   it is where the effort usually stops: refining an agent team is real work that produces nothing
-   shippable that week, so it is the first thing traded away when delivery is late. It is also the
-   thing that decides what every following week produces.</p>
+<p>None of that is a way of knowing it did. It is a way of finding out, and the difference matters:
+   it ranks two arms and measures neither, it is one run each at unknown resolution, and it is
+   manual, so it cannot run on every change. I have not seen a verdict produced this way, mine or
+   anybody's. What it does prevent is changing a file, liking the next answer, and calling that
+   evidence.</p>
+
+<p>Teams that get here need time for it and most are not given it. Refining an agent team produces
+   nothing shippable that week, so it is the first thing traded away when delivery is late. It is
+   also the thing that decides what every following week produces.</p>
 `,
 };
 
