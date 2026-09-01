@@ -2,10 +2,10 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://crinaro.ai/</loc><changefreq>monthly</changefreq></url>
   <url><loc>https://crinaro.ai/notes/</loc><changefreq>monthly</changefreq></url>
-  <url><loc>https://crinaro.ai/notes/aligning-teams/</loc><lastmod>2026-08-20</lastmod></url>
+  <url><loc>https://crinaro.ai/notes/five-user-apis/</loc><lastmod>2026-08-20</lastmod></url>
   <url><loc>https://crinaro.ai/notes/the-last-hop/</loc><lastmod>2026-08-22</lastmod></url>
   <url><loc>https://crinaro.ai/notes/shared-skills/</loc><lastmod>2026-08-25</lastmod></url>
-  <url><loc>https://crinaro.ai/notes/the-repository-boundary/</loc><lastmod>2026-08-24</lastmod></url>
-  <url><loc>https://crinaro.ai/notes/crossing-the-boundary/</loc><lastmod>2026-08-26</lastmod></url>
-  <url><loc>https://crinaro.ai/notes/improving-the-agents/</loc><lastmod>2026-08-26</lastmod></url>
+  <url><loc>https://crinaro.ai/notes/coaching-is-a-file/</loc><lastmod>2026-08-24</lastmod></url>
+  <url><loc>https://crinaro.ai/notes/the-direction-people-forget/</loc><lastmod>2026-08-26</lastmod></url>
+  <url><loc>https://crinaro.ai/notes/prompting-to-specifying/</loc><lastmod>2026-08-26</lastmod></url>
 </urlset>

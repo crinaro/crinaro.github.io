@@ -368,7 +368,7 @@ const CSS = `${FONTS}
 // same shape — a challenge that is not new, and what an agentic model changes
 // about it. This is the first of the three that note was carrying.
 const NOTE = {
-  slug: 'aligning-teams',
+  slug: 'five-user-apis',
   series: 'ownership',
   part: 1,
   next: ['the-last-hop', 'The last hop nobody wrote down',
@@ -689,7 +689,7 @@ const NOTE_SKILL = {
 // because it was secret but because it was not a thing: it lived in a review
 // comment and in what somebody said in a design meeting. That is what changed.
 const NOTE_BOUNDARY = {
-  slug: 'the-repository-boundary',
+  slug: 'coaching-is-a-file',
   series: 'boundary',
   part: 1,
   title: 'Coaching is a file now',
@@ -793,14 +793,14 @@ const NOTE_BOUNDARY = {
 <p>The corollary is that nobody works in the public repository. Its history is a publish log, and a
    hand edit there is a change no gate reviewed that the next publish will silently revert.</p>
 `,
-  next: ['crossing-the-boundary', 'The direction people forget',
+  next: ['the-direction-people-forget', 'The direction people forget',
          'Publishing is the easy direction. What comes back the other way is the harder problem, ' +
          'and it is the one most designs leave open.'],
 };
 
 // Second of the two. The traffic, and the asymmetry that is the whole point.
 const NOTE_CROSSING = {
-  slug: 'crossing-the-boundary',
+  slug: 'the-direction-people-forget',
   series: 'boundary',
   part: 2,
   title: 'The direction people forget',
@@ -888,7 +888,7 @@ const NOTE_CROSSING = {
 };
 
 const NOTE_CADENCE = {
-  slug: 'improving-the-agents',
+  slug: 'prompting-to-specifying',
   title: 'From prompting to specifying',
   author: 'John Kelly',
   date: '2026-08-26',
