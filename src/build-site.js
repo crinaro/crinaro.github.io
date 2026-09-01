@@ -369,6 +369,7 @@ const CSS = `${FONTS}
 // about it. This is the first of the three that note was carrying.
 const NOTE = {
   slug: 'aligning-teams',
+  series: 'ownership',
   part: 1,
   next: ['the-last-hop', 'The last hop nobody wrote down',
          'Ownership settles who answers for a component. The next piece is about the work of ' +
@@ -474,6 +475,7 @@ const NOTE = {
 // chain drawn.
 const NOTE_HOP = {
   slug: 'the-last-hop',
+  series: 'ownership',
   part: 2,
   next: ['shared-skills', 'A shared skill is not a consistency mechanism',
          'Decomposition gets the work to the right teams. It does nothing about several teams ' +
@@ -589,6 +591,7 @@ const NOTE_HOP = {
 // the premise, which made it better material than the question was.
 const NOTE_SKILL = {
   slug: 'shared-skills',
+  series: 'ownership',
   part: 3,
   title: 'A shared skill is not a consistency mechanism',
   author: 'John Kelly',
@@ -687,6 +690,8 @@ const NOTE_SKILL = {
 // comment and in what somebody said in a design meeting. That is what changed.
 const NOTE_BOUNDARY = {
   slug: 'the-repository-boundary',
+  series: 'boundary',
+  part: 1,
   title: 'Coaching is a file now',
   author: 'John Kelly',
   date: '2026-08-24',
@@ -796,6 +801,8 @@ const NOTE_BOUNDARY = {
 // Second of the two. The traffic, and the asymmetry that is the whole point.
 const NOTE_CROSSING = {
   slug: 'crossing-the-boundary',
+  series: 'boundary',
+  part: 2,
   title: 'The direction people forget',
   author: 'John Kelly',
   date: '2026-08-26',
@@ -851,6 +858,8 @@ const NOTE_CROSSING = {
   <text x="64" y="362" text-anchor="start" fill="#5B6E80" font-family="Helvetica,Arial,sans-serif" font-size="12.5">A separate, deliberate step. Posting outward is never a side effect of reading in.</text>
 </svg></div>
 
+<h2>What the inward path has to guarantee</h2>
+
 <p>So reports are mirrored across: read public, write private, one direction, with nothing in that
    path able to push private content outward. That constraint is what makes it safe to run
    unattended. Acknowledging the reporter on the public thread is a separate, deliberate step,
@@ -864,7 +873,7 @@ const NOTE_CROSSING = {
    never files partially: either an issue URL comes back or a refusal does, with a non-zero exit. A
    printed report is not a filed report.</p>
 
-<h2>The direction people forget</h2>
+<h2>Inbound is the one that carries instructions</h2>
 
 <p>Every arrow crossing that boundary crosses a trust domain, and the two directions are not
    symmetric. Outbound risks publishing something that should not have left, and everybody can
@@ -1261,8 +1270,14 @@ const noteHead = (title, desc, url) => `<!doctype html>
 // The three-part argument in reading order, then everything else newest first.
 // Sorting the whole list by date publishes a sequence backwards, which is how
 // the payoff ended up first and the setup last.
-const series = NOTES.filter(n => n.part).sort((a, b) => a.part - b.part);
-const standalone = NOTES.filter(n => !n.part).sort((a, b) => b.date.localeCompare(a.date));
+// A note declares its series and its place in it. Anything without one is
+// standalone. Adding a series means adding a heading here and nothing else.
+const SERIES = [
+  ['ownership', 'The argument, in three parts'],
+  ['boundary',  'Two repositories, in two parts'],
+];
+const seriesOf = k => NOTES.filter(n => n.series === k).sort((a, b) => a.part - b.part);
+const standalone = NOTES.filter(n => !n.series).sort((a, b) => b.date.localeCompare(a.date));
 
 fs.mkdirSync(path.join(DIST, 'notes'), { recursive: true });
 fs.writeFileSync(path.join(DIST, 'notes', 'index.html'), `${noteHead(
@@ -1300,13 +1315,15 @@ ${CSS}
   <h1>Notes</h1>
   <p class="standfirst">If your organization has ended up with several systems doing the same
      thing, and nobody can point at the decision that caused it, the first three of these are one
-     argument about why that happens and what an agentic model changes about it.</p>
-  <p class="series-head">The argument, in three parts</p>
-  ${series.map((n, i) => `<div class="entry">
+     argument about why that happens and what an agentic model changes about it. The two after them
+   are about where the agent team itself lives, and what has to cross between there and whatever
+   you publish.</p>
+  ${SERIES.map(([key, head]) => `<p class="series-head">${head}</p>
+  ` + seriesOf(key).map((n, i) => `<div class="entry">
     <time datetime="${n.date}">Part ${i + 1}</time>
     <h2><a href="/notes/${n.slug}/">${n.title}</a></h2>
     <p>${n.standfirst}</p>
-  </div>`).join('\n  ')}
+  </div>`).join('\n  ')).join('\n  ')}
   <p class="series-head">On their own</p>
   ${standalone.map(n => `<div class="entry">
     <time datetime="${n.date}">${n.dateHuman}</time>
