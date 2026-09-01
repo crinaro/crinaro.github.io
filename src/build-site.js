@@ -466,14 +466,21 @@ const NOTE = {
 
 <h2>What agents change, and it is not what people expect</h2>
 
-<p>This is the part I would not treat as history. Agents do not fix an ownership model and they
-   do not break one. They amplify whichever one you already have, so the question is only ever which
-   one that is. Where ownership is settled, that is a good thing. Where it is not, the failure does
-   not merely continue. It speeds up. Every agent team is scoped to a component,
-   so an organization that has never said which team owns what has not slowed anything down. It has
-   taken the brake off: a team that cannot reach an existing owner builds its own, and the cost of
-   building its own has collapsed. The conditions that produced five user APIs are unchanged. What
-   has changed is how quickly they can produce the next five.</p>
+<p>This is the part I would not treat as history. Agents do not fix an ownership model and they do
+   not break one. They amplify whichever one you already have, so the question is only ever which
+   one that is.</p>
+
+<p>And the amplification is not even-handed, which is the part worth sitting with. A team that needs
+   a component changed has two ways to get it. Ask the team that owns it, or build its own. Both
+   just got cheaper to do. Only the first still ends in front of somebody who can say no, because
+   the review standing between a team and its own second copy sits inside the team that wants it,
+   run by the people taking the cheaper option today rather than by whoever carries the bill later.</p>
+
+<p>So what was holding the estate's shape was never only the architecture. It was partly how much
+   any one project could afford to build for itself, and that is the part agents relax. The
+   conditions that produced five user APIs are unchanged. What has changed is how quickly they can
+   produce the next five, and nothing in that mechanism prefers a good ownership model to a bad
+   one.</p>
 
 <p>Set up the other way, the same property is the fix. A team that owns an asset and expects to
    still be answerable for it next quarter behaves differently from a team assembled around an
@@ -1112,8 +1119,8 @@ ${CSS}
     </div>
     <div class="principles">
       <p class="principle"><b>Optimize for the platform, not the project.</b>
-        <span>An agent configuration scoped to one request will hit that request's goal and raise
-        the cost of maintaining everything it touched.
+        <span>An agent configuration scoped to one request will hit that request's goal. What it
+        costs after that is paid by everyone, on every run, and only a deliberate act removes it.
         <a class="src" href="/notes/${NOTE.slug}/">${NOTE.title}</a></span></p>
       <p class="principle"><b>Assign ownership at the component level.</b>
         <span>Agent teams aligned to components support the velocity an organization needs and drive
@@ -1123,8 +1130,11 @@ ${CSS}
         <span>Getting ownership right contains it. Removing what already exists is remediation work,
         and it does not happen inside the project that noticed it.</span></p>
       <p class="principle"><b>Assume agents amplify whatever ownership model you already have.</b>
-        <span>Duplication was always easy for a project team to create. Agents make it faster, so a
-        model that used to be merely expensive becomes the thing that decides the outcome.</span></p>
+        <span>Both paths get cheaper: asking the team that owns a component to change it, and
+        building your own second copy. Only the first still ends in front of somebody who can say
+        no. What held the estate's shape was partly how much any one project could afford to build
+        for itself, and that is the part agents relax.
+        <a class="src" href="/notes/${NOTE.slug}/">${NOTE.title}</a></span></p>
       <p class="principle"><b>Define success as flat or declining maintenance cost as scale
         increases.</b>
         <span>Not project completion. That is the number this is all aimed at, and the one nobody
