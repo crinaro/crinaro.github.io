@@ -16,6 +16,17 @@ const LOGO = path.join(__dirname, 'logo', 'ai');
 const DIST = path.join(__dirname, '..');   // repo root — Pages serves from here
 fs.mkdirSync(DIST, { recursive: true });
 
+// Directories whose MEMBERSHIP this script decides, cleared before they are
+// rebuilt. Without this the build only ever creates and overwrites, so a
+// renamed note leaves its old directory behind in dist, and deploy-site.sh then
+// copies that stale directory back over the public tree it had just wiped. The
+// deploy's wipe was written to stop a retired path living forever and could not,
+// because the staleness was arriving from this side. Four retired note URLs
+// stayed live on 2026-08-26 for exactly that reason.
+for (const owned of ['notes', 'icons']) {
+  fs.rmSync(path.join(DIST, owned), { recursive: true, force: true });
+}
+
 // SVG <text> does not inherit the page's --head, it carries its own stack, and
 // the shipped lockups name Futura first. Inlined into a page that embeds
 // Poppins, that meant the CSS headings got the webfont while the WORDMARK ITSELF
