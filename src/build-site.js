@@ -228,6 +228,15 @@ const verticals = [
 // second page cannot fork the palette — a duplicated :root is exactly the kind
 // of drift check-contrast.js and check-drift.sh exist to catch after the fact.
 const CSS = `${FONTS}
+  .principles { counter-reset:pr; margin:2.6rem 0 0; }
+  .principle { counter-increment:pr; position:relative; padding-left:2.6rem;
+               margin:0 0 1.7rem; max-width:44rem; }
+  .principle::before { content:counter(pr); position:absolute; left:0; top:.15rem;
+                       font-family:var(--mono); font-size:.78rem; color:var(--green);
+                       letter-spacing:.06em; }
+  .principle b { color:var(--ink); font-weight:500; font-family:var(--head); }
+  .principle span { display:block; color:var(--ink-2); margin-top:.3rem; }
+
   /* The brand commits to one visual world — navy and paper — rather than
      following the viewer's theme. Every ground is painted explicitly. */
   :root {
@@ -457,8 +466,10 @@ const NOTE = {
 
 <h2>What agents change, and it is not what people expect</h2>
 
-<p>This is the part I would not treat as history. Without ownership settled for the agent teams,
-   that failure does not merely continue. It speeds up. Every agent team is scoped to a component,
+<p>This is the part I would not treat as history. Agents do not fix an ownership model and they
+   do not break one. They amplify whichever one you already have, so the question is only ever which
+   one that is. Where ownership is settled, that is a good thing. Where it is not, the failure does
+   not merely continue. It speeds up. Every agent team is scoped to a component,
    so an organization that has never said which team owns what has not slowed anything down. It has
    taken the brake off: a team that cannot reach an existing owner builds its own, and the cost of
    building its own has collapsed. The conditions that produced five user APIs are unchanged. What
@@ -479,6 +490,12 @@ const NOTE = {
    perfectly good yes, and forcing one canonical model is its own well-documented mistake. If the
    answer is no, the duplicate is not the problem. It is where the problem became visible. What I
    object to is the case where nobody asked.</p>
+
+<p>One thing this does not do, and it matters more than it looks. Getting ownership right contains
+   the problem: it stops the sixth user API being created without anybody deciding to. It does not
+   remove the five you already have. That is remediation, it is its own funded work, and it will not
+   happen inside the project that noticed it, because that project has a goal and this is not it.
+   Anybody telling you the alignment fixes what you already built is selling you something.</p>
 `,
 };
 
@@ -1081,6 +1098,37 @@ ${CSS}
       <p>Crinaro is a ridge line, from the Italian <i>crinale</i>: the crest path where you can
          see down both sides. That is the method. Stand where the whole system is visible, then
          design end to end, rather than improving one step and moving the cost somewhere else.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="head narrow">
+      <p class="eyebrow">What follows from it</p>
+      <h2>Five principles for designing agent teams.</h2>
+      <p>These are the whole argument. Everything below is one of them worked out at length, and
+         each links to where.</p>
+    </div>
+    <div class="principles">
+      <p class="principle"><b>Optimize for the platform, not the project.</b>
+        <span>An agent configuration scoped to one request will hit that request's goal and raise
+        the cost of maintaining everything it touched.
+        <a class="src" href="/notes/${NOTE.slug}/">${NOTE.title}</a></span></p>
+      <p class="principle"><b>Assign ownership at the component level.</b>
+        <span>Agent teams aligned to components support the velocity an organization needs and drive
+        its costs down. Teams aligned to projects do the opposite.
+        <a class="src" href="/notes/${NOTE_HOP.slug}/">${NOTE_HOP.title}</a></span></p>
+      <p class="principle"><b>Treat duplication as the primary cost driver.</b>
+        <span>Getting ownership right contains it. Removing what already exists is remediation work,
+        and it does not happen inside the project that noticed it.</span></p>
+      <p class="principle"><b>Assume agents amplify whatever ownership model you already have.</b>
+        <span>Duplication was always easy for a project team to create. Agents make it faster, so a
+        model that used to be merely expensive becomes the thing that decides the outcome.</span></p>
+      <p class="principle"><b>Define success as flat or declining maintenance cost as scale
+        increases.</b>
+        <span>Not project completion. That is the number this is all aimed at, and the one nobody
+        here has measured yet.</span></p>
     </div>
   </div>
 </section>
