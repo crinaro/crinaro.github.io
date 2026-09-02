@@ -55,10 +55,27 @@ if (!fs.existsSync(FONTS_CSS)) {
 const FONTS = fs.readFileSync(FONTS_CSS, 'utf8').trim();
 
 const EMAIL = 'john@crinaro.ai';
+// Every page goes out without its build-time comments. Two comments explaining
+// brand decisions shipped inside index.html and were live on crinaro.ai until
+// 2026-09-02, found by a review rather than by a gate: view-source IS published
+// output, and the rule that internal reasoning never crosses into the public repo
+// does not stop at file paths. The comments stay in this file, where the team
+// reads them, and leave at the door. Write pages through this, never through
+// fs.writeFileSync directly.
+const writePage = (p, html) => fs.writeFileSync(p, html.replace(/<!--[\s\S]*?-->/g, ''));
+
 const CLAIM = 'AI from higher ground.';
 // The hero breaks at the sentence, never mid-clause — left to text-wrap:balance
 // it strands "Then" at the end of a line. Meta tags keep the unbroken string.
 const CLAIM_HTML = CLAIM.replace(/\. /, '.<br>');
+
+// The subhead, declared once because it was written out four times in this file.
+// The meta tags are not only a social-share detail: the og pair renders as the
+// preview card wherever the site is linked, so a drift here is a drift in copy a
+// reader sees before the page loads. check-drift.sh compares the rendered page
+// against build-icons.py, the deck and the decisions file, but it never read the
+// meta tags, which is exactly how a second copy goes stale unwatched.
+const SUB = 'Ideas and patterns worked out over a career, now applied with agents.';
 
 // The problem is reuse, not delivery. Crinaro is not a custom development shop
 // — it builds services others can use, and advises the teams using them. The
@@ -209,9 +226,9 @@ const verticals = [
 // Advisory that leaves something behind — not a bespoke build. The engagement
 // ends with the client's own team running it, which is the point.
 // The week-by-week breakdown of a fixed-price four-to-six week sprint was here.
-// Removed 2026-08-20 at John's direction — a dated, priced engagement shape is a
-// consultancy product, and it narrows a site that has to work for advisory,
-// fractional and employment conversations at the same time. The substance of the
+// Removed 2026-08-20 — a dated, priced engagement shape is a consultancy
+// product, and this is a body of work rather than a services catalog. It also
+// narrows the page to one kind of reader. The substance of the
 // three weeks survives as one paragraph in the section below; what went is the
 // calendar and the price, which were the parts that presumed the engagement.
 //
@@ -219,9 +236,9 @@ const verticals = [
 // which said the same thing as its own last sentence — the team ends up running
 // it — and said it as a negation of what a supplier does. The positive half is
 // kept and the negation is gone. "without us" is also gone, and so is the
-// company voice it belonged to — John's call, 2026-08-20: the page read as a
-// consultancy, which risks disqualifying him from a full-time role. There is no
-// first-person plural anywhere in the copy now. Do not reintroduce one.
+// company voice it belonged to. Decided 2026-08-20: the page read as a
+// consultancy, which is not what this is. There is no first-person plural
+// anywhere in the copy now. Do not reintroduce one.
 
 
 // One stylesheet, shared by every page this generator writes. Extracted so a
@@ -376,9 +393,8 @@ const CSS = `${FONTS}
 //
 // It carries a BYLINE, and that is the only place a person is named on the
 // site. The brand is the body of work; the author of a piece is a person. That
-// separation is what lets the site keep standing if John takes a full-time role,
-// subcontracts, or works inside another firm — see the note on "Where this
-// comes from".
+// separation is deliberate and load-bearing: the work outlives any one context
+// it was written in — see the note on "Where this comes from".
 //
 // The cadence and the DAO example live HERE and not on the home page. On the
 // page they would be arithmetic a reader tests and a second unit of time
@@ -1046,9 +1062,9 @@ const html = `<!doctype html>
 <!-- No person named here, on purpose — see the note on the "Where this comes
      from" section. "Installed in your own environment" stays dropped: it was a
      deployment claim, sitting in the tag that shows in a search result. -->
-<meta name="description" content="Ideas and patterns worked out over a career, now applied with agents. Drawn from delivery in healthcare, government and travel.">
+<meta name="description" content="${SUB} Drawn from delivery in healthcare, government and travel.">
 <meta property="og:title" content="Crinaro.AI">
-<meta property="og:description" content="${CLAIM} Ideas and patterns worked out over a career, now applied with agents.">
+<meta property="og:description" content="${CLAIM} ${SUB}">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://crinaro.ai/">
 <meta property="og:image" content="https://crinaro.ai/icons/crinaro-og-1200x630.png">
@@ -1073,7 +1089,7 @@ ${CSS}
   <div class="wrap">
     ${svg('crinaro-ai-animated.svg')}
     <h1>${CLAIM_HTML}</h1>
-    <p>Ideas and patterns worked out over a career, now applied with agents.</p>
+    <p>${SUB}</p>
     <a class="src" href="/notes/">Read the notes <span aria-hidden="true">&rarr;</span></a>
   </div>
 </header>
@@ -1114,8 +1130,9 @@ ${CSS}
     <div class="head narrow">
       <p class="eyebrow">What follows from it</p>
       <h2>Five principles for designing agent teams.</h2>
-      <p>These are the whole argument. Everything below is one of them worked out at length, and
-         each links to where.</p>
+      <p>These are the whole argument. The first four are worked out at length below, and each
+         links to where. The fifth is the one nothing here has measured yet, and it is written
+         down because it is the target, not because it is evidence.</p>
     </div>
     <div class="principles">
       <p class="principle"><b>Optimize for the platform, not the project.</b>
@@ -1128,7 +1145,8 @@ ${CSS}
         <a class="src" href="/notes/${NOTE_HOP.slug}/">${NOTE_HOP.title}</a></span></p>
       <p class="principle"><b>Treat duplication as the primary cost driver.</b>
         <span>Getting ownership right contains it. Removing what already exists is remediation work,
-        and it does not happen inside the project that noticed it.</span></p>
+        and it does not happen inside the project that noticed it.
+        <a href="/notes/five-user-apis/">Why do we have five user APIs</a>.</span></p>
       <p class="principle"><b>Assume agents amplify whatever ownership model you already have.</b>
         <span>Both paths get cheaper: asking the team that owns a component to change it, and
         building your own second copy. Only the first still ends in front of somebody who can say
@@ -1252,12 +1270,11 @@ ${CSS}
   <div class="wrap">
     <div class="head narrow">
       <!-- The brand is NOT tied to a named person, deliberately. Crinaro is the
-           body of work — ideas and patterns from a career — and it has to keep
-           standing if that career moves: a full-time role, a subcontract, or
-           work inside another firm. A site that reads "Crinaro is <name>" turns
-           into a conflict to explain on any of those days. The attribution is
-           indirect and sufficient: the contact address reaches the person.
-           Reverted 2026-08-20, same day it was added. -->
+           body of work; the author of a piece appears as a byline on that piece.
+           A site that reads "Crinaro is <name>" makes the body of work into a
+           person instead. The attribution is indirect and sufficient: the
+           contact address reaches the author. Tried and reverted 2026-08-20,
+           the same day it was added. -->
       <p class="eyebrow">Where this comes from</p>
       <h2>Patterns learned in hard places.</h2>
       <p>The components are not industry-specific. The experience behind them is: regulated,
@@ -1276,9 +1293,8 @@ ${CSS}
       <!-- This used to read "Find the thing worth building once, and building well" over "Bring the
            problem your teams keep solving separately" — a request for an engagement, at the last
            thing anyone reads. That was right for a page selling services and wrong for a body of
-           work, which has to hold whether or not the reader ever becomes a client. It also has to
-           keep standing across a change of employment, so it declares no availability. An argument
-           to disagree with is the invitation. -->
+           work, which has to hold whether or not the reader ever becomes a client. The page
+           declares no availability. An argument to disagree with is the invitation. -->
       <p class="eyebrow">If any of this is useful</p>
       <h2>Say where it breaks.</h2>
       <p>These are patterns, not prescriptions, and the interesting mail is the mail that says a
@@ -1311,7 +1327,7 @@ ${CSS}
 </html>
 `;
 
-fs.writeFileSync(path.join(DIST, 'index.html'), html);
+writePage(path.join(DIST, 'index.html'), html);
 
 const NOTES = [NOTE, NOTE_HOP, NOTE_SKILL, NOTE_BOUNDARY, NOTE_CROSSING, NOTE_CADENCE];
 
@@ -1349,7 +1365,7 @@ const seriesOf = k => NOTES.filter(n => n.series === k).sort((a, b) => a.part - 
 const standalone = NOTES.filter(n => !n.series).sort((a, b) => b.date.localeCompare(a.date));
 
 fs.mkdirSync(path.join(DIST, 'notes'), { recursive: true });
-fs.writeFileSync(path.join(DIST, 'notes', 'index.html'), `${noteHead(
+writePage(path.join(DIST, 'notes', 'index.html'), `${noteHead(
   'Notes', 'Pieces on delivery, ownership and agentic development, written as they are worked out.',
   'https://crinaro.ai/notes/')}
 <style>
@@ -1412,7 +1428,7 @@ for (const note of NOTES) {
 const other = NOTES.filter(n => n.slug !== note.slug);
 const notePath = path.join(DIST, 'notes', note.slug);
 fs.mkdirSync(notePath, { recursive: true });
-fs.writeFileSync(path.join(notePath, 'index.html'), `${noteHead(
+writePage(path.join(notePath, 'index.html'), `${noteHead(
   note.title, note.standfirst, `https://crinaro.ai/notes/${note.slug}/`)}
 <meta name="author" content="${note.author}">
 <meta property="og:type" content="article">
