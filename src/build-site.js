@@ -253,6 +253,7 @@ const CSS = `${FONTS}
                        letter-spacing:.06em; }
   .principle b { color:var(--ink); font-weight:500; font-family:var(--head); }
   .principle span { display:block; color:var(--ink-2); margin-top:.3rem; }
+  .principle span.sep { display:inline; color:var(--muted); margin:0 .15rem; }
 
   /* The brand commits to one visual world — navy and paper — rather than
      following the viewer's theme. Every ground is painted explicitly. */
@@ -1142,11 +1143,13 @@ ${CSS}
       <p class="principle"><b>Assign ownership at the component level.</b>
         <span>Agent teams aligned to components support the velocity an organization needs and drive
         its costs down. Teams aligned to projects do the opposite.
-        <a class="src" href="/notes/${NOTE_HOP.slug}/">${NOTE_HOP.title}</a></span></p>
+        <a class="src" href="/notes/${NOTE_HOP.slug}/">${NOTE_HOP.title}</a>
+        <span class="sep" aria-hidden="true">·</span>
+        <a class="src" href="/notes/${NOTE.slug}/">${NOTE.title}</a></span></p>
       <p class="principle"><b>Treat duplication as the primary cost driver.</b>
         <span>Getting ownership right contains it. Removing what already exists is remediation work,
         and it does not happen inside the project that noticed it.
-        <a href="/notes/five-user-apis/">Why do we have five user APIs</a>.</span></p>
+        <a class="src" href="/notes/${NOTE.slug}/">${NOTE.title}</a></span></p>
       <p class="principle"><b>Assume agents amplify whatever ownership model you already have.</b>
         <span>Both paths get cheaper: asking the team that owns a component to change it, and
         building your own second copy. Only the first still ends in front of somebody who can say
