@@ -75,7 +75,7 @@ const CLAIM_HTML = CLAIM.replace(/\. /, '.<br>');
 // reader sees before the page loads. check-drift.sh compares the rendered page
 // against build-icons.py, the deck and the decisions file, but it never read the
 // meta tags, which is exactly how a second copy goes stale unwatched.
-const SUB = 'Ideas and patterns worked out over a career, now applied with agents.';
+const SUB = 'Ideas and patterns worked out over 30 years in healthcare, GovTech and travel, now applied with agents.';
 
 // The problem is reuse, not delivery. Crinaro is not a custom development shop
 // — it builds services others can use, and advises the teams using them. The
@@ -310,7 +310,13 @@ const CSS = `${FONTS}
                 display:flex; flex-direction:column; gap:2.4rem; }
   .hero svg { width:100%; max-width:26rem; height:auto; display:block; }
   .hero h1 { color:#FFFFFF; max-width:32ch; }
-  .hero p { color:var(--rblue); font-size:1.1rem; max-width:44ch; }
+  /* 54ch, measured rather than chosen. 44ch broke the old subhead after "now",
+     stranding it, at every viewport from 1000px up; 56ch and above break the
+     current one after "GovTech" or "and". 54ch breaks at the comma, which is
+     the same break the social card draws, so the page and the share image read
+     identically. Poppins is embedded, so this holds on every machine. Re-probe
+     it if the subhead changes — the number is a fact about this string. */
+  .hero p { color:var(--rblue); font-size:1.1rem; max-width:54ch; }
   .hero .src { color:var(--rblue); border-bottom-color:rgba(147,184,212,.45);
                align-self:flex-start; margin-top:.4rem; }
   .hero .src:hover { color:#FFFFFF; border-bottom-color:#FFFFFF; }
@@ -1063,7 +1069,7 @@ const html = `<!doctype html>
 <!-- No person named here, on purpose — see the note on the "Where this comes
      from" section. "Installed in your own environment" stays dropped: it was a
      deployment claim, sitting in the tag that shows in a search result. -->
-<meta name="description" content="${SUB} Drawn from delivery in healthcare, government and travel.">
+<meta name="description" content="${SUB}">
 <meta property="og:title" content="Crinaro.AI">
 <meta property="og:description" content="${CLAIM} ${SUB}">
 <meta property="og:type" content="website">
