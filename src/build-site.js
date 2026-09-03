@@ -158,8 +158,8 @@ const assets = [
   // which is where a reader who wants to go and look would hit it anyway.
   ['The AI-SDLC reference', 'Private · twelve agents',
    'Delivery end to end on an agentic model, not one team’s repos: what gets asked for, how it is built, how you know it shipped. Worked into patterns another team can pick up.'],
-  ['This brand', 'Internal · four agents',
-   'The page you are reading, the deck, the identity and the rules that govern them. A critic, a copy editor, one that renders every visual and looks at it, and one that argues the other side of anything written.'],
+  ['This brand', 'Internal · five agents',
+   'The page you are reading, the deck, the identity and the rules that govern them. A critic, a copy editor, one that renders every visual and looks at it, one that argues the other side, and one that reads new copy against everything already published.'],
   // "Running daily for one person, not yet a second" was here, and it WAS
   // load-bearing for as long as the card described a product — it was the clause
   // that stopped the description implying adoption. John removed it 2026-08-20.
