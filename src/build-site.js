@@ -80,13 +80,26 @@ const SUB = 'Ideas and patterns worked out over 30 years in healthcare, GovTech 
 // The problem is reuse, not delivery. Crinaro is not a custom development shop
 // — it builds services others can use, and advises the teams using them. The
 // old problem copy described a bespoke build engagement and was wrong for that.
+// Rewritten 2026-09-02. The three cards used to be scaffolding, prompts and
+// evaluation, which is an AI TOOLING duplication problem and a much smaller one
+// than the page actually argues. Measured against John's own statement of the
+// thesis, ownership arrived 19% into the page and information never did. These
+// three are a causal chain rather than three parallel symptoms: no owner, so no
+// authoritative answer, so it gets built again. Duplication is the visible end
+// of it, not the disease. Keep them in that order.
 const problems = [
-  ['Everyone rebuilds the same thing',
-   'Each team writes its own scaffolding, its own prompts, its own evaluation. None of it is shared, so the next project starts at zero.'],
-  ['Good work stays trapped',
-   'One team solves it properly and has nowhere to put it. Nobody else knows it exists, so the same work happens again somewhere else.'],
-  ['Reuse without evidence is a gamble',
-   'Nobody will build on someone else’s work if there is no way to tell whether it holds. So nothing is reused, and everything is rebuilt.'],
+  ['Nobody is answerable',
+   'A request arrives and touches four things. Ask who owns each one and you get four answers, or ' +
+     'a name that left. Whoever picks the work up decides, and decides locally, because local is ' +
+     'all they can see.'],
+  ['No answer anyone can trust',
+   'What a component actually does lives with the people who built it, and in whatever copies ' +
+     'other teams keep so they can get on with their work. A person routes around that by asking. ' +
+     'An agent has nobody to ask, and no way to tell two answers apart.'],
+  ['So it gets built again',
+   'Duplication is where the first two become visible, long after the decision that caused it. ' +
+     'Both routes out of it just got cheaper, asking the team that owns a component and building ' +
+     'your own second one, and only asking still ends in front of somebody who can refuse.'],
 ];
 
 // The maintenance team, by role. These are real agent definitions — the six in
@@ -1108,15 +1121,26 @@ ${CSS}
     <div class="head narrow">
       <p class="eyebrow">The problem</p>
       <h2>Everyone is building the same things, separately.</h2>
-      <p>The hard part was never the model. It is that almost nothing built with one survives to
-         be used twice. The same thing happens inside a single organization, where it is easier to
-         see and harder to excuse:
+      <p>The hard part was never the model. It is that when a request arrives, often nobody is
+         clearly answerable for the things it touches, and nothing can be pointed at that settles
+         what those things do. Both were survivable while a person could walk over and ask.
+         Neither is now:
          <a class="src" href="/notes/${NOTE.slug}/">why do we have five user APIs</a>.</p>
     </div>
     <div class="cols">
       ${problems.map(([h, b]) => `<div class="col"><div class="rule"></div>
         <h3>${h}</h3><p>${b}</p></div>`).join('\n      ')}
     </div>
+    <!-- A diagnosis stated from outside the work is the thing a reader discounts,
+         so this says where it comes from. It cites only what a reader can already
+         see on this page. An earlier version also claimed a continuing read of
+         tools and vendors that "is not published", which is a credential whose
+         only stated property is that you cannot examine it, and it implied
+         adoption besides. That read belongs in the AI-SDLC section, which already
+         carries it and bounds it. -->
+    <p class="note">None of this is argued from the outside. It comes from delivery in those
+       industries, and from agent teams maintaining repositories that have to keep working today.
+       It is reasoning about how the failure happens rather than a result anybody has measured.</p>
   </div>
 </section>
 
