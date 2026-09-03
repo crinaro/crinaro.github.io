@@ -1523,7 +1523,165 @@ const NOTE_SCOPE = {
          'What changes for an engineer once the spec, not the prompt, is the thing being edited.'],
 };
 
-const NOTES = [NOTE, NOTE_HOP, NOTE_SKILL, NOTE_BOUNDARY, NOTE_CROSSING, NOTE_CADENCE, NOTE_SCOPE];
+// 2026-09-02. The knowledge tier. The home page's second problem card, "No
+// answer anyone can trust", promises this argument and had nothing behind it.
+// Everything specific here came from John on 2026-09-02: the two kinds of
+// content in the central store, the polling job that makes the view derived
+// rather than authored, bounded staleness as a stated cost, and the inversion
+// where a component that documents nothing reads as blank. Do not soften the
+// consolidation warning; a central team owning all the knowledge is the middle
+// layer this removes.
+const NOTE_ANSWER = {
+  slug: 'who-owns-the-answer',
+  title: 'Who owns the answer',
+  author: 'John Kelly',
+  date: '2026-09-02',
+  dateHuman: '2 September 2026',
+  standfirst: 'Duplicate services and duplicate facts both fail quietly. The difference is that ' +
+              'you can count the services. Nothing anywhere enumerates the facts, so the first ' +
+              'person to find out is usually a customer.',
+  gist: [
+    'Every team that cannot get an answer keeps a copy of its own. That is a fork, the same as a ' +
+      'forked component, except that nothing anywhere reports the divergence.',
+    'A person handles two conflicting answers by knowing who to trust. An agent has no such ' +
+      'prior, so it does not hesitate. Which makes this an ownership question before it is a ' +
+      'tooling one.',
+  ],
+  body: `
+<p>Two teams end up with two implementations of the same thing. Neither of them breaks. They run
+   side by side and drift, and one day a customer is locked out of one channel and not the other, or
+   two totals disagree. Nothing pages anybody for that, which is the subject of
+   <a href="/notes/five-user-apis/">another note</a>. But the duplicates can at least be counted.
+   Each has a repository, a deployment, a bill and a name, so an organization that decides to go
+   looking will find them.</p>
+
+<p>Now the same thing in the record. Support keeps its own description of how a feature behaves,
+   because asking took a week and the release could not wait. Engineering changes the feature.
+   Nothing reports that the two have drifted apart, and this time there is nothing to count either.
+   No repository, no bill, no name. You cannot build the list. Nobody finds out until a customer is
+   told something engineering stopped believing months ago.</p>
+
+<h3>Why a person survives this and an agent does not</h3>
+
+<p>People carry an unwritten prior. Trust the team that owns a thing over the team that consumes
+   it. Trust the recent page over the old one. Trust the person who actually wrote it. None of that
+   is written down anywhere, and it is the thing that makes a scattered record workable.</p>
+
+<p>An agent has none of it unless somebody encodes it. Handed two answers that disagree, it has no
+   tie-breaker, so it will be wrong and it will not hesitate. It also pays that cost on every
+   request rather than once, because every breakdown of a request pulls from whatever it can reach
+   and reconciles them again.</p>
+
+<h3>Two tiers, and the second one is not authoritative</h3>
+
+<div class="flow"><svg viewBox="0 0 1000 352" role="img"
+     aria-label="A routing layer holds two kinds of thing side by side: decisions that span the parts, owned there, and a current-state view of everything below, a mirror that is authoritative nowhere. Underneath, the parts of the estate each own what they say about themselves, and a job polls them for what changed and feeds the mirror.">
+  <text x="40" y="24" fill="#0B2545" font-family="${HEAD_SVG}" font-size="16" font-weight="500">The layer that routes a request</text>
+  <text x="40" y="44" fill="#5B6E80" font-family="Helvetica,Arial,sans-serif" font-size="12.5">holds two kinds of thing, and has to say which is which</text>
+  <rect x="40" y="64" width="440" height="72" rx="3" fill="#EAF3EE" stroke="#A8D5C0"/>
+  <text x="260" y="94" text-anchor="middle" fill="#1B5C46" font-family="${HEAD_SVG}" font-size="14.5" font-weight="500">Decisions that span the parts</text>
+  <text x="260" y="116" text-anchor="middle" fill="#5B6E80" font-family="Helvetica,Arial,sans-serif" font-size="12.5">owned here, because no one part can own them</text>
+  <rect x="520" y="64" width="440" height="72" rx="3" fill="#F2F6F8" stroke="#DCE4EA" stroke-dasharray="5 4"/>
+  <text x="740" y="94" text-anchor="middle" fill="#0B2545" font-family="${HEAD_SVG}" font-size="14.5" font-weight="500">Current state of everything below</text>
+  <text x="740" y="116" text-anchor="middle" fill="#5B6E80" font-family="Helvetica,Arial,sans-serif" font-size="12.5">a mirror, authoritative nowhere</text>
+  <path d="M180 258 L180 208 M500 258 L500 208 M820 258 L820 208 M180 208 L820 208 M740 208 L740 148" stroke="#7DBFA3" stroke-width="1.5" fill="none"/>
+  <path d="M736 156 L740 144 L744 156 Z" fill="#7DBFA3"/>
+  <text x="192" y="200" fill="#5B6E80" font-family="Helvetica,Arial,sans-serif" font-size="12.5">a job polls them for what changed since it last looked</text>
+  <rect x="40" y="258" width="280" height="44" rx="3" fill="#EAF3EE" stroke="#A8D5C0"/>
+  <text x="180" y="286" text-anchor="middle" fill="#1B5C46" font-family="${HEAD_SVG}" font-size="14.5" font-weight="500">One part of the estate</text>
+  <rect x="360" y="258" width="280" height="44" rx="3" fill="#EAF3EE" stroke="#A8D5C0"/>
+  <text x="500" y="286" text-anchor="middle" fill="#1B5C46" font-family="${HEAD_SVG}" font-size="14.5" font-weight="500">Another</text>
+  <rect x="680" y="258" width="280" height="44" rx="3" fill="#EAF3EE" stroke="#A8D5C0"/>
+  <text x="820" y="286" text-anchor="middle" fill="#1B5C46" font-family="${HEAD_SVG}" font-size="14.5" font-weight="500">And another</text>
+  <text x="500" y="332" text-anchor="middle" fill="#5B6E80" font-family="Helvetica,Arial,sans-serif" font-size="12.5">each owns what it says about itself, and is the source of truth for it</text>
+</svg></div>
+
+<p>The shape that works mirrors the ownership already in place. Each part of the estate owns what it
+   says about itself: what it does, how it behaves, how to use it. Above that sits a layer holding
+   the things no single part can own, the decisions that span them, and those are genuinely owned
+   there and are the real thing.</p>
+
+<p>The same layer also carries a current-state view of everything underneath. That view is not
+   authoritative and should never be treated as though it were. The parts are. It exists so that
+   whoever is breaking a request down, a person or an agent, can see across the estate well enough
+   to route it.</p>
+
+<p><b>And the layer has to mark which of its contents is which.</b> A person infers it from context
+   and from tone. An agent reads a mirrored fact as a settled decision and acts on it.</p>
+
+<h3>None of this shape is new, and it still does not hold</h3>
+
+<p>Anyone who has run a service catalog has this already: an entry for each part, living as a file
+   in that part's own repository, with a loop that re-reads them and refreshes the view. It works.
+   The same shape, under an older name and fed by discovery rather than by files, has been in
+   enterprise estates for a generation. So the argument here is not that somebody should build the
+   thing. Most of the readers who need it can already point at one.</p>
+
+<p>It is that the thing gets built and then is not believed, and the reasons are not tooling
+   reasons. A part that writes down something wrong gets mirrored faithfully, and the wrong answer
+   now travels further and looks endorsed. Two parts describing the same interface differently both
+   qualify as saying what they say about themselves, so the mirror ends up carrying the
+   disagreement, sourced and owned, with no rule for settling it. And the mirror only ever sees what
+   somebody chose to publish.</p>
+
+<p>Which is the caveat on the best part of this. A blank entry fails loudly only if something reads
+   the blank. Left alone, a catalog fills with parts that have an owner and nothing else, and no
+   one is paged for that either. Making absence loud takes an explicit completeness check with a
+   threshold and a name against it. That is the machinery, and it is the part people skip.</p>
+
+<h3>What keeps it current, and what that costs</h3>
+
+<p>A job polls the parts for what changed since it last looked. The view is generated rather than
+   written, and that is what makes "not authoritative" a property of the thing rather than a rule
+   somebody has to remember. A central architecture document that people edit by hand is a fork
+   with a better name.</p>
+
+<p>The cost is that the view is always slightly behind. Between two runs it describes a system that
+   has already moved, and a routing decision made inside that window can be wrong. The interval is
+   an architecture decision rather than a detail.</p>
+
+<p>And a mirror is not the only way. Where the parts can answer a query, the better answer is to
+   compose the shape of the estate centrally and resolve the contents on demand, which has no
+   staleness in it at all. What is centralized then is the map, not the state. Polling is what you
+   are left with when the parts are of different generations and most of them cannot serve a query,
+   which is the honest condition of most estates. That is a constraint, not a preference, and it is
+   worth knowing which one you are in.</p>
+
+<h3>Consolidated means addressable, not centralized</h3>
+
+<p>One warning about that word, because it is where this gets built wrong. Consolidating the record
+   means one place to address, with each slice owned by whoever owns the thing it describes. It does
+   not mean one team owning all of the knowledge. That team ends up owning everything and knowing
+   nothing, and it rebuilds the middle layer this whole shape exists to remove. The consolidation
+   is in the addressing, not in the authorship.</p>
+
+<h3>The part worth having, and it inverts the failure</h3>
+
+<p>A projection can only show what a part actually wrote down. So a part that documents nothing
+   shows up blank. Compare that with the case this replaces, where the same gap gets filled by
+   somebody else's copy: plausible, sourced from nobody, and true once. Same missing information,
+   opposite visibility.</p>
+
+<p>Both fail quietly. Only one of them can be listed. That is the whole trade, and it is worth
+   making.</p>
+
+<p><b>What is not known, and one thing this does not solve.</b> The separation between addressing
+   and authorship is an intention rather than a mechanism. Nothing in the shape enforces it, and the
+   gradient runs the wrong way: every genuinely hard question is one no single part can own, so it
+   arrives upstairs, and the layer thickens one reasonable decision at a time. Keeping it thin is a
+   discipline somebody has to defend, and this note has no answer for what happens when nobody
+   does.</p>
+
+<p>The rest is a shape rather than a result. I have not run it across an organization, and the
+   interval question is open: nothing here has measured what a stale view costs a routing decision,
+   which is the number that would tell you how often to poll. The argument is about which failures
+   can be found, not about what any of it saves.</p>
+`,
+  next: ['five-user-apis', 'Why do we have five user APIs',
+         'The same failure in the code rather than in the record, and the one people already recognize.'],
+};
+
+const NOTES = [NOTE, NOTE_HOP, NOTE_SKILL, NOTE_BOUNDARY, NOTE_CROSSING, NOTE_CADENCE, NOTE_SCOPE, NOTE_ANSWER];
 
 // Shared by the article pages and the index. Extracted 2026-08-24 when /notes/
 // became real: two pages carrying two copies of the same <head> is how one of
