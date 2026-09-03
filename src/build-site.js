@@ -80,26 +80,34 @@ const SUB = 'Ideas and patterns worked out over 30 years in healthcare, GovTech 
 // The problem is reuse, not delivery. Crinaro is not a custom development shop
 // — it builds services others can use, and advises the teams using them. The
 // old problem copy described a bespoke build engagement and was wrong for that.
-// Rewritten 2026-09-02. The three cards used to be scaffolding, prompts and
-// evaluation, which is an AI TOOLING duplication problem and a much smaller one
-// than the page actually argues. Measured against John's own statement of the
-// thesis, ownership arrived 19% into the page and information never did. These
-// three are a causal chain rather than three parallel symptoms: no owner, so no
-// authoritative answer, so it gets built again. Duplication is the visible end
-// of it, not the disease. Keep them in that order.
+// Rewritten twice on 2026-09-02. They were scaffolding, prompts and evaluation,
+// which is an AI TOOLING problem and much smaller than the page argues; measured
+// against John's own thesis, ownership arrived 19% into the page and information
+// never did. They are a causal chain now, and the ORDER carries it: no owner, so
+// no answer anyone can trust, so it gets built again. Duplication is the visible
+// end of it, never the disease.
+//
+// Second pass, John: the cards needed to reach a non-technical executive and to
+// name a cost. Card 1 opens on the inversion rather than on an engineering
+// artifact, because "finance owns finance, and nobody owns the system that runs
+// it" is a thing a COO recognizes and a request touching four components is not.
+// Card 3 states the bill and NO LONGER restates principle 4 — it did, clumsily,
+// and before that it contradicted it. Do not put the routes-got-cheaper argument
+// back in here; it belongs to principle 4 and to five-user-apis.
 const problems = [
   ['Nobody is answerable',
-   'A request arrives and touches four things. Ask who owns each one and you get four answers, or ' +
-     'a name that left. Whoever picks the work up decides, and decides locally, because local is ' +
-     'all they can see.'],
+   'Ask who owns a part of the business and you get a name. Ask who owns the system that runs it ' +
+     'and you get a meeting. The work happens anyway, done by whoever picked it up, and they ' +
+     'decide with only their own part of it in view.'],
   ['No answer anyone can trust',
-   'What a component actually does lives with the people who built it, and in whatever copies ' +
-     'other teams keep so they can get on with their work. A person routes around that by asking. ' +
-     'An agent has nobody to ask, and no way to tell two answers apart.'],
+   'What the thing actually does sits with the people who built it, and in whatever copies other ' +
+     'teams keep so they can get on. Your people handle that by knowing who to ask. An agent has ' +
+     'nobody to ask, and when two answers disagree it cannot tell which one is right. So it picks, ' +
+     'confidently.'],
   ['So it gets built again',
-   'Duplication is where the first two become visible, long after the decision that caused it. ' +
-     'Both routes out of it just got cheaper, asking the team that owns a component and building ' +
-     'your own second one, and only asking still ends in front of somebody who can refuse.'],
+   'A second one gets built, correctly, by people doing their jobs well. It surfaces years later, ' +
+     'when one change has to be made in several places and no two of them agree. Nothing on a plan ' +
+     'ever showed that cost, and it arrives again every time anything changes.'],
 ];
 
 // The maintenance team, by role. These are real agent definitions — the six in
