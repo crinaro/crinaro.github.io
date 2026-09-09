@@ -1547,7 +1547,7 @@ ${CSS}
   <div class="wrap">
     <div class="head narrow">
       <p class="eyebrow">The problem</p>
-      <h2>Everyone is building the same things, separately.</h2>
+      <h2>Everyone is building the&nbsp;same things, separately.</h2>
       <p>The hard part was never the model. It is that when a request arrives, often nobody is
          clearly answerable for the things it touches, and nothing can be pointed at that settles
          what those things do. Both were survivable while a person could walk over and ask.
@@ -1593,7 +1593,7 @@ ${CSS}
   <div class="wrap">
     <div class="head narrow">
       <p class="eyebrow">What follows from it</p>
-      <h2>Five principles for designing agent teams.</h2>
+      <h2>Five principles for&nbsp;designing agent teams.</h2>
       <p>These are the whole argument, and each is worked out at length below. The fifth is still
          the one nothing here has measured. What it has now is the two numbers that would tell you
          whether the thing meant to produce it is working, which is a weaker claim than the target
@@ -1638,7 +1638,7 @@ ${CSS}
   <div class="wrap">
     <div class="head narrow">
       <p class="eyebrow">Where to start</p>
-      <h2>Two moves, and the second one is the hard one.</h2>
+      <h2>Two moves, and the&nbsp;second one is the hard one.</h2>
       <p>Neither of these is a tool decision. They are the things that have to be true before a
          tool decision means anything. The machinery half is separate:
          <a class="src" href="/what-you-already-have/">what the gaps cost</a>.</p>
@@ -1724,7 +1724,7 @@ ${CSS}
   <div class="wrap">
     <div class="head narrow">
       <p class="eyebrow">Inside AI-SDLC</p>
-      <h2>One capability, across every team it touches.</h2>
+      <h2>One capability, across&nbsp;every team it touches.</h2>
       <p>This spans the whole path: the spec a
          roadmap team writes, the work it becomes across other people’s repos, and whether what
          shipped is what was asked for.</p>
@@ -1750,7 +1750,7 @@ ${CSS}
   <div class="wrap">
     <div class="head narrow">
       <p class="eyebrow">What it is aimed at</p>
-      <h2>Three outcomes, none of them measured.</h2>
+      <h2>Three outcomes, none&nbsp;of&nbsp;them measured.</h2>
       <p>The model is aimed at three things: maintenance costing less, delivery moving faster, and
          investment shifting from keeping what exists running to building what does not exist yet.
          Those are the aims. Every claim in the material is a claim about mechanism rather than
