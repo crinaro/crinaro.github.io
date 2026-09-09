@@ -77,9 +77,9 @@
   section { padding:5.5rem 0; border-top:1px solid var(--hair); }
   .stack { display:flex; flex-direction:column; gap:1.1rem; }
   .head { display:flex; flex-direction:column; gap:.75rem; margin-bottom:2.6rem; }
-  /* That margin separates a head from the rows or cards beneath it. The advisory
-     section has no rows any more, so it was left holding 2.6rem of dead space
-     above the next section's own padding, which read as an unfinished section. */
+  /* That margin separates a head from the rows or cards beneath it. A head with
+     nothing under it would be left holding 2.6rem of dead space above the next
+     section's own padding, which reads as an unfinished section. */
   .head:last-child { margin-bottom:0; }
 
   /* ---- hero ---- */

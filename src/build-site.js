@@ -574,9 +574,9 @@ const CSS = `${FONTS}
   section { padding:5.5rem 0; border-top:1px solid var(--hair); }
   .stack { display:flex; flex-direction:column; gap:1.1rem; }
   .head { display:flex; flex-direction:column; gap:.75rem; margin-bottom:2.6rem; }
-  /* That margin separates a head from the rows or cards beneath it. The advisory
-     section has no rows any more, so it was left holding 2.6rem of dead space
-     above the next section's own padding, which read as an unfinished section. */
+  /* That margin separates a head from the rows or cards beneath it. A head with
+     nothing under it would be left holding 2.6rem of dead space above the next
+     section's own padding, which reads as an unfinished section. */
   .head:last-child { margin-bottom:0; }
 
   /* ---- hero ---- */
@@ -1413,46 +1413,22 @@ ${CSS}
     <p class="note">None of this is argued from the outside. It comes from delivery in those
        industries, and from agent teams maintaining repositories that have to keep working today.
        It is reasoning about how the failure happens rather than a result anybody has measured.</p>
-  </div>
-</section>
-
-<section>
-  <div class="wrap">
-    <div class="head narrow">
-      <p class="eyebrow">What changes with AI</p>
-      <h2>The problem is old. The clock is not.</h2>
-      <p>None of what is above is new. It is the same failure, in the same shape, for thirty years.
-         What agents change is not the failure. It is how long you get before you meet it.</p>
-    </div>
-    <div class="cols">
-      <div class="col"><div class="rule"></div>
-        <h3>The interval used to be long</h3>
-        <p>A second copy was expensive to build, and the cost of having one surfaced long after
-           the decision that caused it, landing on whoever was there when it did.</p></div>
-      <div class="col"><div class="rule"></div>
-        <h3>Now the build is cheap</h3>
-        <p>Engineering turnaround has collapsed, and the interval collapses with it. The same
-           accumulation happens, at a speed nobody has built a habit for.</p></div>
-      <div class="col"><div class="rule"></div>
-        <h3>You will hit the objective</h3>
-        <p>That is not in question, and it is why this is hard to argue against in the room. What
-           you accumulate on the way to hitting it is the part nobody is measuring.</p></div>
-    </div>
-    <p class="note"><b>Whether that matters to you is a real question and it has an honest
-       answer.</b> If you are optimizing for an exit, this is not your problem and you should not
-       spend on it. If you are measured on what the platform costs to run in three years, it is the
-       problem, and nothing about adopting AI addresses it on its own.</p>
+    <p class="note"><b>Whether it is your problem is a real question with an honest answer.</b> If
+       you are optimizing for an exit, it is not, and you should not spend on it. If you are
+       measured on what the platform costs to run in three years, it is, and nothing about adopting
+       AI addresses it on its own.</p>
   </div>
 </section>
 
 <section class="band">
   <div class="wrap">
     <div class="head narrow">
-      <p class="eyebrow">The method</p>
+      <p class="eyebrow">Where it is argued from</p>
       <h2>The whole view decides the design.</h2>
       <p>Crinaro is a ridge line, from the Italian <i>crinale</i>: the crest path where you can
-         see down both sides. That is the method. Stand where the whole system is visible, then
-         design end to end, rather than improving one step and moving the cost somewhere else.</p>
+         see down both sides. That is the method: stand where the whole system is visible before
+         deciding anything. The test of advice given from there is whether a team still has the
+         thing a year later, and whether <em>do not build this</em> was ever an available answer.</p>
     </div>
   </div>
 </section>
@@ -1472,9 +1448,12 @@ ${CSS}
         <span>An agent configuration scoped to one request will hit that request's goal. What it
         costs after that is paid by everyone, on every run, and only a deliberate act removes it.
         <a class="src" href="/notes/${NOTE.slug}/">${NOTE.title}</a></span></p>
-      <p class="principle"><b>Assign ownership at the component level.</b>
-        <span>Agent teams aligned to components support the velocity an organization needs and drive
-        its costs down. Teams aligned to projects do the opposite.
+      <p class="principle"><b>Assign ownership at the component level, and over its data.</b>
+        <span>Teams aligned to components support the velocity an organization needs and drive its
+        costs down, whether those teams are people or agents. Teams aligned to projects do the
+        opposite. <b>A component whose data is owned elsewhere, or by nobody, has a boundary that
+        does not hold</b>: the team can change behavior it owns and cannot change what constrains
+        it.
         <a class="src" href="/notes/${NOTE_HOP.slug}/">${NOTE_HOP.title}</a>
         <span class="sep" aria-hidden="true">·</span>
         <a class="src" href="/notes/${NOTE.slug}/">${NOTE.title}</a></span></p>
@@ -1519,14 +1498,8 @@ ${CSS}
          free. It needs three things: <b>what the business is trying to change</b>, which is either
          a plan or simply the request flow you already have; <b>how work and data actually move</b>
          through the platform; and <b>the data architecture</b>. Those three are what let an
-         architect say who owns what, rather than letting the last project to touch something own
-         it by default.</p>
-    </div>
-    <div class="vert">
-      <b>Start with people</b>
-      <p>The view is built by a human team, and that team's job becomes creating and maintaining the
-         agent teams inside the boundaries it draws. The boundary is the deliverable. The agent team
-         is what fills it.</p>
+         architect assign ownership over the software and the data together, to teams of people or
+         of agents, rather than letting the last project to touch something own it by default.</p>
     </div>
     <div class="vert">
       <b>What it buys</b>
@@ -1536,48 +1509,6 @@ ${CSS}
          happens on the way past, which is the honest half and the half that gets left out.
          <a class="src" href="/notes/count-the-changes/">How you would know it is working</a></p>
     </div>
-  </div>
-</section>
-
-<section class="band">
-  <div class="wrap">
-    <div class="head narrow">
-      <p class="eyebrow">Getting the most out of it</p>
-      <h2>The shift is to specifying. Proving it worked is what leaves the laptop.</h2>
-      <p>The change worth making is not that engineers write less code. It is that when the output
-         is wrong, the thing you edit stops being the prompt and becomes the spec.
-         <a class="src" href="/notes/prompting-to-specifying/">The shift itself</a></p>
-      <p>Then a second thing follows, and it is a fork rather than a ladder. <b>Change a spec and
-         one machine is the right shape</b>: two working directories of one clone, already comparing
-         against a shared base. <b>Change the agent definition and that shape tells you nothing</b>,
-         because the environment, the tools and the authenticated connections are shared between the
-         arms and cannot be varied. That is the point where you need somewhere else to run.
-         <a class="src" href="/notes/prompting-to-specifying/">Where the fork is</a></p>
-    </div>
-    <div class="cols">
-      <div class="col"><div class="rule"></div>
-        <h3>Work has to run unattended</h3>
-        <p>The first thing that wants this is unglamorous and arrives early: a scheduled job keeping
-           a current-state view fresh. On a laptop it stops when its owner takes leave, and nothing
-           reports that it stopped.</p></div>
-      <div class="col"><div class="rule"></div>
-        <h3>Checks have to run the same way</h3>
-        <p>Once whether the built thing matches the spec is a gate rather than a convenience, it has
-           to run identically for everyone, including for a run nobody launched.</p></div>
-      <div class="col"><div class="rule"></div>
-        <h3>Data constraints close the hosted door</h3>
-        <p>A classification, a residency obligation or a customer commitment that a shared
-           environment cannot satisfy, with somebody accountable saying so.</p></div>
-    </div>
-    <p class="note"><b>The third without the first two is a procurement conversation rather than an
-       environment.</b> Build it before there is unattended work and you get infrastructure with
-       nobody on it, which is the same mistake as buying for a problem you do not have yet.
-       <a class="src" href="/what-you-already-have/options/#l-compute-and-isolation">What exists at that layer</a></p>
-    <p class="note"><b>Two things this does not say.</b> It does not price any of it, because there
-       is no cost model here. And an environment where agents hold credentials and read source is a
-       higher-value target than the laptops it replaced: isolation bounds what a run can see and
-       bounds nothing about what it can do with the authority it was given. Short-lived credentials
-       issued per run are what helps there, and none of that has been threat-modeled here.</p>
   </div>
 </section>
 
@@ -1636,7 +1567,7 @@ ${CSS}
     <div class="head narrow">
       <p class="eyebrow">Inside AI-SDLC</p>
       <h2>One capability, across every team it touches.</h2>
-      <p>Most AI-SDLC advice stops at one team’s repository. This spans the whole path: the spec a
+      <p>This spans the whole path: the spec a
          roadmap team writes, the work it becomes across other people’s repos, and whether what
          shipped is what was asked for.</p>
     </div>
@@ -1674,19 +1605,6 @@ ${CSS}
          own words: <em>“It did not work as expected. The sequence is not falsified, but it is not
          yet demonstrated either.”</em> Read the mechanism on its merits, and treat the outcomes as
          open rather than as likely.</p>
-    </div>
-  </div>
-</section>
-
-<section>
-  <div class="wrap">
-    <div class="head narrow">
-      <p class="eyebrow">On advisory work</p>
-      <h2>Advice that leaves something behind.</h2>
-      <p>The advice that gets used leaves something running behind it: a shared pattern, a
-         working evaluation, a place to publish where another team will find it. The test is
-         whether a team still has the thing a year later, and whether “do not build this” was
-         ever an available answer.</p>
     </div>
   </div>
 </section>
@@ -2137,9 +2055,10 @@ ${CSS}
   <h1>Notes</h1>
   <p class="standfirst">If your organization has ended up with several systems doing the same
      thing, and nobody can point at the decision that caused it, the first three of these are one
-     argument about why that happens and what an agentic model changes about it. The two after them
-   are about where the agent team itself lives, and what has to cross between there and whatever
-   you publish.</p>
+     argument about why that happens and what an agentic model changes about it. The next two are
+     about where the agent team itself lives, and what has to cross between there and whatever you
+     publish. The rest stand alone: how you would know any of it is working, what an agent team can
+     actually be handed, and who owns the answer when two of them disagree.</p>
   ${SERIES.map(([key, head]) => `<p class="series-head">${head}</p>
   ` + seriesOf(key).map((n, i) => `<div class="entry">
     <time datetime="${n.date}">Part ${i + 1}</time>
@@ -2290,8 +2209,10 @@ writePage(path.join(DIST, 'what-you-already-have', 'index.html'), `${pageHead(
   .lbl { font-family:var(--mono); font-size:.68rem; letter-spacing:.13em;
          text-transform:uppercase; color:var(--muted); display:block; margin-bottom:.2rem; }`)}
   <h1>Start from what you already have</h1>
-  <p class="standfirst">You already have some of this. The useful question is not what a greenfield
-     build would look like, it is what the gaps are costing you.</p>
+  <p class="standfirst"><b>Ownership is what decides whether any of this helps</b>, and that is
+     argued <a class="src" href="/notes/">in the notes</a>. This is the other half. You already have
+     some of the machinery, and the useful question is not what a greenfield build would look like,
+     it is what the gaps are costing you.</p>
   <p class="written">Read down the list. <b>Stop at the first one you answer no to</b>, and follow
      the link on that row to see what exists there.</p>
 
