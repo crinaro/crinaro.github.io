@@ -237,9 +237,9 @@
     <p class="byline">John Kelly &nbsp;·&nbsp; <time datetime="2026-09-02">2 September 2026</time></p>
     <div class="gist"><p>The argument</p><div>
       <p>A team scoped to everything it touches can only be prompted, because no specification can be written that does not span the whole system. A team scoped to something it owns can be handed a spec.</p>
-      <p>That is not a matter of taste. A prompt is a conversation and gives a different answer each time it is run. Systems a business depends on need the same request to produce the same answer.</p>
+      <p>That is not a matter of taste. A prompt is a conversation, and the answer can differ every time it is run, with nothing to check the difference against. Systems a business depends on need the same request to land somewhere you can test.</p>
     </div></div>
-<p>For twenty years the argument about how to shape delivery teams was an argument about
+<p>For most of my career the argument about how to shape delivery teams was an argument about
    coordination. Split people by feature and one team carries a change from end to end, paying for
    it in breadth. Split them by component and each team goes deep, paying for it in handoffs. Both
    sides had evidence, and both were arguing about the same thing: what it costs for one group of
@@ -292,9 +292,9 @@
 
 <h3>Why that is not a preference</h3>
 
-<p>Prompting is the right way to explore, and it is where everybody starts. What it does not give
-   you is a result you can check. Ask a second time and you get a second answer, usually reasonable,
-   often different, and nothing in the exchange tells you which one to keep.</p>
+<p>Prompting is the right way to explore, and it is where the work starts. What it does not give
+   you is a result you can check. Ask a second time and you get a second answer, as reasonable as the
+   first and different from it, and nothing in the exchange tells you which one to keep.</p>
 
 <p>Runs vary for reasons that have nothing to do with scope. The model moves under a stable name,
    sampling is not deterministic, and the same request can be served differently depending on what
@@ -331,7 +331,7 @@
    build. The requester writes what it needs; the owner says whether that is what the component
    does; the test replays it. Nobody in that practice believes a specification thrown over a wall
    is sufficient, and nothing here should be read as proposing one. A contract never fully
-   describes behavior either. Somebody always ends up depending on something it did not promise,
+   describes behavior either. Somebody ends up depending on something it did not promise,
    which is an argument for the owner being in the loop rather than against writing it down.</p>
 
 <p>In my experience the specification is usually wrong upstream of the team receiving it, because

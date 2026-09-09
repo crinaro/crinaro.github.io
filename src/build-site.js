@@ -215,7 +215,7 @@ const method = [
   ['The signal',
    'A decision table that picks between them, against things you can actually observe. Not “it depends”.'],
   ['The trigger',
-   'The specific, felt pain that says it is time for the more complex option, so you never buy infrastructure for a problem you do not have yet.'],
+   'The specific, felt pain that says it is time for the more complex option, so you do not buy infrastructure for a problem you do not have yet.'],
 ];
 
 // Distribution is the differentiator for regulated buyers: components install
@@ -232,8 +232,11 @@ const method = [
 
 // Three, not five. Retail and Recruiting were padding — John has named three
 // industries he has actually worked in, and the page claims no more than that.
-// No span of years is attached to any of them, on the site or in the meta: John
-// has given no figure and one must not be inferred. See decisions/03-positioning.md.
+// The span IS attached now: "over 30 years", in SUB, in the meta, in the deck and
+// in decisions/03-positioning.md. John gave that figure on 2026-09-02 and it is not
+// an inference. Do not strip it back to "a career" — check-drift.sh compares the
+// subhead against the deck, so all four move together or none do. The rule against
+// inferring a number still stands for anything John has not said.
 //
 // The heading above this list is "Patterns learned in hard places." It briefly
 // read "Crinaro is John Kelly." and was reverted the same day, 2026-08-20 — the
@@ -288,8 +291,8 @@ const verticals = [
 // rebuild. Never hand-edit tools.json.
 const TOOLS = JSON.parse(fs.readFileSync(path.join(__dirname, 'tools.json'), 'utf8'));
 
-// Display names and order for the layer sections. The first six match the rows
-// above them word for word, because they are the same six layers and a reader
+// Display names and order for the layer sections. The first six match the six rows
+// on the start page word for word, because they are the same six layers and a reader
 // should not have to work that out. The last four have no row because they are
 // not on the request path in the same way.
 const LAYER_NAMES = [
@@ -329,6 +332,11 @@ const KIND_LABEL = {
 //
 // The order is the order the rows stop being optional in. It is an argument
 // about dependency, never about quality, and the page says so twice.
+// Spelled out because the house rule is words, not numerals, in prose. Indexed
+// so the meta description below cannot drift from the number of rows rendered.
+const SPELLED = ['No', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven',
+                 'Eight', 'Nine', 'Ten', 'Eleven', 'Twelve'];
+
 const LAYERS = [
   ['compute-and-isolation', 'Somewhere isolated for work to run',
    'An agent run gets a workspace that is not somebody\'s laptop, and two runs cannot see each other.',
@@ -350,7 +358,6 @@ const LAYERS = [
    'You cannot tell a working agent team from a stuck one without going and asking the person running it.'],
 ];
 
-// The signal legend. This is the half that keeps working on tools this page will
 // 2026-09-02. The first argument on this site that is specific to agents rather
 // than a rerun of the feature-team debate, and it came from John: a team scoped
 // to the whole stack can only be prompted, and a prompt is not repeatable.
@@ -369,12 +376,12 @@ const NOTE_SCOPE = {
     'A team scoped to everything it touches can only be prompted, because no specification can be ' +
       'written that does not span the whole system. A team scoped to something it owns can be ' +
       'handed a spec.',
-    'That is not a matter of taste. A prompt is a conversation and gives a different answer each ' +
-      'time it is run. Systems a business depends on need the same request to produce the same ' +
-      'answer.',
+    'That is not a matter of taste. A prompt is a conversation, and the answer can differ every ' +
+      'time it is run, with nothing to check the difference against. Systems a business depends ' +
+      'on need the same request to land somewhere you can test.',
   ],
   body: `
-<p>For twenty years the argument about how to shape delivery teams was an argument about
+<p>For most of my career the argument about how to shape delivery teams was an argument about
    coordination. Split people by feature and one team carries a change from end to end, paying for
    it in breadth. Split them by component and each team goes deep, paying for it in handoffs. Both
    sides had evidence, and both were arguing about the same thing: what it costs for one group of
@@ -427,9 +434,9 @@ const NOTE_SCOPE = {
 
 <h3>Why that is not a preference</h3>
 
-<p>Prompting is the right way to explore, and it is where everybody starts. What it does not give
-   you is a result you can check. Ask a second time and you get a second answer, usually reasonable,
-   often different, and nothing in the exchange tells you which one to keep.</p>
+<p>Prompting is the right way to explore, and it is where the work starts. What it does not give
+   you is a result you can check. Ask a second time and you get a second answer, as reasonable as the
+   first and different from it, and nothing in the exchange tells you which one to keep.</p>
 
 <p>Runs vary for reasons that have nothing to do with scope. The model moves under a stable name,
    sampling is not deterministic, and the same request can be served differently depending on what
@@ -466,7 +473,7 @@ const NOTE_SCOPE = {
    build. The requester writes what it needs; the owner says whether that is what the component
    does; the test replays it. Nobody in that practice believes a specification thrown over a wall
    is sufficient, and nothing here should be read as proposing one. A contract never fully
-   describes behavior either. Somebody always ends up depending on something it did not promise,
+   describes behavior either. Somebody ends up depending on something it did not promise,
    which is an argument for the owner being in the loop rather than against writing it down.</p>
 
 <p>In my experience the specification is usually wrong upstream of the team receiving it, because
@@ -505,12 +512,13 @@ const NOTE_SCOPE = {
          'What changes for an engineer once the spec, not the prompt, is the thing being edited.'],
 };
 
+// The signal legend. This is the half that keeps working on tools this page will
 // never name: it is about reading a repository, not about any particular one.
 const SIGNALS = [
   ['Stars',
-   'Attention accumulated over a repository\'s whole life, which makes it mostly a measure of age: ' +
-   'a five-year-old project out-stars a better two-year-old by default. Nobody un-stars a project ' +
-   'they stopped using.'],
+   'Attention accumulated over a repository\'s whole life, which makes it largely a measure of ' +
+   'age: an older project out-stars a better younger one by default. Nothing prompts anybody to ' +
+   'un-star a project they stopped using.'],
   ['Last push',
    'When a commit last reached the default branch. A bot bumping a dependency and a rewrite of the ' +
    'scheduler are the same date here, and a project whose real work happens on release branches ' +
@@ -555,8 +563,8 @@ const NOTE_COUNT = {
 <h3>The number that makes somebody ask</h3>
 
 <p>What a company has to spend on maintenance and on critical customer defects is already on
-   somebody's desk. Nobody has to be persuaded it matters, and most leaders cannot explain why it
-   keeps climbing. That is its whole strength.</p>
+   somebody's desk. Nobody has to be persuaded it matters, and when it climbs the explanation is
+   rarely to hand. That is its whole strength.</p>
 
 <p>It is also explained by scale, by age, by regulation, and by having more customers than last
    year. So it cannot be attributed to duplicated work, and a page that reads a maintenance line as
@@ -572,7 +580,7 @@ const NOTE_COUNT = {
 
 <p><b>That is deliberately not a count of repositories</b>, and the reason matters more than the
    instrument. The same estate arrives at the same repository count by several different routes,
-   and creating something new is frequently the correct call even where ownership is exactly right.
+   and creating something new can be the correct call even where ownership is exactly right.
    A repository count answers a question nobody asked, and answers it confidently.</p>
 
 <h3>The distinction that makes it an instrument rather than a complaint</h3>
@@ -643,10 +651,10 @@ const NOTE_COUNT = {
    deciding anybody's year, and it is worth nothing as a target.</p>
 
 <p>It also assumes there is a decomposition record at all.
-   <a href="/notes/the-last-hop/">The note on the last hop</a> argues that most teams minimize
-   documentation wherever they are allowed to, and that the breakdown historically lived in an
-   engineer's head. Where that is still true this is not cheap, and it is the second reason to start
-   writing the breakdown down.</p>
+   <a href="/notes/the-last-hop/">The note on the last hop</a> argues that most teams, in my
+   experience, minimize documentation wherever they are allowed to, and that the breakdown
+   historically lived in an engineer's head. Where that is still true this is not cheap. That agents
+   need it written down at all is the first reason to start; this is the second.</p>
 
 <p>Version control can tell you what changed together, afterwards, with nobody filling in anything.
    That is worth having and it is a different instrument: it records what did change together and
@@ -862,9 +870,8 @@ const NOTE = {
               'and maintaining the platform is not one of them, so the system ends up being ' +
               'whatever the projects left behind.',
   gist: [
-    'Deliver the project, or look after the system. The conflict is old, and it has always ' +
-      'resolved the same way, because the project has a goal and a date and the system has ' +
-      'neither.',
+    'Deliver the project, or look after the system. The conflict is old, and it resolves the ' +
+      'same way, because the project has a goal and a date and the system has neither.',
     'Agents do not resolve it by themselves. Every agent team is scoped to a component, so an ' +
       'organization that never settled who owns what has taken the brake off rather than slowed ' +
       'anything down.',
@@ -979,8 +986,8 @@ const NOTE_HOP = {
   author: 'John Kelly',
   date: '2026-08-22',
   dateHuman: '22 August 2026',
-  standfirst: 'Engineers always did the final decomposition in their heads, and it worked because ' +
-              'they knew the system. Agents have no such bridge, which turns documentation from ' +
+  standfirst: 'Engineers did the final decomposition in their heads, and it worked because they ' +
+              'knew the system. Agents have no such bridge, which turns documentation from ' +
               'overhead into the input.',
   gist: [
     'The bridge from an outcome to the components that implement it was real work, done reliably, ' +
@@ -990,7 +997,7 @@ const NOTE_HOP = {
   ],
   body: `
 <p>Take an API team, working the old way. They get an epic and break it into user stories. The
-   stories usually name an outcome: the API. But the outcome is delivered through changes across
+   stories name an outcome: the API. But the outcome is delivered through changes across
    several components, often across several repositories, and how much of that got written down
    varied by team.</p>
 
@@ -1075,8 +1082,8 @@ const NOTE_HOP = {
    years is now the input. That is an uncomfortable thing to tell a team that has been running lean
    on it, and it is the most concrete advantage I have seen change hands so far.</p>
 
-<p>It also changes what skipping it costs. Generation is cheap now and getting cheaper, so a team
-   that is not aligned to the components it maintains still produces the work. It just produces it
+<p>It also changes what skipping it costs. Generation is cheap now, so a team that is not
+   aligned to the components it touches still produces the work. It just produces it
    in places nobody is answerable for. That used to be limited by how much a team could write by
    hand, and it is not limited by that any more.</p>
 `,
@@ -1096,7 +1103,7 @@ const NOTE_SKILL = {
               'each team read them differently. A shared skill removes the re-reading. It does not ' +
               'remove the interpretation.',
   gist: [
-    'One layer is usually several teams. Four API teams now means four agent teams producing API ' +
+    'One layer is often several teams. Four API teams now means four agent teams producing API ' +
       'code, and nothing in the decomposition makes their output agree.',
     'Publishing the convention once is a real advance and it is the distribution half. The half ' +
       'that checks what each team actually produced does not exist yet.',
@@ -1192,8 +1199,8 @@ const NOTE_BOUNDARY = {
   date: '2026-08-24',
   dateHuman: '24 August 2026',
   standfirst: 'One public repository used to be fine. With agent teams, the thing that says how ' +
-              'your engineers work is an artifact for the first time, and most teams will not want ' +
-              'it published alongside the product.',
+              'your engineers work is an artifact for the first time, and I would not expect most ' +
+              'teams to want it published alongside the product.',
   gist: [
     'You used to coach engineers in review comments and design meetings. None of it could be ' +
       'published, because none of it was a thing you could publish.',
@@ -1278,7 +1285,7 @@ const NOTE_BOUNDARY = {
   <text x="570" y="322" text-anchor="middle" fill="#0B2545" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="11.5" letter-spacing="1.2">DELETED IN PRIVATE. NEVER HELD IN PUBLIC.</text>
 </svg></div>
 
-<p>Which answers a problem most people meet the hard way, by never creating it. A repository keeps
+<p>Which answers a problem people meet the hard way, by never creating it. A repository keeps
    every blob it has ever held, so deleting a file at the head does not remove the version you
    deleted. Publishing a tree means the public repository never held it. Not "no longer holds".
    Never held. That also rules out the arrangement that looks safest and is not, a private branch
@@ -1303,8 +1310,8 @@ const NOTE_CROSSING = {
   date: '2026-08-26',
   dateHuman: '26 August 2026',
   standfirst: 'The front door is public and the work is private, so reports have to cross inward. ' +
-              'Everyone guards the outbound direction. The inbound one carries text an agent will ' +
-              'read as instructions.',
+              'Outbound is the direction a design guards first. The inbound one carries text an ' +
+              'agent will read as instructions.',
   gist: [
     'A report arrives where somebody found the problem. The team that can fix it works somewhere ' +
       'else, and the fix has to arrive back as a release.',
@@ -1371,14 +1378,14 @@ const NOTE_CROSSING = {
 <h2>Inbound is the one that carries instructions</h2>
 
 <p>Every arrow crossing that boundary crosses a trust domain, and the two directions are not
-   symmetric. Outbound risks publishing something that should not have left, and everybody can
-   picture that failure. Inbound risks importing text that an agent will read as instructions.</p>
+   symmetric. Outbound risks publishing something that should not have left, and that failure is
+   easy to picture. Inbound risks importing text that an agent will read as instructions.</p>
 
 <p>A mirrored issue body is written by anyone with an account, and it lands in a repository where
    agents read issues and act on them. So it is carried across fenced and labeled as
    reporter-supplied data. An agent acting on <em>please run X</em> found inside an issue body is
    executing a stranger's instructions. A design that guards only one direction has guarded the easy
-   one, and outbound is the easy one, because it is the one everybody already imagines.</p>
+   one, and outbound is the easy one, because it is the one that is easy to imagine.</p>
 `,
 };
 
@@ -1398,7 +1405,7 @@ const NOTE_CADENCE = {
       'change did what you wanted, so teams need several branches going at once.',
   ],
   body: `
-<p>The first way anybody works with an agent is by prompting it. You ask, it answers, the answer is
+<p>The first way to work with an agent is by prompting it. You ask, it answers, the answer is
    not quite right, so you ask again with more detail. It works, and it is the right place to start.
    What it does not do is accumulate. The understanding you built up getting to a good answer lives
    in that session and goes when the session does, and the next person starts where you started.</p>
@@ -1476,8 +1483,7 @@ const NOTE_CADENCE = {
    because the model can move underneath a stable name between them, and that is the one difference
    nobody can find afterwards. Read the results without knowing which is which, if you can. The
    timing note bounds how much drift could explain rather than removing it, and where one person
-   writes the change and reads the results, which is most of the time, reading blind is not available
-   at all.</p>
+   writes the change and reads the results, reading blind is not available at all.</p>
 
 <h2>The question to keep asking</h2>
 
@@ -1491,9 +1497,9 @@ const NOTE_CADENCE = {
    anybody's. What it does prevent is changing a file, liking the next answer, and calling that
    evidence.</p>
 
-<p>Teams that get here need time for it and most are not given it. Refining an agent team produces
-   nothing shippable that week, so it is the first thing traded away when delivery is late. It is
-   also the thing that decides what every following week produces.</p>
+<p>Teams that get here need time for it. Refining an agent team produces nothing shippable that
+   week, so it is the first thing traded away when delivery is late. It is also the thing that
+   decides what every following week produces.</p>
 `,
 };
 
@@ -1548,7 +1554,7 @@ ${CSS}
     <div class="head narrow">
       <p class="eyebrow">The problem</p>
       <h2>Everyone is building the&nbsp;same things, separately.</h2>
-      <p>The hard part was never the model. It is that when a request arrives, often nobody is
+      <p>The hard part was never the model. It is that when a request arrives, nobody is
          clearly answerable for the things it touches, and nothing can be pointed at that settles
          what those things do. Both were survivable while a person could walk over and ask.
          Neither is now:
@@ -1582,9 +1588,9 @@ ${CSS}
       <h2>The whole view decides the design.</h2>
       <p>Crinaro is a ridge line, from the Italian <i>crinale</i>: the crest path where you can
          see down both sides. That is the method: stand where the whole system is visible before
-         deciding anything. The test of a decision made from there is whether the team still has
-         the thing when you come back to it, and whether <em>do not build this</em> was ever an
-         available answer.</p>
+         deciding anything. The test of a decision made from there is whether the team still owns
+         and runs what was built when you come back to it, and whether <em>do not build this</em>
+         was ever an available answer.</p>
     </div>
   </div>
 </section>
@@ -1594,10 +1600,10 @@ ${CSS}
     <div class="head narrow">
       <p class="eyebrow">What follows from it</p>
       <h2>Five principles for&nbsp;designing agent teams.</h2>
-      <p>These are the whole argument, and each is worked out at length below. The fifth is still
-         the one nothing here has measured. What it has now is the two numbers that would tell you
-         whether the thing meant to produce it is working, which is a weaker claim than the target
-         standing alone and the one this can support.</p>
+      <p>These are the whole argument, and each one links to the note that works it out. The fifth
+         is still the one nothing here has measured. What it has now is the two numbers that would
+         tell you whether the thing meant to produce a flat maintenance cost is working, a weaker
+         claim than the target alone and the one this can&nbsp;support.</p>
     </div>
     <div class="principles">
       <p class="principle"><b>Optimize for the platform, not the project.</b>
@@ -1605,10 +1611,11 @@ ${CSS}
         costs after that is paid by everyone, on every run, and only a deliberate act removes it.
         <a class="src" href="/notes/${NOTE.slug}/">${NOTE.title}</a></span></p>
       <p class="principle"><b>Assign ownership at the component level, and over its data.</b>
-        <span>Teams aligned to components support the velocity an organization needs and drive its
-        costs down. An agent team is one of those teams and inherits the accountability of whoever
-        funds and reviews it. Teams aligned to projects do the
-        opposite. <b>Data nobody owns is where the boundary fails</b>: the team changes behavior it
+        <span>A team aligned to a component is still answerable for it after the current deadline,
+        which is what velocity and run rate both depend on. A team aligned to a project is
+        answerable until the project ends. An agent team is one of those teams and inherits the
+        accountability of whoever funds and reviews it.
+        <b>Data nobody owns is where the boundary fails</b>: the team changes behavior it
         owns while nothing is answerable for the shape that constrains it. Owned somewhere else on
         purpose, with a name against it, is a different thing and it is the design working.
         <a class="src" href="/notes/${NOTE_HOP.slug}/">${NOTE_HOP.title}</a>
@@ -1645,9 +1652,8 @@ ${CSS}
     </div>
     <div class="vert">
       <b>An internal marketplace</b>
-      <p>So teams share what they build instead of each solving it privately. It is the cheapest
-         move and the one that pays immediately, because the alternative is every team paying to
-         discover the same thing.
+      <p>So teams share what they build instead of each solving it privately. It is the cheaper of
+         the two moves, because the alternative is each team paying to discover the same thing.
          <a class="src" href="/notes/shared-skills/">What a shared capability does and does not fix</a></p>
     </div>
     <div class="vert">
@@ -1674,10 +1680,10 @@ ${CSS}
     <div class="head narrow">
       <p class="eyebrow">How the work gets done</p>
       <h2>A factory that maintains, not just builds.</h2>
-      <p>Generating something with AI is the easy half now. The half that decides whether it is
-         still alive in six months is the one nobody automates: keeping the documents true, the
-         gates green, the releases loading, and the claims about the system honest. That is what
-         these agents do. None of them writes features.</p>
+      <p>Generating something with AI is the easy half now. The other half decides whether the
+         thing is still alive in six months: keeping the documents true, the gates green, the
+         releases loading, and the claims about the system honest. That is the half these agents
+         do. None of them writes features.</p>
     </div>
     <div class="verts">
       ${factory.map(([n, d]) => `<div class="vert"><b>${n}</b><span>${d}</span></div>`).join('\n      ')}
@@ -1734,8 +1740,8 @@ ${CSS}
       ${method.map(([h, b]) => `<div class="col"><div class="rule"></div>
         <h3>${h}</h3><p>${b}</p></div>`).join('\n      ')}
     </div>
-    <p class="note">Kept current as the ground moves. The tools, the vendors and the limits all
-       change, and a reference that is not re-sourced is worse than none. It is not published, so
+    <p class="note">The reference is kept current as the ground moves. The tools, the vendors and
+       the limits all change, and a reference that is not re-sourced is worse than none. It is not published, so
        the diagram above shows how far the work reaches, not the decisions inside it. Published
        separately, and standing without it:
        <a class="src" href="/what-you-already-have/">what the gaps cost</a>, which runs the pieces
@@ -1801,7 +1807,7 @@ ${CSS}
       <p>These are patterns, not prescriptions, and the interesting mail is the mail that says a
          piece of it does not hold: in your architecture, at your size, with the constraints you
          actually have. That is a conversation worth having whether or not anything follows it.</p>
-      <p>Today I read it myself, and I do not expect enough of it that I will not. If that changes,
+      <p>Today I read it myself, and I do not expect enough mail to change that. If that changes,
          the answer will be the one this whole page argues for: an agent team to help with the
          replying, maintained the way the rest of this is, with the questions and the disagreement
          going back to the team that keeps the material. Which is a fair test of whether any of it
@@ -1846,7 +1852,7 @@ const NOTE_ANSWER = {
   dateHuman: '2 September 2026',
   standfirst: 'Duplicate services and duplicate facts both fail quietly. The difference is that ' +
               'you can count the services. Nothing anywhere enumerates the facts, so the first ' +
-              'person to find out is usually a customer.',
+              'person to find out can be a customer.',
   gist: [
     'Every team that cannot get an answer keeps a copy of its own. That is a fork, the same as a ' +
       'forked component, except that nothing anywhere reports the divergence.',
@@ -1863,10 +1869,10 @@ const NOTE_ANSWER = {
    looking will find them.</p>
 
 <p>Now the same thing in the record. Support keeps its own description of how a feature behaves,
-   because asking took a week and the release could not wait. Engineering changes the feature.
+   because asking took too long and the release could not wait. Engineering changes the feature.
    Nothing reports that the two have drifted apart, and this time there is nothing to count either.
    No repository, no bill, no name. You cannot build the list. Nobody finds out until a customer is
-   told something engineering stopped believing months ago.</p>
+   told something engineering stopped believing.</p>
 
 <h3>Why a person survives this and an agent does not</h3>
 
@@ -1921,8 +1927,8 @@ const NOTE_ANSWER = {
 <p>Anyone who has run a service catalog has this already: an entry for each part, living as a file
    in that part's own repository, with a loop that re-reads them and refreshes the view. It works.
    The same shape, under an older name and fed by discovery rather than by files, has been in
-   enterprise estates for a generation. So the argument here is not that somebody should build the
-   thing. Most of the readers who need it can already point at one.</p>
+   enterprise estates for a long time. So the argument here is not that somebody should build the
+   thing. A reader who needs it can probably already point at one.</p>
 
 <p>It is that the thing gets built and then is not believed, and the reasons are not tooling
    reasons. A part that writes down something wrong gets mirrored faithfully, and the wrong answer
@@ -1950,8 +1956,8 @@ const NOTE_ANSWER = {
 <p>And a mirror is not the only way. Where the parts can answer a query, the better answer is to
    compose the shape of the estate centrally and resolve the contents on demand, which has no
    staleness in it at all. What is centralized then is the map, not the state. Polling is what you
-   are left with when the parts are of different generations and most of them cannot serve a query,
-   which is the honest condition of most estates. That is a constraint, not a preference, and it is
+   are left with when the parts are of different generations and most of them cannot serve
+   a query, which is the condition of every estate I have worked in. That is a constraint, not a preference, and it is
    worth knowing which one you are in.</p>
 
 <h3>Consolidated means addressable, not centralized</h3>
@@ -2063,7 +2069,7 @@ ${CSS}
      argument about why that happens and what an agentic model changes about it. The next two are
      about where the agent team itself lives, and what has to cross between there and whatever you
      publish. The rest stand alone: how you would know any of it is working, what an agent team can
-     actually be handed, who owns the answer when two of them disagree, and what changes once the
+     actually be handed, who owns the answer when two records disagree, and what changes once the
      thing you edit is the spec rather than the prompt.</p>
   ${SERIES.map(([key, head]) => `<p class="series-head">${head}</p>
   ` + seriesOf(key).map((n, i) => `<div class="entry">
@@ -2205,7 +2211,7 @@ ${extraCss}
 fs.mkdirSync(path.join(DIST, 'what-you-already-have'), { recursive: true });
 writePage(path.join(DIST, 'what-you-already-have', 'index.html'), `${pageHead(
   'Start from what you already have',
-  'Six things an agent setup can have, in the order they stop being optional, what leaving each one empty costs, and where to see the options.',
+  `${SPELLED[LAYERS.length]} things an agent setup can have, in the order they stop being optional, what leaving each one empty costs, and where to see the options.`,
   'https://crinaro.ai/what-you-already-have/', `
   .rows { counter-reset:lay; }
   .row { margin:0 0 2.2rem; padding-left:2.4rem; position:relative; counter-increment:lay; }
@@ -2218,9 +2224,9 @@ writePage(path.join(DIST, 'what-you-already-have', 'index.html'), `${pageHead(
          text-transform:uppercase; color:var(--muted); display:block; margin-bottom:.2rem; }`)}
   <h1>Start from what you already have</h1>
   <p class="standfirst"><b>Ownership is what decides whether any of this helps</b>, and that is
-     argued <a class="src" href="/notes/">in the notes</a>. This is the other half. You already have
-     some of the machinery, and the useful question is not what a greenfield build would look like,
-     it is what the gaps are costing you.</p>
+     argued <a class="src" href="/notes/">in the notes</a>. This is the other half. Some of this
+     machinery you will already have, and the useful question is not what a greenfield build would
+     look like, it is what the gaps are costing you.</p>
   <p class="written">Read down the list. <b>Stop at the first one you answer no to</b>, and follow
      the link on that row to see what exists there.</p>
 
