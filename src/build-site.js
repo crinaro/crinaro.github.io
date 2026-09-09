@@ -592,6 +592,8 @@ const CSS = `${FONTS}
      identically. Poppins is embedded, so this holds on every machine. Re-probe
      it if the subhead changes — the number is a fact about this string. */
   .hero p { color:var(--rblue); font-size:1.1rem; max-width:54ch; }
+  .band .src { color:var(--rblue); border-bottom-color:rgba(147,184,212,.45); }
+  .band .src:hover { color:#FFFFFF; border-bottom-color:#FFFFFF; }
   .hero .src { color:var(--rblue); border-bottom-color:rgba(147,184,212,.45);
                align-self:flex-start; margin-top:.4rem; }
   .hero .routes { align-self:flex-start; margin-top:.6rem; }
@@ -1535,6 +1537,48 @@ ${CSS}
          moves the maintenance bill.
          <a class="src" href="/notes/count-the-changes/">How you would know it is working</a></p>
     </div>
+  </div>
+</section>
+
+<section class="band">
+  <div class="wrap">
+    <div class="head narrow">
+      <p class="eyebrow">Getting the most out of it</p>
+      <h2>The shift is to specifying. It does not fit on a laptop.</h2>
+      <p>The change worth making is not that engineers write less code. It is that when the output
+         is wrong, the thing you edit stops being the prompt and becomes the spec.
+         <a class="src" href="/notes/prompting-to-specifying/">The shift itself</a></p>
+      <p>Which creates a requirement the old way never had. A prompt gives you an answer. A spec
+         gives you something to check the answer against, and a check is only worth anything if it
+         runs under the same conditions every time. Not the same answer: answers vary for reasons no
+         arrangement of yours will fix. <b>The conditions are the part you control, and a workstation
+         is where you stop controlling them.</b>
+         <a class="src" href="/notes/same-request-same-answer/">Why the conditions are the thing</a></p>
+    </div>
+    <div class="cols">
+      <div class="col"><div class="rule"></div>
+        <h3>Work has to run unattended</h3>
+        <p>The first thing that wants this is unglamorous and arrives early: a scheduled job keeping
+           a current-state view fresh. On a laptop it stops when its owner takes leave, and nothing
+           reports that it stopped.</p></div>
+      <div class="col"><div class="rule"></div>
+        <h3>Checks have to run the same way</h3>
+        <p>Once whether the built thing matches the spec is a gate rather than a convenience, it has
+           to run identically for everyone, including for a run nobody launched.</p></div>
+      <div class="col"><div class="rule"></div>
+        <h3>Data constraints close the hosted door</h3>
+        <p>A classification, a residency obligation or a customer commitment that a shared
+           environment cannot satisfy, with somebody accountable saying so.</p></div>
+    </div>
+    <p class="note"><b>The third without the first two is a procurement conversation rather than an
+       environment.</b> Build it before there is unattended work and you get infrastructure with
+       nobody on it, which is the same mistake as buying for a problem you do not have yet.
+       <a class="src" href="/what-you-already-have/options/#l-compute-and-isolation">What exists at that layer</a></p>
+    <p class="note"><b>Two things this does not say.</b> It does not price any of it, because there
+       is no cost model here. And an environment where agents hold credentials and read source is a
+       higher-value target than the laptops it replaced: isolation bounds what a run can see and
+       bounds nothing about what it can do with the authority it was given. Short-lived credentials
+       issued per run are what helps there, and none of that has been threat-modeled here.</p>
   </div>
 </section>
 
