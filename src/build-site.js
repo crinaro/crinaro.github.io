@@ -330,22 +330,22 @@ const KIND_LABEL = {
 // The order is the order the rows stop being optional in. It is an argument
 // about dependency, never about quality, and the page says so twice.
 const LAYERS = [
-  ['Somewhere isolated for work to run',
+  ['compute-and-isolation', 'Somewhere isolated for work to run',
    'An agent run gets a workspace that is not somebody\'s laptop, and two runs cannot see each other.',
    'Every unattended run inherits one machine\'s credentials and state. This is the row that stops being optional first, because a scheduled job on a laptop stops when its owner takes leave and nothing reports that it stopped.'],
-  ['Something serving a model',
+  ['serving', 'Something serving a model',
    'You run a process that holds weights, or you have decided on purpose that you never will.',
-   'Nothing, if you buy inference and mean it. Empty is the correct state of this row for anyone who does, and saying so is the alternative to implying a hole.'],
-  ['Something routing between providers',
+   'Nothing, if you buy inference and mean it. Empty is the correct state of this row for anyone who does.'],
+  ['gateway', 'Something routing between providers',
    'Changing which model answers is a configuration change rather than a code change.',
    'Every switch becomes a code change in however many places call a model. One model and one consumer does not earn this row. A second of either does.'],
-  ['Something supplying tools and context',
+  ['context-and-tools', 'Something supplying tools and context',
    'An agent reaches your systems through a declared surface rather than through pasted text.',
    'Nothing records what an agent was actually given, so when a run comes back wrong there is nothing to inspect and nothing to change except the next prompt.'],
-  ['Something that survives a crash',
+  ['orchestration', 'Something that survives a crash',
    'A sequence that dies halfway resumes rather than restarts.',
    'Long work is only as reliable as the machine it started on. This row earns its place once a run is long enough that starting it again is expensive, and before that it is the easiest thing on this list to buy too early.'],
-  ['Something a person sits in front of',
+  ['interface', 'Something a person sits in front of',
    'Nobody has to read a log to know what an agent did.',
    'You cannot tell a working agent team from a stuck one without going and asking the person running it.'],
 ];
@@ -594,10 +594,11 @@ const CSS = `${FONTS}
   .hero p { color:var(--rblue); font-size:1.1rem; max-width:54ch; }
   .hero .src { color:var(--rblue); border-bottom-color:rgba(147,184,212,.45);
                align-self:flex-start; margin-top:.4rem; }
-  .hero .routes { align-self:flex-start; margin-top:.4rem; display:flex;
-                  align-items:baseline; gap:.9rem; flex-wrap:wrap; }
+  .hero .routes { align-self:flex-start; margin-top:.6rem; }
+  .hero .routes p { margin:0 0 .6rem; }
   .hero .routes .src { margin-top:0; }
-  .hero .routes .dot { color:rgba(147,184,212,.5); }
+  .hero .routes .rl { font-family:var(--mono); font-size:.66rem; letter-spacing:.16em;
+                      text-transform:uppercase; color:#93B8D4; display:block; margin-bottom:.25rem; }
   .hero .src:hover { color:#FFFFFF; border-bottom-color:#FFFFFF; }
 
   .cta {
@@ -1377,9 +1378,8 @@ ${CSS}
     <h1>${CLAIM_HTML}</h1>
     <p>${SUB}</p>
     <div class="routes">
-      <a class="src" href="/notes/">Read the notes <span aria-hidden="true">&rarr;</span></a>
-      <span class="dot" aria-hidden="true">&middot;</span>
-      <a class="src" href="/what-you-already-have/">Start from what you have <span aria-hidden="true">&rarr;</span></a>
+      <p><span class="rl">Design</span><a class="src" href="/notes/">How these systems should be shaped, argued at length <span aria-hidden="true">&rarr;</span></a></p>
+      <p><span class="rl">Adoption</span><a class="src" href="/what-you-already-have/">Where to start, and what the gaps are costing you <span aria-hidden="true">&rarr;</span></a></p>
     </div>
   </div>
 </header>
@@ -2131,13 +2131,13 @@ console.log(`       dist/notes/${note.slug}/ — bylined piece`);
 // GitHub Pages needs the custom domain declared in the repo itself. Setting it
 // in the web UI writes this file; committing it means a redeploy can never drop
 // the domain and fall back to <org>.github.io.
-// The layer view. A third kind of page: not the home page and not a note. It
-// reuses the note shell so there is one set of styles to keep true.
-fs.mkdirSync(path.join(DIST, 'what-you-already-have'), { recursive: true });
-writePage(path.join(DIST, 'what-you-already-have', 'index.html'), `${noteHead(
-  'Start from what you already have',
-  'The layers an agent setup can have, in the order they stop being optional, what leaving each one empty costs, and what exists at each. A list, not a review.',
-  'https://crinaro.ai/what-you-already-have/')}
+// TWO pages, split 2026-09-08 at John's direction. The first cut put the six
+// rows, a signal legend and all 61 tools on one page: 3,300 words, and it told
+// the reader to STOP AT THE FIRST NO and then gave them nowhere to go. The
+// instruction had no destination, which is the defect. Now: a short page that
+// says where to start, and every row links to that layer's options in a table.
+// See decisions/07-naming-tools.md.
+const pageHead = (title, desc, url, extraCss) => `${noteHead(title, desc, url)}
 <style>
 ${CSS}
   .note-wrap p { margin:0 0 1.1rem; }
@@ -2146,203 +2146,149 @@ ${CSS}
   .note-home svg { width:11rem; height:auto; display:block; }
   h1 { font-family:var(--head); font-weight:500; font-size:clamp(1.8rem,4vw,2.6rem);
        line-height:1.12; margin:0 0 1rem; }
-  .standfirst { font-size:1.12rem; color:var(--ink-2); margin:0 0 3rem;
-                padding-bottom:2.6rem; border-bottom:1px solid var(--hair); }
-  h2 { font-family:var(--head); font-weight:500; font-size:1.35rem; margin:3.4rem 0 1.4rem;
-       line-height:1.25; }
-  .rows { counter-reset:lay; }
-  .row { margin:0 0 2.4rem; padding-left:2.4rem; position:relative; counter-increment:lay; }
-  .row::before { content:counter(lay); position:absolute; left:0; top:.2rem;
-                 font-family:var(--mono); font-size:.78rem; color:var(--muted); }
-  .row h3 { font-family:var(--head); font-weight:500; font-size:1.05rem; color:var(--ink);
-            margin:0 0 .7rem; line-height:1.3; }
-  .row p, .sig p { margin:0 0 .7rem; color:var(--ink-2); }
-  .lbl { font-family:var(--mono); font-size:.68rem; letter-spacing:.13em;
-         text-transform:uppercase; color:var(--muted); display:block; margin-bottom:.2rem; }
-  .sig { margin:0 0 1rem; }
-  .jump { font-size:.92rem; line-height:2; color:var(--ink-2); margin:1.6rem 0 0; }
-  .jump a { color:var(--ink); text-decoration:none; border-bottom:1px solid rgba(27,92,70,.3); }
-  .jump a:hover { border-bottom-color:var(--green); }
-  .jump .jn { font-family:var(--mono); font-size:.7rem; color:var(--muted); }
-  .jump .jd { color:var(--muted); margin:0 .5rem; }
-  h3.lay { scroll-margin-top:1.5rem; }
-  h3.lay { font-family:var(--head); font-weight:500; font-size:1.05rem; color:var(--ink);
-           margin:2.8rem 0 1.2rem; padding-bottom:.5rem; border-bottom:1px solid var(--hair); }
-  h3.lay .n { font-family:var(--mono); font-size:.7rem; color:var(--muted); margin-left:.4rem; }
-  .tool { margin:0 0 1.4rem; }
-  .tool p { margin:0; }
-  .tn { font-family:var(--head); font-weight:500; font-size:.98rem; }
-  .tn a { color:var(--ink); text-decoration:none; border-bottom:1px solid rgba(27,92,70,.35); }
-  .tn a:hover { border-bottom-color:var(--green); }
-  .arch { font-family:var(--mono); font-size:.66rem; letter-spacing:.08em; text-transform:uppercase;
-          color:var(--muted); margin-left:.5rem; }
-  .tw { color:var(--ink-2); margin-top:.25rem !important; }
-  .tm { font-family:var(--mono); font-size:.68rem; letter-spacing:.05em; color:var(--muted);
-        margin-top:.35rem !important; }
-  .tool.grp { margin-bottom:1.8rem; }
-  .grp-h { font-family:var(--mono); font-size:.68rem; letter-spacing:.13em; text-transform:uppercase;
-           color:var(--muted); margin-bottom:.5rem !important; }
-  .tool.grp .tw { margin-top:0 !important; margin-bottom:.7rem !important; }
-  .tn.sub { font-size:.94rem; margin-bottom:.45rem !important; }
-  .tm.inline { display:block; margin-top:.1rem !important; }
+  .standfirst { font-size:1.12rem; color:var(--ink-2); margin:0 0 2.4rem; }
   .written { font-family:var(--mono); font-size:.72rem; letter-spacing:.06em; color:var(--muted);
-             margin:-1.6rem 0 3rem; }
-  .foot { margin-top:3.6rem; padding-top:1.8rem; border-top:1px solid var(--hair);
+             margin:0 0 3rem; padding-bottom:2.4rem; border-bottom:1px solid var(--hair);
+             line-height:1.9; }
+  h2 { font-family:var(--head); font-weight:500; font-size:1.35rem; margin:3rem 0 1.2rem;
+       line-height:1.25; }
+  .foot { margin-top:3.4rem; padding-top:1.8rem; border-top:1px solid var(--hair);
           font-size:.95rem; color:var(--ink-2); }
-  .foot p { margin:0 0 .9rem; }
+${extraCss}
 </style>
 </head>
 <body>
 <div class="note-wrap">
-  <a class="note-home" href="/" aria-label="Crinaro.AI">${svg('crinaro-ai-horizontal.svg')}</a>
+  <a class="note-home" href="/" aria-label="Crinaro.AI">${svg('crinaro-ai-horizontal.svg')}</a>`;
+
+fs.mkdirSync(path.join(DIST, 'what-you-already-have'), { recursive: true });
+writePage(path.join(DIST, 'what-you-already-have', 'index.html'), `${pageHead(
+  'Start from what you already have',
+  'Six things an agent setup can have, in the order they stop being optional, what leaving each one empty costs, and where to see the options.',
+  'https://crinaro.ai/what-you-already-have/', `
+  .rows { counter-reset:lay; }
+  .row { margin:0 0 2.2rem; padding-left:2.4rem; position:relative; counter-increment:lay; }
+  .row::before { content:counter(lay); position:absolute; left:0; top:.2rem;
+                 font-family:var(--mono); font-size:.78rem; color:var(--muted); }
+  .row h3 { font-family:var(--head); font-weight:500; font-size:1.05rem; color:var(--ink);
+            margin:0 0 .6rem; line-height:1.3; }
+  .row p { margin:0 0 .6rem; color:var(--ink-2); }
+  .lbl { font-family:var(--mono); font-size:.68rem; letter-spacing:.13em;
+         text-transform:uppercase; color:var(--muted); display:block; margin-bottom:.2rem; }`)}
   <h1>Start from what you already have</h1>
   <p class="standfirst">You already have some of this. The useful question is not what a greenfield
-     build would look like, it is what the gaps are costing you. <b>Read down the list and stop at
-     the first one you answer no to.</b> That is the cheapest thing you can do next.</p>
-  <p class="written"><time datetime="${TOOLS.cut}">List assembled ${TOOLS.cut}.</time> That is not
-     a day anything was read. Every entry carries its own dates and those are the ones to believe.</p>
+     build would look like, it is what the gaps are costing you.</p>
+  <p class="written">Read down the list. <b>Stop at the first one you answer no to</b>, and follow
+     the link on that row to see what exists there.</p>
 
   <div class="rows">
-  ${LAYERS.map(([name, have, cost]) => `<div class="row">
+  ${LAYERS.map(([key, name, have, cost]) => `<div class="row">
     <h3>${name}</h3>
     <p><span class="lbl">You have it if</span>${have}</p>
     <p><span class="lbl">Empty, it costs you</span>${cost}</p>
+    <p><a class="src" href="/what-you-already-have/options/#l-${key}">See the options <span aria-hidden="true">&rarr;</span></a></p>
   </div>`).join('\n  ')}
   </div>
 
-  <p>The order is the order these stop being optional in. <b>That is an argument about what depends
-     on what, and not about what is good.</b> No row ranks anything and no row says you should go
-     and buy something. What exists at each of these is listed further down.</p>
+  <p>The order is the order these stop being optional in, which is an argument about what depends on
+     what and not about what is good. <b>Two things are missing from it on purpose.</b> There is no
+     row for evaluating what an agent produced, because nothing worth pointing at fills it honestly
+     yet. There is no row for a registry of prompts or agent definitions, because one credible
+     option is not a market. Naming an absence is the alternative to selling you a gap as a layer.</p>
 
-  <p><b>These are pieces of infrastructure a request passes through.</b> They are a different cut
-     from the ownership tiers in <a class="src" href="/notes/who-owns-the-answer/">who owns the
-     answer</a>, which are about who is answerable for what a component says about itself. Both get
-     called layers and they are not the same list.</p>
+  <div class="foot">
+    <p>None of this has been measured against an organization, and the ordering is reasoned from
+       what depends on what. If a row is wrong, or the order is wrong where you are,
+       <a class="src" href="mailto:${EMAIL}">say so</a>, and today I read it myself.</p>
+    <p><a class="src" href="/what-you-already-have/options/">All the options, in one table</a>
+       &middot; <a class="src" href="/notes/">Read the notes</a>
+       &middot; <a class="src" href="/">Crinaro.AI</a></p>
+  </div>
+</div>
+</body>
+</html>`);
+console.log('       dist/what-you-already-have/ — where to start');
 
-  <h2>Two rows are missing, and both absences are claims</h2>
-
-  <p>There is no row for <b>evaluating what an agent produced</b>. Not because it does not matter,
-     but because nothing worth pointing at fills it honestly yet, and putting a row there would sell
-     you a gap as a layer.</p>
-
-  <p>There is no row for a <b>registry of prompts, contexts or agent definitions</b>. One credible
-     option is not a market, and a layer with one occupant is a decision you make once rather than a
-     category you shop in.</p>
-
-  <h2>What exists at each layer</h2>
-
-  <p>These are the tools this work has had to make a decision about, grouped by where they sit.
-     <b>It is a list and not a review.</b> Nothing here ranks anything, nothing recommends anything,
-     and no entry says a tool is good. The descriptions are ours, written from public pages and
-     repositories. <b>Nobody here has operated most of these.</b></p>
-
-  <p><b>A product missing from this list was not evaluated and rejected. Nobody looked.</b> The list
-     is shaped by the decisions this work happened to face, which makes its shape a fact about the
-     work rather than about the market.</p>
-
-  <p><b>Two dates, and they mean different things.</b> <i>Last push</i> is when the project last
-     landed a commit, which is the vendor's number and is the one the section above tells you how to
-     read. <i>Read</i> is when somebody here looked at the repository. Where an entry says
-     <i>not read here</i>, nobody has looked yet, which is a fact about this list and not about the
-     project. Where it says <i>no public activity to read</i>, it is a closed product with nothing
-     to look at. <b>The subtraction against today is yours in every case.</b></p>
+// A table, because that is what somebody arriving from a row wants: the choices
+// at that layer, side by side. Prose blocks per tool ran to 2,164 words and
+// could not be compared against each other at all.
+fs.mkdirSync(path.join(DIST, 'what-you-already-have', 'options'), { recursive: true });
+writePage(path.join(DIST, 'what-you-already-have', 'options', 'index.html'), `${pageHead(
+  'The options at each layer',
+  'The tools this work has had to make a decision about, grouped by where they sit, with what each one is and the public signals readable on a stated date. A list, not a review.',
+  'https://crinaro.ai/what-you-already-have/options/', `
+  .note-wrap { max-width:60rem; }
+  .tbl { overflow-x:auto; margin:0 0 2.6rem; }
+  table { border-collapse:collapse; width:100%; min-width:44rem; font-size:.92rem; }
+  th { font-family:var(--mono); font-size:.66rem; letter-spacing:.13em; text-transform:uppercase;
+       color:var(--muted); text-align:left; font-weight:400; padding:0 1rem .5rem 0;
+       border-bottom:1px solid var(--hair); white-space:nowrap; }
+  td { padding:.7rem 1rem .7rem 0; border-bottom:1px solid var(--hair); vertical-align:top;
+       color:var(--ink-2); }
+  td.nm { white-space:nowrap; }
+  td.nm a { color:var(--ink); text-decoration:none; border-bottom:1px solid rgba(27,92,70,.35);
+            font-family:var(--head); font-weight:500; }
+  td.nm a:hover { border-bottom-color:var(--green); }
+  td.sg { font-family:var(--mono); font-size:.7rem; letter-spacing:.03em; color:var(--muted);
+          white-space:nowrap; }
+  .arch { font-family:var(--mono); font-size:.62rem; letter-spacing:.08em; text-transform:uppercase;
+          color:var(--muted); display:block; }
+  h2 { scroll-margin-top:1.5rem; }
+  .jump { font-size:.92rem; line-height:2; color:var(--ink-2); margin:0 0 2.6rem; }
+  .jump a { color:var(--ink); text-decoration:none; border-bottom:1px solid rgba(27,92,70,.3); }
+  .jump .jd { color:var(--muted); margin:0 .5rem; }`)}
+  <h1>The options at each layer</h1>
+  <p class="standfirst"><b>It is a list and not a review.</b> Nothing here ranks anything, no entry
+     says a tool is good, and nobody here has operated most of them. A product missing from it was
+     not evaluated and rejected. Nobody looked.</p>
+  <p class="written">List assembled ${TOOLS.cut}. Where a date appears it is the project's own last
+     push, and those repositories were read on ${(TOOLS.tools.find(t => t.readOn) || {}).readOn}.
+     <b>Not checked</b> means nobody here has looked yet, which is a fact about this list rather
+     than about the project. <b>Not public</b> means a closed product with nothing to look at.
+     <a class="src" href="#signals">What a push date does and does not tell you</a>.</p>
 
   <p class="jump">${LAYER_NAMES.filter(([k]) => TOOLS.tools.some(t => t.layer === k))
-      .map(([k, label]) => `<a href="#l-${k}">${label}</a> <span class="jn">${TOOLS.tools.filter(t => t.layer === k).length}</span>`)
+      .map(([k, label]) => `<a href="#l-${k}">${label}</a>`)
       .join('<span class="jd" aria-hidden="true">&middot;</span>')}</p>
 
   ${LAYER_NAMES.map(([key, label]) => {
     const list = TOOLS.tools.filter(t => t.layer === key)
                             .sort((a, b) => a.name.toLowerCase().localeCompare(b.name.toLowerCase()));
     if (!list.length) return '';
-    // Some entries share a description word for word, because the index says the
-    // same true thing about every open-weight model: the files do not run, a
-    // serving process loads them. Printed once per entry that read as broken and
-    // told a reader nothing distinguishing. Said once, with the names under it,
-    // it says exactly as much and is honest that the property is shared. The
-    // alternative was inventing per-model characterizations nobody here has any
-    // basis for.
-    const shared = new Map();
-    for (const t of list) shared.set(t.what, (shared.get(t.what) || 0) + 1);
-    const grouped = list.filter(t => shared.get(t.what) >= 3);
-    const singles = list.filter(t => shared.get(t.what) < 3);
-    const meta = t => {
-      const bits = [];
-      if (t.kind && KIND_LABEL[t.kind]) bits.push(KIND_LABEL[t.kind]);
-      if (t.license) bits.push(`${t.license} as reported`);
-      if (t.signal === 'read') {
-        bits.push(`last push ${t.lastPush}`);
-        if (t.readOn) bits.push(`read ${t.readOn}`);
-      } else if (t.signal === 'none-exists') {
-        bits.push('no public activity to read');
-      } else {
-        bits.push('not read here');
-      }
-      return bits.join(' &middot; ');
-    };
-    const one = t => `<div class="tool">
-    <p class="tn"><a href="${t.url}" rel="noopener">${t.name}</a>${t.archived ? ' <span class="arch">archived by its owner</span>' : ''}</p>
-    <p class="tw">${t.what}</p>
-    <p class="tm">${meta(t)}</p>
-  </div>`;
-    const blocks = [];
-    for (const [what] of shared) {
-      const g = grouped.filter(t => t.what === what);
-      if (!g.length) continue;
-      const kinds = new Set(g.map(t => t.kind));
-      const head = kinds.size === 1 && KIND_LABEL[[...kinds][0]]
-        ? `<p class="grp-h">${KIND_LABEL[[...kinds][0]]} &middot; ${g.length}</p>` : '';
-      blocks.push(`<div class="tool grp">
-    ${head}
-    <p class="tw">${what}</p>
-    ${g.map(t => `<p class="tn sub"><a href="${t.url}" rel="noopener">${t.name}</a>
-      <span class="tm inline">${meta(t)}</span></p>`).join('\n    ')}
-  </div>`);
-    }
-    return `<h3 class="lay" id="l-${key}">${label} <span class="n">${list.length}</span></h3>
-  ${[...singles.map(one), ...blocks].join('\n  ')}`;
+    const sig = t => t.signal === 'read' ? t.lastPush
+              : t.signal === 'none-exists' ? 'not public'
+              : 'not checked';
+    return `<h2 id="l-${key}">${label}</h2>
+  <div class="tbl"><table>
+    <thead><tr><th>Tool</th><th>What it is</th><th>Type</th><th>License as reported</th><th>Last push</th></tr></thead>
+    <tbody>
+    ${list.map(t => `<tr>
+      <td class="nm"><a href="${t.url}" rel="noopener">${t.name}</a>${t.archived ? '<span class="arch">archived</span>' : ''}</td>
+      <td>${(t.what.match(/^.*?[.!?](?=\s|$)/) || [t.what])[0]}</td>
+      <td>${KIND_LABEL[t.kind] || ''}</td>
+      <td>${t.license || '&mdash;'}</td>
+      <td class="sg">${sig(t)}</td>
+    </tr>`).join('\n    ')}
+    </tbody>
+  </table></div>`;
   }).filter(Boolean).join('\n\n  ')}
 
-  <p><b>${(() => { const n = LAYER_NAMES.filter(([k]) => TOOLS.tools.filter(t => t.layer === k).length === 1).length;
-     return n === 1 ? 'One of those groups holds a single entry' : `${['zero','one','two','three','four','five','six','seven'][n] || n} of those groups hold a single entry each`; })()},
-     and that is the state of this list rather than the state of the field.</b> Nothing here fills
-     checking what came back honestly. Naming the absence is the alternative to selling you a gap as
-     a layer.</p>
-
-  <h2>How to read a signal, on anything</h2>
-
-  <p>Whatever you end up looking at, you will be on a repository page deciding something from
-     numbers. Numbers persuade without arguing. Each of these says what it measures, what it does
-     not, and what moves it for reasons that have nothing to do with the tool.</p>
-
-  ${SIGNALS.map(([name, text]) => `<div class="sig">
-    <p><b>${name}.</b> ${text}</p>
-  </div>`).join('\n  ')}
-
+  <h2 id="signals">How to read a signal, on anything</h2>
+  <p>These keep working on tools that never appear here.</p>
+  ${SIGNALS.map(([name, text]) => `<p><b>${name}.</b> ${text}</p>`).join('\n  ')}
   <p><b>And read the date, never the interval.</b> Somebody else's "updated three months ago" was
-     computed once, and it goes wrong while every input to it stays right: nobody pushes, nobody
-     edits the sentence, and the sentence becomes false on its own. Find the date and do the
-     subtraction yourself, against today.</p>
+     computed once, and it goes wrong while every input to it stays right. Do the subtraction
+     yourself, against today.</p>
 
   <div class="foot">
-    <p><b>What this is not.</b> Not a review, a shortlist or a recommendation. No entry says a tool
-       is good, no order implies a ranking, and nobody here has operated most of them. Where a
-       default is named anywhere in this work, that is a choice made for one particular shape and
-       never a verdict that one product beats another.</p>
-    <p><b>What goes out of date, and how fast.</b> The tools do, on their own schedules rather than
-       on this page's, which is why every entry carries dates instead of an interval.
-       The signals do not: how to read a repository keeps working on tools that never appear here.
-       The layers could, if the shape of this tooling changes. None of it has been measured against
-       an organization, and the ordering is reasoned from what depends on what.</p>
-    <p>If a row is wrong, or the order is wrong where you are,
-       <a class="src" href="mailto:${EMAIL}">say so</a>. That is the more interesting mail, and
-       today I read it myself.</p>
-    <p><a class="src" href="/notes/">Read the notes</a> &middot; <a class="src" href="/">Crinaro.AI</a></p>
+    <p><a class="src" href="/what-you-already-have/">Back to where to start</a>
+       &middot; <a class="src" href="/notes/">Read the notes</a>
+       &middot; <a class="src" href="/">Crinaro.AI</a></p>
   </div>
 </div>
 </body>
 </html>`);
-console.log('       dist/what-you-already-have/ — the layer view');
+console.log('       dist/what-you-already-have/options/ — ' + TOOLS.tools.length + ' tools in a table');
 
 fs.writeFileSync(path.join(DIST, 'CNAME'), 'crinaro.ai\n');
 
@@ -2359,6 +2305,7 @@ fs.writeFileSync(path.join(DIST, 'sitemap.xml'),
   '  <url><loc>https://crinaro.ai/</loc><changefreq>monthly</changefreq></url>\n' +
   `  <url><loc>https://crinaro.ai/notes/</loc><changefreq>monthly</changefreq></url>\n` +
   `  <url><loc>https://crinaro.ai/what-you-already-have/</loc><changefreq>monthly</changefreq></url>\n` +
+  `  <url><loc>https://crinaro.ai/what-you-already-have/options/</loc><changefreq>monthly</changefreq></url>\n` +
   NOTES.map(n =>
     `  <url><loc>https://crinaro.ai/notes/${n.slug}/</loc><lastmod>${n.date}</lastmod></url>\n`).join('') +
   '</urlset>\n');
