@@ -150,7 +150,7 @@
   .vert { display:grid; grid-template-columns:1fr; gap:.2rem;
           padding:1.15rem 0; border-bottom:1px solid var(--hair); }
   @media (min-width:44rem) { .vert { grid-template-columns:12rem 1fr; gap:2rem; align-items:baseline; } }
-  .vert b { font-family:var(--head); font-size:1.15rem; font-weight:500; color:var(--ink); }
+  .vert > b { font-family:var(--head); font-size:1.15rem; font-weight:500; color:var(--ink); }
   .vert span { color:var(--ink-2); }
 
   /* ---- dark band ---- */
@@ -255,6 +255,36 @@
   </div>
 </section>
 
+<section>
+  <div class="wrap">
+    <div class="head narrow">
+      <p class="eyebrow">What changes with AI</p>
+      <h2>The problem is old. The clock is not.</h2>
+      <p>None of what is above is new. It is the same failure, in the same shape, for thirty years.
+         What agents change is not the failure. It is how long you get before you meet it.</p>
+    </div>
+    <div class="cols">
+      <div class="col"><div class="rule"></div>
+        <h3>The interval used to be long</h3>
+        <p>A second copy took a long time to build, so the cost of having one surfaced long after
+           the decision that caused it, and landed on whoever was there when it did.</p></div>
+      <div class="col"><div class="rule"></div>
+        <h3>Now it is an afternoon</h3>
+        <p>Engineering turnaround has collapsed, and the interval collapses with it. The same
+           accumulation happens, at a speed nobody has built a habit for.</p></div>
+      <div class="col"><div class="rule"></div>
+        <h3>You will hit the objective</h3>
+        <p>That is not in question, and it is why this is hard to argue against in the room. What
+           you accumulate on the way to hitting it is the part nobody is measuring.</p></div>
+    </div>
+    <p class="note"><b>Whether that matters to you is a real question and it has an honest
+       answer.</b> If you are optimizing for an exit, this is not your problem and you should not
+       spend on it. If you are measured on what the platform costs to run in three years, it is the
+       problem, and adopting AI without a view of the whole system is how the bill gets larger
+       faster than it used to.</p>
+  </div>
+</section>
+
 <section class="band">
   <div class="wrap">
     <div class="head narrow">
@@ -311,6 +341,47 @@
 <section>
   <div class="wrap">
     <div class="head narrow">
+      <p class="eyebrow">Where to start</p>
+      <h2>Two moves, and the second one is the hard one.</h2>
+      <p>Neither of these is a tool decision. They are the things that have to be true before a
+         tool decision means anything.</p>
+    </div>
+    <div class="vert">
+      <b>An internal marketplace</b>
+      <p>So teams share what they build instead of each solving it privately. It is the cheapest
+         move and the one that pays immediately, because the alternative is every team paying to
+         discover the same thing.
+         <a class="src" href="/notes/shared-skills/">What a shared capability does and does not fix</a></p>
+    </div>
+    <div class="vert">
+      <b>A system view</b>
+      <p>So ownership is assigned against something real rather than against who happens to be
+         free. It needs three things: <b>what the business is trying to change</b>, which is either
+         a plan or simply the request flow you already have; <b>how work and data actually move</b>
+         through the platform; and <b>the data architecture</b>. Those three are what let an
+         architect say who owns what, rather than letting the last project to touch something own
+         it by default.</p>
+    </div>
+    <div class="vert">
+      <b>Start with people</b>
+      <p>The view is built by a human team, and that team's job becomes creating and maintaining the
+         agent teams inside the boundaries it draws. The boundary is the deliverable. The agent team
+         is what fills it.</p>
+    </div>
+    <div class="vert">
+      <b>What it buys</b>
+      <p>Concretely: you find the same rule implemented at the API layer more than once. The team
+         that owns that boundary owns removing it, over time, as work passes through. That is what
+         turns a system view into velocity rather than a diagram, and it is the only thing that
+         moves the maintenance bill.
+         <a class="src" href="/notes/count-the-changes/">How you would know it is working</a></p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="head narrow">
       <p class="eyebrow">How the work gets done</p>
       <h2>A factory that maintains, not just builds.</h2>
       <p>A user story used to name an outcome, <em>the API</em>, and the engineers filled in the
@@ -355,7 +426,7 @@
     </div>
     <div class="cols">
       <div class="col"><div class="rule"></div>
-        <p class="eyebrow">Private · twelve agents</p><h3>The AI-SDLC reference</h3><p>Delivery end to end on an agentic model, not one team’s repos: what gets asked for, how it is built, how you know it shipped. Worked into patterns another team can pick up.</p></div>
+        <p class="eyebrow">Private · fourteen agents</p><h3>The AI-SDLC reference</h3><p>Delivery end to end on an agentic model, not one team’s repos: what gets asked for, how it is built, how you know it shipped. Worked into patterns another team can pick up.</p></div>
       <div class="col"><div class="rule"></div>
         <p class="eyebrow">Internal · five agents</p><h3>This brand</h3><p>The page you are reading, the deck, the identity and the rules that govern them. A critic, a copy editor, one that renders every visual and looks at it, one that argues the other side, and one that reads new copy against everything already published.</p></div>
       <div class="col"><div class="rule"></div>
