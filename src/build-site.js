@@ -105,7 +105,8 @@ const problems = [
      'nobody to ask, and when two answers disagree it cannot tell which one is right. So it picks, ' +
      'confidently.'],
   ['So it gets built again',
-   'A second one gets built, correctly, by people doing their jobs well. It surfaces years later, ' +
+   'A second one gets built, correctly, by people doing their jobs well. It surfaces long after ' +
+     'the decision that caused it, ' +
      'when one change has to be made in several places and no two of them agree. Nothing on a plan ' +
      'ever showed that cost, and it arrives again every time anything changes.'],
 ];
@@ -265,6 +266,252 @@ const verticals = [
 // One stylesheet, shared by every page this generator writes. Extracted so a
 // second page cannot fork the palette — a duplicated :root is exactly the kind
 // of drift check-contrast.js and check-drift.sh exist to catch after the fact.
+
+// 2026-09-05. Principle 5 was stated on the home page and argued nowhere from
+// 2026-09-01, and every review flagged it: the only outcome claim on a page
+// whose credibility rests on claiming mechanism. The AI-SDLC pack, revision 24,
+// supplied the instrument. Everything here is theirs or John's, and two things
+// must not be separated from it:
+//   1. The DISCRIMINATOR. An instrument published without it "measures
+//      architecture and calls it waste", and it will be believed because it has
+//      a number on it.
+//   2. The failure to design against is NOT a reader who agrees and does
+//      nothing. It is a reader who agrees and then counts repositories.
+// Refused by the pack and not to be written back in: that most companies have
+// this problem and some are far worse. Uncounted population claim.
+// Also deliberately absent: which of the two shapes gets noticed first, which
+// reads as obvious and is a frequency claim in disguise.
+// The tools, extracted from the private tooling index by scripts/extract-tools.py.
+// That script is the only thing that reads the index, and it REFUSES to emit a
+// description that cites the private material, so a dangling reference cannot
+// reach this file by accident. Refresh is: pull the index, re-run the script,
+// rebuild. Never hand-edit tools.json.
+const TOOLS = JSON.parse(fs.readFileSync(path.join(__dirname, 'tools.json'), 'utf8'));
+
+// Display names and order for the layer sections. The first six match the rows
+// above them word for word, because they are the same six layers and a reader
+// should not have to work that out. The last four have no row because they are
+// not on the request path in the same way.
+const LAYER_NAMES = [
+  ['compute-and-isolation', 'Somewhere isolated for work to run'],
+  ['serving',               'Something serving a model'],
+  ['gateway',               'Something routing between providers'],
+  ['context-and-tools',     'Something supplying tools and context'],
+  ['orchestration',         'Something that survives a crash'],
+  ['interface',             'Something a person sits in front of'],
+  ['author',                'Authoring the agents and the skills'],
+  ['evaluate',              'Checking what came back'],
+  ['register-and-version',  'Registering and versioning what you publish'],
+  ['cross-cutting',         'Across all of it'],
+];
+
+const KIND_LABEL = {
+  'server-you-run': 'server you run',
+  'hosted-service': 'hosted service',
+  'weights-you-download': 'weights you download',
+  'desktop-application': 'desktop application',
+  'cli-you-install': 'CLI you install',
+  'library-you-import': 'library you import',
+  'ide-extension': 'editor extension',
+  'ide-application': 'editor',
+  'plugin-installed-into-a-harness': 'plugin for an agent',
+  'files-you-copy-into-a-repository': 'files you copy in',
+};
+
+// The layer view, published 2026-09-08. This is the AI-SDLC tooling index's own
+// entry-point table plus its signal legend, and NOTHING ELSE from that document.
+// The 61 entries are not here and must not come here: they name products, they
+// carry a hard expiry, and 81 of their lines cite documents no reader can open.
+// What is here names no product, so it does not decay on anybody's release
+// schedule. Keep it that way.
+//
+// The order is the order the rows stop being optional in. It is an argument
+// about dependency, never about quality, and the page says so twice.
+const LAYERS = [
+  ['Somewhere isolated for work to run',
+   'An agent run gets a workspace that is not somebody\'s laptop, and two runs cannot see each other.',
+   'Every unattended run inherits one machine\'s credentials and state. This is the row that stops being optional first, because a scheduled job on a laptop stops when its owner takes leave and nothing reports that it stopped.'],
+  ['Something serving a model',
+   'You run a process that holds weights, or you have decided on purpose that you never will.',
+   'Nothing, if you buy inference and mean it. Empty is the correct state of this row for anyone who does, and saying so is the alternative to implying a hole.'],
+  ['Something routing between providers',
+   'Changing which model answers is a configuration change rather than a code change.',
+   'Every switch becomes a code change in however many places call a model. One model and one consumer does not earn this row. A second of either does.'],
+  ['Something supplying tools and context',
+   'An agent reaches your systems through a declared surface rather than through pasted text.',
+   'Nothing records what an agent was actually given, so when a run comes back wrong there is nothing to inspect and nothing to change except the next prompt.'],
+  ['Something that survives a crash',
+   'A sequence that dies halfway resumes rather than restarts.',
+   'Long work is only as reliable as the machine it started on. This row earns its place once a run is long enough that starting it again is expensive, and before that it is the easiest thing on this list to buy too early.'],
+  ['Something a person sits in front of',
+   'Nobody has to read a log to know what an agent did.',
+   'You cannot tell a working agent team from a stuck one without going and asking the person running it.'],
+];
+
+// The signal legend. This is the half that keeps working on tools this page will
+// never name: it is about reading a repository, not about any particular one.
+const SIGNALS = [
+  ['Stars', 'Attention, accumulated over the life of a repository. Somebody saw it and bookmarked it.',
+   'Quality, fitness for your case, whether the code runs, or how many people use it in anger. A star is free and permanent, and nobody un-stars a project they stopped using.',
+   'Age, above all. A repository that has existed for five years out-stars a better one that has existed for two, by default, without either project doing anything. Compare only between projects of similar age, and treat the comparison as weak even then.'],
+  ['Last push', 'The most recent moment a commit reached the default branch, as the host reports it.',
+   'Whether the project works, whether anybody answers issues, or whether what landed was substantial. A dependency bump from a bot and a rewrite of the scheduler are the same date here.',
+   'Automated dependency updates, documentation typos and CI configuration all refresh it. A project whose real work happens on release branches will look quieter than it is.'],
+  ['Archived', 'Exactly one thing: the owner set the archived flag. That is the vendor\'s own declaration, and it is a fact rather than an inference.',
+   'The state of the project. A project that moved to a new organization leaves a tombstone identical to the one left by a project that stopped.',
+   'Nothing moves it except a person deciding to set it. Which is why the reading is ambiguous rather than the signal being noisy: check whether the same name is alive somewhere else before you conclude anything.'],
+  ['The license, read two ways', 'What the host reports, and what is actually in the tree. They are not always the same answer.',
+   'Whether a subdirectory you are about to copy carries different terms from the root. For anything you vendor into your own repository, the directory you copy is the unit to check, at the revision you copy it from.',
+   'A relicense, a re-export, or a commercial edition walled off from the one you read about. The two answers disagreeing is a question for a person, never a verdict.'],
+  ['Open issues', 'How many issues are currently open. That is all.',
+   'Anything about the project on its own, because it rises with adoption and falls with triage policy. A low number means few reported problems, or nobody routes reports into a queue, or a bot closes them on a timer.',
+   'A signal with two opposite readings is not a signal until you know which regime you are in. Read a few of the issues themselves: whether recent ones have maintainer replies, and whether closures carry a commit or a template. That takes less time than the arguing that follows a wrong reading.'],
+];
+
+const NOTE_COUNT = {
+  slug: 'count-the-changes',
+  title: 'Count the changes, not the repositories',
+  author: 'John Kelly',
+  date: '2026-09-05',
+  dateHuman: '5 September 2026',
+  standfirst: 'Success here is maintenance cost staying flat or falling as scale increases. This ' +
+              'is how you would know, and the number the argument most naturally suggests is the ' +
+              'wrong one.',
+  gist: [
+    'The number a leader already has is what maintenance and critical defects cost. It is what ' +
+      'makes somebody ask the question, and it cannot answer it, because scale and age and ' +
+      'regulation explain it just as well.',
+    'The number that can answer is how many changes the system needs for one functional change. ' +
+      'It only works with a distinction attached: three edits composing one behavior is fine, and ' +
+      'the same rule landing in four places is the cost.',
+  ],
+  body: `
+<p>Of the five principles on the home page, this is the one that names a target rather than a
+   mechanism, and until now it was the only one with nothing behind it. What follows is not a
+   measurement. It is the pair of numbers that would tell you whether the thing meant to produce a
+   flat maintenance cost is working.</p>
+
+<h3>The number that makes somebody ask</h3>
+
+<p>What a company has to spend on maintenance and on critical customer defects is already on
+   somebody's desk. Nobody has to be persuaded it matters, and most leaders cannot explain why it
+   keeps climbing. That is its whole strength.</p>
+
+<p>It is also explained by scale, by age, by regulation, and by having more customers than last
+   year. So it cannot be attributed to duplicated work, and a page that reads a maintenance line as
+   evidence of this mechanism has published a correlation and called it a cause. The lagging number
+   is what makes somebody ask. It is not what answers.</p>
+
+<h3>The number that can answer</h3>
+
+<p>The instrument is <b>how many changes have to be made in the system for the same functional
+   change.</b> One behavior, asked for once. Count where it has to land, and note who owns each
+   place, because three edits inside one team's remit is not the same cost as three across three
+   backlogs.</p>
+
+<p><b>That is deliberately not a count of repositories</b>, and the reason matters more than the
+   instrument. The same estate arrives at the same repository count by several different routes,
+   and creating something new is frequently the correct call even where ownership is exactly right.
+   A repository count answers a question nobody asked, and answers it confidently.</p>
+
+<h3>The distinction that makes it an instrument rather than a complaint</h3>
+
+<div class="flow"><svg viewBox="0 0 1000 336" role="img"
+     aria-label="Two columns. On the left, one decision enforced three times is distributed work: nothing has to be kept in step by hand, and three is not a cost. On the right, one decision re-derived four times is duplicated work: four places to find by hand, and four is the cost. Same number, opposite meaning.">
+  <text x="40" y="24" fill="#1B5C46" font-family="${HEAD_SVG}" font-size="16" font-weight="500">One behavior, three places</text>
+  <text x="40" y="44" fill="#5B6E80" font-family="Helvetica,Arial,sans-serif" font-size="12.5">distributed work</text>
+  <rect x="40" y="64" width="440" height="52" rx="3" fill="#EAF3EE" stroke="#A8D5C0"/>
+  <text x="260" y="95" text-anchor="middle" fill="#1B5C46" font-family="${HEAD_SVG}" font-size="14.5" font-weight="500">One decision, enforced three times</text>
+  <path d="M260 116 L260 140" stroke="#7DBFA3" stroke-width="1.5"/>
+  <rect x="40" y="140" width="440" height="52" rx="3" fill="#EAF3EE" stroke="#A8D5C0"/>
+  <text x="260" y="171" text-anchor="middle" fill="#1B5C46" font-family="${HEAD_SVG}" font-size="14.5" font-weight="500">Nothing to keep in step by hand</text>
+  <path d="M260 192 L260 216" stroke="#7DBFA3" stroke-width="1.5"/>
+  <rect x="40" y="216" width="440" height="52" rx="3" fill="#EAF3EE" stroke="#A8D5C0"/>
+  <text x="260" y="247" text-anchor="middle" fill="#1B5C46" font-family="${HEAD_SVG}" font-size="14.5" font-weight="500">Three is not a cost</text>
+  <text x="520" y="24" fill="#0B2545" font-family="${HEAD_SVG}" font-size="16" font-weight="500">One rule, four places</text>
+  <text x="520" y="44" fill="#5B6E80" font-family="Helvetica,Arial,sans-serif" font-size="12.5">duplicated work</text>
+  <rect x="520" y="64" width="440" height="52" rx="3" fill="#F2F6F8" stroke="#DCE4EA"/>
+  <text x="740" y="95" text-anchor="middle" fill="#0B2545" font-family="${HEAD_SVG}" font-size="14.5" font-weight="500">One decision, re-derived four times</text>
+  <path d="M740 116 L740 140" stroke="#93B8D4" stroke-width="1.5"/>
+  <rect x="520" y="140" width="440" height="52" rx="3" fill="#F2F6F8" stroke="#DCE4EA"/>
+  <text x="740" y="171" text-anchor="middle" fill="#0B2545" font-family="${HEAD_SVG}" font-size="14.5" font-weight="500">Four places to find, by hand</text>
+  <path d="M740 192 L740 216" stroke="#93B8D4" stroke-width="1.5"/>
+  <rect x="520" y="216" width="440" height="52" rx="3" fill="#F2F6F8" stroke="#DCE4EA"/>
+  <text x="740" y="247" text-anchor="middle" fill="#0B2545" font-family="${HEAD_SVG}" font-size="14.5" font-weight="500">Four is the cost</text>
+  <text x="500" y="308" text-anchor="middle" fill="#5B6E80" font-family="Helvetica,Arial,sans-serif" font-size="12.5">The same number on both sides. The test is whether anybody has to keep them in agreement.</text>
+</svg></div>
+
+<p>A capability that spans a frontend, a service and a schema is <b>distributed work</b>: three
+   different edits composing one behavior. Three means nothing bad. A capability where the same
+   decision has been worked out separately in four places is <b>duplicated work</b>, and four is the
+   cost.</p>
+
+<p><b>The test is not how many places. It is whether they have to be kept in agreement by hand.</b>
+   A rule written down once and enforced at three layers because each layer has a different job
+   costs nothing when it changes, and validating in a browser and again in a service is exactly
+   that: not waste, and not one thing done three times. Four teams that each arrived at their own
+   version of a pricing rule have four places to find, and somebody has to find all four.</p>
+
+<p><b>Same number, opposite meaning.</b> Any dashboard that counts touched systems without making
+   that distinction is measuring your architecture and calling it waste, and it will be believed
+   because it has a number on it.</p>
+
+<h3>The failure to design against</h3>
+
+<p>It is not a reader who agrees and does nothing. It is a reader who agrees and then <b>counts
+   repositories</b>, because that is the measurement the agreement most naturally suggests. It is
+   the first thing to reject, and it is why the distinction above travels with the instrument rather
+   than after it.</p>
+
+<h3>Why this is cheaper than it sounds</h3>
+
+<p>The judgment the instrument needs is already being made. A team breaking a request down knows,
+   at the moment it does so, which of the items in front of it are the same work repeated. That is
+   narrower than knowing what already exists somewhere else in the estate, which nothing in the
+   process is looking at and which is a different problem. It is still the judgment this needs, and
+   nothing on the artifact has anywhere to put it, so it is made and thrown away.</p>
+
+<p><b>One field on a decomposition record is the whole instrument.</b> Not a program, not a
+   dashboard, not a new practice. A place to write down something somebody already knows.</p>
+
+<p><b>And it stays honest only while nobody is judged on it.</b> The field goes up precisely when a
+   team built its own copy rather than going to ask another team to change something, which makes it
+   a confession written by the person confessing. Attach it to a review, or carry it up as a team
+   target, and distributed becomes the answer to every question. The number goes flat and the
+   duplication continues underneath it. It is worth reading across an estate, by somebody who is not
+   deciding anybody's year, and it is worth nothing as a target.</p>
+
+<p>It also assumes there is a decomposition record at all.
+   <a href="/notes/the-last-hop/">The note on the last hop</a> argues that most teams minimize
+   documentation wherever they are allowed to, and that the breakdown historically lived in an
+   engineer's head. Where that is still true this is not cheap, and it is the second reason to start
+   writing the breakdown down.</p>
+
+<p>Version control can tell you what changed together, afterwards, with nobody filling in anything.
+   That is worth having and it is a different instrument: it records what did change together and
+   cannot tell you whether it should have. This one is filled in before the work, by the only people
+   in a position to know.</p>
+
+<h3>Two shapes, and I am not going to tell you which arrives first</h3>
+
+<p>Several services implementing the same behavior is one shape, and it is visible from inside
+   engineering. Several end-user systems needing the same change is the other, and it is visible
+   from outside, because watching one feature ship three times needs no access to any code.</p>
+
+<p>Which of the two gets noticed first is not something anybody here has counted. It reads as
+   though it has an obvious answer, which is exactly what a frequency claim looks like before
+   somebody checks it.</p>
+
+<p><b>What is not known.</b> Both numbers together show whether the thing that produces a flat
+   maintenance cost is working. <b>Neither shows what that cost is.</b> There is no cost model
+   behind any of this, so this says what to watch and prices none of it. And the outcome itself
+   remains unmeasured: the instrument is what would test the principle, not evidence that it
+   holds.</p>
+`,
+  next: ['the-last-hop', 'The last hop nobody wrote down',
+         'Where the breakdown happens, and why the part that used to live in an engineer\'s head is now the input.'],
+};
+
 const CSS = `${FONTS}
   .principles { counter-reset:pr; margin:2.6rem 0 0; }
   .principle { counter-increment:pr; position:relative; padding-left:2.6rem;
@@ -340,6 +587,10 @@ const CSS = `${FONTS}
   .hero p { color:var(--rblue); font-size:1.1rem; max-width:54ch; }
   .hero .src { color:var(--rblue); border-bottom-color:rgba(147,184,212,.45);
                align-self:flex-start; margin-top:.4rem; }
+  .hero .routes { align-self:flex-start; margin-top:.4rem; display:flex;
+                  align-items:baseline; gap:.9rem; flex-wrap:wrap; }
+  .hero .routes .src { margin-top:0; }
+  .hero .routes .dot { color:rgba(147,184,212,.5); }
   .hero .src:hover { color:#FFFFFF; border-bottom-color:#FFFFFF; }
 
   .cta {
@@ -1118,7 +1369,11 @@ ${CSS}
     ${svg('crinaro-ai-animated.svg')}
     <h1>${CLAIM_HTML}</h1>
     <p>${SUB}</p>
-    <a class="src" href="/notes/">Read the notes <span aria-hidden="true">&rarr;</span></a>
+    <div class="routes">
+      <a class="src" href="/notes/">Read the notes <span aria-hidden="true">&rarr;</span></a>
+      <span class="dot" aria-hidden="true">&middot;</span>
+      <a class="src" href="/what-you-already-have/">Start from what you have <span aria-hidden="true">&rarr;</span></a>
+    </div>
   </div>
 </header>
 
@@ -1169,9 +1424,10 @@ ${CSS}
     <div class="head narrow">
       <p class="eyebrow">What follows from it</p>
       <h2>Five principles for designing agent teams.</h2>
-      <p>These are the whole argument. The first four are worked out at length below, and each
-         links to where. The fifth is the one nothing here has measured yet, and it is written
-         down because it is the target, not because it is evidence.</p>
+      <p>These are the whole argument, and each is worked out at length below. The fifth is still
+         the one nothing here has measured. What it has now is the two numbers that would tell you
+         whether the thing meant to produce it is working, which is a weaker claim than the target
+         standing alone and the one this can support.</p>
     </div>
     <div class="principles">
       <p class="principle"><b>Optimize for the platform, not the project.</b>
@@ -1196,8 +1452,10 @@ ${CSS}
         <a class="src" href="/notes/${NOTE.slug}/">${NOTE.title}</a></span></p>
       <p class="principle"><b>Define success as flat or declining maintenance cost as scale
         increases.</b>
-        <span>Not project completion. That is the number this is all aimed at, and the one nobody
-        here has measured yet.</span></p>
+        <span>Not project completion. Nothing here has measured it. What can be watched is how many
+        changes the system needs for one functional change, and whether anybody has to keep those
+        places in agreement by hand.
+        <a class="src" href="/notes/${NOTE_COUNT.slug}/">${NOTE_COUNT.title}</a></span></p>
     </div>
   </div>
 </section>
@@ -1268,7 +1526,11 @@ ${CSS}
     </div>
     <p class="note">Kept current as the ground moves. The tools, the vendors and the limits all
        change, and a reference that is not re-sourced is worse than none. It is not published, so
-       the diagram above shows how far the work reaches, not the decisions inside it.</p>
+       the diagram above shows how far the work reaches, not the decisions inside it. Published
+       separately, and standing without it:
+       <a class="src" href="/what-you-already-have/">what the gaps cost</a>, which runs the pieces
+       of infrastructure an agent setup can have in the order they stop being optional. It names no
+       product, so it does not go stale on anybody else's release schedule.</p>
   </div>
 </section>
 
@@ -1681,7 +1943,8 @@ const NOTE_ANSWER = {
          'The same failure in the code rather than in the record, and the one people already recognize.'],
 };
 
-const NOTES = [NOTE, NOTE_HOP, NOTE_SKILL, NOTE_BOUNDARY, NOTE_CROSSING, NOTE_CADENCE, NOTE_SCOPE, NOTE_ANSWER];
+
+const NOTES = [NOTE, NOTE_HOP, NOTE_SKILL, NOTE_BOUNDARY, NOTE_CROSSING, NOTE_CADENCE, NOTE_SCOPE, NOTE_ANSWER, NOTE_COUNT];
 
 // Shared by the article pages and the index. Extracted 2026-08-24 when /notes/
 // became real: two pages carrying two copies of the same <head> is how one of
@@ -1860,6 +2123,198 @@ console.log(`       dist/notes/${note.slug}/ — bylined piece`);
 // GitHub Pages needs the custom domain declared in the repo itself. Setting it
 // in the web UI writes this file; committing it means a redeploy can never drop
 // the domain and fall back to <org>.github.io.
+// The layer view. A third kind of page: not the home page and not a note. It
+// reuses the note shell so there is one set of styles to keep true.
+fs.mkdirSync(path.join(DIST, 'what-you-already-have'), { recursive: true });
+writePage(path.join(DIST, 'what-you-already-have', 'index.html'), `${noteHead(
+  'Start from what you already have',
+  'Six layers an agent setup can have, in the order they stop being optional, and what leaving each one empty actually costs. Names no products.',
+  'https://crinaro.ai/what-you-already-have/')}
+<style>
+${CSS}
+  .note-wrap { max-width:38rem; margin:0 auto; padding:3.5rem 1.5rem 5rem; }
+  .note-home { display:inline-block; margin-bottom:3rem; }
+  .note-home svg { width:11rem; height:auto; display:block; }
+  h1 { font-family:var(--head); font-weight:500; font-size:clamp(1.8rem,4vw,2.6rem);
+       line-height:1.12; margin:0 0 1rem; }
+  .standfirst { font-size:1.12rem; color:var(--ink-2); margin:0 0 3rem;
+                padding-bottom:2.6rem; border-bottom:1px solid var(--hair); }
+  h2 { font-family:var(--head); font-weight:500; font-size:1.35rem; margin:3.4rem 0 1.4rem;
+       line-height:1.25; }
+  .rows { counter-reset:lay; }
+  .row { margin:0 0 2.4rem; padding-left:2.4rem; position:relative; counter-increment:lay; }
+  .row::before { content:counter(lay); position:absolute; left:0; top:.2rem;
+                 font-family:var(--mono); font-size:.78rem; color:var(--muted); }
+  .row h3 { font-family:var(--head); font-weight:500; font-size:1.05rem; color:var(--ink);
+            margin:0 0 .7rem; line-height:1.3; }
+  .row p, .sig p { margin:0 0 .7rem; color:var(--ink-2); }
+  .lbl { font-family:var(--mono); font-size:.68rem; letter-spacing:.13em;
+         text-transform:uppercase; color:var(--muted); display:block; margin-bottom:.2rem; }
+  .sig { margin:0 0 2.2rem; }
+  .sig h3 { font-family:var(--head); font-weight:500; font-size:1.05rem; margin:0 0 .7rem; }
+  h3.lay { font-family:var(--head); font-weight:500; font-size:1.05rem; color:var(--ink);
+           margin:2.8rem 0 1.2rem; padding-bottom:.5rem; border-bottom:1px solid var(--hair); }
+  h3.lay .n { font-family:var(--mono); font-size:.7rem; color:var(--muted); margin-left:.4rem; }
+  .tool { margin:0 0 1.4rem; }
+  .tool p { margin:0; }
+  .tn { font-family:var(--head); font-weight:500; font-size:.98rem; }
+  .tn a { color:var(--ink); text-decoration:none; border-bottom:1px solid rgba(27,92,70,.35); }
+  .tn a:hover { border-bottom-color:var(--green); }
+  .arch { font-family:var(--mono); font-size:.66rem; letter-spacing:.08em; text-transform:uppercase;
+          color:var(--muted); margin-left:.5rem; }
+  .tw { color:var(--ink-2); margin-top:.25rem !important; }
+  .tm { font-family:var(--mono); font-size:.68rem; letter-spacing:.05em; color:var(--muted);
+        margin-top:.35rem !important; }
+  .tool.grp { margin-bottom:1.8rem; }
+  .grp-h { font-family:var(--mono); font-size:.68rem; letter-spacing:.13em; text-transform:uppercase;
+           color:var(--muted); margin-bottom:.5rem !important; }
+  .tool.grp .tw { margin-top:0 !important; margin-bottom:.7rem !important; }
+  .tn.sub { font-size:.94rem; margin-bottom:.45rem !important; }
+  .tm.inline { display:block; margin-top:.1rem !important; }
+  .written { font-family:var(--mono); font-size:.72rem; letter-spacing:.06em; color:var(--muted);
+             margin:-1.6rem 0 3rem; }
+  .foot { margin-top:3.6rem; padding-top:1.8rem; border-top:1px solid var(--hair);
+          font-size:.95rem; color:var(--ink-2); }
+  .foot p { margin:0 0 .9rem; }
+</style>
+</head>
+<body>
+<div class="note-wrap">
+  <a class="note-home" href="/" aria-label="Crinaro.AI">${svg('crinaro-ai-horizontal.svg')}</a>
+  <h1>Start from what you already have</h1>
+  <p class="standfirst">You already have some of this. The useful question is not what a greenfield
+     build would look like, it is what the gaps are costing you. <b>Read down the list and stop at
+     the first one you answer no to.</b> That is the cheapest thing you can do next.</p>
+  <p class="written"><time datetime="${TOOLS.cut}">Tools last read ${TOOLS.cut}.</time>
+     Re-read periodically, and every entry carries the date its signals were read.</p>
+
+  <div class="rows">
+  ${LAYERS.map(([name, have, cost]) => `<div class="row">
+    <h3>${name}</h3>
+    <p><span class="lbl">You have it if</span>${have}</p>
+    <p><span class="lbl">Empty, it costs you</span>${cost}</p>
+  </div>`).join('\n  ')}
+  </div>
+
+  <p>The order is the order these stop being optional in. <b>That is an argument about what depends
+     on what, and not about what is good.</b> Nothing here ranks anything, nothing here names a
+     product, and no row says you should go and buy something.</p>
+
+  <p><b>These are pieces of infrastructure a request passes through.</b> They are a different cut
+     from the ownership tiers in <a class="src" href="/notes/who-owns-the-answer/">who owns the
+     answer</a>, which are about who is answerable for what a component says about itself. Both get
+     called layers and they are not the same list.</p>
+
+  <h2>Two rows are missing, and both absences are claims</h2>
+
+  <p>There is no row for <b>evaluating what an agent produced</b>. Not because it does not matter,
+     but because nothing worth pointing at fills it honestly yet, and putting a row there would sell
+     you a gap as a layer.</p>
+
+  <p>There is no row for a <b>registry of prompts, contexts or agent definitions</b>. One credible
+     option is not a market, and a layer with one occupant is a decision you make once rather than a
+     category you shop in.</p>
+
+  <h2>How to read a signal, on anything</h2>
+
+  <p>Whatever you end up looking at, you will be on a repository page deciding something from
+     numbers. Numbers persuade without arguing. Each of these says what it measures, what it does
+     not, and what moves it for reasons that have nothing to do with the tool.</p>
+
+  ${SIGNALS.map(([name, meas, notm, moves]) => `<div class="sig">
+    <h3>${name}</h3>
+    <p><span class="lbl">Measures</span>${meas}</p>
+    <p><span class="lbl">Does not measure</span>${notm}</p>
+    <p><span class="lbl">Moves for unrelated reasons</span>${moves}</p>
+  </div>`).join('\n  ')}
+
+  <p><b>And read the date, never the interval.</b> Somebody else's "updated three months ago" was
+     computed once, and it goes wrong while every input to it stays right: nobody pushes, nobody
+     edits the sentence, and the sentence becomes false on its own. Find the date and do the
+     subtraction yourself, against today.</p>
+
+  <h2>What exists at each layer</h2>
+
+  <p>These are the tools this work has had to make a decision about, grouped by where they sit.
+     <b>It is a list and not a review.</b> Nothing here ranks anything, nothing recommends anything,
+     and no entry says a tool is good. The descriptions are ours, written from public pages and
+     repositories. <b>Nobody here has operated most of these.</b></p>
+
+  <p><b>A product missing from this list was not evaluated and rejected. Nobody looked.</b> The list
+     is shaped by the decisions this work happened to face, which makes its shape a fact about the
+     work rather than about the market. Where a date appears beside a tool, that is when its
+     repository was last read, and the subtraction against today is yours.</p>
+
+  ${LAYER_NAMES.map(([key, label]) => {
+    const list = TOOLS.tools.filter(t => t.layer === key)
+                            .sort((a, b) => a.name.toLowerCase().localeCompare(b.name.toLowerCase()));
+    if (!list.length) return '';
+    // Some entries share a description word for word, because the index says the
+    // same true thing about every open-weight model: the files do not run, a
+    // serving process loads them. Printed once per entry that read as broken and
+    // told a reader nothing distinguishing. Said once, with the names under it,
+    // it says exactly as much and is honest that the property is shared. The
+    // alternative was inventing per-model characterizations nobody here has any
+    // basis for.
+    const shared = new Map();
+    for (const t of list) shared.set(t.what, (shared.get(t.what) || 0) + 1);
+    const grouped = list.filter(t => shared.get(t.what) >= 3);
+    const singles = list.filter(t => shared.get(t.what) < 3);
+    const meta = t => {
+      const bits = [];
+      if (t.kind && KIND_LABEL[t.kind]) bits.push(KIND_LABEL[t.kind]);
+      if (t.license) bits.push(t.license);
+      bits.push(t.lastPush ? `read ${t.lastPush}` : 'no public activity signal');
+      return bits.join(' &middot; ');
+    };
+    const one = t => `<div class="tool">
+    <p class="tn"><a href="${t.url}" rel="noopener">${t.name}</a>${t.archived ? ' <span class="arch">archived by its owner</span>' : ''}</p>
+    <p class="tw">${t.what}</p>
+    <p class="tm">${meta(t)}</p>
+  </div>`;
+    const blocks = [];
+    for (const [what] of shared) {
+      const g = grouped.filter(t => t.what === what);
+      if (!g.length) continue;
+      const kinds = new Set(g.map(t => t.kind));
+      const head = kinds.size === 1 && KIND_LABEL[[...kinds][0]]
+        ? `<p class="grp-h">${KIND_LABEL[[...kinds][0]]} &middot; ${g.length}</p>` : '';
+      blocks.push(`<div class="tool grp">
+    ${head}
+    <p class="tw">${what}</p>
+    ${g.map(t => `<p class="tn sub"><a href="${t.url}" rel="noopener">${t.name}</a>
+      <span class="tm inline">${meta(t)}</span></p>`).join('\n    ')}
+  </div>`);
+    }
+    return `<h3 class="lay">${label} <span class="n">${list.length}</span></h3>
+  ${[...singles.map(one), ...blocks].join('\n  ')}`;
+  }).filter(Boolean).join('\n\n  ')}
+
+  <p><b>Two of those groups hold one entry each, and that is the state of this list rather than the
+     state of the field.</b> Nothing here fills checking-what-came-back honestly, and one subject on
+     the registry group is not a market. Naming the absence is the alternative to selling you a gap
+     as a layer.</p>
+
+  <div class="foot">
+    <p><b>What this is not.</b> Not a review, a shortlist or a recommendation. No entry says a tool
+       is good, no order implies a ranking, and nobody here has operated most of them. Where a
+       default is named anywhere in this work, that is a choice made for one particular shape and
+       never a verdict that one product beats another.</p>
+    <p><b>What goes out of date, and how fast.</b> The tools do, on their own schedules rather than
+       on this page's, which is why every entry carries the date it was read instead of an interval.
+       The signals do not: how to read a repository keeps working on tools that never appear here.
+       The layers could, if the shape of this tooling changes. None of it has been measured against
+       an organization, and the ordering is reasoned from what depends on what.</p>
+    <p>If a row is wrong, or the order is wrong where you are,
+       <a class="src" href="mailto:${EMAIL}">say so</a>. That is the more interesting mail, and
+       today I read it myself.</p>
+    <p><a class="src" href="/notes/">Read the notes</a> &middot; <a class="src" href="/">Crinaro.AI</a></p>
+  </div>
+</div>
+</body>
+</html>`);
+console.log('       dist/what-you-already-have/ — the layer view');
+
 fs.writeFileSync(path.join(DIST, 'CNAME'), 'crinaro.ai\n');
 
 // Skip Jekyll. Without this, Pages runs the site through Jekyll, which ignores
@@ -1874,6 +2329,7 @@ fs.writeFileSync(path.join(DIST, 'sitemap.xml'),
   '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' +
   '  <url><loc>https://crinaro.ai/</loc><changefreq>monthly</changefreq></url>\n' +
   `  <url><loc>https://crinaro.ai/notes/</loc><changefreq>monthly</changefreq></url>\n` +
+  `  <url><loc>https://crinaro.ai/what-you-already-have/</loc><changefreq>monthly</changefreq></url>\n` +
   NOTES.map(n =>
     `  <url><loc>https://crinaro.ai/notes/${n.slug}/</loc><lastmod>${n.date}</lastmod></url>\n`).join('') +
   '</urlset>\n');

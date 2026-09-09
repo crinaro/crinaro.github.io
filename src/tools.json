@@ -1,0 +1,616 @@
+{
+ "cut": "2026-09-08",
+ "revision": "8",
+ "tools": [
+  {
+   "archived": false,
+   "kind": "server-you-run",
+   "lastPush": "2026-09-02",
+   "layer": "compute-and-isolation",
+   "license": "AGPL-3.0",
+   "name": "coder/coder",
+   "url": "https://github.com/coder/coder",
+   "what": "A self-hosted control plane that provisions workspaces from Terraform. The agent process runs inside a workspace, so what it supplies is the boundary around a harness rather than the harness."
+  },
+  {
+   "archived": false,
+   "kind": "hosted-service",
+   "lastPush": "",
+   "layer": "serving",
+   "license": "",
+   "name": "Amazon SageMaker",
+   "url": "https://aws.amazon.com/sagemaker/",
+   "what": "A managed hosting and tooling surface: notebooks, training jobs and inference endpoints."
+  },
+  {
+   "archived": false,
+   "kind": "weights-you-download",
+   "lastPush": "",
+   "layer": "serving",
+   "license": "MIT",
+   "name": "deepseek-ai/DeepSeek-V4-Flash",
+   "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash",
+   "what": "Weights and configuration files in a hub repository. Nothing here runs: a serving process loads the files, so what this row bears on is whether a process you already run can hold these particular files."
+  },
+  {
+   "archived": false,
+   "kind": "weights-you-download",
+   "lastPush": "",
+   "layer": "serving",
+   "license": "gemma",
+   "name": "google/gemma-3-27b-it",
+   "url": "https://huggingface.co/google/gemma-3-27b-it",
+   "what": "Weights and configuration files in a hub repository. Nothing here runs: a serving process loads the files, so what this row bears on is whether a process you already run can hold these particular files."
+  },
+  {
+   "archived": false,
+   "kind": "weights-you-download",
+   "lastPush": "",
+   "layer": "serving",
+   "license": "Apache-2.0",
+   "name": "google/gemma-4-31B-it",
+   "url": "https://huggingface.co/google/gemma-4-31B-it",
+   "what": "Weights and configuration files in a hub repository. Nothing here runs: a serving process loads the files, so what this row bears on is whether a process you already run can hold these particular files."
+  },
+  {
+   "archived": true,
+   "kind": "server-you-run",
+   "lastPush": "2026-03-21",
+   "layer": "serving",
+   "license": "Apache-2.0",
+   "name": "huggingface/text-generation-inference",
+   "url": "https://github.com/huggingface/text-generation-inference",
+   "what": "A server process that holds weights and answers completion calls, the same role as vLLM."
+  },
+  {
+   "archived": false,
+   "kind": "desktop-application",
+   "lastPush": "",
+   "layer": "serving",
+   "license": "",
+   "name": "LM Studio",
+   "url": "https://lmstudio.ai/",
+   "what": "A closed desktop application that downloads and serves models on a workstation."
+  },
+  {
+   "archived": false,
+   "kind": "weights-you-download",
+   "lastPush": "",
+   "layer": "serving",
+   "license": "llama3.1",
+   "name": "meta-llama/Llama-3.1-8B-Instruct",
+   "url": "https://huggingface.co/meta-llama/Llama-3.1-8B-Instruct",
+   "what": "Weights and configuration files in a hub repository. Nothing here runs: a serving process loads the files, so what this row bears on is whether a process you already run can hold these particular files."
+  },
+  {
+   "archived": false,
+   "kind": "weights-you-download",
+   "lastPush": "",
+   "layer": "serving",
+   "license": "Apache-2.0",
+   "name": "mistralai/Mistral-7B-Instruct-v0.3",
+   "url": "https://huggingface.co/mistralai/Mistral-7B-Instruct-v0.3",
+   "what": "Weights and configuration files in a hub repository. Nothing here runs: a serving process loads the files, so what this row bears on is whether a process you already run can hold these particular files."
+  },
+  {
+   "archived": false,
+   "kind": "cli-you-install",
+   "lastPush": "2026-09-02",
+   "layer": "serving",
+   "license": "MIT",
+   "name": "ollama/ollama",
+   "url": "https://github.com/ollama/ollama",
+   "what": "A local server plus CLI that pulls a packaged model and serves it on a workstation."
+  },
+  {
+   "archived": false,
+   "kind": "weights-you-download",
+   "lastPush": "",
+   "layer": "serving",
+   "license": "Apache-2.0",
+   "name": "openai/gpt-oss-120b",
+   "url": "https://huggingface.co/openai/gpt-oss-120b",
+   "what": "Weights and configuration files in a hub repository. Nothing here runs: a serving process loads the files, so what this row bears on is whether a process you already run can hold these particular files."
+  },
+  {
+   "archived": false,
+   "kind": "weights-you-download",
+   "lastPush": "",
+   "layer": "serving",
+   "license": "Apache-2.0",
+   "name": "openai/gpt-oss-20b",
+   "url": "https://huggingface.co/openai/gpt-oss-20b",
+   "what": "Weights and configuration files in a hub repository. Nothing here runs: a serving process loads the files, so what this row bears on is whether a process you already run can hold these particular files."
+  },
+  {
+   "archived": false,
+   "kind": "weights-you-download",
+   "lastPush": "",
+   "layer": "serving",
+   "license": "Apache-2.0",
+   "name": "Qwen/Qwen3-8B",
+   "url": "https://huggingface.co/Qwen/Qwen3-8B",
+   "what": "Weights and configuration files in a hub repository. Nothing here runs: a serving process loads the files, so what this row bears on is whether a process you already run can hold these particular files."
+  },
+  {
+   "archived": false,
+   "kind": "weights-you-download",
+   "lastPush": "",
+   "layer": "serving",
+   "license": "",
+   "name": "Qwen/Qwen3.8-2.4T-A95B",
+   "url": "https://huggingface.co/Qwen/Qwen3.8-2.4T-A95B",
+   "what": "Weights and configuration files in a hub repository. Nothing here runs: a serving process loads the files, so what this row bears on is whether a process you already run can hold these particular files."
+  },
+  {
+   "archived": false,
+   "kind": "weights-you-download",
+   "lastPush": "",
+   "layer": "serving",
+   "license": "",
+   "name": "Qwen/Qwen3.8-Flash-Next",
+   "url": "https://huggingface.co/Qwen/Qwen3.8-Flash-Next",
+   "what": "Weights and configuration files in a hub repository. Nothing here runs: a serving process loads the files, so what this row bears on is whether a process you already run can hold these particular files."
+  },
+  {
+   "archived": false,
+   "kind": "server-you-run",
+   "lastPush": "2026-09-02",
+   "layer": "serving",
+   "license": "Apache-2.0",
+   "name": "vllm-project/vllm",
+   "url": "https://github.com/vllm-project/vllm",
+   "what": "A Python library and a server process that holds model weights in GPU memory and answers completion calls over an OpenAI-shaped API."
+  },
+  {
+   "archived": false,
+   "kind": "hosted-service",
+   "lastPush": "",
+   "layer": "gateway",
+   "license": "",
+   "name": "AWS Bedrock",
+   "url": "https://aws.amazon.com/bedrock/",
+   "what": "A managed API in front of many vendors' models. You do not run a serving process and you cannot read one: what you obtain is an endpoint and a bill, and the gateway and serving layers are collapsed behind it."
+  },
+  {
+   "archived": false,
+   "kind": "server-you-run",
+   "lastPush": "2026-09-02",
+   "layer": "gateway",
+   "license": "",
+   "name": "BerriAI/litellm",
+   "url": "https://github.com/BerriAI/litellm",
+   "what": "Two shapes in one repository: a Python SDK you import, and a proxy server you deploy in front of many providers."
+  },
+  {
+   "archived": false,
+   "kind": "hosted-service",
+   "lastPush": "",
+   "layer": "gateway",
+   "license": "",
+   "name": "Martian",
+   "url": "https://withmartian.com/",
+   "what": "Classified here as a model router. Its own homepage leads with interpretability research and does not mention routing, so the classification and the vendor's own description disagree."
+  },
+  {
+   "archived": false,
+   "kind": "hosted-service",
+   "lastPush": "",
+   "layer": "gateway",
+   "license": "",
+   "name": "Not Diamond",
+   "url": "https://www.notdiamond.ai/",
+   "what": "A router that chooses which model answers, sold on cost against frontier quality."
+  },
+  {
+   "archived": false,
+   "kind": "hosted-service",
+   "lastPush": "",
+   "layer": "gateway",
+   "license": "",
+   "name": "OpenRouter",
+   "url": "https://openrouter.ai/",
+   "what": "A hosted gateway in front of many vendors' models. You obtain an endpoint and a bill; there is no serving process to read and no gateway process you run, so both layers are collapsed behind somebody else's API."
+  },
+  {
+   "archived": false,
+   "kind": "hosted-service",
+   "lastPush": "",
+   "layer": "gateway",
+   "license": "",
+   "name": "Portkey",
+   "url": "https://portkey.ai/",
+   "what": "A hosted gateway whose distinguishing claim is what it records rather than what it routes."
+  },
+  {
+   "archived": false,
+   "kind": "hosted-service",
+   "lastPush": "",
+   "layer": "context-and-tools",
+   "license": "",
+   "name": "Glean",
+   "url": "https://www.glean.com/",
+   "what": "A hosted index over an organization's own SaaS sources, reached as a service."
+  },
+  {
+   "archived": false,
+   "kind": "library-you-import",
+   "lastPush": "2026-09-02",
+   "layer": "orchestration",
+   "license": "MIT",
+   "name": "crewAIInc/crewAI",
+   "url": "https://github.com/crewAIInc/crewAI",
+   "what": "A Python library you import. Role-based agents with a declared crew, plus an event-driven Flows API."
+  },
+  {
+   "archived": false,
+   "kind": "library-you-import",
+   "lastPush": "2026-09-02",
+   "layer": "orchestration",
+   "license": "MIT",
+   "name": "langchain-ai/langgraph",
+   "url": "https://github.com/langchain-ai/langgraph",
+   "what": "A library you import into your own process, in Python or TypeScript."
+  },
+  {
+   "archived": false,
+   "kind": "library-you-import",
+   "lastPush": "2026-09-02",
+   "layer": "orchestration",
+   "license": "",
+   "name": "mastra-ai/mastra",
+   "url": "https://github.com/mastra-ai/mastra",
+   "what": "A TypeScript framework you import, shipped as one bundle rather than assembled parts, deployable as a standalone server."
+  },
+  {
+   "archived": false,
+   "kind": "library-you-import",
+   "lastPush": "2026-09-02",
+   "layer": "orchestration",
+   "license": "MIT",
+   "name": "microsoft/agent-framework",
+   "url": "https://github.com/microsoft/agent-framework",
+   "what": "A library you import, in . net and Python."
+  },
+  {
+   "archived": false,
+   "kind": "server-you-run",
+   "lastPush": "2026-09-02",
+   "layer": "orchestration",
+   "license": "MIT",
+   "name": "temporalio/temporal",
+   "url": "https://github.com/temporalio/temporal",
+   "what": "A server you run, plus per-language client SDKs you import. The workflow code lives in your process; the server holds the durable state and replays it."
+  },
+  {
+   "archived": false,
+   "kind": "ide-extension",
+   "lastPush": "",
+   "layer": "interface",
+   "license": "",
+   "name": "Amazon Q Developer",
+   "url": "https://aws.amazon.com/q/developer/",
+   "what": "An AWS-side coding assistant with an editor plugin, a CLI and a hosted surface."
+  },
+  {
+   "archived": false,
+   "kind": "cli-you-install",
+   "lastPush": "2026-09-02",
+   "layer": "interface",
+   "license": "MIT",
+   "name": "anomalyco/opencode",
+   "url": "https://github.com/anomalyco/opencode",
+   "what": "A terminal coding agent, installed as a binary or an npm package. It holds the loop, chooses tools and manages context, and its source is readable."
+  },
+  {
+   "archived": false,
+   "kind": "hosted-service",
+   "lastPush": "",
+   "layer": "interface",
+   "license": "",
+   "name": "ChatGPT",
+   "url": "https://learn.chatgpt.com/docs/app",
+   "what": "A hosted assistant reached in a browser, a desktop application and mobile clients."
+  },
+  {
+   "archived": false,
+   "kind": "cli-you-install",
+   "lastPush": "",
+   "layer": "interface",
+   "license": "",
+   "name": "Claude Code",
+   "url": "https://docs.claude.com/en/docs/claude-code/overview",
+   "what": "A coding agent that holds the loop, chooses tools, runs commands and manages context, across four surfaces."
+  },
+  {
+   "archived": false,
+   "kind": "ide-application",
+   "lastPush": "",
+   "layer": "interface",
+   "license": "",
+   "name": "Cursor",
+   "url": "https://cursor.com/docs",
+   "what": "An editor with an agent built into it, which is why it sits on the line between something a person sits in front of and the thing holding the loop."
+  },
+  {
+   "archived": true,
+   "kind": "server-you-run",
+   "lastPush": "2026-08-13",
+   "layer": "interface",
+   "license": "",
+   "name": "FlowiseAI/Flowise",
+   "url": "https://github.com/FlowiseAI/Flowise",
+   "what": "A Node server you run with a visual builder over it. The readme at the read sha opens by saying the project has been archived and points at a discussion, and the API reports `archived: true`, so what a reader obtains is a frozen tree."
+  },
+  {
+   "archived": false,
+   "kind": "ide-extension",
+   "lastPush": "",
+   "layer": "interface",
+   "license": "",
+   "name": "Gemini Code Assist",
+   "url": "https://codeassist.google/",
+   "what": "Google's editor-side coding assistant, sold to organizations rather than to the browser user the Gemini row covers."
+  },
+  {
+   "archived": false,
+   "kind": "ide-extension",
+   "lastPush": "",
+   "layer": "interface",
+   "license": "",
+   "name": "GitHub Copilot",
+   "url": "https://docs.github.com/en/copilot/get-started/what-is-github-copilot",
+   "what": "Several products under one name: an inline completion extension in an editor, a chat surface, a CLI, and a coding agent that opens pull requests."
+  },
+  {
+   "archived": false,
+   "kind": "hosted-service",
+   "lastPush": "",
+   "layer": "interface",
+   "license": "",
+   "name": "Google Gemini",
+   "url": "https://gemini.google.com/",
+   "what": "Google's hosted chat assistant, the consumer product rather than the developer tooling. Three separately named things ship under that one word, and the other two have their own rows below."
+  },
+  {
+   "archived": false,
+   "kind": "cli-you-install",
+   "lastPush": "",
+   "layer": "interface",
+   "license": "",
+   "name": "google-gemini/gemini-cli",
+   "url": "https://github.com/google-gemini/gemini-cli",
+   "what": "A terminal agent installed from npm or a package manager, holding the loop and calling tools, extensible over MCP."
+  },
+  {
+   "archived": false,
+   "kind": "ide-application",
+   "lastPush": "",
+   "layer": "interface",
+   "license": "",
+   "name": "Kiro",
+   "url": "https://kiro.dev/",
+   "what": "An editor that owns the editing surface, like Cursor, and frames its workflow around specs rather than around chat."
+  },
+  {
+   "archived": false,
+   "kind": "server-you-run",
+   "lastPush": "2026-09-02",
+   "layer": "interface",
+   "license": "MIT",
+   "name": "langflow-ai/langflow",
+   "url": "https://github.com/langflow-ai/langflow",
+   "what": "A server you run with a visual authoring surface, which also exposes every workflow as an API and an MCP server."
+  },
+  {
+   "archived": false,
+   "kind": "server-you-run",
+   "lastPush": "2026-09-02",
+   "layer": "interface",
+   "license": "",
+   "name": "langgenius/dify",
+   "url": "https://github.com/langgenius/dify",
+   "what": "A server you run, or a hosted tier, presenting a builder over a workflow engine, a rag pipeline and model management."
+  },
+  {
+   "archived": false,
+   "kind": "cli-you-install",
+   "lastPush": "2026-09-01",
+   "layer": "interface",
+   "license": "MIT",
+   "name": "lmstudio-ai/lms",
+   "url": "https://github.com/lmstudio-ai/lms",
+   "what": "A CLI that ships with the LM Studio desktop application and drives it."
+  },
+  {
+   "archived": false,
+   "kind": "hosted-service",
+   "lastPush": "",
+   "layer": "interface",
+   "license": "",
+   "name": "Microsoft Copilot Studio",
+   "url": "https://www.microsoft.com/en-us/microsoft-copilot/microsoft-copilot-studio",
+   "what": "A hosted builder for agents, licensed inside Microsoft 365 rather than bought separately."
+  },
+  {
+   "archived": false,
+   "kind": "server-you-run",
+   "lastPush": "2026-09-02",
+   "layer": "interface",
+   "license": "",
+   "name": "n8n-io/n8n",
+   "url": "https://github.com/n8n-io/n8n",
+   "what": "A server you run (or a hosted tier) with a visual canvas over it."
+  },
+  {
+   "archived": false,
+   "kind": "cli-you-install",
+   "lastPush": "",
+   "layer": "interface",
+   "license": "",
+   "name": "openai/codex",
+   "url": "https://github.com/openai/codex",
+   "what": "A coding agent installed as a local binary, with an IDE extension and a cloud surface named separately by the same readme."
+  },
+  {
+   "archived": false,
+   "kind": "hosted-service",
+   "lastPush": "",
+   "layer": "interface",
+   "license": "",
+   "name": "Relevance AI",
+   "url": "https://relevanceai.com/",
+   "what": "A hosted builder aimed at business functions rather than at engineering. The speed is bought by not owning the runtime."
+  },
+  {
+   "archived": false,
+   "kind": "plugin-installed-into-a-harness",
+   "lastPush": "2026-08-28",
+   "layer": "author",
+   "license": "MIT",
+   "name": "addyosmani/agent-skills",
+   "url": "https://github.com/addyosmani/agent-skills",
+   "what": "25 skill directories under `skills/`, named for lifecycle phases -- planning, tdd, code review, debugging, security, shipping."
+  },
+  {
+   "archived": false,
+   "kind": "files-you-copy-into-a-repository",
+   "lastPush": "2026-09-01",
+   "layer": "author",
+   "license": "",
+   "name": "anthropics/skills",
+   "url": "https://github.com/anthropics/skills",
+   "what": "A repository of skill directories. Each holds a skill."
+  },
+  {
+   "archived": false,
+   "kind": "files-you-copy-into-a-repository",
+   "lastPush": "2026-08-10",
+   "layer": "author",
+   "license": "",
+   "name": "ComposioHQ/awesome-claude-skills",
+   "url": "https://github.com/ComposioHQ/awesome-claude-skills",
+   "what": "Both a list and an implementation, which is why one word for it is wrong."
+  },
+  {
+   "archived": false,
+   "kind": "cli-you-install",
+   "lastPush": "2026-09-02",
+   "layer": "author",
+   "license": "MIT",
+   "name": "github/spec-kit",
+   "url": "https://github.com/github/spec-kit",
+   "what": "A CLI that writes a scaffold of prompts and templates into a repository, agent-agnostic across many coding agents."
+  },
+  {
+   "archived": false,
+   "kind": "library-you-import",
+   "lastPush": "2026-09-02",
+   "layer": "author",
+   "license": "Apache-2.0",
+   "name": "jax-ml/jax",
+   "url": "https://github.com/jax-ml/jax",
+   "what": "A Python library for array computation and program transformation, with automatic differentiation and compilation to accelerators."
+  },
+  {
+   "archived": false,
+   "kind": "plugin-installed-into-a-harness",
+   "lastPush": "2026-08-24",
+   "layer": "author",
+   "license": "MIT",
+   "name": "mattpocock/skills",
+   "url": "https://github.com/mattpocock/skills",
+   "what": "37 skill directories under `skills/`, grouped `engineering/`, `productivity/`, `misc/` and `in-progress/`, published as a Claude Code plugin with a `."
+  },
+  {
+   "archived": false,
+   "kind": "library-you-import",
+   "lastPush": "2026-09-02",
+   "layer": "author",
+   "license": "MIT",
+   "name": "ml-explore/mlx",
+   "url": "https://github.com/ml-explore/mlx",
+   "what": "An array framework you import, targeting Apple silicon's unified memory. Build-time and on-device at once, which is the axis the rest of this list mostly does not have."
+  },
+  {
+   "archived": false,
+   "kind": "library-you-import",
+   "lastPush": "2026-09-02",
+   "layer": "author",
+   "license": "MIT",
+   "name": "ml-explore/mlx-lm",
+   "url": "https://github.com/ml-explore/mlx-lm",
+   "what": "A Python package over mlx for generating text and fine-tuning language models on Apple silicon."
+  },
+  {
+   "archived": false,
+   "kind": "plugin-installed-into-a-harness",
+   "lastPush": "2026-08-31",
+   "layer": "author",
+   "license": "MIT",
+   "name": "obra/superpowers",
+   "url": "https://github.com/obra/superpowers",
+   "what": "A methodology shipped as files. 14 skill directories under `skills/`, plus hooks, scripts and tests, and a separate plugin manifest for each of eight harnesses in the same tree: `."
+  },
+  {
+   "archived": false,
+   "kind": "library-you-import",
+   "lastPush": "2026-09-02",
+   "layer": "author",
+   "license": "",
+   "name": "pytorch/pytorch",
+   "url": "https://github.com/pytorch/pytorch",
+   "what": "A Python package you import, with compiled kernels underneath. Build-time: it trains and defines models, and is not on the request path a served model answers from."
+  },
+  {
+   "archived": false,
+   "kind": "library-you-import",
+   "lastPush": "2026-09-02",
+   "layer": "author",
+   "license": "Apache-2.0",
+   "name": "tensorflow/tensorflow",
+   "url": "https://github.com/tensorflow/tensorflow",
+   "what": "A framework you import, with a large surrounding ecosystem of tools and libraries."
+  },
+  {
+   "archived": false,
+   "kind": "hosted-service",
+   "lastPush": "",
+   "layer": "evaluate",
+   "license": "",
+   "name": "Vellum",
+   "url": "https://docs.vellum.ai/",
+   "what": "An agent-evaluation service, by classification. What it actually does was not established from the vendor's own material, and that is worth knowing before you go and look."
+  },
+  {
+   "archived": false,
+   "kind": "hosted-service",
+   "lastPush": "",
+   "layer": "register-and-version",
+   "license": "",
+   "name": "LangSmith Context Hub",
+   "url": "https://docs.langchain.com/langsmith/context-hub",
+   "what": "A hosted registry for the prompts and contexts an agent loads, versioned and environment-tagged."
+  },
+  {
+   "archived": false,
+   "kind": "server-you-run",
+   "lastPush": "2026-09-02",
+   "layer": "register-and-version",
+   "license": "Apache-2.0",
+   "name": "mlflow/mlflow",
+   "url": "https://github.com/mlflow/mlflow",
+   "what": "A server plus client libraries. Runs, parameters, artifacts and registered model versions go in; the registry half is what makes it a versioning surface rather than only a logging one."
+  },
+  {
+   "archived": false,
+   "kind": "server-you-run",
+   "lastPush": "2026-09-02",
+   "layer": "cross-cutting",
+   "license": "",
+   "name": "Infisical/infisical",
+   "url": "https://github.com/Infisical/infisical",
+   "what": "A self-hosted service (with a managed tier) that holds secrets and brokers credentials on an outbound call, so the agent holds a placeholder and never the real value."
+  }
+ ]
+}

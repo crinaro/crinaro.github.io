@@ -2,6 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://crinaro.ai/</loc><changefreq>monthly</changefreq></url>
   <url><loc>https://crinaro.ai/notes/</loc><changefreq>monthly</changefreq></url>
+  <url><loc>https://crinaro.ai/what-you-already-have/</loc><changefreq>monthly</changefreq></url>
   <url><loc>https://crinaro.ai/notes/five-user-apis/</loc><lastmod>2026-08-20</lastmod></url>
   <url><loc>https://crinaro.ai/notes/the-last-hop/</loc><lastmod>2026-08-22</lastmod></url>
   <url><loc>https://crinaro.ai/notes/shared-skills/</loc><lastmod>2026-08-25</lastmod></url>
@@ -10,4 +11,5 @@
   <url><loc>https://crinaro.ai/notes/prompting-to-specifying/</loc><lastmod>2026-08-26</lastmod></url>
   <url><loc>https://crinaro.ai/notes/same-request-same-answer/</loc><lastmod>2026-09-02</lastmod></url>
   <url><loc>https://crinaro.ai/notes/who-owns-the-answer/</loc><lastmod>2026-09-02</lastmod></url>
+  <url><loc>https://crinaro.ai/notes/count-the-changes/</loc><lastmod>2026-09-05</lastmod></url>
 </urlset>
