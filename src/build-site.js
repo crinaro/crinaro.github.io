@@ -751,7 +751,8 @@ const CSS = `${FONTS}
   .hero .src { color:var(--rblue); border-bottom-color:rgba(147,184,212,.45);
                align-self:flex-start; margin-top:.4rem; }
   .hero .routes { align-self:flex-start; margin-top:.6rem; }
-  .hero .routes p { margin:0 0 .6rem; }
+  .hero .routes p { margin:0 0 1.4rem; }
+  .hero .routes p:last-child { margin-bottom:0; }
   .hero .routes .src { margin-top:0; }
   .hero .routes .rl { font-family:var(--mono); font-size:.66rem; letter-spacing:.16em;
                       text-transform:uppercase; color:#93B8D4; display:block; margin-bottom:.25rem; }
@@ -1640,7 +1641,7 @@ ${CSS}
       <h2>Two moves, and the second one is the hard one.</h2>
       <p>Neither of these is a tool decision. They are the things that have to be true before a
          tool decision means anything. The machinery half is separate:
-         <a class="src" href="/what-you-already-have/">what the gaps are costing you</a>.</p>
+         <a class="src" href="/what-you-already-have/">what the gaps cost</a>.</p>
     </div>
     <div class="vert">
       <b>An internal marketplace</b>
@@ -2062,8 +2063,8 @@ ${CSS}
      argument about why that happens and what an agentic model changes about it. The next two are
      about where the agent team itself lives, and what has to cross between there and whatever you
      publish. The rest stand alone: how you would know any of it is working, what an agent team can
-     actually be handed, who owns the answer when two of them disagree, and what changes for an
-     engineer when the thing you edit stops being the prompt.</p>
+     actually be handed, who owns the answer when two of them disagree, and what changes once the
+     thing you edit is the spec rather than the prompt.</p>
   ${SERIES.map(([key, head]) => `<p class="series-head">${head}</p>
   ` + seriesOf(key).map((n, i) => `<div class="entry">
     <time datetime="${n.date}">Part ${i + 1}</time>
@@ -2076,6 +2077,8 @@ ${CSS}
     <h2><a href="/notes/${n.slug}/">${n.title}</a></h2>
     <p>${n.standfirst}</p>
   </div>`).join('\n  ')}
+  <p class="index-foot"><a class="src" href="/what-you-already-have/">What the gaps cost</a>
+     &middot; <a class="src" href="/">Crinaro.AI</a></p>
   <p class="index-foot">Written by John Kelly. If a piece of this does not hold in your
      architecture, at your size, that is the mail worth sending:
      <a class="src" href="mailto:${EMAIL}">${EMAIL}</a>. Today I read it myself.</p>
@@ -2260,14 +2263,19 @@ writePage(path.join(DIST, 'what-you-already-have', 'options', 'index.html'), `${
   'The tools this work has had to make a decision about, grouped by where they sit, with what each one is and the public signals readable on a stated date. A list, not a review.',
   'https://crinaro.ai/what-you-already-have/options/', `
   .note-wrap { max-width:60rem; }
+  .note-wrap > p, .note-wrap > .standfirst, .note-wrap > .written, .foot p { max-width:38rem; }
   .tbl { overflow-x:auto; margin:0 0 2.6rem; }
-  table { border-collapse:collapse; width:100%; min-width:44rem; font-size:.92rem; }
+  table { border-collapse:collapse; width:100%; min-width:44rem; font-size:.92rem;
+           table-layout:fixed; }
+  col.c-tool { width:23%; } col.c-what { width:31%; } col.c-type { width:19%; }
+  col.c-lic  { width:15%; } col.c-push { width:12%; }
+  td.ty { white-space:nowrap; }
   th { font-family:var(--mono); font-size:.66rem; letter-spacing:.13em; text-transform:uppercase;
        color:var(--muted); text-align:left; font-weight:400; padding:0 1rem .5rem 0;
-       border-bottom:1px solid var(--hair); white-space:nowrap; }
+       border-bottom:1px solid var(--hair); line-height:1.35; }
   td { padding:.7rem 1rem .7rem 0; border-bottom:1px solid var(--hair); vertical-align:top;
        color:var(--ink-2); }
-  td.nm { white-space:nowrap; }
+  td.nm { overflow-wrap:anywhere; }
   td.nm a { color:var(--ink); text-decoration:none; border-bottom:1px solid rgba(27,92,70,.35);
             font-family:var(--head); font-weight:500; }
   td.nm a:hover { border-bottom-color:var(--green); }
@@ -2277,7 +2285,8 @@ writePage(path.join(DIST, 'what-you-already-have', 'options', 'index.html'), `${
           color:var(--muted); display:block; }
   h2 { scroll-margin-top:1.5rem; }
   .jump { font-size:.92rem; line-height:2; color:var(--ink-2); margin:0 0 2.6rem; }
-  .jump a { color:var(--ink); text-decoration:none; border-bottom:1px solid rgba(27,92,70,.3); }
+  .jump a { color:var(--ink); text-decoration:none; border-bottom:1px solid rgba(27,92,70,.3);
+            white-space:nowrap; display:inline-block; }
   .jump .jd { color:var(--muted); margin:0 .5rem; }`)}
   <h1>The options at each layer</h1>
   <p class="standfirst"><b>It is a list and not a review.</b> Nothing here ranks anything, no entry
@@ -2287,7 +2296,7 @@ writePage(path.join(DIST, 'what-you-already-have', 'options', 'index.html'), `${
      push, and those repositories were read on ${(TOOLS.tools.find(t => t.readOn) || {}).readOn}.
      <b>Not checked</b> means nobody here has looked yet, which is a fact about this list rather
      than about the project. <b>Not public</b> means a closed product with nothing to look at.
-     <a class="src" href="#signals">What a push date does and does not tell you</a>.</p>
+     <a class="src" href="#signals">How to read a push date</a>.</p>
 
   <p class="jump">${LAYER_NAMES.filter(([k]) => TOOLS.tools.some(t => t.layer === k))
       .map(([k, label]) => `<a href="#l-${k}">${label}</a>`)
@@ -2302,12 +2311,13 @@ writePage(path.join(DIST, 'what-you-already-have', 'options', 'index.html'), `${
               : 'not checked';
     return `<h2 id="l-${key}">${label}</h2>
   <div class="tbl"><table>
+    <colgroup><col class="c-tool"><col class="c-what"><col class="c-type"><col class="c-lic"><col class="c-push"></colgroup>
     <thead><tr><th>Tool</th><th>What it is</th><th>Type</th><th>License as reported</th><th>Last push</th></tr></thead>
     <tbody>
     ${list.map(t => `<tr>
       <td class="nm"><a href="${t.url}" rel="noopener">${t.name}</a>${t.archived ? '<span class="arch">archived</span>' : ''}</td>
       <td>${(t.what.match(/^.*?[.!?](?=\s|$)/) || [t.what])[0]}</td>
-      <td>${KIND_LABEL[t.kind] || ''}</td>
+      <td class="ty">${KIND_LABEL[t.kind] || ''}</td>
       <td>${t.license || 'not read'}</td>
       <td class="sg">${sig(t)}</td>
     </tr>`).join('\n    ')}
