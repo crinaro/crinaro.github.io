@@ -29,7 +29,7 @@
                        letter-spacing:.06em; }
   .principle b { color:var(--ink); font-weight:500; font-family:var(--head); }
   .principle span { display:block; color:var(--ink-2); margin-top:.3rem; }
-  .principle span.sep { display:inline; color:var(--muted); margin:0 .15rem; }
+  .principle .src { margin-right:.9rem; }
 
   /* The brand commits to one visual world — navy and paper — rather than
      following the viewer's theme. Every ground is painted explicitly. */
@@ -128,14 +128,6 @@
          padding-bottom:1px; }
   .src:hover { border-bottom-color:var(--green); }
 
-  .steps { display:flex; flex-direction:column; gap:0; }
-  .step { display:grid; grid-template-columns:1fr; gap:.3rem;
-          padding:1.35rem 0; border-bottom:1px solid var(--hair); }
-  @media (min-width:44rem) { .step { grid-template-columns:9rem 1fr; gap:2rem; align-items:baseline; } }
-  .step:last-child { border-bottom:0; }
-  .step .when { font-family:var(--mono); font-size:.72rem; letter-spacing:.14em;
-                text-transform:uppercase; color:var(--green); }
-
   /* The diagram scrolls inside its own box rather than squashing: below about
      44rem the five stages cannot hold their labels, and a legible thing you
      drag beats an illegible thing that fits. */
@@ -182,6 +174,7 @@
   h1 { font-family:var(--head); font-weight:500; font-size:clamp(1.8rem,4vw,2.6rem);
        line-height:1.12; margin:0 0 1rem; }
   .standfirst { font-size:1.12rem; color:var(--ink-2); margin:0 0 2.4rem; }
+  .written .src { font-family:inherit; font-size:inherit; letter-spacing:inherit; }
   .written { font-family:var(--mono); font-size:.72rem; letter-spacing:.06em; color:var(--muted);
              margin:0 0 3rem; padding-bottom:2.4rem; border-bottom:1px solid var(--hair);
              line-height:1.9; }
@@ -200,8 +193,8 @@
   td.ty { white-space:nowrap; }
   th { font-family:var(--mono); font-size:.66rem; letter-spacing:.13em; text-transform:uppercase;
        color:var(--muted); text-align:left; font-weight:400; padding:0 1rem .5rem 0;
-       border-bottom:1px solid var(--hair); line-height:1.35; }
-  td { padding:.7rem 1rem .7rem 0; border-bottom:1px solid var(--hair); vertical-align:top;
+       border-bottom:1px solid var(--hair); line-height:1.35; vertical-align:bottom; }
+  td { padding:.7rem 1rem .7rem 0; border-bottom:1px solid var(--hair); vertical-align:baseline;
        color:var(--ink-2); }
   td.nm { overflow-wrap:anywhere; }
   td.nm a { color:var(--ink); text-decoration:none; border-bottom:1px solid rgba(27,92,70,.35);
@@ -215,7 +208,7 @@
   .jump { font-size:.92rem; line-height:2; color:var(--ink-2); margin:0 0 2.6rem; }
   .jump a { color:var(--ink); text-decoration:none; border-bottom:1px solid rgba(27,92,70,.3);
             white-space:nowrap; display:inline-block; }
-  .jump .jd { color:var(--muted); margin:0 .5rem; }
+  .jump a { margin-right:.9rem; }
 </style>
 </head>
 <body>
@@ -240,7 +233,16 @@
      than about the project. <b>Not public</b> means a closed product with nothing to look at.
      <a class="src" href="#signals">How to read a push date</a>.</p>
 
-  <p class="jump"><a href="#l-compute-and-isolation">Somewhere isolated for work to run</a><span class="jd" aria-hidden="true">&middot;</span><a href="#l-serving">Something serving a model</a><span class="jd" aria-hidden="true">&middot;</span><a href="#l-gateway">Something routing between providers</a><span class="jd" aria-hidden="true">&middot;</span><a href="#l-context-and-tools">Something supplying tools and context</a><span class="jd" aria-hidden="true">&middot;</span><a href="#l-orchestration">Something that survives a crash</a><span class="jd" aria-hidden="true">&middot;</span><a href="#l-interface">Something a person sits in front of</a><span class="jd" aria-hidden="true">&middot;</span><a href="#l-author">What you author, and what it runs on</a><span class="jd" aria-hidden="true">&middot;</span><a href="#l-evaluate">Checking what came back</a><span class="jd" aria-hidden="true">&middot;</span><a href="#l-register-and-version">Registering and versioning what you publish</a><span class="jd" aria-hidden="true">&middot;</span><a href="#l-cross-cutting">Across all of it</a></p>
+  <p class="jump"><a href="#l-compute-and-isolation">Somewhere isolated for work to run</a>
+      <a href="#l-serving">Something serving a model</a>
+      <a href="#l-gateway">Something routing between providers</a>
+      <a href="#l-context-and-tools">Something supplying tools and context</a>
+      <a href="#l-orchestration">Something that survives a crash</a>
+      <a href="#l-interface">Something a person sits in front of</a>
+      <a href="#l-author">What you author, and what it runs on</a>
+      <a href="#l-evaluate">Checking what came back</a>
+      <a href="#l-register-and-version">Registering and versioning what you publish</a>
+      <a href="#l-cross-cutting">Across all of it</a></p>
 
   <h2 id="l-compute-and-isolation">Somewhere isolated for work to run</h2>
   <div class="tbl"><table>

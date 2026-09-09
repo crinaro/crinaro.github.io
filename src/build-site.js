@@ -692,7 +692,7 @@ const CSS = `${FONTS}
                        letter-spacing:.06em; }
   .principle b { color:var(--ink); font-weight:500; font-family:var(--head); }
   .principle span { display:block; color:var(--ink-2); margin-top:.3rem; }
-  .principle span.sep { display:inline; color:var(--muted); margin:0 .15rem; }
+  .principle .src { margin-right:.9rem; }
 
   /* The brand commits to one visual world — navy and paper — rather than
      following the viewer's theme. Every ground is painted explicitly. */
@@ -790,14 +790,6 @@ const CSS = `${FONTS}
          text-decoration:none; border-bottom:1px solid rgba(27,92,70,.35);
          padding-bottom:1px; }
   .src:hover { border-bottom-color:var(--green); }
-
-  .steps { display:flex; flex-direction:column; gap:0; }
-  .step { display:grid; grid-template-columns:1fr; gap:.3rem;
-          padding:1.35rem 0; border-bottom:1px solid var(--hair); }
-  @media (min-width:44rem) { .step { grid-template-columns:9rem 1fr; gap:2rem; align-items:baseline; } }
-  .step:last-child { border-bottom:0; }
-  .step .when { font-family:var(--mono); font-size:.72rem; letter-spacing:.14em;
-                text-transform:uppercase; color:var(--green); }
 
   /* The diagram scrolls inside its own box rather than squashing: below about
      44rem the five stages cannot hold their labels, and a legible thing you
@@ -1621,7 +1613,6 @@ ${CSS}
         owns while nothing is answerable for the shape that constrains it. Owned somewhere else on
         purpose, with a name against it, is a different thing and it is the design working.
         <a class="src" href="/notes/${NOTE_HOP.slug}/">${NOTE_HOP.title}</a>
-        <span class="sep" aria-hidden="true">·</span>
         <a class="src" href="/notes/${NOTE.slug}/">${NOTE.title}</a></span></p>
       <p class="principle"><b>Treat duplication as the primary cost driver.</b>
         <span>Getting ownership right contains it. Removing what already exists is remediation work,
@@ -1656,7 +1647,7 @@ ${CSS}
       <b>An internal marketplace</b>
       <p>So teams share what they build instead of each solving it privately. It is the cheaper of
          the two moves, because the alternative is each team paying to discover the same thing.
-         <a class="src" href="/notes/shared-skills/">What a shared capability does and does not fix</a></p>
+         <a class="src" href="/notes/shared-skills/">What&nbsp;a shared capability does and does not fix</a></p>
     </div>
     <div class="vert">
       <b>A system view</b>
@@ -1717,7 +1708,7 @@ ${CSS}
     <div class="head narrow">
       <p class="eyebrow">What it maintains</p>
       <h2>Three assets, kept alive.</h2>
-      <p>Not projects that shipped and stopped. Each is still under maintenance by an agent team.
+      <p>Not projects that shipped and stopped. Each is still under maintenance by an agent&nbsp;team.
          The last is public, so you can install it and read its history.</p>
     </div>
     <div class="cols">
@@ -2197,6 +2188,7 @@ ${CSS}
   h1 { font-family:var(--head); font-weight:500; font-size:clamp(1.8rem,4vw,2.6rem);
        line-height:1.12; margin:0 0 1rem; }
   .standfirst { font-size:1.12rem; color:var(--ink-2); margin:0 0 2.4rem; }
+  .written .src { font-family:inherit; font-size:inherit; letter-spacing:inherit; }
   .written { font-family:var(--mono); font-size:.72rem; letter-spacing:.06em; color:var(--muted);
              margin:0 0 3rem; padding-bottom:2.4rem; border-bottom:1px solid var(--hair);
              line-height:1.9; }
@@ -2298,8 +2290,8 @@ writePage(path.join(DIST, 'what-you-already-have', 'options', 'index.html'), `${
   td.ty { white-space:nowrap; }
   th { font-family:var(--mono); font-size:.66rem; letter-spacing:.13em; text-transform:uppercase;
        color:var(--muted); text-align:left; font-weight:400; padding:0 1rem .5rem 0;
-       border-bottom:1px solid var(--hair); line-height:1.35; }
-  td { padding:.7rem 1rem .7rem 0; border-bottom:1px solid var(--hair); vertical-align:top;
+       border-bottom:1px solid var(--hair); line-height:1.35; vertical-align:bottom; }
+  td { padding:.7rem 1rem .7rem 0; border-bottom:1px solid var(--hair); vertical-align:baseline;
        color:var(--ink-2); }
   td.nm { overflow-wrap:anywhere; }
   td.nm a { color:var(--ink); text-decoration:none; border-bottom:1px solid rgba(27,92,70,.35);
@@ -2313,7 +2305,7 @@ writePage(path.join(DIST, 'what-you-already-have', 'options', 'index.html'), `${
   .jump { font-size:.92rem; line-height:2; color:var(--ink-2); margin:0 0 2.6rem; }
   .jump a { color:var(--ink); text-decoration:none; border-bottom:1px solid rgba(27,92,70,.3);
             white-space:nowrap; display:inline-block; }
-  .jump .jd { color:var(--muted); margin:0 .5rem; }`)}
+  .jump a { margin-right:.9rem; }`)}
   <h1>The options at each layer</h1>
   <p class="standfirst"><b>It is a list and not a review.</b> Nothing here ranks anything, no entry
      says a tool is good, and nobody here has operated most of them. A product missing from it was
@@ -2326,7 +2318,7 @@ writePage(path.join(DIST, 'what-you-already-have', 'options', 'index.html'), `${
 
   <p class="jump">${LAYER_NAMES.filter(([k]) => TOOLS.tools.some(t => t.layer === k))
       .map(([k, label]) => `<a href="#l-${k}">${label}</a>`)
-      .join('<span class="jd" aria-hidden="true">&middot;</span>')}</p>
+      .join('\n      ')}</p>
 
   ${LAYER_NAMES.map(([key, label]) => {
     const list = TOOLS.tools.filter(t => t.layer === key)
