@@ -103,7 +103,7 @@ const problems = [
    'What the thing actually does sits with the people who built it, and in whatever copies other ' +
      'teams keep so they can get on. Your people handle that by knowing who to ask. An agent has ' +
      'nobody to ask, and when two answers disagree it cannot tell which one is right. So it picks, ' +
-     'confidently.'],
+     'confidently. <a class="src" href="/notes/who-owns-the-answer/">Who owns the answer</a>'],
   ['So it gets built again',
    'A second one gets built, correctly, by people doing their jobs well. It surfaces long after ' +
      'the decision that caused it, ' +
@@ -1483,7 +1483,8 @@ ${CSS}
       <p class="eyebrow">Where to start</p>
       <h2>Two moves, and the second one is the hard one.</h2>
       <p>Neither of these is a tool decision. They are the things that have to be true before a
-         tool decision means anything.</p>
+         tool decision means anything. The machinery half is separate:
+         <a class="src" href="/what-you-already-have/">what the gaps are costing you</a>.</p>
     </div>
     <div class="vert">
       <b>An internal marketplace</b>
@@ -1506,8 +1507,7 @@ ${CSS}
       <p>Concretely: you find the same rule implemented at the API layer more than once. The view
          is what makes somebody answerable for it, and the team that owns that boundary is who
          removes it. <b>Removing it is still its own funded work</b> rather than something that
-         happens on the way past, which is the honest half and the half that gets left out.
-         <a class="src" href="/notes/count-the-changes/">How you would know it is working</a></p>
+         happens on the way past, which is the honest half and the half that gets left out.</p>
     </div>
   </div>
 </section>
@@ -1517,11 +1517,6 @@ ${CSS}
     <div class="head narrow">
       <p class="eyebrow">How the work gets done</p>
       <h2>A factory that maintains, not just builds.</h2>
-      <p>A user story used to name an outcome, <em>the API</em>, and the engineers filled in the
-         rest. The work landed across several components, in several repositories, and nobody wrote
-         that part down because nobody needed to. Agents have no such shortcut, so the work has to
-         be broken down to the teams that maintain each component. That is why a component has a
-         team at all.</p>
       <p>Generating something with AI is the easy half now. The half that decides whether it is
          still alive in six months is the one nobody automates: keeping the documents true, the
          gates green, the releases loading, and the claims about the system honest. That is what
@@ -2058,7 +2053,8 @@ ${CSS}
      argument about why that happens and what an agentic model changes about it. The next two are
      about where the agent team itself lives, and what has to cross between there and whatever you
      publish. The rest stand alone: how you would know any of it is working, what an agent team can
-     actually be handed, and who owns the answer when two of them disagree.</p>
+     actually be handed, who owns the answer when two of them disagree, and what changes for an
+     engineer when the thing you edit stops being the prompt.</p>
   ${SERIES.map(([key, head]) => `<p class="series-head">${head}</p>
   ` + seriesOf(key).map((n, i) => `<div class="entry">
     <time datetime="${n.date}">Part ${i + 1}</time>
