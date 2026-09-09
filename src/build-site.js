@@ -320,10 +320,12 @@ const KIND_LABEL = {
 
 // The layer view, published 2026-09-08. This is the AI-SDLC tooling index's own
 // entry-point table plus its signal legend, and NOTHING ELSE from that document.
-// The 61 entries are not here and must not come here: they name products, they
-// carry a hard expiry, and 81 of their lines cite documents no reader can open.
-// What is here names no product, so it does not decay on anybody's release
-// schedule. Keep it that way.
+// It began with NO entries: they name products, they carry a hard expiry, and 81
+// of their lines cite documents no reader can open. John reversed that the same
+// day, so the page names tools for each layer and is refreshed periodically. The
+// citation problem stands and scripts/extract-tools.py refuses any description
+// that cites the private material. The decay problem is handled by printing
+// dates rather than intervals, and by making no page-level freshness claim.
 //
 // The order is the order the rows stop being optional in. It is an argument
 // about dependency, never about quality, and the page says so twice.
@@ -609,7 +611,7 @@ const CSS = `${FONTS}
   @media (min-width:48rem) { .cols { grid-template-columns:repeat(3,1fr); gap:2.4rem; } }
   .col { display:flex; flex-direction:column; gap:.5rem; }
   .col .rule { width:2rem; height:3px; background:var(--green); border-radius:2px; margin-bottom:.4rem; }
-  /* The one outbound link on the page. It exists so a claim can be checked,
+  /* Outbound links exist so a claim can be checked,
      so it is set to read as an invitation rather than as navigation. */
   .src { font-family:var(--head); font-size:.92rem; letter-spacing:.02em;
          text-decoration:none; border-bottom:1px solid rgba(27,92,70,.35);
@@ -1529,8 +1531,9 @@ ${CSS}
        the diagram above shows how far the work reaches, not the decisions inside it. Published
        separately, and standing without it:
        <a class="src" href="/what-you-already-have/">what the gaps cost</a>, which runs the pieces
-       of infrastructure an agent setup can have in the order they stop being optional. It names no
-       product, so it does not go stale on anybody else's release schedule.</p>
+       of infrastructure an agent setup can have in the order they stop being optional, and lists
+       what exists at each. The layers, and the way to read a repository, do not go stale. The tools
+       under them do, on their own schedules, so every one carries its dates.</p>
   </div>
 </section>
 
@@ -2128,7 +2131,7 @@ console.log(`       dist/notes/${note.slug}/ — bylined piece`);
 fs.mkdirSync(path.join(DIST, 'what-you-already-have'), { recursive: true });
 writePage(path.join(DIST, 'what-you-already-have', 'index.html'), `${noteHead(
   'Start from what you already have',
-  'Six layers an agent setup can have, in the order they stop being optional, and what leaving each one empty actually costs. Names no products.',
+  'The layers an agent setup can have, in the order they stop being optional, what leaving each one empty costs, and what exists at each. A list, not a review.',
   'https://crinaro.ai/what-you-already-have/')}
 <style>
 ${CSS}
@@ -2185,8 +2188,8 @@ ${CSS}
   <p class="standfirst">You already have some of this. The useful question is not what a greenfield
      build would look like, it is what the gaps are costing you. <b>Read down the list and stop at
      the first one you answer no to.</b> That is the cheapest thing you can do next.</p>
-  <p class="written"><time datetime="${TOOLS.cut}">Tools last read ${TOOLS.cut}.</time>
-     Re-read periodically, and every entry carries the date its signals were read.</p>
+  <p class="written"><time datetime="${TOOLS.cut}">List assembled ${TOOLS.cut}.</time> That is not
+     a day anything was read. Every entry carries its own dates and those are the ones to believe.</p>
 
   <div class="rows">
   ${LAYERS.map(([name, have, cost]) => `<div class="row">
@@ -2197,8 +2200,8 @@ ${CSS}
   </div>
 
   <p>The order is the order these stop being optional in. <b>That is an argument about what depends
-     on what, and not about what is good.</b> Nothing here ranks anything, nothing here names a
-     product, and no row says you should go and buy something.</p>
+     on what, and not about what is good.</b> No row ranks anything and no row says you should go
+     and buy something. What exists at each of these is listed further down.</p>
 
   <p><b>These are pieces of infrastructure a request passes through.</b> They are a different cut
      from the ownership tiers in <a class="src" href="/notes/who-owns-the-answer/">who owns the
@@ -2242,8 +2245,14 @@ ${CSS}
 
   <p><b>A product missing from this list was not evaluated and rejected. Nobody looked.</b> The list
      is shaped by the decisions this work happened to face, which makes its shape a fact about the
-     work rather than about the market. Where a date appears beside a tool, that is when its
-     repository was last read, and the subtraction against today is yours.</p>
+     work rather than about the market.</p>
+
+  <p><b>Two dates, and they mean different things.</b> <i>Last push</i> is when the project last
+     landed a commit, which is the vendor's number and is the one the section above tells you how to
+     read. <i>Read</i> is when somebody here looked at the repository. Where an entry says
+     <i>not read here</i>, nobody has looked yet, which is a fact about this list and not about the
+     project. Where it says <i>no public activity to read</i>, it is a closed product with nothing
+     to look at. <b>The subtraction against today is yours in every case.</b></p>
 
   ${LAYER_NAMES.map(([key, label]) => {
     const list = TOOLS.tools.filter(t => t.layer === key)
@@ -2263,8 +2272,15 @@ ${CSS}
     const meta = t => {
       const bits = [];
       if (t.kind && KIND_LABEL[t.kind]) bits.push(KIND_LABEL[t.kind]);
-      if (t.license) bits.push(t.license);
-      bits.push(t.lastPush ? `read ${t.lastPush}` : 'no public activity signal');
+      if (t.license) bits.push(`${t.license} as reported`);
+      if (t.signal === 'read') {
+        bits.push(`last push ${t.lastPush}`);
+        if (t.readOn) bits.push(`read ${t.readOn}`);
+      } else if (t.signal === 'none-exists') {
+        bits.push('no public activity to read');
+      } else {
+        bits.push('not read here');
+      }
       return bits.join(' &middot; ');
     };
     const one = t => `<div class="tool">
@@ -2290,10 +2306,11 @@ ${CSS}
   ${[...singles.map(one), ...blocks].join('\n  ')}`;
   }).filter(Boolean).join('\n\n  ')}
 
-  <p><b>Two of those groups hold one entry each, and that is the state of this list rather than the
-     state of the field.</b> Nothing here fills checking-what-came-back honestly, and one subject on
-     the registry group is not a market. Naming the absence is the alternative to selling you a gap
-     as a layer.</p>
+  <p><b>${(() => { const n = LAYER_NAMES.filter(([k]) => TOOLS.tools.filter(t => t.layer === k).length === 1).length;
+     return n === 1 ? 'One of those groups holds a single entry' : `${['zero','one','two','three','four','five','six','seven'][n] || n} of those groups hold a single entry each`; })()},
+     and that is the state of this list rather than the state of the field.</b> Nothing here fills
+     checking what came back honestly. Naming the absence is the alternative to selling you a gap as
+     a layer.</p>
 
   <div class="foot">
     <p><b>What this is not.</b> Not a review, a shortlist or a recommendation. No entry says a tool
@@ -2301,7 +2318,7 @@ ${CSS}
        default is named anywhere in this work, that is a choice made for one particular shape and
        never a verdict that one product beats another.</p>
     <p><b>What goes out of date, and how fast.</b> The tools do, on their own schedules rather than
-       on this page's, which is why every entry carries the date it was read instead of an interval.
+       on this page's, which is why every entry carries dates instead of an interval.
        The signals do not: how to read a repository keeps working on tools that never appear here.
        The layers could, if the shape of this tooling changes. None of it has been measured against
        an organization, and the ordering is reasoned from what depends on what.</p>

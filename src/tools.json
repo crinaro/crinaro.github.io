@@ -9,6 +9,8 @@
    "layer": "compute-and-isolation",
    "license": "AGPL-3.0",
    "name": "coder/coder",
+   "readOn": "2026-09-02",
+   "signal": "read",
    "url": "https://github.com/coder/coder",
    "what": "A self-hosted control plane that provisions workspaces from Terraform. The agent process runs inside a workspace, so what it supplies is the boundary around a harness rather than the harness."
   },
@@ -19,6 +21,8 @@
    "layer": "serving",
    "license": "",
    "name": "Amazon SageMaker",
+   "readOn": "",
+   "signal": "none-exists",
    "url": "https://aws.amazon.com/sagemaker/",
    "what": "A managed hosting and tooling surface: notebooks, training jobs and inference endpoints."
   },
@@ -29,6 +33,8 @@
    "layer": "serving",
    "license": "MIT",
    "name": "deepseek-ai/DeepSeek-V4-Flash",
+   "readOn": "",
+   "signal": "not-read",
    "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash",
    "what": "Weights and configuration files in a hub repository. Nothing here runs: a serving process loads the files, so what this row bears on is whether a process you already run can hold these particular files."
   },
@@ -39,6 +45,8 @@
    "layer": "serving",
    "license": "gemma",
    "name": "google/gemma-3-27b-it",
+   "readOn": "",
+   "signal": "not-read",
    "url": "https://huggingface.co/google/gemma-3-27b-it",
    "what": "Weights and configuration files in a hub repository. Nothing here runs: a serving process loads the files, so what this row bears on is whether a process you already run can hold these particular files."
   },
@@ -49,6 +57,8 @@
    "layer": "serving",
    "license": "Apache-2.0",
    "name": "google/gemma-4-31B-it",
+   "readOn": "",
+   "signal": "not-read",
    "url": "https://huggingface.co/google/gemma-4-31B-it",
    "what": "Weights and configuration files in a hub repository. Nothing here runs: a serving process loads the files, so what this row bears on is whether a process you already run can hold these particular files."
   },
@@ -59,6 +69,8 @@
    "layer": "serving",
    "license": "Apache-2.0",
    "name": "huggingface/text-generation-inference",
+   "readOn": "2026-09-02",
+   "signal": "read",
    "url": "https://github.com/huggingface/text-generation-inference",
    "what": "A server process that holds weights and answers completion calls, the same role as vLLM."
   },
@@ -69,6 +81,8 @@
    "layer": "serving",
    "license": "",
    "name": "LM Studio",
+   "readOn": "",
+   "signal": "none-exists",
    "url": "https://lmstudio.ai/",
    "what": "A closed desktop application that downloads and serves models on a workstation."
   },
@@ -79,6 +93,8 @@
    "layer": "serving",
    "license": "llama3.1",
    "name": "meta-llama/Llama-3.1-8B-Instruct",
+   "readOn": "",
+   "signal": "not-read",
    "url": "https://huggingface.co/meta-llama/Llama-3.1-8B-Instruct",
    "what": "Weights and configuration files in a hub repository. Nothing here runs: a serving process loads the files, so what this row bears on is whether a process you already run can hold these particular files."
   },
@@ -89,6 +105,8 @@
    "layer": "serving",
    "license": "Apache-2.0",
    "name": "mistralai/Mistral-7B-Instruct-v0.3",
+   "readOn": "",
+   "signal": "not-read",
    "url": "https://huggingface.co/mistralai/Mistral-7B-Instruct-v0.3",
    "what": "Weights and configuration files in a hub repository. Nothing here runs: a serving process loads the files, so what this row bears on is whether a process you already run can hold these particular files."
   },
@@ -99,6 +117,8 @@
    "layer": "serving",
    "license": "MIT",
    "name": "ollama/ollama",
+   "readOn": "2026-09-02",
+   "signal": "read",
    "url": "https://github.com/ollama/ollama",
    "what": "A local server plus CLI that pulls a packaged model and serves it on a workstation."
   },
@@ -109,6 +129,8 @@
    "layer": "serving",
    "license": "Apache-2.0",
    "name": "openai/gpt-oss-120b",
+   "readOn": "",
+   "signal": "not-read",
    "url": "https://huggingface.co/openai/gpt-oss-120b",
    "what": "Weights and configuration files in a hub repository. Nothing here runs: a serving process loads the files, so what this row bears on is whether a process you already run can hold these particular files."
   },
@@ -119,6 +141,8 @@
    "layer": "serving",
    "license": "Apache-2.0",
    "name": "openai/gpt-oss-20b",
+   "readOn": "",
+   "signal": "not-read",
    "url": "https://huggingface.co/openai/gpt-oss-20b",
    "what": "Weights and configuration files in a hub repository. Nothing here runs: a serving process loads the files, so what this row bears on is whether a process you already run can hold these particular files."
   },
@@ -129,6 +153,8 @@
    "layer": "serving",
    "license": "Apache-2.0",
    "name": "Qwen/Qwen3-8B",
+   "readOn": "",
+   "signal": "not-read",
    "url": "https://huggingface.co/Qwen/Qwen3-8B",
    "what": "Weights and configuration files in a hub repository. Nothing here runs: a serving process loads the files, so what this row bears on is whether a process you already run can hold these particular files."
   },
@@ -139,6 +165,8 @@
    "layer": "serving",
    "license": "",
    "name": "Qwen/Qwen3.8-2.4T-A95B",
+   "readOn": "",
+   "signal": "not-read",
    "url": "https://huggingface.co/Qwen/Qwen3.8-2.4T-A95B",
    "what": "Weights and configuration files in a hub repository. Nothing here runs: a serving process loads the files, so what this row bears on is whether a process you already run can hold these particular files."
   },
@@ -149,6 +177,8 @@
    "layer": "serving",
    "license": "",
    "name": "Qwen/Qwen3.8-Flash-Next",
+   "readOn": "",
+   "signal": "not-read",
    "url": "https://huggingface.co/Qwen/Qwen3.8-Flash-Next",
    "what": "Weights and configuration files in a hub repository. Nothing here runs: a serving process loads the files, so what this row bears on is whether a process you already run can hold these particular files."
   },
@@ -159,6 +189,8 @@
    "layer": "serving",
    "license": "Apache-2.0",
    "name": "vllm-project/vllm",
+   "readOn": "2026-09-02",
+   "signal": "read",
    "url": "https://github.com/vllm-project/vllm",
    "what": "A Python library and a server process that holds model weights in GPU memory and answers completion calls over an OpenAI-shaped API."
   },
@@ -169,6 +201,8 @@
    "layer": "gateway",
    "license": "",
    "name": "AWS Bedrock",
+   "readOn": "",
+   "signal": "none-exists",
    "url": "https://aws.amazon.com/bedrock/",
    "what": "A managed API in front of many vendors' models. You do not run a serving process and you cannot read one: what you obtain is an endpoint and a bill, and the gateway and serving layers are collapsed behind it."
   },
@@ -179,6 +213,8 @@
    "layer": "gateway",
    "license": "",
    "name": "BerriAI/litellm",
+   "readOn": "2026-09-02",
+   "signal": "read",
    "url": "https://github.com/BerriAI/litellm",
    "what": "Two shapes in one repository: a Python SDK you import, and a proxy server you deploy in front of many providers."
   },
@@ -189,8 +225,10 @@
    "layer": "gateway",
    "license": "",
    "name": "Martian",
+   "readOn": "",
+   "signal": "none-exists",
    "url": "https://withmartian.com/",
-   "what": "Classified here as a model router. Its own homepage leads with interpretability research and does not mention routing, so the classification and the vendor's own description disagree."
+   "what": "Classified here as a model router. Its homepage leads with interpretability research rather than routing. Nobody here has read the documentation, so that is a homepage and not the product."
   },
   {
    "archived": false,
@@ -199,6 +237,8 @@
    "layer": "gateway",
    "license": "",
    "name": "Not Diamond",
+   "readOn": "",
+   "signal": "none-exists",
    "url": "https://www.notdiamond.ai/",
    "what": "A router that chooses which model answers, sold on cost against frontier quality."
   },
@@ -209,6 +249,8 @@
    "layer": "gateway",
    "license": "",
    "name": "OpenRouter",
+   "readOn": "",
+   "signal": "none-exists",
    "url": "https://openrouter.ai/",
    "what": "A hosted gateway in front of many vendors' models. You obtain an endpoint and a bill; there is no serving process to read and no gateway process you run, so both layers are collapsed behind somebody else's API."
   },
@@ -219,6 +261,8 @@
    "layer": "gateway",
    "license": "",
    "name": "Portkey",
+   "readOn": "",
+   "signal": "none-exists",
    "url": "https://portkey.ai/",
    "what": "A hosted gateway whose distinguishing claim is what it records rather than what it routes."
   },
@@ -229,6 +273,8 @@
    "layer": "context-and-tools",
    "license": "",
    "name": "Glean",
+   "readOn": "",
+   "signal": "none-exists",
    "url": "https://www.glean.com/",
    "what": "A hosted index over an organization's own SaaS sources, reached as a service."
   },
@@ -239,6 +285,8 @@
    "layer": "orchestration",
    "license": "MIT",
    "name": "crewAIInc/crewAI",
+   "readOn": "2026-09-02",
+   "signal": "read",
    "url": "https://github.com/crewAIInc/crewAI",
    "what": "A Python library you import. Role-based agents with a declared crew, plus an event-driven Flows API."
   },
@@ -249,6 +297,8 @@
    "layer": "orchestration",
    "license": "MIT",
    "name": "langchain-ai/langgraph",
+   "readOn": "2026-09-02",
+   "signal": "read",
    "url": "https://github.com/langchain-ai/langgraph",
    "what": "A library you import into your own process, in Python or TypeScript."
   },
@@ -259,6 +309,8 @@
    "layer": "orchestration",
    "license": "",
    "name": "mastra-ai/mastra",
+   "readOn": "2026-09-02",
+   "signal": "read",
    "url": "https://github.com/mastra-ai/mastra",
    "what": "A TypeScript framework you import, shipped as one bundle rather than assembled parts, deployable as a standalone server."
   },
@@ -269,8 +321,10 @@
    "layer": "orchestration",
    "license": "MIT",
    "name": "microsoft/agent-framework",
+   "readOn": "2026-09-02",
+   "signal": "read",
    "url": "https://github.com/microsoft/agent-framework",
-   "what": "A library you import, in . net and Python."
+   "what": "A library you import, in .NET and Python. The readme at the read sha also names Go."
   },
   {
    "archived": false,
@@ -279,6 +333,8 @@
    "layer": "orchestration",
    "license": "MIT",
    "name": "temporalio/temporal",
+   "readOn": "2026-09-02",
+   "signal": "read",
    "url": "https://github.com/temporalio/temporal",
    "what": "A server you run, plus per-language client SDKs you import. The workflow code lives in your process; the server holds the durable state and replays it."
   },
@@ -289,6 +345,8 @@
    "layer": "interface",
    "license": "",
    "name": "Amazon Q Developer",
+   "readOn": "",
+   "signal": "none-exists",
    "url": "https://aws.amazon.com/q/developer/",
    "what": "An AWS-side coding assistant with an editor plugin, a CLI and a hosted surface."
   },
@@ -299,6 +357,8 @@
    "layer": "interface",
    "license": "MIT",
    "name": "anomalyco/opencode",
+   "readOn": "2026-09-02",
+   "signal": "read",
    "url": "https://github.com/anomalyco/opencode",
    "what": "A terminal coding agent, installed as a binary or an npm package. It holds the loop, chooses tools and manages context, and its source is readable."
   },
@@ -309,6 +369,8 @@
    "layer": "interface",
    "license": "",
    "name": "ChatGPT",
+   "readOn": "",
+   "signal": "none-exists",
    "url": "https://learn.chatgpt.com/docs/app",
    "what": "A hosted assistant reached in a browser, a desktop application and mobile clients."
   },
@@ -319,6 +381,8 @@
    "layer": "interface",
    "license": "",
    "name": "Claude Code",
+   "readOn": "",
+   "signal": "none-exists",
    "url": "https://docs.claude.com/en/docs/claude-code/overview",
    "what": "A coding agent that holds the loop, chooses tools, runs commands and manages context, across four surfaces."
   },
@@ -329,6 +393,8 @@
    "layer": "interface",
    "license": "",
    "name": "Cursor",
+   "readOn": "",
+   "signal": "none-exists",
    "url": "https://cursor.com/docs",
    "what": "An editor with an agent built into it, which is why it sits on the line between something a person sits in front of and the thing holding the loop."
   },
@@ -339,8 +405,10 @@
    "layer": "interface",
    "license": "",
    "name": "FlowiseAI/Flowise",
+   "readOn": "2026-09-02",
+   "signal": "read",
    "url": "https://github.com/FlowiseAI/Flowise",
-   "what": "A Node server you run with a visual builder over it. The readme at the read sha opens by saying the project has been archived and points at a discussion, and the API reports `archived: true`, so what a reader obtains is a frozen tree."
+   "what": "A Node server you run with a visual builder over it. The readme at the read sha opens by saying the project has been archived and points at a discussion, and the API reports archived: true, so what a reader obtains is a frozen tree."
   },
   {
    "archived": false,
@@ -349,6 +417,8 @@
    "layer": "interface",
    "license": "",
    "name": "Gemini Code Assist",
+   "readOn": "",
+   "signal": "none-exists",
    "url": "https://codeassist.google/",
    "what": "Google's editor-side coding assistant, sold to organizations rather than to the browser user the Gemini row covers."
   },
@@ -359,6 +429,8 @@
    "layer": "interface",
    "license": "",
    "name": "GitHub Copilot",
+   "readOn": "",
+   "signal": "none-exists",
    "url": "https://docs.github.com/en/copilot/get-started/what-is-github-copilot",
    "what": "Several products under one name: an inline completion extension in an editor, a chat surface, a CLI, and a coding agent that opens pull requests."
   },
@@ -369,6 +441,8 @@
    "layer": "interface",
    "license": "",
    "name": "Google Gemini",
+   "readOn": "",
+   "signal": "none-exists",
    "url": "https://gemini.google.com/",
    "what": "Google's hosted chat assistant, the consumer product rather than the developer tooling. Three separately named things ship under that one word, and the other two have their own rows below."
   },
@@ -379,6 +453,8 @@
    "layer": "interface",
    "license": "",
    "name": "google-gemini/gemini-cli",
+   "readOn": "",
+   "signal": "not-read",
    "url": "https://github.com/google-gemini/gemini-cli",
    "what": "A terminal agent installed from npm or a package manager, holding the loop and calling tools, extensible over MCP."
   },
@@ -389,6 +465,8 @@
    "layer": "interface",
    "license": "",
    "name": "Kiro",
+   "readOn": "",
+   "signal": "none-exists",
    "url": "https://kiro.dev/",
    "what": "An editor that owns the editing surface, like Cursor, and frames its workflow around specs rather than around chat."
   },
@@ -399,6 +477,8 @@
    "layer": "interface",
    "license": "MIT",
    "name": "langflow-ai/langflow",
+   "readOn": "2026-09-02",
+   "signal": "read",
    "url": "https://github.com/langflow-ai/langflow",
    "what": "A server you run with a visual authoring surface, which also exposes every workflow as an API and an MCP server."
   },
@@ -409,6 +489,8 @@
    "layer": "interface",
    "license": "",
    "name": "langgenius/dify",
+   "readOn": "2026-09-02",
+   "signal": "read",
    "url": "https://github.com/langgenius/dify",
    "what": "A server you run, or a hosted tier, presenting a builder over a workflow engine, a rag pipeline and model management."
   },
@@ -419,6 +501,8 @@
    "layer": "interface",
    "license": "MIT",
    "name": "lmstudio-ai/lms",
+   "readOn": "2026-09-02",
+   "signal": "read",
    "url": "https://github.com/lmstudio-ai/lms",
    "what": "A CLI that ships with the LM Studio desktop application and drives it."
   },
@@ -429,6 +513,8 @@
    "layer": "interface",
    "license": "",
    "name": "Microsoft Copilot Studio",
+   "readOn": "",
+   "signal": "none-exists",
    "url": "https://www.microsoft.com/en-us/microsoft-copilot/microsoft-copilot-studio",
    "what": "A hosted builder for agents, licensed inside Microsoft 365 rather than bought separately."
   },
@@ -439,6 +525,8 @@
    "layer": "interface",
    "license": "",
    "name": "n8n-io/n8n",
+   "readOn": "2026-09-02",
+   "signal": "read",
    "url": "https://github.com/n8n-io/n8n",
    "what": "A server you run (or a hosted tier) with a visual canvas over it."
   },
@@ -449,6 +537,8 @@
    "layer": "interface",
    "license": "",
    "name": "openai/codex",
+   "readOn": "",
+   "signal": "not-read",
    "url": "https://github.com/openai/codex",
    "what": "A coding agent installed as a local binary, with an IDE extension and a cloud surface named separately by the same readme."
   },
@@ -459,8 +549,10 @@
    "layer": "interface",
    "license": "",
    "name": "Relevance AI",
+   "readOn": "",
+   "signal": "none-exists",
    "url": "https://relevanceai.com/",
-   "what": "A hosted builder aimed at business functions rather than at engineering. The speed is bought by not owning the runtime."
+   "what": "A hosted builder aimed at business functions rather than at engineering. You do not own the runtime it executes on."
   },
   {
    "archived": false,
@@ -469,8 +561,10 @@
    "layer": "author",
    "license": "MIT",
    "name": "addyosmani/agent-skills",
+   "readOn": "2026-09-02",
+   "signal": "read",
    "url": "https://github.com/addyosmani/agent-skills",
-   "what": "25 skill directories under `skills/`, named for lifecycle phases -- planning, tdd, code review, debugging, security, shipping."
+   "what": "25 skill directories under skills/, named for lifecycle phases, planning, TDD, code review, debugging, security, shipping."
   },
   {
    "archived": false,
@@ -479,8 +573,10 @@
    "layer": "author",
    "license": "",
    "name": "anthropics/skills",
+   "readOn": "2026-09-02",
+   "signal": "read",
    "url": "https://github.com/anthropics/skills",
-   "what": "A repository of skill directories. Each holds a skill."
+   "what": "A repository of skill directories. Each holds a skill.md plus its scripts and resources, and nothing in the repository runs: a harness that implements the Agent Skills standard loads a directory."
   },
   {
    "archived": false,
@@ -489,6 +585,8 @@
    "layer": "author",
    "license": "",
    "name": "ComposioHQ/awesome-claude-skills",
+   "readOn": "2026-09-02",
+   "signal": "read",
    "url": "https://github.com/ComposioHQ/awesome-claude-skills",
    "what": "Both a list and an implementation, which is why one word for it is wrong."
   },
@@ -499,6 +597,8 @@
    "layer": "author",
    "license": "MIT",
    "name": "github/spec-kit",
+   "readOn": "2026-09-02",
+   "signal": "read",
    "url": "https://github.com/github/spec-kit",
    "what": "A CLI that writes a scaffold of prompts and templates into a repository, agent-agnostic across many coding agents."
   },
@@ -509,6 +609,8 @@
    "layer": "author",
    "license": "Apache-2.0",
    "name": "jax-ml/jax",
+   "readOn": "2026-09-02",
+   "signal": "read",
    "url": "https://github.com/jax-ml/jax",
    "what": "A Python library for array computation and program transformation, with automatic differentiation and compilation to accelerators."
   },
@@ -519,8 +621,10 @@
    "layer": "author",
    "license": "MIT",
    "name": "mattpocock/skills",
+   "readOn": "2026-09-02",
+   "signal": "read",
    "url": "https://github.com/mattpocock/skills",
-   "what": "37 skill directories under `skills/`, grouped `engineering/`, `productivity/`, `misc/` and `in-progress/`, published as a Claude Code plugin with a `."
+   "what": "37 skill directories under skills/, grouped engineering/, productivity/, misc/ and in-progress/, published as a Claude Code plugin with a .claude-plugin/marketplace.json."
   },
   {
    "archived": false,
@@ -529,6 +633,8 @@
    "layer": "author",
    "license": "MIT",
    "name": "ml-explore/mlx",
+   "readOn": "2026-09-02",
+   "signal": "read",
    "url": "https://github.com/ml-explore/mlx",
    "what": "An array framework you import, targeting Apple silicon's unified memory. Build-time and on-device at once, which is the axis the rest of this list mostly does not have."
   },
@@ -539,6 +645,8 @@
    "layer": "author",
    "license": "MIT",
    "name": "ml-explore/mlx-lm",
+   "readOn": "2026-09-02",
+   "signal": "read",
    "url": "https://github.com/ml-explore/mlx-lm",
    "what": "A Python package over mlx for generating text and fine-tuning language models on Apple silicon."
   },
@@ -549,8 +657,10 @@
    "layer": "author",
    "license": "MIT",
    "name": "obra/superpowers",
+   "readOn": "2026-09-02",
+   "signal": "read",
    "url": "https://github.com/obra/superpowers",
-   "what": "A methodology shipped as files. 14 skill directories under `skills/`, plus hooks, scripts and tests, and a separate plugin manifest for each of eight harnesses in the same tree: `."
+   "what": "A methodology shipped as files. 14 skill directories under skills/, plus hooks, scripts and tests, and a separate plugin manifest for each of eight harnesses in the same tree: .claude-plugin/, .codex-plugin/, .cursor-plugin/, .devin-plugin/, .hermes-plugin/, .kimi-plugin/, .opencode/ and .pi/, alongside root agents.md, claude.md, gemini.md and gemini-extension.json."
   },
   {
    "archived": false,
@@ -559,6 +669,8 @@
    "layer": "author",
    "license": "",
    "name": "pytorch/pytorch",
+   "readOn": "2026-09-02",
+   "signal": "read",
    "url": "https://github.com/pytorch/pytorch",
    "what": "A Python package you import, with compiled kernels underneath. Build-time: it trains and defines models, and is not on the request path a served model answers from."
   },
@@ -569,6 +681,8 @@
    "layer": "author",
    "license": "Apache-2.0",
    "name": "tensorflow/tensorflow",
+   "readOn": "2026-09-02",
+   "signal": "read",
    "url": "https://github.com/tensorflow/tensorflow",
    "what": "A framework you import, with a large surrounding ecosystem of tools and libraries."
   },
@@ -579,8 +693,10 @@
    "layer": "evaluate",
    "license": "",
    "name": "Vellum",
+   "readOn": "",
+   "signal": "none-exists",
    "url": "https://docs.vellum.ai/",
-   "what": "An agent-evaluation service, by classification. What it actually does was not established from the vendor's own material, and that is worth knowing before you go and look."
+   "what": "Recorded as an agent-evaluation service. Nobody here has read its documentation or its product pages, so that is a classification and not a description."
   },
   {
    "archived": false,
@@ -589,6 +705,8 @@
    "layer": "register-and-version",
    "license": "",
    "name": "LangSmith Context Hub",
+   "readOn": "",
+   "signal": "none-exists",
    "url": "https://docs.langchain.com/langsmith/context-hub",
    "what": "A hosted registry for the prompts and contexts an agent loads, versioned and environment-tagged."
   },
@@ -599,6 +717,8 @@
    "layer": "register-and-version",
    "license": "Apache-2.0",
    "name": "mlflow/mlflow",
+   "readOn": "2026-09-02",
+   "signal": "read",
    "url": "https://github.com/mlflow/mlflow",
    "what": "A server plus client libraries. Runs, parameters, artifacts and registered model versions go in; the registry half is what makes it a versioning surface rather than only a logging one."
   },
@@ -609,6 +729,8 @@
    "layer": "cross-cutting",
    "license": "",
    "name": "Infisical/infisical",
+   "readOn": "2026-09-02",
+   "signal": "read",
    "url": "https://github.com/Infisical/infisical",
    "what": "A self-hosted service (with a managed tier) that holds secrets and brokers credentials on an outbound call, so the agent holds a placeholder and never the real value."
   }
