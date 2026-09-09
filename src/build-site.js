@@ -299,7 +299,7 @@ const LAYER_NAMES = [
   ['context-and-tools',     'Something supplying tools and context'],
   ['orchestration',         'Something that survives a crash'],
   ['interface',             'Something a person sits in front of'],
-  ['author',                'Authoring the agents and the skills'],
+  ['author',                'What you author, and what it runs on'],
   ['evaluate',              'Checking what came back'],
   ['register-and-version',  'Registering and versioning what you publish'],
   ['cross-cutting',         'Across all of it'],
@@ -351,6 +351,160 @@ const LAYERS = [
 ];
 
 // The signal legend. This is the half that keeps working on tools this page will
+// 2026-09-02. The first argument on this site that is specific to agents rather
+// than a rerun of the feature-team debate, and it came from John: a team scoped
+// to the whole stack can only be prompted, and a prompt is not repeatable.
+// Stated as REPEATABILITY, not as context size — "the window is too small" dates
+// the moment windows grow, and the claim does not depend on any model's limits.
+const NOTE_SCOPE = {
+  slug: 'same-request-same-answer',
+  title: 'Same request, same answer',
+  author: 'John Kelly',
+  date: '2026-09-02',
+  dateHuman: '2 September 2026',
+  standfirst: 'How you scope a team used to be a question about coordination cost. It now decides ' +
+              'whether you can hand that team a specification at all, and a team you can only ' +
+              'prompt does not give you the same answer twice.',
+  gist: [
+    'A team scoped to everything it touches can only be prompted, because no specification can be ' +
+      'written that does not span the whole system. A team scoped to something it owns can be ' +
+      'handed a spec.',
+    'That is not a matter of taste. A prompt is a conversation and gives a different answer each ' +
+      'time it is run. Systems a business depends on need the same request to produce the same ' +
+      'answer.',
+  ],
+  body: `
+<p>For twenty years the argument about how to shape delivery teams was an argument about
+   coordination. Split people by feature and one team carries a change from end to end, paying for
+   it in breadth. Split them by component and each team goes deep, paying for it in handoffs. Both
+   sides had evidence, and both were arguing about the same thing: what it costs for one group of
+   people to get something from another group of people.</p>
+
+<p>That argument assumed a person on each end. The receiving team could be told roughly what was
+   wanted and work the rest out, because working the rest out is what people do. It is why the
+   handoff was expensive, and it is also why it was survivable.</p>
+
+<h3>What an agent team can be given</h3>
+
+<p>An agent team is scoped to what it can be pointed at, and the question is whether that scope has
+   an edge. A team whose remit is everything a request might touch has nothing to write a
+   specification against. Not because breaking the request into parts is impossible: people do it
+   every day. Because there is no reason to. A team that owns the whole surface can always absorb
+   the work, so the decomposition happens only when a boundary makes it happen. What gets handed
+   over instead is a description of intent, refined by asking again.</p>
+
+<p>This is not an argument about vertical against horizontal. A team aligned to a stream of work,
+   owning one bounded context end to end, has an edge and passes the same test. The failing case is
+   not a slice through the stack. It is a remit with no boundary anywhere in it.</p>
+
+<p>A team scoped to something it owns has a request with an edge. It can be written down, against a
+   contract, and handed over.</p>
+
+<div class="flow"><svg viewBox="0 0 1000 300" role="img"
+     aria-label="Two columns. A team scoped without a boundary takes in everything a request might touch, has nothing to specify against, and its output varies with nothing to test it. A team scoped to something it owns works against one contract, can be given a specification, and its output varies inside something testable.">
+  <text x="40" y="26" fill="#0B2545" font-family="${HEAD_SVG}" font-size="16" font-weight="500">Scoped without a boundary</text>
+  <text x="40" y="46" fill="#5B6E80" font-family="Helvetica,Arial,sans-serif" font-size="12.5">the request has no edge</text>
+  <rect x="40" y="70" width="384" height="46" rx="3" fill="#F2F6F8" stroke="#DCE4EA"/>
+  <text x="232" y="98" text-anchor="middle" fill="#0B2545" font-family="${HEAD_SVG}" font-size="14.5" font-weight="500">Everything a request might touch</text>
+  <path d="M232 116 L232 136" stroke="#93B8D4" stroke-width="1.5"/>
+  <rect x="40" y="136" width="384" height="46" rx="3" fill="#F2F6F8" stroke="#DCE4EA"/>
+  <text x="232" y="164" text-anchor="middle" fill="#0B2545" font-family="${HEAD_SVG}" font-size="14.5" font-weight="500">Nothing to specify against</text>
+  <path d="M232 182 L232 202" stroke="#93B8D4" stroke-width="1.5"/>
+  <rect x="40" y="202" width="384" height="46" rx="3" fill="#F2F6F8" stroke="#DCE4EA"/>
+  <text x="232" y="230" text-anchor="middle" fill="#0B2545" font-family="${HEAD_SVG}" font-size="14.5" font-weight="500">Variation with nothing to test it</text>
+  <text x="576" y="26" fill="#1B5C46" font-family="${HEAD_SVG}" font-size="16" font-weight="500">Scoped to something it owns</text>
+  <text x="576" y="46" fill="#5B6E80" font-family="Helvetica,Arial,sans-serif" font-size="12.5">the request has an edge</text>
+  <rect x="576" y="70" width="384" height="46" rx="3" fill="#EAF3EE" stroke="#A8D5C0"/>
+  <text x="768" y="98" text-anchor="middle" fill="#1B5C46" font-family="${HEAD_SVG}" font-size="14.5" font-weight="500">One contract it is answerable for</text>
+  <path d="M768 116 L768 136" stroke="#7DBFA3" stroke-width="1.5"/>
+  <rect x="576" y="136" width="384" height="46" rx="3" fill="#EAF3EE" stroke="#A8D5C0"/>
+  <text x="768" y="164" text-anchor="middle" fill="#1B5C46" font-family="${HEAD_SVG}" font-size="14.5" font-weight="500">You can write it a specification</text>
+  <path d="M768 182 L768 202" stroke="#7DBFA3" stroke-width="1.5"/>
+  <rect x="576" y="202" width="384" height="46" rx="3" fill="#EAF3EE" stroke="#A8D5C0"/>
+  <text x="768" y="230" text-anchor="middle" fill="#1B5C46" font-family="${HEAD_SVG}" font-size="14.5" font-weight="500">Variation inside something testable</text>
+  <text x="500" y="284" text-anchor="middle" fill="#5B6E80" font-family="Helvetica,Arial,sans-serif" font-size="12.5">The difference is not speed. It is whether there is anything to check the second run against.</text>
+</svg></div>
+
+<h3>Why that is not a preference</h3>
+
+<p>Prompting is the right way to explore, and it is where everybody starts. What it does not give
+   you is a result you can check. Ask a second time and you get a second answer, usually reasonable,
+   often different, and nothing in the exchange tells you which one to keep.</p>
+
+<p>Runs vary for reasons that have nothing to do with scope. The model moves under a stable name,
+   sampling is not deterministic, and the same request can be served differently depending on what
+   else the machine is doing. Drawing a boundary does not fix any of that, and a note on this site
+   already says so: the method in <a href="/notes/prompting-to-specifying/">the piece on
+   specifying</a> starts by running two identical arms, which is only worth doing because two
+   identical arms differ.</p>
+
+<p>So the claim here is not that a specification produces the same output twice. It does not. The
+   claim is narrower and more useful: a bounded request constrains the space an answer can land in,
+   and a constrained space is what makes a test mean something. A contract can be replayed against
+   whatever came back. Intent cannot.</p>
+
+<p>Variation is fine while you are exploring. It is not fine in a system a business runs on.
+   Enterprise systems earn their keep by being
+   predictable: the same input produces the same behavior, a release does what the last release
+   did except where it was meant to change, and a customer relying on it can plan around it. That
+   is what quality means at that scale, and it is built out of repeatability rather than out of any
+   single good answer.</p>
+
+<p>So the question of how you scope a team stopped being an organizational preference and became a
+   question about whether your delivery is repeatable. Not how fast the team is. Whether running the
+   same request twice gives you the same system.</p>
+
+<h3>The objection, and why it does not hold</h3>
+
+<p>The obvious answer is that a party who does not own something cannot write a good specification
+   for it: it will miss the invariants, the failure modes and the couplings that only the owner
+   knows, so the work satisfies the request and does not work. If that were disqualifying,
+   contract-first development would never work, and it does.</p>
+
+<p>But it works for a reason worth being precise about, because the reason is the answer to the
+   objection. A contract is agreed by both parties and then verified against the real thing, every
+   build. The requester writes what it needs; the owner says whether that is what the component
+   does; the test replays it. Nobody in that practice believes a specification thrown over a wall
+   is sufficient, and nothing here should be read as proposing one. A contract never fully
+   describes behavior either. Somebody always ends up depending on something it did not promise,
+   which is an argument for the owner being in the loop rather than against writing it down.</p>
+
+<p>In my experience the specification is usually wrong upstream of the team receiving it, because
+   the analysis was not done. That was true before agents. What has changed is the cost of being
+   wrong: the turnaround is hours, so a specification that missed something gets corrected and
+   re-run rather than absorbed into a release nobody wants to reopen. The argument for keeping the
+   work inside one team was that going outside it was slow. That is the part that moved, and it is
+   worth saying that it moved for the writing rather than for the agreeing. Getting another team to
+   care is the same problem it always was.</p>
+
+<p>And the specification is not overhead you pay for the privilege of splitting the work. The team
+   receiving it has to update what its component says about itself, and the specification is what
+   that update is written from. A request that never got written down leaves nothing behind for the
+   next one to read.</p>
+
+<h3>What to call the unit, which matters more than it sounds</h3>
+
+<p>Component, service, module, capability: organizations fill these words in differently, which is
+   most of why arguments between delivery frameworks talk past each other. Two people can agree
+   completely about features and disagree entirely about what a feature is.</p>
+
+<p>So the unit here is defined by a test rather than by a word. It is whatever satisfies two
+   conditions at once: one team can own what it says about itself, and a specification can be
+   written against it without describing anything else. If those hold, the name does not matter. If
+   they do not hold, no name will fix it.</p>
+
+<p><b>What is not known.</b> That a bounded request produces output which varies less, or varies
+   more usefully, than an unbounded one is stated here as a mechanism and not as a measurement.
+   Nothing here has run the comparison. It is a real experiment: the same request given to a
+   broadly scoped team and to a narrowly scoped one, several times each, with the runs compared to
+   each other rather than to a target. Until somebody does that, the honest version of this note is
+   that the bounded request is the one you can write a test for, which is a claim about what is
+   checkable rather than about what varies.</p>
+`,
+  next: ['prompting-to-specifying', 'From prompting to specifying',
+         'What changes for an engineer once the spec, not the prompt, is the thing being edited.'],
+};
+
 // never name: it is about reading a repository, not about any particular one.
 const SIGNALS = [
   ['Stars',
@@ -1427,8 +1581,9 @@ ${CSS}
       <h2>The whole view decides the design.</h2>
       <p>Crinaro is a ridge line, from the Italian <i>crinale</i>: the crest path where you can
          see down both sides. That is the method: stand where the whole system is visible before
-         deciding anything. The test of advice given from there is whether a team still has the
-         thing a year later, and whether <em>do not build this</em> was ever an available answer.</p>
+         deciding anything. The test of a decision made from there is whether the team still has
+         the thing when you come back to it, and whether <em>do not build this</em> was ever an
+         available answer.</p>
     </div>
   </div>
 </section>
@@ -1450,10 +1605,11 @@ ${CSS}
         <a class="src" href="/notes/${NOTE.slug}/">${NOTE.title}</a></span></p>
       <p class="principle"><b>Assign ownership at the component level, and over its data.</b>
         <span>Teams aligned to components support the velocity an organization needs and drive its
-        costs down, whether those teams are people or agents. Teams aligned to projects do the
-        opposite. <b>A component whose data is owned elsewhere, or by nobody, has a boundary that
-        does not hold</b>: the team can change behavior it owns and cannot change what constrains
-        it.
+        costs down. An agent team is one of those teams and inherits the accountability of whoever
+        funds and reviews it. Teams aligned to projects do the
+        opposite. <b>Data nobody owns is where the boundary fails</b>: the team changes behavior it
+        owns while nothing is answerable for the shape that constrains it. Owned somewhere else on
+        purpose, with a name against it, is a different thing and it is the design working.
         <a class="src" href="/notes/${NOTE_HOP.slug}/">${NOTE_HOP.title}</a>
         <span class="sep" aria-hidden="true">·</span>
         <a class="src" href="/notes/${NOTE.slug}/">${NOTE.title}</a></span></p>
@@ -1536,7 +1692,13 @@ ${CSS}
        are one argument: why an organization ends up with several systems doing the same thing, the
        decomposition that used to live in an engineer's head, and why publishing a convention once
        does not make the output agree. Start at
-       <a class="src" href="/notes/${NOTE.slug}/">${NOTE.title}</a>, or take
+       <a class="src" href="/notes/${NOTE.slug}/">${NOTE.title}</a>.</p>
+
+    <p class="note">The two most specific to agents stand on their own:
+       <a class="src" href="/notes/${NOTE_SCOPE.slug}/">${NOTE_SCOPE.title}</a>, on what an agent
+       team can actually be handed, and
+       <a class="src" href="/notes/${NOTE_CADENCE.slug}/">${NOTE_CADENCE.title}</a>, on what changes
+       for an engineer when the thing you edit stops being the prompt. Or take
        <a class="src" href="/notes/">all of them</a>.</p>
   </div>
 </section>
@@ -1666,159 +1828,6 @@ ${CSS}
 `;
 
 writePage(path.join(DIST, 'index.html'), html);
-
-// 2026-09-02. The first argument on this site that is specific to agents rather
-// than a rerun of the feature-team debate, and it came from John: a team scoped
-// to the whole stack can only be prompted, and a prompt is not repeatable.
-// Stated as REPEATABILITY, not as context size — "the window is too small" dates
-// the moment windows grow, and the claim does not depend on any model's limits.
-const NOTE_SCOPE = {
-  slug: 'same-request-same-answer',
-  title: 'Same request, same answer',
-  author: 'John Kelly',
-  date: '2026-09-02',
-  dateHuman: '2 September 2026',
-  standfirst: 'How you scope a team used to be a question about coordination cost. It now decides ' +
-              'whether you can hand that team a specification at all, and a team you can only ' +
-              'prompt does not give you the same answer twice.',
-  gist: [
-    'A team scoped to everything it touches can only be prompted, because no specification can be ' +
-      'written that does not span the whole system. A team scoped to something it owns can be ' +
-      'handed a spec.',
-    'That is not a matter of taste. A prompt is a conversation and gives a different answer each ' +
-      'time it is run. Systems a business depends on need the same request to produce the same ' +
-      'answer.',
-  ],
-  body: `
-<p>For twenty years the argument about how to shape delivery teams was an argument about
-   coordination. Split people by feature and one team carries a change from end to end, paying for
-   it in breadth. Split them by component and each team goes deep, paying for it in handoffs. Both
-   sides had evidence, and both were arguing about the same thing: what it costs for one group of
-   people to get something from another group of people.</p>
-
-<p>That argument assumed a person on each end. The receiving team could be told roughly what was
-   wanted and work the rest out, because working the rest out is what people do. It is why the
-   handoff was expensive, and it is also why it was survivable.</p>
-
-<h3>What an agent team can be given</h3>
-
-<p>An agent team is scoped to what it can be pointed at, and the question is whether that scope has
-   an edge. A team whose remit is everything a request might touch has nothing to write a
-   specification against. Not because breaking the request into parts is impossible: people do it
-   every day. Because there is no reason to. A team that owns the whole surface can always absorb
-   the work, so the decomposition happens only when a boundary makes it happen. What gets handed
-   over instead is a description of intent, refined by asking again.</p>
-
-<p>This is not an argument about vertical against horizontal. A team aligned to a stream of work,
-   owning one bounded context end to end, has an edge and passes the same test. The failing case is
-   not a slice through the stack. It is a remit with no boundary anywhere in it.</p>
-
-<p>A team scoped to something it owns has a request with an edge. It can be written down, against a
-   contract, and handed over.</p>
-
-<div class="flow"><svg viewBox="0 0 1000 300" role="img"
-     aria-label="Two columns. A team scoped without a boundary takes in everything a request might touch, has nothing to specify against, and its output varies with nothing to test it. A team scoped to something it owns works against one contract, can be given a specification, and its output varies inside something testable.">
-  <text x="40" y="26" fill="#0B2545" font-family="${HEAD_SVG}" font-size="16" font-weight="500">Scoped without a boundary</text>
-  <text x="40" y="46" fill="#5B6E80" font-family="Helvetica,Arial,sans-serif" font-size="12.5">the request has no edge</text>
-  <rect x="40" y="70" width="384" height="46" rx="3" fill="#F2F6F8" stroke="#DCE4EA"/>
-  <text x="232" y="98" text-anchor="middle" fill="#0B2545" font-family="${HEAD_SVG}" font-size="14.5" font-weight="500">Everything a request might touch</text>
-  <path d="M232 116 L232 136" stroke="#93B8D4" stroke-width="1.5"/>
-  <rect x="40" y="136" width="384" height="46" rx="3" fill="#F2F6F8" stroke="#DCE4EA"/>
-  <text x="232" y="164" text-anchor="middle" fill="#0B2545" font-family="${HEAD_SVG}" font-size="14.5" font-weight="500">Nothing to specify against</text>
-  <path d="M232 182 L232 202" stroke="#93B8D4" stroke-width="1.5"/>
-  <rect x="40" y="202" width="384" height="46" rx="3" fill="#F2F6F8" stroke="#DCE4EA"/>
-  <text x="232" y="230" text-anchor="middle" fill="#0B2545" font-family="${HEAD_SVG}" font-size="14.5" font-weight="500">Variation with nothing to test it</text>
-  <text x="576" y="26" fill="#1B5C46" font-family="${HEAD_SVG}" font-size="16" font-weight="500">Scoped to something it owns</text>
-  <text x="576" y="46" fill="#5B6E80" font-family="Helvetica,Arial,sans-serif" font-size="12.5">the request has an edge</text>
-  <rect x="576" y="70" width="384" height="46" rx="3" fill="#EAF3EE" stroke="#A8D5C0"/>
-  <text x="768" y="98" text-anchor="middle" fill="#1B5C46" font-family="${HEAD_SVG}" font-size="14.5" font-weight="500">One contract it is answerable for</text>
-  <path d="M768 116 L768 136" stroke="#7DBFA3" stroke-width="1.5"/>
-  <rect x="576" y="136" width="384" height="46" rx="3" fill="#EAF3EE" stroke="#A8D5C0"/>
-  <text x="768" y="164" text-anchor="middle" fill="#1B5C46" font-family="${HEAD_SVG}" font-size="14.5" font-weight="500">You can write it a specification</text>
-  <path d="M768 182 L768 202" stroke="#7DBFA3" stroke-width="1.5"/>
-  <rect x="576" y="202" width="384" height="46" rx="3" fill="#EAF3EE" stroke="#A8D5C0"/>
-  <text x="768" y="230" text-anchor="middle" fill="#1B5C46" font-family="${HEAD_SVG}" font-size="14.5" font-weight="500">Variation inside something testable</text>
-  <text x="500" y="284" text-anchor="middle" fill="#5B6E80" font-family="Helvetica,Arial,sans-serif" font-size="12.5">The difference is not speed. It is whether there is anything to check the second run against.</text>
-</svg></div>
-
-<h3>Why that is not a preference</h3>
-
-<p>Prompting is the right way to explore, and it is where everybody starts. What it does not give
-   you is a result you can check. Ask a second time and you get a second answer, usually reasonable,
-   often different, and nothing in the exchange tells you which one to keep.</p>
-
-<p>Runs vary for reasons that have nothing to do with scope. The model moves under a stable name,
-   sampling is not deterministic, and the same request can be served differently depending on what
-   else the machine is doing. Drawing a boundary does not fix any of that, and a note on this site
-   already says so: the method in <a href="/notes/prompting-to-specifying/">the piece on
-   specifying</a> starts by running two identical arms, which is only worth doing because two
-   identical arms differ.</p>
-
-<p>So the claim here is not that a specification produces the same output twice. It does not. The
-   claim is narrower and more useful: a bounded request constrains the space an answer can land in,
-   and a constrained space is what makes a test mean something. A contract can be replayed against
-   whatever came back. Intent cannot.</p>
-
-<p>It is not fine in a system a business runs on. Enterprise systems earn their keep by being
-   predictable: the same input produces the same behavior, a release does what the last release
-   did except where it was meant to change, and a customer relying on it can plan around it. That
-   is what quality means at that scale, and it is built out of repeatability rather than out of any
-   single good answer.</p>
-
-<p>So the question of how you scope a team stopped being an organizational preference and became a
-   question about whether your delivery is repeatable. Not how fast the team is. Whether running the
-   same request twice gives you the same system.</p>
-
-<h3>The objection, and why it does not hold</h3>
-
-<p>The obvious answer is that a party who does not own something cannot write a good specification
-   for it: it will miss the invariants, the failure modes and the couplings that only the owner
-   knows, so the work satisfies the request and does not work. If that were disqualifying,
-   contract-first development would never work, and it does.</p>
-
-<p>But it works for a reason worth being precise about, because the reason is the answer to the
-   objection. A contract is agreed by both parties and then verified against the real thing, every
-   build. The requester writes what it needs; the owner says whether that is what the component
-   does; the test replays it. Nobody in that practice believes a specification thrown over a wall
-   is sufficient, and nothing here should be read as proposing one. A contract never fully
-   describes behavior either. Somebody always ends up depending on something it did not promise,
-   which is an argument for the owner being in the loop rather than against writing it down.</p>
-
-<p>In my experience the specification is usually wrong upstream of the team receiving it, because
-   the analysis was not done. That was true before agents. What has changed is the cost of being
-   wrong: the turnaround is hours, so a specification that missed something gets corrected and
-   re-run rather than absorbed into a release nobody wants to reopen. The argument for keeping the
-   work inside one team was that going outside it was slow. That is the part that moved, and it is
-   worth saying that it moved for the writing rather than for the agreeing. Getting another team to
-   care is the same problem it always was.</p>
-
-<p>And the specification is not overhead you pay for the privilege of splitting the work. The team
-   receiving it has to update what its component says about itself, and the specification is what
-   that update is written from. A request that never got written down leaves nothing behind for the
-   next one to read.</p>
-
-<h3>What to call the unit, which matters more than it sounds</h3>
-
-<p>Component, service, module, capability: organizations fill these words in differently, which is
-   most of why arguments between delivery frameworks talk past each other. Two people can agree
-   completely about features and disagree entirely about what a feature is.</p>
-
-<p>So the unit here is defined by a test rather than by a word. It is whatever satisfies two
-   conditions at once: one team can own what it says about itself, and a specification can be
-   written against it without describing anything else. If those hold, the name does not matter. If
-   they do not hold, no name will fix it.</p>
-
-<p><b>What is not known.</b> That a bounded request produces output which varies less, or varies
-   more usefully, than an unbounded one is stated here as a mechanism and not as a measurement.
-   Nothing here has run the comparison. It is a real experiment: the same request given to a
-   broadly scoped team and to a narrowly scoped one, several times each, with the runs compared to
-   each other rather than to a target. Until somebody does that, the honest version of this note is
-   that the bounded request is the one you can write a test for, which is a claim about what is
-   checkable rather than about what varies.</p>
-`,
-  next: ['prompting-to-specifying', 'From prompting to specifying',
-         'What changes for an engineer once the spec, not the prompt, is the thing being edited.'],
-};
 
 // 2026-09-02. The knowledge tier. The home page's second problem card, "No
 // answer anyone can trust", promises this argument and had nothing behind it.
@@ -2222,10 +2231,12 @@ writePage(path.join(DIST, 'what-you-already-have', 'index.html'), `${pageHead(
   </div>
 
   <p>The order is the order these stop being optional in, which is an argument about what depends on
-     what and not about what is good. <b>Two things are missing from it on purpose.</b> There is no
-     row for evaluating what an agent produced, because nothing worth pointing at fills it honestly
-     yet. There is no row for a registry of prompts or agent definitions, because one credible
-     option is not a market. Naming an absence is the alternative to selling you a gap as a layer.</p>
+     what and not about what is good. <b>Two things have no row here on purpose.</b> Evaluating what
+     an agent produced is not a row, because what exists is thin enough that putting it in this list
+     would imply a choice you do not have. Neither is a registry of prompts or agent definitions.
+     Both appear in <a class="src" href="/what-you-already-have/options/">the options</a>, where you
+     can see how little is there. Naming the thinness is the alternative to selling you a gap as a
+     layer.</p>
 
   <div class="foot">
     <p>None of this has been measured against an organization, and the ordering is reasoned from
@@ -2297,7 +2308,7 @@ writePage(path.join(DIST, 'what-you-already-have', 'options', 'index.html'), `${
       <td class="nm"><a href="${t.url}" rel="noopener">${t.name}</a>${t.archived ? '<span class="arch">archived</span>' : ''}</td>
       <td>${(t.what.match(/^.*?[.!?](?=\s|$)/) || [t.what])[0]}</td>
       <td>${KIND_LABEL[t.kind] || ''}</td>
-      <td>${t.license || '&mdash;'}</td>
+      <td>${t.license || 'not read'}</td>
       <td class="sg">${sig(t)}</td>
     </tr>`).join('\n    ')}
     </tbody>
