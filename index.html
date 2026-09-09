@@ -268,10 +268,10 @@
     <div class="cols">
       <div class="col"><div class="rule"></div>
         <h3>The interval used to be long</h3>
-        <p>A second copy took a long time to build, so the cost of having one surfaced long after
-           the decision that caused it, and landed on whoever was there when it did.</p></div>
+        <p>A second copy was expensive to build, and the cost of having one surfaced long after
+           the decision that caused it, landing on whoever was there when it did.</p></div>
       <div class="col"><div class="rule"></div>
-        <h3>Now it is an afternoon</h3>
+        <h3>Now the build is cheap</h3>
         <p>Engineering turnaround has collapsed, and the interval collapses with it. The same
            accumulation happens, at a speed nobody has built a habit for.</p></div>
       <div class="col"><div class="rule"></div>
@@ -282,8 +282,7 @@
     <p class="note"><b>Whether that matters to you is a real question and it has an honest
        answer.</b> If you are optimizing for an exit, this is not your problem and you should not
        spend on it. If you are measured on what the platform costs to run in three years, it is the
-       problem, and adopting AI without a view of the whole system is how the bill gets larger
-       faster than it used to.</p>
+       problem, and nothing about adopting AI addresses it on its own.</p>
   </div>
 </section>
 
@@ -372,10 +371,10 @@
     </div>
     <div class="vert">
       <b>What it buys</b>
-      <p>Concretely: you find the same rule implemented at the API layer more than once. The team
-         that owns that boundary owns removing it, over time, as work passes through. That is what
-         turns a system view into velocity rather than a diagram, and it is the only thing that
-         moves the maintenance bill.
+      <p>Concretely: you find the same rule implemented at the API layer more than once. The view
+         is what makes somebody answerable for it, and the team that owns that boundary is who
+         removes it. <b>Removing it is still its own funded work</b> rather than something that
+         happens on the way past, which is the honest half and the half that gets left out.
          <a class="src" href="/notes/count-the-changes/">How you would know it is working</a></p>
     </div>
   </div>
@@ -385,16 +384,16 @@
   <div class="wrap">
     <div class="head narrow">
       <p class="eyebrow">Getting the most out of it</p>
-      <h2>The shift is to specifying. It does not fit on a laptop.</h2>
+      <h2>The shift is to specifying. Proving it worked is what leaves the laptop.</h2>
       <p>The change worth making is not that engineers write less code. It is that when the output
          is wrong, the thing you edit stops being the prompt and becomes the spec.
          <a class="src" href="/notes/prompting-to-specifying/">The shift itself</a></p>
-      <p>Which creates a requirement the old way never had. A prompt gives you an answer. A spec
-         gives you something to check the answer against, and a check is only worth anything if it
-         runs under the same conditions every time. Not the same answer: answers vary for reasons no
-         arrangement of yours will fix. <b>The conditions are the part you control, and a workstation
-         is where you stop controlling them.</b>
-         <a class="src" href="/notes/same-request-same-answer/">Why the conditions are the thing</a></p>
+      <p>Then a second thing follows, and it is a fork rather than a ladder. <b>Change a spec and
+         one machine is the right shape</b>: two working directories of one clone, already comparing
+         against a shared base. <b>Change the agent definition and that shape tells you nothing</b>,
+         because the environment, the tools and the authenticated connections are shared between the
+         arms and cannot be varied. That is the point where you need somewhere else to run.
+         <a class="src" href="/notes/prompting-to-specifying/">Where the fork is</a></p>
     </div>
     <div class="cols">
       <div class="col"><div class="rule"></div>
