@@ -353,21 +353,26 @@ const LAYERS = [
 // The signal legend. This is the half that keeps working on tools this page will
 // never name: it is about reading a repository, not about any particular one.
 const SIGNALS = [
-  ['Stars', 'Attention, accumulated over the life of a repository. Somebody saw it and bookmarked it.',
-   'Quality, fitness for your case, whether the code runs, or how many people use it in anger. A star is free and permanent, and nobody un-stars a project they stopped using.',
-   'Age, above all. A repository that has existed for five years out-stars a better one that has existed for two, by default, without either project doing anything. Compare only between projects of similar age, and treat the comparison as weak even then.'],
-  ['Last push', 'The most recent moment a commit reached the default branch, as the host reports it.',
-   'Whether the project works, whether anybody answers issues, or whether what landed was substantial. A dependency bump from a bot and a rewrite of the scheduler are the same date here.',
-   'Automated dependency updates, documentation typos and CI configuration all refresh it. A project whose real work happens on release branches will look quieter than it is.'],
-  ['Archived', 'Exactly one thing: the owner set the archived flag. That is the vendor\'s own declaration, and it is a fact rather than an inference.',
-   'The state of the project. A project that moved to a new organization leaves a tombstone identical to the one left by a project that stopped.',
-   'Nothing moves it except a person deciding to set it. Which is why the reading is ambiguous rather than the signal being noisy: check whether the same name is alive somewhere else before you conclude anything.'],
-  ['The license, read two ways', 'What the host reports, and what is actually in the tree. They are not always the same answer.',
-   'Whether a subdirectory you are about to copy carries different terms from the root. For anything you vendor into your own repository, the directory you copy is the unit to check, at the revision you copy it from.',
-   'A relicense, a re-export, or a commercial edition walled off from the one you read about. The two answers disagreeing is a question for a person, never a verdict.'],
-  ['Open issues', 'How many issues are currently open. That is all.',
-   'Anything about the project on its own, because it rises with adoption and falls with triage policy. A low number means few reported problems, or nobody routes reports into a queue, or a bot closes them on a timer.',
-   'A signal with two opposite readings is not a signal until you know which regime you are in. Read a few of the issues themselves: whether recent ones have maintainer replies, and whether closures carry a commit or a template. That takes less time than the arguing that follows a wrong reading.'],
+  ['Stars',
+   'Attention accumulated over a repository\'s whole life, which makes it mostly a measure of age: ' +
+   'a five-year-old project out-stars a better two-year-old by default. Nobody un-stars a project ' +
+   'they stopped using.'],
+  ['Last push',
+   'When a commit last reached the default branch. A bot bumping a dependency and a rewrite of the ' +
+   'scheduler are the same date here, and a project whose real work happens on release branches ' +
+   'looks quieter than it is.'],
+  ['Archived',
+   'The owner set a flag, which is a fact rather than an inference. What it means is ambiguous: a ' +
+   'project that moved to a new organization leaves a tombstone identical to one that stopped. ' +
+   'Check whether the same name is alive somewhere else before concluding anything.'],
+  ['The license, twice',
+   'What the host reports and what is actually in the tree are not always the same answer. For ' +
+   'anything you copy into your own repository, the directory you copy is the unit to check, at the ' +
+   'revision you copy it from.'],
+  ['Open issues',
+   'Rises with adoption and falls with triage policy, so a low number means few problems, or no ' +
+   'queue, or a bot closing them on a timer. A signal with two opposite readings is not a signal ' +
+   'until you know which regime you are in.'],
 ];
 
 const NOTE_COUNT = {
@@ -2135,6 +2140,7 @@ writePage(path.join(DIST, 'what-you-already-have', 'index.html'), `${noteHead(
   'https://crinaro.ai/what-you-already-have/')}
 <style>
 ${CSS}
+  .note-wrap p { margin:0 0 1.1rem; }
   .note-wrap { max-width:38rem; margin:0 auto; padding:3.5rem 1.5rem 5rem; }
   .note-home { display:inline-block; margin-bottom:3rem; }
   .note-home svg { width:11rem; height:auto; display:block; }
@@ -2153,8 +2159,13 @@ ${CSS}
   .row p, .sig p { margin:0 0 .7rem; color:var(--ink-2); }
   .lbl { font-family:var(--mono); font-size:.68rem; letter-spacing:.13em;
          text-transform:uppercase; color:var(--muted); display:block; margin-bottom:.2rem; }
-  .sig { margin:0 0 2.2rem; }
-  .sig h3 { font-family:var(--head); font-weight:500; font-size:1.05rem; margin:0 0 .7rem; }
+  .sig { margin:0 0 1rem; }
+  .jump { font-size:.92rem; line-height:2; color:var(--ink-2); margin:1.6rem 0 0; }
+  .jump a { color:var(--ink); text-decoration:none; border-bottom:1px solid rgba(27,92,70,.3); }
+  .jump a:hover { border-bottom-color:var(--green); }
+  .jump .jn { font-family:var(--mono); font-size:.7rem; color:var(--muted); }
+  .jump .jd { color:var(--muted); margin:0 .5rem; }
+  h3.lay { scroll-margin-top:1.5rem; }
   h3.lay { font-family:var(--head); font-weight:500; font-size:1.05rem; color:var(--ink);
            margin:2.8rem 0 1.2rem; padding-bottom:.5rem; border-bottom:1px solid var(--hair); }
   h3.lay .n { font-family:var(--mono); font-size:.7rem; color:var(--muted); margin-left:.4rem; }
@@ -2218,24 +2229,6 @@ ${CSS}
      option is not a market, and a layer with one occupant is a decision you make once rather than a
      category you shop in.</p>
 
-  <h2>How to read a signal, on anything</h2>
-
-  <p>Whatever you end up looking at, you will be on a repository page deciding something from
-     numbers. Numbers persuade without arguing. Each of these says what it measures, what it does
-     not, and what moves it for reasons that have nothing to do with the tool.</p>
-
-  ${SIGNALS.map(([name, meas, notm, moves]) => `<div class="sig">
-    <h3>${name}</h3>
-    <p><span class="lbl">Measures</span>${meas}</p>
-    <p><span class="lbl">Does not measure</span>${notm}</p>
-    <p><span class="lbl">Moves for unrelated reasons</span>${moves}</p>
-  </div>`).join('\n  ')}
-
-  <p><b>And read the date, never the interval.</b> Somebody else's "updated three months ago" was
-     computed once, and it goes wrong while every input to it stays right: nobody pushes, nobody
-     edits the sentence, and the sentence becomes false on its own. Find the date and do the
-     subtraction yourself, against today.</p>
-
   <h2>What exists at each layer</h2>
 
   <p>These are the tools this work has had to make a decision about, grouped by where they sit.
@@ -2253,6 +2246,10 @@ ${CSS}
      <i>not read here</i>, nobody has looked yet, which is a fact about this list and not about the
      project. Where it says <i>no public activity to read</i>, it is a closed product with nothing
      to look at. <b>The subtraction against today is yours in every case.</b></p>
+
+  <p class="jump">${LAYER_NAMES.filter(([k]) => TOOLS.tools.some(t => t.layer === k))
+      .map(([k, label]) => `<a href="#l-${k}">${label}</a> <span class="jn">${TOOLS.tools.filter(t => t.layer === k).length}</span>`)
+      .join('<span class="jd" aria-hidden="true">&middot;</span>')}</p>
 
   ${LAYER_NAMES.map(([key, label]) => {
     const list = TOOLS.tools.filter(t => t.layer === key)
@@ -2302,7 +2299,7 @@ ${CSS}
       <span class="tm inline">${meta(t)}</span></p>`).join('\n    ')}
   </div>`);
     }
-    return `<h3 class="lay">${label} <span class="n">${list.length}</span></h3>
+    return `<h3 class="lay" id="l-${key}">${label} <span class="n">${list.length}</span></h3>
   ${[...singles.map(one), ...blocks].join('\n  ')}`;
   }).filter(Boolean).join('\n\n  ')}
 
@@ -2311,6 +2308,21 @@ ${CSS}
      and that is the state of this list rather than the state of the field.</b> Nothing here fills
      checking what came back honestly. Naming the absence is the alternative to selling you a gap as
      a layer.</p>
+
+  <h2>How to read a signal, on anything</h2>
+
+  <p>Whatever you end up looking at, you will be on a repository page deciding something from
+     numbers. Numbers persuade without arguing. Each of these says what it measures, what it does
+     not, and what moves it for reasons that have nothing to do with the tool.</p>
+
+  ${SIGNALS.map(([name, text]) => `<div class="sig">
+    <p><b>${name}.</b> ${text}</p>
+  </div>`).join('\n  ')}
+
+  <p><b>And read the date, never the interval.</b> Somebody else's "updated three months ago" was
+     computed once, and it goes wrong while every input to it stays right: nobody pushes, nobody
+     edits the sentence, and the sentence becomes false on its own. Find the date and do the
+     subtraction yourself, against today.</p>
 
   <div class="foot">
     <p><b>What this is not.</b> Not a review, a shortlist or a recommendation. No entry says a tool

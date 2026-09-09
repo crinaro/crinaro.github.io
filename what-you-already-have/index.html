@@ -171,6 +171,7 @@
 
   a { color:var(--green); }
   :focus-visible { outline:2px solid var(--rgreen); outline-offset:3px; }
+  .note-wrap p { margin:0 0 1.1rem; }
   .note-wrap { max-width:38rem; margin:0 auto; padding:3.5rem 1.5rem 5rem; }
   .note-home { display:inline-block; margin-bottom:3rem; }
   .note-home svg { width:11rem; height:auto; display:block; }
@@ -189,8 +190,13 @@
   .row p, .sig p { margin:0 0 .7rem; color:var(--ink-2); }
   .lbl { font-family:var(--mono); font-size:.68rem; letter-spacing:.13em;
          text-transform:uppercase; color:var(--muted); display:block; margin-bottom:.2rem; }
-  .sig { margin:0 0 2.2rem; }
-  .sig h3 { font-family:var(--head); font-weight:500; font-size:1.05rem; margin:0 0 .7rem; }
+  .sig { margin:0 0 1rem; }
+  .jump { font-size:.92rem; line-height:2; color:var(--ink-2); margin:1.6rem 0 0; }
+  .jump a { color:var(--ink); text-decoration:none; border-bottom:1px solid rgba(27,92,70,.3); }
+  .jump a:hover { border-bottom-color:var(--green); }
+  .jump .jn { font-family:var(--mono); font-size:.7rem; color:var(--muted); }
+  .jump .jd { color:var(--muted); margin:0 .5rem; }
+  h3.lay { scroll-margin-top:1.5rem; }
   h3.lay { font-family:var(--head); font-weight:500; font-size:1.05rem; color:var(--ink);
            margin:2.8rem 0 1.2rem; padding-bottom:.5rem; border-bottom:1px solid var(--hair); }
   h3.lay .n { font-family:var(--mono); font-size:.7rem; color:var(--muted); margin-left:.4rem; }
@@ -288,48 +294,6 @@
      option is not a market, and a layer with one occupant is a decision you make once rather than a
      category you shop in.</p>
 
-  <h2>How to read a signal, on anything</h2>
-
-  <p>Whatever you end up looking at, you will be on a repository page deciding something from
-     numbers. Numbers persuade without arguing. Each of these says what it measures, what it does
-     not, and what moves it for reasons that have nothing to do with the tool.</p>
-
-  <div class="sig">
-    <h3>Stars</h3>
-    <p><span class="lbl">Measures</span>Attention, accumulated over the life of a repository. Somebody saw it and bookmarked it.</p>
-    <p><span class="lbl">Does not measure</span>Quality, fitness for your case, whether the code runs, or how many people use it in anger. A star is free and permanent, and nobody un-stars a project they stopped using.</p>
-    <p><span class="lbl">Moves for unrelated reasons</span>Age, above all. A repository that has existed for five years out-stars a better one that has existed for two, by default, without either project doing anything. Compare only between projects of similar age, and treat the comparison as weak even then.</p>
-  </div>
-  <div class="sig">
-    <h3>Last push</h3>
-    <p><span class="lbl">Measures</span>The most recent moment a commit reached the default branch, as the host reports it.</p>
-    <p><span class="lbl">Does not measure</span>Whether the project works, whether anybody answers issues, or whether what landed was substantial. A dependency bump from a bot and a rewrite of the scheduler are the same date here.</p>
-    <p><span class="lbl">Moves for unrelated reasons</span>Automated dependency updates, documentation typos and CI configuration all refresh it. A project whose real work happens on release branches will look quieter than it is.</p>
-  </div>
-  <div class="sig">
-    <h3>Archived</h3>
-    <p><span class="lbl">Measures</span>Exactly one thing: the owner set the archived flag. That is the vendor's own declaration, and it is a fact rather than an inference.</p>
-    <p><span class="lbl">Does not measure</span>The state of the project. A project that moved to a new organization leaves a tombstone identical to the one left by a project that stopped.</p>
-    <p><span class="lbl">Moves for unrelated reasons</span>Nothing moves it except a person deciding to set it. Which is why the reading is ambiguous rather than the signal being noisy: check whether the same name is alive somewhere else before you conclude anything.</p>
-  </div>
-  <div class="sig">
-    <h3>The license, read two ways</h3>
-    <p><span class="lbl">Measures</span>What the host reports, and what is actually in the tree. They are not always the same answer.</p>
-    <p><span class="lbl">Does not measure</span>Whether a subdirectory you are about to copy carries different terms from the root. For anything you vendor into your own repository, the directory you copy is the unit to check, at the revision you copy it from.</p>
-    <p><span class="lbl">Moves for unrelated reasons</span>A relicense, a re-export, or a commercial edition walled off from the one you read about. The two answers disagreeing is a question for a person, never a verdict.</p>
-  </div>
-  <div class="sig">
-    <h3>Open issues</h3>
-    <p><span class="lbl">Measures</span>How many issues are currently open. That is all.</p>
-    <p><span class="lbl">Does not measure</span>Anything about the project on its own, because it rises with adoption and falls with triage policy. A low number means few reported problems, or nobody routes reports into a queue, or a bot closes them on a timer.</p>
-    <p><span class="lbl">Moves for unrelated reasons</span>A signal with two opposite readings is not a signal until you know which regime you are in. Read a few of the issues themselves: whether recent ones have maintainer replies, and whether closures carry a commit or a template. That takes less time than the arguing that follows a wrong reading.</p>
-  </div>
-
-  <p><b>And read the date, never the interval.</b> Somebody else's "updated three months ago" was
-     computed once, and it goes wrong while every input to it stays right: nobody pushes, nobody
-     edits the sentence, and the sentence becomes false on its own. Find the date and do the
-     subtraction yourself, against today.</p>
-
   <h2>What exists at each layer</h2>
 
   <p>These are the tools this work has had to make a decision about, grouped by where they sit.
@@ -348,14 +312,16 @@
      project. Where it says <i>no public activity to read</i>, it is a closed product with nothing
      to look at. <b>The subtraction against today is yours in every case.</b></p>
 
-  <h3 class="lay">Somewhere isolated for work to run <span class="n">1</span></h3>
+  <p class="jump"><a href="#l-compute-and-isolation">Somewhere isolated for work to run</a> <span class="jn">1</span><span class="jd" aria-hidden="true">&middot;</span><a href="#l-serving">Something serving a model</a> <span class="jn">15</span><span class="jd" aria-hidden="true">&middot;</span><a href="#l-gateway">Something routing between providers</a> <span class="jn">6</span><span class="jd" aria-hidden="true">&middot;</span><a href="#l-context-and-tools">Something supplying tools and context</a> <span class="jn">1</span><span class="jd" aria-hidden="true">&middot;</span><a href="#l-orchestration">Something that survives a crash</a> <span class="jn">5</span><span class="jd" aria-hidden="true">&middot;</span><a href="#l-interface">Something a person sits in front of</a> <span class="jn">18</span><span class="jd" aria-hidden="true">&middot;</span><a href="#l-author">Authoring the agents and the skills</a> <span class="jn">11</span><span class="jd" aria-hidden="true">&middot;</span><a href="#l-evaluate">Checking what came back</a> <span class="jn">1</span><span class="jd" aria-hidden="true">&middot;</span><a href="#l-register-and-version">Registering and versioning what you publish</a> <span class="jn">2</span><span class="jd" aria-hidden="true">&middot;</span><a href="#l-cross-cutting">Across all of it</a> <span class="jn">1</span></p>
+
+  <h3 class="lay" id="l-compute-and-isolation">Somewhere isolated for work to run <span class="n">1</span></h3>
   <div class="tool">
     <p class="tn"><a href="https://github.com/coder/coder" rel="noopener">coder/coder</a></p>
     <p class="tw">A self-hosted control plane that provisions workspaces from Terraform. The agent process runs inside a workspace, so what it supplies is the boundary around a harness rather than the harness.</p>
     <p class="tm">server you run &middot; AGPL-3.0 as reported &middot; last push 2026-09-02 &middot; read 2026-09-02</p>
   </div>
 
-  <h3 class="lay">Something serving a model <span class="n">15</span></h3>
+  <h3 class="lay" id="l-serving">Something serving a model <span class="n">15</span></h3>
   <div class="tool">
     <p class="tn"><a href="https://aws.amazon.com/sagemaker/" rel="noopener">Amazon SageMaker</a></p>
     <p class="tw">A managed hosting and tooling surface: notebooks, training jobs and inference endpoints.</p>
@@ -406,7 +372,7 @@
       <span class="tm inline">weights you download &middot; not read here</span></p>
   </div>
 
-  <h3 class="lay">Something routing between providers <span class="n">6</span></h3>
+  <h3 class="lay" id="l-gateway">Something routing between providers <span class="n">6</span></h3>
   <div class="tool">
     <p class="tn"><a href="https://aws.amazon.com/bedrock/" rel="noopener">AWS Bedrock</a></p>
     <p class="tw">A managed API in front of many vendors' models. You do not run a serving process and you cannot read one: what you obtain is an endpoint and a bill, and the gateway and serving layers are collapsed behind it.</p>
@@ -438,14 +404,14 @@
     <p class="tm">hosted service &middot; no public activity to read</p>
   </div>
 
-  <h3 class="lay">Something supplying tools and context <span class="n">1</span></h3>
+  <h3 class="lay" id="l-context-and-tools">Something supplying tools and context <span class="n">1</span></h3>
   <div class="tool">
     <p class="tn"><a href="https://www.glean.com/" rel="noopener">Glean</a></p>
     <p class="tw">A hosted index over an organization's own SaaS sources, reached as a service.</p>
     <p class="tm">hosted service &middot; no public activity to read</p>
   </div>
 
-  <h3 class="lay">Something that survives a crash <span class="n">5</span></h3>
+  <h3 class="lay" id="l-orchestration">Something that survives a crash <span class="n">5</span></h3>
   <div class="tool">
     <p class="tn"><a href="https://github.com/crewAIInc/crewAI" rel="noopener">crewAIInc/crewAI</a></p>
     <p class="tw">A Python library you import. Role-based agents with a declared crew, plus an event-driven Flows API.</p>
@@ -472,7 +438,7 @@
     <p class="tm">server you run &middot; MIT as reported &middot; last push 2026-09-02 &middot; read 2026-09-02</p>
   </div>
 
-  <h3 class="lay">Something a person sits in front of <span class="n">18</span></h3>
+  <h3 class="lay" id="l-interface">Something a person sits in front of <span class="n">18</span></h3>
   <div class="tool">
     <p class="tn"><a href="https://aws.amazon.com/q/developer/" rel="noopener">Amazon Q Developer</a></p>
     <p class="tw">An AWS-side coding assistant with an editor plugin, a CLI and a hosted surface.</p>
@@ -564,7 +530,7 @@
     <p class="tm">hosted service &middot; no public activity to read</p>
   </div>
 
-  <h3 class="lay">Authoring the agents and the skills <span class="n">11</span></h3>
+  <h3 class="lay" id="l-author">Authoring the agents and the skills <span class="n">11</span></h3>
   <div class="tool">
     <p class="tn"><a href="https://github.com/addyosmani/agent-skills" rel="noopener">addyosmani/agent-skills</a></p>
     <p class="tw">25 skill directories under skills/, named for lifecycle phases, planning, TDD, code review, debugging, security, shipping.</p>
@@ -621,14 +587,14 @@
     <p class="tm">library you import &middot; Apache-2.0 as reported &middot; last push 2026-09-02 &middot; read 2026-09-02</p>
   </div>
 
-  <h3 class="lay">Checking what came back <span class="n">1</span></h3>
+  <h3 class="lay" id="l-evaluate">Checking what came back <span class="n">1</span></h3>
   <div class="tool">
     <p class="tn"><a href="https://docs.vellum.ai/" rel="noopener">Vellum</a></p>
     <p class="tw">Recorded as an agent-evaluation service. Nobody here has read its documentation or its product pages, so that is a classification and not a description.</p>
     <p class="tm">hosted service &middot; no public activity to read</p>
   </div>
 
-  <h3 class="lay">Registering and versioning what you publish <span class="n">2</span></h3>
+  <h3 class="lay" id="l-register-and-version">Registering and versioning what you publish <span class="n">2</span></h3>
   <div class="tool">
     <p class="tn"><a href="https://docs.langchain.com/langsmith/context-hub" rel="noopener">LangSmith Context Hub</a></p>
     <p class="tw">A hosted registry for the prompts and contexts an agent loads, versioned and environment-tagged.</p>
@@ -640,7 +606,7 @@
     <p class="tm">server you run &middot; Apache-2.0 as reported &middot; last push 2026-09-02 &middot; read 2026-09-02</p>
   </div>
 
-  <h3 class="lay">Across all of it <span class="n">1</span></h3>
+  <h3 class="lay" id="l-cross-cutting">Across all of it <span class="n">1</span></h3>
   <div class="tool">
     <p class="tn"><a href="https://github.com/Infisical/infisical" rel="noopener">Infisical/infisical</a></p>
     <p class="tw">A self-hosted service (with a managed tier) that holds secrets and brokers credentials on an outbound call, so the agent holds a placeholder and never the real value.</p>
@@ -651,6 +617,33 @@
      and that is the state of this list rather than the state of the field.</b> Nothing here fills
      checking what came back honestly. Naming the absence is the alternative to selling you a gap as
      a layer.</p>
+
+  <h2>How to read a signal, on anything</h2>
+
+  <p>Whatever you end up looking at, you will be on a repository page deciding something from
+     numbers. Numbers persuade without arguing. Each of these says what it measures, what it does
+     not, and what moves it for reasons that have nothing to do with the tool.</p>
+
+  <div class="sig">
+    <p><b>Stars.</b> Attention accumulated over a repository's whole life, which makes it mostly a measure of age: a five-year-old project out-stars a better two-year-old by default. Nobody un-stars a project they stopped using.</p>
+  </div>
+  <div class="sig">
+    <p><b>Last push.</b> When a commit last reached the default branch. A bot bumping a dependency and a rewrite of the scheduler are the same date here, and a project whose real work happens on release branches looks quieter than it is.</p>
+  </div>
+  <div class="sig">
+    <p><b>Archived.</b> The owner set a flag, which is a fact rather than an inference. What it means is ambiguous: a project that moved to a new organization leaves a tombstone identical to one that stopped. Check whether the same name is alive somewhere else before concluding anything.</p>
+  </div>
+  <div class="sig">
+    <p><b>The license, twice.</b> What the host reports and what is actually in the tree are not always the same answer. For anything you copy into your own repository, the directory you copy is the unit to check, at the revision you copy it from.</p>
+  </div>
+  <div class="sig">
+    <p><b>Open issues.</b> Rises with adoption and falls with triage policy, so a low number means few problems, or no queue, or a bot closing them on a timer. A signal with two opposite readings is not a signal until you know which regime you are in.</p>
+  </div>
+
+  <p><b>And read the date, never the interval.</b> Somebody else's "updated three months ago" was
+     computed once, and it goes wrong while every input to it stays right: nobody pushes, nobody
+     edits the sentence, and the sentence becomes false on its own. Find the date and do the
+     subtraction yourself, against today.</p>
 
   <div class="foot">
     <p><b>What this is not.</b> Not a review, a shortlist or a recommendation. No entry says a tool
