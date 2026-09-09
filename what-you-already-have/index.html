@@ -219,53 +219,57 @@
      machinery you will already have, and the useful question is not what a greenfield build would
      look like, it is what the gaps are costing you.</p>
   <p class="written">Read down the list. <b>Stop at the first one you answer no to</b>, and follow
-     the link on that row to see what exists there.</p>
+     the link on that row to see what is listed there.</p>
 
   <div class="rows">
   <div class="row">
     <h3>Somewhere isolated for work to run</h3>
     <p><span class="lbl">You have it if</span>An agent run gets a workspace that is not somebody's laptop, and two runs cannot see each other.</p>
     <p><span class="lbl">Empty, it costs you</span>Every unattended run inherits one machine's credentials and state. This is the row that stops being optional first, because a scheduled job on a laptop stops when its owner takes leave and nothing reports that it stopped.</p>
-    <p><a class="src" href="/what-you-already-have/options/#l-compute-and-isolation">See the options <span aria-hidden="true">&rarr;</span></a></p>
+    <p><a class="src" href="/what-you-already-have/options/#l-compute-and-isolation">See the one option listed <span aria-hidden="true">&rarr;</span></a></p>
   </div>
   <div class="row">
     <h3>Something serving a model</h3>
     <p><span class="lbl">You have it if</span>You run a process that holds weights, or you have decided on purpose that you never will.</p>
     <p><span class="lbl">Empty, it costs you</span>Nothing, if you buy inference and mean it. Empty is the correct state of this row for anyone who does.</p>
-    <p><a class="src" href="/what-you-already-have/options/#l-serving">See the options <span aria-hidden="true">&rarr;</span></a></p>
+    <p><a class="src" href="/what-you-already-have/options/#l-serving">See the fifteen options listed <span aria-hidden="true">&rarr;</span></a></p>
   </div>
   <div class="row">
     <h3>Something routing between providers</h3>
     <p><span class="lbl">You have it if</span>Changing which model answers is a configuration change rather than a code change.</p>
     <p><span class="lbl">Empty, it costs you</span>Every switch becomes a code change in however many places call a model. One model and one consumer does not earn this row. A second of either does.</p>
-    <p><a class="src" href="/what-you-already-have/options/#l-gateway">See the options <span aria-hidden="true">&rarr;</span></a></p>
+    <p><a class="src" href="/what-you-already-have/options/#l-gateway">See the six options listed <span aria-hidden="true">&rarr;</span></a></p>
   </div>
   <div class="row">
     <h3>Something supplying tools and context</h3>
     <p><span class="lbl">You have it if</span>An agent reaches your systems through a declared surface rather than through pasted text.</p>
     <p><span class="lbl">Empty, it costs you</span>Nothing records what an agent was actually given, so when a run comes back wrong there is nothing to inspect and nothing to change except the next prompt.</p>
-    <p><a class="src" href="/what-you-already-have/options/#l-context-and-tools">See the options <span aria-hidden="true">&rarr;</span></a></p>
+    <p><a class="src" href="/what-you-already-have/options/#l-context-and-tools">See the one option listed <span aria-hidden="true">&rarr;</span></a></p>
   </div>
   <div class="row">
     <h3>Something that survives a crash</h3>
     <p><span class="lbl">You have it if</span>A sequence that dies halfway resumes rather than restarts.</p>
-    <p><span class="lbl">Empty, it costs you</span>Long work is only as reliable as the machine it started on. This row earns its place once a run is long enough that starting it again is expensive, and before that it is the easiest thing on this list to buy too early.</p>
-    <p><a class="src" href="/what-you-already-have/options/#l-orchestration">See the options <span aria-hidden="true">&rarr;</span></a></p>
+    <p><span class="lbl">Empty, it costs you</span>Long work is only as reliable as the machine it started on. This row earns its place once a run is long enough that starting it again is expensive, and before that it is easy to buy too early.</p>
+    <p><a class="src" href="/what-you-already-have/options/#l-orchestration">See the five options listed <span aria-hidden="true">&rarr;</span></a></p>
   </div>
   <div class="row">
     <h3>Something a person sits in front of</h3>
     <p><span class="lbl">You have it if</span>Nobody has to read a log to know what an agent did.</p>
     <p><span class="lbl">Empty, it costs you</span>You cannot tell a working agent team from a stuck one without going and asking the person running it.</p>
-    <p><a class="src" href="/what-you-already-have/options/#l-interface">See the options <span aria-hidden="true">&rarr;</span></a></p>
+    <p><a class="src" href="/what-you-already-have/options/#l-interface">See the eighteen options listed <span aria-hidden="true">&rarr;</span></a></p>
   </div>
   </div>
 
   <p>The order is the order these stop being optional in, which is an argument about what depends on
-     what and not about what is good. <b>Two things have no row here on purpose.</b> Evaluating what
-     an agent produced is not a row, because what exists is thin enough that putting it in this list
-     would imply a choice you do not have. Neither is a registry of prompts or agent definitions.
-     Both appear in <a class="src" href="/what-you-already-have/options/">the options</a>, where you
-     can see how little is there. Naming the thinness is the alternative to selling you a gap as a
+     what and not about what is good. <b>Four groups in
+     the options have no row here, on purpose.</b> What you author and what it runs on, and the
+     things that sit across all of it, are not on the request path in the way these
+     six are, so an order of adoption says nothing useful about
+     them. Evaluating what an agent produced is not a row either, because what exists is thin enough
+     that putting it in this list would imply a choice you do not have. Neither is a registry of
+     prompts or agent definitions. Those last two are in
+     <a class="src" href="/what-you-already-have/options/">the options</a> as well, where you can
+     see how little is there. Naming the thinness is the alternative to selling you a gap as a
      layer.</p>
 
   <div class="foot">

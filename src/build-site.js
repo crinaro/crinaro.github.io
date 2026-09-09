@@ -335,7 +335,9 @@ const KIND_LABEL = {
 // Spelled out because the house rule is words, not numerals, in prose. Indexed
 // so the meta description below cannot drift from the number of rows rendered.
 const SPELLED = ['No', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven',
-                 'Eight', 'Nine', 'Ten', 'Eleven', 'Twelve'];
+                 'Eight', 'Nine', 'Ten', 'Eleven', 'Twelve', 'Thirteen',
+                 'Fourteen', 'Fifteen', 'Sixteen', 'Seventeen', 'Eighteen',
+                 'Nineteen', 'Twenty'];
 
 const LAYERS = [
   ['compute-and-isolation', 'Somewhere isolated for work to run',
@@ -352,7 +354,7 @@ const LAYERS = [
    'Nothing records what an agent was actually given, so when a run comes back wrong there is nothing to inspect and nothing to change except the next prompt.'],
   ['orchestration', 'Something that survives a crash',
    'A sequence that dies halfway resumes rather than restarts.',
-   'Long work is only as reliable as the machine it started on. This row earns its place once a run is long enough that starting it again is expensive, and before that it is the easiest thing on this list to buy too early.'],
+   'Long work is only as reliable as the machine it started on. This row earns its place once a run is long enough that starting it again is expensive, and before that it is easy to buy too early.'],
   ['interface', 'Something a person sits in front of',
    'Nobody has to read a log to know what an agent did.',
    'You cannot tell a working agent team from a stuck one without going and asking the person running it.'],
@@ -516,8 +518,8 @@ const NOTE_SCOPE = {
 // never name: it is about reading a repository, not about any particular one.
 const SIGNALS = [
   ['Stars',
-   'Attention accumulated over a repository\'s whole life, which makes it largely a measure of ' +
-   'age: an older project out-stars a better younger one by default. Nothing prompts anybody to ' +
+   'Attention accumulated over a repository\'s whole life, so age is part of what it measures: ' +
+   'an older project out-stars a better younger one by default. Nothing prompts anybody to ' +
    'un-star a project they stopped using.'],
   ['Last push',
    'When a commit last reached the default branch. A bot bumping a dependency and a rewrite of the ' +
@@ -532,9 +534,9 @@ const SIGNALS = [
    'anything you copy into your own repository, the directory you copy is the unit to check, at the ' +
    'revision you copy it from.'],
   ['Open issues',
-   'Rises with adoption and falls with triage policy, so a low number means few problems, or no ' +
-   'queue, or a bot closing them on a timer. A signal with two opposite readings is not a signal ' +
-   'until you know which regime you are in.'],
+   'The count rises with adoption and falls with triage policy, so a low number means few ' +
+   'problems, or no queue, or a bot closing them on a timer. A signal with opposite readings is ' +
+   'not a signal until you know which regime you are in.'],
 ];
 
 const NOTE_COUNT = {
@@ -1716,7 +1718,7 @@ ${CSS}
       <p class="eyebrow">What it maintains</p>
       <h2>Three assets, kept alive.</h2>
       <p>Not projects that shipped and stopped. Each is still under maintenance by an agent team.
-         The last is public and installable, so you can check it for yourself.</p>
+         The last is public, so you can install it and read its history.</p>
     </div>
     <div class="cols">
       ${assets.map(([n, role, b, href, cta]) => `<div class="col"><div class="rule"></div>
@@ -1745,9 +1747,10 @@ ${CSS}
        the diagram above shows how far the work reaches, not the decisions inside it. Published
        separately, and standing without it:
        <a class="src" href="/what-you-already-have/">what the gaps cost</a>, which runs the pieces
-       of infrastructure an agent setup can have in the order they stop being optional, and lists
-       what exists at each. The layers, and the way to read a repository, do not go stale. The tools
-       under them do, on their own schedules, so every one carries its dates.</p>
+       of infrastructure an agent setup can have in the order they stop being optional, and names
+       some of what exists at each. The layers, and the way to read a repository, change more slowly
+       than the tools under them. The tools move on their own schedules, so the list prints dates
+       rather than intervals and says where nobody has looked.</p>
   </div>
 </section>
 
@@ -1768,7 +1771,7 @@ ${CSS}
       <p>The first attempt to measure one is on the record, and it did not work. In the material's
          own words: <em>“It did not work as expected. The sequence is not falsified, but it is not
          yet demonstrated either.”</em> Read the mechanism on its merits, and treat the outcomes as
-         open rather than as likely.</p>
+         open.</p>
     </div>
   </div>
 </section>
@@ -2208,6 +2211,19 @@ ${extraCss}
 <div class="note-wrap">
   <a class="note-home" href="/" aria-label="Crinaro.AI">${svg('crinaro-ai-horizontal.svg')}</a>`;
 
+// The count on a row link is a count of what this list names, never of what
+// exists at that layer — the options page says outright that a product missing
+// from it was not evaluated and rejected, and a bare "(one)" beside a plural
+// noun read as both a contradiction and an enumeration of the world. "listed"
+// carries the bound and the grammar. Above twenty this falls back to a numeral,
+// which breaks the words-not-numerals rule; extend SPELLED before that happens.
+const optionsLink = key => {
+  const n = TOOLS.tools.filter(t => t.layer === key).length;
+  if (!n) return 'See the options';
+  if (n === 1) return 'See the one option listed';
+  return `See the ${SPELLED[n] ? SPELLED[n].toLowerCase() : n} options listed`;
+};
+
 fs.mkdirSync(path.join(DIST, 'what-you-already-have'), { recursive: true });
 writePage(path.join(DIST, 'what-you-already-have', 'index.html'), `${pageHead(
   'Start from what you already have',
@@ -2228,23 +2244,27 @@ writePage(path.join(DIST, 'what-you-already-have', 'index.html'), `${pageHead(
      machinery you will already have, and the useful question is not what a greenfield build would
      look like, it is what the gaps are costing you.</p>
   <p class="written">Read down the list. <b>Stop at the first one you answer no to</b>, and follow
-     the link on that row to see what exists there.</p>
+     the link on that row to see what is listed there.</p>
 
   <div class="rows">
   ${LAYERS.map(([key, name, have, cost]) => `<div class="row">
     <h3>${name}</h3>
     <p><span class="lbl">You have it if</span>${have}</p>
     <p><span class="lbl">Empty, it costs you</span>${cost}</p>
-    <p><a class="src" href="/what-you-already-have/options/#l-${key}">See the options <span aria-hidden="true">&rarr;</span></a></p>
+    <p><a class="src" href="/what-you-already-have/options/#l-${key}">${optionsLink(key)} <span aria-hidden="true">&rarr;</span></a></p>
   </div>`).join('\n  ')}
   </div>
 
   <p>The order is the order these stop being optional in, which is an argument about what depends on
-     what and not about what is good. <b>Two things have no row here on purpose.</b> Evaluating what
-     an agent produced is not a row, because what exists is thin enough that putting it in this list
-     would imply a choice you do not have. Neither is a registry of prompts or agent definitions.
-     Both appear in <a class="src" href="/what-you-already-have/options/">the options</a>, where you
-     can see how little is there. Naming the thinness is the alternative to selling you a gap as a
+     what and not about what is good. <b>${SPELLED[LAYER_NAMES.length - LAYERS.length]} groups in
+     the options have no row here, on purpose.</b> What you author and what it runs on, and the
+     things that sit across all of it, are not on the request path in the way these
+     ${SPELLED[LAYERS.length].toLowerCase()} are, so an order of adoption says nothing useful about
+     them. Evaluating what an agent produced is not a row either, because what exists is thin enough
+     that putting it in this list would imply a choice you do not have. Neither is a registry of
+     prompts or agent definitions. Those last two are in
+     <a class="src" href="/what-you-already-have/options/">the options</a> as well, where you can
+     see how little is there. Naming the thinness is the alternative to selling you a gap as a
      layer.</p>
 
   <div class="foot">
