@@ -188,8 +188,9 @@
   .tbl { overflow-x:auto; margin:0 0 2.6rem; }
   table { border-collapse:collapse; width:100%; min-width:44rem; font-size:.92rem;
            table-layout:fixed; }
-  col.c-tool { width:23%; } col.c-what { width:31%; } col.c-type { width:19%; }
-  col.c-lic  { width:15%; } col.c-push { width:12%; }
+  col.c-tool { width:23%; } col.c-what { width:44%; } col.c-type { width:17%; }
+  col.c-read { width:16%; }
+  .empty { color:var(--muted); max-width:38rem; margin:0 0 2.6rem; }
   td.ty { white-space:nowrap; }
   th { font-family:var(--mono); font-size:.66rem; letter-spacing:.13em; text-transform:uppercase;
        color:var(--muted); text-align:left; font-weight:400; padding:0 1rem .5rem 0;
@@ -227,11 +228,11 @@
   <p class="standfirst"><b>It is a list and not a review.</b> Nothing here ranks anything, no entry
      says a tool is good, and nobody here has operated most of them. A product missing from it was
      not evaluated and rejected. Nobody looked.</p>
-  <p class="written">List assembled 2026-09-08. Where a date appears it is the project's own last
-     push, and those repositories were read on 2026-09-02.
-     <b>Not checked</b> means nobody here has looked yet, which is a fact about this list rather
-     than about the project. <b>Not public</b> means a closed product with nothing to look at.
-     <a class="src" href="#signals">How to read a push date</a>.</p>
+  <p class="written">List rendered 2026-09-11. The date on each row is the day its description
+     was read, and the word beside it says whether that was <b>observed</b> on the page the row
+     links to or <b>reasoned</b> from it. No push date, star count or license is printed here:
+     the linked page shows all three, and a copy would go stale on somebody else's schedule.
+     <a class="src" href="#signals">How to read them when you get there</a>.</p>
 
   <p class="jump"><a href="#l-compute-and-isolation">Somewhere isolated for work to run</a>
       <a href="#l-serving">Something serving a model</a>
@@ -246,507 +247,495 @@
 
   <h2 id="l-compute-and-isolation">Somewhere isolated for work to run</h2>
   <div class="tbl"><table>
-    <colgroup><col class="c-tool"><col class="c-what"><col class="c-type"><col class="c-lic"><col class="c-push"></colgroup>
-    <thead><tr><th>Tool</th><th>What it is</th><th>Type</th><th>License as reported</th><th>Last push</th></tr></thead>
+    <colgroup><col class="c-tool"><col class="c-what"><col class="c-type"><col class="c-read"></colgroup>
+    <thead><tr><th>Tool</th><th>What it is</th><th>Type</th><th>Read</th></tr></thead>
     <tbody>
     <tr>
       <td class="nm"><a href="https://github.com/coder/coder" rel="noopener">coder/coder</a></td>
-      <td>A self-hosted control plane that provisions workspaces from Terraform.</td>
-      <td class="ty">server you run</td>
-      <td>AGPL-3.0</td>
-      <td class="sg">2026-09-02</td>
+      <td>A self-hosted control plane that provisions workspaces from Terraform templates you write.</td>
+      <td class="ty">repository</td>
+      <td class="sg">observed 2026-09-03</td>
+    </tr>
+    <tr>
+      <td class="nm"><a href="https://github.com/features/codespaces" rel="noopener">GitHub Codespaces</a></td>
+      <td>A workspace defined by a file in the repository and hosted by the vendor.</td>
+      <td class="ty">hosted service</td>
+      <td class="sg">reasoned 2026-09-08</td>
     </tr>
     </tbody>
   </table></div>
 
   <h2 id="l-serving">Something serving a model</h2>
   <div class="tbl"><table>
-    <colgroup><col class="c-tool"><col class="c-what"><col class="c-type"><col class="c-lic"><col class="c-push"></colgroup>
-    <thead><tr><th>Tool</th><th>What it is</th><th>Type</th><th>License as reported</th><th>Last push</th></tr></thead>
+    <colgroup><col class="c-tool"><col class="c-what"><col class="c-type"><col class="c-read"></colgroup>
+    <thead><tr><th>Tool</th><th>What it is</th><th>Type</th><th>Read</th></tr></thead>
     <tbody>
     <tr>
       <td class="nm"><a href="https://aws.amazon.com/sagemaker/" rel="noopener">Amazon SageMaker</a></td>
       <td>A managed hosting and tooling surface: notebooks, training jobs and inference endpoints.</td>
       <td class="ty">hosted service</td>
-      <td>not read</td>
-      <td class="sg">not public</td>
+      <td class="sg">reasoned 2026-09-03</td>
     </tr>
     <tr>
       <td class="nm"><a href="https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash" rel="noopener">deepseek-ai/DeepSeek-V4-Flash</a></td>
-      <td>Weights and configuration files in a hub repository.</td>
-      <td class="ty">weights you download</td>
-      <td>MIT</td>
-      <td class="sg">not checked</td>
+      <td>DeepSeek’s V4 Flash text model, stored mostly in 8-bit and FP8 formats across 46 safetensors shards (about 291 billion parameters as the hub counts them), MIT-licensed and ungated.</td>
+      <td class="ty">model weights</td>
+      <td class="sg">observed 2026-09-11</td>
     </tr>
     <tr>
       <td class="nm"><a href="https://huggingface.co/google/gemma-3-27b-it" rel="noopener">google/gemma-3-27b-it</a></td>
-      <td>Weights and configuration files in a hub repository.</td>
-      <td class="ty">weights you download</td>
-      <td>gemma</td>
-      <td class="sg">not checked</td>
+      <td>Google’s 27-billion-parameter instruction-tuned Gemma 3 model, taking images as well as text, 12 safetensors shards, under Google’s own Gemma terms and behind a manual approval gate; the card body returned 401 without a login on 2026-09-03.</td>
+      <td class="ty">model weights</td>
+      <td class="sg">observed 2026-09-11</td>
     </tr>
     <tr>
       <td class="nm"><a href="https://huggingface.co/google/gemma-4-31B-it" rel="noopener">google/gemma-4-31B-it</a></td>
-      <td>Weights and configuration files in a hub repository.</td>
-      <td class="ty">weights you download</td>
-      <td>Apache-2.0</td>
-      <td class="sg">not checked</td>
+      <td>The Gemma 4 successor at about 31 billion parameters, images and text, two safetensors shards, Apache-2.0 as the hub reports it, and ungated.</td>
+      <td class="ty">model weights</td>
+      <td class="sg">observed 2026-09-11</td>
     </tr>
     <tr>
       <td class="nm"><a href="https://github.com/huggingface/text-generation-inference" rel="noopener">huggingface/text-generation-inference</a><span class="arch">archived</span></td>
       <td>A server process that holds weights and answers completion calls, the same role as vLLM.</td>
-      <td class="ty">server you run</td>
-      <td>Apache-2.0</td>
-      <td class="sg">2026-03-21</td>
+      <td class="ty">repository</td>
+      <td class="sg">observed 2026-09-11</td>
     </tr>
     <tr>
       <td class="nm"><a href="https://lmstudio.ai/" rel="noopener">LM Studio</a></td>
       <td>A closed desktop application that downloads and serves models on a workstation.</td>
       <td class="ty">desktop application</td>
-      <td>not read</td>
-      <td class="sg">not public</td>
+      <td class="sg">reasoned 2026-09-03</td>
     </tr>
     <tr>
       <td class="nm"><a href="https://huggingface.co/meta-llama/Llama-3.1-8B-Instruct" rel="noopener">meta-llama/Llama-3.1-8B-Instruct</a></td>
-      <td>Weights and configuration files in a hub repository.</td>
-      <td class="ty">weights you download</td>
-      <td>llama3.1</td>
-      <td class="sg">not checked</td>
+      <td>Meta’s 8-billion-parameter instruction-tuned text model, tagged for eight languages, published as four safetensors shards plus one PyTorch checkpoint under Meta’s own Llama 3.1 licence and behind a manual approval gate; the card body returned 401 without a login on 2026-09-03.</td>
+      <td class="ty">model weights</td>
+      <td class="sg">observed 2026-09-11</td>
     </tr>
     <tr>
       <td class="nm"><a href="https://huggingface.co/mistralai/Mistral-7B-Instruct-v0.3" rel="noopener">mistralai/Mistral-7B-Instruct-v0.3</a></td>
-      <td>Weights and configuration files in a hub repository.</td>
-      <td class="ty">weights you download</td>
-      <td>Apache-2.0</td>
-      <td class="sg">not checked</td>
+      <td>Mistral’s 7-billion-parameter instruction-tuned text model, Apache-2.0 as the hub reports it, ungated, four safetensors shards, and tagged for vLLM rather than for the transformers library; its card says it is the instruct fine-tune of Mistral-7B-v0.3.</td>
+      <td class="ty">model weights</td>
+      <td class="sg">observed 2026-09-11</td>
     </tr>
     <tr>
       <td class="nm"><a href="https://github.com/ollama/ollama" rel="noopener">ollama/ollama</a></td>
       <td>A local server plus CLI that pulls a packaged model and serves it on a workstation.</td>
-      <td class="ty">CLI you install</td>
-      <td>MIT</td>
-      <td class="sg">2026-09-02</td>
+      <td class="ty">repository</td>
+      <td class="sg">observed 2026-09-03</td>
     </tr>
     <tr>
       <td class="nm"><a href="https://huggingface.co/openai/gpt-oss-120b" rel="noopener">openai/gpt-oss-120b</a></td>
-      <td>Weights and configuration files in a hub repository.</td>
-      <td class="ty">weights you download</td>
-      <td>Apache-2.0</td>
-      <td class="sg">not checked</td>
+      <td>The larger of OpenAI’s two open-weight text models, about 117 billion parameters in the same 4-bit mxfp4 packing as its sibling, 22 safetensors shards, Apache-2.0, ungated.</td>
+      <td class="ty">model weights</td>
+      <td class="sg">observed 2026-09-11</td>
     </tr>
     <tr>
       <td class="nm"><a href="https://huggingface.co/openai/gpt-oss-20b" rel="noopener">openai/gpt-oss-20b</a></td>
-      <td>Weights and configuration files in a hub repository.</td>
-      <td class="ty">weights you download</td>
-      <td>Apache-2.0</td>
-      <td class="sg">not checked</td>
+      <td>OpenAI’s smaller open-weight text model, about 21 billion parameters, most of them stored in the 4-bit packing the hub tags as mxfp4 so the shards weigh far less than the count suggests; Apache-2.0, ungated, tagged for vLLM and transformers.</td>
+      <td class="ty">model weights</td>
+      <td class="sg">observed 2026-09-11</td>
     </tr>
     <tr>
       <td class="nm"><a href="https://huggingface.co/Qwen/Qwen3-8B" rel="noopener">Qwen/Qwen3-8B</a></td>
-      <td>Weights and configuration files in a hub repository.</td>
-      <td class="ty">weights you download</td>
-      <td>Apache-2.0</td>
-      <td class="sg">not checked</td>
+      <td>An 8-billion-parameter dense text model from Alibaba’s Qwen team, Apache-2.0, ungated, five safetensors shards, configuration model type qwen3; its card describes Qwen3 as a family of dense and mixture-of-experts models, of which this is a small dense member.</td>
+      <td class="ty">model weights</td>
+      <td class="sg">observed 2026-09-11</td>
     </tr>
     <tr>
       <td class="nm"><a href="https://huggingface.co/Qwen/Qwen3.8-2.4T-A95B" rel="noopener">Qwen/Qwen3.8-2.4T-A95B</a></td>
-      <td>Weights and configuration files in a hub repository.</td>
-      <td class="ty">weights you download</td>
-      <td>not read</td>
-      <td class="sg">not checked</td>
+      <td>A mixture-of-experts text model of about 2.4 trillion parameters in 213 safetensors shards, under a vendor-named license (qwen3.8-max) the hub reports as ‘other’, ungated.</td>
+      <td class="ty">model weights</td>
+      <td class="sg">observed 2026-09-11</td>
     </tr>
     <tr>
       <td class="nm"><a href="https://huggingface.co/Qwen/Qwen3.8-Flash-Next" rel="noopener">Qwen/Qwen3.8-Flash-Next</a></td>
-      <td>Weights and configuration files in a hub repository.</td>
-      <td class="ty">weights you download</td>
-      <td>not read</td>
-      <td class="sg">not checked</td>
+      <td>A Qwen model that takes images as well as text (the hub files it as image-text-to-text), about 180 billion parameters in 131 safetensors shards, under a vendor-named licence (Qwen Community 1.0) the hub reports as ‘other’.</td>
+      <td class="ty">model weights</td>
+      <td class="sg">observed 2026-09-11</td>
     </tr>
     <tr>
       <td class="nm"><a href="https://github.com/vllm-project/vllm" rel="noopener">vllm-project/vllm</a></td>
       <td>A Python library and a server process that holds model weights in GPU memory and answers completion calls over an OpenAI-shaped API.</td>
-      <td class="ty">server you run</td>
-      <td>Apache-2.0</td>
-      <td class="sg">2026-09-02</td>
+      <td class="ty">repository</td>
+      <td class="sg">observed 2026-09-03</td>
     </tr>
     </tbody>
   </table></div>
 
   <h2 id="l-gateway">Something routing between providers</h2>
   <div class="tbl"><table>
-    <colgroup><col class="c-tool"><col class="c-what"><col class="c-type"><col class="c-lic"><col class="c-push"></colgroup>
-    <thead><tr><th>Tool</th><th>What it is</th><th>Type</th><th>License as reported</th><th>Last push</th></tr></thead>
+    <colgroup><col class="c-tool"><col class="c-what"><col class="c-type"><col class="c-read"></colgroup>
+    <thead><tr><th>Tool</th><th>What it is</th><th>Type</th><th>Read</th></tr></thead>
     <tbody>
     <tr>
       <td class="nm"><a href="https://aws.amazon.com/bedrock/" rel="noopener">AWS Bedrock</a></td>
-      <td>A managed API in front of many vendors' models.</td>
+      <td>A managed API in front of many vendors’ models.</td>
       <td class="ty">hosted service</td>
-      <td>not read</td>
-      <td class="sg">not public</td>
+      <td class="sg">reasoned 2026-09-03</td>
     </tr>
     <tr>
       <td class="nm"><a href="https://github.com/BerriAI/litellm" rel="noopener">BerriAI/litellm</a></td>
       <td>Two shapes in one repository: a Python SDK you import, and a proxy server you deploy in front of many providers.</td>
-      <td class="ty">server you run</td>
-      <td>not read</td>
-      <td class="sg">2026-09-02</td>
+      <td class="ty">repository</td>
+      <td class="sg">observed 2026-09-03</td>
     </tr>
     <tr>
       <td class="nm"><a href="https://withmartian.com/" rel="noopener">Martian</a></td>
       <td>Classified here as a model router.</td>
       <td class="ty">hosted service</td>
-      <td>not read</td>
-      <td class="sg">not public</td>
+      <td class="sg">observed 2026-09-06</td>
     </tr>
     <tr>
       <td class="nm"><a href="https://www.notdiamond.ai/" rel="noopener">Not Diamond</a></td>
       <td>A router that chooses which model answers, sold on cost against frontier quality.</td>
       <td class="ty">hosted service</td>
-      <td>not read</td>
-      <td class="sg">not public</td>
+      <td class="sg">reasoned 2026-09-06</td>
     </tr>
     <tr>
       <td class="nm"><a href="https://openrouter.ai/" rel="noopener">OpenRouter</a></td>
-      <td>A hosted gateway in front of many vendors' models.</td>
+      <td>A hosted gateway in front of many vendors’ models.</td>
       <td class="ty">hosted service</td>
-      <td>not read</td>
-      <td class="sg">not public</td>
+      <td class="sg">reasoned 2026-09-06</td>
     </tr>
     <tr>
       <td class="nm"><a href="https://portkey.ai/" rel="noopener">Portkey</a></td>
-      <td>A hosted gateway whose distinguishing claim is what it records rather than what it routes.</td>
+      <td>A hosted gateway whose distinguishing claim is what it records about each call rather than what it routes.</td>
       <td class="ty">hosted service</td>
-      <td>not read</td>
-      <td class="sg">not public</td>
+      <td class="sg">reasoned 2026-09-06</td>
     </tr>
     </tbody>
   </table></div>
 
   <h2 id="l-context-and-tools">Something supplying tools and context</h2>
   <div class="tbl"><table>
-    <colgroup><col class="c-tool"><col class="c-what"><col class="c-type"><col class="c-lic"><col class="c-push"></colgroup>
-    <thead><tr><th>Tool</th><th>What it is</th><th>Type</th><th>License as reported</th><th>Last push</th></tr></thead>
+    <colgroup><col class="c-tool"><col class="c-what"><col class="c-type"><col class="c-read"></colgroup>
+    <thead><tr><th>Tool</th><th>What it is</th><th>Type</th><th>Read</th></tr></thead>
     <tbody>
     <tr>
+      <td class="nm"><a href="https://github.com/andrewyng/context-hub" rel="noopener">andrewyng/context-hub</a></td>
+      <td>A curated set of reference documentation for third-party SDKs and APIs, reached through a CLI (chub) or an MCP server (chub-mcp), with entries annotated and corrected by pull request.</td>
+      <td class="ty">repository</td>
+      <td class="sg">observed 2026-09-09</td>
+    </tr>
+    <tr>
       <td class="nm"><a href="https://www.glean.com/" rel="noopener">Glean</a></td>
-      <td>A hosted index over an organization's own SaaS sources, reached as a service.</td>
+      <td>A hosted index over an organization’s own SaaS sources, reached as a service.</td>
       <td class="ty">hosted service</td>
-      <td>not read</td>
-      <td class="sg">not public</td>
+      <td class="sg">reasoned 2026-09-03</td>
+    </tr>
+    <tr>
+      <td class="nm"><a href="https://github.com/upstash/context7" rel="noopener">upstash/context7</a></td>
+      <td>An MCP server that supplies up-to-date library documentation to a coding agent.</td>
+      <td class="ty">repository</td>
+      <td class="sg">reasoned 2026-09-09</td>
     </tr>
     </tbody>
   </table></div>
 
   <h2 id="l-orchestration">Something that survives a crash</h2>
   <div class="tbl"><table>
-    <colgroup><col class="c-tool"><col class="c-what"><col class="c-type"><col class="c-lic"><col class="c-push"></colgroup>
-    <thead><tr><th>Tool</th><th>What it is</th><th>Type</th><th>License as reported</th><th>Last push</th></tr></thead>
+    <colgroup><col class="c-tool"><col class="c-what"><col class="c-type"><col class="c-read"></colgroup>
+    <thead><tr><th>Tool</th><th>What it is</th><th>Type</th><th>Read</th></tr></thead>
     <tbody>
+    <tr>
+      <td class="nm"><a href="https://docs.claude.com/en/api/agent-sdk/overview" rel="noopener">Claude Agent SDK</a></td>
+      <td>A harness you import rather than a process you deploy, which is why it sits on orchestration and not on interface: the party sitting in front of it is your own program.</td>
+      <td class="ty">hosted service</td>
+      <td class="sg">reasoned 2026-09-08</td>
+    </tr>
+    <tr>
+      <td class="nm"><a href="https://platform.claude.com/docs/en/managed-agents/overview" rel="noopener">Claude Managed Agents</a></td>
+      <td>A hosted service from Anthropic, in beta, that runs an agent for you: it holds the loop that decides the next step, and it supplies the sandbox the agent’s tools run in, either in Anthropic’s cloud or on your own infrastructure through a worker process you run.</td>
+      <td class="ty">hosted service</td>
+      <td class="sg">reasoned 2026-09-09</td>
+    </tr>
     <tr>
       <td class="nm"><a href="https://github.com/crewAIInc/crewAI" rel="noopener">crewAIInc/crewAI</a></td>
       <td>A Python library you import.</td>
-      <td class="ty">library you import</td>
-      <td>MIT</td>
-      <td class="sg">2026-09-02</td>
+      <td class="ty">repository</td>
+      <td class="sg">observed 2026-09-03</td>
     </tr>
     <tr>
       <td class="nm"><a href="https://github.com/langchain-ai/langgraph" rel="noopener">langchain-ai/langgraph</a></td>
       <td>A library you import into your own process, in Python or TypeScript.</td>
-      <td class="ty">library you import</td>
-      <td>MIT</td>
-      <td class="sg">2026-09-02</td>
+      <td class="ty">repository</td>
+      <td class="sg">observed 2026-09-03</td>
     </tr>
     <tr>
       <td class="nm"><a href="https://github.com/mastra-ai/mastra" rel="noopener">mastra-ai/mastra</a></td>
       <td>A TypeScript framework you import, shipped as one bundle rather than assembled parts, deployable as a standalone server.</td>
-      <td class="ty">library you import</td>
-      <td>not read</td>
-      <td class="sg">2026-09-02</td>
+      <td class="ty">repository</td>
+      <td class="sg">observed 2026-09-03</td>
     </tr>
     <tr>
       <td class="nm"><a href="https://github.com/microsoft/agent-framework" rel="noopener">microsoft/agent-framework</a></td>
       <td>A library you import, in .NET and Python.</td>
-      <td class="ty">library you import</td>
-      <td>MIT</td>
-      <td class="sg">2026-09-02</td>
+      <td class="ty">repository</td>
+      <td class="sg">observed 2026-09-03</td>
     </tr>
     <tr>
       <td class="nm"><a href="https://github.com/temporalio/temporal" rel="noopener">temporalio/temporal</a></td>
       <td>A server you run, plus per-language client SDKs you import.</td>
-      <td class="ty">server you run</td>
-      <td>MIT</td>
-      <td class="sg">2026-09-02</td>
+      <td class="ty">repository</td>
+      <td class="sg">observed 2026-09-03</td>
     </tr>
     </tbody>
   </table></div>
 
   <h2 id="l-interface">Something a person sits in front of</h2>
   <div class="tbl"><table>
-    <colgroup><col class="c-tool"><col class="c-what"><col class="c-type"><col class="c-lic"><col class="c-push"></colgroup>
-    <thead><tr><th>Tool</th><th>What it is</th><th>Type</th><th>License as reported</th><th>Last push</th></tr></thead>
+    <colgroup><col class="c-tool"><col class="c-what"><col class="c-type"><col class="c-read"></colgroup>
+    <thead><tr><th>Tool</th><th>What it is</th><th>Type</th><th>Read</th></tr></thead>
     <tbody>
     <tr>
       <td class="nm"><a href="https://aws.amazon.com/q/developer/" rel="noopener">Amazon Q Developer</a></td>
       <td>An AWS-side coding assistant with an editor plugin, a CLI and a hosted surface.</td>
       <td class="ty">editor extension</td>
-      <td>not read</td>
-      <td class="sg">not public</td>
+      <td class="sg">reasoned 2026-09-03</td>
     </tr>
     <tr>
       <td class="nm"><a href="https://github.com/anomalyco/opencode" rel="noopener">anomalyco/opencode</a></td>
       <td>A terminal coding agent, installed as a binary or an npm package.</td>
-      <td class="ty">CLI you install</td>
-      <td>MIT</td>
-      <td class="sg">2026-09-02</td>
+      <td class="ty">repository</td>
+      <td class="sg">observed 2026-09-03</td>
     </tr>
     <tr>
       <td class="nm"><a href="https://learn.chatgpt.com/docs/app" rel="noopener">ChatGPT</a></td>
       <td>A hosted assistant reached in a browser, a desktop application and mobile clients.</td>
-      <td class="ty">hosted service</td>
-      <td>not read</td>
-      <td class="sg">not public</td>
+      <td class="ty">chat assistant</td>
+      <td class="sg">reasoned 2026-09-03</td>
     </tr>
     <tr>
       <td class="nm"><a href="https://docs.claude.com/en/docs/claude-code/overview" rel="noopener">Claude Code</a></td>
-      <td>A coding agent that holds the loop, chooses tools, runs commands and manages context, across four surfaces.</td>
-      <td class="ty">CLI you install</td>
-      <td>not read</td>
-      <td class="sg">not public</td>
+      <td>A coding agent from Anthropic that you run in a terminal or an editor, among four surfaces: you state work in words and it holds the conversation, chooses which tools to call, runs commands and manages its own context until the work is done or it stops to ask.</td>
+      <td class="ty">terminal agent</td>
+      <td class="sg">reasoned 2026-09-03</td>
     </tr>
     <tr>
       <td class="nm"><a href="https://cursor.com/docs" rel="noopener">Cursor</a></td>
       <td>An editor with an agent built into it, which is why it sits on the line between something a person sits in front of and the thing holding the loop.</td>
       <td class="ty">editor</td>
-      <td>not read</td>
-      <td class="sg">not public</td>
+      <td class="sg">reasoned 2026-09-03</td>
     </tr>
     <tr>
       <td class="nm"><a href="https://github.com/FlowiseAI/Flowise" rel="noopener">FlowiseAI/Flowise</a><span class="arch">archived</span></td>
       <td>A Node server you run with a visual builder over it.</td>
-      <td class="ty">server you run</td>
-      <td>not read</td>
-      <td class="sg">2026-08-13</td>
+      <td class="ty">repository</td>
+      <td class="sg">observed 2026-09-03</td>
     </tr>
     <tr>
       <td class="nm"><a href="https://codeassist.google/" rel="noopener">Gemini Code Assist</a></td>
-      <td>Google's editor-side coding assistant, sold to organizations rather than to the browser user the Gemini row covers.</td>
+      <td>Google’s editor-side coding assistant, sold to organizations rather than to the browser user the Gemini row covers.</td>
       <td class="ty">editor extension</td>
-      <td>not read</td>
-      <td class="sg">not public</td>
+      <td class="sg">reasoned 2026-09-03</td>
     </tr>
     <tr>
       <td class="nm"><a href="https://docs.github.com/en/copilot/get-started/what-is-github-copilot" rel="noopener">GitHub Copilot</a></td>
       <td>Several products under one name: an inline completion extension in an editor, a chat surface, a CLI, and a coding agent that opens pull requests.</td>
       <td class="ty">editor extension</td>
-      <td>not read</td>
-      <td class="sg">not public</td>
+      <td class="sg">reasoned 2026-09-03</td>
     </tr>
     <tr>
       <td class="nm"><a href="https://gemini.google.com/" rel="noopener">Google Gemini</a></td>
-      <td>Google's hosted chat assistant, the consumer product rather than the developer tooling.</td>
-      <td class="ty">hosted service</td>
-      <td>not read</td>
-      <td class="sg">not public</td>
+      <td>Google’s hosted chat assistant, the consumer product rather than the developer tooling.</td>
+      <td class="ty">chat assistant</td>
+      <td class="sg">reasoned 2026-09-03</td>
     </tr>
     <tr>
       <td class="nm"><a href="https://github.com/google-gemini/gemini-cli" rel="noopener">google-gemini/gemini-cli</a></td>
       <td>A terminal agent installed from npm or a package manager, holding the loop and calling tools, extensible over MCP.</td>
-      <td class="ty">CLI you install</td>
-      <td>not read</td>
-      <td class="sg">not checked</td>
+      <td class="ty">repository</td>
+      <td class="sg">observed 2026-09-03</td>
     </tr>
     <tr>
       <td class="nm"><a href="https://kiro.dev/" rel="noopener">Kiro</a></td>
       <td>An editor that owns the editing surface, like Cursor, and frames its workflow around specs rather than around chat.</td>
       <td class="ty">editor</td>
-      <td>not read</td>
-      <td class="sg">not public</td>
+      <td class="sg">reasoned 2026-09-03</td>
     </tr>
     <tr>
       <td class="nm"><a href="https://github.com/langflow-ai/langflow" rel="noopener">langflow-ai/langflow</a></td>
       <td>A server you run with a visual authoring surface, which also exposes every workflow as an API and an MCP server.</td>
-      <td class="ty">server you run</td>
-      <td>MIT</td>
-      <td class="sg">2026-09-02</td>
+      <td class="ty">repository</td>
+      <td class="sg">observed 2026-09-03</td>
     </tr>
     <tr>
       <td class="nm"><a href="https://github.com/langgenius/dify" rel="noopener">langgenius/dify</a></td>
-      <td>A server you run, or a hosted tier, presenting a builder over a workflow engine, a rag pipeline and model management.</td>
-      <td class="ty">server you run</td>
-      <td>not read</td>
-      <td class="sg">2026-09-02</td>
+      <td>A server you run, or a hosted tier, presenting a builder over a workflow engine, a RAG pipeline and model management.</td>
+      <td class="ty">repository</td>
+      <td class="sg">observed 2026-09-03</td>
     </tr>
     <tr>
       <td class="nm"><a href="https://github.com/lmstudio-ai/lms" rel="noopener">lmstudio-ai/lms</a></td>
       <td>A CLI that ships with the LM Studio desktop application and drives it.</td>
-      <td class="ty">CLI you install</td>
-      <td>MIT</td>
-      <td class="sg">2026-09-01</td>
+      <td class="ty">repository</td>
+      <td class="sg">observed 2026-09-03</td>
     </tr>
     <tr>
       <td class="nm"><a href="https://www.microsoft.com/en-us/microsoft-copilot/microsoft-copilot-studio" rel="noopener">Microsoft Copilot Studio</a></td>
       <td>A hosted builder for agents, licensed inside Microsoft 365 rather than bought separately.</td>
       <td class="ty">hosted service</td>
-      <td>not read</td>
-      <td class="sg">not public</td>
+      <td class="sg">reasoned 2026-09-03</td>
     </tr>
     <tr>
       <td class="nm"><a href="https://github.com/n8n-io/n8n" rel="noopener">n8n-io/n8n</a></td>
       <td>A server you run (or a hosted tier) with a visual canvas over it.</td>
-      <td class="ty">server you run</td>
-      <td>not read</td>
-      <td class="sg">2026-09-02</td>
+      <td class="ty">repository</td>
+      <td class="sg">observed 2026-09-03</td>
     </tr>
     <tr>
       <td class="nm"><a href="https://github.com/openai/codex" rel="noopener">openai/codex</a></td>
-      <td>A coding agent installed as a local binary, with an IDE extension and a cloud surface named separately by the same readme.</td>
-      <td class="ty">CLI you install</td>
-      <td>not read</td>
-      <td class="sg">not checked</td>
+      <td>A coding agent installed as a local binary, with an IDE extension and a cloud surface named separately by the same README.</td>
+      <td class="ty">repository</td>
+      <td class="sg">observed 2026-09-03</td>
     </tr>
     <tr>
       <td class="nm"><a href="https://relevanceai.com/" rel="noopener">Relevance AI</a></td>
       <td>A hosted builder aimed at business functions rather than at engineering.</td>
       <td class="ty">hosted service</td>
-      <td>not read</td>
-      <td class="sg">not public</td>
+      <td class="sg">reasoned 2026-09-06</td>
+    </tr>
+    <tr>
+      <td class="nm"><a href="https://www.stack-ai.com/" rel="noopener">Stack AI</a></td>
+      <td>A hosted drag-and-drop builder aimed at enterprise deployment.</td>
+      <td class="ty">hosted service</td>
+      <td class="sg">reasoned 2026-09-08</td>
+    </tr>
+    <tr>
+      <td class="nm"><a href="https://docs.vellum.ai/" rel="noopener">Vellum</a></td>
+      <td>Filed as an agent-evaluation service, but its own page, read 2026-09-03, describes a personal AI assistant with persistent memory and says nothing about evaluation.</td>
+      <td class="ty">hosted service</td>
+      <td class="sg">observed 2026-09-03</td>
     </tr>
     </tbody>
   </table></div>
 
   <h2 id="l-author">What you author, and what it runs on</h2>
   <div class="tbl"><table>
-    <colgroup><col class="c-tool"><col class="c-what"><col class="c-type"><col class="c-lic"><col class="c-push"></colgroup>
-    <thead><tr><th>Tool</th><th>What it is</th><th>Type</th><th>License as reported</th><th>Last push</th></tr></thead>
+    <colgroup><col class="c-tool"><col class="c-what"><col class="c-type"><col class="c-read"></colgroup>
+    <thead><tr><th>Tool</th><th>What it is</th><th>Type</th><th>Read</th></tr></thead>
     <tbody>
     <tr>
       <td class="nm"><a href="https://github.com/addyosmani/agent-skills" rel="noopener">addyosmani/agent-skills</a></td>
       <td>25 skill directories under skills/, named for lifecycle phases, planning, TDD, code review, debugging, security, shipping.</td>
-      <td class="ty">plugin for an agent</td>
-      <td>MIT</td>
-      <td class="sg">2026-08-28</td>
+      <td class="ty">repository</td>
+      <td class="sg">observed 2026-09-03</td>
+    </tr>
+    <tr>
+      <td class="nm"><a href="https://github.com/agentskills/agentskills" rel="noopener">agentskills/agentskills</a></td>
+      <td>The specification plus a validator.</td>
+      <td class="ty">repository</td>
+      <td class="sg">observed 2026-09-10</td>
     </tr>
     <tr>
       <td class="nm"><a href="https://github.com/anthropics/skills" rel="noopener">anthropics/skills</a></td>
       <td>A repository of skill directories.</td>
-      <td class="ty">files you copy in</td>
-      <td>not read</td>
-      <td class="sg">2026-09-01</td>
+      <td class="ty">repository</td>
+      <td class="sg">observed 2026-09-03</td>
     </tr>
     <tr>
       <td class="nm"><a href="https://github.com/ComposioHQ/awesome-claude-skills" rel="noopener">ComposioHQ/awesome-claude-skills</a></td>
       <td>Both a list and an implementation, which is why one word for it is wrong.</td>
-      <td class="ty">files you copy in</td>
-      <td>not read</td>
-      <td class="sg">2026-08-10</td>
+      <td class="ty">repository</td>
+      <td class="sg">observed 2026-09-03</td>
     </tr>
     <tr>
       <td class="nm"><a href="https://github.com/github/spec-kit" rel="noopener">github/spec-kit</a></td>
       <td>A CLI that writes a scaffold of prompts and templates into a repository, agent-agnostic across many coding agents.</td>
-      <td class="ty">CLI you install</td>
-      <td>MIT</td>
-      <td class="sg">2026-09-02</td>
+      <td class="ty">repository</td>
+      <td class="sg">observed 2026-09-03</td>
     </tr>
     <tr>
       <td class="nm"><a href="https://github.com/jax-ml/jax" rel="noopener">jax-ml/jax</a></td>
       <td>A Python library for array computation and program transformation, with automatic differentiation and compilation to accelerators.</td>
-      <td class="ty">library you import</td>
-      <td>Apache-2.0</td>
-      <td class="sg">2026-09-02</td>
+      <td class="ty">repository</td>
+      <td class="sg">observed 2026-09-03</td>
     </tr>
     <tr>
       <td class="nm"><a href="https://github.com/mattpocock/skills" rel="noopener">mattpocock/skills</a></td>
       <td>37 skill directories under skills/, grouped engineering/, productivity/, misc/ and in-progress/, published as a Claude Code plugin with a .claude-plugin/marketplace.json.</td>
-      <td class="ty">plugin for an agent</td>
-      <td>MIT</td>
-      <td class="sg">2026-08-24</td>
+      <td class="ty">repository</td>
+      <td class="sg">observed 2026-09-03</td>
     </tr>
     <tr>
       <td class="nm"><a href="https://github.com/ml-explore/mlx" rel="noopener">ml-explore/mlx</a></td>
-      <td>An array framework you import, targeting Apple silicon's unified memory.</td>
-      <td class="ty">library you import</td>
-      <td>MIT</td>
-      <td class="sg">2026-09-02</td>
+      <td>An array framework you import, targeting Apple silicon’s unified memory, for build-time and on-device use at once.</td>
+      <td class="ty">repository</td>
+      <td class="sg">observed 2026-09-03</td>
     </tr>
     <tr>
       <td class="nm"><a href="https://github.com/ml-explore/mlx-lm" rel="noopener">ml-explore/mlx-lm</a></td>
       <td>A Python package over mlx for generating text and fine-tuning language models on Apple silicon.</td>
-      <td class="ty">library you import</td>
-      <td>MIT</td>
-      <td class="sg">2026-09-02</td>
+      <td class="ty">repository</td>
+      <td class="sg">observed 2026-09-03</td>
     </tr>
     <tr>
       <td class="nm"><a href="https://github.com/obra/superpowers" rel="noopener">obra/superpowers</a></td>
       <td>A methodology shipped as files.</td>
-      <td class="ty">plugin for an agent</td>
-      <td>MIT</td>
-      <td class="sg">2026-08-31</td>
+      <td class="ty">repository</td>
+      <td class="sg">observed 2026-09-03</td>
     </tr>
     <tr>
       <td class="nm"><a href="https://github.com/pytorch/pytorch" rel="noopener">pytorch/pytorch</a></td>
       <td>A Python package you import, with compiled kernels underneath.</td>
-      <td class="ty">library you import</td>
-      <td>not read</td>
-      <td class="sg">2026-09-02</td>
+      <td class="ty">repository</td>
+      <td class="sg">observed 2026-09-03</td>
     </tr>
     <tr>
       <td class="nm"><a href="https://github.com/tensorflow/tensorflow" rel="noopener">tensorflow/tensorflow</a></td>
       <td>A framework you import, with a large surrounding ecosystem of tools and libraries.</td>
-      <td class="ty">library you import</td>
-      <td>Apache-2.0</td>
-      <td class="sg">2026-09-02</td>
+      <td class="ty">repository</td>
+      <td class="sg">observed 2026-09-03</td>
     </tr>
     </tbody>
   </table></div>
 
   <h2 id="l-evaluate">Checking what came back</h2>
-  <div class="tbl"><table>
-    <colgroup><col class="c-tool"><col class="c-what"><col class="c-type"><col class="c-lic"><col class="c-push"></colgroup>
-    <thead><tr><th>Tool</th><th>What it is</th><th>Type</th><th>License as reported</th><th>Last push</th></tr></thead>
-    <tbody>
-    <tr>
-      <td class="nm"><a href="https://docs.vellum.ai/" rel="noopener">Vellum</a></td>
-      <td>Recorded as an agent-evaluation service.</td>
-      <td class="ty">hosted service</td>
-      <td>not read</td>
-      <td class="sg">not public</td>
-    </tr>
-    </tbody>
-  </table></div>
+  <p class="empty">Nothing is filed here. That is the state of the field as far as this list can say, not a gap in the reading: nothing that was looked at is an evaluation product.</p>
 
   <h2 id="l-register-and-version">Registering and versioning what you publish</h2>
   <div class="tbl"><table>
-    <colgroup><col class="c-tool"><col class="c-what"><col class="c-type"><col class="c-lic"><col class="c-push"></colgroup>
-    <thead><tr><th>Tool</th><th>What it is</th><th>Type</th><th>License as reported</th><th>Last push</th></tr></thead>
+    <colgroup><col class="c-tool"><col class="c-what"><col class="c-type"><col class="c-read"></colgroup>
+    <thead><tr><th>Tool</th><th>What it is</th><th>Type</th><th>Read</th></tr></thead>
     <tbody>
+    <tr>
+      <td class="nm"><a href="https://github.com/agentic-community/mcp-gateway-registry" rel="noopener">agentic-community/mcp-gateway-registry</a></td>
+      <td>An MCP gateway and registry: one governed address that agents discover MCP servers from once those servers are scattered.</td>
+      <td class="ty">repository</td>
+      <td class="sg">reasoned 2026-09-09</td>
+    </tr>
     <tr>
       <td class="nm"><a href="https://docs.langchain.com/langsmith/context-hub" rel="noopener">LangSmith Context Hub</a></td>
       <td>A hosted registry for the prompts and contexts an agent loads, versioned and environment-tagged.</td>
       <td class="ty">hosted service</td>
-      <td>not read</td>
-      <td class="sg">not public</td>
+      <td class="sg">reasoned 2026-09-06</td>
+    </tr>
+    <tr>
+      <td class="nm"><a href="https://www.microsoft.com/en-us/microsoft-365/agent-365" rel="noopener">Microsoft Agent 365</a></td>
+      <td>A hosted place to register and manage agents.</td>
+      <td class="ty">hosted service</td>
+      <td class="sg">reasoned 2026-09-08</td>
     </tr>
     <tr>
       <td class="nm"><a href="https://github.com/mlflow/mlflow" rel="noopener">mlflow/mlflow</a></td>
       <td>A server plus client libraries.</td>
-      <td class="ty">server you run</td>
-      <td>Apache-2.0</td>
-      <td class="sg">2026-09-02</td>
+      <td class="ty">repository</td>
+      <td class="sg">observed 2026-09-03</td>
     </tr>
     </tbody>
   </table></div>
 
   <h2 id="l-cross-cutting">Across all of it</h2>
   <div class="tbl"><table>
-    <colgroup><col class="c-tool"><col class="c-what"><col class="c-type"><col class="c-lic"><col class="c-push"></colgroup>
-    <thead><tr><th>Tool</th><th>What it is</th><th>Type</th><th>License as reported</th><th>Last push</th></tr></thead>
+    <colgroup><col class="c-tool"><col class="c-what"><col class="c-type"><col class="c-read"></colgroup>
+    <thead><tr><th>Tool</th><th>What it is</th><th>Type</th><th>Read</th></tr></thead>
     <tbody>
     <tr>
       <td class="nm"><a href="https://github.com/Infisical/infisical" rel="noopener">Infisical/infisical</a></td>
       <td>A self-hosted service (with a managed tier) that holds secrets and brokers credentials on an outbound call, so the agent holds a placeholder and never the real value.</td>
-      <td class="ty">server you run</td>
-      <td>not read</td>
-      <td class="sg">2026-09-02</td>
+      <td class="ty">repository</td>
+      <td class="sg">observed 2026-09-10</td>
     </tr>
     </tbody>
   </table></div>

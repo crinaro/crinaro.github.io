@@ -153,11 +153,14 @@ const assets = [
   //
   // The eyebrow carries a count, like the other two, because a status column
   // where one cell counts a team and the next does not reads as though the
-  // first has no team. It does: fourteen agents, verified against the repo by
-  // check-claims.sh, not carried forward from a document. "Not published" moved
+  // first has no team. It does: sixteen agents, verified against the repo by
+  // check-claims.sh, not carried forward from a document. Fourteen until
+  // 2026-09-12, when check-claims.sh counted sixteen; the AI-SDLC team's notice
+  // of that date asks for the number to go, which is a separate decision from
+  // making it true. "Not published" moved
   // out of this cell and is stated plainly in the note under the diagram below,
   // which is where a reader who wants to go and look would hit it anyway.
-  ['The AI-SDLC reference', 'Private · fourteen agents',
+  ['The AI-SDLC reference', 'Private · sixteen agents',
    'Delivery end to end on an agentic model, not one team’s repos: what gets asked for, how it is built, how you know it shipped. Worked into patterns another team can pick up.'],
   ['This brand', 'Internal · five agents',
    'The page you are reading, the deck, the identity and the rules that govern them. A critic, a copy editor, one that renders every visual and looks at it, one that argues the other side, and one that reads new copy against everything already published.'],
@@ -284,10 +287,11 @@ const verticals = [
 // this problem and some are far worse. Uncounted population claim.
 // Also deliberately absent: which of the two shapes gets noticed first, which
 // reads as obvious and is a frequency claim in disguise.
-// The tools, extracted from the private tooling index by scripts/extract-tools.py.
-// That script is the only thing that reads the index, and it REFUSES to emit a
+// The tools, extracted from the AI-SDLC team's rendered tool list at
+// research/ai-sdlc/reference/20-tool-list.md by scripts/extract-tools.py. That
+// script is the only thing that reads the list, and it REFUSES to emit a
 // description that cites the private material, so a dangling reference cannot
-// reach this file by accident. Refresh is: pull the index, re-run the script,
+// reach this file by accident. Refresh is: pull the list, re-run the script,
 // rebuild. Never hand-edit tools.json.
 const TOOLS = JSON.parse(fs.readFileSync(path.join(__dirname, 'tools.json'), 'utf8'));
 
@@ -308,17 +312,29 @@ const LAYER_NAMES = [
   ['cross-cutting',         'Across all of it'],
 ];
 
+// The shape is whatever the list's own "Where" line says: a repository, a
+// model, a hosted service, or a closed product with its kind named. Coarser than
+// the retired index's "server you run / library you import" vocabulary, and it
+// is what the source carries; a finer label would be typed here, not read.
 const KIND_LABEL = {
-  'server-you-run': 'server you run',
+  'repository': 'repository',
+  'model': 'model weights',
   'hosted-service': 'hosted service',
-  'weights-you-download': 'weights you download',
   'desktop-application': 'desktop application',
-  'cli-you-install': 'CLI you install',
-  'library-you-import': 'library you import',
   'ide-extension': 'editor extension',
-  'ide-application': 'editor',
-  'plugin-installed-into-a-harness': 'plugin for an agent',
-  'files-you-copy-into-a-repository': 'files you copy in',
+  'ide': 'editor',
+  'chat-assistant': 'chat assistant',
+  'terminal-harness': 'terminal agent',
+};
+
+// What the list says about a layer it names and holds nothing for. Its own
+// distinction, in our words: this one is the state of the field, not of the
+// reading. The adoption page links here by anchor and says the layer is in the
+// options "where you can see how little was found", so the heading has to
+// render with the reason rather than the section silently dropping out.
+const EMPTY_LAYER = {
+  'evaluate': 'Nothing is filed here. That is the state of the field as far as this list can say, ' +
+              'not a gap in the reading: nothing that was looked at is an evaluation product.',
 };
 
 // The layer view, published 2026-09-08. This is the AI-SDLC tooling index's own
@@ -2285,8 +2301,9 @@ writePage(path.join(DIST, 'what-you-already-have', 'options', 'index.html'), `${
   .tbl { overflow-x:auto; margin:0 0 2.6rem; }
   table { border-collapse:collapse; width:100%; min-width:44rem; font-size:.92rem;
            table-layout:fixed; }
-  col.c-tool { width:23%; } col.c-what { width:31%; } col.c-type { width:19%; }
-  col.c-lic  { width:15%; } col.c-push { width:12%; }
+  col.c-tool { width:23%; } col.c-what { width:44%; } col.c-type { width:17%; }
+  col.c-read { width:16%; }
+  .empty { color:var(--muted); max-width:38rem; margin:0 0 2.6rem; }
   td.ty { white-space:nowrap; }
   th { font-family:var(--mono); font-size:.66rem; letter-spacing:.13em; text-transform:uppercase;
        color:var(--muted); text-align:left; font-weight:400; padding:0 1rem .5rem 0;
@@ -2310,34 +2327,38 @@ writePage(path.join(DIST, 'what-you-already-have', 'options', 'index.html'), `${
   <p class="standfirst"><b>It is a list and not a review.</b> Nothing here ranks anything, no entry
      says a tool is good, and nobody here has operated most of them. A product missing from it was
      not evaluated and rejected. Nobody looked.</p>
-  <p class="written">List assembled ${TOOLS.cut}. Where a date appears it is the project's own last
-     push, and those repositories were read on ${(TOOLS.tools.find(t => t.readOn) || {}).readOn}.
-     <b>Not checked</b> means nobody here has looked yet, which is a fact about this list rather
-     than about the project. <b>Not public</b> means a closed product with nothing to look at.
-     <a class="src" href="#signals">How to read a push date</a>.</p>
+  <p class="written">List rendered ${TOOLS.cut}. The date on each row is the day its description
+     was read, and the word beside it says whether that was <b>observed</b> on the page the row
+     links to or <b>reasoned</b> from it. No push date, star count or license is printed here:
+     the linked page shows all three, and a copy would go stale on somebody else's schedule.
+     <a class="src" href="#signals">How to read them when you get there</a>.</p>
 
-  <p class="jump">${LAYER_NAMES.filter(([k]) => TOOLS.tools.some(t => t.layer === k))
+  <p class="jump">${LAYER_NAMES.filter(([k]) => TOOLS.tools.some(t => t.layer === k) || EMPTY_LAYER[k])
       .map(([k, label]) => `<a href="#l-${k}">${label}</a>`)
       .join('\n      ')}</p>
 
   ${LAYER_NAMES.map(([key, label]) => {
     const list = TOOLS.tools.filter(t => t.layer === key)
                             .sort((a, b) => a.name.toLowerCase().localeCompare(b.name.toLowerCase()));
-    if (!list.length) return '';
-    const sig = t => t.signal === 'read' ? t.lastPush
-              : t.signal === 'none-exists' ? 'not public'
-              : 'not checked';
+    if (!list.length) {
+      return EMPTY_LAYER[key]
+        ? `<h2 id="l-${key}">${label}</h2>\n  <p class="empty">${EMPTY_LAYER[key]}</p>`
+        : '';
+    }
+    // Two dates are different and must stay labeled (decisions/07): this one
+    // is ours, the read, and the vendor's push date is on the linked page. The
+    // archived flag is set only where the entry's own sentence records the host
+    // reporting it; the list prints no archived line of its own.
     return `<h2 id="l-${key}">${label}</h2>
   <div class="tbl"><table>
-    <colgroup><col class="c-tool"><col class="c-what"><col class="c-type"><col class="c-lic"><col class="c-push"></colgroup>
-    <thead><tr><th>Tool</th><th>What it is</th><th>Type</th><th>License as reported</th><th>Last push</th></tr></thead>
+    <colgroup><col class="c-tool"><col class="c-what"><col class="c-type"><col class="c-read"></colgroup>
+    <thead><tr><th>Tool</th><th>What it is</th><th>Type</th><th>Read</th></tr></thead>
     <tbody>
     ${list.map(t => `<tr>
       <td class="nm"><a href="${t.url}" rel="noopener">${t.name}</a>${t.archived ? '<span class="arch">archived</span>' : ''}</td>
       <td>${(t.what.match(/^.*?[.!?](?=\s|$)/) || [t.what])[0]}</td>
       <td class="ty">${KIND_LABEL[t.kind] || ''}</td>
-      <td>${t.license || 'not read'}</td>
-      <td class="sg">${sig(t)}</td>
+      <td class="sg">${t.basis} ${t.asOf}</td>
     </tr>`).join('\n    ')}
     </tbody>
   </table></div>`;
