@@ -309,6 +309,7 @@ const LAYER_NAMES = [
   ['author',                'What you author, and what it runs on'],
   ['evaluate',              'Checking what came back'],
   ['register-and-version',  'Registering and versioning what you publish'],
+  ['publish-and-deliver',   'Delivering what you publish'],
   ['cross-cutting',         'Across all of it'],
 ];
 
@@ -335,6 +336,13 @@ const KIND_LABEL = {
 const EMPTY_LAYER = {
   'evaluate': 'Nothing is filed here. That is the state of the field as far as this list can say, ' +
               'not a gap in the reading: nothing that was looked at is an evaluation product.',
+  // The other kind of empty, and the list is careful to say which: nobody
+  // searched, because the practice behind it does this job with a pull request.
+  'publish-and-deliver':
+              'Nothing is filed here, and that is the state of the reading rather than of the field. ' +
+              'The practice behind this list delivers a versioned definition as a pull request rather ' +
+              'than through a product, and no search for products that do that job has been run, so ' +
+              'an empty heading says nothing about whether they exist.',
 };
 
 // The layer view, published 2026-09-08. This is the AI-SDLC tooling index's own
@@ -2269,10 +2277,10 @@ writePage(path.join(DIST, 'what-you-already-have', 'index.html'), `${pageHead(
      things that sit across all of it, are not on the request path in the way these
      ${SPELLED[LAYERS.length].toLowerCase()} are, so an order of adoption says nothing useful about
      them. Evaluating what an agent produced is not a row either, because too little turned up to
-     put in front of you as a set of options. Neither is a registry of
-     prompts or agent definitions. Those last two are in
-     <a class="src" href="/what-you-already-have/options/">the options</a> as well, where you can
-     see how little was found. Naming that is the alternative to selling you a gap as a
+     put in front of you as a set of options. Neither is a registry of prompts or agent
+     definitions, nor delivering what is registered to the machines that run it. Those last three
+     are in <a class="src" href="/what-you-already-have/options/">the options</a> as well, where
+     you can see how little was found. Naming that is the alternative to selling you a gap as a
      layer.</p>
 
   <div class="foot">
