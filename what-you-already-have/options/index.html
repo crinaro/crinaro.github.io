@@ -29,7 +29,8 @@
                        letter-spacing:.06em; }
   .principle b { color:var(--ink); font-weight:500; font-family:var(--head); }
   .principle span { display:block; color:var(--ink-2); margin-top:.3rem; }
-  .principle .src { margin-right:.9rem; }
+  .principle .src { margin-right:1.7rem; }   /* two citations on one
+     baseline were 19.1px apart and read as one rule; 2g needs 24 */
 
   /* The brand commits to one visual world — navy and paper — rather than
      following the viewer's theme. Every ground is painted explicitly. */
@@ -128,6 +129,47 @@
          padding-bottom:1px; }
   .src:hover { border-bottom-color:var(--green); }
 
+  /* Two links on one baseline read as ONE rule with a nick in it. The
+     underline is a pale border-bottom and the bare middot between them is
+     smaller and lower contrast than the rule it is supposed to break, so the
+     eye joins them. Recorded as a defect on 2026-09-02; found live again on
+     three pages on 2026-09-13, at gaps of 13.1, 13.5 and 19.1 pixels.
+     ⛔ No numeric check could ever have caught it: the underline is a BORDER,
+     so getComputedStyle().textDecorationLine returns "none". check-drift.sh 2g
+     measures the rendered gap instead and fails under 24px.
+     The separator gets its own element so it can outweigh what it separates. */
+  .sep { display:inline-block; padding:0 .7rem; color:var(--ink-2);
+         border-bottom:none; }
+
+  /* A link row breaks BETWEEN its items, never inside one. Adding a fourth link
+     to the adoption page's row on 2026-09-13 wrapped "How the work gets done"
+     mid-label and stranded an underlined "done" on the next line beside
+     "Crinaro.AI" — the broken-title defect again, in a row check-link-gaps.js
+     had just passed. That is not the gate failing: the gap between the two was
+     fine, and the wrap is what read wrong. Only a render catches it.
+     Two things hold the row together, and BOTH are needed:
+       1. this rule, so a multi-word label cannot split across lines;
+       2. no whitespace between a .sep span and the link it introduces, in the
+          markup — otherwise the row can break there and leave a dangling "·"
+          at the end of a line. The visible gap is the separator's own padding,
+          NOT a space character, so closing it up costs nothing.
+     If you add a link to one of these rows, render the page and look at it.
+     A four-link row DOES still wrap to two lines in the 560px column the
+     adoption page gives it, at every width from 1000 to 1920 — the column is
+     what constrains it, not the 38rem prose measure. Lifting that measure was
+     tried on 2026-09-13 and measured as inert before being taken out again;
+     if you are tempted by it, the row and its parent are both 560px. Wrapping
+     cleanly is the fix here, not fitting on one line. */
+  .linkrow a.src { white-space:nowrap; }
+  /* .sep is inline-block everywhere else, and an atomic inline box is its own
+     break opportunity — so even with the whitespace removed the row still broke
+     between a separator and its link, leaving the "·" stranded at the end of a
+     line. Inline inside a link row instead: horizontal padding still applies,
+     and with no whitespace after it the separator cannot be parted from the
+     link it introduces. A row that wraps now carries the "·" down to the next
+     line, where it reads as a continued list rather than as debris. */
+  .linkrow .sep { display:inline; }
+
   /* The diagram scrolls inside its own box rather than squashing: below about
      44rem the five stages cannot hold their labels, and a legible thing you
      drag beats an illegible thing that fits. */
@@ -209,7 +251,11 @@
   .jump { font-size:.92rem; line-height:2; color:var(--ink-2); margin:0 0 2.6rem; }
   .jump a { color:var(--ink); text-decoration:none; border-bottom:1px solid rgba(27,92,70,.3);
             white-space:nowrap; display:inline-block; }
-  .jump a { margin-right:.9rem; }
+  /* Eleven layer links wrap across several lines, so every pair that lands
+     on one baseline is an adjacent-underline pair. At .9rem they measured
+     18.5px apart and joined, which check-link-gaps.js caught and the
+     render review did not: a wrapped list hides the defect in plain sight. */
+  .jump a { margin-right:1.8rem; }
 </style>
 </head>
 <body>
@@ -228,7 +274,7 @@
   <p class="standfirst"><b>It is a list and not a review.</b> Nothing here ranks anything, no entry
      says a tool is good, and nobody here has operated most of them. A product missing from it was
      not evaluated and rejected. Nobody looked.</p>
-  <p class="written">List rendered 2026-09-11. The date on each row is the day its description
+  <p class="written">List rendered 2026-09-13. The date on each row is the day its description
      was read, and the word beside it says whether that was <b>observed</b> on the page the row
      links to or <b>reasoned</b> from it. No push date, star count or license is printed here:
      the linked page shows all three, and a copy would go stale on somebody else's schedule.
@@ -309,7 +355,7 @@
     </tr>
     <tr>
       <td class="nm"><a href="https://huggingface.co/meta-llama/Llama-3.1-8B-Instruct" rel="noopener">meta-llama/Llama-3.1-8B-Instruct</a></td>
-      <td>Meta’s 8-billion-parameter instruction-tuned text model, tagged for eight languages, published as four safetensors shards plus one PyTorch checkpoint under Meta’s own Llama 3.1 licence and behind a manual approval gate; the card body returned 401 without a login on 2026-09-03.</td>
+      <td>Meta’s 8-billion-parameter instruction-tuned text model, tagged for eight languages, published as four safetensors shards plus one PyTorch checkpoint under Meta’s own Llama 3.1 license and behind a manual approval gate; the card body returned 401 without a login on 2026-09-03.</td>
       <td class="ty">model weights</td>
       <td class="sg">observed 2026-09-11</td>
     </tr>
@@ -351,7 +397,7 @@
     </tr>
     <tr>
       <td class="nm"><a href="https://huggingface.co/Qwen/Qwen3.8-Flash-Next" rel="noopener">Qwen/Qwen3.8-Flash-Next</a></td>
-      <td>A Qwen model that takes images as well as text (the hub files it as image-text-to-text), about 180 billion parameters in 131 safetensors shards, under a vendor-named licence (Qwen Community 1.0) the hub reports as ‘other’.</td>
+      <td>A Qwen model that takes images as well as text (the hub files it as image-text-to-text), about 180 billion parameters in 131 safetensors shards, under a vendor-named license (Qwen Community 1.0) the hub reports as ‘other’.</td>
       <td class="ty">model weights</td>
       <td class="sg">observed 2026-09-11</td>
     </tr>
@@ -728,7 +774,7 @@
   </table></div>
 
   <h2 id="l-publish-and-deliver">Delivering what you publish</h2>
-  <p class="empty">Nothing is filed here, and that is the state of the reading rather than of the field. The practice behind this list delivers a versioned definition as a pull request rather than through a product, and no search for products that do that job has been run, so an empty heading says nothing about whether they exist.</p>
+  <p class="empty">Nothing is filed here as its primary layer, and that is the state of the reading rather than of the field. The practice behind this list delivers a versioned definition as a pull request rather than through a product. <b>The list names four rows on this page as also serving this layer</b>, filed under <a class="src" href="#l-author">what you author, and what it runs on</a>: addyosmani/agent-skills, anthropics/skills, ComposioHQ/awesome-claude-skills and mattpocock/skills. No search has been run for products that deliver what you publish to the machines that run it, so an empty heading says nothing about whether they exist.</p>
 
   <h2 id="l-cross-cutting">Across all of it</h2>
   <div class="tbl"><table>
@@ -756,9 +802,9 @@
      yourself, against today.</p>
 
   <div class="foot">
-    <p><a class="src" href="/what-you-already-have/">Back to where to start</a>
-       &middot; <a class="src" href="/notes/">Read the notes</a>
-       &middot; <a class="src" href="/">Crinaro.AI</a></p>
+    <p class="linkrow"><a class="src" href="/what-you-already-have/">Back to where to start</a>
+       <span class="sep">&middot;</span><a class="src" href="/notes/">Read the notes</a>
+       <span class="sep">&middot;</span><a class="src" href="/">Crinaro.AI</a></p>
   </div>
 </div>
 </body>

@@ -62,7 +62,16 @@ const EMAIL = 'john@crinaro.ai';
 // does not stop at file paths. The comments stay in this file, where the team
 // reads them, and leave at the door. Write pages through this, never through
 // fs.writeFileSync directly.
-const writePage = (p, html) => fs.writeFileSync(p, html.replace(/<!--[\s\S]*?-->/g, ''));
+// Returns the bytes actually written, because the size this build prints had
+// been measured on the string BEFORE the comments came out. Every comment added
+// to a template inflated a number nobody could reconcile against the file: the
+// page reported 66.3 KB on 2026-09-13 and was 61.8 KiB on disk. That number is
+// quoted as the discipline on page weight, so it has to be the file's.
+const writePage = (p, html) => {
+  const out = html.replace(/<!--[\s\S]*?-->/g, '');
+  fs.writeFileSync(p, out);
+  return Buffer.byteLength(out);
+};
 
 const CLAIM = 'AI from higher ground.';
 // The hero breaks at the sentence, never mid-clause — left to text-wrap:balance
@@ -151,19 +160,50 @@ const assets = [
   // independently by brand-critic twice, and forbidden outright by the AI-SDLC
   // pack's rule against implying customers or deployments.
   //
-  // The eyebrow carries a count, like the other two, because a status column
-  // where one cell counts a team and the next does not reads as though the
-  // first has no team. It does: sixteen agents, verified against the repo by
-  // check-claims.sh, not carried forward from a document. Fourteen until
-  // 2026-09-12, when check-claims.sh counted sixteen; the AI-SDLC team's notice
-  // of that date asks for the number to go, which is a separate decision from
-  // making it true. "Not published" moved
-  // out of this cell and is stated plainly in the note under the diagram below,
-  // which is where a reader who wants to go and look would hit it anyway.
-  ['The AI-SDLC reference', 'Private · sixteen agents',
-   'Delivery end to end on an agentic model, not one team’s repos: what gets asked for, how it is built, how you know it shipped. Worked into patterns another team can pick up.'],
-  ['This brand', 'Internal · five agents',
-   'The page you are reading, the deck, the identity and the rules that govern them. A critic, a copy editor, one that renders every visual and looks at it, one that argues the other side, and one that reads new copy against everything already published.'],
+  // ⛔ NO COUNT IN THIS EYEBROW. Decided 2026-09-13, and check-claims.sh now
+  // enforces the absence rather than a number.
+  //
+  // It read "Private · sixteen agents", and before that "fourteen". The count
+  // was true both times and that was the problem: it sits beside "Public ·
+  // installable" and "Internal · five agents", so the column reads as a scale
+  // comparison, and the one cell a reader cannot check carries the largest
+  // number in it. The other two are checkable — the marketplace is public, and
+  // the five brand agents are described rather than offered for reading. This
+  // one asks for trust and calls it evidence, which is voice rule 3.
+  //
+  // The AI-SDLC team asked for exactly this in NOTICE-2026-09-12 item 5(iii),
+  // then withdrew the ask in their second-cut notice on the grounds that it
+  // would fail our gate. The gate was the thing to change, not the page. Their
+  // correction notice records that the failing verdict is WRONG rather than
+  // MISSING, and that nobody on their side ran it either way.
+  //
+  // The argument for a count was that a status column where one cell counts a
+  // team and the next does not reads as though the first has no team. The card
+  // body says what the team does, which carries that without a number that
+  // moves in somebody else's repository. "Not published" is stated plainly in
+  // the note under the diagram below.
+  ['The AI-SDLC reference', 'Private',
+   // ⛔ The last sentence answers route's finding 4, 2026-09-13: the home page
+   // sent a reader here for "the agent teams", and this was the one of three
+   // whose team was set out NOWHERE — the marketplace's by role, this brand's by
+   // what each covers, and this one not at all. It says why, and says it WITHOUT
+   // A NUMBER: 52e16ee deliberately stopped counting that team because the count
+   // sat in the one cell a reader cannot open, and it moves in somebody else's
+   // repository besides.
+   'Delivery end to end on an agentic model, not one team’s repos: what gets asked for, how it is built, how you know it shipped. Worked into patterns another team can pick up. It has an agent team of its own, inside a repository you cannot open, so that team is not set out here.'],
+  // The count is checked live: check-claims.sh counts .claude/agents/*.md and
+  // fails if this eyebrow disagrees. Do not edit the number by hand to make it
+  // match — add or remove the agent, then rebuild.
+  //
+  // The body names what each agent COVERS, in two or three words, rather than
+  // describing it in a clause. The clause version was here until 2026-09-13 and
+  // it did not scale: at five agents the card ran five lines beside two cards of
+  // five, and adding the sixth took it to nine, so the middle column read as a
+  // list that had outgrown its box. A card that gets visibly worse every time
+  // the team learns something is a card that argues against improving the team.
+  // Keep it one short phrase per agent, in the order the work happens.
+  ['This brand', 'Internal · six agents',
+   'The page you are reading, the deck, the identity and the rules that govern them. One agent each for the claim, the voice, the render, the argument against, the contradictions with what is already published, and the path a reader actually takes.'],
   // "Running daily for one person, not yet a second" was here, and it WAS
   // load-bearing for as long as the card described a product — it was the clause
   // that stopped the description implying adoption. John removed it 2026-08-20.
@@ -330,19 +370,52 @@ const KIND_LABEL = {
 
 // What the list says about a layer it names and holds nothing for. Its own
 // distinction, in our words: this one is the state of the field, not of the
-// reading. The adoption page links here by anchor and says the layer is in the
-// options "where you can see how little was found", so the heading has to
-// render with the reason rather than the section silently dropping out.
+// reading. The adoption page links here by anchor and says each of these layers
+// "says how little is there and why", so the heading has to render with the
+// reason rather than the section silently dropping out. That sentence said "how
+// little was found" until 2026-09-13, which was true of a layer nobody searched
+// only if "found" meant "found without looking". It had already been repaired
+// once for `evaluate`, before `publish-and-deliver` existed to break it again.
+// `points` decides whether the heading also names the rows the list records as
+// serving this layer from elsewhere. They come from tools.json, read off the
+// list rather than written here, because the day a named row leaves the list a
+// hand-written name goes dangling and nothing on the page can tell.
 const EMPTY_LAYER = {
-  'evaluate': 'Nothing is filed here. That is the state of the field as far as this list can say, ' +
-              'not a gap in the reading: nothing that was looked at is an evaluation product.',
+  'evaluate': {
+    text: 'Nothing is filed here. That is the state of the field as far as this list can say, ' +
+          'not a gap in the reading: nothing that was looked at is an evaluation product.',
+    // The list names Vellum as also serving this band. It is deliberately not
+    // printed: this page's own Vellum row says the product could not be
+    // established as an evaluation service at all, so naming it here would
+    // contradict a row a reader can scroll to. That disagreement is the
+    // source's to settle, not ours to publish.
+    points: false,
+  },
   // The other kind of empty, and the list is careful to say which: nobody
   // searched, because the practice behind it does this job with a pull request.
-  'publish-and-deliver':
-              'Nothing is filed here, and that is the state of the reading rather than of the field. ' +
-              'The practice behind this list delivers a versioned definition as a pull request rather ' +
-              'than through a product, and no search for products that do that job has been run, so ' +
-              'an empty heading says nothing about whether they exist.',
+  // The rows that travel that way are on this page, so the heading points at
+  // them. Saying "nothing is filed here" and stopping told a reader there was
+  // nothing to look at while the answer sat further up the same page.
+  // `after` closes the paragraph on the bound rather than on a list of
+  // repository names, and splits a sentence that ran to thirty-nine words.
+  //
+  // ⛔ The pointer says only what the list records: that these rows serve this
+  // layer while filed elsewhere. It must NOT say they travel by pull request.
+  // The first draft did, one clause after "rather than through a product", and
+  // the mattpocock/skills row on this same page says it is published as a
+  // plugin with a marketplace manifest. How a named vendor ships its work is
+  // not something this page checked.
+  'publish-and-deliver': {
+    text: 'Nothing is filed here as its primary layer, and that is the state of the reading rather ' +
+          'than of the field. The practice behind this list delivers a versioned definition as a ' +
+          'pull request rather than through a product.',
+    // Names the job rather than pointing back at it. "No search for products
+    // that do that job" reached back past the pointer sentence for an
+    // antecedent, which is the deictic the first draft already got wrong once.
+    after: 'No search has been run for products that deliver what you publish to the machines that ' +
+           'run it, so an empty heading says nothing about whether they exist.',
+    points: true,
+  },
 };
 
 // The layer view, published 2026-09-08. This is the AI-SDLC tooling index's own
@@ -716,7 +789,8 @@ const CSS = `${FONTS}
                        letter-spacing:.06em; }
   .principle b { color:var(--ink); font-weight:500; font-family:var(--head); }
   .principle span { display:block; color:var(--ink-2); margin-top:.3rem; }
-  .principle .src { margin-right:.9rem; }
+  .principle .src { margin-right:1.7rem; }   /* two citations on one
+     baseline were 19.1px apart and read as one rule; 2g needs 24 */
 
   /* The brand commits to one visual world — navy and paper — rather than
      following the viewer's theme. Every ground is painted explicitly. */
@@ -814,6 +888,47 @@ const CSS = `${FONTS}
          text-decoration:none; border-bottom:1px solid rgba(27,92,70,.35);
          padding-bottom:1px; }
   .src:hover { border-bottom-color:var(--green); }
+
+  /* Two links on one baseline read as ONE rule with a nick in it. The
+     underline is a pale border-bottom and the bare middot between them is
+     smaller and lower contrast than the rule it is supposed to break, so the
+     eye joins them. Recorded as a defect on 2026-09-02; found live again on
+     three pages on 2026-09-13, at gaps of 13.1, 13.5 and 19.1 pixels.
+     ⛔ No numeric check could ever have caught it: the underline is a BORDER,
+     so getComputedStyle().textDecorationLine returns "none". check-drift.sh 2g
+     measures the rendered gap instead and fails under 24px.
+     The separator gets its own element so it can outweigh what it separates. */
+  .sep { display:inline-block; padding:0 .7rem; color:var(--ink-2);
+         border-bottom:none; }
+
+  /* A link row breaks BETWEEN its items, never inside one. Adding a fourth link
+     to the adoption page's row on 2026-09-13 wrapped "How the work gets done"
+     mid-label and stranded an underlined "done" on the next line beside
+     "Crinaro.AI" — the broken-title defect again, in a row check-link-gaps.js
+     had just passed. That is not the gate failing: the gap between the two was
+     fine, and the wrap is what read wrong. Only a render catches it.
+     Two things hold the row together, and BOTH are needed:
+       1. this rule, so a multi-word label cannot split across lines;
+       2. no whitespace between a .sep span and the link it introduces, in the
+          markup — otherwise the row can break there and leave a dangling "·"
+          at the end of a line. The visible gap is the separator's own padding,
+          NOT a space character, so closing it up costs nothing.
+     If you add a link to one of these rows, render the page and look at it.
+     A four-link row DOES still wrap to two lines in the 560px column the
+     adoption page gives it, at every width from 1000 to 1920 — the column is
+     what constrains it, not the 38rem prose measure. Lifting that measure was
+     tried on 2026-09-13 and measured as inert before being taken out again;
+     if you are tempted by it, the row and its parent are both 560px. Wrapping
+     cleanly is the fix here, not fitting on one line. */
+  .linkrow a.src { white-space:nowrap; }
+  /* .sep is inline-block everywhere else, and an atomic inline box is its own
+     break opportunity — so even with the whitespace removed the row still broke
+     between a separator and its link, leaving the "·" stranded at the end of a
+     line. Inline inside a link row instead: horizontal padding still applies,
+     and with no whitespace after it the separator cannot be parted from the
+     link it introduces. A row that wraps now carries the "·" down to the next
+     line, where it reads as a continued list rather than as debris. */
+  .linkrow .sep { display:inline; }
 
   /* The diagram scrolls inside its own box rather than squashing: below about
      44rem the five stages cannot hold their labels, and a legible thing you
@@ -1521,6 +1636,121 @@ const NOTE_CADENCE = {
 `,
 };
 
+// The three sections that describe how this is run. They live on their own
+// page; the home page hands off to them. Kept as one constant so the two
+// cannot drift: there is exactly one copy of this markup.
+const WORK_SECTIONS = `
+<!-- ⛔ ORDER: the assets, then the factory, then the capability. The factory
+     came first until 2026-09-13 and it broke the page read cold. Its own note
+     says "the private repository that maintains THE MARKETPLACE" — definite on
+     first use, a whole section before the marketplace was introduced — and the
+     hero standfirst promised things -> teams -> capability while the page
+     delivered teams -> things -> capability. Naming the three assets first gives
+     every later definite reference an antecedent on the page, and "kept alive"
+     is then exactly what the factory section explains. The hero standfirst
+     states this order: the two move together or not at all. -->
+<section>
+  <div class="wrap">
+    <div class="head narrow">
+      <p class="eyebrow">What it maintains</p>
+      <h2>Three assets, kept alive.</h2>
+      <p>Not projects that shipped and stopped. Each is still under maintenance by an agent&nbsp;team.
+         The last is public, so you can install it and read its history.</p>
+    </div>
+    <div class="cols">
+      ${assets.map(([n, role, b, href, cta]) => `<div class="col"><div class="rule"></div>
+        <p class="eyebrow">${role}</p><h3>${n}</h3><p>${b}</p>${href ? `
+        <p><a class="src" href="${href}">${cta} <span aria-hidden="true">&rarr;</span></a></p>` : ''}</div>`).join('\n      ')}
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="head narrow">
+      <p class="eyebrow">How the work gets done</p>
+      <h2>A factory that maintains, not just builds.</h2>
+      <p>Generating something with AI is the easy half now. The other half decides whether the
+         thing is still alive in six months: keeping the documents true, the gates green, the
+         releases loading, and the claims about the system honest. That is the half these agents
+         do. None of them writes features.</p>
+    </div>
+    <div class="verts">
+      ${factory.map(([n, d]) => `<div class="vert"><b>${n}</b><span>${d}</span></div>`).join('\n      ')}
+    </div>
+    <p class="note">Those six are agent definitions in the private repository that maintains the
+       marketplace, so you cannot read them. What they maintain is public: a plugin carrying nine
+       installable agents, a connector, their documentation, and a version history you can walk
+       back. That is one repository run this way, not an organization.</p>
+    <!-- The only route from this page to the written pieces, and it is now a
+         POINTER rather than a second introduction to the series.
+         These were two paragraphs that named "the first three are one argument"
+         and then routed to three individual notes. /notes/ opens by saying the
+         same thing in better words — it leads with the reader's own situation
+         ("If your organization has ended up with several systems doing the same
+         thing, and nobody can point at the decision that caused it...") and it
+         covers all nine rather than three. route, 2026-09-13: the same argument
+         made twice in two places, in its own words both times, on a two-step
+         route. The index is the better of the two, so this one gives way.
+         The old comment here said "two pieces do not make a series" and that a
+         third would move this to its own page. There are nine and the page
+         exists; the comment outlived the condition it described. -->
+    <p class="note" id="notes">Most of this is argued at length in
+       <a class="src" href="/notes/">the notes</a>, where the index says which of them are one
+       argument with which, and where to start.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="head narrow">
+      <p class="eyebrow">Inside AI-SDLC</p>
+      <h2>One capability, across&nbsp;every team it touches.</h2>
+      <p>This spans the whole path: the spec a
+         roadmap team writes, the work it becomes across other people’s repos, and whether what
+         shipped is what was asked for.</p>
+    </div>
+    <div class="flow">${flow}</div>
+    <div class="cols" style="margin-top:3.2rem">
+      ${method.map(([h, b]) => `<div class="col"><div class="rule"></div>
+        <h3>${h}</h3><p>${b}</p></div>`).join('\n      ')}
+    </div>
+    <!-- ⛔ Do not put a currency claim back here. This said "The reference is
+         kept current as the ground moves" until 2026-09-13, which promised an
+         ongoing property of a PRIVATE object: unverifiable by construction, the
+         same shape as the credential-nobody-can-examine line retired on
+         2026-09-02. The AI-SDLC team asked for it too (NOTICE-2026-09-12, item
+         5(iv)): their summary's own opening promises no calendar cadence, and
+         their notice says none will be stated until the owner confirms one he
+         intends to keep.
+
+         The first rewrite kept a middle sentence, "the guard against that is a
+         date rather than an assurance". That put a date on the reference four
+         sentences before the reader learns the reference is unpublished, and a
+         date on a thing nobody can open is an assurance wearing a number: the
+         same defect at lower strength. It is gone. THE DATE CLAIM BELONGS TO
+         THE CLOSING SENTENCE of this paragraph, where the list owns it and a
+         reader can go and check it, seventy dated rows and "read the date,
+         never the interval" on the options page. Do not add a second one here.
+
+         Also gone with it: "a reference that is not re-sourced is worse than
+         none", which HANDOFF's 2026-09-02 entry names as where the vendor and
+         capability read lives. The read it described was never published, so
+         the sentence was arguing for something a reader cannot see. The tools
+         changing survives in the closing sentence, attached to the list. -->
+    <p class="note">The reference is on no schedule, and this page does not say it is current. It is
+       not published, so the diagram above shows how far the work reaches, not the decisions inside
+       it. Published
+       separately, and standing without it:
+       <a class="src" href="/what-you-already-have/">what the gaps cost</a>, which runs the pieces
+       of infrastructure an agent setup can have in the order they stop being optional, and names
+       some of what exists at each. The layers, and the way to read a repository, change more slowly
+       than the tools under them. The tools move on their own schedules, so the list prints dates
+       rather than intervals and says where nobody has looked.</p>
+  </div>
+</section>
+`;
+
 const html = `<!doctype html>
 <html lang="en">
 <head>
@@ -1558,7 +1788,17 @@ ${CSS}
     ${svg('crinaro-ai-animated.svg')}
     <h1>${CLAIM_HTML}</h1>
     <p>${SUB}</p>
-    <div class="routes">
+    <!-- id="notes" is here to catch an OLD LINK, not to be linked to. The home
+         page carried id="notes" on its notes-routing paragraph until 2026-09-13,
+         when that paragraph moved to /how-the-work-gets-done/ with the rest of
+         WORK_SECTIONS. Anything off-site pointing at https://crinaro.ai/#notes —
+         and route flagged on 2026-09-13 that we have no way to know whether
+         anything does — landed on the home page with no matching element and was
+         silently ignored, dropping the reader at the top with no idea a target
+         was missed. The doors are where such a link was trying to get to.
+         ⛔ Do not remove it because nothing on this site links to it. Nothing on
+         this site is supposed to. -->
+    <div class="routes" id="notes">
       <p><span class="rl">Design</span><a class="src" href="/notes/">How these systems should be shaped, argued at length <span aria-hidden="true">&rarr;</span></a></p>
       <p><span class="rl">Adoption</span><a class="src" href="/what-you-already-have/">Where to start, and what the gaps are costing you <span aria-hidden="true">&rarr;</span></a></p>
     </div>
@@ -1566,6 +1806,30 @@ ${CSS}
 </header>
 
 <main>
+
+<!-- ⛔ SECTION ORDER IS LOAD-BEARING. Resequenced 2026-09-13 to John's arc:
+     the gotchas, what you need to do, then how this knowledge gets you to a
+     business outcome. Two sections moved and NOTHING was rewritten.
+
+     "What it is aimed at" was at 91% depth, AFTER 750 words of factory,
+     assets and reference. The executive met six agent names and three repos
+     before the page said what any of it was for: the vehicle arriving before
+     the destination. It now sits before that block and frames it.
+     ⚠️ It is still NOT the lead. HANDOFF records that leading with unmeasured
+     outcomes is worse than burying them, and that this section's honesty is
+     the page's strongest asset with a procurement-adjacent reader. It sits
+     after "what to do", not before the argument.
+
+     "Where it is argued from", the ridge, was at 20%, interrupting between
+     the problem and the principles with 81 words of brand. It now opens the
+     Crinaro block, which also marks the turn visual-qa found unmarked: the
+     page silently switched from the reader's problem to our own work and
+     back, and nothing said so. The two navy bands are adjacent on purpose
+     and read as one hinge.
+
+     ⛔ Do NOT promote principle 4 into its own gotcha section. "What changes
+     with AI" was exactly that and was CUT on 2026-09-09 for duplicating
+     principle 4 and problem card three. -->
 
 <section>
   <div class="wrap">
@@ -1590,26 +1854,28 @@ ${CSS}
          adoption besides. That read belongs in the AI-SDLC section, which already
          carries it and bounds it. -->
     <p class="note">None of this is argued from the outside. It comes from delivery in those
-       industries, and from agent teams maintaining repositories that have to keep working today.
-       It is reasoning about how the failure happens rather than a result anybody has measured.</p>
-    <p class="note"><b>Whether it is your problem is a real question with an honest answer.</b> If
-       the immediate matters more to you than the long-term cost, and nobody measures you on your
-       run rate, this is not a focus for you and you should not spend on it. If the run rate is
-       what you are measured on, it is, and nothing about adopting AI addresses it on its own.</p>
-  </div>
-</section>
-
-<section class="band">
-  <div class="wrap">
-    <div class="head narrow">
-      <p class="eyebrow">Where it is argued from</p>
-      <h2>The whole view decides the design.</h2>
-      <p>Crinaro is a ridge line, from the Italian <i>crinale</i>: the crest path where you can
-         see down both sides. That is the method: stand where the whole system is visible before
-         deciding anything. The test of a decision made from there is whether the team still owns
-         and runs what was built when you come back to it, and whether <em>do not build this</em>
-         was ever an available answer.</p>
-    </div>
+       industries, and from agent teams maintaining repositories that have to keep working today:
+       <a class="src" href="/how-the-work-gets-done/">the teams that do it, and what they keep
+       alive</a>. It is reasoning about how the failure happens rather than a result anybody has
+       measured.</p>
+    <!-- The qualifying question, added 2026-09-13. It is the one instrument in
+         the material readable by somebody who writes no code: anybody who can
+         read the model their organization already keeps can answer it, before
+         any boundary exists. It decides whether to realign before adopting at
+         all, and never where a boundary falls.
+         ⛔ NO INTERVAL, NO THRESHOLD, NO RATIO. The material gives none, and the
+         record has five separate returns of an invented timescale on this page.
+         "Answered by judgment" is the material's own bound. "Two people can
+         answer it differently" is OUR inference from it, defensible and not
+         quoted, so nobody spends a round looking for it in the source.
+         ⛔ "run rate" is John's word, from his own dictation, and principle 2
+         shares it. A copy-editor pass removed it once and the removal was
+         reverted. Keep it. -->
+    <p class="note"><b>Whether it is your problem is one financial question.</b> Can you hit your
+       financial goals on the model you run today? If you can, adopt AI and change nothing else. If
+       you cannot, adopting it speeds up what is already going wrong: platforms to keep secure, one
+       change held in agreement by hand across several places, and the run rate underneath. A
+       direction, answered by judgment, with no rate attached.</p>
   </div>
 </section>
 
@@ -1628,6 +1894,17 @@ ${CSS}
         <span>An agent configuration scoped to one request will hit that request's goal. What it
         costs after that is paid by everyone, on every run, and only a deliberate act removes it.
         <a class="src" href="/notes/${NOTE.slug}/">${NOTE.title}</a></span></p>
+      <!-- ⛔ The data half ends without "and it is the design working", cut
+           2026-09-13. Two reasons, and the second is the one a later session
+           will trip on. It asserted a settled design position on the question
+           the AI-SDLC corpus explicitly holds open, "this corpus has no
+           sentence for that question anywhere" (their NOTICE-2026-09-12 item
+           5(iv)). And the standfirst above promises each principle "links to
+           the note that works it out", while both notes linked here contain the
+           word "data" nowhere in their prose: they argue the component half
+           only. Saying which half they cover is what makes that promise true.
+           The data clause itself is John's, 2026-09-09, and stays. When the
+           data note exists, link it here and drop the last sentence. -->
       <p class="principle"><b>Assign ownership at the component level, and over its data.</b>
         <span>A team aligned to a component is still answerable for it after the current deadline,
         which is what velocity and run rate both depend on. A team aligned to a project is
@@ -1635,7 +1912,8 @@ ${CSS}
         accountability of whoever funds and reviews it.
         <b>Data nobody owns is where the boundary fails</b>: the team changes behavior it
         owns while nothing is answerable for the shape that constrains it. Owned somewhere else on
-        purpose, with a name against it, is a different thing and it is the design working.
+        purpose, with a name against it, is a different thing. The linked notes work out the
+        component half; the data half is not written yet.
         <a class="src" href="/notes/${NOTE_HOP.slug}/">${NOTE_HOP.title}</a>
         <a class="src" href="/notes/${NOTE.slug}/">${NOTE.title}</a></span></p>
       <p class="principle"><b>Treat duplication as the primary cost driver.</b>
@@ -1663,14 +1941,40 @@ ${CSS}
     <div class="head narrow">
       <p class="eyebrow">Where to start</p>
       <h2>Two moves, and the&nbsp;second one is the hard one.</h2>
-      <p>Neither of these is a tool decision. They are the things that have to be true before a
-         tool decision means anything. The machinery half is separate:
-         <a class="src" href="/what-you-already-have/">what the gaps cost</a>.</p>
+      <!-- "Neither asks you to change how work arrives" answers the first
+           objection an executive has, and it was absent from the whole site
+           until 2026-09-13: zero hits for leadership, persuasion or convince.
+           It is the most useful thing in the material for this reader, because
+           the traditional answer is to persuade leadership to think in
+           systems, and this does not ask for that.
+           ⛔ Do not put the downstream conversion back in this standfirst. A
+           draft said it is where the change happens, which reads as free, and
+           the-last-hop argues that exact decomposition is the NEW work, "in a
+           way it never had to be before". Three live surfaces point at that
+           note. It is cut rather than qualified: the note carries the argument
+           and this page hands off.
+           ⛔ Both halves or neither. Saying what it avoids without saying what
+           it does not avoid presents the model as costless, which the material
+           calls the worst error available. And ⛔ NO DURATION on the ownership
+           change: the material says months to years, and an interval has come
+           back onto this page five times and been retired five times. -->
+      <p>Neither is a tool decision, and neither asks you to change how work arrives. Leadership
+         keeps filing projects; nobody has to be persuaded to think in systems. What has to change
+         is ownership, and that is the cost: a team takes a delivery date into a queue it does not
+         control, and declines for good reasons. The machinery half is separate: <a class="src" href="/what-you-already-have/">what the gaps cost</a>.</p>
     </div>
     <div class="vert">
       <b>An internal marketplace</b>
+      <!-- ⛔ Not a flat ranking. This read "It is the cheaper of the two moves,
+           because the alternative is each team paying to discover the same
+           thing" until 2026-09-13. The material it came from says the
+           marketplace is the cheaper move TO START, "on the author's estimate
+           and never a ranking: no estate has priced both, neither carries a
+           figure". A comparative with a causal reason behind it reads as a
+           measurement; nobody has made one. -->
       <p>So teams share what they build instead of each solving it privately. It is the cheaper of
-         the two moves, because the alternative is each team paying to discover the same thing.
+         the two to start with, which is a judgment rather than a measurement: nobody has priced
+         both.
          <a class="src" href="/notes/shared-skills/">What&nbsp;a shared capability does and does not fix</a></p>
     </div>
     <div class="vert">
@@ -1692,89 +1996,27 @@ ${CSS}
   </div>
 </section>
 
-<section>
-  <div class="wrap">
-    <div class="head narrow">
-      <p class="eyebrow">How the work gets done</p>
-      <h2>A factory that maintains, not just builds.</h2>
-      <p>Generating something with AI is the easy half now. The other half decides whether the
-         thing is still alive in six months: keeping the documents true, the gates green, the
-         releases loading, and the claims about the system honest. That is the half these agents
-         do. None of them writes features.</p>
-    </div>
-    <div class="verts">
-      ${factory.map(([n, d]) => `<div class="vert"><b>${n}</b><span>${d}</span></div>`).join('\n      ')}
-    </div>
-    <p class="note">Those six are agent definitions in the private repository that maintains the
-       marketplace, so you cannot read them. What they maintain is public: a plugin carrying nine
-       installable agents, a connector, their documentation, and a version history you can walk
-       back. That is one repository run this way, not an organization.</p>
-    <!-- The only route to the written pieces. Still no "Writing" heading: two
-         pieces do not make a series, and a section header promises one. When
-         there is a third, this becomes a list on its own page. -->
-    <p class="note" id="notes">Most of this is argued at length in the notes, and the first three
-       are one argument: why an organization ends up with several systems doing the same thing, the
-       decomposition that used to live in an engineer's head, and why publishing a convention once
-       does not make the output agree. Start at
-       <a class="src" href="/notes/${NOTE.slug}/">${NOTE.title}</a>.</p>
-
-    <p class="note">The two most specific to agents stand on their own:
-       <a class="src" href="/notes/${NOTE_SCOPE.slug}/">${NOTE_SCOPE.title}</a>, on what an agent
-       team can actually be handed, and
-       <a class="src" href="/notes/${NOTE_CADENCE.slug}/">${NOTE_CADENCE.title}</a>, on what changes
-       for an engineer when the thing you edit stops being the prompt. Or take
-       <a class="src" href="/notes/">all of them</a>.</p>
-  </div>
-</section>
-
-<section>
-  <div class="wrap">
-    <div class="head narrow">
-      <p class="eyebrow">What it maintains</p>
-      <h2>Three assets, kept alive.</h2>
-      <p>Not projects that shipped and stopped. Each is still under maintenance by an agent&nbsp;team.
-         The last is public, so you can install it and read its history.</p>
-    </div>
-    <div class="cols">
-      ${assets.map(([n, role, b, href, cta]) => `<div class="col"><div class="rule"></div>
-        <p class="eyebrow">${role}</p><h3>${n}</h3><p>${b}</p>${href ? `
-        <p><a class="src" href="${href}">${cta} <span aria-hidden="true">&rarr;</span></a></p>` : ''}</div>`).join('\n      ')}
-    </div>
-  </div>
-</section>
-
-<section>
-  <div class="wrap">
-    <div class="head narrow">
-      <p class="eyebrow">Inside AI-SDLC</p>
-      <h2>One capability, across&nbsp;every team it touches.</h2>
-      <p>This spans the whole path: the spec a
-         roadmap team writes, the work it becomes across other people’s repos, and whether what
-         shipped is what was asked for.</p>
-    </div>
-    <div class="flow">${flow}</div>
-    <div class="cols" style="margin-top:3.2rem">
-      ${method.map(([h, b]) => `<div class="col"><div class="rule"></div>
-        <h3>${h}</h3><p>${b}</p></div>`).join('\n      ')}
-    </div>
-    <p class="note">The reference is kept current as the ground moves. The tools, the vendors and
-       the limits all change, and a reference that is not re-sourced is worse than none. It is not published, so
-       the diagram above shows how far the work reaches, not the decisions inside it. Published
-       separately, and standing without it:
-       <a class="src" href="/what-you-already-have/">what the gaps cost</a>, which runs the pieces
-       of infrastructure an agent setup can have in the order they stop being optional, and names
-       some of what exists at each. The layers, and the way to read a repository, change more slowly
-       than the tools under them. The tools move on their own schedules, so the list prints dates
-       rather than intervals and says where nobody has looked.</p>
-  </div>
-</section>
-
-
 <section class="band">
   <div class="wrap">
     <div class="head narrow">
       <p class="eyebrow">What it is aimed at</p>
-      <h2>Three outcomes, none&nbsp;of&nbsp;them measured.</h2>
+      <!-- ⛔ The disclosure stays; it moved OFF the headline, 2026-09-13.
+           This read "Three outcomes, none of them measured." until John said it
+           does not drive confidence in what we are sharing, and he is the one
+           who has to sell with it. Read the objection precisely: the HEADLINE
+           led with a deficit, not that the honesty should go.
+           The honesty is untouched and is now the second sentence of the body,
+           where a reader meets it before anything else in the section: "Those
+           are the aims. Every claim in the material is a claim about mechanism
+           rather than about outcome ... and no outcome has been measured."
+           The eyebrow still says "What it is aimed at", so the headline is a
+           statement of aim rather than of achievement.
+           ⚠️ What this trades, stated so nobody re-litigates it blind: the old
+           heading meant a skimmer could not pick up the good half alone. A
+           skimmer now can, unless they read one sentence further. That was
+           John's call on 2026-09-13, against a recorded preference for the
+           disclosure being in the headline. -->
+      <h2>Maintenance down, delivery&nbsp;up, investment moving.</h2>
       <p>The model is aimed at three things: maintenance costing less, delivery moving faster, and
          investment shifting from keeping what exists running to building what does not exist yet.
          Those are the aims. Every claim in the material is a claim about mechanism rather than
@@ -1783,10 +2025,76 @@ ${CSS}
       <p>Saying that is the point rather than a hedge. A description of a method is exactly the
          thing a reader supplies a payoff to, and staying quiet about the payoff is a different
          position from stating it and declining to claim it.</p>
-      <p>The first attempt to measure one is on the record, and it did not work. In the material's
-         own words: <em>“It did not work as expected. The sequence is not falsified, but it is not
-         yet demonstrated either.”</em> Read the mechanism on its merits, and treat the outcomes as
-         open.</p>
+      <!-- ⛔ No quotation marks here, and no "in the material's own words".
+           Until 2026-09-13 this quoted, as one continuous sentence pair:
+           "It did not work as expected. The sequence is not falsified, but it
+           is not yet demonstrated either." The source carries those as TWO
+           separately quoted fragments joined by "and", so the page spliced two
+           quotes and presented them as contiguous. Nothing on our side verified
+           that, and their generator verifies each fragment separately on every
+           cut, so we were the only party asserting they run together.
+           Second reason, and it survives the first being fixed: the material is
+           OUR OWN asset. The page lists the AI-SDLC reference as one of three
+           things it maintains, then cited it as though quoting somebody else.
+           A reader who works that out feels handled, which is expensive here of
+           all places. The admission is the value; the quotation marks were
+           adding a claim of independence rather than one of accuracy. -->
+      <p>The first attempt to measure one is on the record, and it did not work as expected. That
+         record is our own and it is not published, so this is a report on our own material rather
+         than something you can go and audit. The sequence is not falsified by that, and it is not
+         demonstrated either. Read the mechanism on its merits, and treat the outcomes as open.</p>
+    </div>
+  </div>
+</section>
+
+<section class="band">
+  <div class="wrap">
+    <div class="head narrow">
+      <p class="eyebrow">Where it is argued from</p>
+      <h2>The whole view decides the design.</h2>
+      <p>Crinaro is a ridge line, from the Italian <i>crinale</i>: the crest path where you can
+         see down both sides. That is the method: stand where the whole system is visible before
+         deciding anything. The test of a decision made from there is whether the team still owns
+         and runs what was built when you come back to it, and whether <em>do not build this</em>
+         was ever an available answer.</p>
+    </div>
+  </div>
+</section>
+
+<!-- The three sections that were here moved to /how-the-work-gets-done/ on
+     2026-09-13. They were 3,039px, 32% of the page and 3.4 of its 10.5
+     screens, and they are the one block that is about us rather than about the
+     reader: a render review found the page silently turning here, from the
+     executive's problem to our factory, six agent names and three
+     repositories.
+     ⚠️ THE TRADE, stated so it is not rediscovered: that block is the only
+     thing on the site resembling a demonstration rather than an argument.
+     Behind a click, a reader who was nearly convinced may never reach it.
+     This hand-off is what has to carry them there. If the page ever needs to
+     prove itself in one scroll, this is the decision to revisit.
+     ⛔ THE MARKETPLACE URL STAYS IN THIS PARAGRAPH. counterpoint, 2026-09-13:
+     the split took github.com/crinaro/marketplace off the home page entirely,
+     while the same sentence went on saying "a public marketplace anyone can
+     install". Nothing false was claimed and there was no way to check it —
+     the same family as the "read every one of them" defect, pointed at a page
+     instead of a private repo. It is the ONLY object on the whole site a
+     hostile reader can open, and it now costs zero pixels to name. Do not let
+     a later tightening pass turn it back into a bare noun.
+     The link label is the second half of that fix: "how the work gets done"
+     promised process, which is the category an executive skips. It names the
+     objects now. -->
+<section>
+  <div class="wrap">
+    <div class="head narrow">
+      <p class="eyebrow">How the work gets done</p>
+      <h2>The model is run on&nbsp;three things.</h2>
+      <p>Not described: run. The AI-SDLC reference the argument comes from, this brand, and a
+         public marketplace. That last one you can open and install:
+         <a class="src" href="https://github.com/crinaro/marketplace">github.com/crinaro/marketplace</a>.
+         The agent teams behind them, and one capability followed across every team
+         it touches, are set out separately:
+         <a class="src" href="/how-the-work-gets-done/">the agent roles, and what each keeps
+         alive</a>.</p>
     </div>
   </div>
 </section>
@@ -1825,11 +2133,17 @@ ${CSS}
       <p>These are patterns, not prescriptions, and the interesting mail is the mail that says a
          piece of it does not hold: in your architecture, at your size, with the constraints you
          actually have. That is a conversation worth having whether or not anything follows it.</p>
+      <!-- "maintained the way the rest of this is" was here, and "the rest of this"
+           meant the three cards two sections above. Those cards moved to
+           /how-the-work-gets-done/ on 2026-09-13 and the pronoun was left pointing
+           at nothing — the closing paragraph of the home page was a callback to
+           something the home page no longer contained. counterpoint caught it the
+           same day. Naming the three costs six words and cannot go stale. -->
       <p>Today I read it myself, and I do not expect enough mail to change that. If that changes,
          the answer will be the one this whole page argues for: an agent team to help with the
-         replying, maintained the way the rest of this is, with the questions and the disagreement
-         going back to the team that keeps the material. Which is a fair test of whether any of it
-         works.</p>
+         replying, maintained the way the reference, this brand and the marketplace are, with the
+         questions and the disagreement going back to the team that keeps the material. Which is a
+         fair test of whether any of it works.</p>
       <p style="margin-top:.8rem">
         <a class="src" href="mailto:${EMAIL}?subject=Crinaro">${EMAIL}</a>
       </p>
@@ -1852,7 +2166,92 @@ ${CSS}
 </html>
 `;
 
-writePage(path.join(DIST, 'index.html'), html);
+const indexBytes = writePage(path.join(DIST, 'index.html'), html);
+
+// /how-the-work-gets-done/ — the three sections the home page hands off to.
+// It uses the HOME PAGE's full-width shell rather than the narrow note shell,
+// because .cols, .vert and the capability diagram need the width; the diagram
+// is unreadable in a 38rem column. The header is the hero stripped of the
+// claim and the two doors: this is a destination, not a second front door.
+const workHtml = `<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How the work gets done · Crinaro.AI</title>
+<meta name="description" content="The agent teams that maintain three assets, and one capability followed across every team it touches.">
+<meta property="og:title" content="How the work gets done">
+<meta property="og:description" content="The agent teams that maintain three assets, and one capability followed across every team it touches.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://crinaro.ai/how-the-work-gets-done/">
+<meta property="og:image" content="https://crinaro.ai/icons/crinaro-og-1200x630.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Crinaro.AI · AI from higher ground">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,${encodeURIComponent(svg('crinaro-ai-mark-small.svg'))}">
+<link rel="icon" type="image/png" sizes="32x32" href="/icons/crinaro-favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/icons/crinaro-favicon-16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/icons/crinaro-icon-180.png">
+<style>
+${CSS}
+  .hero h1 { max-width:20ch; }
+  .hero p { max-width:54ch; }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <a class="note-home" href="/">${svg('crinaro-ai-horizontal-reversed.svg')}</a>
+    <h1>How the work&nbsp;gets done.</h1>
+    <!-- "The three things this model is run on" was here until 2026-09-13. Read
+         cold — and this page carries og: tags and a sitemap entry, so it IS
+         landed on cold — "this model" had no antecedent anywhere on it, and
+         "the three things" was definite on first use a full section before the
+         three were named. It also promised things -> teams -> capability while
+         the page delivered teams -> things -> capability. The sections below
+         are now in the promised order; keep the two in step. -->
+    <p>The argument this site makes is run on three things rather than described against. Here they
+       are, the agent teams that maintain them, and one capability followed across every team it
+       touches.</p>
+  </div>
+</header>
+
+<main>
+
+${WORK_SECTIONS}
+
+<section>
+  <div class="wrap">
+    <div class="head narrow">
+      <p class="eyebrow">Back</p>
+      <h2>Where this sits.</h2>
+      <p>The argument these are run against is on the
+         <a class="src" href="/">home page</a>, worked out at length
+         <a class="src" href="/notes/">in the notes</a>, and the machinery half is
+         <a class="src" href="/what-you-already-have/">what the gaps cost</a>.</p>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    ${svg('crinaro-ai-horizontal-reversed.svg')}
+    <p class="fine">
+      <a href="mailto:${EMAIL}">${EMAIL}</a> &nbsp;\u00b7&nbsp; crinaro.ai
+    </p>
+  </div>
+</footer>
+
+</body>
+</html>
+`;
+fs.mkdirSync(path.join(DIST, 'how-the-work-gets-done'), { recursive: true });
+writePage(path.join(DIST, 'how-the-work-gets-done', 'index.html'), workHtml);
+console.log('       dist/how-the-work-gets-done/ — the three run-on-this sections');
 
 // 2026-09-02. The knowledge tier. The home page's second problem card, "No
 // answer anyone can trust", promises this argument and had nothing behind it.
@@ -2101,8 +2500,9 @@ ${CSS}
     <h2><a href="/notes/${n.slug}/">${n.title}</a></h2>
     <p>${n.standfirst}</p>
   </div>`).join('\n  ')}
-  <p class="index-foot"><a class="src" href="/what-you-already-have/">What the gaps cost</a>
-     &middot; <a class="src" href="/">Crinaro.AI</a></p>
+  <p class="index-foot linkrow"><a class="src" href="/what-you-already-have/">What the gaps cost</a>
+     <span class="sep">&middot;</span><a class="src" href="/how-the-work-gets-done/">How the work gets done</a>
+     <span class="sep">&middot;</span><a class="src" href="/">Crinaro.AI</a></p>
   <p class="index-foot">Written by John Kelly. If a piece of this does not hold in your
      architecture, at your size, that is the mail worth sending:
      <a class="src" href="mailto:${EMAIL}">${EMAIL}</a>. Today I read it myself.</p>
@@ -2255,8 +2655,21 @@ writePage(path.join(DIST, 'what-you-already-have', 'index.html'), `${pageHead(
   .lbl { font-family:var(--mono); font-size:.68rem; letter-spacing:.13em;
          text-transform:uppercase; color:var(--muted); display:block; margin-bottom:.2rem; }`)}
   <h1>Start from what you already have</h1>
-  <p class="standfirst"><b>Ownership is what decides whether any of this helps</b>, and that is
-     argued <a class="src" href="/notes/">in the notes</a>. This is the other half. Some of this
+  <!-- ⛔ Not a sole-decider claim. It read "Ownership is what decides whether
+       any of this helps" until 2026-09-13. The AI-SDLC summary's fifth claim
+       refuses that in as many words, "It is not the most important of the
+       three", and the material cannot be quoted back: the paragraph is flagged
+       stands-alone: no, marked "Reasoned, not observed", and warranted by a
+       corpus no reader can open. A source you cannot quote can still bind you
+       negatively. It cannot license a claim; it can refuse one you are already
+       making, and it refuses this one. The cost was the CIO who already knows
+       better reading a single-lever sentence at the top of the adoption route
+       and filing the author as a one-idea consultant, before the rows get a
+       chance. The second sentence is what the notes actually argue, so the
+       citation is now true of both halves. -->
+  <p class="standfirst"><b>Ownership decides who is answerable. On its own it does not put an
+     answer where anyone can reach it</b>, and both are argued
+     <a class="src" href="/notes/">in the notes</a>. This is the other half. Some of this
      machinery you will already have, and the useful question is not what a greenfield build would
      look like, it is what the gaps are costing you.</p>
   <p class="written">Read down the list. <b>Stop at the first one you answer no to</b>, and follow
@@ -2277,19 +2690,21 @@ writePage(path.join(DIST, 'what-you-already-have', 'index.html'), `${pageHead(
      things that sit across all of it, are not on the request path in the way these
      ${SPELLED[LAYERS.length].toLowerCase()} are, so an order of adoption says nothing useful about
      them. Evaluating what an agent produced is not a row either, because too little turned up to
-     put in front of you as a set of options. Neither is a registry of prompts or agent
-     definitions, nor delivering what is registered to the machines that run it. Those last three
-     are in <a class="src" href="/what-you-already-have/options/">the options</a> as well, where
-     you can see how little was found. Naming that is the alternative to selling you a gap as a
-     layer.</p>
+     put in front of you as a set of options, and nor is delivering what is registered to the
+     machines that run it. Both are in <a class="src" href="/what-you-already-have/options/">the
+     options</a>, where each says how little is there and why. A registry of prompts or agent
+     definitions is not a row here either, and that one is not scarcity: it has rows in the options.
+     What it does not have is a place in this order, and this page does not invent one. Naming that
+     is the alternative to selling you a gap as a layer.</p>
 
   <div class="foot">
     <p>None of this has been measured against an organization, and the ordering is reasoned from
        what depends on what. If a row is wrong, or the order is wrong where you are,
        <a class="src" href="mailto:${EMAIL}">say so</a>, and today I read it myself.</p>
-    <p><a class="src" href="/what-you-already-have/options/">All the options, in one table</a>
-       &middot; <a class="src" href="/notes/">Read the notes</a>
-       &middot; <a class="src" href="/">Crinaro.AI</a></p>
+    <p class="linkrow"><a class="src" href="/what-you-already-have/options/">All the options, in one table</a>
+       <span class="sep">&middot;</span><a class="src" href="/notes/">Read the notes</a>
+       <span class="sep">&middot;</span><a class="src" href="/how-the-work-gets-done/">How the work gets done</a>
+       <span class="sep">&middot;</span><a class="src" href="/">Crinaro.AI</a></p>
   </div>
 </div>
 </body>
@@ -2330,7 +2745,11 @@ writePage(path.join(DIST, 'what-you-already-have', 'options', 'index.html'), `${
   .jump { font-size:.92rem; line-height:2; color:var(--ink-2); margin:0 0 2.6rem; }
   .jump a { color:var(--ink); text-decoration:none; border-bottom:1px solid rgba(27,92,70,.3);
             white-space:nowrap; display:inline-block; }
-  .jump a { margin-right:.9rem; }`)}
+  /* Eleven layer links wrap across several lines, so every pair that lands
+     on one baseline is an adjacent-underline pair. At .9rem they measured
+     18.5px apart and joined, which check-link-gaps.js caught and the
+     render review did not: a wrapped list hides the defect in plain sight. */
+  .jump a { margin-right:1.8rem; }`)}
   <h1>The options at each layer</h1>
   <p class="standfirst"><b>It is a list and not a review.</b> Nothing here ranks anything, no entry
      says a tool is good, and nobody here has operated most of them. A product missing from it was
@@ -2349,9 +2768,30 @@ writePage(path.join(DIST, 'what-you-already-have', 'options', 'index.html'), `${
     const list = TOOLS.tools.filter(t => t.layer === key)
                             .sort((a, b) => a.name.toLowerCase().localeCompare(b.name.toLowerCase()));
     if (!list.length) {
-      return EMPTY_LAYER[key]
-        ? `<h2 id="l-${key}">${label}</h2>\n  <p class="empty">${EMPTY_LAYER[key]}</p>`
-        : '';
+      const e = EMPTY_LAYER[key];
+      if (!e) return '';
+      // The rows the list records as serving this layer from elsewhere, grouped
+      // by where a reader will actually find them. The link is to the section on
+      // this page rather than to the vendor, because the row is what carries the
+      // read date and how it was read.
+      const rows = (e.points ? (TOOLS.alsoServed || {})[key] || [] : [])
+        .map(n => TOOLS.tools.find(t => t.name === n)).filter(Boolean);
+      let pointer = '';
+      if (rows.length) {
+        const homes = [...new Set(rows.map(r => r.layer))].map(h => {
+          const named = rows.filter(r => r.layer === h).map(r => r.name);
+          const label2 = (LAYER_NAMES.find(([k]) => k === h) || [h, h])[1];
+          return `filed under <a class="src" href="#l-${h}">${label2.toLowerCase()}</a>: `
+               + named.slice(0, -1).join(', ') + (named.length > 1 ? ' and ' : '') + named.slice(-1);
+        });
+        // SPELLED stops at twenty. A re-cut naming more than that would print
+        // "undefined rows" rather than failing, which is the silent kind.
+        const n = SPELLED[rows.length] || String(rows.length);
+        pointer = ` <b>The list names ${n.toLowerCase()} ${rows.length === 1 ? 'row' : 'rows'} on `
+                + `this page as also serving this layer</b>, ${homes.join('; ')}.`;
+      }
+      return `<h2 id="l-${key}">${label}</h2>\n  <p class="empty">${e.text}${pointer}`
+           + `${e.after ? ' ' + e.after : ''}</p>`;
     }
     // Two dates are different and must stay labeled (decisions/07): this one
     // is ours, the read, and the vendor's push date is on the linked page. The
@@ -2380,9 +2820,9 @@ writePage(path.join(DIST, 'what-you-already-have', 'options', 'index.html'), `${
      yourself, against today.</p>
 
   <div class="foot">
-    <p><a class="src" href="/what-you-already-have/">Back to where to start</a>
-       &middot; <a class="src" href="/notes/">Read the notes</a>
-       &middot; <a class="src" href="/">Crinaro.AI</a></p>
+    <p class="linkrow"><a class="src" href="/what-you-already-have/">Back to where to start</a>
+       <span class="sep">&middot;</span><a class="src" href="/notes/">Read the notes</a>
+       <span class="sep">&middot;</span><a class="src" href="/">Crinaro.AI</a></p>
   </div>
 </div>
 </body>
@@ -2403,11 +2843,98 @@ fs.writeFileSync(path.join(DIST, 'sitemap.xml'),
   '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' +
   '  <url><loc>https://crinaro.ai/</loc><changefreq>monthly</changefreq></url>\n' +
   `  <url><loc>https://crinaro.ai/notes/</loc><changefreq>monthly</changefreq></url>\n` +
+  `  <url><loc>https://crinaro.ai/how-the-work-gets-done/</loc><changefreq>monthly</changefreq></url>\n` +
   `  <url><loc>https://crinaro.ai/what-you-already-have/</loc><changefreq>monthly</changefreq></url>\n` +
   `  <url><loc>https://crinaro.ai/what-you-already-have/options/</loc><changefreq>monthly</changefreq></url>\n` +
   NOTES.map(n =>
     `  <url><loc>https://crinaro.ai/notes/${n.slug}/</loc><lastmod>${n.date}</lastmod></url>\n`).join('') +
   '</urlset>\n');
+
+// The PUBLIC repo's README, generated rather than hand-kept.
+//
+// ⛔ It was hand-kept until 2026-09-13, and it had rotted where nothing could
+// see it. Live on github.com it stated, as the brand's claim, the FIRST of the
+// two superseded claims in check-drift.sh's SUPERSEDED array — the one this
+// repo rejected and preserved only in decisions/build-site.v2-rejected.js. That
+// gate forbids it in every generator and artifact and had no way to reach a
+// file in the other repo. The same README also described the site as a single
+// static page of about 14 KB, named copy arrays that no longer exist, used
+// British spelling, and invited a reader to put a real number into a YEARS
+// constant, which is the invented-biography rule pointed at a text box.
+// Nothing regenerated it, no gate read it, and the deploy's wipe list did not
+// own it, so every publish left it exactly as it was.
+//
+// Writing the claim out here would have reintroduced it into a generator, which
+// is why this comment names the array instead. Both gates caught the first
+// draft of this very comment doing exactly that.
+//
+// Generating it into dist/ fixes the class, not the instance: the superseded
+// claim scan already walks site/dist, and deploy-site.sh scans the whole
+// publish tree for British spelling — which is what finally caught this.
+//
+// Built from an array rather than a template literal on purpose: the fenced
+// code block below is three backticks, and a backtick inside a template literal
+// ends it. That exact trap cost a build earlier the same day.
+//
+// ⛔ NOTHING about the private repo, the decisions or the checks goes in here
+// beyond the fact that they exist and are not published. And no invitation to
+// verify something a reader cannot reach — the Privacy section says plainly
+// that the publish-time check runs somewhere they cannot see.
+const pageCount = (function count(dir) {
+  return fs.readdirSync(dir, { withFileTypes: true }).reduce((n, e) =>
+    n + (e.isDirectory() ? count(path.join(dir, e.name)) : (e.name.endsWith('.html') ? 1 : 0)), 0);
+})(DIST);
+
+fs.writeFileSync(path.join(DIST, 'README.md'), [
+  '# crinaro.github.io',
+  '',
+  'The published Crinaro.AI site. Static HTML, no framework, and no build step in the deploy path:',
+  'GitHub Pages serves this repo root as it stands, and the pages fetch nothing from anywhere.',
+  '',
+  '## What is here',
+  '',
+  '| Path | What it is |',
+  '|---|---|',
+  '| `index.html` | The claim, the principles, and the two routes into the rest |',
+  '| `notes/` | The written pieces, each argued at length |',
+  '| `what-you-already-have/` | Where to start, and what an empty layer costs |',
+  '| `how-the-work-gets-done/` | The three things the argument is run on, and the teams that maintain them |',
+  '| `email/` | The email signature images |',
+  '| `src/` | The generators and the logo SVGs |',
+  '',
+  `${SPELLED[pageCount] || pageCount} pages in all. Everything at the repo root is generated output.`,
+  '**Edit `src/build-site.js`, never `index.html`.** The next build overwrites it.',
+  '',
+  '## Rebuild',
+  '',
+  '```bash',
+  'cd src',
+  'node build-site.js      # -> the pages, CNAME, .nojekyll, robots.txt, sitemap.xml',
+  'python3 build-email.py  # -> ../email/',
+  '```',
+  '',
+  'What that needs, including the awkward part:',
+  '',
+  '- Node, for `build-site.js`. Nothing to install; it reads only the files beside it.',
+  '- `cairosvg` and `pillow` for `build-email.py`, and `cairosvg` needs the native libcairo.',
+  '- Poppins installed, for the same script. Cairo substitutes its own default silently when a face',
+  '  is missing, so the build refuses rather than shipping the signature in the wrong face.',
+  '',
+  '## Status',
+  '',
+  'This repo is output. The reasoning behind the site is in a private repository and is not here:',
+  'the decisions, the drafts, the reviews, and the checks that run before anything is published.',
+  'So this README can tell you how to rebuild the site, and cannot show you why it says what it says.',
+  '',
+  '## Privacy',
+  '',
+  'The email signature carries personal contact details. Those are kept outside this repo and are',
+  'never generated into it; the images in `email/` are the wordmark lockup and carry no contact',
+  'details. The publishing step refuses to push when a phone number or a profile link reaches this',
+  'tree. That check runs in the private repository, so it is a statement about how this is published',
+  'rather than something you can verify from here.',
+  '',
+].join('\n'));
 
 // Icons, generated by logo/build-icons.py. Only the four the web actually
 // asks for are published — the rest of that set is for GitHub, LinkedIn and
@@ -2423,7 +2950,7 @@ if (fs.existsSync(ICON_SRC)) {
   console.warn('  ! logo/icons missing — run: cd logo && python3 build-icons.py');
 }
 
-const kb = (Buffer.byteLength(html) / 1024).toFixed(1);
+const kb = (indexBytes / 1024).toFixed(1);
 console.log(`wrote dist/index.html — ${kb} KB, 0 external requests`);
 console.log('       dist/CNAME, .nojekyll, robots.txt, sitemap.xml');
 console.log(`       dist/icons/ — ${WEB_ICONS.length} files`);

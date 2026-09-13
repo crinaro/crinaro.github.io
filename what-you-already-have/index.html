@@ -29,7 +29,8 @@
                        letter-spacing:.06em; }
   .principle b { color:var(--ink); font-weight:500; font-family:var(--head); }
   .principle span { display:block; color:var(--ink-2); margin-top:.3rem; }
-  .principle .src { margin-right:.9rem; }
+  .principle .src { margin-right:1.7rem; }   /* two citations on one
+     baseline were 19.1px apart and read as one rule; 2g needs 24 */
 
   /* The brand commits to one visual world — navy and paper — rather than
      following the viewer's theme. Every ground is painted explicitly. */
@@ -128,6 +129,47 @@
          padding-bottom:1px; }
   .src:hover { border-bottom-color:var(--green); }
 
+  /* Two links on one baseline read as ONE rule with a nick in it. The
+     underline is a pale border-bottom and the bare middot between them is
+     smaller and lower contrast than the rule it is supposed to break, so the
+     eye joins them. Recorded as a defect on 2026-09-02; found live again on
+     three pages on 2026-09-13, at gaps of 13.1, 13.5 and 19.1 pixels.
+     ⛔ No numeric check could ever have caught it: the underline is a BORDER,
+     so getComputedStyle().textDecorationLine returns "none". check-drift.sh 2g
+     measures the rendered gap instead and fails under 24px.
+     The separator gets its own element so it can outweigh what it separates. */
+  .sep { display:inline-block; padding:0 .7rem; color:var(--ink-2);
+         border-bottom:none; }
+
+  /* A link row breaks BETWEEN its items, never inside one. Adding a fourth link
+     to the adoption page's row on 2026-09-13 wrapped "How the work gets done"
+     mid-label and stranded an underlined "done" on the next line beside
+     "Crinaro.AI" — the broken-title defect again, in a row check-link-gaps.js
+     had just passed. That is not the gate failing: the gap between the two was
+     fine, and the wrap is what read wrong. Only a render catches it.
+     Two things hold the row together, and BOTH are needed:
+       1. this rule, so a multi-word label cannot split across lines;
+       2. no whitespace between a .sep span and the link it introduces, in the
+          markup — otherwise the row can break there and leave a dangling "·"
+          at the end of a line. The visible gap is the separator's own padding,
+          NOT a space character, so closing it up costs nothing.
+     If you add a link to one of these rows, render the page and look at it.
+     A four-link row DOES still wrap to two lines in the 560px column the
+     adoption page gives it, at every width from 1000 to 1920 — the column is
+     what constrains it, not the 38rem prose measure. Lifting that measure was
+     tried on 2026-09-13 and measured as inert before being taken out again;
+     if you are tempted by it, the row and its parent are both 560px. Wrapping
+     cleanly is the fix here, not fitting on one line. */
+  .linkrow a.src { white-space:nowrap; }
+  /* .sep is inline-block everywhere else, and an atomic inline box is its own
+     break opportunity — so even with the whitespace removed the row still broke
+     between a separator and its link, leaving the "·" stranded at the end of a
+     line. Inline inside a link row instead: horizontal padding still applies,
+     and with no whitespace after it the separator cannot be parted from the
+     link it introduces. A row that wraps now carries the "·" down to the next
+     line, where it reads as a continued list rather than as debris. */
+  .linkrow .sep { display:inline; }
+
   /* The diagram scrolls inside its own box rather than squashing: below about
      44rem the five stages cannot hold their labels, and a legible thing you
      drag beats an illegible thing that fits. */
@@ -207,8 +249,10 @@
   <text x="300" y="66" fill="#0B2545" font-family="Poppins,Futura,'Century Gothic','Avenir Next',Avenir,sans-serif" font-size="40" font-weight="500" letter-spacing="0.26em" dx="0 0 0 0 0 0 0 -5.20 -5.20 0">CRINARO<tspan fill="#1B5C46">.AI</tspan></text>
 </svg></a>
   <h1>Start from what you already have</h1>
-  <p class="standfirst"><b>Ownership is what decides whether any of this helps</b>, and that is
-     argued <a class="src" href="/notes/">in the notes</a>. This is the other half. Some of this
+  
+  <p class="standfirst"><b>Ownership decides who is answerable. On its own it does not put an
+     answer where anyone can reach it</b>, and both are argued
+     <a class="src" href="/notes/">in the notes</a>. This is the other half. Some of this
      machinery you will already have, and the useful question is not what a greenfield build would
      look like, it is what the gaps are costing you.</p>
   <p class="written">Read down the list. <b>Stop at the first one you answer no to</b>, and follow
@@ -259,19 +303,21 @@
      things that sit across all of it, are not on the request path in the way these
      six are, so an order of adoption says nothing useful about
      them. Evaluating what an agent produced is not a row either, because too little turned up to
-     put in front of you as a set of options. Neither is a registry of prompts or agent
-     definitions, nor delivering what is registered to the machines that run it. Those last three
-     are in <a class="src" href="/what-you-already-have/options/">the options</a> as well, where
-     you can see how little was found. Naming that is the alternative to selling you a gap as a
-     layer.</p>
+     put in front of you as a set of options, and nor is delivering what is registered to the
+     machines that run it. Both are in <a class="src" href="/what-you-already-have/options/">the
+     options</a>, where each says how little is there and why. A registry of prompts or agent
+     definitions is not a row here either, and that one is not scarcity: it has rows in the options.
+     What it does not have is a place in this order, and this page does not invent one. Naming that
+     is the alternative to selling you a gap as a layer.</p>
 
   <div class="foot">
     <p>None of this has been measured against an organization, and the ordering is reasoned from
        what depends on what. If a row is wrong, or the order is wrong where you are,
        <a class="src" href="mailto:john@crinaro.ai">say so</a>, and today I read it myself.</p>
-    <p><a class="src" href="/what-you-already-have/options/">All the options, in one table</a>
-       &middot; <a class="src" href="/notes/">Read the notes</a>
-       &middot; <a class="src" href="/">Crinaro.AI</a></p>
+    <p class="linkrow"><a class="src" href="/what-you-already-have/options/">All the options, in one table</a>
+       <span class="sep">&middot;</span><a class="src" href="/notes/">Read the notes</a>
+       <span class="sep">&middot;</span><a class="src" href="/how-the-work-gets-done/">How the work gets done</a>
+       <span class="sep">&middot;</span><a class="src" href="/">Crinaro.AI</a></p>
   </div>
 </div>
 </body>

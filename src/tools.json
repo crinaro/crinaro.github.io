@@ -1,5 +1,29 @@
 {
- "cut": "2026-09-11",
+ "alsoServed": {
+  "author": [
+   "BerriAI/litellm"
+  ],
+  "compute-and-isolation": [
+   "Claude Managed Agents",
+   "temporalio/temporal"
+  ],
+  "evaluate": [
+   "Vellum"
+  ],
+  "orchestration": [
+   "n8n-io/n8n"
+  ],
+  "publish-and-deliver": [
+   "addyosmani/agent-skills",
+   "anthropics/skills",
+   "ComposioHQ/awesome-claude-skills",
+   "mattpocock/skills"
+  ],
+  "register-and-version": [
+   "andrewyng/context-hub"
+  ]
+ },
+ "cut": "2026-09-13",
  "revision": null,
  "tools": [
   {
@@ -90,7 +114,7 @@
    "layer": "serving",
    "name": "meta-llama/Llama-3.1-8B-Instruct",
    "url": "https://huggingface.co/meta-llama/Llama-3.1-8B-Instruct",
-   "what": "Meta\u2019s 8-billion-parameter instruction-tuned text model, tagged for eight languages, published as four safetensors shards plus one PyTorch checkpoint under Meta\u2019s own Llama 3.1 licence and behind a manual approval gate; the card body returned 401 without a login on 2026-09-03."
+   "what": "Meta\u2019s 8-billion-parameter instruction-tuned text model, tagged for eight languages, published as four safetensors shards plus one PyTorch checkpoint under Meta\u2019s own Llama 3.1 license and behind a manual approval gate; the card body returned 401 without a login on 2026-09-03."
   },
   {
    "archived": false,
@@ -160,7 +184,7 @@
    "layer": "serving",
    "name": "Qwen/Qwen3.8-Flash-Next",
    "url": "https://huggingface.co/Qwen/Qwen3.8-Flash-Next",
-   "what": "A Qwen model that takes images as well as text (the hub files it as image-text-to-text), about 180 billion parameters in 131 safetensors shards, under a vendor-named licence (Qwen Community 1.0) the hub reports as \u2018other\u2019."
+   "what": "A Qwen model that takes images as well as text (the hub files it as image-text-to-text), about 180 billion parameters in 131 safetensors shards, under a vendor-named license (Qwen Community 1.0) the hub reports as \u2018other\u2019."
   },
   {
    "archived": false,

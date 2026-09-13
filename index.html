@@ -34,7 +34,8 @@
                        letter-spacing:.06em; }
   .principle b { color:var(--ink); font-weight:500; font-family:var(--head); }
   .principle span { display:block; color:var(--ink-2); margin-top:.3rem; }
-  .principle .src { margin-right:.9rem; }
+  .principle .src { margin-right:1.7rem; }   /* two citations on one
+     baseline were 19.1px apart and read as one rule; 2g needs 24 */
 
   /* The brand commits to one visual world — navy and paper — rather than
      following the viewer's theme. Every ground is painted explicitly. */
@@ -133,6 +134,47 @@
          padding-bottom:1px; }
   .src:hover { border-bottom-color:var(--green); }
 
+  /* Two links on one baseline read as ONE rule with a nick in it. The
+     underline is a pale border-bottom and the bare middot between them is
+     smaller and lower contrast than the rule it is supposed to break, so the
+     eye joins them. Recorded as a defect on 2026-09-02; found live again on
+     three pages on 2026-09-13, at gaps of 13.1, 13.5 and 19.1 pixels.
+     ⛔ No numeric check could ever have caught it: the underline is a BORDER,
+     so getComputedStyle().textDecorationLine returns "none". check-drift.sh 2g
+     measures the rendered gap instead and fails under 24px.
+     The separator gets its own element so it can outweigh what it separates. */
+  .sep { display:inline-block; padding:0 .7rem; color:var(--ink-2);
+         border-bottom:none; }
+
+  /* A link row breaks BETWEEN its items, never inside one. Adding a fourth link
+     to the adoption page's row on 2026-09-13 wrapped "How the work gets done"
+     mid-label and stranded an underlined "done" on the next line beside
+     "Crinaro.AI" — the broken-title defect again, in a row check-link-gaps.js
+     had just passed. That is not the gate failing: the gap between the two was
+     fine, and the wrap is what read wrong. Only a render catches it.
+     Two things hold the row together, and BOTH are needed:
+       1. this rule, so a multi-word label cannot split across lines;
+       2. no whitespace between a .sep span and the link it introduces, in the
+          markup — otherwise the row can break there and leave a dangling "·"
+          at the end of a line. The visible gap is the separator's own padding,
+          NOT a space character, so closing it up costs nothing.
+     If you add a link to one of these rows, render the page and look at it.
+     A four-link row DOES still wrap to two lines in the 560px column the
+     adoption page gives it, at every width from 1000 to 1920 — the column is
+     what constrains it, not the 38rem prose measure. Lifting that measure was
+     tried on 2026-09-13 and measured as inert before being taken out again;
+     if you are tempted by it, the row and its parent are both 560px. Wrapping
+     cleanly is the fix here, not fitting on one line. */
+  .linkrow a.src { white-space:nowrap; }
+  /* .sep is inline-block everywhere else, and an atomic inline box is its own
+     break opportunity — so even with the whitespace removed the row still broke
+     between a separator and its link, leaving the "·" stranded at the end of a
+     line. Inline inside a link row instead: horizontal padding still applies,
+     and with no whitespace after it the separator cannot be parted from the
+     link it introduces. A row that wraps now carries the "·" down to the next
+     line, where it reads as a continued list rather than as debris. */
+  .linkrow .sep { display:inline; }
+
   /* The diagram scrolls inside its own box rather than squashing: below about
      44rem the five stages cannot hold their labels, and a legible thing you
      drag beats an illegible thing that fits. */
@@ -215,7 +257,8 @@
 </svg>
     <h1>AI from higher ground.</h1>
     <p>Ideas and patterns worked out over 30 years in healthcare, GovTech and travel, now applied with agents.</p>
-    <div class="routes">
+    
+    <div class="routes" id="notes">
       <p><span class="rl">Design</span><a class="src" href="/notes/">How these systems should be shaped, argued at length <span aria-hidden="true">&rarr;</span></a></p>
       <p><span class="rl">Adoption</span><a class="src" href="/what-you-already-have/">Where to start, and what the gaps are costing you <span aria-hidden="true">&rarr;</span></a></p>
     </div>
@@ -223,6 +266,8 @@
 </header>
 
 <main>
+
+
 
 <section>
   <div class="wrap">
@@ -245,26 +290,16 @@
     </div>
     
     <p class="note">None of this is argued from the outside. It comes from delivery in those
-       industries, and from agent teams maintaining repositories that have to keep working today.
-       It is reasoning about how the failure happens rather than a result anybody has measured.</p>
-    <p class="note"><b>Whether it is your problem is a real question with an honest answer.</b> If
-       the immediate matters more to you than the long-term cost, and nobody measures you on your
-       run rate, this is not a focus for you and you should not spend on it. If the run rate is
-       what you are measured on, it is, and nothing about adopting AI addresses it on its own.</p>
-  </div>
-</section>
-
-<section class="band">
-  <div class="wrap">
-    <div class="head narrow">
-      <p class="eyebrow">Where it is argued from</p>
-      <h2>The whole view decides the design.</h2>
-      <p>Crinaro is a ridge line, from the Italian <i>crinale</i>: the crest path where you can
-         see down both sides. That is the method: stand where the whole system is visible before
-         deciding anything. The test of a decision made from there is whether the team still owns
-         and runs what was built when you come back to it, and whether <em>do not build this</em>
-         was ever an available answer.</p>
-    </div>
+       industries, and from agent teams maintaining repositories that have to keep working today:
+       <a class="src" href="/how-the-work-gets-done/">the teams that do it, and what they keep
+       alive</a>. It is reasoning about how the failure happens rather than a result anybody has
+       measured.</p>
+    
+    <p class="note"><b>Whether it is your problem is one financial question.</b> Can you hit your
+       financial goals on the model you run today? If you can, adopt AI and change nothing else. If
+       you cannot, adopting it speeds up what is already going wrong: platforms to keep secure, one
+       change held in agreement by hand across several places, and the run rate underneath. A
+       direction, answered by judgment, with no rate attached.</p>
   </div>
 </section>
 
@@ -283,6 +318,7 @@
         <span>An agent configuration scoped to one request will hit that request's goal. What it
         costs after that is paid by everyone, on every run, and only a deliberate act removes it.
         <a class="src" href="/notes/five-user-apis/">Why do we have five user APIs</a></span></p>
+      
       <p class="principle"><b>Assign ownership at the component level, and over its data.</b>
         <span>A team aligned to a component is still answerable for it after the current deadline,
         which is what velocity and run rate both depend on. A team aligned to a project is
@@ -290,7 +326,8 @@
         accountability of whoever funds and reviews it.
         <b>Data nobody owns is where the boundary fails</b>: the team changes behavior it
         owns while nothing is answerable for the shape that constrains it. Owned somewhere else on
-        purpose, with a name against it, is a different thing and it is the design working.
+        purpose, with a name against it, is a different thing. The linked notes work out the
+        component half; the data half is not written yet.
         <a class="src" href="/notes/the-last-hop/">The last hop nobody wrote down</a>
         <a class="src" href="/notes/five-user-apis/">Why do we have five user APIs</a></span></p>
       <p class="principle"><b>Treat duplication as the primary cost driver.</b>
@@ -318,14 +355,18 @@
     <div class="head narrow">
       <p class="eyebrow">Where to start</p>
       <h2>Two moves, and the&nbsp;second one is the hard one.</h2>
-      <p>Neither of these is a tool decision. They are the things that have to be true before a
-         tool decision means anything. The machinery half is separate:
-         <a class="src" href="/what-you-already-have/">what the gaps cost</a>.</p>
+      
+      <p>Neither is a tool decision, and neither asks you to change how work arrives. Leadership
+         keeps filing projects; nobody has to be persuaded to think in systems. What has to change
+         is ownership, and that is the cost: a team takes a delivery date into a queue it does not
+         control, and declines for good reasons. The machinery half is separate: <a class="src" href="/what-you-already-have/">what the gaps cost</a>.</p>
     </div>
     <div class="vert">
       <b>An internal marketplace</b>
+      
       <p>So teams share what they build instead of each solving it privately. It is the cheaper of
-         the two moves, because the alternative is each team paying to discover the same thing.
+         the two to start with, which is a judgment rather than a measurement: nobody has priced
+         both.
          <a class="src" href="/notes/shared-skills/">What&nbsp;a shared capability does and does not fix</a></p>
     </div>
     <div class="vert">
@@ -347,139 +388,12 @@
   </div>
 </section>
 
-<section>
-  <div class="wrap">
-    <div class="head narrow">
-      <p class="eyebrow">How the work gets done</p>
-      <h2>A factory that maintains, not just builds.</h2>
-      <p>Generating something with AI is the easy half now. The other half decides whether the
-         thing is still alive in six months: keeping the documents true, the gates green, the
-         releases loading, and the claims about the system honest. That is the half these agents
-         do. None of them writes features.</p>
-    </div>
-    <div class="verts">
-      <div class="vert"><b>Architect</b><span>The shape of the thing: what is an agent, what is a script, what belongs in a manifest.</span></div>
-      <div class="vert"><b>Deployment auditor</b><span>Where it can actually run: a desktop, a schedule, a headless container, and whether the docs say so truthfully.</span></div>
-      <div class="vert"><b>Gate keeper</b><span>The checks. The regression suite, the fixtures, and whether CI agrees with what passed locally.</span></div>
-      <div class="vert"><b>Docs steward</b><span>The written record: decisions, rulebooks, and stale claims about a system that has moved on.</span></div>
-      <div class="vert"><b>Release manager</b><span>Shipping, so it actually loads for someone. Versions, catalog, cache, and a check from a fresh session.</span></div>
-      <div class="vert"><b>Delivery verifier</b><span>What people actually install after the push: whether it matches what shipped, and whether a claimed fix is really in it.</span></div>
-    </div>
-    <p class="note">Those six are agent definitions in the private repository that maintains the
-       marketplace, so you cannot read them. What they maintain is public: a plugin carrying nine
-       installable agents, a connector, their documentation, and a version history you can walk
-       back. That is one repository run this way, not an organization.</p>
-    
-    <p class="note" id="notes">Most of this is argued at length in the notes, and the first three
-       are one argument: why an organization ends up with several systems doing the same thing, the
-       decomposition that used to live in an engineer's head, and why publishing a convention once
-       does not make the output agree. Start at
-       <a class="src" href="/notes/five-user-apis/">Why do we have five user APIs</a>.</p>
-
-    <p class="note">The two most specific to agents stand on their own:
-       <a class="src" href="/notes/same-request-same-answer/">Same request, same answer</a>, on what an agent
-       team can actually be handed, and
-       <a class="src" href="/notes/prompting-to-specifying/">From prompting to specifying</a>, on what changes
-       for an engineer when the thing you edit stops being the prompt. Or take
-       <a class="src" href="/notes/">all of them</a>.</p>
-  </div>
-</section>
-
-<section>
-  <div class="wrap">
-    <div class="head narrow">
-      <p class="eyebrow">What it maintains</p>
-      <h2>Three assets, kept alive.</h2>
-      <p>Not projects that shipped and stopped. Each is still under maintenance by an agent&nbsp;team.
-         The last is public, so you can install it and read its history.</p>
-    </div>
-    <div class="cols">
-      <div class="col"><div class="rule"></div>
-        <p class="eyebrow">Private · sixteen agents</p><h3>The AI-SDLC reference</h3><p>Delivery end to end on an agentic model, not one team’s repos: what gets asked for, how it is built, how you know it shipped. Worked into patterns another team can pick up.</p></div>
-      <div class="col"><div class="rule"></div>
-        <p class="eyebrow">Internal · five agents</p><h3>This brand</h3><p>The page you are reading, the deck, the identity and the rules that govern them. A critic, a copy editor, one that renders every visual and looks at it, one that argues the other side, and one that reads new copy against everything already published.</p></div>
-      <div class="col"><div class="rule"></div>
-        <p class="eyebrow">Public · installable</p><h3>The plugin marketplace</h3><p>Where the AI-SDLC reference gets tested in public. The utilities are what comes out along the way: an agent team for the job search, and a connector for several mailboxes.</p>
-        <p><a class="src" href="https://github.com/crinaro/marketplace">Read the marketplace <span aria-hidden="true">&rarr;</span></a></p></div>
-    </div>
-  </div>
-</section>
-
-<section>
-  <div class="wrap">
-    <div class="head narrow">
-      <p class="eyebrow">Inside AI-SDLC</p>
-      <h2>One capability, across&nbsp;every team it touches.</h2>
-      <p>This spans the whole path: the spec a
-         roadmap team writes, the work it becomes across other people’s repos, and whether what
-         shipped is what was asked for.</p>
-    </div>
-    <div class="flow"><svg viewBox="0 0 1000 272" role="img"
-     aria-label="A capability spec becomes work items across repos, built by agents on routed compute, then merged and reconciled against the original spec, with a knowledge layer underneath every stage">
-  <g>
-    <rect x="0" y="26" width="176" height="86" rx="3" fill="#F2F6F8" stroke="#DCE4EA"/>
-    <text x="88" y="64" text-anchor="middle" fill="#0B2545" font-family="Poppins,Futura,'Century Gothic','Avenir Next',Avenir,sans-serif" font-size="17" font-weight="500">Capability spec</text>
-    <text x="88" y="86" text-anchor="middle" fill="#5B6E80" font-family="Helvetica,Arial,sans-serif" font-size="12.5">roadmap team</text>
-    <path d="M88 112 L88 196" stroke="#93B8D4" stroke-width="1.5" stroke-dasharray="3 5"/>
-  </g>
-  <g>
-    <rect x="206" y="26" width="176" height="86" rx="3" fill="#F2F6F8" stroke="#DCE4EA"/>
-    <text x="294" y="64" text-anchor="middle" fill="#0B2545" font-family="Poppins,Futura,'Century Gothic','Avenir Next',Avenir,sans-serif" font-size="17" font-weight="500">Work items</text>
-    <text x="294" y="86" text-anchor="middle" fill="#5B6E80" font-family="Helvetica,Arial,sans-serif" font-size="12.5">across repos</text>
-    <path d="M294 112 L294 196" stroke="#93B8D4" stroke-width="1.5" stroke-dasharray="3 5"/>
-  </g>
-  <g>
-    <rect x="412" y="26" width="176" height="86" rx="3" fill="#F2F6F8" stroke="#DCE4EA"/>
-    <text x="500" y="64" text-anchor="middle" fill="#0B2545" font-family="Poppins,Futura,'Century Gothic','Avenir Next',Avenir,sans-serif" font-size="17" font-weight="500">Agents</text>
-    <text x="500" y="86" text-anchor="middle" fill="#5B6E80" font-family="Helvetica,Arial,sans-serif" font-size="12.5">marketplace + local</text>
-    <path d="M500 112 L500 196" stroke="#93B8D4" stroke-width="1.5" stroke-dasharray="3 5"/>
-  </g>
-  <g>
-    <rect x="618" y="26" width="176" height="86" rx="3" fill="#F2F6F8" stroke="#DCE4EA"/>
-    <text x="706" y="64" text-anchor="middle" fill="#0B2545" font-family="Poppins,Futura,'Century Gothic','Avenir Next',Avenir,sans-serif" font-size="17" font-weight="500">Compute, routing</text>
-    <text x="706" y="86" text-anchor="middle" fill="#5B6E80" font-family="Helvetica,Arial,sans-serif" font-size="12.5">per role, per model</text>
-    <path d="M706 112 L706 196" stroke="#93B8D4" stroke-width="1.5" stroke-dasharray="3 5"/>
-  </g>
-  <g>
-    <rect x="824" y="26" width="176" height="86" rx="3" fill="#F2F6F8" stroke="#DCE4EA"/>
-    <text x="912" y="64" text-anchor="middle" fill="#0B2545" font-family="Poppins,Futura,'Century Gothic','Avenir Next',Avenir,sans-serif" font-size="17" font-weight="500">Merged, reconciled</text>
-    <text x="912" y="86" text-anchor="middle" fill="#5B6E80" font-family="Helvetica,Arial,sans-serif" font-size="12.5">against the spec</text>
-    <path d="M912 112 L912 196" stroke="#93B8D4" stroke-width="1.5" stroke-dasharray="3 5"/>
-  </g>
-  <path d="M186 62 l7 7 -7 7" fill="none" stroke="#1B5C46" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
-  <path d="M392 62 l7 7 -7 7" fill="none" stroke="#1B5C46" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
-  <path d="M598 62 l7 7 -7 7" fill="none" stroke="#1B5C46" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
-  <path d="M804 62 l7 7 -7 7" fill="none" stroke="#1B5C46" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
-  <rect x="0" y="196" width="1000" height="66" rx="3" fill="#0B2545"/>
-  <text x="24" y="224" fill="#FFFFFF" font-family="Poppins,Futura,'Century Gothic','Avenir Next',Avenir,sans-serif" font-size="16" font-weight="500">The knowledge layer</text>
-  <text x="24" y="246" fill="#93B8D4" font-family="Helvetica,Arial,sans-serif" font-size="13">Current-state index and deep-research memory: queried, never re-derived.</text>
-</svg></div>
-    <div class="cols" style="margin-top:3.2rem">
-      <div class="col"><div class="rule"></div>
-        <h3>The options</h3><p>Constraints differ by organization. Each decision names the real alternatives rather than one best practice.</p></div>
-      <div class="col"><div class="rule"></div>
-        <h3>The signal</h3><p>A decision table that picks between them, against things you can actually observe. Not “it depends”.</p></div>
-      <div class="col"><div class="rule"></div>
-        <h3>The trigger</h3><p>The specific, felt pain that says it is time for the more complex option, so you do not buy infrastructure for a problem you do not have yet.</p></div>
-    </div>
-    <p class="note">The reference is kept current as the ground moves. The tools, the vendors and
-       the limits all change, and a reference that is not re-sourced is worse than none. It is not published, so
-       the diagram above shows how far the work reaches, not the decisions inside it. Published
-       separately, and standing without it:
-       <a class="src" href="/what-you-already-have/">what the gaps cost</a>, which runs the pieces
-       of infrastructure an agent setup can have in the order they stop being optional, and names
-       some of what exists at each. The layers, and the way to read a repository, change more slowly
-       than the tools under them. The tools move on their own schedules, so the list prints dates
-       rather than intervals and says where nobody has looked.</p>
-  </div>
-</section>
-
-
 <section class="band">
   <div class="wrap">
     <div class="head narrow">
       <p class="eyebrow">What it is aimed at</p>
-      <h2>Three outcomes, none&nbsp;of&nbsp;them measured.</h2>
+      
+      <h2>Maintenance down, delivery&nbsp;up, investment moving.</h2>
       <p>The model is aimed at three things: maintenance costing less, delivery moving faster, and
          investment shifting from keeping what exists running to building what does not exist yet.
          Those are the aims. Every claim in the material is a claim about mechanism rather than
@@ -488,10 +402,42 @@
       <p>Saying that is the point rather than a hedge. A description of a method is exactly the
          thing a reader supplies a payoff to, and staying quiet about the payoff is a different
          position from stating it and declining to claim it.</p>
-      <p>The first attempt to measure one is on the record, and it did not work. In the material's
-         own words: <em>“It did not work as expected. The sequence is not falsified, but it is not
-         yet demonstrated either.”</em> Read the mechanism on its merits, and treat the outcomes as
-         open.</p>
+      
+      <p>The first attempt to measure one is on the record, and it did not work as expected. That
+         record is our own and it is not published, so this is a report on our own material rather
+         than something you can go and audit. The sequence is not falsified by that, and it is not
+         demonstrated either. Read the mechanism on its merits, and treat the outcomes as open.</p>
+    </div>
+  </div>
+</section>
+
+<section class="band">
+  <div class="wrap">
+    <div class="head narrow">
+      <p class="eyebrow">Where it is argued from</p>
+      <h2>The whole view decides the design.</h2>
+      <p>Crinaro is a ridge line, from the Italian <i>crinale</i>: the crest path where you can
+         see down both sides. That is the method: stand where the whole system is visible before
+         deciding anything. The test of a decision made from there is whether the team still owns
+         and runs what was built when you come back to it, and whether <em>do not build this</em>
+         was ever an available answer.</p>
+    </div>
+  </div>
+</section>
+
+
+<section>
+  <div class="wrap">
+    <div class="head narrow">
+      <p class="eyebrow">How the work gets done</p>
+      <h2>The model is run on&nbsp;three things.</h2>
+      <p>Not described: run. The AI-SDLC reference the argument comes from, this brand, and a
+         public marketplace. That last one you can open and install:
+         <a class="src" href="https://github.com/crinaro/marketplace">github.com/crinaro/marketplace</a>.
+         The agent teams behind them, and one capability followed across every team
+         it touches, are set out separately:
+         <a class="src" href="/how-the-work-gets-done/">the agent roles, and what each keeps
+         alive</a>.</p>
     </div>
   </div>
 </section>
@@ -523,11 +469,12 @@
       <p>These are patterns, not prescriptions, and the interesting mail is the mail that says a
          piece of it does not hold: in your architecture, at your size, with the constraints you
          actually have. That is a conversation worth having whether or not anything follows it.</p>
+      
       <p>Today I read it myself, and I do not expect enough mail to change that. If that changes,
          the answer will be the one this whole page argues for: an agent team to help with the
-         replying, maintained the way the rest of this is, with the questions and the disagreement
-         going back to the team that keeps the material. Which is a fair test of whether any of it
-         works.</p>
+         replying, maintained the way the reference, this brand and the marketplace are, with the
+         questions and the disagreement going back to the team that keeps the material. Which is a
+         fair test of whether any of it works.</p>
       <p style="margin-top:.8rem">
         <a class="src" href="mailto:john@crinaro.ai?subject=Crinaro">john@crinaro.ai</a>
       </p>

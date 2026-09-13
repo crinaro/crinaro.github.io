@@ -3,17 +3,20 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Notes · Crinaro.AI</title>
-<meta name="description" content="Pieces on delivery, ownership and agentic development, written as they are worked out.">
-<meta property="og:title" content="Notes">
-<meta property="og:description" content="Pieces on delivery, ownership and agentic development, written as they are worked out.">
-<meta property="og:url" content="https://crinaro.ai/notes/">
+<title>How the work gets done · Crinaro.AI</title>
+<meta name="description" content="The agent teams that maintain three assets, and one capability followed across every team it touches.">
+<meta property="og:title" content="How the work gets done">
+<meta property="og:description" content="The agent teams that maintain three assets, and one capability followed across every team it touches.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://crinaro.ai/how-the-work-gets-done/">
 <meta property="og:image" content="https://crinaro.ai/icons/crinaro-og-1200x630.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Crinaro.AI · AI from higher ground">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20256%20160%22%20role%3D%22img%22%20aria-label%3D%22Crinaro%22%3E%0A%20%20%3Ctitle%3ECrinaro%20%E2%80%94%20mark%2C%20small%3C%2Ftitle%3E%0A%20%20%3Cg%20transform%3D%22translate(-123.2%2C4.8)%20scale(0.8)%22%3E%0A%20%20%20%20%3Cpath%20d%3D%22M178%20150%20L212%2086%20L252%20104%20L320%2038%20L376%20106%20L416%2084%20L450%20150%22%20fill%3D%22none%22%20stroke%3D%22%231B5C46%22%20stroke-width%3D%2218%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%2F%3E%0A%20%20%20%20%3Ccircle%20cx%3D%22320%22%20cy%3D%2238%22%20r%3D%2215%22%20fill%3D%22%230B2545%22%20stroke%3D%22%23F2F6F8%22%20stroke-width%3D%225%22%2F%3E%0A%20%20%3C%2Fg%3E%0A%3C%2Fsvg%3E">
 <link rel="icon" type="image/png" sizes="32x32" href="/icons/crinaro-favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/icons/crinaro-favicon-16.png">
 <link rel="apple-touch-icon" sizes="180x180" href="/icons/crinaro-icon-180.png">
 <style>
 /* Poppins, Latin subset, weights 400, 500, 700. SIL OFL 1.1.
@@ -209,104 +212,190 @@
 
   a { color:var(--green); }
   :focus-visible { outline:2px solid var(--rgreen); outline-offset:3px; }
-  .note-wrap { max-width:38rem; margin:0 auto; padding:3.5rem 1.5rem 5rem; }
-  .note-home { display:inline-block; margin-bottom:3rem; }
-  .note-home svg { width:11rem; height:auto; display:block; }
-  h1 { font-family:var(--head); font-weight:500; font-size:clamp(1.8rem,4vw,2.6rem);
-       line-height:1.12; margin:0 0 1rem; }
-  .standfirst { font-size:1.12rem; color:var(--ink-2); margin:0 0 3rem;
-                padding-bottom:2.6rem; border-bottom:1px solid var(--hair); }
-  .entry { margin:0 0 2.8rem; }
-  .entry time { font-family:var(--mono); font-size:.72rem; letter-spacing:.14em;
-                text-transform:uppercase; color:var(--muted); display:block; margin-bottom:.5rem; }
-  .entry h2 { font-family:var(--head); font-weight:500; font-size:1.3rem; margin:0 0 .5rem;
-              line-height:1.25; }
-  .entry h2 a { color:var(--ink); text-decoration:none;
-                border-bottom:1px solid rgba(27,92,70,.35); padding-bottom:1px; }
-  .entry h2 a:hover { border-bottom-color:var(--green); }
-  .entry p { margin:0; color:var(--ink-2); }
-  .index-foot { margin-top:3.5rem; padding-top:1.6rem; border-top:1px solid var(--hair);
-                font-size:.92rem; color:var(--ink-2); }
-  .series-head { font-family:var(--mono); font-size:.7rem; letter-spacing:.14em;
-                 text-transform:uppercase; color:var(--muted); margin:0 0 1.6rem;
-                 padding-bottom:.7rem; border-bottom:1px solid var(--hair); }
-  .entry + .series-head { margin-top:3.4rem; }
+  .hero h1 { max-width:20ch; }
+  .hero p { max-width:54ch; }
 </style>
 </head>
 <body>
-<div class="note-wrap">
-  <a class="note-home" href="/" aria-label="Crinaro.AI"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 86" role="img" aria-label="Crinaro">
-  <title>Crinaro.AI · horizontal</title>
+
+<header class="hero">
+  <div class="wrap">
+    <a class="note-home" href="/"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 86" role="img" aria-label="Crinaro">
+  <title>Crinaro.AI · horizontal, reversed</title>
+  <rect width="680" height="86" fill="#0B2545"/>
   <g transform="translate(10,4) scale(0.46)">
-    <path d="M52 132 L150 132 L212 86 L252 104 L320 38 L376 106 L416 84 L466 132 L568 132" fill="none" stroke="#1B5C46" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
-    <circle cx="212" cy="86" r="9.1" fill="#0B2545" stroke="#F2F6F8" stroke-width="4.55"/>
-  <circle cx="320" cy="38" r="13.65" fill="#0B2545" stroke="#F2F6F8" stroke-width="4.55"/>
-  <circle cx="416" cy="84" r="9.1" fill="#0B2545" stroke="#F2F6F8" stroke-width="4.55"/>
+    <path d="M52 132 L150 132 L212 86 L252 104 L320 38 L376 106 L416 84 L466 132 L568 132" fill="none" stroke="#4FA98A" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="212" cy="86" r="9.1" fill="#F2F6F8" stroke="#0B2545" stroke-width="4.55"/>
+  <circle cx="320" cy="38" r="13.65" fill="#F2F6F8" stroke="#0B2545" stroke-width="4.55"/>
+  <circle cx="416" cy="84" r="9.1" fill="#F2F6F8" stroke="#0B2545" stroke-width="4.55"/>
   </g>
-  <text x="300" y="66" fill="#0B2545" font-family="Poppins,Futura,'Century Gothic','Avenir Next',Avenir,sans-serif" font-size="40" font-weight="500" letter-spacing="0.26em" dx="0 0 0 0 0 0 0 -5.20 -5.20 0">CRINARO<tspan fill="#1B5C46">.AI</tspan></text>
+  <text x="300" y="66" fill="#F2F6F8" font-family="Poppins,Futura,'Century Gothic','Avenir Next',Avenir,sans-serif" font-size="40" font-weight="500" letter-spacing="0.26em" dx="0 0 0 0 0 0 0 -5.20 -5.20 0">CRINARO<tspan fill="#4FA98A">.AI</tspan></text>
 </svg></a>
-  <h1>Notes</h1>
-  <p class="standfirst">If your organization has ended up with several systems doing the same
-     thing, and nobody can point at the decision that caused it, the first three of these are one
-     argument about why that happens and what an agentic model changes about it. The next two are
-     about where the agent team itself lives, and what has to cross between there and whatever you
-     publish. The rest stand alone: how you would know any of it is working, what an agent team can
-     actually be handed, who owns the answer when two records disagree, and what changes once the
-     thing you edit is the spec rather than the prompt.</p>
-  <p class="series-head">The argument, in three parts</p>
-  <div class="entry">
-    <time datetime="2026-08-20">Part 1</time>
-    <h2><a href="/notes/five-user-apis/">Why do we have five user APIs</a></h2>
-    <p>Nobody ever decided to build the same component five times. Projects have goals, and maintaining the platform is not one of them, so the system ends up being whatever the projects left behind.</p>
+    <h1>How the work&nbsp;gets done.</h1>
+    
+    <p>The argument this site makes is run on three things rather than described against. Here they
+       are, the agent teams that maintain them, and one capability followed across every team it
+       touches.</p>
   </div>
-  <div class="entry">
-    <time datetime="2026-08-22">Part 2</time>
-    <h2><a href="/notes/the-last-hop/">The last hop nobody wrote down</a></h2>
-    <p>Engineers did the final decomposition in their heads, and it worked because they knew the system. Agents have no such bridge, which turns documentation from overhead into the input.</p>
+</header>
+
+<main>
+
+
+
+<section>
+  <div class="wrap">
+    <div class="head narrow">
+      <p class="eyebrow">What it maintains</p>
+      <h2>Three assets, kept alive.</h2>
+      <p>Not projects that shipped and stopped. Each is still under maintenance by an agent&nbsp;team.
+         The last is public, so you can install it and read its history.</p>
+    </div>
+    <div class="cols">
+      <div class="col"><div class="rule"></div>
+        <p class="eyebrow">Private</p><h3>The AI-SDLC reference</h3><p>Delivery end to end on an agentic model, not one team’s repos: what gets asked for, how it is built, how you know it shipped. Worked into patterns another team can pick up. It has an agent team of its own, inside a repository you cannot open, so that team is not set out here.</p></div>
+      <div class="col"><div class="rule"></div>
+        <p class="eyebrow">Internal · six agents</p><h3>This brand</h3><p>The page you are reading, the deck, the identity and the rules that govern them. One agent each for the claim, the voice, the render, the argument against, the contradictions with what is already published, and the path a reader actually takes.</p></div>
+      <div class="col"><div class="rule"></div>
+        <p class="eyebrow">Public · installable</p><h3>The plugin marketplace</h3><p>Where the AI-SDLC reference gets tested in public. The utilities are what comes out along the way: an agent team for the job search, and a connector for several mailboxes.</p>
+        <p><a class="src" href="https://github.com/crinaro/marketplace">Read the marketplace <span aria-hidden="true">&rarr;</span></a></p></div>
+    </div>
   </div>
-  <div class="entry">
-    <time datetime="2026-08-25">Part 3</time>
-    <h2><a href="/notes/shared-skills/">A shared skill is not a consistency mechanism</a></h2>
-    <p>Standards, review boards and reference implementations all degraded the same way: each team read them differently. A shared skill removes the re-reading. It does not remove the interpretation.</p>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="head narrow">
+      <p class="eyebrow">How the work gets done</p>
+      <h2>A factory that maintains, not just builds.</h2>
+      <p>Generating something with AI is the easy half now. The other half decides whether the
+         thing is still alive in six months: keeping the documents true, the gates green, the
+         releases loading, and the claims about the system honest. That is the half these agents
+         do. None of them writes features.</p>
+    </div>
+    <div class="verts">
+      <div class="vert"><b>Architect</b><span>The shape of the thing: what is an agent, what is a script, what belongs in a manifest.</span></div>
+      <div class="vert"><b>Deployment auditor</b><span>Where it can actually run: a desktop, a schedule, a headless container, and whether the docs say so truthfully.</span></div>
+      <div class="vert"><b>Gate keeper</b><span>The checks. The regression suite, the fixtures, and whether CI agrees with what passed locally.</span></div>
+      <div class="vert"><b>Docs steward</b><span>The written record: decisions, rulebooks, and stale claims about a system that has moved on.</span></div>
+      <div class="vert"><b>Release manager</b><span>Shipping, so it actually loads for someone. Versions, catalog, cache, and a check from a fresh session.</span></div>
+      <div class="vert"><b>Delivery verifier</b><span>What people actually install after the push: whether it matches what shipped, and whether a claimed fix is really in it.</span></div>
+    </div>
+    <p class="note">Those six are agent definitions in the private repository that maintains the
+       marketplace, so you cannot read them. What they maintain is public: a plugin carrying nine
+       installable agents, a connector, their documentation, and a version history you can walk
+       back. That is one repository run this way, not an organization.</p>
+    
+    <p class="note" id="notes">Most of this is argued at length in
+       <a class="src" href="/notes/">the notes</a>, where the index says which of them are one
+       argument with which, and where to start.</p>
   </div>
-  <p class="series-head">Two repositories, in two parts</p>
-  <div class="entry">
-    <time datetime="2026-08-24">Part 1</time>
-    <h2><a href="/notes/coaching-is-a-file/">Coaching is a file now</a></h2>
-    <p>One public repository used to be fine. With agent teams, the thing that says how your engineers work is an artifact for the first time, and I would not expect most teams to want it published alongside the product.</p>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="head narrow">
+      <p class="eyebrow">Inside AI-SDLC</p>
+      <h2>One capability, across&nbsp;every team it touches.</h2>
+      <p>This spans the whole path: the spec a
+         roadmap team writes, the work it becomes across other people’s repos, and whether what
+         shipped is what was asked for.</p>
+    </div>
+    <div class="flow"><svg viewBox="0 0 1000 272" role="img"
+     aria-label="A capability spec becomes work items across repos, built by agents on routed compute, then merged and reconciled against the original spec, with a knowledge layer underneath every stage">
+  <g>
+    <rect x="0" y="26" width="176" height="86" rx="3" fill="#F2F6F8" stroke="#DCE4EA"/>
+    <text x="88" y="64" text-anchor="middle" fill="#0B2545" font-family="Poppins,Futura,'Century Gothic','Avenir Next',Avenir,sans-serif" font-size="17" font-weight="500">Capability spec</text>
+    <text x="88" y="86" text-anchor="middle" fill="#5B6E80" font-family="Helvetica,Arial,sans-serif" font-size="12.5">roadmap team</text>
+    <path d="M88 112 L88 196" stroke="#93B8D4" stroke-width="1.5" stroke-dasharray="3 5"/>
+  </g>
+  <g>
+    <rect x="206" y="26" width="176" height="86" rx="3" fill="#F2F6F8" stroke="#DCE4EA"/>
+    <text x="294" y="64" text-anchor="middle" fill="#0B2545" font-family="Poppins,Futura,'Century Gothic','Avenir Next',Avenir,sans-serif" font-size="17" font-weight="500">Work items</text>
+    <text x="294" y="86" text-anchor="middle" fill="#5B6E80" font-family="Helvetica,Arial,sans-serif" font-size="12.5">across repos</text>
+    <path d="M294 112 L294 196" stroke="#93B8D4" stroke-width="1.5" stroke-dasharray="3 5"/>
+  </g>
+  <g>
+    <rect x="412" y="26" width="176" height="86" rx="3" fill="#F2F6F8" stroke="#DCE4EA"/>
+    <text x="500" y="64" text-anchor="middle" fill="#0B2545" font-family="Poppins,Futura,'Century Gothic','Avenir Next',Avenir,sans-serif" font-size="17" font-weight="500">Agents</text>
+    <text x="500" y="86" text-anchor="middle" fill="#5B6E80" font-family="Helvetica,Arial,sans-serif" font-size="12.5">marketplace + local</text>
+    <path d="M500 112 L500 196" stroke="#93B8D4" stroke-width="1.5" stroke-dasharray="3 5"/>
+  </g>
+  <g>
+    <rect x="618" y="26" width="176" height="86" rx="3" fill="#F2F6F8" stroke="#DCE4EA"/>
+    <text x="706" y="64" text-anchor="middle" fill="#0B2545" font-family="Poppins,Futura,'Century Gothic','Avenir Next',Avenir,sans-serif" font-size="17" font-weight="500">Compute, routing</text>
+    <text x="706" y="86" text-anchor="middle" fill="#5B6E80" font-family="Helvetica,Arial,sans-serif" font-size="12.5">per role, per model</text>
+    <path d="M706 112 L706 196" stroke="#93B8D4" stroke-width="1.5" stroke-dasharray="3 5"/>
+  </g>
+  <g>
+    <rect x="824" y="26" width="176" height="86" rx="3" fill="#F2F6F8" stroke="#DCE4EA"/>
+    <text x="912" y="64" text-anchor="middle" fill="#0B2545" font-family="Poppins,Futura,'Century Gothic','Avenir Next',Avenir,sans-serif" font-size="17" font-weight="500">Merged, reconciled</text>
+    <text x="912" y="86" text-anchor="middle" fill="#5B6E80" font-family="Helvetica,Arial,sans-serif" font-size="12.5">against the spec</text>
+    <path d="M912 112 L912 196" stroke="#93B8D4" stroke-width="1.5" stroke-dasharray="3 5"/>
+  </g>
+  <path d="M186 62 l7 7 -7 7" fill="none" stroke="#1B5C46" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M392 62 l7 7 -7 7" fill="none" stroke="#1B5C46" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M598 62 l7 7 -7 7" fill="none" stroke="#1B5C46" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M804 62 l7 7 -7 7" fill="none" stroke="#1B5C46" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="0" y="196" width="1000" height="66" rx="3" fill="#0B2545"/>
+  <text x="24" y="224" fill="#FFFFFF" font-family="Poppins,Futura,'Century Gothic','Avenir Next',Avenir,sans-serif" font-size="16" font-weight="500">The knowledge layer</text>
+  <text x="24" y="246" fill="#93B8D4" font-family="Helvetica,Arial,sans-serif" font-size="13">Current-state index and deep-research memory: queried, never re-derived.</text>
+</svg></div>
+    <div class="cols" style="margin-top:3.2rem">
+      <div class="col"><div class="rule"></div>
+        <h3>The options</h3><p>Constraints differ by organization. Each decision names the real alternatives rather than one best practice.</p></div>
+      <div class="col"><div class="rule"></div>
+        <h3>The signal</h3><p>A decision table that picks between them, against things you can actually observe. Not “it depends”.</p></div>
+      <div class="col"><div class="rule"></div>
+        <h3>The trigger</h3><p>The specific, felt pain that says it is time for the more complex option, so you do not buy infrastructure for a problem you do not have yet.</p></div>
+    </div>
+    
+    <p class="note">The reference is on no schedule, and this page does not say it is current. It is
+       not published, so the diagram above shows how far the work reaches, not the decisions inside
+       it. Published
+       separately, and standing without it:
+       <a class="src" href="/what-you-already-have/">what the gaps cost</a>, which runs the pieces
+       of infrastructure an agent setup can have in the order they stop being optional, and names
+       some of what exists at each. The layers, and the way to read a repository, change more slowly
+       than the tools under them. The tools move on their own schedules, so the list prints dates
+       rather than intervals and says where nobody has looked.</p>
   </div>
-  <div class="entry">
-    <time datetime="2026-08-26">Part 2</time>
-    <h2><a href="/notes/the-direction-people-forget/">The direction people forget</a></h2>
-    <p>The front door is public and the work is private, so reports have to cross inward. Outbound is the direction a design guards first. The inbound one carries text an agent will read as instructions.</p>
+</section>
+
+
+<section>
+  <div class="wrap">
+    <div class="head narrow">
+      <p class="eyebrow">Back</p>
+      <h2>Where this sits.</h2>
+      <p>The argument these are run against is on the
+         <a class="src" href="/">home page</a>, worked out at length
+         <a class="src" href="/notes/">in the notes</a>, and the machinery half is
+         <a class="src" href="/what-you-already-have/">what the gaps cost</a>.</p>
+    </div>
   </div>
-  <p class="series-head">On their own</p>
-  <div class="entry">
-    <time datetime="2026-09-05">5 September 2026</time>
-    <h2><a href="/notes/count-the-changes/">Count the changes, not the repositories</a></h2>
-    <p>Success here is maintenance cost staying flat or falling as scale increases. This is how you would know, and the number the argument most naturally suggests is the wrong one.</p>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 86" role="img" aria-label="Crinaro">
+  <title>Crinaro.AI · horizontal, reversed</title>
+  <rect width="680" height="86" fill="#0B2545"/>
+  <g transform="translate(10,4) scale(0.46)">
+    <path d="M52 132 L150 132 L212 86 L252 104 L320 38 L376 106 L416 84 L466 132 L568 132" fill="none" stroke="#4FA98A" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="212" cy="86" r="9.1" fill="#F2F6F8" stroke="#0B2545" stroke-width="4.55"/>
+  <circle cx="320" cy="38" r="13.65" fill="#F2F6F8" stroke="#0B2545" stroke-width="4.55"/>
+  <circle cx="416" cy="84" r="9.1" fill="#F2F6F8" stroke="#0B2545" stroke-width="4.55"/>
+  </g>
+  <text x="300" y="66" fill="#F2F6F8" font-family="Poppins,Futura,'Century Gothic','Avenir Next',Avenir,sans-serif" font-size="40" font-weight="500" letter-spacing="0.26em" dx="0 0 0 0 0 0 0 -5.20 -5.20 0">CRINARO<tspan fill="#4FA98A">.AI</tspan></text>
+</svg>
+    <p class="fine">
+      <a href="mailto:john@crinaro.ai">john@crinaro.ai</a> &nbsp;·&nbsp; crinaro.ai
+    </p>
   </div>
-  <div class="entry">
-    <time datetime="2026-09-02">2 September 2026</time>
-    <h2><a href="/notes/same-request-same-answer/">Same request, same answer</a></h2>
-    <p>How you scope a team used to be a question about coordination cost. It now decides whether you can hand that team a specification at all, and a team you can only prompt does not give you the same answer twice.</p>
-  </div>
-  <div class="entry">
-    <time datetime="2026-09-02">2 September 2026</time>
-    <h2><a href="/notes/who-owns-the-answer/">Who owns the answer</a></h2>
-    <p>Duplicate services and duplicate facts both fail quietly. The difference is that you can count the services. Nothing anywhere enumerates the facts, so the first person to find out can be a customer.</p>
-  </div>
-  <div class="entry">
-    <time datetime="2026-08-26">26 August 2026</time>
-    <h2><a href="/notes/prompting-to-specifying/">From prompting to specifying</a></h2>
-    <p>The shift is not that engineers write less code. It is that when the output is wrong, the thing you edit stops being the prompt and becomes the spec or the agent definition.</p>
-  </div>
-  <p class="index-foot linkrow"><a class="src" href="/what-you-already-have/">What the gaps cost</a>
-     <span class="sep">&middot;</span><a class="src" href="/how-the-work-gets-done/">How the work gets done</a>
-     <span class="sep">&middot;</span><a class="src" href="/">Crinaro.AI</a></p>
-  <p class="index-foot">Written by John Kelly. If a piece of this does not hold in your
-     architecture, at your size, that is the mail worth sending:
-     <a class="src" href="mailto:john@crinaro.ai">john@crinaro.ai</a>. Today I read it myself.</p>
-</div>
+</footer>
+
 </body>
 </html>
