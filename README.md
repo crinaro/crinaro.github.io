@@ -45,3 +45,14 @@ never generated into it; the images in `email/` are the wordmark lockup and carr
 details. The publishing step refuses to push when a phone number or a profile link reaches this
 tree. That check runs in the private repository, so it is a statement about how this is published
 rather than something you can verify from here.
+
+## License
+
+Apache License 2.0. See `LICENSE` and `NOTICE`. The same license as the rest of the Crinaro
+repositories, and it covers the writing here as well as the generators.
+
+It does not license the name or the mark: Apache 2.0 grants no trademark rights, so "Crinaro",
+"crinaro.ai" and the ridge mark are reserved. `NOTICE` says so plainly.
+
+`src/fonts.css` embeds a subset of Poppins, which is not under that license. It is SIL Open Font
+License 1.1, and the text is in `licenses/Poppins-OFL.txt`.

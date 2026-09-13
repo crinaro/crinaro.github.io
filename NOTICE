@@ -1,0 +1,21 @@
+crinaro.github.io
+Copyright 2026 Crinaro
+
+Licensed under the Apache License, Version 2.0. See LICENSE.
+
+THIRD-PARTY
+
+src/fonts.css embeds a Latin subset of Poppins, at weights 400, 500 and 700,
+base64-encoded as woff2. Poppins is not covered by the Apache License above.
+It is licensed under the SIL Open Font License, Version 1.1, whose full text
+and the font's own copyright notice are in licenses/Poppins-OFL.txt.
+
+TRADEMARK
+
+The Apache License, Version 2.0 grants no rights in the trade names,
+trademarks, service marks or product names of the licensor. "Crinaro" and
+"crinaro.ai" are not licensed by that grant and are reserved.
+
+The ridge mark and the wordmark are reserved on the same basis. The SVG files
+in src/logo/ are covered by the license as files; that grant is not permission
+to use the mark as an identifier of origin.
