@@ -117,24 +117,31 @@ const SUB = 'Ideas and patterns worked out over 30 years in healthcare, GovTech 
 // Card 3 states the bill and NO LONGER restates principle 4 — it did, clumsily,
 // and before that it contradicted it. Do not put the routes-got-cheaper argument
 // back in here; it belongs to principle 4 and to five-user-apis.
+// ⛔ ONE CARD PER QUESTION, in the order the questions are asked, and each one
+// is the ANSWER rather than the failure. They described the problem until
+// 2026-09-14, sitting under a sentence that promised what has to change — John:
+// "these are great but they don't align to the statement... you can reword them
+// to make them the solution."
+// ⛔ That change also retired "So it gets built again", which was the problem
+// restated a third time, after the questions and the cards.
+// ⚠️ Card four is not card one. One is who is answerable; four is the question
+// reaching them. An estate can have clear ownership and still send every
+// question to whoever is free.
 const problems = [
-  ['Nobody is answerable',
-   'Ask who owns a part of the business and you get a name. Ask who owns the system that runs it ' +
-     'and you get a meeting. The work happens anyway, done by whoever picked it up, and they ' +
-     'decide with only their own part of it in view.'],
-  ['No answer anyone can trust',
-   'What the thing actually does sits with the people who built it, and in whatever copies other ' +
-     'teams keep so they can get on. Your people handle that by knowing who to ask. An agent has ' +
-     'nobody to ask, and when two answers disagree it cannot tell which one is right. So it picks, ' +
-     'confidently. <a class="src" href="/notes/who-owns-the-answer/">Who owns the answer</a>'],
-  ['So it gets built again',
-   'A second one gets built, correctly, by people doing their jobs well. It surfaces long after ' +
-     'the decision that caused it, ' +
-     'when one change has to be made in several places and no two of them agree. Nothing on a plan ' +
-     'ever showed that cost, and it arrives again every time anything changes.'],
-];
-
-// The maintenance team, by role. These are real agent definitions — the six in
+  ['A name against each capability',
+   'Not whoever picked it up. One team answerable for a component after the current deadline, ' +
+     'and an operating process that keeps it that way.'],
+  ['A knowledge repository your repositories feed',
+   'A summary per repository written when work merges, and one view across them that somebody ' +
+     'keeps current. The place an agent team goes for an answer, instead of guessing between two ' +
+     'that disagree. <a class="src" href="/notes/who-owns-the-answer/">Who owns the answer</a>'],
+  ['The why, captured when it is decided',
+   'Code says what it does. It never says why it was built that way. Written down by whoever ' +
+     'made the call, at the time, not reconstructed later by somebody who was not there.'],
+  ['A route from a question to its owner',
+   'Not whoever is nearest. The question reaches the team that owns it, and a defect in their ' +
+     'capability gets filed on them rather than fixed locally.'],
+];// The maintenance team, by role. These are real agent definitions — the six in
 // crinaro/marketplace-dev under .claude/agents/. That repo is PRIVATE: it is
 // the dev repo that maintains the public marketplace. See the dev/public split in
 // CLAUDE.md. So they are real and a buyer cannot read them — never write a line
@@ -904,6 +911,10 @@ const CSS = `${FONTS}
   /* ---- content blocks ---- */
   .cols { display:grid; grid-template-columns:1fr; gap:2rem; }
   @media (min-width:48rem) { .cols { grid-template-columns:repeat(3,1fr); gap:2.4rem; } }
+  /* Four cards, two up. Prose at a quarter of 944px is unreadable, and the
+     three-up grid above is shared with the capability block on
+     /how-the-work-gets-done/, which must stay three. */
+  @media (min-width:48rem) { .cols.four { grid-template-columns:repeat(2,1fr); } }
   .col { display:flex; flex-direction:column; gap:.5rem; }
   .col .rule { width:2rem; height:3px; background:var(--green); border-radius:2px; margin-bottom:.4rem; }
   /* Outbound links exist so a claim can be checked,
@@ -990,6 +1001,13 @@ const CSS = `${FONTS}
      above it, so the two agree at the right edge and the reader gets one
      column rather than a ragged stack. If .narrow moves, this moves with it. */
   .note { margin-top:2.4rem; font-size:.95rem; color:var(--muted); max-width:40rem; }
+  /* The epistemics footnote. Same measure and color as .note so it reads as the
+     same register, with a rule above it because it is addressed to a different
+     reader: somebody checking the page rather than reading it. The note pages
+     define their own .foot; this is the home page's. */
+  .foot { margin-top:3.4rem; padding-top:1.8rem; border-top:1px solid var(--hair);
+          font-size:.95rem; color:var(--muted); max-width:40rem; }
+  .foot p { margin:0 0 1rem; }
 
   .verts { display:grid; grid-template-columns:1fr; gap:0;
            border-top:1px solid var(--hair); }
@@ -1852,14 +1870,41 @@ ${CSS}
          was missed. The doors are where such a link was trying to get to.
          ⛔ Do not remove it because nothing on this site links to it. Nothing on
          this site is supposed to. -->
-    <div class="routes" id="notes">
-      <p><span class="rl">Design</span><a class="src" href="/notes/">How these systems should be shaped, argued at length <span aria-hidden="true">&rarr;</span></a></p>
-      <p><span class="rl">Adoption</span><a class="src" href="/what-you-already-have/">What the gaps in your machinery are costing you <span aria-hidden="true">&rarr;</span></a></p>
-    </div>
   </div>
 </header>
 
 <main>
+
+<!-- ⛔ THE RIDGE OPENS THE PAGE, John 2026-09-14: "I'd put the whole view
+     before the question." It explains the claim in the hero directly above it,
+     so the page reads claim, then what the claim means, then the question. It
+     was moved out of this position on 2026-09-13 for interrupting between the
+     problem and the principles with 81 words of brand — that reasoning was
+     about a DIFFERENT position, between two argument sections. Before the
+     argument starts, it is the frame rather than an interruption. -->
+<section class="band">
+  <div class="wrap">
+    <div class="head narrow">
+      <!-- ⛔ THE METHOD LEADS, THE NAME STORY TAILS. This paragraph opened on the
+           etymology until 2026-09-14, and moving the section above the question
+           that day made that the SECOND thing a reader met, before their own
+           problem. John: "you want to make sure you are appealing to the
+           reader." An origin story is about us; standing where the whole system
+           is visible before deciding is about them. Same sentences, and the
+           first one a reader hits is now the one they can use.
+           ⛔ The etymology stays. It is the only place the name is explained and
+           it earns its one line at the end. Do not cut it and do not promote
+           it. -->
+      <p class="eyebrow">The method</p>
+      <h2>The whole view decides the design.</h2>
+      <p>Stand where the whole system is visible before deciding anything. The test of a decision
+         made from there is whether the team still owns and runs what was built when you come back
+         to it, and whether <em>do not build this</em> was ever an available answer. Crinaro is a
+         ridge line, from the Italian <i>crinale</i>: the crest path where you can see down both
+         sides.</p>
+    </div>
+  </div>
+</section>
 
 <!-- ⛔ SECTION ORDER IS LOAD-BEARING. Resequenced 2026-09-13 to John's arc:
      the gotchas, what you need to do, then how this knowledge gets you to a
@@ -1913,6 +1958,16 @@ ${CSS}
            organization already works, and where requests already produce
            duplicates, agent teams produce more. The page led with the
            duplication instead, which is claim two's territory.
+           ⛔ KEEP THIS SHORT. It reached 154 words in one block across six
+           rewrites on 2026-09-14, each of which added a defensible bound to a
+           defensible sentence, and the total lost the reader. visual-qa called
+           it a wall, sixteen unbroken lines under the largest headline on the
+           page and twice the mass of any other block; John read it and said it
+           "loses anyone who reads it". Cut to 112 words in three paragraphs,
+           one job each: name the three, say which one gets bought and how far
+           to trust that, say what the redesign is. Every bound survives in
+           shorter form. If a future pass needs to add a qualifier here, cut
+           something else to pay for it.
            ⛔ THE READER HAS ALREADY SPENT THE MONEY. This section is addressed
            to somebody who stood up agent teams per repository and did not get
            what they expected, which is a better buyer than somebody deciding
@@ -1935,8 +1990,8 @@ ${CSS}
            site. What IS reported is what gets BOUGHT — agent teams per
            repository, knowledge base and workflow nobody's job — so the headline
            says that instead.
-           ⛔ AND THE STANDFIRST KEEPS THE SOURCE'S MOOD: "tend to arrive", and
-           the first thing to CHECK rather than a finding about the reader's
+           ⛔ AND THE STANDFIRST KEEPS THE SOURCE'S MOOD: "tend to buy", and
+           "check it before you believe it" rather than a finding about the reader's
            organization. It stated it flat until brand-critic caught it on
            2026-09-14. The source offers it to a self-selecting reader — "a
            reader who stood up per-repository agent teams and is disappointed
@@ -1960,336 +2015,93 @@ ${CSS}
            duplicating principle 4 and problem card three; this reframes the
            section that already exists and adds nothing. Principle 4 states the
            amplification MECHANISM; this states what it costs the reader. -->
-      <!-- ⛔ THE EYEBROW IS LOAD-BEARING HERE AND IS NOT DECORATION. It says "The
-           question" rather than "The problem" because the headline is in the
-           FIRST PERSON PLURAL, and decisions/03-positioning.md records "we"
-           being taken off this site on 2026-08-23. On a Crinaro page a bare
-           "we" reads as Crinaro, which would make this sentence a confession
-           about our own costs. The eyebrow attributes it to the asker, and that
-           is the only thing standing between the two readings. Change one and
-           you change the other.
-           The words are John's, 2026-09-14: "How about, we've implemented
-           agents and our costs are still trending up, why?" -->
+      <!-- ⚠️ THE EYEBROW NO LONGER CARRIES ATTRIBUTION, and that is a change, not
+           a relaxation. The headline was "Agents went in. Our costs are still
+           rising. Why?" and the eyebrow "The question" was the ONLY thing
+           stopping a reader taking that "our" as Crinaro's, which would have
+           made the line a confession about our own costs. John replaced it on
+           2026-09-14: "you could say 'Agents went in and your costs were
+           amplified'", then plainer: "or 'Agents went in, your costs went up'".
+           "Went up" is what an executive says; "amplified" is the argument's
+           word, and the footnote carries it where it belongs.
+           Second person removes the ambiguity at the source, so
+           there is now no reader-voice first-person plural in the headline for
+           a Crinaro one to collide with.
+           ⛔ THE HEADLINE NEVER NAMES AGENTS AS THE CAUSE. "your costs went up"
+           sits beside "agents went in" without claiming one did the other.
+           John, earlier the same day:
+           "it isn't AI, it's your implementation of it." An active rewrite
+           ("agents amplified your costs") puts the blame back on the tool and
+           reverses that correction.
+           ⛔ The qualifier in the next paragraph is what keeps this honest: an
+           organization that can hit its goals on today's model should adopt AI
+           and change nothing else. The headline asserts something about the
+           reader's business and the very next sentence gives them the exit.
+           Never ship the headline without it. -->
       <p class="eyebrow">The question</p>
-      <h2>Agents went in. Our costs<br>are still rising. Why?</h2>
-      <!-- ⛔ The mechanism sentence is second, added 2026-09-14. The page stated
-           the symptom and the consequence and never why it happens: a reader
-           got "nobody is answerable" and "so it gets built again" with nothing
-           joining them. It is Conway's law and the material calls it the
-           mechanism rather than a metaphor for one.
-           ⛔ It is NOT named here and it does not get its own section. The note
-           this paragraph already links names it and argues it, and "What
-           changes with AI" was cut on 2026-09-09 for being exactly the extra
-           gotcha section this would become. One sentence, in the standfirst
-           that already carries the diagnosis.
-           ⛔ THE CAUSE IS THE TEAMS, NOT THE FILING. A first draft read "work
-           filed as projects produces project-shaped systems", which puts the
-           weight on how work arrives — the one input "Where to start" promises
-           four screens later that nobody has to change ("Leadership keeps
-           filing projects"). The note it links puts the duplicates in "the
-           communication structure of the teams, made visible", and its remedy
-           is ownership, never the abolition of projects. Caught by continuity,
-           2026-09-14. -->
-      <!-- ⚠️ HISTORY: "the flow" is NOT in this sentence any more, and that is
-           deliberate rather than an oversight. This comment used to defend the
-           word and copy-editor found it on 2026-09-14 guarding a phrase the copy
-           no longer contains, which is the stale-comment class this repo keeps
-           getting caught by. Kept in shortened form because the warning at the
-           end still holds.
-           The sentence read "unless you redesign the flow: who owns what,
-           assigned against how work and data actually move", after John twice
-           used the word himself ("if you dont redesign the flow"). It was then
-           superseded BY JOHN, the same day, when he said what the redesign
-           concretely is: "leveraging the approach to create the knowledge base
-           and create an agentic team to document decisions and help with the
-           workflow." Naming the three artifacts beats naming the abstraction,
-           so the artifacts won. The flow itself survives one card down, in the
-           ownership card's "how work and data actually move".
-           ⛔ WHAT STILL HOLDS: never put a bare, undefined "redesign the flow"
-           on this page. Undefined it reads as the request intake, which is the
-           one input "Where to start" promises nobody has to change ("Leadership
-           keeps filing projects"). If the word ever comes back it comes back
-           with its definition attached, the way the colon used to carry it. -->
-      <!-- ⛔ "assigned against" is what keeps this sentence's promise payable, and
-           route caught it on 2026-09-14. A draft read "redesigning the flow: how
-           work and data actually move, and who owns what" — TWO things promised
-           as the change, and every destination on the site delivers ONE. The
-           ownership half is carried all the way; "how work and data actually
-           move" is picked up exactly once, in "A system view", as an INPUT an
-           architect is handed rather than as a thing that gets redesigned, and
-           reaches no destination at all. Verified: redesign*, "the flow", "how
-           work" and "data architecture" occur nowhere in the built site except
-           this page. Same shape as the chain paragraph reverted earlier today.
-           Ownership is the act, the flow is what it is assigned against. That is
-           what "A system view" already says — "ownership is assigned against
-           something real rather than against who happens to be free" — and it is
-           what the page can actually deliver.
-           ⛔ "kept in agreement by hand" is NOT optional and is not a synonym for
-           a count of places. count-the-changes exists to refuse the bare count:
-           three edits composing one behavior is distributed work, "Same number,
-           opposite meaning", and HANDOFF records the discriminator as something
-           that must never be published without the instrument. A draft dropped
-           it here and this was the only one of the page's four statements of it
-           that did. continuity, 2026-09-14. -->
-      <p>Three things decide whether agents pay: who owns each part of the system, what is written
-         down about it, and how a question reaches whoever can answer. Agent teams tend to arrive
-         one per
-         repository, because ownership is the piece a team can buy for itself. The other two are nobody's
-         job. That is local optimization rather than neglect: every team improved what it
-         already owned. That pattern is reported rather than measured, and reported from
-         organizations nobody here ran, so it is the first thing to check rather than a finding
-         about yours. <b>Making the other two somebody's job is the redesign</b>:
-         a knowledge base your repositories generate rather than one somebody keeps by hand, an
-         agent team that keeps decisions written down, and a route from a question to whoever owns
-         the answer. It needs an owner who can see the whole platform, and no single project
-         produces one.
-         <a class="src" href="/notes/${NOTE.slug}/">${NOTE.title}</a></p>
-      <p>The hard part was never the model. A system comes out shaped like the
-         teams that
-         built it and how they talk to each other. Where nothing joins them up, the same
-         capability gets built once per team that needed it. When a request arrives, nobody is
-         clearly answerable for the things it touches, and nothing can be pointed at that settles
-         what those things do. Both were survivable while a person could walk over and ask.
-         Neither is now:
-         <a class="src" href="/notes/${NOTE.slug}/">why do we have five user APIs</a>.</p>
+      <h2>Agents went in,<br>your costs went up. Why?</h2>
+      <!-- ⛔ THE FOUR QUESTIONS ARE THE SPINE OF THE WHOLE PAGE and everything
+           below counts on them. The four cards answer them one for one, in this
+           order, and the next paragraph says "the first" and "the other three",
+           which resolve to nothing without this. It was lost for a few minutes
+           on 2026-09-14 in an edit that replaced too wide a span, and the page
+           still built and still passed every gate — no check in this repo reads
+           an antecedent. Found by reading the render. -->
+      <p>Four questions decide whether agents pay. Who owns this part of the system? Where are
+         the facts about it? How does a decision get made? Who should do the work?</p>
+      <!-- ⛔ Conway is ONE CLAUSE here, not a paragraph. The page carried it as
+           its own block until 2026-09-14 and John said the section read as four
+           random statements. The mechanism still has to be on the page — it is
+           why the other three go unanswered — but it earns a clause, not a
+           screen. The note it links argues it in full.
+           ⛔ The financial qualifier is IN this paragraph. John: "driving
+           financial alignment is key but it should be baked into the blurb". It
+           is also the material's own bound: an organization that can hit its
+           goals on today's model should adopt AI and change nothing else.
+           ⛔ "here is what has to change" and NOT "here is what it accelerates".
+           The cards below are the ANSWERS now. John, 2026-09-14: "these are a
+           description of the problems, not the solution." If the cards ever go
+           back to being failures, this sentence goes back with them. -->
+      <p>Teams buy an answer to the first, a repository at a time. The other three are nobody's
+         job, because a system comes out shaped like the teams that built it:
+         <a class="src" href="/notes/${NOTE.slug}/">why do we have five user APIs</a>. If you can
+         hit your financial goals on the model you run today, none of this matters: adopt AI and
+         change nothing else. If you cannot, here is what has to change.</p>
     </div>
-    <div class="cols">
+    <div class="cols four">
       ${problems.map(([h, b]) => `<div class="col"><div class="rule"></div>
         <h3>${h}</h3><p>${b}</p></div>`).join('\n      ')}
     </div>
-    <!-- A diagnosis stated from outside the work is the thing a reader discounts,
-         so this says where it comes from. It cites only what a reader can already
-         see on this page. An earlier version also claimed a continuing read of
-         tools and vendors that "is not published", which is a credential whose
-         only stated property is that you cannot examine it, and it implied
-         adoption besides. That read belongs in the AI-SDLC section, which already
-         carries it and bounds it. -->
-    <p class="note">None of this is argued from the outside. It comes from delivery in those
-       industries, and from agent teams maintaining repositories that have to keep working today:
-       <a class="src" href="/how-the-work-gets-done/">the teams that do it, and what they keep
-       alive</a>. It is reasoning about how the failure happens rather than a result anybody has
-       measured.</p>
-    <!-- The qualifying question, added 2026-09-13. It is the one instrument in
-         the material readable by somebody who writes no code: anybody who can
-         read the model their organization already keeps can answer it, before
-         any boundary exists. It decides whether to realign before adopting at
-         all, and never where a boundary falls.
-         ⛔ NO INTERVAL, NO THRESHOLD, NO RATIO. The material gives none, and the
-         record has five separate returns of an invented timescale on this page.
-         "Answered by judgment" is the material's own bound. "Two people can
-         answer it differently" is OUR inference from it, defensible and not
-         quoted, so nobody spends a round looking for it in the source.
-         ⛔ "run rate" is John's word, from his own dictation, and principle 2
-         shares it. A copy-editor pass removed it once and the removal was
-         reverted. Keep it. -->
-    <p class="note"><b>Whether it is your problem is one financial question.</b> Can you hit your
-       financial goals on the model you run today? If you can, adopt AI and change nothing else. If
-       you cannot, this is what it accelerates: platforms to keep secure, one
-       change held in agreement by hand across several places, and the run rate underneath. That is
-       a direction rather than a rate. It is answered by judgment, and nothing here attaches a
-       number to it.</p>
-  </div>
-</section>
-
-<section>
-  <div class="wrap">
-    <div class="head narrow">
-      <p class="eyebrow">What follows from it</p>
-      <h2>Five principles for&nbsp;designing agent teams.</h2>
-      <!-- ⚠️ THE CHAIN IS NOW IN THE PROBLEM STANDFIRST, AND THAT IS DELIBERATE.
-           Read this whole comment before moving it here or removing it there.
-           It was added here on 2026-09-14, reverted within the hour, and then
-           put in the OPENING later the same day. The two are not the same act
-           and the reasons below are why.
-           What changed between the revert and the opening, and it is two things:
-           (1) the ai-sdlc correction merged that day gave claim five REPORTED
-           evidence for which of the three an organization buys — agent teams per
-           repository, knowledge base and workflow nobody's job, local
-           optimization rather than neglect. The morning's version had only the
-           reasoned claim. (2) counterpoint's objection was precisely that
-           "naming three links where two have no adoption destination" is the
-           "ok i stop at 1, what do i do?" defect. John then named the
-           destination: who owns the redesign is the value he is selling. Both
-           halves of the refusal moved, so the refusal does not survive them.
-           ⛔ What is still true: a chain PARAGRAPH standing in front of the five
-           principles is wrong, which is what was reverted. The chain belongs
-           where the reader's own situation is described, not as throat-clearing
-           before a list. And it is still not publishable as a FINDING: that
-           report "rests where the first claim does, on organizations the
-           practitioner did not run."
-           ⛔ The morning's refutation, kept because it is still the right
-           warning about method: the premise then was that the site argues one
-           link of three and should name all three. That was FALSE and
-           brand-critic and counterpoint destroyed it on 2026-09-13:
-           the site argues all three, and the three problem cards above are ordered
-           as the chain at John's own 2026-09-02 direction — card 2 IS the
-           knowledge argument ("An agent has nobody to ask"), and workflow is
-           the-last-hop plus the band under the diagram stages.
-           ⚠️ HOW IT WAS GOT WRONG BOTH TIMES, because the method is the defect:
-           grep "knowledge base", find zero, call the concept absent. HANDOFF's own
-           words for it are "My measurement counted words and called them
-           arguments." Counting the words is not counting the arguments.
-           ⛔ And the vocabulary stays out for counterpoint's reasons: it invites
-           comparison with Team Topologies and DORA and loses, and naming three
-           links where two have no adoption destination is the "ok i stop at 1,
-           what do i do?" defect again. The real gap was stated interdependence,
-           and that is now ONE SENTENCE in "Where to start". -->
-      <p>These are the whole argument, and each one links to the note that works it out. The fifth
-         is still the one nothing here has measured. What it has now is the two numbers that would
-         tell you whether the thing meant to produce a flat maintenance cost is working. That is a
-         weaker claim than the target alone, and the one this can&nbsp;support.</p>
-    </div>
-    <div class="principles">
-      <p class="principle"><b>Optimize for the platform, not the project.</b>
-        <span>An agent configuration scoped to one request will hit that request's goal. What it
-        costs after that is paid by everyone, on every run, and only a deliberate act removes it.
-        <a class="src" href="/notes/${NOTE.slug}/">${NOTE.title}</a></span></p>
-      <!-- ⛔ The data half ends without "and it is the design working", cut
-           2026-09-13. Two reasons, and the second is the one a later session
-           will trip on. It asserted a settled design position on the question
-           the AI-SDLC corpus explicitly holds open, "this corpus has no
-           sentence for that question anywhere" (their NOTICE-2026-09-12 item
-           5(iv)). And the standfirst above promises each principle "links to
-           the note that works it out", while both notes linked here contain the
-           word "data" nowhere in their prose: they argue the component half
-           only. Saying which half they cover is what makes that promise true.
-           The data clause itself is John's, 2026-09-09, and stays. When the
-           data note exists, link it here and drop the last sentence. -->
-      <p class="principle"><b>Assign ownership at the component level, and over its data.</b>
-        <span>A team aligned to a component is still answerable for it after the current deadline,
-        which is what velocity and run rate both depend on. A team aligned to a project is
-        answerable until the project ends. An agent team is one of those teams and inherits the
-        accountability of whoever funds and reviews it.
-        <b>Data nobody owns is where the boundary fails</b>: the team changes behavior it
-        owns while nothing is answerable for the shape that constrains it. Owned somewhere else on
-        purpose, with a name against it, is a different thing. The linked notes work out the
-        component half; the data half is not written yet.
-        <a class="src" href="/notes/${NOTE_HOP.slug}/">${NOTE_HOP.title}</a>
-        <a class="src" href="/notes/${NOTE.slug}/">${NOTE.title}</a></span></p>
-      <p class="principle"><b>Treat duplication as the primary cost driver.</b>
-        <span>Getting ownership right contains it. Removing what already exists is remediation work,
-        and it does not happen inside the project that noticed it.
-        <a class="src" href="/notes/${NOTE.slug}/">${NOTE.title}</a></span></p>
-      <p class="principle"><b>Assume agents amplify whatever ownership model you already have.</b>
-        <span>Both paths get cheaper: asking the team that owns a component to change it, and
-        building your own second copy. Only the first still ends in front of somebody who can say
-        no. What held the estate's shape was partly how much any one project could afford to build
-        for itself, and that is the part agents relax.
-        <a class="src" href="/notes/${NOTE.slug}/">${NOTE.title}</a></span></p>
-      <p class="principle"><b>Define success as flat or declining maintenance cost as scale
-        increases.</b>
-        <span>Not project completion. Nothing here has measured it. What can be watched is how many
-        changes the system needs for one functional change, and whether anybody has to keep those
-        places in agreement by hand.
-        <a class="src" href="/notes/${NOTE_COUNT.slug}/">${NOTE_COUNT.title}</a></span></p>
-    </div>
   </div>
 </section>
 
 <section class="band">
   <div class="wrap">
     <div class="head narrow">
-      <p class="eyebrow">What it is aimed at</p>
-      <!-- ⛔ The disclosure stays; it moved OFF the headline, 2026-09-13.
-           This read "Three outcomes, none of them measured." until John said it
-           does not drive confidence in what we are sharing, and he is the one
-           who has to sell with it. Read the objection precisely: the HEADLINE
-           led with a deficit, not that the honesty should go.
-           The honesty is untouched and is now the second sentence of the body,
-           where a reader meets it before anything else in the section: "Those
-           are the aims. Every claim in the material is a claim about mechanism
-           rather than about outcome ... and no outcome has been measured."
-           The eyebrow still says "What it is aimed at", so the headline is a
-           statement of aim rather than of achievement.
-           ⚠️ What this trades, stated so nobody re-litigates it blind: the old
-           heading meant a skimmer could not pick up the good half alone. A
-           skimmer now can, unless they read one sentence further. That was
-           John's call on 2026-09-13, against a recorded preference for the
-           disclosure being in the headline. -->
-      <h2>Maintenance down, delivery&nbsp;up, investment moving.</h2>
-      <!-- ⛔ "The model argued here" and "the material this argument comes from"
-           both define themselves, 2026-09-14. Neither did. The page's only
-           earlier use of "model" is the READER'S — "Can you hit your financial
-           goals on the model you run today?" — and "the material" was a definite
-           reference on first use whose antecedent sits three sections later,
-           under "How the work gets done". A cold reader landing on / met the
-           page's strongest disclosure resting on two terms it had not defined.
-           Pre-existing; the 2026-09-14 move shortened the run-up and route
-           caught it. Do not tighten these back to bare nouns. -->
-      <p>The model argued here is aimed at maintenance costing less, delivery moving
-         faster, and
-         investment shifting from keeping what exists running to building what does not exist yet.
-         Those are the aims. Every claim in the material this argument comes from is a claim about
-         mechanism rather than
-         about outcome. It argues how those would be reached rather than reporting having reached
-         them, and no outcome has been measured.</p>
-      <p>Saying that is the point rather than a hedge. A description of a method is the
-         thing a reader supplies a payoff to, and staying quiet about the payoff is a different
-         position from stating it and declining to claim it.</p>
-      <!-- ⛔ No quotation marks here, and no "in the material's own words".
-           Until 2026-09-13 this quoted, as one continuous sentence pair:
-           "It did not work as expected. The sequence is not falsified, but it
-           is not yet demonstrated either." The source carries those as TWO
-           separately quoted fragments joined by "and", so the page spliced two
-           quotes and presented them as contiguous. Nothing on our side verified
-           that, and their generator verifies each fragment separately on every
-           cut, so we were the only party asserting they run together.
-           Second reason, and it survives the first being fixed: the material is
-           OUR OWN asset. The page lists the AI-SDLC reference as one of three
-           things it maintains, then cited it as though quoting somebody else.
-           A reader who works that out feels handled, which is expensive here of
-           all places. The admission is the value; the quotation marks were
-           adding a claim of independence rather than one of accuracy. -->
-      <!-- ⛔ NO FIRST PERSON PLURAL IN THIS PARAGRAPH, and the reason is two
-           sections up. It read "That record is our own... a report on our own
-           material" until 2026-09-14. The headline now says "Our costs are
-           still rising" in the READER's voice, attributed by its eyebrow — and
-           this sentence, in Crinaro's voice, was the page teaching a reader
-           that "our" here means Crinaro. Nothing retracted that when they
-           scrolled back. The sentence it produced is the worst one available to
-           this business: a page about cost discipline under agent adoption
-           announcing that its own costs are rising. brand-critic, 2026-09-14.
-           The headline is not the thing to change; this is. The page's other
-           six first-person plurals are all the reader's voice. -->
-      <p>The first attempt to measure one is on the record, and it did not work as expected. That
-         record is Crinaro's own and it is not published, so this is a report on the material
-         behind this page rather
-         than something you can go and audit. The sequence is not falsified by that, and it is not
-         demonstrated either. Read the mechanism on its merits, and treat the outcomes as open.</p>
-      <!-- ⛔ THE FIRST EXTERNAL, CHECKABLE REFERENCE ON THE SITE, added 2026-09-14
-           at John's word: "add it so it's a reference. so what i'm sharing is my
-           own experience and how we fill in the gaps".
-           counterpoint's position 1 was that DORA had published the amplification
-           claim with about five thousand respondents and the page did not mention
-           them, leaving a reader three readings and all three bad: has not read
-           it, is restating it, or disagrees and did not say so.
-           ⛔ THE LINK GOES TO THE PAGE THAT WAS ACTUALLY FETCHED. dora.dev is
-           blocked by this environment's egress proxy, so it was never opened
-           from here; Google's own announcement was, twice, and every sentence
-           above is quoted from it. Voice rule 3: follow the link yourself first.
-           If a later session can reach dora.dev and verifies the report page,
-           move the link there and say so.
-           ⛔ NO CRINARO FIRST PERSON PLURAL, even though John's instruction used
-           one. "what fills it is delivery experience" carries the same meaning in
-           the register the rest of the page uses, and the pronoun rule at the top
-           of this file says why mixing the two voices breaks the headline.
-           ⚠️ counterpoint also cited DORA 2024's negative throughput finding as
-           the live rival explanation. It is a year stale: the 2025 report says
-           "Unlike last year, we observe a positive relationship between AI
-           adoption on both software delivery throughput and product performance",
-           with only stability still negative. Do not put the 2024 numbers on this
-           page. METR's 19% figure was also considered and is NOT used: metr.org
-           is egress-blocked, it could not be verified, and METR published a
-           change to that experiment's design in February 2026 that nobody here
-           has read. -->
-      <p><b>One part of this is measured, and not here.</b> DORA's 2025 report puts nearly five
-         thousand respondents behind the amplification claim: AI does not fix a team, it amplifies
-         what is already there. Their model names seven capabilities that decide whether it pays,
-         and two of them are the record this page calls a knowledge base, worked out further there
-         than here. What none of the seven names is who is answerable when the answer spans teams,
-         or how a question reaches them. That is the gap this material is about, and what fills it
-         is delivery experience rather than a survey.
-         <a class="src" href="https://cloud.google.com/blog/products/ai-machine-learning/announcing-the-2025-dora-report">Announcing the 2025 DORA report</a></p>
+      <!-- ⛔ THE HEADING NAMES THE MEASURE, not the aim. "Flat maintenance cost
+           as you scale" was correct and John said it "does not drive interest".
+           The measure is his, 2026-09-14: "the number of systems (components)
+           that require a change should decrease over time if you've implemented
+           the model properly."
+           ⛔ The closing line is his too, verbatim in substance: "we did so
+           much, yes you did, but you didn't change the pattern". Do not smooth
+           it. It is the sharpest sentence on the page and it is the one an
+           executive recognizes.
+           ⛔ The disclaimers that used to live here are GONE from this section,
+           not deleted. "Nothing here has measured it" and the whole
+           mechanism-not-outcome paragraph are in the footnote at the end of the
+           page with the rest of the sourcing. John: "what does this mean...
+           why even have that." In the flow they read as throat-clearing; at the
+           end they read as honesty. ⛔ They do not come back up here. -->
+      <p class="eyebrow" id="notes">What it is for</p>
+      <h2>Fewer places to change,<br>year over year.</h2>
+      <p>If the model is working, the number of components that have to change for one functional
+         change goes down. That is the measure.</p>
+      <p>It takes refactoring, and refactoring is affordable at the same level of investment, if
+         the organization prioritizes it. If it does not, the pattern holds. Two years on, the
+         spend was real and the shape is the same. <i>We did so much.</i> Yes, you did. You did not
+         change the pattern.
+         <a class="src" href="/notes/${NOTE_COUNT.slug}/">${NOTE_COUNT.title}</a></p>
     </div>
   </div>
 </section>
@@ -2297,166 +2109,31 @@ ${CSS}
 <section>
   <div class="wrap">
     <div class="head narrow">
+      <!-- ⛔ NO SECOND LIST HERE. This section held four cards that restated the
+           four answers above — John: "this is documenting the same thing again
+           another way". The four are the design; this is what it costs and who
+           carries it.
+           ⛔ THE PLATFORM IS NAMED ONCE, as what the four run on, and is not a
+           fifth item. John gave three investments — knowledge repository, a
+           platform for the agents to run on, an operating process with named
+           owners — and the first and third are already two of the four above.
+           Only the platform was missing, and /what-you-already-have/ is the page
+           that covers it, so it is a clause with a link rather than a list that
+           half-overlaps the one above it. That mismatch is what "resolve the
+           alignment" meant, 2026-09-14. -->
       <p class="eyebrow">Where to start</p>
-      <!-- ⛔ THIS SECTION ANSWERS THE HEADLINE AT THE TOP OF THE PAGE. It read
-           "Two moves, and the second one is the hard one" until 2026-09-14, and
-           the two were an internal marketplace and a system view — the arc from
-           when this page was a general argument about duplication. The opening
-           now asks a question and answers it with "you bought one of three", so
-           the start has to be the two that were nobody's job. If the opening
-           ever changes, this heading moves with it or the page asks something it
-           does not answer. -->
-      <h2>Own the two that&nbsp;were nobody's job.</h2>
-      <!-- "Neither asks you to change how work arrives" answers the first
-           objection an executive has, and it was absent from the whole site
-           until 2026-09-13: zero hits for leadership, persuasion or convince.
-           It is the most useful thing in the material for this reader, because
-           the traditional answer is to persuade leadership to think in
-           systems, and this does not ask for that.
-           ⛔ Do not put the downstream conversion back in this standfirst. A
-           draft said it is where the change happens, which reads as free, and
-           the-last-hop argues that exact decomposition is the NEW work, "in a
-           way it never had to be before". Three live surfaces point at that
-           note. It is cut rather than qualified: the note carries the argument
-           and this page hands off.
-           ⛔ Both halves or neither. Saying what it avoids without saying what
-           it does not avoid presents the model as costless, which the material
-           calls the worst error available. And ⛔ NO DURATION on the ownership
-           change: the material says months to years, and an interval has come
-           back onto this page five times and been retired five times. -->
-      <!-- ⛔ The cost is priced in THREE parts, 2026-09-14, because the material
-           prices it in three and the page carried two: the transfer here, and
-           the remediation in "What it buys" below. The middle one — somebody
-           staying with the teams until they want it — was on no page of this
-           site. Missing it is what makes the model read as an org chart change
-           you can announce.
-           ⛔ STILL NO DURATION. The material says months to years; an interval
-           has come back onto this page five times and been retired five times.
-           "Until they want it" is the shape of the cost without the number. -->
-      <p>Building them is not a tool decision, and it does not ask you to change how work
-         arrives. Leadership
-         keeps filing projects; nobody has to be persuaded to think in systems. Both rest on
-         ownership, and that is the cost, in three parts: a team takes a delivery date into a
-         queue it does not control, and declines for good reasons; somebody has to stay with the
-         teams until they want it, and saying it well is necessary and not enough; and
-         the copies already standing come out as work somebody funds. Reading any of it as free is
-         the most expensive mistake available here. The machinery half is separate: <a class="src" href="/what-you-already-have/">what the gaps cost</a>.</p>
-    </div>
-    <!-- ⛔ The knowledge base is a GIT REPOSITORY, not a platform to buy. That is
-         the material's own position — "the correct first knowledge base is a git
-         repository", a summary per repository written on merge, a generated
-         cross-repository view, and hand-written decision records — and it is
-         what makes this section buildable rather than aspirational. Do not let a
-         later pass abstract it back into "a knowledge layer".
-         ⛔ Not a flat ranking, and the clause survives from the marketplace card
-         this replaced: the material says shared definitions are the cheaper
-         move TO START, "on the author's estimate and never a ranking: no estate
-         has priced both, neither carries a figure". A comparative with a causal
-         reason behind it reads as a measurement and nobody has made one. -->
-    <div class="vert">
-      <b>The knowledge base</b>
-      <p>Generated from the repositories you already have rather than kept by hand: a summary per
-         repository written when work merges, a view across them that somebody owns and keeps
-         current, and the decisions themselves written down. If you already publish documentation
-         for somebody else, this is pointing that at yourself. Shared agent
-         definitions are how teams stop solving the same problem separately, and starting there is cheaper
-         than starting with the ownership change, which is a judgment rather than a measurement:
-         nobody has priced both.
-         <a class="src" href="/notes/shared-skills/">What&nbsp;a shared capability does and does not fix</a></p>
-    </div>
-    <div class="vert">
-      <b>The route to&nbsp;an answer</b>
-      <p>So a question reaches whoever owns the answer rather than whoever is nearest. A defect in
-         another team's capability gets filed on that team instead of fixed locally, because a
-         local fix appears to work and is destroyed by the next sync. A request channel nobody is
-         named to drain is worse than no channel at all.
-         <!-- ⛔ Literal slug and title, NOT the NOTE_ANSWER const, which is declared
-           AFTER the home page template, so interpolating it here throws
-           "Cannot access NOTE_ANSWER before initialization" and the build
-           dies. HANDOFF records moving a const above the template as a trap
-           that has twice stranded the comment explaining it. The page
-           already links this note literally in the problems array, so this
-           matches what is there rather than adding a third pattern. -->
-         <a class="src" href="/notes/who-owns-the-answer/">Who owns the answer</a></p>
-    </div>
-    <div class="vert">
-      <b>The ownership underneath</b>
-      <p>Both need somebody answerable for each part of the system, assigned against
-         something real rather than against who happens to be free. That needs three things:
-         <b>what the business is trying to change</b>, which is either
-         a plan or simply the requests you already get; <b>how work and data actually move</b>
-         through the platform; and <b>the data architecture</b>. They are what let an
-         architect assign ownership over the software and the data together, to teams of people or
-         of agents, rather than letting the last project to touch something own it by default.
-         <b>Removing what is already duplicated is still its own funded work</b> rather than
-         something that happens on the way past, which is the honest half and the half that gets
-         left out.</p>
-    </div>
-    <!-- ⛔ Voice rule 5, and it closes the oldest open criticism this site has:
-         the material explains why an estate ends up duplicated and what a
-         better one looks like, and does not say how you get from one to the
-         other. The executive summary says so in its own words — "What is left
-         open: How an organization gets from where it is to the invariant" —
-         while this page's "Where to start" read as though it were the route.
-         ⛔ Do not close this gap by writing a method. Nothing behind the page
-         has one, and inventing a staged path here would be the fabricated
-         evidence rule with a diagram on it. Say it is open and stop. -->
-    <!-- ⛔ The first sentence is the stated interdependence, and it is the WHOLE
-         of what 2026-09-13 concluded was missing: "The real gap is stated
-         interdependence, not coverage, and it is one sentence in Where to start
-         rather than a section." It names no numbered chain on purpose. The
-         vocabulary invites Team Topologies and DORA and loses that comparison,
-         and naming links a reader has no way to act on is the "ok i stop at 1,
-         what do i do?" defect. Do not grow this back into a chain paragraph. -->
-    <!-- ⛔ ONE bold run-in per note. A bold run-in is this page's signal that a
-         note begins, so two in one block read as two notes collided — visual-qa,
-         2026-09-14, which is how this shipped for about an hour. The second
-         sentence carried "What none of this settles is the route." in bold. It
-         is unbolded rather than split into a second note, because .note is set
-         smaller and wider than the copy it qualifies and stacking two of them
-         doubles that. -->
-    <!-- ⛔ THE GLOSS HAS TO USE THE TWO CARDS' OWN WORDS. It read "Ownership
-         nobody can look up leaves the answer where it already was, and a record
-         that no request ever reaches changes nothing" — and "These" points at
-         the two cards above, which are called "An internal marketplace" and "A
-         system view". Neither is called a record, and the word appears nowhere
-         in the section, so a reader had to silently relabel the marketplace as
-         a record for the sentence to be about the two things it claims to be
-         about. The likelier reading was that both clauses were about the system
-         view alone, since ownership and the answer are the site's standing pair
-         everywhere else. route, 2026-09-14.
-         ⛔ It is also not the chain. This sentence is the stated interdependence
-         2026-09-13 concluded was the real gap, and it stays about THESE TWO
-         MOVES. Do not grow it back toward ownership, knowledge and workflow. -->
-    <!-- ⛔ "the route" as a noun for the transition is GONE from this paragraph,
-         2026-09-14, and must not come back while a card above is called "The
-         route to an answer". Two different things one screen apart under one
-         word is the collision continuity caught with "flow" the same day. The
-         transition is "how you get from here to there" here, and nowhere on this
-         page is it called the route. -->
-    <p class="note"><b>The first two do not substitute for each other.</b> A record nobody's questions
-       reach changes nothing, and a way of reaching a record nobody keeps current just sends people
-       to a stale answer faster.
-       What none of this settles is how you get from here to there. That is open, and nothing on
-       this page or behind it closes it. These are two places to start, not a path all the way
-       through.</p>
-  </div>
-</section>
-
-
-<section class="band">
-  <div class="wrap">
-    <div class="head narrow">
-      <p class="eyebrow">Where it is argued from</p>
-      <h2>The whole view decides the design.</h2>
-      <p>Crinaro is a ridge line, from the Italian <i>crinale</i>: the crest path where you can
-         see down both sides. That is the method: stand where the whole system is visible before
-         deciding anything. The test of a decision made from there is whether the team still owns
-         and runs what was built when you come back to it, and whether <em>do not build this</em>
-         was ever an available answer.</p>
+      <h2>Own what is&nbsp;nobody's job.</h2>
+      <p>Fund the four above, and the platform they run on. None of it is a tool decision, and
+         nobody has to be persuaded to think in systems.</p>
+      <p>What it costs is ownership: a delivery date into a queue you do not control, time with
+         the teams until they want it, and funded work to remove what is already duplicated.
+         Reading any of it as free is the most expensive mistake here.</p>
+      <p>It needs an owner no single project produces.
+         <a class="src" href="/what-you-already-have/">What the gaps in your machinery cost</a></p>
     </div>
   </div>
 </section>
+
 
 <!-- The three sections that were here moved to /how-the-work-gets-done/ on
      2026-09-13. They were 3,039px, 32% of the page and 3.4 of its 10.5
@@ -2483,15 +2160,29 @@ ${CSS}
 <section>
   <div class="wrap">
     <div class="head narrow">
+      <!-- ⛔ THE POINT OF THIS SECTION IS THAT THE MODEL IS UNDER TEST, not that
+           three things exist. John, 2026-09-14: "state we are constantly testing
+           and evolving the AI-SDLC model. we have agentic teams currating the
+           ai-sdlc, the branding for this site & a marketplace so we can
+           holistically challenge our implementation approaches with agentic
+           teams." The three are deliberately different problems, which is what
+           makes running all three a test rather than three demonstrations.
+           ⛔ NO CRINARO FIRST PERSON PLURAL, though John's instruction used one
+           four times. The headline says "our costs" in the READER's voice, and
+           one Crinaro "we" retrains every reader "our" behind it — that is
+           brand-critic's finding of 2026-09-14 and the pronoun rule at the top
+           of this file. "Three agent teams keep it under test" says the same
+           thing in the register the rest of the page uses. -->
       <p class="eyebrow">How the work gets done</p>
-      <h2>The model is run on&nbsp;three things.</h2>
-      <p>Not described: run. The AI-SDLC reference the argument comes from, this brand, and a
-         public marketplace. That last one you can open and install:
+      <h2>The model is under&nbsp;test, by being run.</h2>
+      <p>Not described: run, and still changing. Three agent teams keep it under test. One curates
+         the AI-SDLC reference this argument comes from. One maintains this brand and the page you
+         are reading. One runs a public marketplace you can open and install:
          <a class="src" href="https://github.com/crinaro/marketplace">github.com/crinaro/marketplace</a>.
-         The agent teams behind them, and one capability followed across every team
-         it touches, are set out separately:
-         <a class="src" href="/how-the-work-gets-done/">the agent roles, and what each keeps
-         alive</a>.</p>
+         Three different problems on purpose, so the approach gets challenged rather than
+         confirmed.
+         <a class="src" href="/how-the-work-gets-done/">The agent roles, and what each keeps
+         alive</a></p>
     </div>
   </div>
 </section>
@@ -2544,6 +2235,33 @@ ${CSS}
       <p style="margin-top:.8rem">
         <a class="src" href="mailto:${EMAIL}?subject=Crinaro">${EMAIL}</a>
       </p>
+    </div>
+    <!-- ⛔ EVERY EPISTEMIC CLAIM ON THIS PAGE LIVES HERE, and that is the point.
+         Sourcing, what is and is not measured, and DORA were three separate
+         blocks inside the argument until 2026-09-14. John, on the one that had
+         been compressed hardest: "what does this mean", and on the rest: "why
+         even have that". As copy in the flow they were throat-clearing; at the
+         end they are honesty a reader can check.
+         ⛔ RELOCATED, NEVER REMOVED. brand-critic's finding 2 stands: the claim
+         about which question an organization answers is reported rather than
+         measured and rests on estates nobody here ran, and the page must say so.
+         It says so here, in plain words, which the compressed version did not.
+         ⛔ Voice rule 3, and this is the only checkable external reference the
+         site has: the DORA link goes to the page that was actually fetched.
+         dora.dev is blocked by this environment's egress proxy and was never
+         opened from here; Google's own announcement was. -->
+    <div class="foot">
+      <p><b>Where this comes from.</b> Delivery in healthcare, GovTech and travel, and agent teams
+         maintaining repositories that have to keep working today. Which of the four an
+         organization answers is reported by others rather than measured here, and not from
+         estates run from here. It is reasoning about how the failure happens rather than a result
+         anybody has measured, and the first attempt to measure one did not work as expected.
+         <a class="src" href="/how-the-work-gets-done/">The teams that do it, and what they keep alive</a></p>
+      <p><b>One part is measured elsewhere.</b> DORA's 2025 report puts nearly five thousand
+         respondents behind the amplification claim: AI does not fix a team, it amplifies what is
+         already there. Their seven capabilities name where the facts live. None names who is
+         answerable when the answer spans teams, or how a question reaches them.
+         <a class="src" href="https://cloud.google.com/blog/products/ai-machine-learning/announcing-the-2025-dora-report">Announcing the 2025 DORA report</a></p>
     </div>
   </div>
 </section>

@@ -108,6 +108,8 @@
   
   .cols { display:grid; grid-template-columns:1fr; gap:2rem; }
   @media (min-width:48rem) { .cols { grid-template-columns:repeat(3,1fr); gap:2.4rem; } }
+  
+  @media (min-width:48rem) { .cols.four { grid-template-columns:repeat(2,1fr); } }
   .col { display:flex; flex-direction:column; gap:.5rem; }
   .col .rule { width:2rem; height:3px; background:var(--green); border-radius:2px; margin-bottom:.4rem; }
   
@@ -131,6 +133,10 @@
   .flow svg { width:100%; min-width:38rem; height:auto; display:block; }
   
   .note { margin-top:2.4rem; font-size:.95rem; color:var(--muted); max-width:40rem; }
+  
+  .foot { margin-top:3.4rem; padding-top:1.8rem; border-top:1px solid var(--hair);
+          font-size:.95rem; color:var(--muted); max-width:40rem; }
+  .foot p { margin:0 0 1rem; }
 
   .verts { display:grid; grid-template-columns:1fr; gap:0;
            border-top:1px solid var(--hair); }
@@ -204,14 +210,26 @@
     <h1>AI from higher ground.</h1>
     <p>Ideas and patterns worked out over 30 years in healthcare, GovTech and travel, now applied with agents.</p>
     
-    <div class="routes" id="notes">
-      <p><span class="rl">Design</span><a class="src" href="/notes/">How these systems should be shaped, argued at length <span aria-hidden="true">&rarr;</span></a></p>
-      <p><span class="rl">Adoption</span><a class="src" href="/what-you-already-have/">What the gaps in your machinery are costing you <span aria-hidden="true">&rarr;</span></a></p>
-    </div>
   </div>
 </header>
 
 <main>
+
+
+<section class="band">
+  <div class="wrap">
+    <div class="head narrow">
+      
+      <p class="eyebrow">The method</p>
+      <h2>The whole view decides the design.</h2>
+      <p>Stand where the whole system is visible before deciding anything. The test of a decision
+         made from there is whether the team still owns and runs what was built when you come back
+         to it, and whether <em>do not build this</em> was ever an available answer. Crinaro is a
+         ridge line, from the Italian <i>crinale</i>: the crest path where you can see down both
+         sides.</p>
+    </div>
+  </div>
+</section>
 
 
 
@@ -222,100 +240,26 @@
       
       
       <p class="eyebrow">The question</p>
-      <h2>Agents went in. Our costs<br>are still rising. Why?</h2>
+      <h2>Agents went in,<br>your costs went up. Why?</h2>
       
+      <p>Four questions decide whether agents pay. Who owns this part of the system? Where are
+         the facts about it? How does a decision get made? Who should do the work?</p>
       
-      
-      <p>Three things decide whether agents pay: who owns each part of the system, what is written
-         down about it, and how a question reaches whoever can answer. Agent teams tend to arrive
-         one per
-         repository, because ownership is the piece a team can buy for itself. The other two are nobody's
-         job. That is local optimization rather than neglect: every team improved what it
-         already owned. That pattern is reported rather than measured, and reported from
-         organizations nobody here ran, so it is the first thing to check rather than a finding
-         about yours. <b>Making the other two somebody's job is the redesign</b>:
-         a knowledge base your repositories generate rather than one somebody keeps by hand, an
-         agent team that keeps decisions written down, and a route from a question to whoever owns
-         the answer. It needs an owner who can see the whole platform, and no single project
-         produces one.
-         <a class="src" href="/notes/five-user-apis/">Why do we have five user APIs</a></p>
-      <p>The hard part was never the model. A system comes out shaped like the
-         teams that
-         built it and how they talk to each other. Where nothing joins them up, the same
-         capability gets built once per team that needed it. When a request arrives, nobody is
-         clearly answerable for the things it touches, and nothing can be pointed at that settles
-         what those things do. Both were survivable while a person could walk over and ask.
-         Neither is now:
-         <a class="src" href="/notes/five-user-apis/">why do we have five user APIs</a>.</p>
+      <p>Teams buy an answer to the first, a repository at a time. The other three are nobody's
+         job, because a system comes out shaped like the teams that built it:
+         <a class="src" href="/notes/five-user-apis/">why do we have five user APIs</a>. If you can
+         hit your financial goals on the model you run today, none of this matters: adopt AI and
+         change nothing else. If you cannot, here is what has to change.</p>
     </div>
-    <div class="cols">
+    <div class="cols four">
       <div class="col"><div class="rule"></div>
-        <h3>Nobody is answerable</h3><p>Ask who owns a part of the business and you get a name. Ask who owns the system that runs it and you get a meeting. The work happens anyway, done by whoever picked it up, and they decide with only their own part of it in view.</p></div>
+        <h3>A name against each capability</h3><p>Not whoever picked it up. One team answerable for a component after the current deadline, and an operating process that keeps it that way.</p></div>
       <div class="col"><div class="rule"></div>
-        <h3>No answer anyone can trust</h3><p>What the thing actually does sits with the people who built it, and in whatever copies other teams keep so they can get on. Your people handle that by knowing who to ask. An agent has nobody to ask, and when two answers disagree it cannot tell which one is right. So it picks, confidently. <a class="src" href="/notes/who-owns-the-answer/">Who owns the answer</a></p></div>
+        <h3>A knowledge repository your repositories feed</h3><p>A summary per repository written when work merges, and one view across them that somebody keeps current. The place an agent team goes for an answer, instead of guessing between two that disagree. <a class="src" href="/notes/who-owns-the-answer/">Who owns the answer</a></p></div>
       <div class="col"><div class="rule"></div>
-        <h3>So it gets built again</h3><p>A second one gets built, correctly, by people doing their jobs well. It surfaces long after the decision that caused it, when one change has to be made in several places and no two of them agree. Nothing on a plan ever showed that cost, and it arrives again every time anything changes.</p></div>
-    </div>
-    
-    <p class="note">None of this is argued from the outside. It comes from delivery in those
-       industries, and from agent teams maintaining repositories that have to keep working today:
-       <a class="src" href="/how-the-work-gets-done/">the teams that do it, and what they keep
-       alive</a>. It is reasoning about how the failure happens rather than a result anybody has
-       measured.</p>
-    
-    <p class="note"><b>Whether it is your problem is one financial question.</b> Can you hit your
-       financial goals on the model you run today? If you can, adopt AI and change nothing else. If
-       you cannot, this is what it accelerates: platforms to keep secure, one
-       change held in agreement by hand across several places, and the run rate underneath. That is
-       a direction rather than a rate. It is answered by judgment, and nothing here attaches a
-       number to it.</p>
-  </div>
-</section>
-
-<section>
-  <div class="wrap">
-    <div class="head narrow">
-      <p class="eyebrow">What follows from it</p>
-      <h2>Five principles for&nbsp;designing agent teams.</h2>
-      
-      <p>These are the whole argument, and each one links to the note that works it out. The fifth
-         is still the one nothing here has measured. What it has now is the two numbers that would
-         tell you whether the thing meant to produce a flat maintenance cost is working. That is a
-         weaker claim than the target alone, and the one this can&nbsp;support.</p>
-    </div>
-    <div class="principles">
-      <p class="principle"><b>Optimize for the platform, not the project.</b>
-        <span>An agent configuration scoped to one request will hit that request's goal. What it
-        costs after that is paid by everyone, on every run, and only a deliberate act removes it.
-        <a class="src" href="/notes/five-user-apis/">Why do we have five user APIs</a></span></p>
-      
-      <p class="principle"><b>Assign ownership at the component level, and over its data.</b>
-        <span>A team aligned to a component is still answerable for it after the current deadline,
-        which is what velocity and run rate both depend on. A team aligned to a project is
-        answerable until the project ends. An agent team is one of those teams and inherits the
-        accountability of whoever funds and reviews it.
-        <b>Data nobody owns is where the boundary fails</b>: the team changes behavior it
-        owns while nothing is answerable for the shape that constrains it. Owned somewhere else on
-        purpose, with a name against it, is a different thing. The linked notes work out the
-        component half; the data half is not written yet.
-        <a class="src" href="/notes/the-last-hop/">The last hop nobody wrote down</a>
-        <a class="src" href="/notes/five-user-apis/">Why do we have five user APIs</a></span></p>
-      <p class="principle"><b>Treat duplication as the primary cost driver.</b>
-        <span>Getting ownership right contains it. Removing what already exists is remediation work,
-        and it does not happen inside the project that noticed it.
-        <a class="src" href="/notes/five-user-apis/">Why do we have five user APIs</a></span></p>
-      <p class="principle"><b>Assume agents amplify whatever ownership model you already have.</b>
-        <span>Both paths get cheaper: asking the team that owns a component to change it, and
-        building your own second copy. Only the first still ends in front of somebody who can say
-        no. What held the estate's shape was partly how much any one project could afford to build
-        for itself, and that is the part agents relax.
-        <a class="src" href="/notes/five-user-apis/">Why do we have five user APIs</a></span></p>
-      <p class="principle"><b>Define success as flat or declining maintenance cost as scale
-        increases.</b>
-        <span>Not project completion. Nothing here has measured it. What can be watched is how many
-        changes the system needs for one functional change, and whether anybody has to keep those
-        places in agreement by hand.
-        <a class="src" href="/notes/count-the-changes/">Count the changes, not the repositories</a></span></p>
+        <h3>The why, captured when it is decided</h3><p>Code says what it does. It never says why it was built that way. Written down by whoever made the call, at the time, not reconstructed later by somebody who was not there.</p></div>
+      <div class="col"><div class="rule"></div>
+        <h3>A route from a question to its owner</h3><p>Not whoever is nearest. The question reaches the team that owns it, and a defect in their capability gets filed on them rather than fixed locally.</p></div>
     </div>
   </div>
 </section>
@@ -323,36 +267,16 @@
 <section class="band">
   <div class="wrap">
     <div class="head narrow">
-      <p class="eyebrow">What it is aimed at</p>
       
-      <h2>Maintenance down, delivery&nbsp;up, investment moving.</h2>
-      
-      <p>The model argued here is aimed at maintenance costing less, delivery moving
-         faster, and
-         investment shifting from keeping what exists running to building what does not exist yet.
-         Those are the aims. Every claim in the material this argument comes from is a claim about
-         mechanism rather than
-         about outcome. It argues how those would be reached rather than reporting having reached
-         them, and no outcome has been measured.</p>
-      <p>Saying that is the point rather than a hedge. A description of a method is the
-         thing a reader supplies a payoff to, and staying quiet about the payoff is a different
-         position from stating it and declining to claim it.</p>
-      
-      
-      <p>The first attempt to measure one is on the record, and it did not work as expected. That
-         record is Crinaro's own and it is not published, so this is a report on the material
-         behind this page rather
-         than something you can go and audit. The sequence is not falsified by that, and it is not
-         demonstrated either. Read the mechanism on its merits, and treat the outcomes as open.</p>
-      
-      <p><b>One part of this is measured, and not here.</b> DORA's 2025 report puts nearly five
-         thousand respondents behind the amplification claim: AI does not fix a team, it amplifies
-         what is already there. Their model names seven capabilities that decide whether it pays,
-         and two of them are the record this page calls a knowledge base, worked out further there
-         than here. What none of the seven names is who is answerable when the answer spans teams,
-         or how a question reaches them. That is the gap this material is about, and what fills it
-         is delivery experience rather than a survey.
-         <a class="src" href="https://cloud.google.com/blog/products/ai-machine-learning/announcing-the-2025-dora-report">Announcing the 2025 DORA report</a></p>
+      <p class="eyebrow" id="notes">What it is for</p>
+      <h2>Fewer places to change,<br>year over year.</h2>
+      <p>If the model is working, the number of components that have to change for one functional
+         change goes down. That is the measure.</p>
+      <p>It takes refactoring, and refactoring is affordable at the same level of investment, if
+         the organization prioritizes it. If it does not, the pattern holds. Two years on, the
+         spend was real and the shape is the same. <i>We did so much.</i> Yes, you did. You did not
+         change the pattern.
+         <a class="src" href="/notes/count-the-changes/">Count the changes, not the repositories</a></p>
     </div>
   </div>
 </section>
@@ -360,96 +284,36 @@
 <section>
   <div class="wrap">
     <div class="head narrow">
+      
       <p class="eyebrow">Where to start</p>
-      
-      <h2>Own the two that&nbsp;were nobody's job.</h2>
-      
-      
-      <p>Building them is not a tool decision, and it does not ask you to change how work
-         arrives. Leadership
-         keeps filing projects; nobody has to be persuaded to think in systems. Both rest on
-         ownership, and that is the cost, in three parts: a team takes a delivery date into a
-         queue it does not control, and declines for good reasons; somebody has to stay with the
-         teams until they want it, and saying it well is necessary and not enough; and
-         the copies already standing come out as work somebody funds. Reading any of it as free is
-         the most expensive mistake available here. The machinery half is separate: <a class="src" href="/what-you-already-have/">what the gaps cost</a>.</p>
-    </div>
-    
-    <div class="vert">
-      <b>The knowledge base</b>
-      <p>Generated from the repositories you already have rather than kept by hand: a summary per
-         repository written when work merges, a view across them that somebody owns and keeps
-         current, and the decisions themselves written down. If you already publish documentation
-         for somebody else, this is pointing that at yourself. Shared agent
-         definitions are how teams stop solving the same problem separately, and starting there is cheaper
-         than starting with the ownership change, which is a judgment rather than a measurement:
-         nobody has priced both.
-         <a class="src" href="/notes/shared-skills/">What&nbsp;a shared capability does and does not fix</a></p>
-    </div>
-    <div class="vert">
-      <b>The route to&nbsp;an answer</b>
-      <p>So a question reaches whoever owns the answer rather than whoever is nearest. A defect in
-         another team's capability gets filed on that team instead of fixed locally, because a
-         local fix appears to work and is destroyed by the next sync. A request channel nobody is
-         named to drain is worse than no channel at all.
-         
-         <a class="src" href="/notes/who-owns-the-answer/">Who owns the answer</a></p>
-    </div>
-    <div class="vert">
-      <b>The ownership underneath</b>
-      <p>Both need somebody answerable for each part of the system, assigned against
-         something real rather than against who happens to be free. That needs three things:
-         <b>what the business is trying to change</b>, which is either
-         a plan or simply the requests you already get; <b>how work and data actually move</b>
-         through the platform; and <b>the data architecture</b>. They are what let an
-         architect assign ownership over the software and the data together, to teams of people or
-         of agents, rather than letting the last project to touch something own it by default.
-         <b>Removing what is already duplicated is still its own funded work</b> rather than
-         something that happens on the way past, which is the honest half and the half that gets
-         left out.</p>
-    </div>
-    
-    
-    
-    
-    
-    <p class="note"><b>The first two do not substitute for each other.</b> A record nobody's questions
-       reach changes nothing, and a way of reaching a record nobody keeps current just sends people
-       to a stale answer faster.
-       What none of this settles is how you get from here to there. That is open, and nothing on
-       this page or behind it closes it. These are two places to start, not a path all the way
-       through.</p>
-  </div>
-</section>
-
-
-<section class="band">
-  <div class="wrap">
-    <div class="head narrow">
-      <p class="eyebrow">Where it is argued from</p>
-      <h2>The whole view decides the design.</h2>
-      <p>Crinaro is a ridge line, from the Italian <i>crinale</i>: the crest path where you can
-         see down both sides. That is the method: stand where the whole system is visible before
-         deciding anything. The test of a decision made from there is whether the team still owns
-         and runs what was built when you come back to it, and whether <em>do not build this</em>
-         was ever an available answer.</p>
+      <h2>Own what is&nbsp;nobody's job.</h2>
+      <p>Fund the four above, and the platform they run on. None of it is a tool decision, and
+         nobody has to be persuaded to think in systems.</p>
+      <p>What it costs is ownership: a delivery date into a queue you do not control, time with
+         the teams until they want it, and funded work to remove what is already duplicated.
+         Reading any of it as free is the most expensive mistake here.</p>
+      <p>It needs an owner no single project produces.
+         <a class="src" href="/what-you-already-have/">What the gaps in your machinery cost</a></p>
     </div>
   </div>
 </section>
+
 
 
 <section>
   <div class="wrap">
     <div class="head narrow">
+      
       <p class="eyebrow">How the work gets done</p>
-      <h2>The model is run on&nbsp;three things.</h2>
-      <p>Not described: run. The AI-SDLC reference the argument comes from, this brand, and a
-         public marketplace. That last one you can open and install:
+      <h2>The model is under&nbsp;test, by being run.</h2>
+      <p>Not described: run, and still changing. Three agent teams keep it under test. One curates
+         the AI-SDLC reference this argument comes from. One maintains this brand and the page you
+         are reading. One runs a public marketplace you can open and install:
          <a class="src" href="https://github.com/crinaro/marketplace">github.com/crinaro/marketplace</a>.
-         The agent teams behind them, and one capability followed across every team
-         it touches, are set out separately:
-         <a class="src" href="/how-the-work-gets-done/">the agent roles, and what each keeps
-         alive</a>.</p>
+         Three different problems on purpose, so the approach gets challenged rather than
+         confirmed.
+         <a class="src" href="/how-the-work-gets-done/">The agent roles, and what each keeps
+         alive</a></p>
     </div>
   </div>
 </section>
@@ -490,6 +354,20 @@
       <p style="margin-top:.8rem">
         <a class="src" href="mailto:john@crinaro.ai?subject=Crinaro">john@crinaro.ai</a>
       </p>
+    </div>
+    
+    <div class="foot">
+      <p><b>Where this comes from.</b> Delivery in healthcare, GovTech and travel, and agent teams
+         maintaining repositories that have to keep working today. Which of the four an
+         organization answers is reported by others rather than measured here, and not from
+         estates run from here. It is reasoning about how the failure happens rather than a result
+         anybody has measured, and the first attempt to measure one did not work as expected.
+         <a class="src" href="/how-the-work-gets-done/">The teams that do it, and what they keep alive</a></p>
+      <p><b>One part is measured elsewhere.</b> DORA's 2025 report puts nearly five thousand
+         respondents behind the amplification claim: AI does not fix a team, it amplifies what is
+         already there. Their seven capabilities name where the facts live. None names who is
+         answerable when the answer spans teams, or how a question reaches them.
+         <a class="src" href="https://cloud.google.com/blog/products/ai-machine-learning/announcing-the-2025-dora-report">Announcing the 2025 DORA report</a></p>
     </div>
   </div>
 </section>
