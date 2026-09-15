@@ -2150,9 +2150,16 @@ ${CSS}
            an executive this is not one consultant's opinion.
 
            ⛔ THREE BOUNDS, from NOTICE-2026-09-15 item 3, none droppable:
-           1. It says NOTHING about duplication. "Reports the same" refers to the
-              amplification clause immediately before it and nothing else — keep
-              that referent tight if this sentence is ever reworded.
+           1. It says NOTHING about duplication, and nothing about cost. ⛔ THE
+              REFERENT IS THE WHOLE OF BOUND 1 AND IT HAS ALREADY FIRED ONCE.
+              The sentence read "DORA reports the same", where "the same" was the
+              amplification clause before it. John added "and costs continue to
+              rise" to that clause on 2026-09-15 — right, because it answers the
+              headline — which silently widened "the same" to include a cost
+              claim DORA does not make. Fixed by naming the referent instead of
+              pointing at it: "DORA reports THE AMPLIFICATION".
+              ⛔ Never restore a pronoun here. Whatever else the clause grows,
+              the citation names the one thing DORA actually reports.
            2. It corroborates the FRAMING and upgrades no evidence class here.
               Never write that DORA shows this approach works.
            3. ⛔ NEVER pair it with a delivery-metrics claim. DORA's own guide
@@ -2162,8 +2169,8 @@ ${CSS}
            force. The link was followed and resolves; the quote is page 3 of
            v2025.2. If it rots, the sentence goes. -->
       <p>Teams answer the first by adopting AI the way they already work, so it amplifies the
-         organization it lands in.
-         <a class="src" href="https://services.google.com/fh/files/misc/2025_state_of_ai_assisted_software_development.pdf">DORA reports the same</a>,
+         organization it lands in and costs continue to rise.
+         <a class="src" href="https://services.google.com/fh/files/misc/2025_state_of_ai_assisted_software_development.pdf">DORA reports the amplification</a>,
          across nearly five thousand practitioners.</p>
       <p>The other three stay nobody's job, so the system keeps the shape of the teams that built
          it: <a class="src" href="/notes/${NOTE.slug}/">why do we have five user APIs</a>. If you
