@@ -127,20 +127,45 @@ const SUB = 'Ideas and patterns worked out over 30 years in healthcare, GovTech 
 // ⚠️ Card four is not card one. One is who is answerable; four is the question
 // reaching them. An estate can have clear ownership and still send every
 // question to whoever is free.
+// ⛔ THE FOUR ANSWERS, ONE PER QUESTION, IN THE QUESTIONS' ORDER.
+// Rewritten 2026-09-15 against decisions/09-who-this-is-for.md §3.1 and §3.2.
+// John had already called it by eye: "It makes sense to me but wont make sense
+// to anyone who isn't technical." check-stop-list.js then found eight hits on
+// this page, five of them in these four cards, and card 2 was the worst thing
+// on the site — "A knowledge repository your repositories feed" put the word
+// twice in one heading.
+//
+// ⛔ THE ARGUMENTS ARE UNCHANGED. Only the vocabulary moved. Each card still
+// answers exactly one of the four questions above it, in the same order, and
+// John's rejection of 2026-09-14 still stands: "these are a description of the
+// problems, not the solution." If they ever go back to being failures, the
+// paragraph above goes back with them.
+//
+// The substitutions, so the next edit does not undo them by accident:
+//   component -> part of the system   (the page's own phrase, from question 1)
+//   a summary per repository written when work merges
+//                                     -> what changed, written down when work ships
+//   a defect in their capability gets filed on them rather than fixed locally
+//                                     -> when something of theirs is broken they
+//                                        fix it, rather than everyone routing
+//                                        around it
+// Card 3 was already clean and is untouched: "Code says what it does. It never
+// says why it was built that way" is the sharpest line in the set and an
+// executive reads "code" without stopping.
 const problems = [
   ['A name against each capability',
-   'Not whoever picked it up. One team answerable for a component after the current deadline, ' +
-     'and an operating process that keeps it that way.'],
-  ['A knowledge repository your repositories feed',
-   'A summary per repository written when work merges, and one view across them that somebody ' +
+   'Not whoever picked it up. One team answerable for each part of the system after the ' +
+     'current deadline, and an operating process that keeps it that way.'],
+  ['One place the facts live',
+   'What changed, written down when work ships, and one view across all of it that somebody ' +
      'keeps current. The place an agent team goes for an answer, instead of guessing between two ' +
      'that disagree. <a class="src" href="/notes/who-owns-the-answer/">Who owns the answer</a>'],
   ['The why, captured when it is decided',
    'Code says what it does. It never says why it was built that way. Written down by whoever ' +
      'made the call, at the time, not reconstructed later by somebody who was not there.'],
   ['A route from a question to its owner',
-   'Not whoever is nearest. The question reaches the team that owns it, and a defect in their ' +
-     'capability gets filed on them rather than fixed locally.'],
+   'Not whoever is nearest. The question reaches the team that owns it, and when something of ' +
+     'theirs is broken they fix it, rather than everyone routing around it.'],
 ];// The maintenance team, by role. These are real agent definitions — the six in
 // crinaro/marketplace-dev under .claude/agents/. That repo is PRIVATE: it is
 // the dev repo that maintains the public marketplace. See the dev/public split in
@@ -2002,17 +2027,30 @@ ${CSS}
            site. What IS reported is what gets BOUGHT — agent teams per
            repository, knowledge base and workflow nobody's job — so the headline
            says that instead.
-           ⛔ AND THE STANDFIRST KEEPS THE SOURCE'S MOOD: "tend to buy", and
-           "check it before you believe it" rather than a finding about the reader's
-           organization. It stated it flat until brand-critic caught it on
-           2026-09-14. The source offers it to a self-selecting reader — "a
-           reader who stood up per-repository agent teams and is disappointed
-           has something to check: which of the three they bought" — and bounds
-           it: "that report rests... on organizations the practitioner did not
-           run." Delivered flat, it is a present-tense claim about a stranger's
-           organization sourced to a private document, which is the question a
-           procurement officer asks and the one answer that cannot be given.
-           The bound travels with it now. Do not tighten either away for rhythm. -->
+           ⚠️ STALE COMMENT, CORRECTED 2026-09-15. This asserted that the
+           standfirst "keeps the source's mood" with the words "tend to buy" and
+           "check it before you believe it". NEITHER PHRASE IS IN THE COPY. They
+           were removed when the paragraph was rewritten for a non-technical
+           reader the same day, and the comment outlived them, ending "Do not
+           tighten either away for rhythm" — an instruction to preserve two
+           phrases that no longer exist. Found by content-editor.
+
+           ⛔ This is the SECOND instance of exactly this shape in one file. The
+           other was the footnote comment 250 lines down, corrected the same day.
+           A comment that guards a phrase must name the phrase, so when the
+           phrase goes the comment reads false rather than merely dated. **When
+           you rewrite copy, grep this file for the words you removed.**
+
+           What is still true and is why the paragraph reads as it does: the
+           source offers the claim to a self-selecting reader — "a reader who
+           stood up per-repository agent teams and is disappointed has something
+           to check: which of the three they bought". Delivered flat it becomes a
+           present-tense claim about a stranger's organization, which is the
+           question a procurement officer asks and the one answer that cannot be
+           given. ⛔ But the sentence now on the page stands on JOHN'S OWN
+           warrant, not the corpus's — he ruled on that 2026-09-15 and HANDOFF
+           records the withdrawn finding — so the corpus's bound does not govern
+           it and must not be reimported. -->
       <!-- ⚠️ The sourcing sentence below the cards — "None of this is argued from
            the outside... from delivery in those industries" — is true of the
            DIAGNOSIS and is not the warrant for the sentence above. Keep the two
@@ -2096,11 +2134,41 @@ ${CSS}
              job" two sections down, and cutting it orphans that heading.
            · ⛔ The five-user-APIs link STAYS. It is the only route from this
              section into the notes. -->
-      <p>Teams answer the first by adopting AI the way they already work. The other three stay
-         nobody's job, so the system keeps the shape of the teams that built it:
-         <a class="src" href="/notes/${NOTE.slug}/">why do we have five user APIs</a>. If you can
-         maintain the platform you have and keep building on it while you hit your financial goals,
-         keep going. If you cannot, the system has to change, not just the tools.</p>
+      <!-- ⛔ DORA IS A CLAUSE IN THE ARGUMENT, NEVER A BLOCK BESIDE IT.
+           First attempt, 2026-09-15, was a gray .note pasted under the cards.
+           John: "That's great information but it doesn't flow well... fit it in
+           with the story. Remember, they are giving you content related to their
+           work, you have to decide how you sell it to an executive. copying and
+           pasting blurbs from their content isn't going to create a pleasant
+           site to read." He is right and the rule is general, not about DORA:
+           ⛔ THE AI-SDLC CORPUS IS SOURCE MATERIAL, NOT COPY. Nothing from it
+           reaches a reader as a quotation, a citation block or an aside. It is
+           argued in this page's own voice or it does not appear.
+
+           So DORA sits where the page makes the amplification claim, as the
+           second half of the sentence that makes it, doing the work of telling
+           an executive this is not one consultant's opinion.
+
+           ⛔ THREE BOUNDS, from NOTICE-2026-09-15 item 3, none droppable:
+           1. It says NOTHING about duplication. "Reports the same" refers to the
+              amplification clause immediately before it and nothing else — keep
+              that referent tight if this sentence is ever reworded.
+           2. It corroborates the FRAMING and upgrades no evidence class here.
+              Never write that DORA shows this approach works.
+           3. ⛔ NEVER pair it with a delivery-metrics claim. DORA's own guide
+              says those five metrics suit one application at a time; the outcome
+              this page states is across an estate.
+           ⚠️ It is the only external source on the page, so rule 3 is at full
+           force. The link was followed and resolves; the quote is page 3 of
+           v2025.2. If it rots, the sentence goes. -->
+      <p>Teams answer the first by adopting AI the way they already work, so it amplifies the
+         organization it lands in.
+         <a class="src" href="https://services.google.com/fh/files/misc/2025_state_of_ai_assisted_software_development.pdf">DORA reports the same</a>,
+         across nearly five thousand practitioners.</p>
+      <p>The other three stay nobody's job, so the system keeps the shape of the teams that built
+         it: <a class="src" href="/notes/${NOTE.slug}/">why do we have five user APIs</a>. If you
+         can maintain the platform you have and keep building on it while you hit your financial
+         goals, keep going. If you cannot, the system has to change, not just the tools.</p>
     </div>
     <div class="cols four">
       ${problems.map(([h, b]) => `<div class="col"><div class="rule"></div>
@@ -2150,10 +2218,10 @@ ${CSS}
            sentence, not a restored footnote. -->
       <p class="eyebrow">What it is for</p>
       <h2>Fewer places to change,<br>year over year.</h2>
-      <p>If the model is working, the number of components that have to change for one functional
-         change goes down. That is the measure.</p>
-      <p>It takes refactoring, and refactoring is affordable at the same level of investment, if
-         the organization prioritizes it. If it does not, the pattern holds. Two years on, the
+      <p>If the model is working, the number of systems you have to change to deliver one thing the
+         business asked for goes down. That is the measure.</p>
+      <p>It takes going back and simplifying what is already there, and that is affordable at the
+         same level of investment, if the organization prioritizes it. If it does not, the pattern holds. Two years on, the
          spend was real and the shape is the same. <i>We did so much.</i> Yes, you did. You did not
          change the pattern.
          <a class="src" href="/notes/${NOTE_COUNT.slug}/">${NOTE_COUNT.title}</a></p>
@@ -2256,7 +2324,7 @@ ${CSS}
            the same day it was added. -->
       <p class="eyebrow">Where this comes from</p>
       <h2>Patterns learned in hard places.</h2>
-      <p>The components are not industry-specific. The experience behind them is: regulated,
+      <p>None of this is industry-specific. The experience behind it is: regulated,
          legacy-heavy, and full of decisions that are judgment calls rather than lookups. What
          holds up there travels.</p>
     </div>
