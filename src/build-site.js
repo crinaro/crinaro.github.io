@@ -223,8 +223,8 @@ const assets = [
   // list that had outgrown its box. A card that gets visibly worse every time
   // the team learns something is a card that argues against improving the team.
   // Keep it one short phrase per agent, in the order the work happens.
-  ['This brand', 'Internal · six agents',
-   'The page you are reading, the deck, the identity and the rules that govern them. One agent each for the claim, the voice, the render, the argument against, the contradictions with what is already published, and the path a reader actually takes.'],
+  ['This brand', 'Internal · seven agents',
+   'The page you are reading, the deck, the identity and the rules that govern them. One agent each for the claim, the voice, the render, the argument against, the contradictions with what is already published, the path a reader actually takes, and whether the whole thing still says what its sources say.'],
   // "Running daily for one person, not yet a second" was here, and it WAS
   // load-bearing for as long as the card described a product — it was the clause
   // that stopped the description implying adoption. John removed it 2026-08-20.
@@ -268,7 +268,7 @@ const flow = `<svg viewBox="0 0 1000 272" role="img"
   }).join('\n  ')}
   <rect x="0" y="${KB_Y}" width="1000" height="66" rx="3" fill="#0B2545"/>
   <text x="24" y="${KB_Y + 28}" fill="#FFFFFF" font-family="${HEAD_SVG}" font-size="16" font-weight="500">The knowledge layer</text>
-  <text x="24" y="${KB_Y + 50}" fill="#93B8D4" font-family="Helvetica,Arial,sans-serif" font-size="13">Current-state index and deep-research memory: queried, never re-derived.</text>
+  <text x="24" y="${KB_Y + 50}" fill="#93B8D4" font-family="Helvetica,Arial,sans-serif" font-size="13">Current-state index, generated from the repositories: queried, never re-derived.</text>
 </svg>`;
 
 // What makes the reference different from every other set of AI-SDLC docs.
@@ -2074,11 +2074,33 @@ ${CSS}
            The cards below are the ANSWERS now. John, 2026-09-14: "these are a
            description of the problems, not the solution." If the cards ever go
            back to being failures, this sentence goes back with them. -->
-      <p>Teams buy an answer to the first, a repository at a time. The other three are nobody's
-         job, because a system comes out shaped like the teams that built it:
+      <!-- ⛔ THIS PARAGRAPH IS WRITTEN FOR A READER WHO IS NOT TECHNICAL, 2026-09-15.
+           John, reviewing the published version: "It makes sense to me but wont
+           make sense to anyone who isn't technical." He is the technical reader
+           and it passed him; that is the warning, not the reassurance.
+           What changed, and why each one:
+           · "Teams buy an answer to the first, A REPOSITORY AT A TIME" -> "by
+             adopting AI the way they already work". Repository is the precise
+             mechanism and it is the word a non-technical reader stops at. The
+             mechanism still lives in card 1 and in the notes, where a reader who
+             wants it has already opted in. ⛔ This is NOT a retreat from the
+             sourced claim: EXECUTIVE-SUMMARY line 29 says "agent teams arrive one
+             per repository", and the plainer sentence says the same thing about
+             the same behavior.
+           · The qualifier is John's own and it is the reason for the edit: "If
+             your organization is able to maintain your platform & create new
+             features while you hit your financial goals, keep going." An
+             executive feels maintenance against new features against money. "The
+             model you run today" is an abstraction nobody feels.
+           · ⛔ "nobody's job" STAYS. It is the setup for "Own what is nobody's
+             job" two sections down, and cutting it orphans that heading.
+           · ⛔ The five-user-APIs link STAYS. It is the only route from this
+             section into the notes. -->
+      <p>Teams answer the first by adopting AI the way they already work. The other three stay
+         nobody's job, so the system keeps the shape of the teams that built it:
          <a class="src" href="/notes/${NOTE.slug}/">why do we have five user APIs</a>. If you can
-         hit your financial goals on the model you run today, none of this matters: adopt AI and
-         change nothing else. If you cannot, here is what has to change.</p>
+         maintain the platform you have and keep building on it while you hit your financial goals,
+         keep going. If you cannot, the system has to change, not just the tools.</p>
     </div>
     <div class="cols four">
       ${problems.map(([h, b]) => `<div class="col"><div class="rule"></div>
@@ -2099,12 +2121,33 @@ ${CSS}
            much, yes you did, but you didn't change the pattern". Do not smooth
            it. It is the sharpest sentence on the page and it is the one an
            executive recognizes.
-           ⛔ The disclaimers that used to live here are GONE from this section,
-           not deleted. "Nothing here has measured it" and the whole
-           mechanism-not-outcome paragraph are in the footnote at the end of the
-           page with the rest of the sourcing. John: "what does this mean...
-           why even have that." In the flow they read as throat-clearing; at the
-           end they read as honesty. ⛔ They do not come back up here. -->
+           ⛔ WHERE THE BOUND ON THIS CLAIM ACTUALLY IS, corrected 2026-09-15.
+           This comment used to say the disclaimers were "in the footnote at the
+           end of the page". THE FOOTNOTE WAS CUT ON 2026-09-15 and this comment
+           outlived it, so it was asserting a hedge lived somewhere it does not
+           while forbidding anyone to restore it here. That is the worst shape a
+           stale comment takes: false, and load-bearing against its own fix.
+           Found by content-editor's first run.
+
+           The bound now lives in ONE place a reader of / can reach: the link at
+           the end of this paragraph. /notes/count-the-changes/ opens "What
+           follows is not a measurement" and closes "the outcome itself remains
+           unmeasured". That is the right place — it is at the point of claim,
+           one click away.
+
+           ⛔ STILL do not put a hedge back in this section, and the reason has
+           changed. It is no longer "it lives downstairs". John has now removed
+           this hedge TWICE: "what does this mean 'Nothing here has measured
+           it.', why even have that" on 2026-09-14, and the whole footnote on
+           2026-09-15. Twice is a decision. Restoring it is his call to make,
+           not a correction for the next session to apply.
+
+           ⚠️ OPEN, and raised with John rather than fixed: /what-you-already-have/
+           still says "None of this has been measured against an organization"
+           and / says nothing equivalent. The discipline is applied on the
+           smaller page and not on the one with the larger audience and the
+           LinkedIn preview card. That asymmetry is real; the fix is one
+           sentence, not a restored footnote. -->
       <p class="eyebrow">What it is for</p>
       <h2>Fewer places to change,<br>year over year.</h2>
       <p>If the model is working, the number of components that have to change for one functional
@@ -2180,10 +2223,13 @@ ${CSS}
            teams." The three are deliberately different problems, which is what
            makes running all three a test rather than three demonstrations.
            ⛔ NO CRINARO FIRST PERSON PLURAL, though John's instruction used one
-           four times. The headline says "our costs" in the READER's voice, and
-           one Crinaro "we" retrains every reader "our" behind it — that is
-           brand-critic's finding of 2026-09-14 and the pronoun rule at the top
-           of this file. "Three agent teams keep it under test" says the same
+           four times. ⚠️ The premise here was stale and is corrected 2026-09-15:
+           this said the headline says "our costs" in the READER's voice. It did
+           when brand-critic made the finding on 2026-09-14; John moved it to
+           second person the same day and it now reads "Agents went in, your
+           costs went up". The RULE is unchanged and is why it still matters —
+           the page addresses the reader as "you" throughout, so one Crinaro "we"
+           anywhere in it makes the reader ask which of them is speaking. "Three agent teams keep it under test" says the same
            thing in the register the rest of the page uses. -->
       <p class="eyebrow">How the work gets done</p>
       <h2>The model is under&nbsp;test, by being run.</h2>
