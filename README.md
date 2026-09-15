@@ -7,7 +7,7 @@ GitHub Pages serves this repo root as it stands, and the pages fetch nothing fro
 
 | Path | What it is |
 |---|---|
-| `index.html` | The claim, the principles, and the two routes into the rest |
+| `index.html` | The claim, the question the page answers, and the routes into the rest |
 | `notes/` | The written pieces, each argued at length |
 | `what-you-already-have/` | Where to start, and what an empty layer costs |
 | `how-the-work-gets-done/` | The three things the argument is run on, and the teams that maintain them |

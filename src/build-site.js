@@ -685,10 +685,11 @@ const NOTE_COUNT = {
       'the same rule landing in four places is the cost.',
   ],
   body: `
-<p>Of the five principles on the home page, this is the one that names a target rather than a
-   mechanism, and until now it was the only one with nothing behind it. What follows is not a
-   measurement. It is the pair of numbers that would tell you whether the thing meant to produce a
-   flat maintenance cost is working.</p>
+<p>The home page states the measure and stops there: if the model is working, the number of
+   components that have to change for one functional change goes down. It is the one claim on that
+   page that names a target rather than a mechanism, and this is what sits behind it. What follows
+   is not a measurement. It is the pair of numbers that would tell you whether the thing meant to
+   produce a flat maintenance cost is working.</p>
 
 <h3>The number that makes somebody ask</h3>
 
@@ -804,7 +805,7 @@ const NOTE_COUNT = {
 <p><b>What is not known.</b> Both numbers together show whether the thing that produces a flat
    maintenance cost is working. <b>Neither shows what that cost is.</b> There is no cost model
    behind any of this, so this says what to watch and prices none of it. And the outcome itself
-   remains unmeasured: the instrument is what would test the principle, not evidence that it
+   remains unmeasured: the instrument is what would test the claim, not evidence that it
    holds.</p>
 `,
   next: ['the-last-hop', 'The last hop nobody wrote down',
@@ -812,16 +813,14 @@ const NOTE_COUNT = {
 };
 
 const CSS = `${FONTS}
-  .principles { counter-reset:pr; margin:2.6rem 0 0; }
-  .principle { counter-increment:pr; position:relative; padding-left:2.6rem;
-               margin:0 0 1.7rem; max-width:44rem; }
-  .principle::before { content:counter(pr); position:absolute; left:0; top:.15rem;
-                       font-family:var(--mono); font-size:.78rem; color:var(--green);
-                       letter-spacing:.06em; }
-  .principle b { color:var(--ink); font-weight:500; font-family:var(--head); }
-  .principle span { display:block; color:var(--ink-2); margin-top:.3rem; }
-  .principle .src { margin-right:1.7rem; }   /* two citations on one
-     baseline were 19.1px apart and read as one rule; 2g needs 24 */
+  /* .principles / .principle were deleted 2026-09-14, when the home-page
+     rewrite dropped the five numbered principles. Nothing used them and the
+     whole block was still being inlined into all fourteen pages — the same
+     defect as .step, which was deleted on 2026-09-09 for the same reason.
+     Grep dist/ for the class before reviving a rule, not the generator.
+     The knowledge in the old .principle .src comment (two citations on one
+     baseline at 19.1px read as a single rule; AA needs 24) is not lost: it
+     is what check-link-gaps.js measures, on every page, at every width. */
 
   /* The brand commits to one visual world — navy and paper — rather than
      following the viewer's theme. Every ground is painted explicitly. */
@@ -1724,7 +1723,7 @@ const WORK_SECTIONS = `
 <section>
   <div class="wrap">
     <div class="head narrow">
-      <p class="eyebrow">What it maintains</p>
+      <p class="eyebrow">What the teams maintain</p>
       <h2>Three assets, kept alive.</h2>
       <p>Not projects that shipped and stopped. Each is still under maintenance by an agent&nbsp;team.
          The last is public, so you can install it and read its history.</p>
@@ -1740,20 +1739,27 @@ const WORK_SECTIONS = `
 <section>
   <div class="wrap">
     <div class="head narrow">
-      <p class="eyebrow">How the work gets done</p>
+      <p class="eyebrow">One team, in full</p>
       <h2>A factory that maintains, not just builds.</h2>
-      <p>Generating something with AI is the easy half now. The other half decides whether the
-         thing is still alive in six months: keeping the documents true, the gates green, the
-         releases loading, and the claims about the system honest. That is the half these agents
-         do. None of them writes features.</p>
+      <p>These six maintain the marketplace. Generating something with AI is the easy half now.
+         The other half decides whether the thing is still alive in six months: keeping the
+         documents true, the gates green, the releases loading, and the claims about the system
+         honest. That is the half these six do, and none of them writes features.</p>
     </div>
     <div class="verts">
       ${factory.map(([n, d]) => `<div class="vert"><b>${n}</b><span>${d}</span></div>`).join('\n      ')}
     </div>
-    <p class="note">Those six are agent definitions in the private repository that maintains the
-       marketplace, so you cannot read them. What they maintain is public: a plugin carrying nine
-       installable agents, a connector, their documentation, and a version history you can walk
-       back. That is one repository run this way, not an organization.</p>
+    <!-- ⛔ "six" and "agent definitions" stay in the SAME sentence.
+         check-claims.sh anchors on the sentence containing "agent definitions"
+         and requires the live count inside it. The 2026-09-14 flow fix moved the
+         count up into the standfirst ("These six maintain the marketplace") and
+         left this sentence countless, and the deploy refused to push. The
+         standfirst says whose they are; this says what they are, and what a
+         thing is has to carry its own number. -->
+    <p class="note">All six are agent definitions in a private repository, so you cannot read
+       them. What they maintain is public: a plugin carrying nine installable agents, a connector,
+       their documentation, and a version history you can walk back. That is one repository run
+       this way, not an organization.</p>
     <!-- The only route from this page to the written pieces, and it is now a
          POINTER rather than a second introduction to the series.
          These were two paragraphs that named "the first three are one argument"
@@ -1778,11 +1784,13 @@ const WORK_SECTIONS = `
     <div class="head narrow">
       <p class="eyebrow">Inside AI-SDLC</p>
       <h2>One capability, across&nbsp;every team it touches.</h2>
-      <p>This spans the whole path: the spec a
-         roadmap team writes, the work it becomes across other people’s repos, and whether what
-         shipped is what was asked for.</p>
+      <p>A capability spec is written by a roadmap team, becomes work across other people’s
+         repositories, and is reconciled at the merge against what was asked for. The diagram
+         follows one of them the whole way.</p>
     </div>
     <div class="flow">${flow}</div>
+    <p class="note">Every decision on that path is written down the same way, so a team that did
+       not make it can pick it up:</p>
     <div class="cols" style="margin-top:3.2rem">
       ${method.map(([h, b]) => `<div class="col"><div class="rule"></div>
         <h3>${h}</h3><p>${b}</p></div>`).join('\n      ')}
@@ -1860,16 +1868,20 @@ ${CSS}
     ${svg('crinaro-ai-animated.svg')}
     <h1>${CLAIM_HTML}</h1>
     <p>${SUB}</p>
-    <!-- id="notes" is here to catch an OLD LINK, not to be linked to. The home
-         page carried id="notes" on its notes-routing paragraph until 2026-09-13,
-         when that paragraph moved to /how-the-work-gets-done/ with the rest of
-         WORK_SECTIONS. Anything off-site pointing at https://crinaro.ai/#notes —
-         and route flagged on 2026-09-13 that we have no way to know whether
-         anything does — landed on the home page with no matching element and was
-         silently ignored, dropping the reader at the top with no idea a target
-         was missed. The doors are where such a link was trying to get to.
-         ⛔ Do not remove it because nothing on this site links to it. Nothing on
-         this site is supposed to. -->
+    <!-- The id="notes" catch is GONE as of 2026-09-14, and this records why so
+         it is not simply restored. It existed to catch an off-site link to
+         https://crinaro.ai/#notes and drop that reader at the hero doors. Both
+         halves of that stopped being true today: the rewrite removed the hero
+         doors, and the id ended up on the "What it is for" eyebrow, so the catch
+         was landing a reader who asked for the writing on "Fewer places to
+         change, year over year" instead. A catch that lands on the wrong section
+         is worse than none — without it the browser leaves the reader at the top
+         of the page, reading from the start.
+         ⛔ Restore it only onto a home-page element that actually routes to
+         /notes/. route, 2026-09-14: the home page links three notes by title and
+         never offers the collection, so at present there is no such element.
+         Raised with John rather than fixed here, because it is a copy change to
+         a page he had just finished tuning. -->
   </div>
 </header>
 
@@ -2093,7 +2105,7 @@ ${CSS}
            page with the rest of the sourcing. John: "what does this mean...
            why even have that." In the flow they read as throat-clearing; at the
            end they read as honesty. ⛔ They do not come back up here. -->
-      <p class="eyebrow" id="notes">What it is for</p>
+      <p class="eyebrow">What it is for</p>
       <h2>Fewer places to change,<br>year over year.</h2>
       <p>If the model is working, the number of components that have to change for one functional
          change goes down. That is the measure.</p>
@@ -2181,7 +2193,7 @@ ${CSS}
          <a class="src" href="https://github.com/crinaro/marketplace">github.com/crinaro/marketplace</a>.
          Three different problems on purpose, so the approach gets challenged rather than
          confirmed.
-         <a class="src" href="/how-the-work-gets-done/">The agent roles, and what each keeps
+         <a class="src" href="/how-the-work-gets-done/">The three teams, and what each keeps
          alive</a></p>
     </div>
   </div>
@@ -2250,19 +2262,22 @@ ${CSS}
          site has: the DORA link goes to the page that was actually fetched.
          dora.dev is blocked by this environment's egress proxy and was never
          opened from here; Google's own announcement was. -->
-    <div class="foot">
-      <p><b>Where this comes from.</b> Delivery in healthcare, GovTech and travel, and agent teams
-         maintaining repositories that have to keep working today. Which of the four an
-         organization answers is reported by others rather than measured here, and not from
-         estates run from here. It is reasoning about how the failure happens rather than a result
-         anybody has measured, and the first attempt to measure one did not work as expected.
-         <a class="src" href="/how-the-work-gets-done/">The teams that do it, and what they keep alive</a></p>
-      <p><b>One part is measured elsewhere.</b> DORA's 2025 report puts nearly five thousand
-         respondents behind the amplification claim: AI does not fix a team, it amplifies what is
-         already there. Their seven capabilities name where the facts live. None names who is
-         answerable when the answer spans teams, or how a question reaches them.
-         <a class="src" href="https://cloud.google.com/blog/products/ai-machine-learning/announcing-the-2025-dora-report">Announcing the 2025 DORA report</a></p>
-    </div>
+    <!-- The epistemics footnote was cut 2026-09-14, at John's word: "this can be
+         removed, it doesn't add value." Both paragraphs, the sourcing bound and
+         the DORA citation with it. Before writing another one, check that the
+         page still does not need it: nothing above states a number, a percentage
+         or a population, so there is no measurement here to bound. The moment a
+         sentence on this page cites one, rule 2 puts the bound back, and rule 5
+         wants it stated rather than implied.
+         ⚠️ CORRECTION, route the same day: the first version of this comment said
+         "the provenance still lives on /how-the-work-gets-done/". It does not.
+         What that page carries is two bounds on scope and currency, "one
+         repository run this way, not an organization" and "the reference is on
+         no schedule". The provenance sentence the footnote carried survives only
+         as this page's own "Where this comes from / Patterns learned in hard
+         places" section. The "not a measurement" bound is genuinely inside
+         /notes/count-the-changes/. Do not cite this comment as evidence that a
+         bound is covered somewhere else without opening the page. -->
   </div>
 </section>
 
@@ -2327,9 +2342,9 @@ ${CSS}
          three were named. It also promised things -> teams -> capability while
          the page delivered teams -> things -> capability. The sections below
          are now in the promised order; keep the two in step. -->
-    <p>The argument this site makes is run on three things rather than described against. Here they
-       are, the agent teams that maintain them, and one capability followed across every team it
-       touches.</p>
+    <p>The model this site argues for is run rather than described. Here are the three things it
+       is run on, the agent teams that keep each alive, and one capability spec followed from the
+       team that writes it to the merge that reconciles against it.</p>
   </div>
 </header>
 
@@ -2782,11 +2797,12 @@ writePage(path.join(DIST, 'what-you-already-have', 'index.html'), `${pageHead(
        and filing the author as a one-idea consultant, before the rows get a
        chance. The second sentence is what the notes actually argue, so the
        citation is now true of both halves. -->
-  <p class="standfirst"><b>Ownership decides who is answerable. On its own it does not put an
-     answer where anyone can reach it</b>, and both are argued
-     <a class="src" href="/notes/">in the notes</a>. That is the argument; this page is the
-     machinery it runs on. Some of this
-     machinery you will already have, and the useful question is not what a greenfield build would
+  <p class="standfirst"><b>Owning a capability decides who is answerable. On its own it does not
+     put the facts where anyone can reach them, record why a call was made, or route a question to
+     the team that owns it</b>. Those are the four the
+     <a class="src" href="/">home page</a> sets out, and they are argued at length
+     <a class="src" href="/notes/">in the notes</a>. This page is the machinery they run on. Some
+     of it you will already have, and the useful question is not what a greenfield build would
      look like, it is what the gaps are costing you.</p>
   <!-- ⛔ The instruction sends a reader PAST this page's own framing, so the
        framing travels with it. route, 2026-09-14: the options page opens "It is
@@ -3025,7 +3041,7 @@ fs.writeFileSync(path.join(DIST, 'README.md'), [
   '',
   '| Path | What it is |',
   '|---|---|',
-  '| `index.html` | The claim, the principles, and the two routes into the rest |',
+  '| `index.html` | The claim, the question the page answers, and the routes into the rest |',
   '| `notes/` | The written pieces, each argued at length |',
   '| `what-you-already-have/` | Where to start, and what an empty layer costs |',
   '| `how-the-work-gets-done/` | The three things the argument is run on, and the teams that maintain them |',
