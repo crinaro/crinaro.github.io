@@ -2233,17 +2233,25 @@ ${CSS}
       <p>These are patterns, not prescriptions, and the interesting mail is the mail that says a
          piece of it does not hold: in your architecture, at your size, with the constraints you
          actually have. That is a conversation worth having whether or not anything follows it.</p>
-      <!-- "maintained the way the rest of this is" was here, and "the rest of this"
-           meant the three cards two sections above. Those cards moved to
-           /how-the-work-gets-done/ on 2026-09-13 and the pronoun was left pointing
-           at nothing — the closing paragraph of the home page was a callback to
-           something the home page no longer contained. counterpoint caught it the
-           same day. Naming the three costs six words and cannot go stale. -->
-      <p>Today I read it myself, and I do not expect enough mail to change that. If that changes,
-         the answer will be the one this whole page argues for: an agent team to help with the
-         replying, maintained the way the reference, this brand and the marketplace are, with the
-         questions and the disagreement going back to the team that keeps the material. Which is a
-         fair test of whether any of it works.</p>
+      <!-- ⛔⛔ REMOVED 2026-09-15. A paragraph beginning "Today I read it myself, and
+           I do not expect enough mail to change that" stood here from 2026-09-03 to
+           2026-09-15. John: "this was a comment i made to the team, it shouldn't be
+           on the site." It was HIS INTERNAL REMARK, written into public copy and
+           published for twelve days.
+
+           ⛔ This is the failure this repo exists to prevent, and it is not a
+           wording defect. All six agents read this page repeatedly and none of them
+           flagged it, because every one of them reads a sentence and asks whether it
+           is TRUE, CONSISTENT, WELL-VOICED, ARGUABLE or REACHABLE. It was all five.
+           None of them asks WHERE THE SENTENCE CAME FROM, or whether John said it to
+           the team rather than to a reader. The deploy's private-reasoning gate misses
+           it too: that gate matches tokens about employment and about the person, and
+           this paragraph contains none of them.
+
+           ⛔ Do not write a replacement for this paragraph. The disclosure it was
+           built around is four words, "Today I read it myself.", which every note,
+           the notes index and the adoption page already carry at the foot. The rest
+           was speculation about an agent team that does not exist. -->
       <p style="margin-top:.8rem">
         <a class="src" href="mailto:${EMAIL}?subject=Crinaro">${EMAIL}</a>
       </p>
