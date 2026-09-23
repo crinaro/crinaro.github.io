@@ -66,8 +66,8 @@ const problems = [
   ['A route from a question to its owner',
    'Not whoever is nearest. The question reaches the team that owns it, and when something of ' +
      'theirs is broken they fix it, rather than everyone routing around it.'],
-  ['One owner for the data, the APIs and the agents',
-   'Whoever owns a capability owns the data behind it, the APIs that expose it, and the agents ' +
+  ['One owner, from the data to the agents',
+   'Whoever owns a capability owns the data behind it, the systems that read it, and the agents ' +
      'that work on it. Agents do not arrive trained: somebody designs them, checks their work ' +
      'and keeps improving them. Count that inside their span of control rather than on top of it.'],
 ];// The maintenance team, by role. These are real agent definitions — the six in
@@ -1524,14 +1524,24 @@ ${CSS}
       </div>`).join('\n      ')}
     </div>
     <div class="head narrow">
-      <p>Adoption is not what separates that 6%. Redesigning the work is, which is where the five
-         questions above arrive from the other direction.</p>
+      <p>Adoption is not what separates that 6%. They changed the work, not just the tools, three
+         times as often as everyone else. You do not get a different number out of the same
+         system.</p>
       <p>What most organizations have adopted is prompt-style use. It assists a person and it does
          not make the work repeatable, which is the difference between a team getting faster and a
-         number moving. Stanford's AI Index puts agent deployment
+         number moving.</p>
+      <p>There is a reading where nothing here is wrong and it is simply early. Economists call that
+         lag the
+         <a class="src" href="https://www.nber.org/papers/w25148">productivity J-curve</a>: the gain
+         arrives only after the work around the technology has been rebuilt. That is the same
+         answer, and the rebuilding is the part nobody owns.</p>
+      <p>Stanford's AI Index puts agent deployment
          <a class="src" href="https://hai.stanford.edu/ai-index/2026-ai-index-report/economy">in the single digits</a>
-         across nearly every business function. The agents are barely in, which makes this the
-         cheap moment to decide who owns them.</p>
+         today.
+         <a class="src" href="https://www.deloitte.com/us/en/insights/topics/emerging-technologies/ai-agents-scaling-faster.html">Deloitte asked 3,235 leaders in 24 countries</a>:
+         74% expect agents in at least moderate use by 2027, and 21% have a mature governance model
+         for them. The agents are barely in and the date is already on the calendar, which is what
+         makes this the cheap moment to decide who owns them.</p>
     </div>
   </div>
 </section>
