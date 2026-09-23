@@ -47,7 +47,9 @@
     font:17px/1.65 var(--body); -webkit-font-smoothing:antialiased;
   }
   .wrap { max-width:62rem; margin:0 auto; padding:0 1.5rem; }
-  .narrow { max-width:40rem; }
+  
+  .narrow { max-width:none; }
+  p, li { text-wrap:pretty; }
 
   h1,h2,h3 { font-family:var(--head); font-weight:500; letter-spacing:.005em;
              text-wrap:balance; margin:0; }
@@ -71,7 +73,7 @@
   .hero svg { width:100%; max-width:26rem; height:auto; display:block; }
   .hero h1 { color:#FFFFFF; max-width:32ch; }
   
-  .hero p { color:var(--rblue); font-size:1.1rem; max-width:54ch; }
+  .hero p { color:var(--rblue); font-size:1.1rem; max-width:none; }
   .band .src { color:var(--rblue); border-bottom-color:rgba(147,184,212,.45); }
   .band .src:hover { color:#FFFFFF; border-bottom-color:#FFFFFF; }
   .hero .src { color:var(--rblue); border-bottom-color:rgba(147,184,212,.45);
@@ -102,6 +104,8 @@
   @media (min-width:48rem) { .cols.four { grid-template-columns:repeat(2,1fr); } }
   
   @media (min-width:48rem) { .cols.five { grid-template-columns:repeat(2,1fr); } }
+  
+  @media (min-width:48rem) { .cols.five > .col:last-child:nth-child(odd) { grid-column:1 / -1; } }
   .col { display:flex; flex-direction:column; gap:.5rem; }
   .col .rule { width:2rem; height:3px; background:var(--green); border-radius:2px; margin-bottom:.4rem; }
   
@@ -148,14 +152,14 @@
   .cols.five + .head { margin-top:3rem; }
   .flow svg { width:100%; min-width:38rem; height:auto; display:block; }
   
-  .note { margin-top:2.4rem; font-size:.95rem; color:var(--muted); max-width:40rem; }
+  .note { margin-top:2.4rem; font-size:.95rem; color:var(--muted); max-width:none; }
   
   .foot { margin-top:3.4rem; padding-top:1.8rem; border-top:1px solid var(--hair);
-          font-size:.95rem; color:var(--muted); max-width:40rem; }
+          font-size:.95rem; color:var(--muted); max-width:none; }
   .foot p { margin:0 0 1rem; }
   
   .refs { margin:2.4rem 0 0; padding:1.4rem 0 0 1.2rem; border-top:1px solid var(--hair);
-          font-size:.88rem; line-height:1.5; color:var(--muted); max-width:40rem; }
+          font-size:.88rem; line-height:1.5; color:var(--muted); max-width:none; }
   .refs li { margin:0 0 .6rem; padding-left:.2rem; }
   .refs a.src { color:var(--muted); white-space:normal; }
   
@@ -190,7 +194,7 @@
   a { color:var(--green); }
   :focus-visible { outline:2px solid var(--rgreen); outline-offset:3px; }
   .hero h1 { max-width:20ch; }
-  .hero p { max-width:54ch; }
+  .hero p { max-width:none; }
 </style>
 </head>
 <body>
