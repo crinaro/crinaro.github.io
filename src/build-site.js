@@ -602,30 +602,11 @@ const NOTE_COUNT = {
 };
 
 const CSS = `${FONTS}
-  /* .principles / .principle were deleted 2026-09-14, when the home-page
-     rewrite dropped the five numbered principles. Nothing used them and the
-     whole block was still being inlined into all fourteen pages — the same
-     defect as .step, which was deleted on 2026-09-09 for the same reason.
-     Grep dist/ for the class before reviving a rule, not the generator.
-     The knowledge in the old .principle .src comment (two citations on one
-     baseline at 19.1px read as a single rule; AA needs 24) is not lost: it
-     is what check-link-gaps.js measures, on every page, at every width. */
 
-  /* The brand commits to one visual world — navy and paper — rather than
-     following the viewer's theme. Every ground is painted explicitly. */
   :root {
     --navy:#0B2545; --navy-2:#123256; --paper:#F2F6F8; --ground:#FFFFFF;
     --green:#1B5C46; --rgreen:#4FA98A; --blue:#5B84A9; --rblue:#93B8D4;
-    /* --muted was #5B6E80 and failed AA as text: 3.76 on paper, 4.09 on white,
-       set at 11.2px for eyebrows. Darkened to 43% lightness at the same hue and
-       saturation — 4.84 on paper, 5.27 on white. It is the same gray, deeper. */
     --ink:#0B2545; --ink-2:#3D5570; --muted:#5B6E80; --hair:#DCE4EA;
-    /* Poppins is embedded (see FONTS above) and therefore FIRST — the point is
-       that every visitor sees the same face. Naming Futura first meant the
-       wordmark was geometric only for people who happened to own it, and a
-       grotesque everywhere else. The local names stay as a fallback for the
-       case where the embedded face fails to decode. When Futura is licensed,
-       embed it and put it in front of Poppins. */
     --head:Poppins,Futura,"Century Gothic","Avenir Next",Avenir,"Trebuchet MS",sans-serif;
     --body:"Helvetica Neue",Helvetica,Arial,system-ui,sans-serif;
     --mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
@@ -655,23 +636,13 @@ const CSS = `${FONTS}
   section { padding:5.5rem 0; border-top:1px solid var(--hair); }
   .stack { display:flex; flex-direction:column; gap:1.1rem; }
   .head { display:flex; flex-direction:column; gap:.75rem; margin-bottom:2.6rem; }
-  /* That margin separates a head from the rows or cards beneath it. A head with
-     nothing under it would be left holding 2.6rem of dead space above the next
-     section's own padding, which reads as an unfinished section. */
   .head:last-child { margin-bottom:0; }
 
-  /* ---- hero ---- */
   .hero { background:var(--navy); border:0; padding:0; }
   .hero .wrap { padding-top:4rem; padding-bottom:4.5rem;
                 display:flex; flex-direction:column; gap:2.4rem; }
   .hero svg { width:100%; max-width:26rem; height:auto; display:block; }
   .hero h1 { color:#FFFFFF; max-width:32ch; }
-  /* 54ch, measured rather than chosen. 44ch broke the old subhead after "now",
-     stranding it, at every viewport from 1000px up; 56ch and above break the
-     current one after "GovTech" or "and". 54ch breaks at the comma, which is
-     the same break the social card draws, so the page and the share image read
-     identically. Poppins is embedded, so this holds on every machine. Re-probe
-     it if the subhead changes — the number is a fact about this string. */
   .hero p { color:var(--rblue); font-size:1.1rem; max-width:54ch; }
   .band .src { color:var(--rblue); border-bottom-color:rgba(147,184,212,.45); }
   .band .src:hover { color:#FFFFFF; border-bottom-color:#FFFFFF; }
@@ -696,166 +667,43 @@ const CSS = `${FONTS}
   .cta.dark { background:var(--green); color:#FFFFFF; }
   .cta.dark:hover { background:#25755A; }
 
-  /* ---- content blocks ---- */
   .cols { display:grid; grid-template-columns:1fr; gap:2rem; }
   @media (min-width:48rem) { .cols { grid-template-columns:repeat(3,1fr); gap:2.4rem; } }
-  /* Four cards, two up. Prose at a quarter of 944px is unreadable, and the
-     three-up grid above is shared with the capability block on
-     /how-the-work-gets-done/, which must stay three. */
   @media (min-width:48rem) { .cols.four { grid-template-columns:repeat(2,1fr); } }
-  /* Five answers, 2026-09-22. TWO columns, and this was three for one round —
-     the reasoning then was that three avoids a lone fifth card. visual-qa
-     measured the result and three is worse on every count that matters:
-       · column 289px vs 453px, and THREE of the five headings then wrap that
-         fit on one line at 453 — "A route from a question to its owner" misses
-         by a single pixel. The three-column switch created every wrapped
-         heading; none of this copy is too long for the card it is in.
-       · cards 4 and 5 then strand a determiner side by side on the same
-         baseline pair — "A route from a" / "Time to build the" — which is the
-         hanging-article defect twice, adjacent.
-       · row 1 goes ragged: card 3's body starts 28px below cards 1 and 2
-         because its heading wrapped and theirs did not.
-     At two columns all five headings sit on one line and the bodies align
-     within every row (measured: 1619/1619, 1823/1823, 2000).
-     ⛔ The cost is real and was weighed rather than waved away: card 5 sits
-     alone on row 3 with an empty cell beside it. That reads as a list ending,
-     which is what it is, where the three-column hole sat mid-block and read as
-     a remainder — worst at 1920, where the eye tracks to a third column that
-     row 1 established and finds nothing. Looked at both at 1440 before
-     choosing. Do not switch back without rendering both again. */
   @media (min-width:48rem) { .cols.five { grid-template-columns:repeat(2,1fr); } }
   .col { display:flex; flex-direction:column; gap:.5rem; }
   .col .rule { width:2rem; height:3px; background:var(--green); border-radius:2px; margin-bottom:.4rem; }
-  /* Outbound links exist so a claim can be checked,
-     so it is set to read as an invitation rather than as navigation. */
   .src { font-family:var(--head); font-size:.92rem; letter-spacing:.02em;
          text-decoration:none; border-bottom:1px solid rgba(27,92,70,.35);
          padding-bottom:1px; }
   .src:hover { border-bottom-color:var(--green); }
 
-  /* Two links on one baseline read as ONE rule with a nick in it. The
-     underline is a pale border-bottom and the bare middot between them is
-     smaller and lower contrast than the rule it is supposed to break, so the
-     eye joins them. Recorded as a defect on 2026-09-02; found live again on
-     three pages on 2026-09-13, at gaps of 13.1, 13.5 and 19.1 pixels.
-     ⛔ No numeric check could ever have caught it: the underline is a BORDER,
-     so getComputedStyle().textDecorationLine returns "none". check-drift.sh 2g
-     measures the rendered gap instead and fails under 24px.
-     The separator gets its own element so it can outweigh what it separates. */
   .sep { display:inline-block; padding:0 .7rem; color:var(--ink-2);
          border-bottom:none; }
 
-  /* A link row breaks BETWEEN its items, never inside one. Adding a fourth link
-     to the adoption page's row on 2026-09-13 wrapped "How the work gets done"
-     mid-label and stranded an underlined "done" on the next line beside
-     "Crinaro.AI" — the broken-title defect again, in a row check-link-gaps.js
-     had just passed. That is not the gate failing: the gap between the two was
-     fine, and the wrap is what read wrong. Only a render catches it.
-     Two things hold the row together, and BOTH are needed:
-       1. this rule, so a multi-word label cannot split across lines;
-       2. no whitespace between a .sep span and the link it introduces, in the
-          markup — otherwise the row can break there and leave a dangling "·"
-          at the end of a line. The visible gap is the separator's own padding,
-          NOT a space character, so closing it up costs nothing.
-     If you add a link to one of these rows, render the page and look at it.
-     A four-link row DOES still wrap to two lines in the 560px column the
-     adoption page gives it, at every width from 1000 to 1920 — the column is
-     what constrains it, not the 38rem prose measure. Lifting that measure was
-     tried on 2026-09-13 and measured as inert before being taken out again;
-     if you are tempted by it, the row and its parent are both 560px. Wrapping
-     cleanly is the fix here, not fitting on one line. */
-  /* ⭐ 2026-09-14: this is no longer a .linkrow rule. It applies to EVERY .src
-     link, because the defect was never specific to link rows — it is specific
-     to a label being allowed to split, and an inline citation in prose splits
-     the same way with the same result. visual-qa found six on the home page
-     alone: "Why" [33px] and "APIs" [31px] left hanging on their own line, each
-     carrying its own underline, which reads as a stray green rule dropped into
-     the margin rather than as the tail of a link. A measurement over all 14
-     built pages found ELEVEN, so the row-scoped rule had been fixing about a
-     third of the class for a day.
-     ⛔ Measured before it was applied, and this is the number that makes it
-     safe: across all 52 inline .src links on all 14 pages, the widest label is
-     443px on one line and NONE exceeds its container — zero would overflow.
-     Re-measure before adding a label materially longer than that; nowrap on a
-     link wider than its column is a horizontal scrollbar, and the page
-     currently has scrollWidth == clientWidth at 1000, 1440 and 1920.
-     ⚠️ THE TRADE: a link that cannot split moves down whole, so the line above
-     it can end short. That rag was rendered and looked at rather than assumed.
-     A ragged edge reads as a ragged edge; a stranded underline reads as a
-     mistake in the page. */
   a.src { white-space:nowrap; }
-  /* .sep is inline-block everywhere else, and an atomic inline box is its own
-     break opportunity — so even with the whitespace removed the row still broke
-     between a separator and its link, leaving the "·" stranded at the end of a
-     line. Inline inside a link row instead: horizontal padding still applies,
-     and with no whitespace after it the separator cannot be parted from the
-     link it introduces. A row that wraps now carries the "·" down to the next
-     line, where it reads as a continued list rather than as debris. */
   .linkrow .sep { display:inline; }
 
-  /* The diagram scrolls inside its own box rather than squashing: below about
-     44rem the five stages cannot hold their labels, and a legible thing you
-     drag beats an illegible thing that fits. */
   .flow { overflow-x:auto; -webkit-overflow-scrolling:touch; }
-  /* The home page figure only. Its caption block sat closer to the card grid
-     below than to the panels it explains, so it read as an intro to the cards. */
   .fig { margin:.6rem 0 3.4rem; }
-  /* The evidence block. John, 2026-09-22: the site had no visible external data
-     and he asked for something bolder than the diagram. Bold here is SCALE, not
-     a new palette — the figures are the largest type on the page after the hero,
-     in the head face, on the ground the section already uses. A second visual
-     language would have cost more than it bought. */
   .stats { display:grid; grid-template-columns:1fr; gap:2.2rem 2.4rem; margin:2.6rem 0 0; }
   @media (min-width:34rem) { .stats { grid-template-columns:repeat(2,1fr); } }
   @media (min-width:62rem) { .stats { grid-template-columns:repeat(4,1fr); } }
   .stat b { display:block; font-family:var(--head); font-weight:500; line-height:1;
             font-size:clamp(2.7rem,5.2vw,3.5rem); color:var(--ink); letter-spacing:-.02em; }
   .stat p { margin:.7rem 0 0; font-size:.98rem; line-height:1.5; color:var(--ink-2); }
-  /* The base line. Smaller and quieter than the claim, because it is a bound
-     rather than a headline — but it is never optional and never collapsed into
-     the sentence above it. */
-  /* ⛔ THE BASE LINES ALIGN BECAUSE OF THIS, NOT BECAUSE THE COPY HAPPENS TO
-     WRAP THE SAME. Shortening one sentence on 2026-09-23 lifted its base 24px
-     above the other three and broke the row. The cells stretch to the tallest,
-     the base is pushed to the bottom of its own cell, so the row holds whatever
-     anybody writes later. */
   .stat { display:flex; flex-direction:column; height:100%; }
   .stat .base { display:block; margin-top:auto; padding-top:.55rem; font-size:.78rem;
                 line-height:1.45; color:var(--muted); }
   .stat .base a { color:var(--muted); border-bottom:1px solid var(--hair); }
   .stat .base a:hover { color:var(--ink); border-bottom-color:var(--ink); }
-  /* The conclusion under the figures. It had zero separation from the last base
-     line, so it read as a fifth footnote rather than as the point the block is
-     making. Measured, not guessed: 0px before, and .head's own paragraph rhythm
-     is the reference. */
   .stats + .head { margin-top:2.4rem; }
-  /* The exhibit panel. Navy inside a white section rather than a navy band,
-     because a band here would sit against "Where the velocity went" and the band
-     rhythm is what separates the argument's movements. A panel reads as an
-     exhibit, which is what it is. */
   .exhibit { background:var(--navy); border-radius:4px; padding:1.6rem 1.2rem 1rem;
              margin:2.2rem 0 0; overflow-x:auto; -webkit-overflow-scrolling:touch; }
   .exhibit svg { width:100%; min-width:34rem; height:auto; display:block; }
-  /* The lead-in above the figures. It sat hard against the last card's body copy
-     and read as a continuation of it rather than as the turn into the evidence. */
   .cols.five + .head { margin-top:3rem; }
   .flow svg { width:100%; min-width:38rem; height:auto; display:block; }
-  /* ⛔ 40rem, matching .narrow, NOT a number of its own. It was 46rem until
-     2026-09-14, which put three different right edges in one section: a 40rem
-     standfirst above it, a 46rem note, and the 944px rows beside it. Worse, a
-     note is the SMALLEST type on the page (.95rem against 1rem) and 46rem gave
-     it the WIDEST measure of the three, about 100 characters a line against 78
-     for the copy it qualifies. Small and wide is the hardest combination to
-     read, and a subordinate block should not out-measure the thing it hangs
-     off. visual-qa, 2026-09-14.
-     It shares .narrow's value on purpose: the note aligns with the standfirst
-     above it, so the two agree at the right edge and the reader gets one
-     column rather than a ragged stack. If .narrow moves, this moves with it. */
   .note { margin-top:2.4rem; font-size:.95rem; color:var(--muted); max-width:40rem; }
-  /* The epistemics footnote. Same measure and color as .note so it reads as the
-     same register, with a rule above it because it is addressed to a different
-     reader: somebody checking the page rather than reading it. The note pages
-     define their own .foot; this is the home page's. */
   .foot { margin-top:3.4rem; padding-top:1.8rem; border-top:1px solid var(--hair);
           font-size:.95rem; color:var(--muted); max-width:40rem; }
   .foot p { margin:0 0 1rem; }
@@ -868,26 +716,18 @@ const CSS = `${FONTS}
   .vert > b { font-family:var(--head); font-size:1.15rem; font-weight:500; color:var(--ink); }
   .vert span { color:var(--ink-2); }
 
-  /* ---- dark band ---- */
   .band { background:var(--navy); border:0; }
   .band h2, .band h3 { color:#FFFFFF; }
   .band p { color:var(--rblue); }
-  /* --blue is the candidate color for LIGHT grounds; on navy the palette in
-     02-identity.md specifies --rblue. Using the light one here measured 3.90,
-     below AA; the documented one is 7.36. The palette already had the answer. */
   .band .eyebrow { color:var(--rblue); }
   .band .rule { background:var(--rgreen); }
   .band .step { border-color:var(--navy-2); }
   .band .step .when { color:var(--rgreen); }
 
-  /* ---- footer ---- */
   footer { background:var(--navy); padding:3rem 0 3.5rem; }
   footer .wrap { display:flex; flex-direction:column; gap:1.6rem; }
   footer svg { width:100%; max-width:15rem; height:auto; }
   footer a { color:var(--rblue); }
-  /* Lightened from #6C88A4, which measured 4.17 on navy — below AA, and missed
-     by every review because it is a one-off hex rather than a token. Same hue
-     and saturation at 57% lightness: 4.72, and still quieter than --rblue. */
   .fine { font-size:.82rem; color:#7891AB; }
 
   a { color:var(--green); }
@@ -2121,8 +1961,6 @@ writePage(path.join(notePath, 'index.html'), `${noteHead(
 <meta property="og:type" content="article">
 <style>
 ${CSS}
-  /* Article-only. The home page has no long-form prose, so these rules exist
-     nowhere else; everything above is shared, palette included. */
   .note-wrap { max-width:38rem; margin:0 auto; padding:3.5rem 1.5rem 5rem; }
   .note-home { display:inline-block; margin-bottom:3rem; }
   .note-home svg { width:11rem; height:auto; display:block; }
@@ -2137,10 +1975,7 @@ ${CSS}
   article p { margin:0 0 1.2rem; color:var(--ink-2); }
   .note-foot { margin-top:3.5rem; padding-top:1.6rem; border-top:1px solid var(--hair);
                font-size:.92rem; color:var(--ink-2); }
-  /* A figure may run wider than the measure. Inside the 38rem article column
-     the shared .flow min-width overflows and clips its right-hand boxes. */
   article .flow { margin:2.4rem 0 2.8rem; }
-  /* A finished note is a dead end unless it says what to read next and why. */
   .onward { margin-top:3.5rem; padding-top:1.6rem; border-top:1px solid var(--hair); }
   .onward .eyebrow { margin-bottom:.7rem; }
   .onward h2 { margin:0 0 .5rem; font-size:1.2rem; }
@@ -2148,8 +1983,6 @@ ${CSS}
                  border-bottom:1px solid rgba(27,92,70,.35); padding-bottom:1px; }
   .onward h2 a:hover { border-bottom-color:var(--green); }
   .onward p { margin:0; color:var(--ink-2); font-size:.97rem; }
-  /* Nine minutes is a long read to enter blind. The gist lets somebody decide
-     in ten seconds whether the rest is for them. */
   .gist { margin:0 0 2.8rem; padding:1.3rem 1.5rem; background:var(--paper);
           border-left:2px solid var(--green); }
   .gist p { font-family:var(--mono); font-size:.68rem; letter-spacing:.14em;
@@ -2317,10 +2150,6 @@ writePage(path.join(DIST, 'what-you-already-have', 'options', 'index.html'), `${
   .jump { font-size:.92rem; line-height:2; color:var(--ink-2); margin:0 0 2.6rem; }
   .jump a { color:var(--ink); text-decoration:none; border-bottom:1px solid rgba(27,92,70,.3);
             white-space:nowrap; display:inline-block; }
-  /* Eleven layer links wrap across several lines, so every pair that lands
-     on one baseline is an adjacent-underline pair. At .9rem they measured
-     18.5px apart and joined, which check-link-gaps.js caught and the
-     render review did not: a wrapped list hides the defect in plain sight. */
   .jump a { margin-right:1.8rem; }`)}
   <h1>The options at each layer</h1>
   <p class="standfirst"><b>It is a list and not a review.</b> Nothing here ranks anything, no entry
