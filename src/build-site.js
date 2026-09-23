@@ -474,8 +474,7 @@ const NOTE_COUNT = {
       'the same rule landing in four places is the cost.',
   ],
   body: `
-<p>The home page states the measure and stops there: if the model is working, the number of
-   components that have to change for one functional change goes down. It is the one claim on that
+<p>The home page states the measure and stops there: if your agent teams are working, the number of systems you have to change to deliver one thing the business asked for goes down. It is the one claim on that
    page that names a target rather than a mechanism, and this is what sits behind it. What follows
    is not a measurement. It is the pair of numbers that would tell you whether the thing meant to
    produce a flat maintenance cost is working.</p>
@@ -707,6 +706,11 @@ const CSS = `${FONTS}
   .foot { margin-top:3.4rem; padding-top:1.8rem; border-top:1px solid var(--hair);
           font-size:.95rem; color:var(--muted); max-width:40rem; }
   .foot p { margin:0 0 1rem; }
+  .refs { margin:2.4rem 0 0; padding:1.4rem 0 0 1.2rem; border-top:1px solid var(--hair);
+          font-size:.88rem; line-height:1.5; color:var(--muted); max-width:40rem; }
+  .refs li { margin:0 0 .6rem; padding-left:.2rem; }
+  .refs a.src { color:var(--muted); white-space:normal; }
+  sup.fn { font-size:.7em; line-height:0; color:var(--muted); margin-left:.1em; }
 
   .verts { display:grid; grid-template-columns:1fr; gap:0;
            border-top:1px solid var(--hair); }
@@ -1513,8 +1517,8 @@ ${CSS}
         <h3>${h}</h3><p>${b}</p></div>`).join('\n      ')}
     </div>
     <div class="head narrow">
-      <p>It is not just you. McKinsey put this to 1,719 people across 97 nations in its August 2026
-         survey, and what they reported was this.</p>
+      <p>It is not just you. McKinsey asked 1,719 people across 97 nations for its August 2026
+         report, and what they reported was this.</p>
     </div>
     <div class="exhibit">${exhibit}</div>
     <div class="stats">
@@ -1524,25 +1528,41 @@ ${CSS}
       </div>`).join('\n      ')}
     </div>
     <div class="head narrow">
-      <p>All of it is self-assessment. The share saying they have scaled keeps rising and the share
-         that can point at a result does not move.</p>
-      <p>Adoption is not what separates that 6%. They changed the work, not just the tools, three
-         times as often as everyone else. You do not get a different number out of the same
-         system.</p>
-      <p>What most organizations have adopted is prompt-style use. It assists a person and it does
-         not make the work repeatable, which is the difference between a team getting faster and a
-         number moving.</p>
-      <p>There is a reading where nothing here is wrong and it is simply early. Economists call that
-         lag the
+      <p>Those figures are leaders grading their own organizations, and a second firm reports a
+         similar distance between adoption and return.<sup class="fn">1</sup> So the question is not whether you are adopting AI. It is
+         whether the way you adopt it can move EBIT.</p>
+      <p>The 6% changed the work, not just the tools, three times as often as everyone else. You do
+         not get a different number out of the same system.</p>
+      <p>Prompt-style use is the easy thing to adopt. It assists a person and it does not make the
+         work repeatable, which is the difference between a team getting faster and a number
+         moving.</p>
+      <p>You could read all of this as simply early. Economists call that lag the
          <a class="src" href="https://www.nber.org/papers/w25148">productivity J-curve</a>: the gain
-         arrives only after the work around the technology has been rebuilt. That is the same
-         answer, and the rebuilding is the part nobody owns.</p>
-      <p>Stanford's AI Index today puts agent deployment
-         <a class="src" href="https://hai.stanford.edu/ai-index/2026-ai-index-report/economy">in the single digits</a>.
-         <a class="src" href="https://www.deloitte.com/us/en/insights/topics/emerging-technologies/ai-agents-scaling-faster.html">Deloitte asked 3,235 leaders</a>
-         in 24 countries in late 2025, and 74% expected agents in at least moderate use within two
-         years. The agents are barely in and the date is already on the calendar, which is what
-         makes this the cheap moment to decide who owns them.</p>
+         arrives only after the work around the technology has been rebuilt. Either way the work has
+         to change, and nobody owns that change.</p>
+      <p><a class="src" href="https://kpmg.com/content/dam/kpmgsites/xx/pdf/2026/06/global-ai-pulse-q2.pdf">KPMG asked 2,145 leaders</a>
+         for its June 2026 report about running AI day to day: who can override it, who can pause
+         it, who answers for its data. Only about a third said the roles were very clear and well
+         managed.<sup class="fn">2</sup> An executive who owns AI and its controls is the start.
+         Somebody also has to own the design: each process, each system and the data behind it, and
+         how work moves between them, with the diligence you already give to organizing people.</p>
+      <p>The agents are already going in,<sup class="fn">3</sup> and 74% of
+         <a class="src" href="https://www.deloitte.com/us/en/insights/topics/emerging-technologies/ai-agents-scaling-faster.html">the 3,235 leaders Deloitte asked</a>,
+         as it reported in April 2026, expected at least moderate use by 2027. Designed first, the
+         system around them can take cost out. Leave it as it is and they amplify the organization you
+         run today, costs included. That is a hard result to take to a board.</p>
+      <ol class="refs">
+        <li><a class="src" href="https://kpmg.com/content/dam/kpmgsites/xx/pdf/2026/04/global-ai-pulse.pdf">KPMG, Global AI Pulse, April 2026</a>,
+          p. 10: a second firm, at one point rather than over a year. Nearly 40% of 2,110 leaders said
+          their organization was scaling AI or driving adoption
+          across the enterprise, and 8% reported an established return on investment.</li>
+        <li><a class="src" href="https://www.ey.com/en_us/newsroom/2026/09/ey-survey-finds-that-autonomous-ai-implementation-outpaces-oversight-yielding-an-ai-governance-gap">EY, AI Risk and Governance Survey, September 2026</a>:
+          a different firm, on controls. Of about 180 senior AI executives at US companies using agentic AI, 49% said their
+          governance framework had not been updated for it, and 26% said they could not detect
+          unauthorized agents operating internally.</li>
+        <li>KPMG's April report again, note 1, not the June one above, p. 12: of 2,110 leaders, 17% were piloting AI agents, 14%
+          deploying them and 18% scaling them across multiple functions.</li>
+      </ol>
     </div>
   </div>
 </section>
@@ -1552,9 +1572,9 @@ ${CSS}
     <div class="head narrow">
       <p class="eyebrow">Where the velocity went</p>
       <h2>Fewer places to change,<br>year over year.</h2>
-      <p>If the model is working, the number of systems you have to change to deliver one thing the
+      <p>If your agent teams are working, the number of systems you have to change to deliver one thing the
          business asked for goes down. That is the measure.</p>
-      <p>It takes going back and simplifying what is already there, and that is affordable at the
+      <p>Getting that number down takes going back and simplifying what is already there, and that is affordable at the
          same level of investment, if the organization prioritizes it. If it does not, the pattern holds. Two years on, the
          spend was real and the shape is the same. <i>We did so much.</i> Yes, you did. You did not
          change the pattern.
