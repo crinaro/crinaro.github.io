@@ -129,6 +129,12 @@
   
   .flow { overflow-x:auto; -webkit-overflow-scrolling:touch; }
   
+  @media (max-width:40rem) {
+    .flow::before { content:"Scroll sideways for the whole diagram →"; display:block;
+                    position:sticky; left:0; font-size:.75rem; color:var(--muted);
+                    margin:0 0 .5rem; white-space:nowrap; }
+  }
+  
   .fig { margin:.6rem 0 3.4rem; }
   
   .stats { display:grid; grid-template-columns:1fr; gap:2.2rem 2.4rem; margin:2.6rem 0 0; }
@@ -351,9 +357,9 @@
       <div class="col"><div class="rule"></div>
         <h3>A name against each capability</h3><p>Not whoever picked it up. One team answerable for each part of the system after the current deadline, and an operating process that keeps it that way.</p></div>
       <div class="col"><div class="rule"></div>
-        <h3>One place the facts live</h3><p>What changed, written down when work ships, and one view across all of it that somebody keeps current. The place an agent team goes for an answer, instead of guessing between two that disagree. <a class="src" href="/notes/who-owns-the-answer/">Who owns the answer</a></p></div>
+        <h3>One place the facts live</h3><p>How your system works, and the procedures people once learned by training, written where an agent can read them. Agents decide from what they are given. Without it, they guess. <a class="src" href="/notes/who-owns-the-answer/">Who owns the answer</a></p></div>
       <div class="col"><div class="rule"></div>
-        <h3>The why, captured when it is decided</h3><p>Code says what it does. It never says why it was built that way. Written down by whoever made the call, at the time, not reconstructed later by somebody who was not there.</p></div>
+        <h3>The why, captured when it is decided</h3><p>Code says what it does. It never says why it was built that way, or which duplicate is meant to go. Written down by whoever made the call, at the time, not reconstructed later by somebody who was not there.</p></div>
       <div class="col"><div class="rule"></div>
         <h3>A route from a question to its owner</h3><p>Not whoever is nearest. The question reaches the team that owns it, and when something of theirs is broken they fix it, rather than everyone routing around it.</p></div>
       <div class="col"><div class="rule"></div>

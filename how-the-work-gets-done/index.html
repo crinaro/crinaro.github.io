@@ -127,6 +127,12 @@
   
   .flow { overflow-x:auto; -webkit-overflow-scrolling:touch; }
   
+  @media (max-width:40rem) {
+    .flow::before { content:"Scroll sideways for the whole diagram →"; display:block;
+                    position:sticky; left:0; font-size:.75rem; color:var(--muted);
+                    margin:0 0 .5rem; white-space:nowrap; }
+  }
+  
   .fig { margin:.6rem 0 3.4rem; }
   
   .stats { display:grid; grid-template-columns:1fr; gap:2.2rem 2.4rem; margin:2.6rem 0 0; }
@@ -238,7 +244,7 @@
       <div class="col"><div class="rule"></div>
         <p class="eyebrow">Internal · seven agents</p><h3>This brand</h3><p>The page you are reading, the deck, the identity and the rules that govern them. One agent each for the claim, the voice, the render, the argument against, the contradictions with what is already published, the path a reader actually takes, and whether the whole thing still says what its sources say.</p></div>
       <div class="col"><div class="rule"></div>
-        <p class="eyebrow">Public · installable</p><h3>The plugin marketplace</h3><p>Where the AI-SDLC reference gets tested in public. The utilities are what comes out along the way: an agent team for the job search, and a connector for several mailboxes.</p>
+        <p class="eyebrow">Public · installable</p><h3>The plugin marketplace</h3><p>One of the places the AI-SDLC reference is tested, and the one in public. Plugins are added as problems are worked through. So far: an agent team that helps whoever installs it find their next opportunity, full-time or fractional, and a connector for several mailboxes.</p>
         <p><a class="src" href="https://github.com/crinaro/marketplace">Read the marketplace <span aria-hidden="true">&rarr;</span></a></p></div>
     </div>
   </div>

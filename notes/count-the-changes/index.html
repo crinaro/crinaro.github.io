@@ -4,9 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Count the changes, not the repositories · Crinaro.AI</title>
-<meta name="description" content="Success here is maintenance cost staying flat or falling as scale increases. This is how you would know, and the number the argument most naturally suggests is the wrong one.">
+<meta name="description" content="If your agent teams are working, one change the business asks for touches fewer places over time. This is how you would know, and the number the argument most naturally suggests is the wrong one.">
 <meta property="og:title" content="Count the changes, not the repositories">
-<meta property="og:description" content="Success here is maintenance cost staying flat or falling as scale increases. This is how you would know, and the number the argument most naturally suggests is the wrong one.">
+<meta property="og:description" content="If your agent teams are working, one change the business asks for touches fewer places over time. This is how you would know, and the number the argument most naturally suggests is the wrong one.">
 <meta property="og:url" content="https://crinaro.ai/notes/count-the-changes/">
 <meta property="og:image" content="https://crinaro.ai/icons/crinaro-og-1200x630.png">
 <meta property="og:image:width" content="1200">
@@ -126,6 +126,12 @@
   
   .flow { overflow-x:auto; -webkit-overflow-scrolling:touch; }
   
+  @media (max-width:40rem) {
+    .flow::before { content:"Scroll sideways for the whole diagram →"; display:block;
+                    position:sticky; left:0; font-size:.75rem; color:var(--muted);
+                    margin:0 0 .5rem; white-space:nowrap; }
+  }
+  
   .fig { margin:.6rem 0 3.4rem; }
   
   .stats { display:grid; grid-template-columns:1fr; gap:2.2rem 2.4rem; margin:2.6rem 0 0; }
@@ -199,12 +205,17 @@
   article h1 { font-family:var(--head); font-weight:500; font-size:clamp(1.8rem,4vw,2.6rem);
                 line-height:1.12; letter-spacing:.005em; margin:0 0 1rem; text-wrap:balance; }
   article .standfirst { font-size:1.12rem; color:var(--ink-2); margin:0 0 1.6rem; }
+  
+  .series-line { margin:-.6rem 0 1.4rem; font-size:.95rem; color:var(--muted); }
+  .series-line a.src { white-space:normal; }
   .byline { font-family:var(--mono); font-size:.72rem; letter-spacing:.14em;
             text-transform:uppercase; color:var(--muted); margin:0 0 2.6rem;
             padding-bottom:2.6rem; border-bottom:1px solid var(--hair); }
   article h2 { font-family:var(--head); font-weight:500; font-size:1.3rem;
                 margin:2.6rem 0 .9rem; letter-spacing:.005em; }
   article p { margin:0 0 1.2rem; color:var(--ink-2); }
+  
+  .note-foot, .note-foot p { text-wrap:balance; }
   .note-foot { margin-top:3.5rem; padding-top:1.6rem; border-top:1px solid var(--hair);
                font-size:.92rem; color:var(--ink-2); }
   
@@ -245,16 +256,17 @@
 </svg></a>
   <article>
     <h1>Count the changes, not the repositories</h1>
-    <p class="standfirst">Success here is maintenance cost staying flat or falling as scale increases. This is how you would know, and the number the argument most naturally suggests is the wrong one.</p>
+    <p class="standfirst">If your agent teams are working, one change the business asks for touches fewer places over time. This is how you would know, and the number the argument most naturally suggests is the wrong one.</p>
+
     <p class="byline">John Kelly &nbsp;·&nbsp; <time datetime="2026-09-05">5 September 2026</time></p>
     <div class="gist"><p>The argument</p><div>
       <p>The number a leader already has is what maintenance and critical defects cost. It is what makes somebody ask the question, and it cannot answer it, because scale and age and regulation explain it just as well.</p>
       <p>The number that can answer is how many changes the system needs for one functional change. It only works with a distinction attached: three edits composing one behavior is fine, and the same rule landing in four places is the cost.</p>
     </div></div>
-<p>The home page states the measure and stops there: if your agent teams are working, the number of systems you have to change to deliver one thing the business asked for goes down. It is the one claim on that
-   page that names a target rather than a mechanism, and this is what sits behind it. What follows
-   is not a measurement. It is the pair of numbers that would tell you whether the thing meant to
-   produce a flat maintenance cost is working.</p>
+<p>The home page states the measure and stops there: if your agent teams are working, the number of systems you have to change to deliver one thing the business asked for goes down. This is what sits behind it, and the first thing it needs is a distinction: the places that
+   count are the ones somebody has to keep in agreement by hand. What follows is not a measurement.
+   It is the pair of numbers that would tell you whether the agent teams are working.</p>
+
 
 <h3>The number that makes somebody ask</h3>
 
@@ -262,9 +274,10 @@
    somebody's desk. Nobody has to be persuaded it matters, and when it climbs the explanation is
    rarely to hand. That is its whole strength.</p>
 
-<p>It is also explained by scale, by age, by regulation, and by having more customers than last
-   year. So it cannot be attributed to duplicated work, and a page that reads a maintenance line as
-   evidence of this mechanism has published a correlation and called it a cause. The lagging number
+
+<p>It can also be explained by scale, by age, by regulation, and by having more customers than
+   last year. So on its own it cannot be attributed to duplicated work, and reading a rising
+   maintenance line as evidence of it is picking one explanation from several that fit. The lagging number
    is what makes somebody ask. It is not what answers.</p>
 
 <h3>The number that can answer</h3>
@@ -277,7 +290,8 @@
 <p><b>That is deliberately not a count of repositories</b>, and the reason matters more than the
    instrument. The same estate arrives at the same repository count by several different routes,
    and creating something new can be the correct call even where ownership is exactly right.
-   A repository count answers a question nobody asked, and answers it confidently.</p>
+   It is the count the argument seems to suggest, and the first one to reject. A repository count
+   answers a question nobody asked, and answers it confidently.</p>
 
 <h3>The distinction that makes it an instrument rather than a complaint</h3>
 
@@ -321,12 +335,7 @@
    that distinction is measuring your architecture and calling it waste, and it will be believed
    because it has a number on it.</p>
 
-<h3>The failure to design against</h3>
 
-<p>It is not a reader who agrees and does nothing. It is a reader who agrees and then <b>counts
-   repositories</b>, because that is the measurement the agreement most naturally suggests. It is
-   the first thing to reject, and it is why the distinction above travels with the instrument rather
-   than after it.</p>
 
 <h3>Why this is cheaper than it sounds</h3>
 
@@ -347,8 +356,7 @@
    deciding anybody's year, and it is worth nothing as a target.</p>
 
 <p>It also assumes there is a decomposition record at all.
-   <a href="/notes/the-last-hop/">The note on the last hop</a> argues that most teams, in my
-   experience, minimize documentation wherever they are allowed to, and that the breakdown
+   <a href="/notes/the-last-hop/">The note on the last hop</a> argues that some teams minimized documentation wherever they were allowed to, and that the breakdown
    historically lived in an engineer's head. Where that is still true this is not cheap. That agents
    need it written down at all is the first reason to start; this is the second.</p>
 
@@ -367,8 +375,9 @@
    though it has an obvious answer, which is exactly what a frequency claim looks like before
    somebody checks it.</p>
 
-<p><b>What is not known.</b> Both numbers together show whether the thing that produces a flat
-   maintenance cost is working. <b>Neither shows what that cost is.</b> There is no cost model
+
+<p><b>What is not known.</b> Both numbers together would show whether the agent teams are working. <b>Neither shows what
+   that is worth.</b> There is no cost model
    behind any of this, so this says what to watch and prices none of it. And the outcome itself
    remains unmeasured: the instrument is what would test the claim, not evidence that it
    holds.</p>

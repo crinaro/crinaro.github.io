@@ -126,6 +126,12 @@
   
   .flow { overflow-x:auto; -webkit-overflow-scrolling:touch; }
   
+  @media (max-width:40rem) {
+    .flow::before { content:"Scroll sideways for the whole diagram →"; display:block;
+                    position:sticky; left:0; font-size:.75rem; color:var(--muted);
+                    margin:0 0 .5rem; white-space:nowrap; }
+  }
+  
   .fig { margin:.6rem 0 3.4rem; }
   
   .stats { display:grid; grid-template-columns:1fr; gap:2.2rem 2.4rem; margin:2.6rem 0 0; }
@@ -199,12 +205,17 @@
   article h1 { font-family:var(--head); font-weight:500; font-size:clamp(1.8rem,4vw,2.6rem);
                 line-height:1.12; letter-spacing:.005em; margin:0 0 1rem; text-wrap:balance; }
   article .standfirst { font-size:1.12rem; color:var(--ink-2); margin:0 0 1.6rem; }
+  
+  .series-line { margin:-.6rem 0 1.4rem; font-size:.95rem; color:var(--muted); }
+  .series-line a.src { white-space:normal; }
   .byline { font-family:var(--mono); font-size:.72rem; letter-spacing:.14em;
             text-transform:uppercase; color:var(--muted); margin:0 0 2.6rem;
             padding-bottom:2.6rem; border-bottom:1px solid var(--hair); }
   article h2 { font-family:var(--head); font-weight:500; font-size:1.3rem;
                 margin:2.6rem 0 .9rem; letter-spacing:.005em; }
   article p { margin:0 0 1.2rem; color:var(--ink-2); }
+  
+  .note-foot, .note-foot p { text-wrap:balance; }
   .note-foot { margin-top:3.5rem; padding-top:1.6rem; border-top:1px solid var(--hair);
                font-size:.92rem; color:var(--ink-2); }
   
@@ -246,6 +257,7 @@
   <article>
     <h1>From prompting to specifying</h1>
     <p class="standfirst">The shift is not that engineers write less code. It is that when the output is wrong, the thing you edit stops being the prompt and becomes the spec or the agent definition.</p>
+
     <p class="byline">John Kelly &nbsp;·&nbsp; <time datetime="2026-08-26">26 August 2026</time></p>
     <div class="gist"><p>The argument</p><div>
       <p>A prompt is a conversation you have once. A spec and an agent definition are files you change, version and re-run, so the fix applies next time and to everybody.</p>
@@ -302,8 +314,7 @@
    are moving is how it behaves rather than what it said once, and one run tells you little. You want
    the old version and the new one on the same work at the same time.</p>
 
-<p>How you run them depends on what you changed, and it is a fork rather than a ladder. I had it as
-   a ladder until somebody corrected me.</p>
+<p>How you run them depends on what you changed, and it is a fork rather than a ladder.</p>
 
 <p>Change a <b>spec</b> and two working directories of one clone is right: one repository, two
    directories, already comparing against a shared base.</p>

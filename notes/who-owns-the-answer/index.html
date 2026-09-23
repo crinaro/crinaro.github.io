@@ -126,6 +126,12 @@
   
   .flow { overflow-x:auto; -webkit-overflow-scrolling:touch; }
   
+  @media (max-width:40rem) {
+    .flow::before { content:"Scroll sideways for the whole diagram →"; display:block;
+                    position:sticky; left:0; font-size:.75rem; color:var(--muted);
+                    margin:0 0 .5rem; white-space:nowrap; }
+  }
+  
   .fig { margin:.6rem 0 3.4rem; }
   
   .stats { display:grid; grid-template-columns:1fr; gap:2.2rem 2.4rem; margin:2.6rem 0 0; }
@@ -199,12 +205,17 @@
   article h1 { font-family:var(--head); font-weight:500; font-size:clamp(1.8rem,4vw,2.6rem);
                 line-height:1.12; letter-spacing:.005em; margin:0 0 1rem; text-wrap:balance; }
   article .standfirst { font-size:1.12rem; color:var(--ink-2); margin:0 0 1.6rem; }
+  
+  .series-line { margin:-.6rem 0 1.4rem; font-size:.95rem; color:var(--muted); }
+  .series-line a.src { white-space:normal; }
   .byline { font-family:var(--mono); font-size:.72rem; letter-spacing:.14em;
             text-transform:uppercase; color:var(--muted); margin:0 0 2.6rem;
             padding-bottom:2.6rem; border-bottom:1px solid var(--hair); }
   article h2 { font-family:var(--head); font-weight:500; font-size:1.3rem;
                 margin:2.6rem 0 .9rem; letter-spacing:.005em; }
   article p { margin:0 0 1.2rem; color:var(--ink-2); }
+  
+  .note-foot, .note-foot p { text-wrap:balance; }
   .note-foot { margin-top:3.5rem; padding-top:1.6rem; border-top:1px solid var(--hair);
                font-size:.92rem; color:var(--ink-2); }
   
@@ -246,6 +257,7 @@
   <article>
     <h1>Who owns the answer</h1>
     <p class="standfirst">Duplicate services and duplicate facts both fail quietly. The difference is that you can count the services. Nothing anywhere enumerates the facts, so the first person to find out can be a customer.</p>
+
     <p class="byline">John Kelly &nbsp;·&nbsp; <time datetime="2026-09-02">2 September 2026</time></p>
     <div class="gist"><p>The argument</p><div>
       <p>Every team that cannot get an answer keeps a copy of its own. That is a fork, the same as a forked component, except that nothing anywhere reports the divergence.</p>
@@ -253,8 +265,8 @@
     </div></div>
 <p>Two teams end up with two implementations of the same thing. Neither of them breaks. They run
    side by side and drift, and one day a customer is locked out of one channel and not the other, or
-   two totals disagree. Nothing pages anybody for that, which is the subject of
-   <a href="/notes/five-user-apis/">another note</a>. But the duplicates can at least be counted.
+   two totals disagree. Nothing pages anybody for that. But the duplicates can at least be counted, and
+   <a href="/notes/five-user-apis/">another note</a> covers how they get there.
    Each has a repository, a deployment, a bill and a name, so an organization that decides to go
    looking will find them.</p>
 
@@ -287,8 +299,8 @@
   <rect x="520" y="64" width="440" height="72" rx="3" fill="#F2F6F8" stroke="#DCE4EA" stroke-dasharray="5 4"/>
   <text x="740" y="94" text-anchor="middle" fill="#0B2545" font-family="Poppins,Futura,'Century Gothic','Avenir Next',Avenir,sans-serif" font-size="14.5" font-weight="500">Current state of everything below</text>
   <text x="740" y="116" text-anchor="middle" fill="#5B6E80" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="12.5">a mirror, authoritative nowhere</text>
-  <path d="M180 258 L180 208 M500 258 L500 208 M820 258 L820 208 M180 208 L820 208 M740 208 L740 148" stroke="#7DBFA3" stroke-width="1.5" fill="none"/>
-  <path d="M736 156 L740 144 L744 156 Z" fill="#7DBFA3"/>
+  <path d="M180 258 L180 208 M500 258 L500 208 M820 258 L820 208 M180 208 L820 208 M740 208 L740 140" stroke="#7DBFA3" stroke-width="1.5" fill="none"/>
+  <path d="M736 148 L740 136 L744 148 Z" fill="#7DBFA3"/>
   <text x="192" y="200" fill="#5B6E80" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="12.5">a job polls them for what changed since it last looked</text>
   <rect x="40" y="258" width="280" height="44" rx="3" fill="#EAF3EE" stroke="#A8D5C0"/>
   <text x="180" y="286" text-anchor="middle" fill="#1B5C46" font-family="Poppins,Futura,'Century Gothic','Avenir Next',Avenir,sans-serif" font-size="14.5" font-weight="500">One part of the estate</text>
@@ -347,8 +359,9 @@
    compose the shape of the estate centrally and resolve the contents on demand, which has no
    staleness in it at all. What is centralized then is the map, not the state. Polling is what you
    are left with when the parts are of different generations and most of them cannot serve
-   a query, which is the condition of every estate I have worked in. That is a constraint, not a preference, and it is
-   worth knowing which one you are in.</p>
+   a query. That is a constraint, not a preference, and it is
+   worth knowing which of the two estates you have.</p>
+
 
 <h3>Consolidated means addressable, not centralized</h3>
 

@@ -4,9 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>The last hop nobody wrote down · Crinaro.AI</title>
-<meta name="description" content="Engineers did the final decomposition in their heads, and it worked because they knew the system. Agents have no such bridge, which turns documentation from overhead into the input.">
+<meta name="description" content="Where engineers did the final decomposition in their heads, it worked because they knew the system. An agent can read the code, but not who owns the next component, so the breakdown for each request has to be written down.">
 <meta property="og:title" content="The last hop nobody wrote down">
-<meta property="og:description" content="Engineers did the final decomposition in their heads, and it worked because they knew the system. Agents have no such bridge, which turns documentation from overhead into the input.">
+<meta property="og:description" content="Where engineers did the final decomposition in their heads, it worked because they knew the system. An agent can read the code, but not who owns the next component, so the breakdown for each request has to be written down.">
 <meta property="og:url" content="https://crinaro.ai/notes/the-last-hop/">
 <meta property="og:image" content="https://crinaro.ai/icons/crinaro-og-1200x630.png">
 <meta property="og:image:width" content="1200">
@@ -126,6 +126,12 @@
   
   .flow { overflow-x:auto; -webkit-overflow-scrolling:touch; }
   
+  @media (max-width:40rem) {
+    .flow::before { content:"Scroll sideways for the whole diagram →"; display:block;
+                    position:sticky; left:0; font-size:.75rem; color:var(--muted);
+                    margin:0 0 .5rem; white-space:nowrap; }
+  }
+  
   .fig { margin:.6rem 0 3.4rem; }
   
   .stats { display:grid; grid-template-columns:1fr; gap:2.2rem 2.4rem; margin:2.6rem 0 0; }
@@ -199,12 +205,17 @@
   article h1 { font-family:var(--head); font-weight:500; font-size:clamp(1.8rem,4vw,2.6rem);
                 line-height:1.12; letter-spacing:.005em; margin:0 0 1rem; text-wrap:balance; }
   article .standfirst { font-size:1.12rem; color:var(--ink-2); margin:0 0 1.6rem; }
+  
+  .series-line { margin:-.6rem 0 1.4rem; font-size:.95rem; color:var(--muted); }
+  .series-line a.src { white-space:normal; }
   .byline { font-family:var(--mono); font-size:.72rem; letter-spacing:.14em;
             text-transform:uppercase; color:var(--muted); margin:0 0 2.6rem;
             padding-bottom:2.6rem; border-bottom:1px solid var(--hair); }
   article h2 { font-family:var(--head); font-weight:500; font-size:1.3rem;
                 margin:2.6rem 0 .9rem; letter-spacing:.005em; }
   article p { margin:0 0 1.2rem; color:var(--ink-2); }
+  
+  .note-foot, .note-foot p { text-wrap:balance; }
   .note-foot { margin-top:3.5rem; padding-top:1.6rem; border-top:1px solid var(--hair);
                font-size:.92rem; color:var(--ink-2); }
   
@@ -245,7 +256,8 @@
 </svg></a>
   <article>
     <h1>The last hop nobody wrote down</h1>
-    <p class="standfirst">Engineers did the final decomposition in their heads, and it worked because they knew the system. Agents have no such bridge, which turns documentation from overhead into the input.</p>
+    <p class="standfirst">Where engineers did the final decomposition in their heads, it worked because they knew the system. An agent can read the code, but not who owns the next component, so the breakdown for each request has to be written down.</p>
+    <p class="series-line">Part 2 of 3. It starts at <a class="src" href="/notes/five-user-apis/">Why do we have five user APIs</a>.</p>
     <p class="byline">John Kelly &nbsp;·&nbsp; <time datetime="2026-08-22">22 August 2026</time></p>
     <div class="gist"><p>The argument</p><div>
       <p>The bridge from an outcome to the components that implement it was real work, done reliably, and invisible. It never had to be written down in order to happen.</p>
@@ -256,13 +268,14 @@
    several components, often across several repositories, and how much of that got written down
    varied by team.</p>
 
-<p>Some broke it down and recorded it. Most, in my experience, minimize documentation wherever they
-   are allowed to. Not out of carelessness: the engineers understood the system well enough to
+<p>Some broke it down and recorded it. Others minimized documentation wherever they
+   were allowed to. Not out of carelessness: the engineers understood the system well enough to
    execute without being told, and writing it down bought them nothing at the time. The bridge from
    the outcome to the components that implement it was real work, done reliably, and invisible.</p>
 
-<p>Agents have no such bridge. Nothing fills the gap between “build the API” and the specific
-   changes in the specific components, so the work has to be broken down to the teams that maintain
+<p>An agent can read the code. What it cannot read is who owns the next component, or whether
+   another team already has a version of it, because that is not in the code it is reading. Nothing fills
+   the gap between “build the API” and the specific changes in the specific components, so the work has to be broken down to the teams that maintain
    those components, explicitly, in a way it never had to be before.</p>
 
 <div class="flow"><svg viewBox="0 0 1000 400" role="img"
@@ -297,8 +310,9 @@
   <text x="918" y="208" text-anchor="middle" fill="#0B2545" font-family="Poppins,Futura,'Century Gothic','Avenir Next',Avenir,sans-serif" font-size="15" font-weight="500">Reporting</text>
 
   <path d="M160 268 L1000 268" stroke="#B9C6D0" stroke-width="1" stroke-dasharray="4 5"/>
-  <rect x="160" y="255" width="196" height="17" fill="#FFFFFF"/>
-  <text x="164" y="268" fill="#0B2545" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="11" letter-spacing="1.2">WHERE IT USED TO STOP</text>
+  
+  <rect x="800" y="255" width="200" height="17" fill="#FFFFFF"/>
+  <text x="996" y="268" text-anchor="end" fill="#0B2545" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="11" letter-spacing="1.2">WHERE IT USED TO STOP</text>
     <path d="M408 230 C408 272 257 262 257 300" stroke="#7DBFA3" stroke-width="1.5" fill="none"/>
   <path d="M408 230 C408 272 472 262 472 300" stroke="#7DBFA3" stroke-width="1.5" fill="none"/>
   <path d="M408 230 C408 272 687 262 687 300" stroke="#7DBFA3" stroke-width="1.5" fill="none"/>
@@ -326,16 +340,17 @@
    organizations handed the same capability will staff it differently and both can be right.
    Deciding team structure from the shape of the backlog means reading the wrong document.</p>
 
-<p>None of those four can write the others. The facade team cannot specify a domain service it does
+<p>None of those four can write the others on their own. The facade team cannot specify a domain service it does
    not own, and no domain team can see the whole path. Being wrong about the cut does not surface as
    a bad specification. It surfaces as four teams delivering exactly what they were asked for and a
    capability that does not work.</p>
 
 <h2>What that is worth, and to whom</h2>
 
-<p>The teams that already had the discipline start ahead. Documentation that read as overhead for
-   years is now the input. That is an uncomfortable thing to tell a team that has been running lean
-   on it, and it is the most concrete advantage I have seen change hands so far.</p>
+
+<p>The teams that already had the discipline start ahead. Writing down the breakdown for each
+   request read as overhead for years, and it is now the input. That is an uncomfortable thing to tell a team that has been running lean
+   on it.</p>
 
 <p>It also changes what skipping it costs. Generation is cheap now, so a team that is not
    aligned to the components it touches still produces the work. It just produces it
@@ -344,7 +359,7 @@
   </article>
   <div class="onward">
     <p class="eyebrow">Next</p>
-    <h2><a href="/notes/shared-skills/">A shared skill is not a consistency mechanism</a></h2>
+    <h2><a href="/notes/shared-skills/">A shared skill does not drive consistency across distributed ownership</a></h2>
     <p>Decomposition gets the work to the right teams. It does nothing about several teams inside one layer, which is the last piece.</p>
   </div>
   <p class="note-foot">Written by John Kelly. If a piece of this does not hold in your

@@ -57,12 +57,14 @@ const problems = [
    'Not whoever picked it up. One team answerable for each part of the system after the ' +
      'current deadline, and an operating process that keeps it that way.'],
   ['One place the facts live',
-   'What changed, written down when work ships, and one view across all of it that somebody ' +
-     'keeps current. The place an agent team goes for an answer, instead of guessing between two ' +
-     'that disagree. <a class="src" href="/notes/who-owns-the-answer/">Who owns the answer</a>'],
+   'How your system works, and the procedures people once learned by training, written ' +
+     'where an agent can read them. Agents decide from what they are given. Without it, they ' +
+     'guess. ' +
+     '<a class="src" href="/notes/who-owns-the-answer/">Who owns the answer</a>'],
   ['The why, captured when it is decided',
-   'Code says what it does. It never says why it was built that way. Written down by whoever ' +
-     'made the call, at the time, not reconstructed later by somebody who was not there.'],
+   'Code says what it does. It never says why it was built that way, or which duplicate is ' +
+     'meant to go. Written down by whoever made the call, at the time, not reconstructed later ' +
+     'by somebody who was not there.'],
   ['A route from a question to its owner',
    'Not whoever is nearest. The question reaches the team that owns it, and when something of ' +
      'theirs is broken they fix it, rather than everyone routing around it.'],
@@ -86,7 +88,9 @@ const assets = [
   ['This brand', 'Internal · seven agents',
    'The page you are reading, the deck, the identity and the rules that govern them. One agent each for the claim, the voice, the render, the argument against, the contradictions with what is already published, the path a reader actually takes, and whether the whole thing still says what its sources say.'],
   ['The plugin marketplace', 'Public · installable',
-   'Where the AI-SDLC reference gets tested in public. The utilities are what comes out along the way: an agent team for the job search, and a connector for several mailboxes.',
+  'One of the places the AI-SDLC reference is tested, and the one in public. Plugins are ' +
+   'added as problems are worked through. So far: an agent team that helps whoever installs it ' +
+   'find their next opportunity, full-time or fractional, and a connector for several mailboxes.',
    'https://github.com/crinaro/marketplace', 'Read the marketplace'],
 ];
 
@@ -292,17 +296,17 @@ const NOTE_SCOPE = {
   dateHuman: '2 September 2026',
   standfirst: 'How you scope a team used to be a question about coordination cost. It now decides ' +
               'whether you can hand that team a specification at all, and a team you can only ' +
-              'prompt does not give you the same answer twice.',
+              'prompt gives you nothing to test the answer against.',
   gist: [
-    'A team scoped to everything it touches can only be prompted, because no specification can be ' +
-      'written that does not span the whole system. A team scoped to something it owns can be ' +
-      'handed a spec.',
+    'In an estate other teams already own, a change that crosses their systems cannot be ' +
+      'specified by one team alone: the spec would describe things it does not own. A team scoped to ' +
+      'something it owns can be handed a spec.',
     'That is not a matter of taste. A prompt is a conversation, and the answer can differ every ' +
       'time it is run, with nothing to check the difference against. Systems a business depends ' +
       'on need the same request to land somewhere you can test.',
   ],
   body: `
-<p>For most of my career the argument about how to shape delivery teams was an argument about
+<p>For a long time the argument about how to shape delivery teams was an argument about
    coordination. Split people by feature and one team carries a change from end to end, paying for
    it in breadth. Split them by component and each team goes deep, paying for it in handoffs. Both
    sides had evidence, and both were arguing about the same thing: what it costs for one group of
@@ -379,8 +383,8 @@ const NOTE_SCOPE = {
    single good answer.</p>
 
 <p>So the question of how you scope a team stopped being an organizational preference and became a
-   question about whether your delivery is repeatable. Not how fast the team is. Whether running the
-   same request twice gives you the same system.</p>
+   question about whether your delivery is repeatable. Not how fast the team is. Whether the same
+   request lands somewhere you can test, every time it is run.</p>
 
 <h3>The objection, and why it does not hold</h3>
 
@@ -397,8 +401,8 @@ const NOTE_SCOPE = {
    describes behavior either. Somebody ends up depending on something it did not promise,
    which is an argument for the owner being in the loop rather than against writing it down.</p>
 
-<p>In my experience the specification is usually wrong upstream of the team receiving it, because
-   the analysis was not done. That was true before agents. What has changed is the cost of being
+<p>When a specification is wrong, the cause can sit upstream of the team receiving it, in
+   analysis that was not done. That was true before agents. What has changed is the cost of being
    wrong: the turnaround is hours, so a specification that missed something gets corrected and
    re-run rather than absorbed into a release nobody wants to reopen. The argument for keeping the
    work inside one team was that going outside it was slow. That is the part that moved, and it is
@@ -462,8 +466,8 @@ const NOTE_COUNT = {
   author: 'John Kelly',
   date: '2026-09-05',
   dateHuman: '5 September 2026',
-  standfirst: 'Success here is maintenance cost staying flat or falling as scale increases. This ' +
-              'is how you would know, and the number the argument most naturally suggests is the ' +
+  standfirst: 'If your agent teams are working, one change the business asks for touches fewer ' +
+              'places over time. This is how you would know, and the number the argument most naturally suggests is the ' +
               'wrong one.',
   gist: [
     'The number a leader already has is what maintenance and critical defects cost. It is what ' +
@@ -474,10 +478,9 @@ const NOTE_COUNT = {
       'the same rule landing in four places is the cost.',
   ],
   body: `
-<p>The home page states the measure and stops there: if your agent teams are working, the number of systems you have to change to deliver one thing the business asked for goes down. It is the one claim on that
-   page that names a target rather than a mechanism, and this is what sits behind it. What follows
-   is not a measurement. It is the pair of numbers that would tell you whether the thing meant to
-   produce a flat maintenance cost is working.</p>
+<p>The home page states the measure and stops there: if your agent teams are working, the number of systems you have to change to deliver one thing the business asked for goes down. This is what sits behind it, and the first thing it needs is a distinction: the places that
+   count are the ones somebody has to keep in agreement by hand. What follows is not a measurement.
+   It is the pair of numbers that would tell you whether the agent teams are working.</p>
 
 <h3>The number that makes somebody ask</h3>
 
@@ -485,9 +488,9 @@ const NOTE_COUNT = {
    somebody's desk. Nobody has to be persuaded it matters, and when it climbs the explanation is
    rarely to hand. That is its whole strength.</p>
 
-<p>It is also explained by scale, by age, by regulation, and by having more customers than last
-   year. So it cannot be attributed to duplicated work, and a page that reads a maintenance line as
-   evidence of this mechanism has published a correlation and called it a cause. The lagging number
+<p>It can also be explained by scale, by age, by regulation, and by having more customers than
+   last year. So on its own it cannot be attributed to duplicated work, and reading a rising
+   maintenance line as evidence of it is picking one explanation from several that fit. The lagging number
    is what makes somebody ask. It is not what answers.</p>
 
 <h3>The number that can answer</h3>
@@ -500,7 +503,8 @@ const NOTE_COUNT = {
 <p><b>That is deliberately not a count of repositories</b>, and the reason matters more than the
    instrument. The same estate arrives at the same repository count by several different routes,
    and creating something new can be the correct call even where ownership is exactly right.
-   A repository count answers a question nobody asked, and answers it confidently.</p>
+   It is the count the argument seems to suggest, and the first one to reject. A repository count
+   answers a question nobody asked, and answers it confidently.</p>
 
 <h3>The distinction that makes it an instrument rather than a complaint</h3>
 
@@ -544,12 +548,6 @@ const NOTE_COUNT = {
    that distinction is measuring your architecture and calling it waste, and it will be believed
    because it has a number on it.</p>
 
-<h3>The failure to design against</h3>
-
-<p>It is not a reader who agrees and does nothing. It is a reader who agrees and then <b>counts
-   repositories</b>, because that is the measurement the agreement most naturally suggests. It is
-   the first thing to reject, and it is why the distinction above travels with the instrument rather
-   than after it.</p>
 
 <h3>Why this is cheaper than it sounds</h3>
 
@@ -570,8 +568,7 @@ const NOTE_COUNT = {
    deciding anybody's year, and it is worth nothing as a target.</p>
 
 <p>It also assumes there is a decomposition record at all.
-   <a href="/notes/the-last-hop/">The note on the last hop</a> argues that most teams, in my
-   experience, minimize documentation wherever they are allowed to, and that the breakdown
+   <a href="/notes/the-last-hop/">The note on the last hop</a> argues that some teams minimized documentation wherever they were allowed to, and that the breakdown
    historically lived in an engineer's head. Where that is still true this is not cheap. That agents
    need it written down at all is the first reason to start; this is the second.</p>
 
@@ -590,8 +587,8 @@ const NOTE_COUNT = {
    though it has an obvious answer, which is exactly what a frequency claim looks like before
    somebody checks it.</p>
 
-<p><b>What is not known.</b> Both numbers together show whether the thing that produces a flat
-   maintenance cost is working. <b>Neither shows what that cost is.</b> There is no cost model
+<p><b>What is not known.</b> Both numbers together would show whether the agent teams are working. <b>Neither shows what
+   that is worth.</b> There is no cost model
    behind any of this, so this says what to watch and prices none of it. And the outcome itself
    remains unmeasured: the instrument is what would test the claim, not evidence that it
    holds.</p>
@@ -686,6 +683,11 @@ const CSS = `${FONTS}
   .linkrow .sep { display:inline; }
 
   .flow { overflow-x:auto; -webkit-overflow-scrolling:touch; }
+  @media (max-width:40rem) {
+    .flow::before { content:"Scroll sideways for the whole diagram →"; display:block;
+                    position:sticky; left:0; font-size:.75rem; color:var(--muted);
+                    margin:0 0 .5rem; white-space:nowrap; }
+  }
   .fig { margin:.6rem 0 3.4rem; }
   .stats { display:grid; grid-template-columns:1fr; gap:2.2rem 2.4rem; margin:2.6rem 0 0; }
   @media (min-width:34rem) { .stats { grid-template-columns:repeat(2,1fr); } }
@@ -761,8 +763,10 @@ const NOTE = {
       'anything down.',
   ],
   body: `
-<p>Every organization I have worked in has asked a version of that question, and it is worth
-   understanding where it comes from, because it is not incompetence and nobody ever decided it.</p>
+<p>The question gets asked two years on, and it always has that shape. It is worth
+   understanding where it comes from, because it is not incompetence and nobody ever decided it. In
+   my career it has come from two places, projects and acquisitions. Both leave the same shape behind, and this note follows the
+   project.</p>
 
 <p>We had projects, and a project has a goal. It is funded to deliver that goal, it is measured on
    that goal, and maintaining the platform underneath is not on the list. That is not a criticism of
@@ -861,16 +865,16 @@ const NOTE_HOP = {
   slug: 'the-last-hop',
   series: 'ownership',
   part: 2,
-  next: ['shared-skills', 'A shared skill is not a consistency mechanism',
+  next: ['shared-skills', 'A shared skill does not drive consistency across distributed ownership',
          'Decomposition gets the work to the right teams. It does nothing about several teams ' +
          'inside one layer, which is the last piece.'],
   title: 'The last hop nobody wrote down',
   author: 'John Kelly',
   date: '2026-08-22',
   dateHuman: '22 August 2026',
-  standfirst: 'Engineers did the final decomposition in their heads, and it worked because they ' +
-              'knew the system. Agents have no such bridge, which turns documentation from ' +
-              'overhead into the input.',
+  standfirst: 'Where engineers did the final decomposition in their heads, it worked because they ' +
+              'knew the system. An agent can read the code, but not who owns the next component, ' +
+              'so the breakdown for each request has to be written down.',
   gist: [
     'The bridge from an outcome to the components that implement it was real work, done reliably, ' +
       'and invisible. It never had to be written down in order to happen.',
@@ -883,13 +887,14 @@ const NOTE_HOP = {
    several components, often across several repositories, and how much of that got written down
    varied by team.</p>
 
-<p>Some broke it down and recorded it. Most, in my experience, minimize documentation wherever they
-   are allowed to. Not out of carelessness: the engineers understood the system well enough to
+<p>Some broke it down and recorded it. Others minimized documentation wherever they
+   were allowed to. Not out of carelessness: the engineers understood the system well enough to
    execute without being told, and writing it down bought them nothing at the time. The bridge from
    the outcome to the components that implement it was real work, done reliably, and invisible.</p>
 
-<p>Agents have no such bridge. Nothing fills the gap between “build the API” and the specific
-   changes in the specific components, so the work has to be broken down to the teams that maintain
+<p>An agent can read the code. What it cannot read is who owns the next component, or whether
+   another team already has a version of it, because that is not in the code it is reading. Nothing fills
+   the gap between “build the API” and the specific changes in the specific components, so the work has to be broken down to the teams that maintain
    those components, explicitly, in a way it never had to be before.</p>
 
 <div class="flow"><svg viewBox="0 0 1000 400" role="img"
@@ -924,8 +929,8 @@ const NOTE_HOP = {
   <text x="918" y="208" text-anchor="middle" fill="#0B2545" font-family="${HEAD_SVG}" font-size="15" font-weight="500">Reporting</text>
 
   <path d="M160 268 L1000 268" stroke="#B9C6D0" stroke-width="1" stroke-dasharray="4 5"/>
-  <rect x="160" y="255" width="196" height="17" fill="#FFFFFF"/>
-  <text x="164" y="268" fill="#0B2545" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="11" letter-spacing="1.2">WHERE IT USED TO STOP</text>
+  <rect x="800" y="255" width="200" height="17" fill="#FFFFFF"/>
+  <text x="996" y="268" text-anchor="end" fill="#0B2545" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="11" letter-spacing="1.2">WHERE IT USED TO STOP</text>
     <path d="M408 230 C408 272 257 262 257 300" stroke="#7DBFA3" stroke-width="1.5" fill="none"/>
   <path d="M408 230 C408 272 472 262 472 300" stroke="#7DBFA3" stroke-width="1.5" fill="none"/>
   <path d="M408 230 C408 272 687 262 687 300" stroke="#7DBFA3" stroke-width="1.5" fill="none"/>
@@ -953,16 +958,16 @@ const NOTE_HOP = {
    organizations handed the same capability will staff it differently and both can be right.
    Deciding team structure from the shape of the backlog means reading the wrong document.</p>
 
-<p>None of those four can write the others. The facade team cannot specify a domain service it does
+<p>None of those four can write the others on their own. The facade team cannot specify a domain service it does
    not own, and no domain team can see the whole path. Being wrong about the cut does not surface as
    a bad specification. It surfaces as four teams delivering exactly what they were asked for and a
    capability that does not work.</p>
 
 <h2>What that is worth, and to whom</h2>
 
-<p>The teams that already had the discipline start ahead. Documentation that read as overhead for
-   years is now the input. That is an uncomfortable thing to tell a team that has been running lean
-   on it, and it is the most concrete advantage I have seen change hands so far.</p>
+<p>The teams that already had the discipline start ahead. Writing down the breakdown for each
+   request read as overhead for years, and it is now the input. That is an uncomfortable thing to tell a team that has been running lean
+   on it.</p>
 
 <p>It also changes what skipping it costs. Generation is cheap now, so a team that is not
    aligned to the components it touches still produces the work. It just produces it
@@ -975,7 +980,7 @@ const NOTE_SKILL = {
   slug: 'shared-skills',
   series: 'ownership',
   part: 3,
-  title: 'A shared skill is not a consistency mechanism',
+  title: 'A shared skill does not drive consistency across distributed ownership',
   author: 'John Kelly',
   date: '2026-08-25',
   dateHuman: '25 August 2026',
@@ -985,8 +990,8 @@ const NOTE_SKILL = {
   gist: [
     'One layer is often several teams. Four API teams now means four agent teams producing API ' +
       'code, and nothing in the decomposition makes their output agree.',
-    'Publishing the convention once is a real advance and it is the distribution half. The half ' +
-      'that checks what each team actually produced does not exist yet.',
+    'Publishing the convention once is a real advance and it is the distribution half. Linters ' +
+      'check the shape of what each team produced. I have not seen anything that checks the judgment.',
   ],
   body: `
 <p>Aligning teams to components handles a request that spans components. It does nothing about
@@ -1003,7 +1008,7 @@ const NOTE_SKILL = {
    team.</p>
 
 <div class="flow"><svg viewBox="0 0 1000 356" role="img"
-     aria-label="One published convention is installed by four teams. Every installed file is byte-identical and is checked. What each team then produced is different, and nothing checks that.">
+     aria-label="One published convention is installed by four teams. Every installed file is byte-identical and is checked. What each team then produced is different. Its shape can be linted; its judgment is not checked.">
   <rect x="330" y="20" width="452" height="56" rx="3" fill="#F2F6F8" stroke="#DCE4EA"/>
   <text x="556" y="53" text-anchor="middle" fill="#0B2545" font-family="${HEAD_SVG}" font-size="16" font-weight="500">One published convention</text>
   <path d="M556 76 L556 92" stroke="#93B8D4" stroke-width="1.5"/>
@@ -1040,23 +1045,29 @@ const NOTE_SKILL = {
   <text x="876" y="274" text-anchor="middle" fill="#0B2545" font-family="${HEAD_SVG}" font-size="15" font-weight="500">what it produced</text>
   <text x="876" y="293" text-anchor="middle" fill="#5B6E80" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="11.5">different codebase, different result</text>
   <text x="112" y="166" text-anchor="end" fill="#1B5C46" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="11" letter-spacing="1.2">CHECKED</text>
-  <text x="112" y="276" text-anchor="end" fill="#0B2545" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="11" letter-spacing="1.2">NOT</text>
-  <text x="112" y="291" text-anchor="end" fill="#0B2545" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="11" letter-spacing="1.2">CHECKED</text>
+  <text x="112" y="263" text-anchor="end" fill="#0B2545" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="11" letter-spacing="1.2">JUDGMENT</text>
+  <text x="112" y="278" text-anchor="end" fill="#0B2545" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="11" letter-spacing="1.2">NOT</text>
+  <text x="112" y="293" text-anchor="end" fill="#0B2545" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="11" letter-spacing="1.2">CHECKED</text>
   <text x="556" y="340" text-anchor="middle" fill="#0B2545" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="11.5" letter-spacing="1.2">THE FILE IS THE SAME. THE WORK IS NOT.</text>
 </svg></div>
 
-<p>What it does not do is make the output consistent. The instruction is executed by a model, once
+<p>What it does not do on its own is make the output consistent. The instruction is executed by a model, once
    per team, against a different codebase with a different existing shape, so conforming installs
    can still produce divergent work while every report reads clean, because what is being compared
-   is the file rather than what the file produced. <b>A shared capability is the distribution
-   mechanism for consistency. It is not the consistency mechanism.</b></p>
+   is the file rather than what the file produced. <b>A shared skill is a consistency mechanism. Across teams that each own
+   their share of one layer, it does not drive consistency on its own.</b></p>
 
 <p>Interpretation did not leave the system when the standard became a shared file. It moved
    somewhere less observable. A human who reads a standard differently argues about it in review. A
    model that reads it differently ships work that conforms in appearance.</p>
 
 <p>What would close it is a check on the output rather than on the file, published alongside the
-   convention and run by whoever installs it. I have not built that, and I have not seen it built.</p>
+   convention and run by whoever installs it. Half of that exists. Zalando publishes its API
+   guidelines with a linter that checks an API definition against them, and architecture fitness
+   functions do the same for structure. They catch the shape: paths, naming, status codes. They do
+   not catch the judgment a skill now carries, such as how errors are handled or what a field
+   means. With ownership spread across teams, that is where the work can diverge, and a check
+   for it is what I have not seen built.</p>
 `,
 };
 
@@ -1194,7 +1205,7 @@ const NOTE_CROSSING = {
 
 <p>Someone who installed a plugin reports a defect where they found it, on the public repository.
    That is correct, and they should not have to know anything about how the thing is maintained. But
-   the team that can fix it works in the private repository, often against real data, and the fix has
+   the team that can fix it works in the private repository, and the fix has
    to arrive back on the public side as a release.</p>
 
 <div class="flow"><svg viewBox="0 0 1000 396" role="img"
@@ -1326,8 +1337,7 @@ const NOTE_CADENCE = {
    are moving is how it behaves rather than what it said once, and one run tells you little. You want
    the old version and the new one on the same work at the same time.</p>
 
-<p>How you run them depends on what you changed, and it is a fork rather than a ladder. I had it as
-   a ladder until somebody corrected me.</p>
+<p>How you run them depends on what you changed, and it is a fork rather than a ladder.</p>
 
 <p>Change a <b>spec</b> and two working directories of one clone is right: one repository, two
    directories, already comparing against a shared base.</p>
@@ -1760,8 +1770,8 @@ const NOTE_ANSWER = {
   body: `
 <p>Two teams end up with two implementations of the same thing. Neither of them breaks. They run
    side by side and drift, and one day a customer is locked out of one channel and not the other, or
-   two totals disagree. Nothing pages anybody for that, which is the subject of
-   <a href="/notes/five-user-apis/">another note</a>. But the duplicates can at least be counted.
+   two totals disagree. Nothing pages anybody for that. But the duplicates can at least be counted, and
+   <a href="/notes/five-user-apis/">another note</a> covers how they get there.
    Each has a repository, a deployment, a bill and a name, so an organization that decides to go
    looking will find them.</p>
 
@@ -1794,8 +1804,8 @@ const NOTE_ANSWER = {
   <rect x="520" y="64" width="440" height="72" rx="3" fill="#F2F6F8" stroke="#DCE4EA" stroke-dasharray="5 4"/>
   <text x="740" y="94" text-anchor="middle" fill="#0B2545" font-family="${HEAD_SVG}" font-size="14.5" font-weight="500">Current state of everything below</text>
   <text x="740" y="116" text-anchor="middle" fill="#5B6E80" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="12.5">a mirror, authoritative nowhere</text>
-  <path d="M180 258 L180 208 M500 258 L500 208 M820 258 L820 208 M180 208 L820 208 M740 208 L740 148" stroke="#7DBFA3" stroke-width="1.5" fill="none"/>
-  <path d="M736 156 L740 144 L744 156 Z" fill="#7DBFA3"/>
+  <path d="M180 258 L180 208 M500 258 L500 208 M820 258 L820 208 M180 208 L820 208 M740 208 L740 140" stroke="#7DBFA3" stroke-width="1.5" fill="none"/>
+  <path d="M736 148 L740 136 L744 148 Z" fill="#7DBFA3"/>
   <text x="192" y="200" fill="#5B6E80" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="12.5">a job polls them for what changed since it last looked</text>
   <rect x="40" y="258" width="280" height="44" rx="3" fill="#EAF3EE" stroke="#A8D5C0"/>
   <text x="180" y="286" text-anchor="middle" fill="#1B5C46" font-family="${HEAD_SVG}" font-size="14.5" font-weight="500">One part of the estate</text>
@@ -1854,8 +1864,8 @@ const NOTE_ANSWER = {
    compose the shape of the estate centrally and resolve the contents on demand, which has no
    staleness in it at all. What is centralized then is the map, not the state. Polling is what you
    are left with when the parts are of different generations and most of them cannot serve
-   a query, which is the condition of every estate I have worked in. That is a constraint, not a preference, and it is
-   worth knowing which one you are in.</p>
+   a query. That is a constraint, not a preference, and it is
+   worth knowing which of the two estates you have.</p>
 
 <h3>Consolidated means addressable, not centralized</h3>
 
@@ -2000,12 +2010,15 @@ ${CSS}
   article h1 { font-family:var(--head); font-weight:500; font-size:clamp(1.8rem,4vw,2.6rem);
                 line-height:1.12; letter-spacing:.005em; margin:0 0 1rem; text-wrap:balance; }
   article .standfirst { font-size:1.12rem; color:var(--ink-2); margin:0 0 1.6rem; }
+  .series-line { margin:-.6rem 0 1.4rem; font-size:.95rem; color:var(--muted); }
+  .series-line a.src { white-space:normal; }
   .byline { font-family:var(--mono); font-size:.72rem; letter-spacing:.14em;
             text-transform:uppercase; color:var(--muted); margin:0 0 2.6rem;
             padding-bottom:2.6rem; border-bottom:1px solid var(--hair); }
   article h2 { font-family:var(--head); font-weight:500; font-size:1.3rem;
                 margin:2.6rem 0 .9rem; letter-spacing:.005em; }
   article p { margin:0 0 1.2rem; color:var(--ink-2); }
+  .note-foot, .note-foot p { text-wrap:balance; }
   .note-foot { margin-top:3.5rem; padding-top:1.6rem; border-top:1px solid var(--hair);
                font-size:.92rem; color:var(--ink-2); }
   article .flow { margin:2.4rem 0 2.8rem; }
@@ -2034,6 +2047,7 @@ ${CSS}
   <article>
     <h1>${note.title}</h1>
     <p class="standfirst">${note.standfirst}</p>
+${note.series && note.part > 1 ? (() => { const all = seriesOf(note.series); return `    <p class="series-line">Part ${note.part} of ${all.length}. It starts at <a class="src" href="/notes/${all[0].slug}/">${all[0].title}</a>.</p>`; })() : ''}
     <p class="byline">${note.author} &nbsp;·&nbsp; <time datetime="${note.date}">${note.dateHuman}</time></p>
 ${note.gist ? `    <div class="gist"><p>The argument</p><div>
       ${note.gist.map(g => `<p>${g}</p>`).join('\n      ')}

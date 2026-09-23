@@ -124,6 +124,12 @@
   
   .flow { overflow-x:auto; -webkit-overflow-scrolling:touch; }
   
+  @media (max-width:40rem) {
+    .flow::before { content:"Scroll sideways for the whole diagram →"; display:block;
+                    position:sticky; left:0; font-size:.75rem; color:var(--muted);
+                    margin:0 0 .5rem; white-space:nowrap; }
+  }
+  
   .fig { margin:.6rem 0 3.4rem; }
   
   .stats { display:grid; grid-template-columns:1fr; gap:2.2rem 2.4rem; margin:2.6rem 0 0; }
@@ -243,11 +249,11 @@
   <div class="entry">
     <time datetime="2026-08-22">Part 2</time>
     <h2><a href="/notes/the-last-hop/">The last hop nobody wrote down</a></h2>
-    <p>Engineers did the final decomposition in their heads, and it worked because they knew the system. Agents have no such bridge, which turns documentation from overhead into the input.</p>
+    <p>Where engineers did the final decomposition in their heads, it worked because they knew the system. An agent can read the code, but not who owns the next component, so the breakdown for each request has to be written down.</p>
   </div>
   <div class="entry">
     <time datetime="2026-08-25">Part 3</time>
-    <h2><a href="/notes/shared-skills/">A shared skill is not a consistency mechanism</a></h2>
+    <h2><a href="/notes/shared-skills/">A shared skill does not drive consistency across distributed ownership</a></h2>
     <p>Standards, review boards and reference implementations all degraded the same way: each team read them differently. A shared skill removes the re-reading. It does not remove the interpretation.</p>
   </div>
   <p class="series-head">Two repositories, in two parts</p>
@@ -265,12 +271,12 @@
   <div class="entry">
     <time datetime="2026-09-05">5 September 2026</time>
     <h2><a href="/notes/count-the-changes/">Count the changes, not the repositories</a></h2>
-    <p>Success here is maintenance cost staying flat or falling as scale increases. This is how you would know, and the number the argument most naturally suggests is the wrong one.</p>
+    <p>If your agent teams are working, one change the business asks for touches fewer places over time. This is how you would know, and the number the argument most naturally suggests is the wrong one.</p>
   </div>
   <div class="entry">
     <time datetime="2026-09-02">2 September 2026</time>
     <h2><a href="/notes/same-request-same-answer/">Same request, same answer</a></h2>
-    <p>How you scope a team used to be a question about coordination cost. It now decides whether you can hand that team a specification at all, and a team you can only prompt does not give you the same answer twice.</p>
+    <p>How you scope a team used to be a question about coordination cost. It now decides whether you can hand that team a specification at all, and a team you can only prompt gives you nothing to test the answer against.</p>
   </div>
   <div class="entry">
     <time datetime="2026-09-02">2 September 2026</time>

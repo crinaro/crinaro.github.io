@@ -126,6 +126,12 @@
   
   .flow { overflow-x:auto; -webkit-overflow-scrolling:touch; }
   
+  @media (max-width:40rem) {
+    .flow::before { content:"Scroll sideways for the whole diagram →"; display:block;
+                    position:sticky; left:0; font-size:.75rem; color:var(--muted);
+                    margin:0 0 .5rem; white-space:nowrap; }
+  }
+  
   .fig { margin:.6rem 0 3.4rem; }
   
   .stats { display:grid; grid-template-columns:1fr; gap:2.2rem 2.4rem; margin:2.6rem 0 0; }
@@ -199,12 +205,17 @@
   article h1 { font-family:var(--head); font-weight:500; font-size:clamp(1.8rem,4vw,2.6rem);
                 line-height:1.12; letter-spacing:.005em; margin:0 0 1rem; text-wrap:balance; }
   article .standfirst { font-size:1.12rem; color:var(--ink-2); margin:0 0 1.6rem; }
+  
+  .series-line { margin:-.6rem 0 1.4rem; font-size:.95rem; color:var(--muted); }
+  .series-line a.src { white-space:normal; }
   .byline { font-family:var(--mono); font-size:.72rem; letter-spacing:.14em;
             text-transform:uppercase; color:var(--muted); margin:0 0 2.6rem;
             padding-bottom:2.6rem; border-bottom:1px solid var(--hair); }
   article h2 { font-family:var(--head); font-weight:500; font-size:1.3rem;
                 margin:2.6rem 0 .9rem; letter-spacing:.005em; }
   article p { margin:0 0 1.2rem; color:var(--ink-2); }
+  
+  .note-foot, .note-foot p { text-wrap:balance; }
   .note-foot { margin-top:3.5rem; padding-top:1.6rem; border-top:1px solid var(--hair);
                font-size:.92rem; color:var(--ink-2); }
   
@@ -246,17 +257,19 @@
   <article>
     <h1>The direction people forget</h1>
     <p class="standfirst">The front door is public and the work is private, so reports have to cross inward. Outbound is the direction a design guards first. The inbound one carries text an agent will read as instructions.</p>
+    <p class="series-line">Part 2 of 2. It starts at <a class="src" href="/notes/coaching-is-a-file/">Coaching is a file now</a>.</p>
     <p class="byline">John Kelly &nbsp;·&nbsp; <time datetime="2026-08-26">26 August 2026</time></p>
     <div class="gist"><p>The argument</p><div>
       <p>A report arrives where somebody found the problem. The team that can fix it works somewhere else, and the fix has to arrive back as a release.</p>
       <p>Every arrow across that boundary crosses a trust domain, and the two directions are not symmetric. A design that guards only one has guarded the easy one.</p>
     </div></div>
+
 <p>Publishing is the easy direction. The harder problem is that the front door is public and the
    work is private.</p>
 
 <p>Someone who installed a plugin reports a defect where they found it, on the public repository.
    That is correct, and they should not have to know anything about how the thing is maintained. But
-   the team that can fix it works in the private repository, often against real data, and the fix has
+   the team that can fix it works in the private repository, and the fix has
    to arrive back on the public side as a release.</p>
 
 <div class="flow"><svg viewBox="0 0 1000 396" role="img"
