@@ -16,23 +16,10 @@ const LOGO = path.join(__dirname, 'logo', 'ai');
 const DIST = path.join(__dirname, '..');   // repo root — Pages serves from here
 fs.mkdirSync(DIST, { recursive: true });
 
-// Directories whose MEMBERSHIP this script decides, cleared before they are
-// rebuilt. Without this the build only ever creates and overwrites, so a
-// renamed note leaves its old directory behind in dist, and deploy-site.sh then
-// copies that stale directory back over the public tree it had just wiped. The
-// deploy's wipe was written to stop a retired path living forever and could not,
-// because the staleness was arriving from this side. Four retired note URLs
-// stayed live on 2026-08-26 for exactly that reason.
 for (const owned of ['notes', 'icons']) {
   fs.rmSync(path.join(DIST, owned), { recursive: true, force: true });
 }
 
-// SVG <text> does not inherit the page's --head, it carries its own stack, and
-// the shipped lockups name Futura first. Inlined into a page that embeds
-// Poppins, that meant the CSS headings got the webfont while the WORDMARK ITSELF
-// still fell back to whatever the visitor happened to own — the one element
-// where the shift is most obvious. Rewritten at inline time; the source SVGs are
-// left alone, exactly as build-email.py does for the raster.
 const HEAD_SVG = "Poppins,Futura,'Century Gothic','Avenir Next',Avenir,sans-serif";
 const headStack = s => s.replace(
   /font-family="Futura,\s*'Century Gothic',\s*'Avenir Next',\s*Avenir,\s*sans-serif"/g,
@@ -43,10 +30,6 @@ const svg = n => headStack(fs.readFileSync(path.join(LOGO, n), 'utf8')
   .replace(/ width="\d+" height="\d+"/, '')
   .trim());
 
-// The head face, Latin-subset and base64'd by build-fonts.py. Inlined rather
-// than linked because the page makes zero external requests — same reason the
-// logo SVGs are inlined. Committed, so publishing needs no fonttools; re-run
-// build-fonts.py when the face or the weights change.
 const FONTS_CSS = path.join(__dirname, 'fonts.css');
 if (!fs.existsSync(FONTS_CSS)) {
   console.error('missing site/fonts.css — run: python3 build-fonts.py');
@@ -55,29 +38,6 @@ if (!fs.existsSync(FONTS_CSS)) {
 const FONTS = fs.readFileSync(FONTS_CSS, 'utf8').trim();
 
 const EMAIL = 'john@crinaro.ai';
-// Every page goes out without its build-time comments. Two comments explaining
-// brand decisions shipped inside index.html and were live on crinaro.ai until
-// 2026-09-02, found by a review rather than by a gate: view-source IS published
-// output, and the rule that internal reasoning never crosses into the public repo
-// does not stop at file paths. The comments stay in this file, where the team
-// reads them, and leave at the door. Write pages through this, never through
-// fs.writeFileSync directly.
-// Returns the bytes actually written, because the size this build prints had
-// been measured on the string BEFORE the comments came out. Every comment added
-// to a template inflated a number nobody could reconcile against the file: the
-// page reported 66.3 KB on 2026-09-13 and was 61.8 KiB on disk. That number is
-// quoted as the discipline on page weight, so it has to be the file's.
-// ⛔ CSS comments leave too, and that was missed for the whole life of this
-// function. The HTML strip above was written on 2026-09-02 against the two
-// comments that had shipped, and view-source was declared clean on the strength
-// of it. It was clean of ONE SYNTAX. Every page interpolates CSS into a <style>
-// block, and 18 /* */ comments went out with each of them — the palette's AA
-// failures with their measured ratios and dates, "missed by every review", and
-// the names of internal files (02-identity.md, build-fonts.py,
-// check-link-gaps.js). Found live on crinaro.ai by brand-critic on 2026-09-14
-// and confirmed against the published repo before it was believed.
-// Only inside <style>: a /* */ elsewhere in a page is prose, and base64 cannot
-// produce the sequence because * is not in the alphabet.
 const writePage = (p, html) => {
   const out = html
     .replace(/<!--[\s\S]*?-->/g, '')
@@ -88,70 +48,10 @@ const writePage = (p, html) => {
 };
 
 const CLAIM = 'AI from higher ground.';
-// The hero breaks at the sentence, never mid-clause — left to text-wrap:balance
-// it strands "Then" at the end of a line. Meta tags keep the unbroken string.
 const CLAIM_HTML = CLAIM.replace(/\. /, '.<br>');
 
-// The subhead, declared once because it was written out four times in this file.
-// The meta tags are not only a social-share detail: the og pair renders as the
-// preview card wherever the site is linked, so a drift here is a drift in copy a
-// reader sees before the page loads. check-drift.sh compares the rendered page
-// against build-icons.py, the deck and the decisions file, but it never read the
-// meta tags, which is exactly how a second copy goes stale unwatched.
 const SUB = 'Ideas and patterns worked out over 30 years in healthcare, GovTech and travel, now applied with agents.';
 
-// The problem is reuse, not delivery. Crinaro is not a custom development shop
-// — it builds services others can use, and advises the teams using them. The
-// old problem copy described a bespoke build engagement and was wrong for that.
-// Rewritten twice on 2026-09-02. They were scaffolding, prompts and evaluation,
-// which is an AI TOOLING problem and much smaller than the page argues; measured
-// against John's own thesis, ownership arrived 19% into the page and information
-// never did. They are a causal chain now, and the ORDER carries it: no owner, so
-// no answer anyone can trust, so it gets built again. Duplication is the visible
-// end of it, never the disease.
-//
-// Second pass, John: the cards needed to reach a non-technical executive and to
-// name a cost. Card 1 opens on the inversion rather than on an engineering
-// artifact, because "finance owns finance, and nobody owns the system that runs
-// it" is a thing a COO recognizes and a request touching four components is not.
-// Card 3 states the bill and NO LONGER restates principle 4 — it did, clumsily,
-// and before that it contradicted it. Do not put the routes-got-cheaper argument
-// back in here; it belongs to principle 4 and to five-user-apis.
-// ⛔ ONE CARD PER QUESTION, in the order the questions are asked, and each one
-// is the ANSWER rather than the failure. They described the problem until
-// 2026-09-14, sitting under a sentence that promised what has to change — John:
-// "these are great but they don't align to the statement... you can reword them
-// to make them the solution."
-// ⛔ That change also retired "So it gets built again", which was the problem
-// restated a third time, after the questions and the cards.
-// ⚠️ Card four is not card one. One is who is answerable; four is the question
-// reaching them. An estate can have clear ownership and still send every
-// question to whoever is free.
-// ⛔ THE FIVE ANSWERS, ONE PER QUESTION, IN THE QUESTIONS' ORDER.
-// Rewritten 2026-09-15 against decisions/09-who-this-is-for.md §3.1 and §3.2.
-// John had already called it by eye: "It makes sense to me but wont make sense
-// to anyone who isn't technical." check-stop-list.js then found eight hits on
-// this page, five of them in these cards, and card 2 was the worst thing
-// on the site — "A knowledge repository your repositories feed" put the word
-// twice in one heading.
-//
-// ⛔ THE ARGUMENTS ARE UNCHANGED. Only the vocabulary moved. Each card still
-// answers exactly one of the five questions above it, in the same order, and
-// John's rejection of 2026-09-14 still stands: "these are a description of the
-// problems, not the solution." If they ever go back to being failures, the
-// paragraph above goes back with them.
-//
-// The substitutions, so the next edit does not undo them by accident:
-//   component -> part of the system   (the page's own phrase, from question 1)
-//   a summary per repository written when work merges
-//                                     -> what changed, written down when work ships
-//   a defect in their capability gets filed on them rather than fixed locally
-//                                     -> when something of theirs is broken they
-//                                        fix it, rather than everyone routing
-//                                        around it
-// Card 3 was already clean and is untouched: "Code says what it does. It never
-// says why it was built that way" is the sharpest line in the set and an
-// executive reads "code" without stopping.
 const problems = [
   ['A name against each capability',
    'Not whoever picked it up. One team answerable for each part of the system after the ' +
@@ -166,53 +66,11 @@ const problems = [
   ['A route from a question to its owner',
    'Not whoever is nearest. The question reaches the team that owns it, and when something of ' +
      'theirs is broken they fix it, rather than everyone routing around it.'],
-  // ⛔ PRESCRIPTIVE, LIKE THE OTHER FOUR. It said "that usually falls to the team that
-  // already owns the capability" until 2026-09-22. content-editor caught it: "usually"
-  // is a FREQUENCY claim about every team the reader runs, and the warrant covers
-  // engineering only — John: the pattern holds "in a developer (engineering) model" but
-  // "will be different in other operational processes within the business", and
-  // research/ai-sdlc/EXECUTIVE-SUMMARY.md bounds the same way ("software development is
-  // the one of seven claimed applications that has been worked"). The other four cards
-  // say what SHOULD be true, not what usually is; this one now does too, so it claims
-  // placement rather than prevalence and needs no bound.
-  // ⭐ "SPAN OF CONTROL" IS NAMED, 2026-09-22. brand-critic: the line was span of control
-  // with the noun removed, which made the reader reconstruct a concept they already own.
-  // HANDOFF's own migration table leans Adopt on this exact noun — "exact,
-  // executive-native" — and a landmark NOUN is inside the rationalize-do-not-align
-  // ruling; it is registers and claims that stay ours. ⛔ The NOUN only. McKinsey's
-  // two-to-five ratio is still never cited and no number appears here.
-  // ⛔⛔ THIS CARD NAMES A STATE, NOT AN ACTIVITY, and that is the whole point of
-  // the 2026-09-22 rewrite. It read "Time to build the team, not just run it" for
-  // one round. counterpoint landed the objection that killed it: cards 1-4 name
-  // states a reader can audit by asking a question and getting one answer, card 5
-  // named an activity with a budget line, so "a list of four properties plus one
-  // activity reads as four findings and one ask" — and the section's next move IS
-  // a funding request, which made card 5 look reverse-engineered from the invoice.
-  // ⭐ JOHN'S OWN SENTENCE DISSOLVED IT, same day: "The team that owns the space is
-  // responsible for the data, apis & agentic team." That is not a sixth obligation.
-  // It is what "Who owns this?" meant all along, stated completely for the first
-  // time, and as a state it is the same KIND of object as the other four.
-  // ⛔ The build cost still has to be in here — it is why the question exists at all.
-  // McKinsey states a supervision ratio and does not carry the build function;
-  // naming that is ours. So the card names what ownership COVERS, then prices it.
-  // ⛔ Do not let this collapse into card 1. Card 1 is whether a capability has an
-  // owner at all; this is what that ownership extends to. "Whoever owns" rather than
-  // "answerable for" on purpose, so the two cards do not echo.
   ['One owner for the data, the APIs and the agents',
    'Whoever owns a capability owns the data behind it, the APIs that expose it, and the agents ' +
      'that work on it. Agents do not arrive trained: somebody designs them, checks their work ' +
      'and keeps improving them. Count that inside their span of control rather than on top of it.'],
 ];// The maintenance team, by role. These are real agent definitions — the six in
-// crinaro/marketplace-dev under .claude/agents/. That repo is PRIVATE: it is
-// the dev repo that maintains the public marketplace. See the dev/public split in
-// CLAUDE.md. So they are real and a buyer cannot read them — never write a line
-// inviting anyone to go and do so. Keep each description faithful to what the
-// agent actually owns; if the team changes, change this list.
-//
-// Note what they are NOT: none of them writes features. An architect, an auditor,
-// a gate keeper, a docs steward, a release manager and a delivery verifier — the
-// maintenance half, which is the half that decides whether an AI-built thing is
-// still alive in six months.
 const factory = [
   ['Architect', 'The shape of the thing: what is an agent, what is a script, what belongs in a manifest.'],
   ['Deployment auditor', 'Where it can actually run: a desktop, a schedule, a headless container, and whether the docs say so truthfully.'],
@@ -222,88 +80,16 @@ const factory = [
   ['Delivery verifier', 'What people actually install after the push: whether it matches what shipped, and whether a claimed fix is really in it.'],
 ];
 
-// What the factory maintains. Framed as living assets rather than products,
-// because that is the actual claim: not that these were built with AI, but
-// that they are kept alive by agent teams. The marketplace is public and
-// installable. Nothing here may imply adoption — that rule stands. What changed
-// on 2026-08-20 is that the cards stopped making usage claims at all, so the
-// caveat that used to bound one is no longer needed. See the note on the
-// marketplace card, and decisions/06-evidence-from-the-repos.md.
 const assets = [
-  // Order is John's, 2026-08-20: the reference, then the brand, then the
-  // marketplace. It runs from the accumulated thinking to the thing built on it
-  // to the thing put in front of a real problem — which is also the order the
-  // page argues in. The standfirst above names the LAST one as the checkable
-  // one; if this order changes again, that sentence changes with it.
-  //
-  // "Private — under engagement" was on the reference card, sitting in a status
-  // column beside "Public" and "Internal", so the column read as deployment
-  // states and that one read as *there are clients*. There are none. Flagged
-  // independently by brand-critic twice, and forbidden outright by the AI-SDLC
-  // pack's rule against implying customers or deployments.
-  //
-  // ⛔ NO COUNT IN THIS EYEBROW. Decided 2026-09-13, and check-claims.sh now
-  // enforces the absence rather than a number.
-  //
-  // It read "Private · sixteen agents", and before that "fourteen". The count
-  // was true both times and that was the problem: it sits beside "Public ·
-  // installable" and "Internal · five agents", so the column reads as a scale
-  // comparison, and the one cell a reader cannot check carries the largest
-  // number in it. The other two are checkable — the marketplace is public, and
-  // the five brand agents are described rather than offered for reading. This
-  // one asks for trust and calls it evidence, which is voice rule 3.
-  //
-  // The AI-SDLC team asked for exactly this in NOTICE-2026-09-12 item 5(iii),
-  // then withdrew the ask in their second-cut notice on the grounds that it
-  // would fail our gate. The gate was the thing to change, not the page. Their
-  // correction notice records that the failing verdict is WRONG rather than
-  // MISSING, and that nobody on their side ran it either way.
-  //
-  // The argument for a count was that a status column where one cell counts a
-  // team and the next does not reads as though the first has no team. The card
-  // body says what the team does, which carries that without a number that
-  // moves in somebody else's repository. "Not published" is stated plainly in
-  // the note under the diagram below.
   ['The AI-SDLC reference', 'Private',
-   // ⛔ The last sentence answers route's finding 4, 2026-09-13: the home page
-   // sent a reader here for "the agent teams", and this was the one of three
-   // whose team was set out NOWHERE — the marketplace's by role, this brand's by
-   // what each covers, and this one not at all. It says why, and says it WITHOUT
-   // A NUMBER: 52e16ee deliberately stopped counting that team because the count
-   // sat in the one cell a reader cannot open, and it moves in somebody else's
-   // repository besides.
    'Delivery end to end on an agentic model, not one team’s repos: what gets asked for, how it is built, how you know it shipped. Worked into patterns another team can pick up. It has an agent team of its own, inside a repository you cannot open, so that team is not set out here.'],
-  // The count is checked live: check-claims.sh counts .claude/agents/*.md and
-  // fails if this eyebrow disagrees. Do not edit the number by hand to make it
-  // match — add or remove the agent, then rebuild.
-  //
-  // The body names what each agent COVERS, in two or three words, rather than
-  // describing it in a clause. The clause version was here until 2026-09-13 and
-  // it did not scale: at five agents the card ran five lines beside two cards of
-  // five, and adding the sixth took it to nine, so the middle column read as a
-  // list that had outgrown its box. A card that gets visibly worse every time
-  // the team learns something is a card that argues against improving the team.
-  // Keep it one short phrase per agent, in the order the work happens.
   ['This brand', 'Internal · seven agents',
    'The page you are reading, the deck, the identity and the rules that govern them. One agent each for the claim, the voice, the render, the argument against, the contradictions with what is already published, the path a reader actually takes, and whether the whole thing still says what its sources say.'],
-  // "Running daily for one person, not yet a second" was here, and it WAS
-  // load-bearing for as long as the card described a product — it was the clause
-  // that stopped the description implying adoption. John removed it 2026-08-20.
-  // That is safe now, and only now, because the card no longer makes a usage
-  // claim for the caveat to bound: it says what the marketplace is for and that
-  // agent teams get run in it, and says nothing about who uses it. If a usage or
-  // adoption claim ever comes back, the caveat has to come back with it.
   ['The plugin marketplace', 'Public · installable',
    'Where the AI-SDLC reference gets tested in public. The utilities are what comes out along the way: an agent team for the job search, and a connector for several mailboxes.',
    'https://github.com/crinaro/marketplace', 'Read the marketplace'],
 ];
 
-// The AI-SDLC span, drawn rather than described. The reference is private and
-// not published, so this shows the SHAPE of the work — how far it reaches and
-// what holds it together — and none of the decisions inside it. "Shared under
-// engagement" was here and said what the card's old eyebrow said: that
-// engagements exist. They do not. Inline SVG, so the page still makes zero
-// external requests. See decisions/06-evidence-from-the-repos.md.
 const STAGES = [
   ['Capability spec', 'roadmap team'],
   ['Work items', 'across repos'],
@@ -311,37 +97,43 @@ const STAGES = [
   ['Compute, routing', 'per role, per model'],
   ['Merged, reconciled', 'against the spec'],
 ];
-// ⛔⛔ THE HOME PAGE HAD NO DIAGRAM AT ALL UNTIL 2026-09-22. Both its SVGs were
-// the logo. Every diagram on the site sat behind a click — one per note, two on
-// /how-the-work-gets-done/ — which is backwards: the notes are for a reader who
-// has already opted in, and this page is for the executive who will not click.
-// John asked for it directly: "Should we have visuals that help individuals see
-// the problem versus words? Using the data scenario as the visual."
-//
-// ⛔ IT SHOWS THE PROBLEM AND SITS BEFORE THE CARDS. Sequence is: your costs went
-// up -> here is why -> HERE IS WHAT IT LOOKS LIKE -> here is what has to change.
-// Do not move it below the cards; the cards are the answers and this is the thing
-// they answer.
-//
-// ⭐ THE TWO VIEWS ARE OVERLAID, WHICH IS THE WHOLE POINT. John: "have a visual of
-// an organization responsibility... have this view with the data view and that
-// highlights the problem." Teams on the top row, the data underneath. Either
-// picture alone is familiar — an org chart, or an integration diagram. Together
-// they say the thing: the org chart and the data ownership do not match, and that
-// mismatch is what the agents amplify. That is Conway as a picture, and Conway is
-// John's own favourite.
-//
-// ⛔ "REPOSITORY" IS ON THE STOP LIST and this is an unbylined surface, so the
-// boxes say "system". John's own wording was "multiple data repositories"; the
-// word is his, the constraint is decisions/09 §3.1, and system is the page's
-// existing vocabulary ("the number of systems you have to change").
-// ⛔ NO NUMBERS IN THE BOXES. An illustrative "4,102 vs 4,088" would read as a
-// metric and rule 2 does not carve out diagrams. The disagreement is shown by
-// three identical labels and said in the caption.
-// ⛔ Palette is lifted exactly from the two-column diagram in the five-user-APIs
-// note, because those pairings are already through check-contrast. Muted text is
-// 12.5px on white, never on the green fill, where #5B6E80 measures 4.65 against a
-// 4.5 floor and a smaller size would fail.
+const SOAI = 'https://www.mckinsey.com/capabilities/quantumblack/our-insights/the-state-of-ai';
+
+const ROWS = [
+  ['Scaling AI across the enterprise', '44%', 'from 38%', true],
+  ['Reporting EBIT impact', '37%', 'unchanged', false],
+  ['AI high performers', '6%', 'unchanged', false],
+];
+const RY = [96, 168, 240], LX = 40, L0 = 330, L1 = 760, VX = 790;
+const exhibit = `<svg viewBox="0 0 960 320" role="img"
+     aria-label="Three rows, each comparing 2025 with 2026. The share of organizations scaling AI across the enterprise rises from 38 percent to 44 percent. The share reporting EBIT impact is unchanged at 37 percent. The share who are AI high performers is unchanged at 6 percent. One line rises and two are flat.">
+  <text x="${LX}" y="42" fill="#FFFFFF" font-family="${HEAD_SVG}" font-size="18" font-weight="500">Adoption went up. Impact did not.</text>
+  <text x="${LX}" y="64" fill="#93B8D4" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="12.5">2025 to 2026, same survey both years</text>
+${ROWS.map(([label, value, note, rising], i) => {
+  const y = RY[i], c = rising ? '#FFFFFF' : '#93B8D4';
+  const ya = rising ? y + 13 : y, yb = rising ? y - 13 : y;
+  return `  <text x="${LX}" y="${y + 5}" fill="${c}" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="13.5">${label}</text>
+  <line x1="${L0}" y1="${ya}" x2="${L1}" y2="${yb}" stroke="${c}" stroke-width="${rising ? 2.5 : 1.5}"${rising ? '' : ' stroke-dasharray="5 4"'}/>
+  <circle cx="${L0}" cy="${ya}" r="3.5" fill="${c}"/>
+  <circle cx="${L1}" cy="${yb}" r="${rising ? 5 : 4}" fill="${c}"/>
+  <text x="${VX}" y="${yb + 9}" fill="${c}" font-family="${HEAD_SVG}" font-size="${rising ? 27 : 22}" font-weight="500">${value}</text>
+  <text x="${L0}" y="${ya + 22}" fill="#93B8D4" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="12">${note}</text>`;
+}).join('\n')}
+  <text x="${LX}" y="296" fill="#93B8D4" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="12">McKinsey, State of AI 2026, pp. 5, 12 and 17. The lower two are drawn flat because the report states them</text>
+  <text x="${LX}" y="314" fill="#93B8D4" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="12">as unchanged rather than printing a 2025 figure.</text>
+</svg>`;
+
+const stats = [
+  ['44%', 'say AI is scaling across the enterprise. The only line above that moved.',
+   'McKinsey, 1,719 respondents, p. 5', SOAI],
+  ['37%', 'say it reached EBIT. A survey answer, not an audited line.',
+   'Of respondents, not of companies, p. 12', SOAI],
+  ['6%', 'attribute 5% or more of EBIT to it. That share has not moved either.',
+   'And report significant value. McKinsey\'s AI high performers, p. 17', SOAI],
+  ['3 in 4', 'of that 6% report redesigning the work itself. One in four of the rest do.',
+   'Nearly three-quarters, and n = 92 against 1,429 others, p. 18', SOAI],
+];
+
 const OWN_TEAMS = ['Billing', 'Support', 'Sales'];
 const ownership = `<svg viewBox="40 0 920 350" role="img"
      aria-label="Two columns. On the left, three teams each hold their own customer record and the three disagree, because each one is correct inside its own system. On the right, the same three teams, but one of them owns the customer record and the other two read from it.">
@@ -404,8 +196,6 @@ const flow = `<svg viewBox="0 0 1000 272" role="img"
   <text x="24" y="${KB_Y + 50}" fill="#93B8D4" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="13">Current-state index, generated from the repositories: queried, never re-derived.</text>
 </svg>`;
 
-// What makes the reference different from every other set of AI-SDLC docs.
-// This is the advisory product: not a recommendation, a way of deciding.
 const method = [
   ['The options',
    'Constraints differ by organization. Each decision names the real alternatives rather than one best practice.'],
@@ -415,94 +205,18 @@ const method = [
    'The specific, felt pain that says it is time for the more complex option, so you do not buy infrastructure for a problem you do not have yet.'],
 ];
 
-// Distribution is the differentiator for regulated buyers: components install
-// into the customer's own environment rather than calling a hosted service.
-// These are architectural commitments, NOT compliance claims. Never write
-// HIPAA, SOC 2 or FedRAMP here — none of them have been certified.
-// The "In your shop, not ours" section lived here — deployment topology, your own
-// keys, no hosted service in the middle. Cut 2026-08-20. It was a procurement
-// answer for a software vendor, and this site is a body of work rather than a
-// company selling a product. It also carried the page's strongest present-tense
-// deployment claims ("components and patterns deploy inside your environment",
-// "the evaluation harness ships inside the component"), which read as a description of what
-// happens today when nothing is deployed anywhere. Both problems left with it.
 
-// Three, not five. Retail and Recruiting were padding — John has named three
-// industries he has actually worked in, and the page claims no more than that.
-// The span IS attached now: "over 30 years", in SUB, in the meta, in the deck and
-// in decisions/03-positioning.md. John gave that figure on 2026-09-02 and it is not
-// an inference. Do not strip it back to "a career" — check-drift.sh compares the
-// subhead against the deck, so all four move together or none do. The rule against
-// inferring a number still stands for anything John has not said.
-//
-// The heading above this list is "Patterns learned in hard places." It briefly
-// read "Crinaro is John Kelly." and was reverted the same day, 2026-08-20 — the
-// brand is not tied to a named person. Do not restore that. This list and the
-// heading have to move together, and both have to match the meta description.
 const verticals = [
   ['Healthcare', 'Records that cannot answer the question at the bedside'],
   ['GovTech', 'Policy that never reaches the citizen as a working service'],
   ['Travel', 'Fragmented inventory that fails the moment something goes wrong'],
 ];
 
-// Advisory that leaves something behind — not a bespoke build. The engagement
-// ends with the client's own team running it, which is the point.
-// The week-by-week breakdown of a fixed-price four-to-six week sprint was here.
-// Removed 2026-08-20 — a dated, priced engagement shape is a consultancy
-// product, and this is a body of work rather than a services catalog. It also
-// narrows the page to one kind of reader. The substance of the
-// three weeks survives as one paragraph in the section below; what went is the
-// calendar and the price, which were the parts that presumed the engagement.
-//
-// That paragraph opened "Working alongside your teams, not in place of them",
-// which said the same thing as its own last sentence — the team ends up running
-// it — and said it as a negation of what a supplier does. The positive half is
-// kept and the negation is gone. "without us" is also gone, and so is the
-// company voice it belonged to. Decided 2026-08-20: the page read as a
-// consultancy, which is not what this is.
-// ⚠️ This used to end "There is no first-person plural anywhere in the copy
-// now. Do not reintroduce one." That was false twice by 2026-09-14 and nothing
-// detected it, because no gate in this repo reads pronouns. A Crinaro "our"
-// arrived on 2026-09-13 in the measurement disclosure and a reader's "our"
-// arrived in the headline on 2026-09-14, from two sessions neither of which
-// could see the other.
-// The rule that actually holds, and it is narrower: NO CRINARO first-person
-// plural in customer-facing copy. The reader's own voice is fine and the page
-// uses it seven times — the headline, attributed by its eyebrow, and the six
-// "why do we have five user APIs" labels. What breaks is MIXING them, because
-// one Crinaro "our" retrains every reader "our" on the page behind it.
 
 
-// One stylesheet, shared by every page this generator writes. Extracted so a
-// second page cannot fork the palette — a duplicated :root is exactly the kind
-// of drift check-contrast.js and check-drift.sh exist to catch after the fact.
 
-// 2026-09-05. Principle 5 was stated on the home page and argued nowhere from
-// 2026-09-01, and every review flagged it: the only outcome claim on a page
-// whose credibility rests on claiming mechanism. The AI-SDLC pack, revision 24,
-// supplied the instrument. Everything here is theirs or John's, and two things
-// must not be separated from it:
-//   1. The DISCRIMINATOR. An instrument published without it "measures
-//      architecture and calls it waste", and it will be believed because it has
-//      a number on it.
-//   2. The failure to design against is NOT a reader who agrees and does
-//      nothing. It is a reader who agrees and then counts repositories.
-// Refused by the pack and not to be written back in: that most companies have
-// this problem and some are far worse. Uncounted population claim.
-// Also deliberately absent: which of the two shapes gets noticed first, which
-// reads as obvious and is a frequency claim in disguise.
-// The tools, extracted from the AI-SDLC team's rendered tool list at
-// research/ai-sdlc/reference/20-tool-list.md by scripts/extract-tools.py. That
-// script is the only thing that reads the list, and it REFUSES to emit a
-// description that cites the private material, so a dangling reference cannot
-// reach this file by accident. Refresh is: pull the list, re-run the script,
-// rebuild. Never hand-edit tools.json.
 const TOOLS = JSON.parse(fs.readFileSync(path.join(__dirname, 'tools.json'), 'utf8'));
 
-// Display names and order for the layer sections. The first six match the six rows
-// on the start page word for word, because they are the same six layers and a reader
-// should not have to work that out. The last four have no row because they are
-// not on the request path in the same way.
 const LAYER_NAMES = [
   ['compute-and-isolation', 'Somewhere isolated for work to run'],
   ['serving',               'Something serving a model'],
@@ -517,10 +231,6 @@ const LAYER_NAMES = [
   ['cross-cutting',         'Across all of it'],
 ];
 
-// The shape is whatever the list's own "Where" line says: a repository, a
-// model, a hosted service, or a closed product with its kind named. Coarser than
-// the retired index's "server you run / library you import" vocabulary, and it
-// is what the source carries; a finer label would be typed here, not read.
 const KIND_LABEL = {
   'repository': 'repository',
   'model': 'model weights',
@@ -532,69 +242,22 @@ const KIND_LABEL = {
   'terminal-harness': 'terminal agent',
 };
 
-// What the list says about a layer it names and holds nothing for. Its own
-// distinction, in our words: this one is the state of the field, not of the
-// reading. The adoption page links here by anchor and says each of these layers
-// "says how little is there and why", so the heading has to render with the
-// reason rather than the section silently dropping out. That sentence said "how
-// little was found" until 2026-09-13, which was true of a layer nobody searched
-// only if "found" meant "found without looking". It had already been repaired
-// once for `evaluate`, before `publish-and-deliver` existed to break it again.
-// `points` decides whether the heading also names the rows the list records as
-// serving this layer from elsewhere. They come from tools.json, read off the
-// list rather than written here, because the day a named row leaves the list a
-// hand-written name goes dangling and nothing on the page can tell.
 const EMPTY_LAYER = {
   'evaluate': {
     text: 'Nothing is filed here. That is the state of the field as far as this list can say, ' +
           'not a gap in the reading: nothing that was looked at is an evaluation product.',
-    // The list names Vellum as also serving this band. It is deliberately not
-    // printed: this page's own Vellum row says the product could not be
-    // established as an evaluation service at all, so naming it here would
-    // contradict a row a reader can scroll to. That disagreement is the
-    // source's to settle, not ours to publish.
     points: false,
   },
-  // The other kind of empty, and the list is careful to say which: nobody
-  // searched, because the practice behind it does this job with a pull request.
-  // The rows that travel that way are on this page, so the heading points at
-  // them. Saying "nothing is filed here" and stopping told a reader there was
-  // nothing to look at while the answer sat further up the same page.
-  // `after` closes the paragraph on the bound rather than on a list of
-  // repository names, and splits a sentence that ran to thirty-nine words.
-  //
-  // ⛔ The pointer says only what the list records: that these rows serve this
-  // layer while filed elsewhere. It must NOT say they travel by pull request.
-  // The first draft did, one clause after "rather than through a product", and
-  // the mattpocock/skills row on this same page says it is published as a
-  // plugin with a marketplace manifest. How a named vendor ships its work is
-  // not something this page checked.
   'publish-and-deliver': {
     text: 'Nothing is filed here as its primary layer, and that is the state of the reading rather ' +
           'than of the field. The practice behind this list delivers a versioned definition as a ' +
           'pull request rather than through a product.',
-    // Names the job rather than pointing back at it. "No search for products
-    // that do that job" reached back past the pointer sentence for an
-    // antecedent, which is the deictic the first draft already got wrong once.
     after: 'No search has been run for products that deliver what you publish to the machines that ' +
            'run it, so an empty heading says nothing about whether they exist.',
     points: true,
   },
 };
 
-// The layer view, published 2026-09-08. This is the AI-SDLC tooling index's own
-// entry-point table plus its signal legend, and NOTHING ELSE from that document.
-// It began with NO entries: they name products, they carry a hard expiry, and 81
-// of their lines cite documents no reader can open. John reversed that the same
-// day, so the page names tools for each layer and is refreshed periodically. The
-// citation problem stands and scripts/extract-tools.py refuses any description
-// that cites the private material. The decay problem is handled by printing
-// dates rather than intervals, and by making no page-level freshness claim.
-//
-// The order is the order the rows stop being optional in. It is an argument
-// about dependency, never about quality, and the page says so twice.
-// Spelled out because the house rule is words, not numerals, in prose. Indexed
-// so the meta description below cannot drift from the number of rows rendered.
 const SPELLED = ['No', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven',
                  'Eight', 'Nine', 'Ten', 'Eleven', 'Twelve', 'Thirteen',
                  'Fourteen', 'Fifteen', 'Sixteen', 'Seventeen', 'Eighteen',
@@ -621,11 +284,6 @@ const LAYERS = [
    'You cannot tell a working agent team from a stuck one without going and asking the person running it.'],
 ];
 
-// 2026-09-02. The first argument on this site that is specific to agents rather
-// than a rerun of the feature-team debate, and it came from John: a team scoped
-// to the whole stack can only be prompted, and a prompt is not repeatable.
-// Stated as REPEATABILITY, not as context size — "the window is too small" dates
-// the moment windows grow, and the claim does not depend on any model's limits.
 const NOTE_SCOPE = {
   slug: 'same-request-same-answer',
   title: 'Same request, same answer',
@@ -775,8 +433,6 @@ const NOTE_SCOPE = {
          'What changes for an engineer once the spec, not the prompt, is the thing being edited.'],
 };
 
-// The signal legend. This is the half that keeps working on tools this page will
-// never name: it is about reading a repository, not about any particular one.
 const SIGNALS = [
   ['Stars',
    'Attention accumulated over a repository\'s whole life, so age is part of what it measures: ' +
@@ -1144,6 +800,45 @@ const CSS = `${FONTS}
   /* The home page figure only. Its caption block sat closer to the card grid
      below than to the panels it explains, so it read as an intro to the cards. */
   .fig { margin:.6rem 0 3.4rem; }
+  /* The evidence block. John, 2026-09-22: the site had no visible external data
+     and he asked for something bolder than the diagram. Bold here is SCALE, not
+     a new palette — the figures are the largest type on the page after the hero,
+     in the head face, on the ground the section already uses. A second visual
+     language would have cost more than it bought. */
+  .stats { display:grid; grid-template-columns:1fr; gap:2.2rem 2.4rem; margin:2.6rem 0 0; }
+  @media (min-width:34rem) { .stats { grid-template-columns:repeat(2,1fr); } }
+  @media (min-width:62rem) { .stats { grid-template-columns:repeat(4,1fr); } }
+  .stat b { display:block; font-family:var(--head); font-weight:500; line-height:1;
+            font-size:clamp(2.7rem,5.2vw,3.5rem); color:var(--ink); letter-spacing:-.02em; }
+  .stat p { margin:.7rem 0 0; font-size:.98rem; line-height:1.5; color:var(--ink-2); }
+  /* The base line. Smaller and quieter than the claim, because it is a bound
+     rather than a headline — but it is never optional and never collapsed into
+     the sentence above it. */
+  /* ⛔ THE BASE LINES ALIGN BECAUSE OF THIS, NOT BECAUSE THE COPY HAPPENS TO
+     WRAP THE SAME. Shortening one sentence on 2026-09-23 lifted its base 24px
+     above the other three and broke the row. The cells stretch to the tallest,
+     the base is pushed to the bottom of its own cell, so the row holds whatever
+     anybody writes later. */
+  .stat { display:flex; flex-direction:column; height:100%; }
+  .stat .base { display:block; margin-top:auto; padding-top:.55rem; font-size:.78rem;
+                line-height:1.45; color:var(--muted); }
+  .stat .base a { color:var(--muted); border-bottom:1px solid var(--hair); }
+  .stat .base a:hover { color:var(--ink); border-bottom-color:var(--ink); }
+  /* The conclusion under the figures. It had zero separation from the last base
+     line, so it read as a fifth footnote rather than as the point the block is
+     making. Measured, not guessed: 0px before, and .head's own paragraph rhythm
+     is the reference. */
+  .stats + .head { margin-top:2.4rem; }
+  /* The exhibit panel. Navy inside a white section rather than a navy band,
+     because a band here would sit against "Where the velocity went" and the band
+     rhythm is what separates the argument's movements. A panel reads as an
+     exhibit, which is what it is. */
+  .exhibit { background:var(--navy); border-radius:4px; padding:1.6rem 1.2rem 1rem;
+             margin:2.2rem 0 0; overflow-x:auto; -webkit-overflow-scrolling:touch; }
+  .exhibit svg { width:100%; min-width:34rem; height:auto; display:block; }
+  /* The lead-in above the figures. It sat hard against the last card's body copy
+     and read as a continuation of it rather than as the turn into the evidence. */
+  .cols.five + .head { margin-top:3rem; }
   .flow svg { width:100%; min-width:38rem; height:auto; display:block; }
   /* ⛔ 40rem, matching .narrow, NOT a number of its own. It was 46rem until
      2026-09-14, which put three different right edges in one section: a 40rem
@@ -1198,24 +893,6 @@ const CSS = `${FONTS}
   a { color:var(--green); }
   :focus-visible { outline:2px solid var(--rgreen); outline-offset:3px; }`;
 
-// ---- the written piece -----------------------------------------------------
-//
-// One piece, published on its own. Deliberately NOT a "Writing" section with a
-// heading that promises a series: a feed that goes quiet reads worse than a
-// single essay that stands. When there is a second, this becomes a list.
-//
-// It carries a BYLINE, and that is the only place a person is named on the
-// site. The brand is the body of work; the author of a piece is a person. That
-// separation is deliberate and load-bearing: the work outlives any one context
-// it was written in — see the note on "Where this comes from".
-//
-// The cadence and the DAO example live HERE and not on the home page. On the
-// page they would be arithmetic a reader tests and a second unit of time
-// competing with the advisory paragraph. In a piece they are the substance.
-// Split out of the 2,500-word alignment note on 2026-08-25. John: the notes
-// need to be short messages, driven by a diagram, and each one should run the
-// same shape — a challenge that is not new, and what an agentic model changes
-// about it. This is the first of the three that note was carrying.
 const NOTE = {
   slug: 'five-user-apis',
   series: 'ownership',
@@ -1334,8 +1011,6 @@ const NOTE = {
 `,
 };
 
-// Second of the three. The mechanism, and the only one of them that needed the
-// chain drawn.
 const NOTE_HOP = {
   slug: 'the-last-hop',
   series: 'ownership',
@@ -1450,8 +1125,6 @@ const NOTE_HOP = {
 `,
 };
 
-// Third of the three, and the one the AI-SDLC team answered by disagreeing with
-// the premise, which made it better material than the question was.
 const NOTE_SKILL = {
   slug: 'shared-skills',
   series: 'ownership',
@@ -1542,15 +1215,6 @@ const NOTE_SKILL = {
 };
 
 
-// Reframed 2026-08-26. It argued misdelivery, a reader acting on the wrong
-// document, which is a general software-publishing argument that works without
-// agents anywhere in it. John's framing is the one that belongs on this site:
-// agent definitions are your engineering practice written down, so coaching
-// became an artifact for the first time, and an artifact has to be somewhere.
-//
-// The turn is the part to protect. Coaching was previously unpublishable not
-// because it was secret but because it was not a thing: it lived in a review
-// comment and in what somebody said in a design meeting. That is what changed.
 const NOTE_BOUNDARY = {
   slug: 'coaching-is-a-file',
   series: 'boundary',
@@ -1661,7 +1325,6 @@ const NOTE_BOUNDARY = {
          'and it is the one most designs leave open.'],
 };
 
-// Second of the two. The traffic, and the asymmetry that is the whole point.
 const NOTE_CROSSING = {
   slug: 'the-direction-people-forget',
   series: 'boundary',
@@ -1864,19 +1527,7 @@ const NOTE_CADENCE = {
 `,
 };
 
-// The three sections that describe how this is run. They live on their own
-// page; the home page hands off to them. Kept as one constant so the two
-// cannot drift: there is exactly one copy of this markup.
 const WORK_SECTIONS = `
-<!-- ⛔ ORDER: the assets, then the factory, then the capability. The factory
-     came first until 2026-09-13 and it broke the page read cold. Its own note
-     says "the private repository that maintains THE MARKETPLACE" — definite on
-     first use, a whole section before the marketplace was introduced — and the
-     hero standfirst promised things -> teams -> capability while the page
-     delivered teams -> things -> capability. Naming the three assets first gives
-     every later definite reference an antecedent on the page, and "kept alive"
-     is then exactly what the factory section explains. The hero standfirst
-     states this order: the two move together or not at all. -->
 <section>
   <div class="wrap">
     <div class="head narrow">
@@ -1906,30 +1557,10 @@ const WORK_SECTIONS = `
     <div class="verts">
       ${factory.map(([n, d]) => `<div class="vert"><b>${n}</b><span>${d}</span></div>`).join('\n      ')}
     </div>
-    <!-- ⛔ "six" and "agent definitions" stay in the SAME sentence.
-         check-claims.sh anchors on the sentence containing "agent definitions"
-         and requires the live count inside it. The 2026-09-14 flow fix moved the
-         count up into the standfirst ("These six maintain the marketplace") and
-         left this sentence countless, and the deploy refused to push. The
-         standfirst says whose they are; this says what they are, and what a
-         thing is has to carry its own number. -->
     <p class="note">All six are agent definitions in a private repository, so you cannot read
        them. What they maintain is public: a plugin carrying nine installable agents, a connector,
        their documentation, and a version history you can walk back. That is one repository run
        this way, not an organization.</p>
-    <!-- The only route from this page to the written pieces, and it is now a
-         POINTER rather than a second introduction to the series.
-         These were two paragraphs that named "the first three are one argument"
-         and then routed to three individual notes. /notes/ opens by saying the
-         same thing in better words — it leads with the reader's own situation
-         ("If your organization has ended up with several systems doing the same
-         thing, and nobody can point at the decision that caused it...") and it
-         covers all nine rather than three. route, 2026-09-13: the same argument
-         made twice in two places, in its own words both times, on a two-step
-         route. The index is the better of the two, so this one gives way.
-         The old comment here said "two pieces do not make a series" and that a
-         third would move this to its own page. There are nine and the page
-         exists; the comment outlived the condition it described. -->
     <p class="note" id="notes">Most of this is argued at length in
        <a class="src" href="/notes/">the notes</a>, where the index says which of them are one
        argument with which, and where to start.</p>
@@ -1952,29 +1583,6 @@ const WORK_SECTIONS = `
       ${method.map(([h, b]) => `<div class="col"><div class="rule"></div>
         <h3>${h}</h3><p>${b}</p></div>`).join('\n      ')}
     </div>
-    <!-- ⛔ Do not put a currency claim back here. This said "The reference is
-         kept current as the ground moves" until 2026-09-13, which promised an
-         ongoing property of a PRIVATE object: unverifiable by construction, the
-         same shape as the credential-nobody-can-examine line retired on
-         2026-09-02. The AI-SDLC team asked for it too (NOTICE-2026-09-12, item
-         5(iv)): their summary's own opening promises no calendar cadence, and
-         their notice says none will be stated until the owner confirms one he
-         intends to keep.
-
-         The first rewrite kept a middle sentence, "the guard against that is a
-         date rather than an assurance". That put a date on the reference four
-         sentences before the reader learns the reference is unpublished, and a
-         date on a thing nobody can open is an assurance wearing a number: the
-         same defect at lower strength. It is gone. THE DATE CLAIM BELONGS TO
-         THE CLOSING SENTENCE of this paragraph, where the list owns it and a
-         reader can go and check it, seventy dated rows and "read the date,
-         never the interval" on the options page. Do not add a second one here.
-
-         Also gone with it: "a reference that is not re-sourced is worse than
-         none", which HANDOFF's 2026-09-02 entry names as where the vendor and
-         capability read lives. The read it described was never published, so
-         the sentence was arguing for something a reader cannot see. The tools
-         changing survives in the closing sentence, attached to the list. -->
     <p class="note">The reference is on no schedule, and this page does not say it is current. It is
        not published, so the diagram above shows how far the work reaches, not the decisions inside
        it. Published
@@ -1994,9 +1602,6 @@ const html = `<!doctype html>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Crinaro.AI · AI from higher ground</title>
-<!-- No person named here, on purpose — see the note on the "Where this comes
-     from" section. "Installed in your own environment" stays dropped: it was a
-     deployment claim, sitting in the tag that shows in a search result. -->
 <meta name="description" content="${SUB}">
 <meta property="og:title" content="Crinaro.AI">
 <meta property="og:description" content="${CLAIM} ${SUB}">
@@ -2007,9 +1612,6 @@ const html = `<!doctype html>
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="Crinaro.AI · AI from higher ground">
 <meta name="twitter:card" content="summary_large_image">
-<!-- The SVG favicon is first and wins wherever it is supported: it stays sharp
-     at any size and costs no request. The PNGs are there for Safari and for
-     the clients that still ignore SVG icons. -->
 <link rel="icon" href="data:image/svg+xml,${encodeURIComponent(svg('crinaro-ai-mark-small.svg'))}">
 <link rel="icon" type="image/png" sizes="32x32" href="/icons/crinaro-favicon-32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="/icons/crinaro-favicon-16.png">
@@ -2025,45 +1627,14 @@ ${CSS}
     ${svg('crinaro-ai-animated.svg')}
     <h1>${CLAIM_HTML}</h1>
     <p>${SUB}</p>
-    <!-- The id="notes" catch is GONE as of 2026-09-14, and this records why so
-         it is not simply restored. It existed to catch an off-site link to
-         https://crinaro.ai/#notes and drop that reader at the hero doors. Both
-         halves of that stopped being true today: the rewrite removed the hero
-         doors, and the id ended up on the "What it is for" eyebrow, so the catch
-         was landing a reader who asked for the writing on "Fewer places to
-         change, year over year" instead. A catch that lands on the wrong section
-         is worse than none — without it the browser leaves the reader at the top
-         of the page, reading from the start.
-         ⛔ Restore it only onto a home-page element that actually routes to
-         /notes/. route, 2026-09-14: the home page links three notes by title and
-         never offers the collection, so at present there is no such element.
-         Raised with John rather than fixed here, because it is a copy change to
-         a page he had just finished tuning. -->
   </div>
 </header>
 
 <main>
 
-<!-- ⛔ THE RIDGE OPENS THE PAGE, John 2026-09-14: "I'd put the whole view
-     before the question." It explains the claim in the hero directly above it,
-     so the page reads claim, then what the claim means, then the question. It
-     was moved out of this position on 2026-09-13 for interrupting between the
-     problem and the principles with 81 words of brand — that reasoning was
-     about a DIFFERENT position, between two argument sections. Before the
-     argument starts, it is the frame rather than an interruption. -->
 <section class="band">
   <div class="wrap">
     <div class="head narrow">
-      <!-- ⛔ THE METHOD LEADS, THE NAME STORY TAILS. This paragraph opened on the
-           etymology until 2026-09-14, and moving the section above the question
-           that day made that the SECOND thing a reader met, before their own
-           problem. John: "you want to make sure you are appealing to the
-           reader." An origin story is about us; standing where the whole system
-           is visible before deciding is about them. Same sentences, and the
-           first one a reader hits is now the one they can use.
-           ⛔ The etymology stays. It is the only place the name is explained and
-           it earns its one line at the end. Do not cut it and do not promote
-           it. -->
       <p class="eyebrow">The method</p>
       <h2>The whole view decides the design.</h2>
       <p>Stand where the whole system is visible before deciding anything. The test of a decision
@@ -2075,317 +1646,16 @@ ${CSS}
   </div>
 </section>
 
-<!-- ⛔ SECTION ORDER IS LOAD-BEARING. Resequenced 2026-09-13 to John's arc:
-     the gotchas, what you need to do, then how this knowledge gets you to a
-     business outcome. Two sections moved and NOTHING was rewritten.
-
-     "What it is aimed at" was at 91% depth, AFTER 750 words of factory,
-     assets and reference. The executive met six agent names and three repos
-     before the page said what any of it was for: the vehicle arriving before
-     the destination. It moved before that block on 2026-09-13, and on
-     2026-09-14 it moved again, above "Where to start".
-     ⚠️ It is still NOT the lead, which is the constraint that matters here.
-     HANDOFF records that leading with unmeasured outcomes is worse than
-     burying them. It now sits after the problem, the chain and the five
-     principles — the whole argument — and before the two moves.
-     Why it moved: the page told a reader to start moving and only then said
-     no outcome had been measured, so the payoff and its retraction both
-     landed after the call to action. The executive summary settles the order
-     the same way: the outcomes are inside its sixth claim, the bound, and
-     Adoption follows the claims because "the ownership change Concept prices
-     is the move made here". John, 2026-09-14, on the page not flowing.
-     ⚠️ THE TRADE: this section and the ridge are both class="band", and they
-     were adjacent on purpose — one hinge marking the turn from the reader's
-     problem to our own work. They are now separated by "Where to start", so
-     the page alternates instead. The turn is still marked, by the ridge
-     alone. If the rhythm reads wrong in a render, that is the thing to look
-     at first, and the fix is which of the two carries the band, not a move
-     back to an order the argument does not support.
-
-     "Where it is argued from", the ridge, was at 20%, interrupting between
-     the problem and the principles with 81 words of brand. It now opens the
-     Crinaro block, which also marks the turn visual-qa found unmarked: the
-     page silently switched from the reader's problem to our own work and
-     back, and nothing said so. The two navy bands are adjacent on purpose
-     and read as one hinge.
-
-     ⛔ Do NOT promote principle 4 into its own gotcha section. "What changes
-     with AI" was exactly that and was CUT on 2026-09-09 for duplicating
-     principle 4 and problem card three. -->
 
 <section>
   <div class="wrap">
     <div class="head narrow">
-      <!-- ⛔ THE HEADLINE IS THE READER'S COST, NOT AN OBSERVATION ABOUT THE
-           INDUSTRY. It read "Everyone is building the same things, separately."
-           until 2026-09-14. John: an executive reads that and says "i don't
-           care… what they care about, you are going to help me?" He is right,
-           and the fix was placement rather than invention — "adopting it speeds
-           up what is already going wrong" was already on the page, in small
-           type at the foot of this section, under the financial question.
-           It is also the summary's FIRST claim: AI amplifies how an
-           organization already works, and where requests already produce
-           duplicates, agent teams produce more. The page led with the
-           duplication instead, which is claim two's territory.
-           ⛔ KEEP THIS SHORT. It reached 154 words in one block across six
-           rewrites on 2026-09-14, each of which added a defensible bound to a
-           defensible sentence, and the total lost the reader. visual-qa called
-           it a wall, sixteen unbroken lines under the largest headline on the
-           page and twice the mass of any other block; John read it and said it
-           "loses anyone who reads it". Cut to 112 words in three paragraphs,
-           one job each: name the three, say which one gets bought and how far
-           to trust that, say what the redesign is. Every bound survives in
-           shorter form. If a future pass needs to add a qualifier here, cut
-           something else to pay for it.
-           ⛔ THE READER HAS ALREADY SPENT THE MONEY. This section is addressed
-           to somebody who stood up agent teams per repository and did not get
-           what they expected, which is a better buyer than somebody deciding
-           whether to adopt, and it is the reader the corpus can actually help.
-           Three headlines were rejected here on 2026-09-14 and the third
-           rejection is the one that explains the other two. "AI speeds up what
-           is already going wrong" made AI the subject — John: "it isn't AI,
-           it's your implementation of it." "AI adoption amplifies the process
-           you already run" fixed the grammar and kept the real flaw: it states
-           a MECHANISM, and nobody has a stake in a mechanism. John: "my answer
-           to that is so what and you lost me with the headline, I'm not going
-           to read anything."
-           ⛔ So the test for any rewrite is not whether the sentence is true. It
-           is whether a reader who has already bought agents recognizes their own
-           situation in it. A diagnosis of the industry fails that test however
-           well written. Name what they did and what is missing.
-           ⛔ NO OUTCOME CLAIM IN THIS HEADLINE. "Nothing got cheaper" was drafted
-           and cut: no outcome anywhere in the material has been measured, so a
-           headline asserting one is voice rule 2 in the largest type on the
-           site. What IS reported is what gets BOUGHT — agent teams per
-           repository, knowledge base and workflow nobody's job — so the headline
-           says that instead.
-           ⚠️ STALE COMMENT, CORRECTED 2026-09-15. This asserted that the
-           standfirst "keeps the source's mood" with the words "tend to buy" and
-           "check it before you believe it". NEITHER PHRASE IS IN THE COPY. They
-           were removed when the paragraph was rewritten for a non-technical
-           reader the same day, and the comment outlived them, ending "Do not
-           tighten either away for rhythm" — an instruction to preserve two
-           phrases that no longer exist. Found by content-editor.
-
-           ⛔ This is the SECOND instance of exactly this shape in one file. The
-           other was the footnote comment 250 lines down, corrected the same day.
-           A comment that guards a phrase must name the phrase, so when the
-           phrase goes the comment reads false rather than merely dated. **When
-           you rewrite copy, grep this file for the words you removed.**
-
-           What is still true and is why the paragraph reads as it does: the
-           source offers the claim to a self-selecting reader — "a reader who
-           stood up per-repository agent teams and is disappointed has something
-           to check: which of the three they bought". Delivered flat it becomes a
-           present-tense claim about a stranger's organization, which is the
-           question a procurement officer asks and the one answer that cannot be
-           given. ⛔ But the sentence now on the page stands on JOHN'S OWN
-           warrant, not the corpus's — he ruled on that 2026-09-15 and HANDOFF
-           records the withdrawn finding — so the corpus's bound does not govern
-           it and must not be reimported. -->
-      <!-- ⚠️ The sourcing sentence below the cards — "None of this is argued from
-           the outside... from delivery in those industries" — is true of the
-           DIAGNOSIS and is not the warrant for the sentence above. Keep the two
-           apart: one is John's own delivery, the other is reported from
-           organizations nobody here ran.
-           ⛔ The conditional is load-bearing and must never be dropped to make
-           the line hit harder. The material's own answer is that an
-           organization which can hit its goals on today's model should adopt AI
-           and change nothing else. The qualifying question below carries that,
-           and this headline is worthless without it.
-           ⛔ Not a new section. "What changes with AI" was cut on 2026-09-09 for
-           duplicating principle 4 and problem card three; this reframes the
-           section that already exists and adds nothing. Principle 4 states the
-           amplification MECHANISM; this states what it costs the reader. -->
-      <!-- ⚠️ THE EYEBROW NO LONGER CARRIES ATTRIBUTION, and that is a change, not
-           a relaxation. The headline was "Agents went in. Our costs are still
-           rising. Why?" and the eyebrow "The question" was the ONLY thing
-           stopping a reader taking that "our" as Crinaro's, which would have
-           made the line a confession about our own costs. John replaced it on
-           2026-09-14: "you could say 'Agents went in and your costs were
-           amplified'", then plainer: "or 'Agents went in, your costs went up'".
-           "Went up" is what an executive says; "amplified" is the argument's
-           word, and the footnote carries it where it belongs.
-           Second person removes the ambiguity at the source, so
-           there is now no reader-voice first-person plural in the headline for
-           a Crinaro one to collide with.
-           ⛔ THE HEADLINE NEVER NAMES AGENTS AS THE CAUSE. "your costs went up"
-           sits beside "agents went in" without claiming one did the other.
-           John, earlier the same day:
-           "it isn't AI, it's your implementation of it." An active rewrite
-           ("agents amplified your costs") puts the blame back on the tool and
-           reverses that correction.
-           ⛔ The qualifier in the next paragraph is what keeps this honest: an
-           organization that can hit its goals on today's model should adopt AI
-           and change nothing else. The headline asserts something about the
-           reader's business and the very next sentence gives them the exit.
-           Never ship the headline without it. -->
-      <!-- ⛔ THE EYEBROW IS THE READER'S OWN SENTENCE, 2026-09-22. It read "The
-           question" until today, which labelled the ARGUMENT'S STRUCTURE rather than
-           the reader's situation. brand-critic, reading only what a ninety-second
-           scanner reads: thirteen lines down the page, ONE was written in the reader's
-           situation; the seven eyebrows were "a table of contents for the argument's
-           structure". That is John's own worry — "I feel this is my terminology" —
-           and it is about the FRAME, not the vocabulary: the stop list scores this
-           page zero and the defect was still there.
-           ⛔ "ADOPTION" IS THE READER'S WORD AND THE PAGE DID NOT USE IT. Verified
-           mechanically on 2026-09-22: "adopting" appeared ONCE in the whole rendered
-           page, as a participle in a subordinate clause in a third paragraph, and the
-           noun "adoption" appeared zero times. Two of John's four reader questions use
-           it — "we are doing great with adoption, but nothing is changing" and "why is
-           the adoption not working for me". DORA and McKinsey both say adoption
-           throughout. This is a landmark noun the reader already holds, so it is
-           inside the rationalize-do-not-align ruling.
-           ⚠️ The pair is the whole point: the eyebrow concedes what the reader has
-           been told, the headline states what they see instead. Do not "fix" the
-           tension by softening either half. -->
       <p class="eyebrow">Adoption went well</p>
       <h2>Agents went in,<br>your costs went up. Why?</h2>
-      <!-- ⛔ THE FIVE QUESTIONS ARE THE SPINE OF THE WHOLE PAGE and everything
-           below counts on them. The five cards answer them one for one, in this
-           order, and the paragraphs below say "the first" and "the other four",
-           which resolve to nothing without this. It was lost for a few minutes
-           on 2026-09-14 in an edit that replaced too wide a span, and the page
-           still built and still passed every gate — no check in this repo reads
-           an antecedent. Found by reading the render. -->
-      <!-- ⛔ THE QUESTIONS ARE MANAGEMENT QUESTIONS, 2026-09-22. They were
-           systems questions until today ("Who owns this part of the system?"),
-           and an executive does not manage a system, they manage teams. John,
-           after the McKinsey webinar: "you are cautious when it involves people
-           (you have HR controls) and you need strategic controls on your agents
-           and agent team design & implementation."
-           The reframe is his and it does the thing decisions/09 §3.2 asks for:
-           an org chart is the most pointable-at thing an executive owns, and
-           they approved a headcount req recently.
-           ⛔ "HR" IS THE REASONING, NOT THE WORDS. Naming HR here pulls in
-           compliance and bureaucracy, which is the wrong register for a line
-           whose job is to say you already do this WELL. Evoke it instead:
-           "nobody adds fifteen people without" lands it as competence.
-           ⚠️ The fifteen is not decorative. McKinsey's end state is "1 Human
-           for 15-20 agents" (research/mckinsey-2026-09/, slide 06), which is a
-           SPAN OF CONTROL. The number makes an executive ask what they would
-           ask of any manager with twenty reports. Not cited here and it does
-           not need to be — it is our sentence.
-           ⛔ THE LAST LINE SAYS "CONTROLS", NOT "ANSWERS". John picked variant
-           A, which closed "Agent teams get stood up with none of it" — that
-           contradicts the next paragraph, which says teams DO answer the first,
-           by default. Controls and answers are different things, so this way
-           both sentences are true and continuity has no quoted pair to report.
-           Raised with John 2026-09-22; revert the wording only if the next
-           paragraph changes with it.
-           ⛔ FIVE QUESTIONS SINCE 2026-09-22, in this order — owns, facts,
-           decision, work, BUILDS. "The first" and "the other four", two and
-           three paragraphs below, resolve to nothing without them.
-
-           ⭐ THE FIFTH IS JOHN'S, 2026-09-22, and it came out of the McKinsey
-           span-of-control quote rather than from the slides. McKinsey: "a human
-           team of two to five people can already supervise an agent factory of
-           50 to 100 specialized agents" (The agentic organization, 26 Sep 2025).
-           John: "yes they can supervise but what does it take to create the
-           agent teams properly, both need to be accounted for. operational
-           management & talent development (group creating the team to do the
-           work)."
-           ⛔ THE RATIO IS A RUN COST AND IT HIDES THE BUILD COST. That is the
-           whole reason the question exists, and it is OURS — McKinsey states
-           the ratio and does not carry the build function. Never cite the
-           two-to-five figure on this page; naming what it leaves out is the
-           stronger move and it is the reference-layer posture, not commentary.
-           ⚠️ BOUND, John's own, and it is why card 5 does not quantify: he
-           observes the owner-also-builds pattern "in a developer (engineering)
-           model" and believes "it will be different in other operational
-           processes within the business". So the card says COUNT IT AGAINST,
-           which is directional and true in any model. ⛔ Do not put a number on
-           the span reduction — we do not have one, and John flagged that he
-           expects it to vary by process. -->
-      <!-- ⛔ SPLIT INTO TWO PARAGRAPHS, 2026-09-22, and do not rejoin them.
-           decisions/09-who-this-is-for.md §3.3 caps a home-page body paragraph
-           at four sentences. Adding the fifth question took this block to eight
-           — one framing sentence, five questions, two closing — and every one of
-           the eight is either John's or the spine, so there was nothing to cut.
-           The split is the only lever: the questions are the countable list §2
-           item 2 asks for, and the two closing sentences are the hinge into the
-           argument. Counting prose rather than list items, that is one sentence
-           and then two, which is inside the cap.
-           ⚠️ What this costs, stated so it is not rediscovered as a defect:
-           "answering them first" now reaches across a paragraph break for the
-           five questions, and "the first" and "the other four" below reach back
-           one block further. Nothing foreign sits between them — the hinge
-           paragraph is about the questions too — so the chain holds. If a
-           section ever lands BETWEEN these two paragraphs, that is what breaks
-           it, not the split. -->
       <p>You already answer five questions about every team you run. Who owns this? Where do they
          get their facts? How does a decision get made? Who does the work? Who builds the team?</p>
       <p>Nobody adds fifteen people without answering them first. Agent teams are getting stood up
          without the same controls.</p>
-      <!-- ⛔ Conway is ONE CLAUSE here, not a paragraph. The page carried it as
-           its own block until 2026-09-14 and John said the section read as four
-           random statements. The mechanism still has to be on the page — it is
-           why the other four go unanswered — but it earns a clause, not a
-           screen. The note it links argues it in full.
-           ⛔ The financial qualifier is IN this paragraph. John: "driving
-           financial alignment is key but it should be baked into the blurb". It
-           is also the material's own bound: an organization that can hit its
-           goals on today's model should adopt AI and change nothing else.
-           ⛔ "here is what has to change" and NOT "here is what it accelerates".
-           The cards below are the ANSWERS now. John, 2026-09-14: "these are a
-           description of the problems, not the solution." If the cards ever go
-           back to being failures, this sentence goes back with them. -->
-      <!-- ⛔ THIS PARAGRAPH IS WRITTEN FOR A READER WHO IS NOT TECHNICAL, 2026-09-15.
-           John, reviewing the published version: "It makes sense to me but wont
-           make sense to anyone who isn't technical." He is the technical reader
-           and it passed him; that is the warning, not the reassurance.
-           What changed, and why each one:
-           · "Teams buy an answer to the first, A REPOSITORY AT A TIME" -> "by
-             adopting AI the way they already work". Repository is the precise
-             mechanism and it is the word a non-technical reader stops at. The
-             mechanism still lives in card 1 and in the notes, where a reader who
-             wants it has already opted in. ⛔ This is NOT a retreat from the
-             sourced claim: EXECUTIVE-SUMMARY line 29 says "agent teams arrive one
-             per repository", and the plainer sentence says the same thing about
-             the same behavior.
-           · The qualifier is John's own and it is the reason for the edit: "If
-             your organization is able to maintain your platform & create new
-             features while you hit your financial goals, keep going." An
-             executive feels maintenance against new features against money. "The
-             model you run today" is an abstraction nobody feels.
-           · ⛔ "nobody's job" STAYS. It is the setup for "Own what is nobody's
-             job" two sections down, and cutting it orphans that heading.
-           · ⛔ The five-user-APIs link STAYS. It is the only route from this
-             section into the notes. -->
-      <!-- ⛔ DORA IS A CLAUSE IN THE ARGUMENT, NEVER A BLOCK BESIDE IT.
-           First attempt, 2026-09-15, was a gray .note pasted under the cards.
-           John: "That's great information but it doesn't flow well... fit it in
-           with the story. Remember, they are giving you content related to their
-           work, you have to decide how you sell it to an executive. copying and
-           pasting blurbs from their content isn't going to create a pleasant
-           site to read." He is right and the rule is general, not about DORA:
-           ⛔ THE AI-SDLC CORPUS IS SOURCE MATERIAL, NOT COPY. Nothing from it
-           reaches a reader as a quotation, a citation block or an aside. It is
-           argued in this page's own voice or it does not appear.
-
-           So DORA sits where the page makes the amplification claim, as the
-           second half of the sentence that makes it, doing the work of telling
-           an executive this is not one consultant's opinion.
-
-           ⛔ THREE BOUNDS, from NOTICE-2026-09-15 item 3, none droppable:
-           1. It says NOTHING about duplication, and nothing about cost. ⛔ THE
-              REFERENT IS THE WHOLE OF BOUND 1 AND IT HAS ALREADY FIRED ONCE.
-              The sentence read "DORA reports the same", where "the same" was the
-              amplification clause before it. John added "and costs continue to
-              rise" to that clause on 2026-09-15 — right, because it answers the
-              headline — which silently widened "the same" to include a cost
-              claim DORA does not make. Fixed by naming the referent instead of
-              pointing at it: "DORA reports THE AMPLIFICATION".
-              ⛔ Never restore a pronoun here. Whatever else the clause grows,
-              the citation names the one thing DORA actually reports.
-           2. It corroborates the FRAMING and upgrades no evidence class here.
-              Never write that DORA shows this approach works.
-           3. ⛔ NEVER pair it with a delivery-metrics claim. DORA's own guide
-              says those five metrics suit one application at a time; the outcome
-              this page states is across an estate.
-           ⚠️ It is the only external source on the page, so rule 3 is at full
-           force. The link was followed and resolves; the quote is page 3 of
-           v2025.2. If it rots, the sentence goes. -->
       <p>Teams answer the first by adopting AI the way they already work, so it amplifies the
          organization it lands in and costs continue to rise.
          <a class="src" href="https://services.google.com/fh/files/misc/2025_state_of_ai_assisted_software_development.pdf">DORA reports the amplification</a>,
@@ -2394,38 +1664,34 @@ ${CSS}
          it: <a class="src" href="/notes/${NOTE.slug}/">why do we have five user APIs</a>. If you
          can maintain the platform you have and keep building on it while you hit your financial
          goals, keep going. If you cannot, the system has to change, not just the tools.</p>
-      <!-- ⭐⭐ JOHN'S LINE, 2026-09-22, and it is the answer to the reader's first
-           question. Verbatim: "This is new technology but it aligns to the problem of
-           flow & ownership. Concepts in many management books from the beginning of
-           time & aligns to one of my favorites of 'Conway's Law'."
-           ⛔ IT ANSWERS "can this guy help me" WITHOUT MAKING AN OFFER, which is why
-           it earns a place the page otherwise refuses to give. brand-critic's first
-           finding is that the page declines that question; this does not resolve that
-           — the closing is still John's call — but it says the one thing that makes a
-           budget-holder trust the rest: you already know how to reason about this.
-           ⛔ "what you already manage everywhere else" IS DELIBERATE. It closes the
-           loop on the section's own opening move, "You already answer five questions
-           about every team you run." Do not rewrite it into a general claim about
-           management; its whole force is the callback.
-           ⭐ CONWAY IS NAMED HERE AND PARAPHRASED ABOVE, in that order, on purpose.
-           The clause above — "the system keeps the shape of the teams that built it" —
-           stays a clause: John said on 2026-09-14 that the section read as four random
-           statements when Conway had his own block, and that ruling is untouched. The
-           reader meets the mechanism first and the name second, which is how a landmark
-           works. Naming him passes the same test "span of control" passed.
-           ⛔ NO DATE AND NO CITATION. Conway's law has one, and rule 2 does not allow a
-           year nobody in this repo has opened the paper to check. -->
       <p>The technology is new. The problem it lands in is not. Flow and ownership is what Conway
          named, and what you already manage everywhere else.</p>
     </div>
-    <!-- ⛔ OUTSIDE .head narrow ON PURPOSE. The prose column is deliberately narrow
-         for measure; the diagram needs the full .wrap or the three boxes a side
-         crush. It sits here, after the diagnosis and BEFORE the cards, because the
-         cards are the answers and this is the thing they answer. -->
     <div class="flow fig">${ownership}</div>
     <div class="cols five">
       ${problems.map(([h, b]) => `<div class="col"><div class="rule"></div>
         <h3>${h}</h3><p>${b}</p></div>`).join('\n      ')}
+    </div>
+    <div class="head narrow">
+      <p>It is not just you. McKinsey put this to 1,719 people across 97 nations in its August 2026
+         survey, and what they reported was this.</p>
+    </div>
+    <div class="exhibit">${exhibit}</div>
+    <div class="stats">
+      ${stats.map(([n, claim, base, href]) => `<div class="stat">
+        <b>${n}</b><p>${claim}</p>
+        <span class="base"><a href="${href}">${base}</a></span>
+      </div>`).join('\n      ')}
+    </div>
+    <div class="head narrow">
+      <p>Adoption is not what separates that 6%. Redesigning the work is, which is where the five
+         questions above arrive from the other direction.</p>
+      <p>What most organizations have adopted is prompt-style use. It assists a person and it does
+         not make the work repeatable, which is the difference between a team getting faster and a
+         number moving. Stanford's AI Index puts agent deployment
+         <a class="src" href="https://hai.stanford.edu/ai-index/2026-ai-index-report/economy">in the single digits</a>
+         across nearly every business function. The agents are barely in, which makes this the
+         cheap moment to decide who owns them.</p>
     </div>
   </div>
 </section>
@@ -2433,59 +1699,6 @@ ${CSS}
 <section class="band">
   <div class="wrap">
     <div class="head narrow">
-      <!-- ⛔ THE HEADING NAMES THE MEASURE, not the aim. "Flat maintenance cost
-           as you scale" was correct and John said it "does not drive interest".
-           The measure is his, 2026-09-14: "the number of systems (components)
-           that require a change should decrease over time if you've implemented
-           the model properly."
-           ⛔ The closing line is his too, verbatim in substance: "we did so
-           much, yes you did, but you didn't change the pattern". Do not smooth
-           it. It is the sharpest sentence on the page and it is the one an
-           executive recognizes.
-           ⛔ WHERE THE BOUND ON THIS CLAIM ACTUALLY IS, corrected 2026-09-15.
-           This comment used to say the disclaimers were "in the footnote at the
-           end of the page". THE FOOTNOTE WAS CUT ON 2026-09-15 and this comment
-           outlived it, so it was asserting a hedge lived somewhere it does not
-           while forbidding anyone to restore it here. That is the worst shape a
-           stale comment takes: false, and load-bearing against its own fix.
-           Found by content-editor's first run.
-
-           The bound now lives in ONE place a reader of / can reach: the link at
-           the end of this paragraph. /notes/count-the-changes/ opens "What
-           follows is not a measurement" and closes "the outcome itself remains
-           unmeasured". That is the right place — it is at the point of claim,
-           one click away.
-
-           ⛔ STILL do not put a hedge back in this section, and the reason has
-           changed. It is no longer "it lives downstairs". John has now removed
-           this hedge TWICE: "what does this mean 'Nothing here has measured
-           it.', why even have that" on 2026-09-14, and the whole footnote on
-           2026-09-15. Twice is a decision. Restoring it is his call to make,
-           not a correction for the next session to apply.
-
-           ⚠️ OPEN, and raised with John rather than fixed: /what-you-already-have/
-           still says "None of this has been measured against an organization"
-           and / says nothing equivalent. The discipline is applied on the
-           smaller page and not on the one with the larger audience and the
-           LinkedIn preview card. That asymmetry is real; the fix is one
-           sentence, not a restored footnote. -->
-      <!-- ⛔ THE VELOCITY ANSWER WAS ALWAYS HERE AND WAS FILED UNDER "What it is
-           for", 2026-09-22. brand-critic: it is not unanswered, it is MISLABELLED.
-           "The number of systems you have to change to deliver one thing the business
-           asked for goes down" IS the answer to John's third reader question, "where
-           is the velocity" — less work per delivered thing. A reader holding that
-           question scanned a maintenance-engineering label and moved on.
-           ⛔ THE HEADING BELOW IS STILL JOHN'S AND STILL NAMES THE MEASURE, not the
-           aim. Only the eyebrow changed. "Flat maintenance cost as you scale" was
-           correct and he said it "does not drive interest"; that ruling stands.
-           ⛔ NO SPEED CLAIM WAS ADDED TO THE BODY, deliberately.
-           research/ai-sdlc/EXECUTIVE-SUMMARY.md: the model aims at "decreasing
-           maintenance cost, improving velocity, and shifting investment from
-           maintenance into new capability" and "None of the three has been measured."
-           So the eyebrow names the reader's question and the body still states only
-           the measure. ⛔ Do not turn this into "you will ship faster" — that is the
-           unmeasured claim the note at the end of this section already bounds with
-           "What follows is not a measurement." -->
       <p class="eyebrow">Where the velocity went</p>
       <h2>Fewer places to change,<br>year over year.</h2>
       <p>If the model is working, the number of systems you have to change to deliver one thing the
@@ -2502,33 +1715,11 @@ ${CSS}
 <section>
   <div class="wrap">
     <div class="head narrow">
-      <!-- ⛔ NO SECOND LIST HERE. This section held four cards that restated the
-           answers above — John: "this is documenting the same thing again
-           another way". The answers are the design; this is what it costs and
-           who carries it.
-           ⛔ THE PLATFORM IS NAMED ONCE, as what they run on, and is NOT A CARD
-           OF ITS OWN. ⚠️ Read that carefully now there are five: the fifth card
-           is "building the team", added 2026-09-22, and it is NOT the platform.
-           The platform stayed a clause and still is. John gave three
-           investments — knowledge repository, a platform for the agents to run
-           on, an operating process with named owners — and the first and third
-           are already two of the five above.
-           Only the platform was missing, and /what-you-already-have/ is the page
-           that covers it, so it is a clause with a link rather than a list that
-           half-overlaps the one above it. That mismatch is what "resolve the
-           alignment" meant, 2026-09-14. -->
       <p class="eyebrow">Where to start</p>
       <h2>Own what is&nbsp;nobody's job.</h2>
       <p>Fund the five above, and the platform they run on. None of it is a tool decision, and
-         nobody has to be persuaded to think in systems.</p>
-      <!-- ⛔ THE FOURTH COST IS CARD 5'S AND IT IS A DIFFERENT KIND, added 2026-09-22.
-           route found the gap: "Fund the five above" was updated when the fifth card
-           landed and THIS paragraph was not, so the page asked the reader to fund five
-           things and then priced four. The first three are accountability and cleanup
-           costs, which is why the predicate is "ownership". Card 5's cost is capacity —
-           people — and it is the one an executive actually budgets. ⛔ Do not drop it
-           back to three: a cost list that omits the headcount is the sentence a CFO
-           stops trusting the page over. -->
+         nobody has to be persuaded to think in systems. You can buy a product that maps what you
+         already have; what you cannot buy is somebody answerable for keeping the map true.</p>
       <p>What it costs is ownership: a delivery date into a queue you do not control, time with
          the teams until they want it, funded work to remove what is already duplicated, and
          people to build the agent teams rather than only supervise them.
@@ -2540,47 +1731,9 @@ ${CSS}
 </section>
 
 
-<!-- The three sections that were here moved to /how-the-work-gets-done/ on
-     2026-09-13. They were 3,039px, 32% of the page and 3.4 of its 10.5
-     screens, and they are the one block that is about us rather than about the
-     reader: a render review found the page silently turning here, from the
-     executive's problem to our factory, six agent names and three
-     repositories.
-     ⚠️ THE TRADE, stated so it is not rediscovered: that block is the only
-     thing on the site resembling a demonstration rather than an argument.
-     Behind a click, a reader who was nearly convinced may never reach it.
-     This hand-off is what has to carry them there. If the page ever needs to
-     prove itself in one scroll, this is the decision to revisit.
-     ⛔ THE MARKETPLACE URL STAYS IN THIS PARAGRAPH. counterpoint, 2026-09-13:
-     the split took github.com/crinaro/marketplace off the home page entirely,
-     while the same sentence went on saying "a public marketplace anyone can
-     install". Nothing false was claimed and there was no way to check it —
-     the same family as the "read every one of them" defect, pointed at a page
-     instead of a private repo. It is the ONLY object on the whole site a
-     hostile reader can open, and it now costs zero pixels to name. Do not let
-     a later tightening pass turn it back into a bare noun.
-     The link label is the second half of that fix: "how the work gets done"
-     promised process, which is the category an executive skips. It names the
-     objects now. -->
 <section>
   <div class="wrap">
     <div class="head narrow">
-      <!-- ⛔ THE POINT OF THIS SECTION IS THAT THE MODEL IS UNDER TEST, not that
-           three things exist. John, 2026-09-14: "state we are constantly testing
-           and evolving the AI-SDLC model. we have agentic teams currating the
-           ai-sdlc, the branding for this site & a marketplace so we can
-           holistically challenge our implementation approaches with agentic
-           teams." The three are deliberately different problems, which is what
-           makes running all three a test rather than three demonstrations.
-           ⛔ NO CRINARO FIRST PERSON PLURAL, though John's instruction used one
-           four times. ⚠️ The premise here was stale and is corrected 2026-09-15:
-           this said the headline says "our costs" in the READER's voice. It did
-           when brand-critic made the finding on 2026-09-14; John moved it to
-           second person the same day and it now reads "Agents went in, your
-           costs went up". The RULE is unchanged and is why it still matters —
-           the page addresses the reader as "you" throughout, so one Crinaro "we"
-           anywhere in it makes the reader ask which of them is speaking. "Three agent teams keep it under test" says the same
-           thing in the register the rest of the page uses. -->
       <p class="eyebrow">How the work gets done</p>
       <h2>The model is under&nbsp;test, by being run.</h2>
       <p>Not described: run, and still changing. Three agent teams keep it under test. One curates
@@ -2598,12 +1751,6 @@ ${CSS}
 <section>
   <div class="wrap">
     <div class="head narrow">
-      <!-- The brand is NOT tied to a named person, deliberately. Crinaro is the
-           body of work; the author of a piece appears as a byline on that piece.
-           A site that reads "Crinaro is <name>" makes the body of work into a
-           person instead. The attribution is indirect and sufficient: the
-           contact address reaches the author. Tried and reverted 2026-08-20,
-           the same day it was added. -->
       <p class="eyebrow">Where this comes from</p>
       <h2>Patterns learned in hard places.</h2>
       <p>None of this is industry-specific. The experience behind it is: regulated,
@@ -2619,69 +1766,15 @@ ${CSS}
 <section>
   <div class="wrap">
     <div class="narrow stack">
-      <!-- This used to read "Find the thing worth building once, and building well" over "Bring the
-           problem your teams keep solving separately" — a request for an engagement, at the last
-           thing anyone reads. That was right for a page selling services and wrong for a body of
-           work, which has to hold whether or not the reader ever becomes a client. The page
-           declares no availability. An argument to disagree with is the invitation. -->
       <p class="eyebrow">If any of this is useful</p>
       <h2>Say where it breaks.</h2>
       <p>These are patterns, not prescriptions, and the interesting mail is the mail that says a
          piece of it does not hold: in your architecture, at your size, with the constraints you
          actually have. That is a conversation worth having whether or not anything follows it.</p>
-      <!-- ⛔⛔ REMOVED 2026-09-15. A paragraph beginning "Today I read it myself, and
-           I do not expect enough mail to change that" stood here from 2026-09-03 to
-           2026-09-15. John: "this was a comment i made to the team, it shouldn't be
-           on the site." It was HIS INTERNAL REMARK, written into public copy and
-           published for twelve days.
-
-           ⛔ This is the failure this repo exists to prevent, and it is not a
-           wording defect. All six agents read this page repeatedly and none of them
-           flagged it, because every one of them reads a sentence and asks whether it
-           is TRUE, CONSISTENT, WELL-VOICED, ARGUABLE or REACHABLE. It was all five.
-           None of them asks WHERE THE SENTENCE CAME FROM, or whether John said it to
-           the team rather than to a reader. The deploy's private-reasoning gate misses
-           it too: that gate matches tokens about employment and about the person, and
-           this paragraph contains none of them.
-
-           ⛔ Do not write a replacement for this paragraph. The disclosure it was
-           built around is four words, "Today I read it myself.", which every note,
-           the notes index and the adoption page already carry at the foot. The rest
-           was speculation about an agent team that does not exist. -->
       <p style="margin-top:.8rem">
         <a class="src" href="mailto:${EMAIL}?subject=Crinaro">${EMAIL}</a>
       </p>
     </div>
-    <!-- ⛔ EVERY EPISTEMIC CLAIM ON THIS PAGE LIVES HERE, and that is the point.
-         Sourcing, what is and is not measured, and DORA were three separate
-         blocks inside the argument until 2026-09-14. John, on the one that had
-         been compressed hardest: "what does this mean", and on the rest: "why
-         even have that". As copy in the flow they were throat-clearing; at the
-         end they are honesty a reader can check.
-         ⛔ RELOCATED, NEVER REMOVED. brand-critic's finding 2 stands: the claim
-         about which question an organization answers is reported rather than
-         measured and rests on estates nobody here ran, and the page must say so.
-         It says so here, in plain words, which the compressed version did not.
-         ⛔ Voice rule 3, and this is the only checkable external reference the
-         site has: the DORA link goes to the page that was actually fetched.
-         dora.dev is blocked by this environment's egress proxy and was never
-         opened from here; Google's own announcement was. -->
-    <!-- The epistemics footnote was cut 2026-09-14, at John's word: "this can be
-         removed, it doesn't add value." Both paragraphs, the sourcing bound and
-         the DORA citation with it. Before writing another one, check that the
-         page still does not need it: nothing above states a number, a percentage
-         or a population, so there is no measurement here to bound. The moment a
-         sentence on this page cites one, rule 2 puts the bound back, and rule 5
-         wants it stated rather than implied.
-         ⚠️ CORRECTION, route the same day: the first version of this comment said
-         "the provenance still lives on /how-the-work-gets-done/". It does not.
-         What that page carries is two bounds on scope and currency, "one
-         repository run this way, not an organization" and "the reference is on
-         no schedule". The provenance sentence the footnote carried survives only
-         as this page's own "Where this comes from / Patterns learned in hard
-         places" section. The "not a measurement" bound is genuinely inside
-         /notes/count-the-changes/. Do not cite this comment as evidence that a
-         bound is covered somewhere else without opening the page. -->
   </div>
 </section>
 
@@ -2702,11 +1795,6 @@ ${CSS}
 
 const indexBytes = writePage(path.join(DIST, 'index.html'), html);
 
-// /how-the-work-gets-done/ — the three sections the home page hands off to.
-// It uses the HOME PAGE's full-width shell rather than the narrow note shell,
-// because .cols, .vert and the capability diagram need the width; the diagram
-// is unreadable in a 38rem column. The header is the hero stripped of the
-// claim and the two doors: this is a destination, not a second front door.
 const workHtml = `<!doctype html>
 <html lang="en">
 <head>
@@ -2739,13 +1827,6 @@ ${CSS}
   <div class="wrap">
     <a class="note-home" href="/">${svg('crinaro-ai-horizontal-reversed.svg')}</a>
     <h1>How the work&nbsp;gets done.</h1>
-    <!-- "The three things this model is run on" was here until 2026-09-13. Read
-         cold — and this page carries og: tags and a sitemap entry, so it IS
-         landed on cold — "this model" had no antecedent anywhere on it, and
-         "the three things" was definite on first use a full section before the
-         three were named. It also promised things -> teams -> capability while
-         the page delivered teams -> things -> capability. The sections below
-         are now in the promised order; keep the two in step. -->
     <p>The model this site argues for is run rather than described. Here are the three things it
        is run on, the agent teams that keep each alive, and one capability spec followed from the
        team that writes it to the merge that reconciles against it.</p>
@@ -2787,14 +1868,6 @@ fs.mkdirSync(path.join(DIST, 'how-the-work-gets-done'), { recursive: true });
 writePage(path.join(DIST, 'how-the-work-gets-done', 'index.html'), workHtml);
 console.log('       dist/how-the-work-gets-done/ — the three run-on-this sections');
 
-// 2026-09-02. The knowledge tier. The home page's second problem card, "No
-// answer anyone can trust", promises this argument and had nothing behind it.
-// Everything specific here came from John on 2026-09-02: the two kinds of
-// content in the central store, the polling job that makes the view derived
-// rather than authored, bounded staleness as a stated cost, and the inversion
-// where a component that documents nothing reads as blank. Do not soften the
-// consolidation warning; a central team owning all the knowledge is the middle
-// layer this removes.
 const NOTE_ANSWER = {
   slug: 'who-owns-the-answer',
   title: 'Who owns the answer',
@@ -2948,9 +2021,6 @@ const NOTE_ANSWER = {
 
 const NOTES = [NOTE, NOTE_HOP, NOTE_SKILL, NOTE_BOUNDARY, NOTE_CROSSING, NOTE_CADENCE, NOTE_SCOPE, NOTE_ANSWER, NOTE_COUNT];
 
-// Shared by the article pages and the index. Extracted 2026-08-24 when /notes/
-// became real: two pages carrying two copies of the same <head> is how one of
-// them quietly stops matching the other.
 const noteHead = (title, desc, url) => `<!doctype html>
 <html lang="en">
 <head>
@@ -2969,11 +2039,6 @@ const noteHead = (title, desc, url) => `<!doctype html>
 <link rel="icon" type="image/png" sizes="32x32" href="/icons/crinaro-favicon-32.png">
 <link rel="apple-touch-icon" sizes="180x180" href="/icons/crinaro-icon-180.png">`;
 
-// The three-part argument in reading order, then everything else newest first.
-// Sorting the whole list by date publishes a sequence backwards, which is how
-// the payoff ended up first and the setup last.
-// A note declares its series and its place in it. Anything without one is
-// standalone. Adding a series means adding a heading here and nothing else.
 const SERIES = [
   ['ownership', 'The argument, in three parts'],
   ['boundary',  'Two repositories, in two parts'],
@@ -3127,15 +2192,6 @@ console.log(`       dist/notes/${note.slug}/ — bylined piece`);
 }
 
 
-// GitHub Pages needs the custom domain declared in the repo itself. Setting it
-// in the web UI writes this file; committing it means a redeploy can never drop
-// the domain and fall back to <org>.github.io.
-// TWO pages, split 2026-09-08 at John's direction. The first cut put the six
-// rows, a signal legend and all 61 tools on one page: 3,300 words, and it told
-// the reader to STOP AT THE FIRST NO and then gave them nowhere to go. The
-// instruction had no destination, which is the defect. Now: a short page that
-// says where to start, and every row links to that layer's options in a table.
-// See decisions/07-naming-tools.md.
 const pageHead = (title, desc, url, extraCss) => `${noteHead(title, desc, url)}
 <style>
 ${CSS}
@@ -3161,12 +2217,6 @@ ${extraCss}
 <div class="note-wrap">
   <a class="note-home" href="/" aria-label="Crinaro.AI">${svg('crinaro-ai-horizontal.svg')}</a>`;
 
-// The count on a row link is a count of what this list names, never of what
-// exists at that layer — the options page says outright that a product missing
-// from it was not evaluated and rejected, and a bare "(one)" beside a plural
-// noun read as both a contradiction and an enumeration of the world. "listed"
-// carries the bound and the grammar. Above twenty this falls back to a numeral,
-// which breaks the words-not-numerals rule; extend SPELLED before that happens.
 const optionsLink = key => {
   const n = TOOLS.tools.filter(t => t.layer === key).length;
   if (!n) return 'See the options';
@@ -3189,18 +2239,6 @@ writePage(path.join(DIST, 'what-you-already-have', 'index.html'), `${pageHead(
   .lbl { font-family:var(--mono); font-size:.68rem; letter-spacing:.13em;
          text-transform:uppercase; color:var(--muted); display:block; margin-bottom:.2rem; }`)}
   <h1>Start from what you already have</h1>
-  <!-- ⛔ Not a sole-decider claim. It read "Ownership is what decides whether
-       any of this helps" until 2026-09-13. The AI-SDLC summary's fifth claim
-       refuses that in as many words, "It is not the most important of the
-       three", and the material cannot be quoted back: the paragraph is flagged
-       stands-alone: no, marked "Reasoned, not observed", and warranted by a
-       corpus no reader can open. A source you cannot quote can still bind you
-       negatively. It cannot license a claim; it can refuse one you are already
-       making, and it refuses this one. The cost was the CIO who already knows
-       better reading a single-lever sentence at the top of the adoption route
-       and filing the author as a one-idea consultant, before the rows get a
-       chance. The second sentence is what the notes actually argue, so the
-       citation is now true of both halves. -->
   <p class="standfirst"><b>Owning a capability decides who is answerable. On its own it does not
      put the facts where anyone can reach them, record why a call was made, route a question to
      the team that owns it, or build the team that does the work</b>. Those are the five the
@@ -3208,19 +2246,6 @@ writePage(path.join(DIST, 'what-you-already-have', 'index.html'), `${pageHead(
      <a class="src" href="/notes/">in the notes</a>. This page is the machinery they run on. Some
      of it you will already have, and the useful question is not what a greenfield build would
      look like, it is what the gaps are costing you.</p>
-  <!-- ⛔ The instruction sends a reader PAST this page's own framing, so the
-       framing travels with it. route, 2026-09-14: the options page opens "It is
-       a list and not a review… A product missing from it was not evaluated and
-       rejected. Nobody looked." That paragraph sits above every anchor target in
-       document order, and this sentence is the one thing guaranteed to jump over
-       it, landing a reader on a table of named vendors with no signal it is not
-       a recommendation. Do not tighten the clause away.
-       The standfirst above changed in the same pass and for the same class of
-       reason: it read "This is the other half", whose antecedent — "The
-       machinery half is separate" — is on the HOME PAGE, four sections below the
-       hero. A reader taking the Adoption door from the hero skips it by
-       construction, and a cold arrival never had it at all. It names both halves
-       itself now. -->
   <p class="written">Read down the list. <b>Stop at the first one you answer no to</b>, and follow
      the link on that row to see what is listed there. It is a list rather than a review: nothing
      on it is recommended, and a product missing from it was not rejected.</p>
@@ -3261,9 +2286,6 @@ writePage(path.join(DIST, 'what-you-already-have', 'index.html'), `${pageHead(
 </html>`);
 console.log('       dist/what-you-already-have/ — where to start');
 
-// A table, because that is what somebody arriving from a row wants: the choices
-// at that layer, side by side. Prose blocks per tool ran to 2,164 words and
-// could not be compared against each other at all.
 fs.mkdirSync(path.join(DIST, 'what-you-already-have', 'options'), { recursive: true });
 writePage(path.join(DIST, 'what-you-already-have', 'options', 'index.html'), `${pageHead(
   'The options at each layer',
@@ -3320,10 +2342,6 @@ writePage(path.join(DIST, 'what-you-already-have', 'options', 'index.html'), `${
     if (!list.length) {
       const e = EMPTY_LAYER[key];
       if (!e) return '';
-      // The rows the list records as serving this layer from elsewhere, grouped
-      // by where a reader will actually find them. The link is to the section on
-      // this page rather than to the vendor, because the row is what carries the
-      // read date and how it was read.
       const rows = (e.points ? (TOOLS.alsoServed || {})[key] || [] : [])
         .map(n => TOOLS.tools.find(t => t.name === n)).filter(Boolean);
       let pointer = '';
@@ -3334,8 +2352,6 @@ writePage(path.join(DIST, 'what-you-already-have', 'options', 'index.html'), `${
           return `filed under <a class="src" href="#l-${h}">${label2.toLowerCase()}</a>: `
                + named.slice(0, -1).join(', ') + (named.length > 1 ? ' and ' : '') + named.slice(-1);
         });
-        // SPELLED stops at twenty. A re-cut naming more than that would print
-        // "undefined rows" rather than failing, which is the silent kind.
         const n = SPELLED[rows.length] || String(rows.length);
         pointer = ` <b>The list names ${n.toLowerCase()} ${rows.length === 1 ? 'row' : 'rows'} on `
                 + `this page as also serving this layer</b>, ${homes.join('; ')}.`;
@@ -3343,10 +2359,6 @@ writePage(path.join(DIST, 'what-you-already-have', 'options', 'index.html'), `${
       return `<h2 id="l-${key}">${label}</h2>\n  <p class="empty">${e.text}${pointer}`
            + `${e.after ? ' ' + e.after : ''}</p>`;
     }
-    // Two dates are different and must stay labeled (decisions/07): this one
-    // is ours, the read, and the vendor's push date is on the linked page. The
-    // archived flag is set only where the entry's own sentence records the host
-    // reporting it; the list prints no archived line of its own.
     return `<h2 id="l-${key}">${label}</h2>
   <div class="tbl"><table>
     <colgroup><col class="c-tool"><col class="c-what"><col class="c-type"><col class="c-read"></colgroup>
@@ -3381,9 +2393,6 @@ console.log('       dist/what-you-already-have/options/ — ' + TOOLS.tools.leng
 
 fs.writeFileSync(path.join(DIST, 'CNAME'), 'crinaro.ai\n');
 
-// Skip Jekyll. Without this, Pages runs the site through Jekyll, which ignores
-// files and folders beginning with an underscore and rewrites things we did not
-// ask it to rewrite. This is a plain static site; it needs none of that.
 fs.writeFileSync(path.join(DIST, '.nojekyll'), '');
 
 fs.writeFileSync(path.join(DIST, 'robots.txt'),
@@ -3400,36 +2409,6 @@ fs.writeFileSync(path.join(DIST, 'sitemap.xml'),
     `  <url><loc>https://crinaro.ai/notes/${n.slug}/</loc><lastmod>${n.date}</lastmod></url>\n`).join('') +
   '</urlset>\n');
 
-// The PUBLIC repo's README, generated rather than hand-kept.
-//
-// ⛔ It was hand-kept until 2026-09-13, and it had rotted where nothing could
-// see it. Live on github.com it stated, as the brand's claim, the FIRST of the
-// two superseded claims in check-drift.sh's SUPERSEDED array — the one this
-// repo rejected and preserved only in decisions/build-site.v2-rejected.js. That
-// gate forbids it in every generator and artifact and had no way to reach a
-// file in the other repo. The same README also described the site as a single
-// static page of about 14 KB, named copy arrays that no longer exist, used
-// British spelling, and invited a reader to put a real number into a YEARS
-// constant, which is the invented-biography rule pointed at a text box.
-// Nothing regenerated it, no gate read it, and the deploy's wipe list did not
-// own it, so every publish left it exactly as it was.
-//
-// Writing the claim out here would have reintroduced it into a generator, which
-// is why this comment names the array instead. Both gates caught the first
-// draft of this very comment doing exactly that.
-//
-// Generating it into dist/ fixes the class, not the instance: the superseded
-// claim scan already walks site/dist, and deploy-site.sh scans the whole
-// publish tree for British spelling — which is what finally caught this.
-//
-// Built from an array rather than a template literal on purpose: the fenced
-// code block below is three backticks, and a backtick inside a template literal
-// ends it. That exact trap cost a build earlier the same day.
-//
-// ⛔ NOTHING about the private repo, the decisions or the checks goes in here
-// beyond the fact that they exist and are not published. And no invitation to
-// verify something a reader cannot reach — the Privacy section says plainly
-// that the publish-time check runs somewhere they cannot see.
 const pageCount = (function count(dir) {
   return fs.readdirSync(dir, { withFileTypes: true }).reduce((n, e) =>
     n + (e.isDirectory() ? count(path.join(dir, e.name)) : (e.name.endsWith('.html') ? 1 : 0)), 0);
@@ -3497,26 +2476,6 @@ fs.writeFileSync(path.join(DIST, 'README.md'), [
   '',
 ].join('\n'));
 
-// LICENSE and NOTICE for the public repo, 2026-09-13.
-//
-// The site repo was the only public one without a license: ai-sdlc,
-// marketplace and marketplace-dev have all carried Apache-2.0. John's call to
-// match them, and to cover the whole repo rather than only src/ — the prose is
-// licensed with the generators. Apache §6 still reserves the trade names, which
-// is the protection that matters for a brand: the copy can be reused, and
-// nobody can republish it AS Crinaro.
-//
-// ⛔ LICENSE and Poppins-OFL.txt are COPIED VERBATIM from site/legal/, never
-// generated. They are other people's legal texts. LICENSE is byte-identical to
-// the one in crinaro/marketplace so the org's repos cannot drift apart on their
-// own license, and Poppins-OFL.txt is the file Google Fonts ships beside the
-// font, carrying the Poppins copyright line as well as the OFL text.
-//
-// The OFL one is not decoration. src/fonts.css publishes a base64 woff2 subset
-// of Poppins, and OFL 1.1 §2 asks that the license travel with the Font
-// Software. The repo carried a one-line "SIL OFL 1.1." comment and nothing
-// else. Whether that one line satisfied the condition is a lawyer's question;
-// shipping the text removes the question.
 const LEGAL = path.join(__dirname, 'legal');
 fs.copyFileSync(path.join(LEGAL, 'LICENSE'), path.join(DIST, 'LICENSE'));
 fs.mkdirSync(path.join(DIST, 'licenses'), { recursive: true });
@@ -3558,9 +2517,6 @@ fs.writeFileSync(path.join(DIST, 'NOTICE'), [
   '',
 ].join('\n'));
 
-// Icons, generated by logo/build-icons.py. Only the four the web actually
-// asks for are published — the rest of that set is for GitHub, LinkedIn and
-// the like, and has no business being fetched by a browser.
 const ICON_SRC = path.join(__dirname, 'logo', 'icons');
 const ICON_DIR = path.join(DIST, 'icons');
 const WEB_ICONS = ['crinaro-favicon-16.png', 'crinaro-favicon-32.png',

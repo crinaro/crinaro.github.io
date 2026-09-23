@@ -124,6 +124,28 @@
   .flow { overflow-x:auto; -webkit-overflow-scrolling:touch; }
   
   .fig { margin:.6rem 0 3.4rem; }
+  
+  .stats { display:grid; grid-template-columns:1fr; gap:2.2rem 2.4rem; margin:2.6rem 0 0; }
+  @media (min-width:34rem) { .stats { grid-template-columns:repeat(2,1fr); } }
+  @media (min-width:62rem) { .stats { grid-template-columns:repeat(4,1fr); } }
+  .stat b { display:block; font-family:var(--head); font-weight:500; line-height:1;
+            font-size:clamp(2.7rem,5.2vw,3.5rem); color:var(--ink); letter-spacing:-.02em; }
+  .stat p { margin:.7rem 0 0; font-size:.98rem; line-height:1.5; color:var(--ink-2); }
+  
+  
+  .stat { display:flex; flex-direction:column; height:100%; }
+  .stat .base { display:block; margin-top:auto; padding-top:.55rem; font-size:.78rem;
+                line-height:1.45; color:var(--muted); }
+  .stat .base a { color:var(--muted); border-bottom:1px solid var(--hair); }
+  .stat .base a:hover { color:var(--ink); border-bottom-color:var(--ink); }
+  
+  .stats + .head { margin-top:2.4rem; }
+  
+  .exhibit { background:var(--navy); border-radius:4px; padding:1.6rem 1.2rem 1rem;
+             margin:2.2rem 0 0; overflow-x:auto; -webkit-overflow-scrolling:touch; }
+  .exhibit svg { width:100%; min-width:34rem; height:auto; display:block; }
+  
+  .cols.five + .head { margin-top:3rem; }
   .flow svg { width:100%; min-width:38rem; height:auto; display:block; }
   
   .note { margin-top:2.4rem; font-size:.95rem; color:var(--muted); max-width:40rem; }

@@ -126,6 +126,28 @@
   .flow { overflow-x:auto; -webkit-overflow-scrolling:touch; }
   
   .fig { margin:.6rem 0 3.4rem; }
+  
+  .stats { display:grid; grid-template-columns:1fr; gap:2.2rem 2.4rem; margin:2.6rem 0 0; }
+  @media (min-width:34rem) { .stats { grid-template-columns:repeat(2,1fr); } }
+  @media (min-width:62rem) { .stats { grid-template-columns:repeat(4,1fr); } }
+  .stat b { display:block; font-family:var(--head); font-weight:500; line-height:1;
+            font-size:clamp(2.7rem,5.2vw,3.5rem); color:var(--ink); letter-spacing:-.02em; }
+  .stat p { margin:.7rem 0 0; font-size:.98rem; line-height:1.5; color:var(--ink-2); }
+  
+  
+  .stat { display:flex; flex-direction:column; height:100%; }
+  .stat .base { display:block; margin-top:auto; padding-top:.55rem; font-size:.78rem;
+                line-height:1.45; color:var(--muted); }
+  .stat .base a { color:var(--muted); border-bottom:1px solid var(--hair); }
+  .stat .base a:hover { color:var(--ink); border-bottom-color:var(--ink); }
+  
+  .stats + .head { margin-top:2.4rem; }
+  
+  .exhibit { background:var(--navy); border-radius:4px; padding:1.6rem 1.2rem 1rem;
+             margin:2.2rem 0 0; overflow-x:auto; -webkit-overflow-scrolling:touch; }
+  .exhibit svg { width:100%; min-width:34rem; height:auto; display:block; }
+  
+  .cols.five + .head { margin-top:3rem; }
   .flow svg { width:100%; min-width:38rem; height:auto; display:block; }
   
   .note { margin-top:2.4rem; font-size:.95rem; color:var(--muted); max-width:40rem; }
@@ -325,6 +347,67 @@
       <div class="col"><div class="rule"></div>
         <h3>One owner for the data, the APIs and the agents</h3><p>Whoever owns a capability owns the data behind it, the APIs that expose it, and the agents that work on it. Agents do not arrive trained: somebody designs them, checks their work and keeps improving them. Count that inside their span of control rather than on top of it.</p></div>
     </div>
+    
+    
+    <div class="head narrow">
+      <p>It is not just you. McKinsey put this to 1,719 people across 97 nations in its August 2026
+         survey, and what they reported was this.</p>
+    </div>
+    
+    <div class="exhibit"><svg viewBox="0 0 960 320" role="img"
+     aria-label="Three rows, each comparing 2025 with 2026. The share of organizations scaling AI across the enterprise rises from 38 percent to 44 percent. The share reporting EBIT impact is unchanged at 37 percent. The share who are AI high performers is unchanged at 6 percent. One line rises and two are flat.">
+  <text x="40" y="42" fill="#FFFFFF" font-family="Poppins,Futura,'Century Gothic','Avenir Next',Avenir,sans-serif" font-size="18" font-weight="500">Adoption went up. Impact did not.</text>
+  <text x="40" y="64" fill="#93B8D4" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="12.5">2025 to 2026, same survey both years</text>
+  <text x="40" y="101" fill="#FFFFFF" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="13.5">Scaling AI across the enterprise</text>
+  <line x1="330" y1="109" x2="760" y2="83" stroke="#FFFFFF" stroke-width="2.5"/>
+  <circle cx="330" cy="109" r="3.5" fill="#FFFFFF"/>
+  <circle cx="760" cy="83" r="5" fill="#FFFFFF"/>
+  <text x="790" y="92" fill="#FFFFFF" font-family="Poppins,Futura,'Century Gothic','Avenir Next',Avenir,sans-serif" font-size="27" font-weight="500">44%</text>
+  <text x="330" y="131" fill="#93B8D4" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="12">from 38%</text>
+  <text x="40" y="173" fill="#93B8D4" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="13.5">Reporting EBIT impact</text>
+  <line x1="330" y1="168" x2="760" y2="168" stroke="#93B8D4" stroke-width="1.5" stroke-dasharray="5 4"/>
+  <circle cx="330" cy="168" r="3.5" fill="#93B8D4"/>
+  <circle cx="760" cy="168" r="4" fill="#93B8D4"/>
+  <text x="790" y="177" fill="#93B8D4" font-family="Poppins,Futura,'Century Gothic','Avenir Next',Avenir,sans-serif" font-size="22" font-weight="500">37%</text>
+  <text x="330" y="190" fill="#93B8D4" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="12">unchanged</text>
+  <text x="40" y="245" fill="#93B8D4" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="13.5">AI high performers</text>
+  <line x1="330" y1="240" x2="760" y2="240" stroke="#93B8D4" stroke-width="1.5" stroke-dasharray="5 4"/>
+  <circle cx="330" cy="240" r="3.5" fill="#93B8D4"/>
+  <circle cx="760" cy="240" r="4" fill="#93B8D4"/>
+  <text x="790" y="249" fill="#93B8D4" font-family="Poppins,Futura,'Century Gothic','Avenir Next',Avenir,sans-serif" font-size="22" font-weight="500">6%</text>
+  <text x="330" y="262" fill="#93B8D4" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="12">unchanged</text>
+  <text x="40" y="296" fill="#93B8D4" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="12">McKinsey, State of AI 2026, pp. 5, 12 and 17. The lower two are drawn flat because the report states them</text>
+  <text x="40" y="314" fill="#93B8D4" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="12">as unchanged rather than printing a 2025 figure.</text>
+</svg></div>
+    <div class="stats">
+      <div class="stat">
+        <b>44%</b><p>say AI is scaling across the enterprise. The only line above that moved.</p>
+        <span class="base"><a href="https://www.mckinsey.com/capabilities/quantumblack/our-insights/the-state-of-ai">McKinsey, 1,719 respondents, p. 5</a></span>
+      </div>
+      <div class="stat">
+        <b>37%</b><p>say it reached EBIT. A survey answer, not an audited line.</p>
+        <span class="base"><a href="https://www.mckinsey.com/capabilities/quantumblack/our-insights/the-state-of-ai">Of respondents, not of companies, p. 12</a></span>
+      </div>
+      <div class="stat">
+        <b>6%</b><p>attribute 5% or more of EBIT to it. That share has not moved either.</p>
+        <span class="base"><a href="https://www.mckinsey.com/capabilities/quantumblack/our-insights/the-state-of-ai">And report significant value. McKinsey's AI high performers, p. 17</a></span>
+      </div>
+      <div class="stat">
+        <b>3 in 4</b><p>of that 6% report redesigning the work itself. One in four of the rest do.</p>
+        <span class="base"><a href="https://www.mckinsey.com/capabilities/quantumblack/our-insights/the-state-of-ai">Nearly three-quarters, and n = 92 against 1,429 others, p. 18</a></span>
+      </div>
+    </div>
+    <div class="head narrow">
+      
+      <p>Adoption is not what separates that 6%. Redesigning the work is, which is where the five
+         questions above arrive from the other direction.</p>
+      <p>What most organizations have adopted is prompt-style use. It assists a person and it does
+         not make the work repeatable, which is the difference between a team getting faster and a
+         number moving. Stanford's AI Index puts agent deployment
+         <a class="src" href="https://hai.stanford.edu/ai-index/2026-ai-index-report/economy">in the single digits</a>
+         across nearly every business function. The agents are barely in, which makes this the
+         cheap moment to decide who owns them.</p>
+    </div>
   </div>
 </section>
 
@@ -352,8 +435,10 @@
       
       <p class="eyebrow">Where to start</p>
       <h2>Own what is&nbsp;nobody's job.</h2>
+      
       <p>Fund the five above, and the platform they run on. None of it is a tool decision, and
-         nobody has to be persuaded to think in systems.</p>
+         nobody has to be persuaded to think in systems. You can buy a product that maps what you
+         already have; what you cannot buy is somebody answerable for keeping the map true.</p>
       
       <p>What it costs is ownership: a delivery date into a queue you do not control, time with
          the teams until they want it, funded work to remove what is already duplicated, and
