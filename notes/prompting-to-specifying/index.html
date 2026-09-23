@@ -99,6 +99,8 @@
   @media (min-width:48rem) { .cols { grid-template-columns:repeat(3,1fr); gap:2.4rem; } }
   
   @media (min-width:48rem) { .cols.four { grid-template-columns:repeat(2,1fr); } }
+  
+  @media (min-width:48rem) { .cols.five { grid-template-columns:repeat(2,1fr); } }
   .col { display:flex; flex-direction:column; gap:.5rem; }
   .col .rule { width:2rem; height:3px; background:var(--green); border-radius:2px; margin-bottom:.4rem; }
   
@@ -119,6 +121,8 @@
 
   
   .flow { overflow-x:auto; -webkit-overflow-scrolling:touch; }
+  
+  .fig { margin:.6rem 0 3.4rem; }
   .flow svg { width:100%; min-width:38rem; height:auto; display:block; }
   
   .note { margin-top:2.4rem; font-size:.95rem; color:var(--muted); max-width:40rem; }
@@ -222,7 +226,7 @@
 <div class="flow"><svg viewBox="0 0 1000 348" role="img"
      aria-label="Two loops side by side. Prompting: you ask, it answers, it is not right so you ask again, and nothing persists. Specifying: the spec and the agent definition produce the work, it is not right so you change a file, and everyone gets it on the next run.">
   <text x="40" y="26" fill="#0B2545" font-family="Poppins,Futura,'Century Gothic','Avenir Next',Avenir,sans-serif" font-size="16" font-weight="500">Prompting</text>
-  <text x="40" y="46" fill="#5B6E80" font-family="Helvetica,Arial,sans-serif" font-size="12.5">the fix lives in the session and dies with it</text>
+  <text x="40" y="46" fill="#5B6E80" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="12.5">the fix lives in the session and dies with it</text>
   <rect x="40" y="70" width="384" height="46" rx="3" fill="#F2F6F8" stroke="#DCE4EA"/>
   <text x="232" y="98" text-anchor="middle" fill="#0B2545" font-family="Poppins,Futura,'Century Gothic','Avenir Next',Avenir,sans-serif" font-size="14.5" font-weight="500">You ask</text>
   <path d="M232 116 L232 136" stroke="#93B8D4" stroke-width="1.5"/>
@@ -232,7 +236,7 @@
   <rect x="40" y="202" width="384" height="46" rx="3" fill="#F2F6F8" stroke="#DCE4EA"/>
   <text x="232" y="230" text-anchor="middle" fill="#0B2545" font-family="Poppins,Futura,'Century Gothic','Avenir Next',Avenir,sans-serif" font-size="14.5" font-weight="500">Not right, so you ask again</text>
   <text x="576" y="26" fill="#1B5C46" font-family="Poppins,Futura,'Century Gothic','Avenir Next',Avenir,sans-serif" font-size="16" font-weight="500">Specifying</text>
-  <text x="576" y="46" fill="#5B6E80" font-family="Helvetica,Arial,sans-serif" font-size="12.5">the fix is a file, and it applies next time</text>
+  <text x="576" y="46" fill="#5B6E80" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="12.5">the fix is a file, and it applies next time</text>
   <rect x="576" y="70" width="384" height="46" rx="3" fill="#EAF3EE" stroke="#A8D5C0"/>
   <text x="768" y="98" text-anchor="middle" fill="#1B5C46" font-family="Poppins,Futura,'Century Gothic','Avenir Next',Avenir,sans-serif" font-size="14.5" font-weight="500">The spec and the agent definition</text>
   <path d="M768 116 L768 136" stroke="#7DBFA3" stroke-width="1.5"/>
@@ -245,8 +249,8 @@
   <path d="M768 264 L768 300 L978 300 L978 84" stroke="#7DBFA3" stroke-width="1.5" fill="none"/>
   <path d="M973 92 L978 80 L983 92 Z" fill="#7DBFA3"/>
   <path d="M17 92 L22 80 L27 92 Z" fill="#93B8D4"/>
-  <text x="232" y="330" text-anchor="middle" fill="#5B6E80" font-family="Helvetica,Arial,sans-serif" font-size="12.5">nothing persists</text>
-  <text x="768" y="330" text-anchor="middle" fill="#1B5C46" font-family="Helvetica,Arial,sans-serif" font-size="12.5">and everyone gets it next run</text>
+  <text x="232" y="330" text-anchor="middle" fill="#5B6E80" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="12.5">nothing persists</text>
+  <text x="768" y="330" text-anchor="middle" fill="#1B5C46" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="12.5">and everyone gets it next run</text>
 </svg></div>
 
 <p>The shift is that when the output is wrong you stop reaching for a better prompt and start

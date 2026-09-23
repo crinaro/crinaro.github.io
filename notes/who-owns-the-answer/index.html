@@ -99,6 +99,8 @@
   @media (min-width:48rem) { .cols { grid-template-columns:repeat(3,1fr); gap:2.4rem; } }
   
   @media (min-width:48rem) { .cols.four { grid-template-columns:repeat(2,1fr); } }
+  
+  @media (min-width:48rem) { .cols.five { grid-template-columns:repeat(2,1fr); } }
   .col { display:flex; flex-direction:column; gap:.5rem; }
   .col .rule { width:2rem; height:3px; background:var(--green); border-radius:2px; margin-bottom:.4rem; }
   
@@ -119,6 +121,8 @@
 
   
   .flow { overflow-x:auto; -webkit-overflow-scrolling:touch; }
+  
+  .fig { margin:.6rem 0 3.4rem; }
   .flow svg { width:100%; min-width:38rem; height:auto; display:block; }
   
   .note { margin-top:2.4rem; font-size:.95rem; color:var(--muted); max-width:40rem; }
@@ -243,23 +247,23 @@
 <div class="flow"><svg viewBox="0 0 1000 352" role="img"
      aria-label="A routing layer holds two kinds of thing side by side: decisions that span the parts, owned there, and a current-state view of everything below, a mirror that is authoritative nowhere. Underneath, the parts of the estate each own what they say about themselves, and a job polls them for what changed and feeds the mirror.">
   <text x="40" y="24" fill="#0B2545" font-family="Poppins,Futura,'Century Gothic','Avenir Next',Avenir,sans-serif" font-size="16" font-weight="500">The layer that routes a request</text>
-  <text x="40" y="44" fill="#5B6E80" font-family="Helvetica,Arial,sans-serif" font-size="12.5">holds two kinds of thing, and has to say which is which</text>
+  <text x="40" y="44" fill="#5B6E80" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="12.5">holds two kinds of thing, and has to say which is which</text>
   <rect x="40" y="64" width="440" height="72" rx="3" fill="#EAF3EE" stroke="#A8D5C0"/>
   <text x="260" y="94" text-anchor="middle" fill="#1B5C46" font-family="Poppins,Futura,'Century Gothic','Avenir Next',Avenir,sans-serif" font-size="14.5" font-weight="500">Decisions that span the parts</text>
-  <text x="260" y="116" text-anchor="middle" fill="#5B6E80" font-family="Helvetica,Arial,sans-serif" font-size="12.5">owned here, because no one part can own them</text>
+  <text x="260" y="116" text-anchor="middle" fill="#5B6E80" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="12.5">owned here, because no one part can own them</text>
   <rect x="520" y="64" width="440" height="72" rx="3" fill="#F2F6F8" stroke="#DCE4EA" stroke-dasharray="5 4"/>
   <text x="740" y="94" text-anchor="middle" fill="#0B2545" font-family="Poppins,Futura,'Century Gothic','Avenir Next',Avenir,sans-serif" font-size="14.5" font-weight="500">Current state of everything below</text>
-  <text x="740" y="116" text-anchor="middle" fill="#5B6E80" font-family="Helvetica,Arial,sans-serif" font-size="12.5">a mirror, authoritative nowhere</text>
+  <text x="740" y="116" text-anchor="middle" fill="#5B6E80" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="12.5">a mirror, authoritative nowhere</text>
   <path d="M180 258 L180 208 M500 258 L500 208 M820 258 L820 208 M180 208 L820 208 M740 208 L740 148" stroke="#7DBFA3" stroke-width="1.5" fill="none"/>
   <path d="M736 156 L740 144 L744 156 Z" fill="#7DBFA3"/>
-  <text x="192" y="200" fill="#5B6E80" font-family="Helvetica,Arial,sans-serif" font-size="12.5">a job polls them for what changed since it last looked</text>
+  <text x="192" y="200" fill="#5B6E80" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="12.5">a job polls them for what changed since it last looked</text>
   <rect x="40" y="258" width="280" height="44" rx="3" fill="#EAF3EE" stroke="#A8D5C0"/>
   <text x="180" y="286" text-anchor="middle" fill="#1B5C46" font-family="Poppins,Futura,'Century Gothic','Avenir Next',Avenir,sans-serif" font-size="14.5" font-weight="500">One part of the estate</text>
   <rect x="360" y="258" width="280" height="44" rx="3" fill="#EAF3EE" stroke="#A8D5C0"/>
   <text x="500" y="286" text-anchor="middle" fill="#1B5C46" font-family="Poppins,Futura,'Century Gothic','Avenir Next',Avenir,sans-serif" font-size="14.5" font-weight="500">Another</text>
   <rect x="680" y="258" width="280" height="44" rx="3" fill="#EAF3EE" stroke="#A8D5C0"/>
   <text x="820" y="286" text-anchor="middle" fill="#1B5C46" font-family="Poppins,Futura,'Century Gothic','Avenir Next',Avenir,sans-serif" font-size="14.5" font-weight="500">And another</text>
-  <text x="500" y="332" text-anchor="middle" fill="#5B6E80" font-family="Helvetica,Arial,sans-serif" font-size="12.5">each owns what it says about itself, and is the source of truth for it</text>
+  <text x="500" y="332" text-anchor="middle" fill="#5B6E80" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="12.5">each owns what it says about itself, and is the source of truth for it</text>
 </svg></div>
 
 <p>The shape that works mirrors the ownership already in place. Each part of the estate owns what it

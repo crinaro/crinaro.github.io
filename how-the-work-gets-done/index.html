@@ -100,6 +100,8 @@
   @media (min-width:48rem) { .cols { grid-template-columns:repeat(3,1fr); gap:2.4rem; } }
   
   @media (min-width:48rem) { .cols.four { grid-template-columns:repeat(2,1fr); } }
+  
+  @media (min-width:48rem) { .cols.five { grid-template-columns:repeat(2,1fr); } }
   .col { display:flex; flex-direction:column; gap:.5rem; }
   .col .rule { width:2rem; height:3px; background:var(--green); border-radius:2px; margin-bottom:.4rem; }
   
@@ -120,6 +122,8 @@
 
   
   .flow { overflow-x:auto; -webkit-overflow-scrolling:touch; }
+  
+  .fig { margin:.6rem 0 3.4rem; }
   .flow svg { width:100%; min-width:38rem; height:auto; display:block; }
   
   .note { margin-top:2.4rem; font-size:.95rem; color:var(--muted); max-width:40rem; }
@@ -251,31 +255,31 @@
   <g>
     <rect x="0" y="26" width="176" height="86" rx="3" fill="#F2F6F8" stroke="#DCE4EA"/>
     <text x="88" y="64" text-anchor="middle" fill="#0B2545" font-family="Poppins,Futura,'Century Gothic','Avenir Next',Avenir,sans-serif" font-size="17" font-weight="500">Capability spec</text>
-    <text x="88" y="86" text-anchor="middle" fill="#5B6E80" font-family="Helvetica,Arial,sans-serif" font-size="12.5">roadmap team</text>
+    <text x="88" y="86" text-anchor="middle" fill="#5B6E80" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="12.5">roadmap team</text>
     <path d="M88 112 L88 196" stroke="#93B8D4" stroke-width="1.5" stroke-dasharray="3 5"/>
   </g>
   <g>
     <rect x="206" y="26" width="176" height="86" rx="3" fill="#F2F6F8" stroke="#DCE4EA"/>
     <text x="294" y="64" text-anchor="middle" fill="#0B2545" font-family="Poppins,Futura,'Century Gothic','Avenir Next',Avenir,sans-serif" font-size="17" font-weight="500">Work items</text>
-    <text x="294" y="86" text-anchor="middle" fill="#5B6E80" font-family="Helvetica,Arial,sans-serif" font-size="12.5">across repos</text>
+    <text x="294" y="86" text-anchor="middle" fill="#5B6E80" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="12.5">across repos</text>
     <path d="M294 112 L294 196" stroke="#93B8D4" stroke-width="1.5" stroke-dasharray="3 5"/>
   </g>
   <g>
     <rect x="412" y="26" width="176" height="86" rx="3" fill="#F2F6F8" stroke="#DCE4EA"/>
     <text x="500" y="64" text-anchor="middle" fill="#0B2545" font-family="Poppins,Futura,'Century Gothic','Avenir Next',Avenir,sans-serif" font-size="17" font-weight="500">Agents</text>
-    <text x="500" y="86" text-anchor="middle" fill="#5B6E80" font-family="Helvetica,Arial,sans-serif" font-size="12.5">marketplace + local</text>
+    <text x="500" y="86" text-anchor="middle" fill="#5B6E80" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="12.5">marketplace + local</text>
     <path d="M500 112 L500 196" stroke="#93B8D4" stroke-width="1.5" stroke-dasharray="3 5"/>
   </g>
   <g>
     <rect x="618" y="26" width="176" height="86" rx="3" fill="#F2F6F8" stroke="#DCE4EA"/>
     <text x="706" y="64" text-anchor="middle" fill="#0B2545" font-family="Poppins,Futura,'Century Gothic','Avenir Next',Avenir,sans-serif" font-size="17" font-weight="500">Compute, routing</text>
-    <text x="706" y="86" text-anchor="middle" fill="#5B6E80" font-family="Helvetica,Arial,sans-serif" font-size="12.5">per role, per model</text>
+    <text x="706" y="86" text-anchor="middle" fill="#5B6E80" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="12.5">per role, per model</text>
     <path d="M706 112 L706 196" stroke="#93B8D4" stroke-width="1.5" stroke-dasharray="3 5"/>
   </g>
   <g>
     <rect x="824" y="26" width="176" height="86" rx="3" fill="#F2F6F8" stroke="#DCE4EA"/>
     <text x="912" y="64" text-anchor="middle" fill="#0B2545" font-family="Poppins,Futura,'Century Gothic','Avenir Next',Avenir,sans-serif" font-size="17" font-weight="500">Merged, reconciled</text>
-    <text x="912" y="86" text-anchor="middle" fill="#5B6E80" font-family="Helvetica,Arial,sans-serif" font-size="12.5">against the spec</text>
+    <text x="912" y="86" text-anchor="middle" fill="#5B6E80" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="12.5">against the spec</text>
     <path d="M912 112 L912 196" stroke="#93B8D4" stroke-width="1.5" stroke-dasharray="3 5"/>
   </g>
   <path d="M186 62 l7 7 -7 7" fill="none" stroke="#1B5C46" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
@@ -284,7 +288,7 @@
   <path d="M804 62 l7 7 -7 7" fill="none" stroke="#1B5C46" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
   <rect x="0" y="196" width="1000" height="66" rx="3" fill="#0B2545"/>
   <text x="24" y="224" fill="#FFFFFF" font-family="Poppins,Futura,'Century Gothic','Avenir Next',Avenir,sans-serif" font-size="16" font-weight="500">The knowledge layer</text>
-  <text x="24" y="246" fill="#93B8D4" font-family="Helvetica,Arial,sans-serif" font-size="13">Current-state index, generated from the repositories: queried, never re-derived.</text>
+  <text x="24" y="246" fill="#93B8D4" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="13">Current-state index, generated from the repositories: queried, never re-derived.</text>
 </svg></div>
     <p class="note">Every decision on that path is written down the same way, so a team that did
        not make it can pick it up:</p>

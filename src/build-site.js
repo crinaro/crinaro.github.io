@@ -127,16 +127,16 @@ const SUB = 'Ideas and patterns worked out over 30 years in healthcare, GovTech 
 // ⚠️ Card four is not card one. One is who is answerable; four is the question
 // reaching them. An estate can have clear ownership and still send every
 // question to whoever is free.
-// ⛔ THE FOUR ANSWERS, ONE PER QUESTION, IN THE QUESTIONS' ORDER.
+// ⛔ THE FIVE ANSWERS, ONE PER QUESTION, IN THE QUESTIONS' ORDER.
 // Rewritten 2026-09-15 against decisions/09-who-this-is-for.md §3.1 and §3.2.
 // John had already called it by eye: "It makes sense to me but wont make sense
 // to anyone who isn't technical." check-stop-list.js then found eight hits on
-// this page, five of them in these four cards, and card 2 was the worst thing
+// this page, five of them in these cards, and card 2 was the worst thing
 // on the site — "A knowledge repository your repositories feed" put the word
 // twice in one heading.
 //
 // ⛔ THE ARGUMENTS ARE UNCHANGED. Only the vocabulary moved. Each card still
-// answers exactly one of the four questions above it, in the same order, and
+// answers exactly one of the five questions above it, in the same order, and
 // John's rejection of 2026-09-14 still stands: "these are a description of the
 // problems, not the solution." If they ever go back to being failures, the
 // paragraph above goes back with them.
@@ -166,6 +166,42 @@ const problems = [
   ['A route from a question to its owner',
    'Not whoever is nearest. The question reaches the team that owns it, and when something of ' +
      'theirs is broken they fix it, rather than everyone routing around it.'],
+  // ⛔ PRESCRIPTIVE, LIKE THE OTHER FOUR. It said "that usually falls to the team that
+  // already owns the capability" until 2026-09-22. content-editor caught it: "usually"
+  // is a FREQUENCY claim about every team the reader runs, and the warrant covers
+  // engineering only — John: the pattern holds "in a developer (engineering) model" but
+  // "will be different in other operational processes within the business", and
+  // research/ai-sdlc/EXECUTIVE-SUMMARY.md bounds the same way ("software development is
+  // the one of seven claimed applications that has been worked"). The other four cards
+  // say what SHOULD be true, not what usually is; this one now does too, so it claims
+  // placement rather than prevalence and needs no bound.
+  // ⭐ "SPAN OF CONTROL" IS NAMED, 2026-09-22. brand-critic: the line was span of control
+  // with the noun removed, which made the reader reconstruct a concept they already own.
+  // HANDOFF's own migration table leans Adopt on this exact noun — "exact,
+  // executive-native" — and a landmark NOUN is inside the rationalize-do-not-align
+  // ruling; it is registers and claims that stay ours. ⛔ The NOUN only. McKinsey's
+  // two-to-five ratio is still never cited and no number appears here.
+  // ⛔⛔ THIS CARD NAMES A STATE, NOT AN ACTIVITY, and that is the whole point of
+  // the 2026-09-22 rewrite. It read "Time to build the team, not just run it" for
+  // one round. counterpoint landed the objection that killed it: cards 1-4 name
+  // states a reader can audit by asking a question and getting one answer, card 5
+  // named an activity with a budget line, so "a list of four properties plus one
+  // activity reads as four findings and one ask" — and the section's next move IS
+  // a funding request, which made card 5 look reverse-engineered from the invoice.
+  // ⭐ JOHN'S OWN SENTENCE DISSOLVED IT, same day: "The team that owns the space is
+  // responsible for the data, apis & agentic team." That is not a sixth obligation.
+  // It is what "Who owns this?" meant all along, stated completely for the first
+  // time, and as a state it is the same KIND of object as the other four.
+  // ⛔ The build cost still has to be in here — it is why the question exists at all.
+  // McKinsey states a supervision ratio and does not carry the build function;
+  // naming that is ours. So the card names what ownership COVERS, then prices it.
+  // ⛔ Do not let this collapse into card 1. Card 1 is whether a capability has an
+  // owner at all; this is what that ownership extends to. "Whoever owns" rather than
+  // "answerable for" on purpose, so the two cards do not echo.
+  ['One owner for the data, the APIs and the agents',
+   'Whoever owns a capability owns the data behind it, the APIs that expose it, and the agents ' +
+     'that work on it. Agents do not arrive trained: somebody designs them, checks their work ' +
+     'and keeps improving them. Count that inside their span of control rather than on top of it.'],
 ];// The maintenance team, by role. These are real agent definitions — the six in
 // crinaro/marketplace-dev under .claude/agents/. That repo is PRIVATE: it is
 // the dev repo that maintains the public marketplace. See the dev/public split in
@@ -275,6 +311,78 @@ const STAGES = [
   ['Compute, routing', 'per role, per model'],
   ['Merged, reconciled', 'against the spec'],
 ];
+// ⛔⛔ THE HOME PAGE HAD NO DIAGRAM AT ALL UNTIL 2026-09-22. Both its SVGs were
+// the logo. Every diagram on the site sat behind a click — one per note, two on
+// /how-the-work-gets-done/ — which is backwards: the notes are for a reader who
+// has already opted in, and this page is for the executive who will not click.
+// John asked for it directly: "Should we have visuals that help individuals see
+// the problem versus words? Using the data scenario as the visual."
+//
+// ⛔ IT SHOWS THE PROBLEM AND SITS BEFORE THE CARDS. Sequence is: your costs went
+// up -> here is why -> HERE IS WHAT IT LOOKS LIKE -> here is what has to change.
+// Do not move it below the cards; the cards are the answers and this is the thing
+// they answer.
+//
+// ⭐ THE TWO VIEWS ARE OVERLAID, WHICH IS THE WHOLE POINT. John: "have a visual of
+// an organization responsibility... have this view with the data view and that
+// highlights the problem." Teams on the top row, the data underneath. Either
+// picture alone is familiar — an org chart, or an integration diagram. Together
+// they say the thing: the org chart and the data ownership do not match, and that
+// mismatch is what the agents amplify. That is Conway as a picture, and Conway is
+// John's own favourite.
+//
+// ⛔ "REPOSITORY" IS ON THE STOP LIST and this is an unbylined surface, so the
+// boxes say "system". John's own wording was "multiple data repositories"; the
+// word is his, the constraint is decisions/09 §3.1, and system is the page's
+// existing vocabulary ("the number of systems you have to change").
+// ⛔ NO NUMBERS IN THE BOXES. An illustrative "4,102 vs 4,088" would read as a
+// metric and rule 2 does not carve out diagrams. The disagreement is shown by
+// three identical labels and said in the caption.
+// ⛔ Palette is lifted exactly from the two-column diagram in the five-user-APIs
+// note, because those pairings are already through check-contrast. Muted text is
+// 12.5px on white, never on the green fill, where #5B6E80 measures 4.65 against a
+// 4.5 floor and a smaller size would fail.
+const OWN_TEAMS = ['Billing', 'Support', 'Sales'];
+const ownership = `<svg viewBox="40 0 920 350" role="img"
+     aria-label="Two columns. On the left, three teams each hold their own customer record and the three disagree, because each one is correct inside its own system. On the right, the same three teams, but one of them owns the customer record and the other two read from it.">
+  <text x="40" y="24" fill="#0B2545" font-family="${HEAD_SVG}" font-size="16" font-weight="500">Nobody owns the fact</text>
+  <text x="40" y="44" fill="#5B6E80" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="12.5">three teams, three answers</text>
+${OWN_TEAMS.map((t, i) => {
+  const x = 40 + i * 133;
+  return `  <rect x="${x}" y="66" width="118" height="30" rx="3" fill="#FFFFFF" stroke="#DCE4EA"/>
+  <text x="${x + 59}" y="86" text-anchor="middle" fill="#0B2545" font-family="${HEAD_SVG}" font-size="13" font-weight="500">${t}</text>
+  <path d="M${x + 59} 96 L${x + 59} 114" stroke="#93B8D4" stroke-width="1.5"/>
+  <rect x="${x}" y="114" width="118" height="38" rx="3" fill="#F2F6F8" stroke="#DCE4EA"/>
+  <text x="${x + 59}" y="138" text-anchor="middle" fill="#0B2545" font-family="${HEAD_SVG}" font-size="14.5" font-weight="500">customer</text>`;
+}).join('\n')}
+  <path d="M161 133 L170 133" stroke="#93B8D4" stroke-width="1.5" stroke-dasharray="3 3"/>
+  <path d="M294 133 L303 133" stroke="#93B8D4" stroke-width="1.5" stroke-dasharray="3 3"/>
+  <text x="232" y="196" text-anchor="middle" fill="#5B6E80" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="12.5">each one is right inside its own system</text>
+
+  <text x="566" y="24" fill="#1B5C46" font-family="${HEAD_SVG}" font-size="16" font-weight="500">One owner, and it travels</text>
+  <text x="566" y="44" fill="#5B6E80" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="12.5">one team answerable, the rest read it</text>
+${OWN_TEAMS.map((t, i) => {
+  const x = 566 + i * 133;
+  const owner = i === 0;
+  return `  <rect x="${x}" y="66" width="118" height="30" rx="3" fill="${owner ? '#EAF3EE' : '#FFFFFF'}" stroke="${owner ? '#A8D5C0' : '#DCE4EA'}"/>
+  <text x="${x + 59}" y="86" text-anchor="middle" fill="${owner ? '#1B5C46' : '#5B6E80'}" font-family="${HEAD_SVG}" font-size="13" font-weight="500">${t}</text>
+  <path d="M${x + 59} 96 L${x + 59} 114" stroke="${owner ? '#7DBFA3' : '#DCE4EA'}" stroke-width="1.5"/>
+  <rect x="${x}" y="114" width="118" height="38" rx="3" fill="${owner ? '#EAF3EE' : '#FFFFFF'}" stroke="${owner ? '#A8D5C0' : '#DCE4EA'}"/>
+  <text x="${x + 59}" y="138" text-anchor="middle" fill="${owner ? '#1B5C46' : '#5B6E80'}" font-family="${HEAD_SVG}" font-size="14.5" font-weight="500">${owner ? 'customer' : 'reads it'}</text>`;
+}).join('\n')}
+  <path d="M625 152 L625 172 L891 172" fill="none" stroke="#7DBFA3" stroke-width="1.5"/>
+  <path d="M758 172 L758 152" fill="none" stroke="#7DBFA3" stroke-width="1.5"/>
+  <path d="M754 158 L758 152 L762 158" fill="none" stroke="#7DBFA3" stroke-width="1.5"/>
+  <path d="M891 172 L891 152" fill="none" stroke="#7DBFA3" stroke-width="1.5"/>
+  <path d="M887 158 L891 152 L895 158" fill="none" stroke="#7DBFA3" stroke-width="1.5"/>
+  <text x="758" y="196" text-anchor="middle" fill="#5B6E80" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="12.5">the owner keeps it true and pushes it out</text>
+
+  <text x="500" y="244" text-anchor="middle" fill="#0B2545" font-family="${HEAD_SVG}" font-size="14.5" font-weight="500">The org chart on top already exists. The row underneath is the one nobody drew.</text>
+  <text x="500" y="286" text-anchor="middle" fill="#5B6E80" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="12.5">A run of acquisitions leaves this behind: the value arrives once,</text>
+  <text x="500" y="306" text-anchor="middle" fill="#5B6E80" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="12.5">and the cost of three answers arrives every year after.</text>
+  <text x="500" y="326" text-anchor="middle" fill="#5B6E80" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="12.5">Agents do not resolve it. They read all three and answer with confidence.</text>
+</svg>`;
+
 const BOX_W = 176, BOX_GAP = 30, BOX_Y = 26, BOX_H = 86, KB_Y = 196;
 const flow = `<svg viewBox="0 0 1000 272" role="img"
      aria-label="A capability spec becomes work items across repos, built by agents on routed compute, then merged and reconciled against the original spec, with a knowledge layer underneath every stage">
@@ -283,7 +391,7 @@ const flow = `<svg viewBox="0 0 1000 272" role="img"
     return `<g>
     <rect x="${x}" y="${BOX_Y}" width="${BOX_W}" height="${BOX_H}" rx="3" fill="#F2F6F8" stroke="#DCE4EA"/>
     <text x="${cx}" y="${BOX_Y + 38}" text-anchor="middle" fill="#0B2545" font-family="${HEAD_SVG}" font-size="17" font-weight="500">${t}</text>
-    <text x="${cx}" y="${BOX_Y + 60}" text-anchor="middle" fill="#5B6E80" font-family="Helvetica,Arial,sans-serif" font-size="12.5">${s}</text>
+    <text x="${cx}" y="${BOX_Y + 60}" text-anchor="middle" fill="#5B6E80" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="12.5">${s}</text>
     <path d="M${cx} ${BOX_Y + BOX_H} L${cx} ${KB_Y}" stroke="#93B8D4" stroke-width="1.5" stroke-dasharray="3 5"/>
   </g>`;
   }).join('\n  ')}
@@ -293,7 +401,7 @@ const flow = `<svg viewBox="0 0 1000 272" role="img"
   }).join('\n  ')}
   <rect x="0" y="${KB_Y}" width="1000" height="66" rx="3" fill="#0B2545"/>
   <text x="24" y="${KB_Y + 28}" fill="#FFFFFF" font-family="${HEAD_SVG}" font-size="16" font-weight="500">The knowledge layer</text>
-  <text x="24" y="${KB_Y + 50}" fill="#93B8D4" font-family="Helvetica,Arial,sans-serif" font-size="13">Current-state index, generated from the repositories: queried, never re-derived.</text>
+  <text x="24" y="${KB_Y + 50}" fill="#93B8D4" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="13">Current-state index, generated from the repositories: queried, never re-derived.</text>
 </svg>`;
 
 // What makes the reference different from every other set of AI-SDLC docs.
@@ -565,7 +673,7 @@ const NOTE_SCOPE = {
 <div class="flow"><svg viewBox="0 0 1000 300" role="img"
      aria-label="Two columns. A team scoped without a boundary takes in everything a request might touch, has nothing to specify against, and its output varies with nothing to test it. A team scoped to something it owns works against one contract, can be given a specification, and its output varies inside something testable.">
   <text x="40" y="26" fill="#0B2545" font-family="${HEAD_SVG}" font-size="16" font-weight="500">Scoped without a boundary</text>
-  <text x="40" y="46" fill="#5B6E80" font-family="Helvetica,Arial,sans-serif" font-size="12.5">the request has no edge</text>
+  <text x="40" y="46" fill="#5B6E80" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="12.5">the request has no edge</text>
   <rect x="40" y="70" width="384" height="46" rx="3" fill="#F2F6F8" stroke="#DCE4EA"/>
   <text x="232" y="98" text-anchor="middle" fill="#0B2545" font-family="${HEAD_SVG}" font-size="14.5" font-weight="500">Everything a request might touch</text>
   <path d="M232 116 L232 136" stroke="#93B8D4" stroke-width="1.5"/>
@@ -575,7 +683,7 @@ const NOTE_SCOPE = {
   <rect x="40" y="202" width="384" height="46" rx="3" fill="#F2F6F8" stroke="#DCE4EA"/>
   <text x="232" y="230" text-anchor="middle" fill="#0B2545" font-family="${HEAD_SVG}" font-size="14.5" font-weight="500">Variation with nothing to test it</text>
   <text x="576" y="26" fill="#1B5C46" font-family="${HEAD_SVG}" font-size="16" font-weight="500">Scoped to something it owns</text>
-  <text x="576" y="46" fill="#5B6E80" font-family="Helvetica,Arial,sans-serif" font-size="12.5">the request has an edge</text>
+  <text x="576" y="46" fill="#5B6E80" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="12.5">the request has an edge</text>
   <rect x="576" y="70" width="384" height="46" rx="3" fill="#EAF3EE" stroke="#A8D5C0"/>
   <text x="768" y="98" text-anchor="middle" fill="#1B5C46" font-family="${HEAD_SVG}" font-size="14.5" font-weight="500">One contract it is answerable for</text>
   <path d="M768 116 L768 136" stroke="#7DBFA3" stroke-width="1.5"/>
@@ -584,7 +692,7 @@ const NOTE_SCOPE = {
   <path d="M768 182 L768 202" stroke="#7DBFA3" stroke-width="1.5"/>
   <rect x="576" y="202" width="384" height="46" rx="3" fill="#EAF3EE" stroke="#A8D5C0"/>
   <text x="768" y="230" text-anchor="middle" fill="#1B5C46" font-family="${HEAD_SVG}" font-size="14.5" font-weight="500">Variation inside something testable</text>
-  <text x="500" y="284" text-anchor="middle" fill="#5B6E80" font-family="Helvetica,Arial,sans-serif" font-size="12.5">The difference is not speed. It is whether there is anything to check the second run against.</text>
+  <text x="500" y="284" text-anchor="middle" fill="#5B6E80" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="12.5">The difference is not speed. It is whether there is anything to check the second run against.</text>
 </svg></div>
 
 <h3>Why that is not a preference</h3>
@@ -744,7 +852,7 @@ const NOTE_COUNT = {
 <div class="flow"><svg viewBox="0 0 1000 336" role="img"
      aria-label="Two columns. On the left, one decision enforced three times is distributed work: nothing has to be kept in step by hand, and three is not a cost. On the right, one decision re-derived four times is duplicated work: four places to find by hand, and four is the cost. Same number, opposite meaning.">
   <text x="40" y="24" fill="#1B5C46" font-family="${HEAD_SVG}" font-size="16" font-weight="500">One behavior, three places</text>
-  <text x="40" y="44" fill="#5B6E80" font-family="Helvetica,Arial,sans-serif" font-size="12.5">distributed work</text>
+  <text x="40" y="44" fill="#5B6E80" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="12.5">distributed work</text>
   <rect x="40" y="64" width="440" height="52" rx="3" fill="#EAF3EE" stroke="#A8D5C0"/>
   <text x="260" y="95" text-anchor="middle" fill="#1B5C46" font-family="${HEAD_SVG}" font-size="14.5" font-weight="500">One decision, enforced three times</text>
   <path d="M260 116 L260 140" stroke="#7DBFA3" stroke-width="1.5"/>
@@ -754,7 +862,7 @@ const NOTE_COUNT = {
   <rect x="40" y="216" width="440" height="52" rx="3" fill="#EAF3EE" stroke="#A8D5C0"/>
   <text x="260" y="247" text-anchor="middle" fill="#1B5C46" font-family="${HEAD_SVG}" font-size="14.5" font-weight="500">Three is not a cost</text>
   <text x="520" y="24" fill="#0B2545" font-family="${HEAD_SVG}" font-size="16" font-weight="500">One rule, four places</text>
-  <text x="520" y="44" fill="#5B6E80" font-family="Helvetica,Arial,sans-serif" font-size="12.5">duplicated work</text>
+  <text x="520" y="44" fill="#5B6E80" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="12.5">duplicated work</text>
   <rect x="520" y="64" width="440" height="52" rx="3" fill="#F2F6F8" stroke="#DCE4EA"/>
   <text x="740" y="95" text-anchor="middle" fill="#0B2545" font-family="${HEAD_SVG}" font-size="14.5" font-weight="500">One decision, re-derived four times</text>
   <path d="M740 116 L740 140" stroke="#93B8D4" stroke-width="1.5"/>
@@ -763,7 +871,7 @@ const NOTE_COUNT = {
   <path d="M740 192 L740 216" stroke="#93B8D4" stroke-width="1.5"/>
   <rect x="520" y="216" width="440" height="52" rx="3" fill="#F2F6F8" stroke="#DCE4EA"/>
   <text x="740" y="247" text-anchor="middle" fill="#0B2545" font-family="${HEAD_SVG}" font-size="14.5" font-weight="500">Four is the cost</text>
-  <text x="500" y="308" text-anchor="middle" fill="#5B6E80" font-family="Helvetica,Arial,sans-serif" font-size="12.5">The same number on both sides. The test is whether anybody has to keep them in agreement.</text>
+  <text x="500" y="308" text-anchor="middle" fill="#5B6E80" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="12.5">The same number on both sides. The test is whether anybody has to keep them in agreement.</text>
 </svg></div>
 
 <p>A capability that spans a frontend, a service and a schema is <b>distributed work</b>: three
@@ -939,6 +1047,27 @@ const CSS = `${FONTS}
      three-up grid above is shared with the capability block on
      /how-the-work-gets-done/, which must stay three. */
   @media (min-width:48rem) { .cols.four { grid-template-columns:repeat(2,1fr); } }
+  /* Five answers, 2026-09-22. TWO columns, and this was three for one round —
+     the reasoning then was that three avoids a lone fifth card. visual-qa
+     measured the result and three is worse on every count that matters:
+       · column 289px vs 453px, and THREE of the five headings then wrap that
+         fit on one line at 453 — "A route from a question to its owner" misses
+         by a single pixel. The three-column switch created every wrapped
+         heading; none of this copy is too long for the card it is in.
+       · cards 4 and 5 then strand a determiner side by side on the same
+         baseline pair — "A route from a" / "Time to build the" — which is the
+         hanging-article defect twice, adjacent.
+       · row 1 goes ragged: card 3's body starts 28px below cards 1 and 2
+         because its heading wrapped and theirs did not.
+     At two columns all five headings sit on one line and the bodies align
+     within every row (measured: 1619/1619, 1823/1823, 2000).
+     ⛔ The cost is real and was weighed rather than waved away: card 5 sits
+     alone on row 3 with an empty cell beside it. That reads as a list ending,
+     which is what it is, where the three-column hole sat mid-block and read as
+     a remainder — worst at 1920, where the eye tracks to a third column that
+     row 1 established and finds nothing. Looked at both at 1440 before
+     choosing. Do not switch back without rendering both again. */
+  @media (min-width:48rem) { .cols.five { grid-template-columns:repeat(2,1fr); } }
   .col { display:flex; flex-direction:column; gap:.5rem; }
   .col .rule { width:2rem; height:3px; background:var(--green); border-radius:2px; margin-bottom:.4rem; }
   /* Outbound links exist so a claim can be checked,
@@ -1012,6 +1141,9 @@ const CSS = `${FONTS}
      44rem the five stages cannot hold their labels, and a legible thing you
      drag beats an illegible thing that fits. */
   .flow { overflow-x:auto; -webkit-overflow-scrolling:touch; }
+  /* The home page figure only. Its caption block sat closer to the card grid
+     below than to the panels it explains, so it read as an intro to the cards. */
+  .fig { margin:.6rem 0 3.4rem; }
   .flow svg { width:100%; min-width:38rem; height:auto; display:block; }
   /* ⛔ 40rem, matching .narrow, NOT a number of its own. It was 46rem until
      2026-09-14, which put three different right edges in one section: a 40rem
@@ -1249,7 +1381,7 @@ const NOTE_HOP = {
   <text x="140" y="120" text-anchor="end" fill="#5B6E80" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="11" letter-spacing="1.4">CAPABILITY</text>
   <rect x="160" y="90" width="840" height="54" rx="3" fill="#F2F6F8" stroke="#DCE4EA"/>
   <text x="580" y="114" text-anchor="middle" fill="#0B2545" font-family="${HEAD_SVG}" font-size="16" font-weight="500">What we want for the sales team, or the customer</text>
-  <text x="580" y="133" text-anchor="middle" fill="#5B6E80" font-family="Helvetica,Arial,sans-serif" font-size="12.5">the level a product manager can still explain</text>
+  <text x="580" y="133" text-anchor="middle" fill="#5B6E80" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="12.5">the level a product manager can still explain</text>
     <path d="M580 144 C580 162 238 158 238 176" stroke="#93B8D4" stroke-width="1.5" fill="none"/>
   <path d="M580 144 C580 162 408 158 408 176" stroke="#93B8D4" stroke-width="1.5" fill="none"/>
   <path d="M580 144 C580 162 578 158 578 176" stroke="#93B8D4" stroke-width="1.5" fill="none"/>
@@ -1262,7 +1394,7 @@ const NOTE_HOP = {
   <text x="238" y="208" text-anchor="middle" fill="#0B2545" font-family="${HEAD_SVG}" font-size="15" font-weight="500">UI</text>
   <rect x="330" y="176" width="156" height="54" rx="3" fill="#EAF3EE" stroke="#A8D5C0"/>
   <text x="408" y="200" text-anchor="middle" fill="#1B5C46" font-family="${HEAD_SVG}" font-size="15" font-weight="500">API</text>
-  <text x="408" y="218" text-anchor="middle" fill="#5B6E80" font-family="Helvetica,Arial,sans-serif" font-size="11.5">the one worked below</text>
+  <text x="408" y="218" text-anchor="middle" fill="#5B6E80" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="11.5">the one worked below</text>
   <rect x="500" y="176" width="156" height="54" rx="3" fill="#F2F6F8" stroke="#DCE4EA"/>
   <text x="578" y="208" text-anchor="middle" fill="#0B2545" font-family="${HEAD_SVG}" font-size="15" font-weight="500">Core logic</text>
   <rect x="670" y="176" width="156" height="54" rx="3" fill="#F2F6F8" stroke="#DCE4EA"/>
@@ -1282,16 +1414,16 @@ const NOTE_HOP = {
   <text x="140" y="350" text-anchor="end" fill="#5B6E80" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="11" letter-spacing="1.4">PER TEAM</text>
     <rect x="160" y="300" width="195" height="58" rx="3" fill="#EAF3EE" stroke="#A8D5C0"/>
   <text x="257" y="326" text-anchor="middle" fill="#1B5C46" font-family="${HEAD_SVG}" font-size="15" font-weight="500">Facade layer</text>
-  <text x="257" y="344" text-anchor="middle" fill="#5B6E80" font-family="Helvetica,Arial,sans-serif" font-size="11.5">new interface</text>
+  <text x="257" y="344" text-anchor="middle" fill="#5B6E80" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="11.5">new interface</text>
   <rect x="375" y="300" width="195" height="58" rx="3" fill="#EAF3EE" stroke="#A8D5C0"/>
   <text x="472" y="326" text-anchor="middle" fill="#1B5C46" font-family="${HEAD_SVG}" font-size="15" font-weight="500">Domain service</text>
-  <text x="472" y="344" text-anchor="middle" fill="#5B6E80" font-family="Helvetica,Arial,sans-serif" font-size="11.5">one</text>
+  <text x="472" y="344" text-anchor="middle" fill="#5B6E80" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="11.5">one</text>
   <rect x="590" y="300" width="195" height="58" rx="3" fill="#EAF3EE" stroke="#A8D5C0"/>
   <text x="687" y="326" text-anchor="middle" fill="#1B5C46" font-family="${HEAD_SVG}" font-size="15" font-weight="500">Domain service</text>
-  <text x="687" y="344" text-anchor="middle" fill="#5B6E80" font-family="Helvetica,Arial,sans-serif" font-size="11.5">two</text>
+  <text x="687" y="344" text-anchor="middle" fill="#5B6E80" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="11.5">two</text>
   <rect x="805" y="300" width="195" height="58" rx="3" fill="#EAF3EE" stroke="#A8D5C0"/>
   <text x="902" y="326" text-anchor="middle" fill="#1B5C46" font-family="${HEAD_SVG}" font-size="15" font-weight="500">Domain service</text>
-  <text x="902" y="344" text-anchor="middle" fill="#5B6E80" font-family="Helvetica,Arial,sans-serif" font-size="11.5">three</text>
+  <text x="902" y="344" text-anchor="middle" fill="#5B6E80" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="11.5">three</text>
 </svg></div>
 
 <p>Take the API delivery. The new experience needs a facade layer interface, and the facade calls
@@ -1359,35 +1491,35 @@ const NOTE_SKILL = {
   <path d="M556 92 C556 116 222 110 222 134" stroke="#93B8D4" stroke-width="1.5" fill="none"/>
   <rect x="130" y="134" width="184" height="56" rx="3" fill="#EAF3EE" stroke="#A8D5C0"/>
   <text x="222" y="158" text-anchor="middle" fill="#1B5C46" font-family="${HEAD_SVG}" font-size="15" font-weight="500">Team A</text>
-  <text x="222" y="177" text-anchor="middle" fill="#5B6E80" font-family="Helvetica,Arial,sans-serif" font-size="11.5">installed file, identical</text>
+  <text x="222" y="177" text-anchor="middle" fill="#5B6E80" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="11.5">installed file, identical</text>
   <path d="M222 190 L222 250" stroke="#B9C6D0" stroke-width="1.5" stroke-dasharray="3 5"/>
   <rect x="130" y="250" width="184" height="56" rx="3" fill="#FFFFFF" stroke="#DCE4EA"/>
   <text x="222" y="274" text-anchor="middle" fill="#0B2545" font-family="${HEAD_SVG}" font-size="15" font-weight="500">what it produced</text>
-  <text x="222" y="293" text-anchor="middle" fill="#5B6E80" font-family="Helvetica,Arial,sans-serif" font-size="11.5">different codebase, different result</text>
+  <text x="222" y="293" text-anchor="middle" fill="#5B6E80" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="11.5">different codebase, different result</text>
   <path d="M556 92 C556 116 440 110 440 134" stroke="#93B8D4" stroke-width="1.5" fill="none"/>
   <rect x="348" y="134" width="184" height="56" rx="3" fill="#EAF3EE" stroke="#A8D5C0"/>
   <text x="440" y="158" text-anchor="middle" fill="#1B5C46" font-family="${HEAD_SVG}" font-size="15" font-weight="500">Team B</text>
-  <text x="440" y="177" text-anchor="middle" fill="#5B6E80" font-family="Helvetica,Arial,sans-serif" font-size="11.5">installed file, identical</text>
+  <text x="440" y="177" text-anchor="middle" fill="#5B6E80" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="11.5">installed file, identical</text>
   <path d="M440 190 L440 250" stroke="#B9C6D0" stroke-width="1.5" stroke-dasharray="3 5"/>
   <rect x="348" y="250" width="184" height="56" rx="3" fill="#FFFFFF" stroke="#DCE4EA"/>
   <text x="440" y="274" text-anchor="middle" fill="#0B2545" font-family="${HEAD_SVG}" font-size="15" font-weight="500">what it produced</text>
-  <text x="440" y="293" text-anchor="middle" fill="#5B6E80" font-family="Helvetica,Arial,sans-serif" font-size="11.5">different codebase, different result</text>
+  <text x="440" y="293" text-anchor="middle" fill="#5B6E80" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="11.5">different codebase, different result</text>
   <path d="M556 92 C556 116 658 110 658 134" stroke="#93B8D4" stroke-width="1.5" fill="none"/>
   <rect x="566" y="134" width="184" height="56" rx="3" fill="#EAF3EE" stroke="#A8D5C0"/>
   <text x="658" y="158" text-anchor="middle" fill="#1B5C46" font-family="${HEAD_SVG}" font-size="15" font-weight="500">Team C</text>
-  <text x="658" y="177" text-anchor="middle" fill="#5B6E80" font-family="Helvetica,Arial,sans-serif" font-size="11.5">installed file, identical</text>
+  <text x="658" y="177" text-anchor="middle" fill="#5B6E80" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="11.5">installed file, identical</text>
   <path d="M658 190 L658 250" stroke="#B9C6D0" stroke-width="1.5" stroke-dasharray="3 5"/>
   <rect x="566" y="250" width="184" height="56" rx="3" fill="#FFFFFF" stroke="#DCE4EA"/>
   <text x="658" y="274" text-anchor="middle" fill="#0B2545" font-family="${HEAD_SVG}" font-size="15" font-weight="500">what it produced</text>
-  <text x="658" y="293" text-anchor="middle" fill="#5B6E80" font-family="Helvetica,Arial,sans-serif" font-size="11.5">different codebase, different result</text>
+  <text x="658" y="293" text-anchor="middle" fill="#5B6E80" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="11.5">different codebase, different result</text>
   <path d="M556 92 C556 116 876 110 876 134" stroke="#93B8D4" stroke-width="1.5" fill="none"/>
   <rect x="784" y="134" width="184" height="56" rx="3" fill="#EAF3EE" stroke="#A8D5C0"/>
   <text x="876" y="158" text-anchor="middle" fill="#1B5C46" font-family="${HEAD_SVG}" font-size="15" font-weight="500">Team D</text>
-  <text x="876" y="177" text-anchor="middle" fill="#5B6E80" font-family="Helvetica,Arial,sans-serif" font-size="11.5">installed file, identical</text>
+  <text x="876" y="177" text-anchor="middle" fill="#5B6E80" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="11.5">installed file, identical</text>
   <path d="M876 190 L876 250" stroke="#B9C6D0" stroke-width="1.5" stroke-dasharray="3 5"/>
   <rect x="784" y="250" width="184" height="56" rx="3" fill="#FFFFFF" stroke="#DCE4EA"/>
   <text x="876" y="274" text-anchor="middle" fill="#0B2545" font-family="${HEAD_SVG}" font-size="15" font-weight="500">what it produced</text>
-  <text x="876" y="293" text-anchor="middle" fill="#5B6E80" font-family="Helvetica,Arial,sans-serif" font-size="11.5">different codebase, different result</text>
+  <text x="876" y="293" text-anchor="middle" fill="#5B6E80" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="11.5">different codebase, different result</text>
   <text x="112" y="166" text-anchor="end" fill="#1B5C46" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="11" letter-spacing="1.2">CHECKED</text>
   <text x="112" y="276" text-anchor="end" fill="#0B2545" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="11" letter-spacing="1.2">NOT</text>
   <text x="112" y="291" text-anchor="end" fill="#0B2545" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="11" letter-spacing="1.2">CHECKED</text>
@@ -1486,31 +1618,31 @@ const NOTE_BOUNDARY = {
   <circle cx="276" cy="62" r="4.5" fill="#93B8D4" stroke="#0B2545" stroke-width="0"/>
   <circle cx="372" cy="62" r="6" fill="#FFFFFF" stroke="#0B2545" stroke-width="1.6"/>
   <path d="M372 70 L372 88" stroke="#B9C6D0" stroke-width="1" stroke-dasharray="3 4"/>
-  <text x="372" y="104" text-anchor="middle" fill="#0B2545" font-family="Helvetica,Arial,sans-serif" font-size="12.5">design record added</text>
+  <text x="372" y="104" text-anchor="middle" fill="#0B2545" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="12.5">design record added</text>
   <circle cx="468" cy="62" r="4.5" fill="#93B8D4" stroke="#0B2545" stroke-width="0"/>
   <circle cx="564" cy="62" r="6" fill="#FFFFFF" stroke="#0B2545" stroke-width="1.6"/>
   <path d="M564 70 L564 88" stroke="#B9C6D0" stroke-width="1" stroke-dasharray="3 4"/>
-  <text x="564" y="104" text-anchor="middle" fill="#0B2545" font-family="Helvetica,Arial,sans-serif" font-size="12.5">and deleted</text>
+  <text x="564" y="104" text-anchor="middle" fill="#0B2545" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="12.5">and deleted</text>
   <circle cx="660" cy="62" r="4.5" fill="#93B8D4" stroke="#0B2545" stroke-width="0"/>
   <circle cx="756" cy="62" r="4.5" fill="#93B8D4" stroke="#0B2545" stroke-width="0"/>
   <circle cx="852" cy="62" r="4.5" fill="#93B8D4" stroke="#0B2545" stroke-width="0"/>
   <circle cx="948" cy="62" r="4.5" fill="#93B8D4" stroke="#0B2545" stroke-width="0"/>
-  <text x="180" y="132" fill="#5B6E80" font-family="Helvetica,Arial,sans-serif" font-size="12.5">every version it ever held, still fetchable from the log</text>
+  <text x="180" y="132" fill="#5B6E80" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="12.5">every version it ever held, still fetchable from the log</text>
   <text x="150" y="220" text-anchor="end" fill="#1B5C46" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="11" letter-spacing="1.2">PUBLIC</text>
   <path d="M180 220 L960 220" stroke="#7DBFA3" stroke-width="1.5"/>
   <circle cx="310" cy="220" r="7" fill="#EAF3EE" stroke="#1B5C46" stroke-width="1.6"/>
   <path d="M310 228 L310 246" stroke="#A8D5C0" stroke-width="1"/>
   <text x="310" y="262" text-anchor="middle" fill="#1B5C46" font-family="${HEAD_SVG}" font-size="14" font-weight="500">One commit</text>
-  <text x="310" y="280" text-anchor="middle" fill="#5B6E80" font-family="Helvetica,Arial,sans-serif" font-size="12">the whole current tree</text>
+  <text x="310" y="280" text-anchor="middle" fill="#5B6E80" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="12">the whole current tree</text>
   <circle cx="570" cy="220" r="7" fill="#EAF3EE" stroke="#1B5C46" stroke-width="1.6"/>
   <path d="M570 228 L570 246" stroke="#A8D5C0" stroke-width="1"/>
   <text x="570" y="262" text-anchor="middle" fill="#1B5C46" font-family="${HEAD_SVG}" font-size="14" font-weight="500">One commit</text>
-  <text x="570" y="280" text-anchor="middle" fill="#5B6E80" font-family="Helvetica,Arial,sans-serif" font-size="12">the whole current tree</text>
+  <text x="570" y="280" text-anchor="middle" fill="#5B6E80" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="12">the whole current tree</text>
   <circle cx="830" cy="220" r="7" fill="#EAF3EE" stroke="#1B5C46" stroke-width="1.6"/>
   <path d="M830 228 L830 246" stroke="#A8D5C0" stroke-width="1"/>
   <text x="830" y="262" text-anchor="middle" fill="#1B5C46" font-family="${HEAD_SVG}" font-size="14" font-weight="500">One commit</text>
-  <text x="830" y="280" text-anchor="middle" fill="#5B6E80" font-family="Helvetica,Arial,sans-serif" font-size="12">the whole current tree</text>
-  <text x="180" y="192" fill="#5B6E80" font-family="Helvetica,Arial,sans-serif" font-size="12.5">one per release, and nothing before it</text>
+  <text x="830" y="280" text-anchor="middle" fill="#5B6E80" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="12">the whole current tree</text>
+  <text x="180" y="192" fill="#5B6E80" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="12.5">one per release, and nothing before it</text>
   <text x="570" y="322" text-anchor="middle" fill="#0B2545" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="11.5" letter-spacing="1.2">DELETED IN PRIVATE. NEVER HELD IN PUBLIC.</text>
 </svg></div>
 
@@ -1560,33 +1692,33 @@ const NOTE_CROSSING = {
      aria-label="Two repositories. The private one holds the agent team, the decisions and the work in flight. The public one holds only what a user installs. Publishing sends one commit outward carrying the current tree. Mirroring sends reports inward only. Acknowledging a reporter is a separate outward step.">
   <rect x="40" y="16" width="392" height="168" rx="3" fill="#F2F6F8" stroke="#DCE4EA"/>
   <text x="64" y="48" fill="#0B2545" font-family="${HEAD_SVG}" font-size="16" font-weight="500">Private</text>
-  <text x="132" y="48" fill="#5B6E80" font-family="Helvetica,Arial,sans-serif" font-size="12.5">where the team works</text>
-  <text x="64" y="80" fill="#5B6E80" font-family="Helvetica,Arial,sans-serif" font-size="13">The agent team and its roster</text>
-  <text x="64" y="106" fill="#5B6E80" font-family="Helvetica,Arial,sans-serif" font-size="13">Architecture decisions</text>
-  <text x="64" y="132" fill="#5B6E80" font-family="Helvetica,Arial,sans-serif" font-size="13">Work in flight</text>
-  <text x="64" y="158" fill="#5B6E80" font-family="Helvetica,Arial,sans-serif" font-size="13">The source it all comes from</text>
+  <text x="132" y="48" fill="#5B6E80" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="12.5">where the team works</text>
+  <text x="64" y="80" fill="#5B6E80" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="13">The agent team and its roster</text>
+  <text x="64" y="106" fill="#5B6E80" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="13">Architecture decisions</text>
+  <text x="64" y="132" fill="#5B6E80" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="13">Work in flight</text>
+  <text x="64" y="158" fill="#5B6E80" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="13">The source it all comes from</text>
   <rect x="568" y="16" width="392" height="168" rx="3" fill="#EAF3EE" stroke="#A8D5C0"/>
   <text x="592" y="48" fill="#1B5C46" font-family="${HEAD_SVG}" font-size="16" font-weight="500">Public</text>
-  <text x="654" y="48" fill="#5B6E80" font-family="Helvetica,Arial,sans-serif" font-size="12.5">what leaves the building</text>
-  <text x="592" y="80" fill="#5B6E80" font-family="Helvetica,Arial,sans-serif" font-size="13">What a user installs</text>
-  <text x="592" y="106" fill="#5B6E80" font-family="Helvetica,Arial,sans-serif" font-size="13">Its documentation</text>
-  <text x="592" y="132" fill="#5B6E80" font-family="Helvetica,Arial,sans-serif" font-size="13">A version history</text>
-  <text x="592" y="158" fill="#5B6E80" font-family="Helvetica,Arial,sans-serif" font-size="13">and nothing else</text>
+  <text x="654" y="48" fill="#5B6E80" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="12.5">what leaves the building</text>
+  <text x="592" y="80" fill="#5B6E80" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="13">What a user installs</text>
+  <text x="592" y="106" fill="#5B6E80" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="13">Its documentation</text>
+  <text x="592" y="132" fill="#5B6E80" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="13">A version history</text>
+  <text x="592" y="158" fill="#5B6E80" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="13">and nothing else</text>
   <path d="M64 232 L930 232" stroke="#7DBFA3" stroke-width="1.5" fill="none"/>
   <path d="M922 227 L932 232 L922 237 Z" fill="#7DBFA3"/>
   <rect x="60" y="202" width="564" height="22" fill="#FFFFFF"/>
   <text x="64" y="210" text-anchor="start" fill="#1B5C46" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="10.5" letter-spacing="1.2">PUBLISH</text>
-  <text x="64" y="226" text-anchor="start" fill="#5B6E80" font-family="Helvetica,Arial,sans-serif" font-size="12.5">One commit carrying the current tree. Never a history, so no old blob exists to leak.</text>
+  <text x="64" y="226" text-anchor="start" fill="#5B6E80" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="12.5">One commit carrying the current tree. Never a history, so no old blob exists to leak.</text>
   <path d="M70 300 L936 300" stroke="#93B8D4" stroke-width="1.5" fill="none"/>
   <path d="M78 295 L68 300 L78 305 Z" fill="#93B8D4"/>
   <rect x="376" y="270" width="564" height="22" fill="#FFFFFF"/>
   <text x="936" y="278" text-anchor="end" fill="#0B2545" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="10.5" letter-spacing="1.2">MIRROR</text>
-  <text x="936" y="294" text-anchor="end" fill="#5B6E80" font-family="Helvetica,Arial,sans-serif" font-size="12.5">Reads public, writes private, one direction. Nothing in it can push private content out.</text>
+  <text x="936" y="294" text-anchor="end" fill="#5B6E80" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="12.5">Reads public, writes private, one direction. Nothing in it can push private content out.</text>
   <path d="M64 368 L930 368" stroke="#7DBFA3" stroke-width="1.5" fill="none"/>
   <path d="M922 363 L932 368 L922 373 Z" fill="#7DBFA3"/>
   <rect x="60" y="338" width="564" height="22" fill="#FFFFFF"/>
   <text x="64" y="346" text-anchor="start" fill="#1B5C46" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="10.5" letter-spacing="1.2">ACKNOWLEDGE</text>
-  <text x="64" y="362" text-anchor="start" fill="#5B6E80" font-family="Helvetica,Arial,sans-serif" font-size="12.5">A separate, deliberate step. Posting outward is never a side effect of reading in.</text>
+  <text x="64" y="362" text-anchor="start" fill="#5B6E80" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="12.5">A separate, deliberate step. Posting outward is never a side effect of reading in.</text>
 </svg></div>
 
 <h2>What the inward path has to guarantee</h2>
@@ -1642,7 +1774,7 @@ const NOTE_CADENCE = {
 <div class="flow"><svg viewBox="0 0 1000 348" role="img"
      aria-label="Two loops side by side. Prompting: you ask, it answers, it is not right so you ask again, and nothing persists. Specifying: the spec and the agent definition produce the work, it is not right so you change a file, and everyone gets it on the next run.">
   <text x="40" y="26" fill="#0B2545" font-family="${HEAD_SVG}" font-size="16" font-weight="500">Prompting</text>
-  <text x="40" y="46" fill="#5B6E80" font-family="Helvetica,Arial,sans-serif" font-size="12.5">the fix lives in the session and dies with it</text>
+  <text x="40" y="46" fill="#5B6E80" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="12.5">the fix lives in the session and dies with it</text>
   <rect x="40" y="70" width="384" height="46" rx="3" fill="#F2F6F8" stroke="#DCE4EA"/>
   <text x="232" y="98" text-anchor="middle" fill="#0B2545" font-family="${HEAD_SVG}" font-size="14.5" font-weight="500">You ask</text>
   <path d="M232 116 L232 136" stroke="#93B8D4" stroke-width="1.5"/>
@@ -1652,7 +1784,7 @@ const NOTE_CADENCE = {
   <rect x="40" y="202" width="384" height="46" rx="3" fill="#F2F6F8" stroke="#DCE4EA"/>
   <text x="232" y="230" text-anchor="middle" fill="#0B2545" font-family="${HEAD_SVG}" font-size="14.5" font-weight="500">Not right, so you ask again</text>
   <text x="576" y="26" fill="#1B5C46" font-family="${HEAD_SVG}" font-size="16" font-weight="500">Specifying</text>
-  <text x="576" y="46" fill="#5B6E80" font-family="Helvetica,Arial,sans-serif" font-size="12.5">the fix is a file, and it applies next time</text>
+  <text x="576" y="46" fill="#5B6E80" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="12.5">the fix is a file, and it applies next time</text>
   <rect x="576" y="70" width="384" height="46" rx="3" fill="#EAF3EE" stroke="#A8D5C0"/>
   <text x="768" y="98" text-anchor="middle" fill="#1B5C46" font-family="${HEAD_SVG}" font-size="14.5" font-weight="500">The spec and the agent definition</text>
   <path d="M768 116 L768 136" stroke="#7DBFA3" stroke-width="1.5"/>
@@ -1665,8 +1797,8 @@ const NOTE_CADENCE = {
   <path d="M768 264 L768 300 L978 300 L978 84" stroke="#7DBFA3" stroke-width="1.5" fill="none"/>
   <path d="M973 92 L978 80 L983 92 Z" fill="#7DBFA3"/>
   <path d="M17 92 L22 80 L27 92 Z" fill="#93B8D4"/>
-  <text x="232" y="330" text-anchor="middle" fill="#5B6E80" font-family="Helvetica,Arial,sans-serif" font-size="12.5">nothing persists</text>
-  <text x="768" y="330" text-anchor="middle" fill="#1B5C46" font-family="Helvetica,Arial,sans-serif" font-size="12.5">and everyone gets it next run</text>
+  <text x="232" y="330" text-anchor="middle" fill="#5B6E80" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="12.5">nothing persists</text>
+  <text x="768" y="330" text-anchor="middle" fill="#1B5C46" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="12.5">and everyone gets it next run</text>
 </svg></div>
 
 <p>The shift is that when the output is wrong you stop reaching for a better prompt and start
@@ -2088,21 +2220,107 @@ ${CSS}
            and change nothing else. The headline asserts something about the
            reader's business and the very next sentence gives them the exit.
            Never ship the headline without it. -->
-      <p class="eyebrow">The question</p>
+      <!-- ⛔ THE EYEBROW IS THE READER'S OWN SENTENCE, 2026-09-22. It read "The
+           question" until today, which labelled the ARGUMENT'S STRUCTURE rather than
+           the reader's situation. brand-critic, reading only what a ninety-second
+           scanner reads: thirteen lines down the page, ONE was written in the reader's
+           situation; the seven eyebrows were "a table of contents for the argument's
+           structure". That is John's own worry — "I feel this is my terminology" —
+           and it is about the FRAME, not the vocabulary: the stop list scores this
+           page zero and the defect was still there.
+           ⛔ "ADOPTION" IS THE READER'S WORD AND THE PAGE DID NOT USE IT. Verified
+           mechanically on 2026-09-22: "adopting" appeared ONCE in the whole rendered
+           page, as a participle in a subordinate clause in a third paragraph, and the
+           noun "adoption" appeared zero times. Two of John's four reader questions use
+           it — "we are doing great with adoption, but nothing is changing" and "why is
+           the adoption not working for me". DORA and McKinsey both say adoption
+           throughout. This is a landmark noun the reader already holds, so it is
+           inside the rationalize-do-not-align ruling.
+           ⚠️ The pair is the whole point: the eyebrow concedes what the reader has
+           been told, the headline states what they see instead. Do not "fix" the
+           tension by softening either half. -->
+      <p class="eyebrow">Adoption went well</p>
       <h2>Agents went in,<br>your costs went up. Why?</h2>
-      <!-- ⛔ THE FOUR QUESTIONS ARE THE SPINE OF THE WHOLE PAGE and everything
-           below counts on them. The four cards answer them one for one, in this
-           order, and the next paragraph says "the first" and "the other three",
+      <!-- ⛔ THE FIVE QUESTIONS ARE THE SPINE OF THE WHOLE PAGE and everything
+           below counts on them. The five cards answer them one for one, in this
+           order, and the paragraphs below say "the first" and "the other four",
            which resolve to nothing without this. It was lost for a few minutes
            on 2026-09-14 in an edit that replaced too wide a span, and the page
            still built and still passed every gate — no check in this repo reads
            an antecedent. Found by reading the render. -->
-      <p>Four questions decide whether agents pay. Who owns this part of the system? Where are
-         the facts about it? How does a decision get made? Who should do the work?</p>
+      <!-- ⛔ THE QUESTIONS ARE MANAGEMENT QUESTIONS, 2026-09-22. They were
+           systems questions until today ("Who owns this part of the system?"),
+           and an executive does not manage a system, they manage teams. John,
+           after the McKinsey webinar: "you are cautious when it involves people
+           (you have HR controls) and you need strategic controls on your agents
+           and agent team design & implementation."
+           The reframe is his and it does the thing decisions/09 §3.2 asks for:
+           an org chart is the most pointable-at thing an executive owns, and
+           they approved a headcount req recently.
+           ⛔ "HR" IS THE REASONING, NOT THE WORDS. Naming HR here pulls in
+           compliance and bureaucracy, which is the wrong register for a line
+           whose job is to say you already do this WELL. Evoke it instead:
+           "nobody adds fifteen people without" lands it as competence.
+           ⚠️ The fifteen is not decorative. McKinsey's end state is "1 Human
+           for 15-20 agents" (research/mckinsey-2026-09/, slide 06), which is a
+           SPAN OF CONTROL. The number makes an executive ask what they would
+           ask of any manager with twenty reports. Not cited here and it does
+           not need to be — it is our sentence.
+           ⛔ THE LAST LINE SAYS "CONTROLS", NOT "ANSWERS". John picked variant
+           A, which closed "Agent teams get stood up with none of it" — that
+           contradicts the next paragraph, which says teams DO answer the first,
+           by default. Controls and answers are different things, so this way
+           both sentences are true and continuity has no quoted pair to report.
+           Raised with John 2026-09-22; revert the wording only if the next
+           paragraph changes with it.
+           ⛔ FIVE QUESTIONS SINCE 2026-09-22, in this order — owns, facts,
+           decision, work, BUILDS. "The first" and "the other four", two and
+           three paragraphs below, resolve to nothing without them.
+
+           ⭐ THE FIFTH IS JOHN'S, 2026-09-22, and it came out of the McKinsey
+           span-of-control quote rather than from the slides. McKinsey: "a human
+           team of two to five people can already supervise an agent factory of
+           50 to 100 specialized agents" (The agentic organization, 26 Sep 2025).
+           John: "yes they can supervise but what does it take to create the
+           agent teams properly, both need to be accounted for. operational
+           management & talent development (group creating the team to do the
+           work)."
+           ⛔ THE RATIO IS A RUN COST AND IT HIDES THE BUILD COST. That is the
+           whole reason the question exists, and it is OURS — McKinsey states
+           the ratio and does not carry the build function. Never cite the
+           two-to-five figure on this page; naming what it leaves out is the
+           stronger move and it is the reference-layer posture, not commentary.
+           ⚠️ BOUND, John's own, and it is why card 5 does not quantify: he
+           observes the owner-also-builds pattern "in a developer (engineering)
+           model" and believes "it will be different in other operational
+           processes within the business". So the card says COUNT IT AGAINST,
+           which is directional and true in any model. ⛔ Do not put a number on
+           the span reduction — we do not have one, and John flagged that he
+           expects it to vary by process. -->
+      <!-- ⛔ SPLIT INTO TWO PARAGRAPHS, 2026-09-22, and do not rejoin them.
+           decisions/09-who-this-is-for.md §3.3 caps a home-page body paragraph
+           at four sentences. Adding the fifth question took this block to eight
+           — one framing sentence, five questions, two closing — and every one of
+           the eight is either John's or the spine, so there was nothing to cut.
+           The split is the only lever: the questions are the countable list §2
+           item 2 asks for, and the two closing sentences are the hinge into the
+           argument. Counting prose rather than list items, that is one sentence
+           and then two, which is inside the cap.
+           ⚠️ What this costs, stated so it is not rediscovered as a defect:
+           "answering them first" now reaches across a paragraph break for the
+           five questions, and "the first" and "the other four" below reach back
+           one block further. Nothing foreign sits between them — the hinge
+           paragraph is about the questions too — so the chain holds. If a
+           section ever lands BETWEEN these two paragraphs, that is what breaks
+           it, not the split. -->
+      <p>You already answer five questions about every team you run. Who owns this? Where do they
+         get their facts? How does a decision get made? Who does the work? Who builds the team?</p>
+      <p>Nobody adds fifteen people without answering them first. Agent teams are getting stood up
+         without the same controls.</p>
       <!-- ⛔ Conway is ONE CLAUSE here, not a paragraph. The page carried it as
            its own block until 2026-09-14 and John said the section read as four
            random statements. The mechanism still has to be on the page — it is
-           why the other three go unanswered — but it earns a clause, not a
+           why the other four go unanswered — but it earns a clause, not a
            screen. The note it links argues it in full.
            ⛔ The financial qualifier is IN this paragraph. John: "driving
            financial alignment is key but it should be baked into the blurb". It
@@ -2172,12 +2390,40 @@ ${CSS}
          organization it lands in and costs continue to rise.
          <a class="src" href="https://services.google.com/fh/files/misc/2025_state_of_ai_assisted_software_development.pdf">DORA reports the amplification</a>,
          across nearly five thousand practitioners.</p>
-      <p>The other three stay nobody's job, so the system keeps the shape of the teams that built
+      <p>The other four stay nobody's job, so the system keeps the shape of the teams that built
          it: <a class="src" href="/notes/${NOTE.slug}/">why do we have five user APIs</a>. If you
          can maintain the platform you have and keep building on it while you hit your financial
          goals, keep going. If you cannot, the system has to change, not just the tools.</p>
+      <!-- ⭐⭐ JOHN'S LINE, 2026-09-22, and it is the answer to the reader's first
+           question. Verbatim: "This is new technology but it aligns to the problem of
+           flow & ownership. Concepts in many management books from the beginning of
+           time & aligns to one of my favorites of 'Conway's Law'."
+           ⛔ IT ANSWERS "can this guy help me" WITHOUT MAKING AN OFFER, which is why
+           it earns a place the page otherwise refuses to give. brand-critic's first
+           finding is that the page declines that question; this does not resolve that
+           — the closing is still John's call — but it says the one thing that makes a
+           budget-holder trust the rest: you already know how to reason about this.
+           ⛔ "what you already manage everywhere else" IS DELIBERATE. It closes the
+           loop on the section's own opening move, "You already answer five questions
+           about every team you run." Do not rewrite it into a general claim about
+           management; its whole force is the callback.
+           ⭐ CONWAY IS NAMED HERE AND PARAPHRASED ABOVE, in that order, on purpose.
+           The clause above — "the system keeps the shape of the teams that built it" —
+           stays a clause: John said on 2026-09-14 that the section read as four random
+           statements when Conway had his own block, and that ruling is untouched. The
+           reader meets the mechanism first and the name second, which is how a landmark
+           works. Naming him passes the same test "span of control" passed.
+           ⛔ NO DATE AND NO CITATION. Conway's law has one, and rule 2 does not allow a
+           year nobody in this repo has opened the paper to check. -->
+      <p>The technology is new. The problem it lands in is not. Flow and ownership is what Conway
+         named, and what you already manage everywhere else.</p>
     </div>
-    <div class="cols four">
+    <!-- ⛔ OUTSIDE .head narrow ON PURPOSE. The prose column is deliberately narrow
+         for measure; the diagram needs the full .wrap or the three boxes a side
+         crush. It sits here, after the diagnosis and BEFORE the cards, because the
+         cards are the answers and this is the thing they answer. -->
+    <div class="flow fig">${ownership}</div>
+    <div class="cols five">
       ${problems.map(([h, b]) => `<div class="col"><div class="rule"></div>
         <h3>${h}</h3><p>${b}</p></div>`).join('\n      ')}
     </div>
@@ -2223,7 +2469,24 @@ ${CSS}
            smaller page and not on the one with the larger audience and the
            LinkedIn preview card. That asymmetry is real; the fix is one
            sentence, not a restored footnote. -->
-      <p class="eyebrow">What it is for</p>
+      <!-- ⛔ THE VELOCITY ANSWER WAS ALWAYS HERE AND WAS FILED UNDER "What it is
+           for", 2026-09-22. brand-critic: it is not unanswered, it is MISLABELLED.
+           "The number of systems you have to change to deliver one thing the business
+           asked for goes down" IS the answer to John's third reader question, "where
+           is the velocity" — less work per delivered thing. A reader holding that
+           question scanned a maintenance-engineering label and moved on.
+           ⛔ THE HEADING BELOW IS STILL JOHN'S AND STILL NAMES THE MEASURE, not the
+           aim. Only the eyebrow changed. "Flat maintenance cost as you scale" was
+           correct and he said it "does not drive interest"; that ruling stands.
+           ⛔ NO SPEED CLAIM WAS ADDED TO THE BODY, deliberately.
+           research/ai-sdlc/EXECUTIVE-SUMMARY.md: the model aims at "decreasing
+           maintenance cost, improving velocity, and shifting investment from
+           maintenance into new capability" and "None of the three has been measured."
+           So the eyebrow names the reader's question and the body still states only
+           the measure. ⛔ Do not turn this into "you will ship faster" — that is the
+           unmeasured claim the note at the end of this section already bounds with
+           "What follows is not a measurement." -->
+      <p class="eyebrow">Where the velocity went</p>
       <h2>Fewer places to change,<br>year over year.</h2>
       <p>If the model is working, the number of systems you have to change to deliver one thing the
          business asked for goes down. That is the measure.</p>
@@ -2240,23 +2503,35 @@ ${CSS}
   <div class="wrap">
     <div class="head narrow">
       <!-- ⛔ NO SECOND LIST HERE. This section held four cards that restated the
-           four answers above — John: "this is documenting the same thing again
-           another way". The four are the design; this is what it costs and who
-           carries it.
-           ⛔ THE PLATFORM IS NAMED ONCE, as what the four run on, and is not a
-           fifth item. John gave three investments — knowledge repository, a
-           platform for the agents to run on, an operating process with named
-           owners — and the first and third are already two of the four above.
+           answers above — John: "this is documenting the same thing again
+           another way". The answers are the design; this is what it costs and
+           who carries it.
+           ⛔ THE PLATFORM IS NAMED ONCE, as what they run on, and is NOT A CARD
+           OF ITS OWN. ⚠️ Read that carefully now there are five: the fifth card
+           is "building the team", added 2026-09-22, and it is NOT the platform.
+           The platform stayed a clause and still is. John gave three
+           investments — knowledge repository, a platform for the agents to run
+           on, an operating process with named owners — and the first and third
+           are already two of the five above.
            Only the platform was missing, and /what-you-already-have/ is the page
            that covers it, so it is a clause with a link rather than a list that
            half-overlaps the one above it. That mismatch is what "resolve the
            alignment" meant, 2026-09-14. -->
       <p class="eyebrow">Where to start</p>
       <h2>Own what is&nbsp;nobody's job.</h2>
-      <p>Fund the four above, and the platform they run on. None of it is a tool decision, and
+      <p>Fund the five above, and the platform they run on. None of it is a tool decision, and
          nobody has to be persuaded to think in systems.</p>
+      <!-- ⛔ THE FOURTH COST IS CARD 5'S AND IT IS A DIFFERENT KIND, added 2026-09-22.
+           route found the gap: "Fund the five above" was updated when the fifth card
+           landed and THIS paragraph was not, so the page asked the reader to fund five
+           things and then priced four. The first three are accountability and cleanup
+           costs, which is why the predicate is "ownership". Card 5's cost is capacity —
+           people — and it is the one an executive actually budgets. ⛔ Do not drop it
+           back to three: a cost list that omits the headcount is the sentence a CFO
+           stops trusting the page over. -->
       <p>What it costs is ownership: a delivery date into a queue you do not control, time with
-         the teams until they want it, and funded work to remove what is already duplicated.
+         the teams until they want it, funded work to remove what is already duplicated, and
+         people to build the agent teams rather than only supervise them.
          Reading any of it as free is the most expensive mistake here.</p>
       <p>It needs an owner no single project produces.
          <a class="src" href="/what-you-already-have/">What the gaps in your machinery cost</a></p>
@@ -2566,23 +2841,23 @@ const NOTE_ANSWER = {
 <div class="flow"><svg viewBox="0 0 1000 352" role="img"
      aria-label="A routing layer holds two kinds of thing side by side: decisions that span the parts, owned there, and a current-state view of everything below, a mirror that is authoritative nowhere. Underneath, the parts of the estate each own what they say about themselves, and a job polls them for what changed and feeds the mirror.">
   <text x="40" y="24" fill="#0B2545" font-family="${HEAD_SVG}" font-size="16" font-weight="500">The layer that routes a request</text>
-  <text x="40" y="44" fill="#5B6E80" font-family="Helvetica,Arial,sans-serif" font-size="12.5">holds two kinds of thing, and has to say which is which</text>
+  <text x="40" y="44" fill="#5B6E80" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="12.5">holds two kinds of thing, and has to say which is which</text>
   <rect x="40" y="64" width="440" height="72" rx="3" fill="#EAF3EE" stroke="#A8D5C0"/>
   <text x="260" y="94" text-anchor="middle" fill="#1B5C46" font-family="${HEAD_SVG}" font-size="14.5" font-weight="500">Decisions that span the parts</text>
-  <text x="260" y="116" text-anchor="middle" fill="#5B6E80" font-family="Helvetica,Arial,sans-serif" font-size="12.5">owned here, because no one part can own them</text>
+  <text x="260" y="116" text-anchor="middle" fill="#5B6E80" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="12.5">owned here, because no one part can own them</text>
   <rect x="520" y="64" width="440" height="72" rx="3" fill="#F2F6F8" stroke="#DCE4EA" stroke-dasharray="5 4"/>
   <text x="740" y="94" text-anchor="middle" fill="#0B2545" font-family="${HEAD_SVG}" font-size="14.5" font-weight="500">Current state of everything below</text>
-  <text x="740" y="116" text-anchor="middle" fill="#5B6E80" font-family="Helvetica,Arial,sans-serif" font-size="12.5">a mirror, authoritative nowhere</text>
+  <text x="740" y="116" text-anchor="middle" fill="#5B6E80" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="12.5">a mirror, authoritative nowhere</text>
   <path d="M180 258 L180 208 M500 258 L500 208 M820 258 L820 208 M180 208 L820 208 M740 208 L740 148" stroke="#7DBFA3" stroke-width="1.5" fill="none"/>
   <path d="M736 156 L740 144 L744 156 Z" fill="#7DBFA3"/>
-  <text x="192" y="200" fill="#5B6E80" font-family="Helvetica,Arial,sans-serif" font-size="12.5">a job polls them for what changed since it last looked</text>
+  <text x="192" y="200" fill="#5B6E80" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="12.5">a job polls them for what changed since it last looked</text>
   <rect x="40" y="258" width="280" height="44" rx="3" fill="#EAF3EE" stroke="#A8D5C0"/>
   <text x="180" y="286" text-anchor="middle" fill="#1B5C46" font-family="${HEAD_SVG}" font-size="14.5" font-weight="500">One part of the estate</text>
   <rect x="360" y="258" width="280" height="44" rx="3" fill="#EAF3EE" stroke="#A8D5C0"/>
   <text x="500" y="286" text-anchor="middle" fill="#1B5C46" font-family="${HEAD_SVG}" font-size="14.5" font-weight="500">Another</text>
   <rect x="680" y="258" width="280" height="44" rx="3" fill="#EAF3EE" stroke="#A8D5C0"/>
   <text x="820" y="286" text-anchor="middle" fill="#1B5C46" font-family="${HEAD_SVG}" font-size="14.5" font-weight="500">And another</text>
-  <text x="500" y="332" text-anchor="middle" fill="#5B6E80" font-family="Helvetica,Arial,sans-serif" font-size="12.5">each owns what it says about itself, and is the source of truth for it</text>
+  <text x="500" y="332" text-anchor="middle" fill="#5B6E80" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="12.5">each owns what it says about itself, and is the source of truth for it</text>
 </svg></div>
 
 <p>The shape that works mirrors the ownership already in place. Each part of the estate owns what it
@@ -2927,9 +3202,9 @@ writePage(path.join(DIST, 'what-you-already-have', 'index.html'), `${pageHead(
        chance. The second sentence is what the notes actually argue, so the
        citation is now true of both halves. -->
   <p class="standfirst"><b>Owning a capability decides who is answerable. On its own it does not
-     put the facts where anyone can reach them, record why a call was made, or route a question to
-     the team that owns it</b>. Those are the four the
-     <a class="src" href="/">home page</a> sets out, and they are argued at length
+     put the facts where anyone can reach them, record why a call was made, route a question to
+     the team that owns it, or build the team that does the work</b>. Those are the five the
+     <a class="src" href="/">home page</a> sets out, and the argument behind them is
      <a class="src" href="/notes/">in the notes</a>. This page is the machinery they run on. Some
      of it you will already have, and the useful question is not what a greenfield build would
      look like, it is what the gaps are costing you.</p>

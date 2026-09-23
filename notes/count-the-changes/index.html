@@ -99,6 +99,8 @@
   @media (min-width:48rem) { .cols { grid-template-columns:repeat(3,1fr); gap:2.4rem; } }
   
   @media (min-width:48rem) { .cols.four { grid-template-columns:repeat(2,1fr); } }
+  
+  @media (min-width:48rem) { .cols.five { grid-template-columns:repeat(2,1fr); } }
   .col { display:flex; flex-direction:column; gap:.5rem; }
   .col .rule { width:2rem; height:3px; background:var(--green); border-radius:2px; margin-bottom:.4rem; }
   
@@ -119,6 +121,8 @@
 
   
   .flow { overflow-x:auto; -webkit-overflow-scrolling:touch; }
+  
+  .fig { margin:.6rem 0 3.4rem; }
   .flow svg { width:100%; min-width:38rem; height:auto; display:block; }
   
   .note { margin-top:2.4rem; font-size:.95rem; color:var(--muted); max-width:40rem; }
@@ -248,7 +252,7 @@
 <div class="flow"><svg viewBox="0 0 1000 336" role="img"
      aria-label="Two columns. On the left, one decision enforced three times is distributed work: nothing has to be kept in step by hand, and three is not a cost. On the right, one decision re-derived four times is duplicated work: four places to find by hand, and four is the cost. Same number, opposite meaning.">
   <text x="40" y="24" fill="#1B5C46" font-family="Poppins,Futura,'Century Gothic','Avenir Next',Avenir,sans-serif" font-size="16" font-weight="500">One behavior, three places</text>
-  <text x="40" y="44" fill="#5B6E80" font-family="Helvetica,Arial,sans-serif" font-size="12.5">distributed work</text>
+  <text x="40" y="44" fill="#5B6E80" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="12.5">distributed work</text>
   <rect x="40" y="64" width="440" height="52" rx="3" fill="#EAF3EE" stroke="#A8D5C0"/>
   <text x="260" y="95" text-anchor="middle" fill="#1B5C46" font-family="Poppins,Futura,'Century Gothic','Avenir Next',Avenir,sans-serif" font-size="14.5" font-weight="500">One decision, enforced three times</text>
   <path d="M260 116 L260 140" stroke="#7DBFA3" stroke-width="1.5"/>
@@ -258,7 +262,7 @@
   <rect x="40" y="216" width="440" height="52" rx="3" fill="#EAF3EE" stroke="#A8D5C0"/>
   <text x="260" y="247" text-anchor="middle" fill="#1B5C46" font-family="Poppins,Futura,'Century Gothic','Avenir Next',Avenir,sans-serif" font-size="14.5" font-weight="500">Three is not a cost</text>
   <text x="520" y="24" fill="#0B2545" font-family="Poppins,Futura,'Century Gothic','Avenir Next',Avenir,sans-serif" font-size="16" font-weight="500">One rule, four places</text>
-  <text x="520" y="44" fill="#5B6E80" font-family="Helvetica,Arial,sans-serif" font-size="12.5">duplicated work</text>
+  <text x="520" y="44" fill="#5B6E80" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="12.5">duplicated work</text>
   <rect x="520" y="64" width="440" height="52" rx="3" fill="#F2F6F8" stroke="#DCE4EA"/>
   <text x="740" y="95" text-anchor="middle" fill="#0B2545" font-family="Poppins,Futura,'Century Gothic','Avenir Next',Avenir,sans-serif" font-size="14.5" font-weight="500">One decision, re-derived four times</text>
   <path d="M740 116 L740 140" stroke="#93B8D4" stroke-width="1.5"/>
@@ -267,7 +271,7 @@
   <path d="M740 192 L740 216" stroke="#93B8D4" stroke-width="1.5"/>
   <rect x="520" y="216" width="440" height="52" rx="3" fill="#F2F6F8" stroke="#DCE4EA"/>
   <text x="740" y="247" text-anchor="middle" fill="#0B2545" font-family="Poppins,Futura,'Century Gothic','Avenir Next',Avenir,sans-serif" font-size="14.5" font-weight="500">Four is the cost</text>
-  <text x="500" y="308" text-anchor="middle" fill="#5B6E80" font-family="Helvetica,Arial,sans-serif" font-size="12.5">The same number on both sides. The test is whether anybody has to keep them in agreement.</text>
+  <text x="500" y="308" text-anchor="middle" fill="#5B6E80" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="12.5">The same number on both sides. The test is whether anybody has to keep them in agreement.</text>
 </svg></div>
 
 <p>A capability that spans a frontend, a service and a schema is <b>distributed work</b>: three

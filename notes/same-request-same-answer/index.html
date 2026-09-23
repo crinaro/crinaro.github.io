@@ -99,6 +99,8 @@
   @media (min-width:48rem) { .cols { grid-template-columns:repeat(3,1fr); gap:2.4rem; } }
   
   @media (min-width:48rem) { .cols.four { grid-template-columns:repeat(2,1fr); } }
+  
+  @media (min-width:48rem) { .cols.five { grid-template-columns:repeat(2,1fr); } }
   .col { display:flex; flex-direction:column; gap:.5rem; }
   .col .rule { width:2rem; height:3px; background:var(--green); border-radius:2px; margin-bottom:.4rem; }
   
@@ -119,6 +121,8 @@
 
   
   .flow { overflow-x:auto; -webkit-overflow-scrolling:touch; }
+  
+  .fig { margin:.6rem 0 3.4rem; }
   .flow svg { width:100%; min-width:38rem; height:auto; display:block; }
   
   .note { margin-top:2.4rem; font-size:.95rem; color:var(--muted); max-width:40rem; }
@@ -243,7 +247,7 @@
 <div class="flow"><svg viewBox="0 0 1000 300" role="img"
      aria-label="Two columns. A team scoped without a boundary takes in everything a request might touch, has nothing to specify against, and its output varies with nothing to test it. A team scoped to something it owns works against one contract, can be given a specification, and its output varies inside something testable.">
   <text x="40" y="26" fill="#0B2545" font-family="Poppins,Futura,'Century Gothic','Avenir Next',Avenir,sans-serif" font-size="16" font-weight="500">Scoped without a boundary</text>
-  <text x="40" y="46" fill="#5B6E80" font-family="Helvetica,Arial,sans-serif" font-size="12.5">the request has no edge</text>
+  <text x="40" y="46" fill="#5B6E80" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="12.5">the request has no edge</text>
   <rect x="40" y="70" width="384" height="46" rx="3" fill="#F2F6F8" stroke="#DCE4EA"/>
   <text x="232" y="98" text-anchor="middle" fill="#0B2545" font-family="Poppins,Futura,'Century Gothic','Avenir Next',Avenir,sans-serif" font-size="14.5" font-weight="500">Everything a request might touch</text>
   <path d="M232 116 L232 136" stroke="#93B8D4" stroke-width="1.5"/>
@@ -253,7 +257,7 @@
   <rect x="40" y="202" width="384" height="46" rx="3" fill="#F2F6F8" stroke="#DCE4EA"/>
   <text x="232" y="230" text-anchor="middle" fill="#0B2545" font-family="Poppins,Futura,'Century Gothic','Avenir Next',Avenir,sans-serif" font-size="14.5" font-weight="500">Variation with nothing to test it</text>
   <text x="576" y="26" fill="#1B5C46" font-family="Poppins,Futura,'Century Gothic','Avenir Next',Avenir,sans-serif" font-size="16" font-weight="500">Scoped to something it owns</text>
-  <text x="576" y="46" fill="#5B6E80" font-family="Helvetica,Arial,sans-serif" font-size="12.5">the request has an edge</text>
+  <text x="576" y="46" fill="#5B6E80" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="12.5">the request has an edge</text>
   <rect x="576" y="70" width="384" height="46" rx="3" fill="#EAF3EE" stroke="#A8D5C0"/>
   <text x="768" y="98" text-anchor="middle" fill="#1B5C46" font-family="Poppins,Futura,'Century Gothic','Avenir Next',Avenir,sans-serif" font-size="14.5" font-weight="500">One contract it is answerable for</text>
   <path d="M768 116 L768 136" stroke="#7DBFA3" stroke-width="1.5"/>
@@ -262,7 +266,7 @@
   <path d="M768 182 L768 202" stroke="#7DBFA3" stroke-width="1.5"/>
   <rect x="576" y="202" width="384" height="46" rx="3" fill="#EAF3EE" stroke="#A8D5C0"/>
   <text x="768" y="230" text-anchor="middle" fill="#1B5C46" font-family="Poppins,Futura,'Century Gothic','Avenir Next',Avenir,sans-serif" font-size="14.5" font-weight="500">Variation inside something testable</text>
-  <text x="500" y="284" text-anchor="middle" fill="#5B6E80" font-family="Helvetica,Arial,sans-serif" font-size="12.5">The difference is not speed. It is whether there is anything to check the second run against.</text>
+  <text x="500" y="284" text-anchor="middle" fill="#5B6E80" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="12.5">The difference is not speed. It is whether there is anything to check the second run against.</text>
 </svg></div>
 
 <h3>Why that is not a preference</h3>

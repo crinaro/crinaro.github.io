@@ -99,6 +99,8 @@
   @media (min-width:48rem) { .cols { grid-template-columns:repeat(3,1fr); gap:2.4rem; } }
   
   @media (min-width:48rem) { .cols.four { grid-template-columns:repeat(2,1fr); } }
+  
+  @media (min-width:48rem) { .cols.five { grid-template-columns:repeat(2,1fr); } }
   .col { display:flex; flex-direction:column; gap:.5rem; }
   .col .rule { width:2rem; height:3px; background:var(--green); border-radius:2px; margin-bottom:.4rem; }
   
@@ -119,6 +121,8 @@
 
   
   .flow { overflow-x:auto; -webkit-overflow-scrolling:touch; }
+  
+  .fig { margin:.6rem 0 3.4rem; }
   .flow svg { width:100%; min-width:38rem; height:auto; display:block; }
   
   .note { margin-top:2.4rem; font-size:.95rem; color:var(--muted); max-width:40rem; }
@@ -238,7 +242,7 @@
   <text x="140" y="120" text-anchor="end" fill="#5B6E80" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="11" letter-spacing="1.4">CAPABILITY</text>
   <rect x="160" y="90" width="840" height="54" rx="3" fill="#F2F6F8" stroke="#DCE4EA"/>
   <text x="580" y="114" text-anchor="middle" fill="#0B2545" font-family="Poppins,Futura,'Century Gothic','Avenir Next',Avenir,sans-serif" font-size="16" font-weight="500">What we want for the sales team, or the customer</text>
-  <text x="580" y="133" text-anchor="middle" fill="#5B6E80" font-family="Helvetica,Arial,sans-serif" font-size="12.5">the level a product manager can still explain</text>
+  <text x="580" y="133" text-anchor="middle" fill="#5B6E80" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="12.5">the level a product manager can still explain</text>
     <path d="M580 144 C580 162 238 158 238 176" stroke="#93B8D4" stroke-width="1.5" fill="none"/>
   <path d="M580 144 C580 162 408 158 408 176" stroke="#93B8D4" stroke-width="1.5" fill="none"/>
   <path d="M580 144 C580 162 578 158 578 176" stroke="#93B8D4" stroke-width="1.5" fill="none"/>
@@ -251,7 +255,7 @@
   <text x="238" y="208" text-anchor="middle" fill="#0B2545" font-family="Poppins,Futura,'Century Gothic','Avenir Next',Avenir,sans-serif" font-size="15" font-weight="500">UI</text>
   <rect x="330" y="176" width="156" height="54" rx="3" fill="#EAF3EE" stroke="#A8D5C0"/>
   <text x="408" y="200" text-anchor="middle" fill="#1B5C46" font-family="Poppins,Futura,'Century Gothic','Avenir Next',Avenir,sans-serif" font-size="15" font-weight="500">API</text>
-  <text x="408" y="218" text-anchor="middle" fill="#5B6E80" font-family="Helvetica,Arial,sans-serif" font-size="11.5">the one worked below</text>
+  <text x="408" y="218" text-anchor="middle" fill="#5B6E80" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="11.5">the one worked below</text>
   <rect x="500" y="176" width="156" height="54" rx="3" fill="#F2F6F8" stroke="#DCE4EA"/>
   <text x="578" y="208" text-anchor="middle" fill="#0B2545" font-family="Poppins,Futura,'Century Gothic','Avenir Next',Avenir,sans-serif" font-size="15" font-weight="500">Core logic</text>
   <rect x="670" y="176" width="156" height="54" rx="3" fill="#F2F6F8" stroke="#DCE4EA"/>
@@ -271,16 +275,16 @@
   <text x="140" y="350" text-anchor="end" fill="#5B6E80" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="11" letter-spacing="1.4">PER TEAM</text>
     <rect x="160" y="300" width="195" height="58" rx="3" fill="#EAF3EE" stroke="#A8D5C0"/>
   <text x="257" y="326" text-anchor="middle" fill="#1B5C46" font-family="Poppins,Futura,'Century Gothic','Avenir Next',Avenir,sans-serif" font-size="15" font-weight="500">Facade layer</text>
-  <text x="257" y="344" text-anchor="middle" fill="#5B6E80" font-family="Helvetica,Arial,sans-serif" font-size="11.5">new interface</text>
+  <text x="257" y="344" text-anchor="middle" fill="#5B6E80" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="11.5">new interface</text>
   <rect x="375" y="300" width="195" height="58" rx="3" fill="#EAF3EE" stroke="#A8D5C0"/>
   <text x="472" y="326" text-anchor="middle" fill="#1B5C46" font-family="Poppins,Futura,'Century Gothic','Avenir Next',Avenir,sans-serif" font-size="15" font-weight="500">Domain service</text>
-  <text x="472" y="344" text-anchor="middle" fill="#5B6E80" font-family="Helvetica,Arial,sans-serif" font-size="11.5">one</text>
+  <text x="472" y="344" text-anchor="middle" fill="#5B6E80" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="11.5">one</text>
   <rect x="590" y="300" width="195" height="58" rx="3" fill="#EAF3EE" stroke="#A8D5C0"/>
   <text x="687" y="326" text-anchor="middle" fill="#1B5C46" font-family="Poppins,Futura,'Century Gothic','Avenir Next',Avenir,sans-serif" font-size="15" font-weight="500">Domain service</text>
-  <text x="687" y="344" text-anchor="middle" fill="#5B6E80" font-family="Helvetica,Arial,sans-serif" font-size="11.5">two</text>
+  <text x="687" y="344" text-anchor="middle" fill="#5B6E80" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="11.5">two</text>
   <rect x="805" y="300" width="195" height="58" rx="3" fill="#EAF3EE" stroke="#A8D5C0"/>
   <text x="902" y="326" text-anchor="middle" fill="#1B5C46" font-family="Poppins,Futura,'Century Gothic','Avenir Next',Avenir,sans-serif" font-size="15" font-weight="500">Domain service</text>
-  <text x="902" y="344" text-anchor="middle" fill="#5B6E80" font-family="Helvetica,Arial,sans-serif" font-size="11.5">three</text>
+  <text x="902" y="344" text-anchor="middle" fill="#5B6E80" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="11.5">three</text>
 </svg></div>
 
 <p>Take the API delivery. The new experience needs a facade layer interface, and the facade calls

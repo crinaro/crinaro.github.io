@@ -102,6 +102,8 @@
   @media (min-width:48rem) { .cols { grid-template-columns:repeat(3,1fr); gap:2.4rem; } }
   
   @media (min-width:48rem) { .cols.four { grid-template-columns:repeat(2,1fr); } }
+  
+  @media (min-width:48rem) { .cols.five { grid-template-columns:repeat(2,1fr); } }
   .col { display:flex; flex-direction:column; gap:.5rem; }
   .col .rule { width:2rem; height:3px; background:var(--green); border-radius:2px; margin-bottom:.4rem; }
   
@@ -122,6 +124,8 @@
 
   
   .flow { overflow-x:auto; -webkit-overflow-scrolling:touch; }
+  
+  .fig { margin:.6rem 0 3.4rem; }
   .flow svg { width:100%; min-width:38rem; height:auto; display:block; }
   
   .note { margin-top:2.4rem; font-size:.95rem; color:var(--muted); max-width:40rem; }
@@ -231,11 +235,16 @@
       
       
       
-      <p class="eyebrow">The question</p>
+      
+      <p class="eyebrow">Adoption went well</p>
       <h2>Agents went in,<br>your costs went up. Why?</h2>
       
-      <p>Four questions decide whether agents pay. Who owns this part of the system? Where are
-         the facts about it? How does a decision get made? Who should do the work?</p>
+      
+      
+      <p>You already answer five questions about every team you run. Who owns this? Where do they
+         get their facts? How does a decision get made? Who does the work? Who builds the team?</p>
+      <p>Nobody adds fifteen people without answering them first. Agent teams are getting stood up
+         without the same controls.</p>
       
       
       
@@ -243,12 +252,68 @@
          organization it lands in and costs continue to rise.
          <a class="src" href="https://services.google.com/fh/files/misc/2025_state_of_ai_assisted_software_development.pdf">DORA reports the amplification</a>,
          across nearly five thousand practitioners.</p>
-      <p>The other three stay nobody's job, so the system keeps the shape of the teams that built
+      <p>The other four stay nobody's job, so the system keeps the shape of the teams that built
          it: <a class="src" href="/notes/five-user-apis/">why do we have five user APIs</a>. If you
          can maintain the platform you have and keep building on it while you hit your financial
          goals, keep going. If you cannot, the system has to change, not just the tools.</p>
+      
+      <p>The technology is new. The problem it lands in is not. Flow and ownership is what Conway
+         named, and what you already manage everywhere else.</p>
     </div>
-    <div class="cols four">
+    
+    <div class="flow fig"><svg viewBox="40 0 920 350" role="img"
+     aria-label="Two columns. On the left, three teams each hold their own customer record and the three disagree, because each one is correct inside its own system. On the right, the same three teams, but one of them owns the customer record and the other two read from it.">
+  <text x="40" y="24" fill="#0B2545" font-family="Poppins,Futura,'Century Gothic','Avenir Next',Avenir,sans-serif" font-size="16" font-weight="500">Nobody owns the fact</text>
+  <text x="40" y="44" fill="#5B6E80" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="12.5">three teams, three answers</text>
+  <rect x="40" y="66" width="118" height="30" rx="3" fill="#FFFFFF" stroke="#DCE4EA"/>
+  <text x="99" y="86" text-anchor="middle" fill="#0B2545" font-family="Poppins,Futura,'Century Gothic','Avenir Next',Avenir,sans-serif" font-size="13" font-weight="500">Billing</text>
+  <path d="M99 96 L99 114" stroke="#93B8D4" stroke-width="1.5"/>
+  <rect x="40" y="114" width="118" height="38" rx="3" fill="#F2F6F8" stroke="#DCE4EA"/>
+  <text x="99" y="138" text-anchor="middle" fill="#0B2545" font-family="Poppins,Futura,'Century Gothic','Avenir Next',Avenir,sans-serif" font-size="14.5" font-weight="500">customer</text>
+  <rect x="173" y="66" width="118" height="30" rx="3" fill="#FFFFFF" stroke="#DCE4EA"/>
+  <text x="232" y="86" text-anchor="middle" fill="#0B2545" font-family="Poppins,Futura,'Century Gothic','Avenir Next',Avenir,sans-serif" font-size="13" font-weight="500">Support</text>
+  <path d="M232 96 L232 114" stroke="#93B8D4" stroke-width="1.5"/>
+  <rect x="173" y="114" width="118" height="38" rx="3" fill="#F2F6F8" stroke="#DCE4EA"/>
+  <text x="232" y="138" text-anchor="middle" fill="#0B2545" font-family="Poppins,Futura,'Century Gothic','Avenir Next',Avenir,sans-serif" font-size="14.5" font-weight="500">customer</text>
+  <rect x="306" y="66" width="118" height="30" rx="3" fill="#FFFFFF" stroke="#DCE4EA"/>
+  <text x="365" y="86" text-anchor="middle" fill="#0B2545" font-family="Poppins,Futura,'Century Gothic','Avenir Next',Avenir,sans-serif" font-size="13" font-weight="500">Sales</text>
+  <path d="M365 96 L365 114" stroke="#93B8D4" stroke-width="1.5"/>
+  <rect x="306" y="114" width="118" height="38" rx="3" fill="#F2F6F8" stroke="#DCE4EA"/>
+  <text x="365" y="138" text-anchor="middle" fill="#0B2545" font-family="Poppins,Futura,'Century Gothic','Avenir Next',Avenir,sans-serif" font-size="14.5" font-weight="500">customer</text>
+  <path d="M161 133 L170 133" stroke="#93B8D4" stroke-width="1.5" stroke-dasharray="3 3"/>
+  <path d="M294 133 L303 133" stroke="#93B8D4" stroke-width="1.5" stroke-dasharray="3 3"/>
+  <text x="232" y="196" text-anchor="middle" fill="#5B6E80" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="12.5">each one is right inside its own system</text>
+
+  <text x="566" y="24" fill="#1B5C46" font-family="Poppins,Futura,'Century Gothic','Avenir Next',Avenir,sans-serif" font-size="16" font-weight="500">One owner, and it travels</text>
+  <text x="566" y="44" fill="#5B6E80" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="12.5">one team answerable, the rest read it</text>
+  <rect x="566" y="66" width="118" height="30" rx="3" fill="#EAF3EE" stroke="#A8D5C0"/>
+  <text x="625" y="86" text-anchor="middle" fill="#1B5C46" font-family="Poppins,Futura,'Century Gothic','Avenir Next',Avenir,sans-serif" font-size="13" font-weight="500">Billing</text>
+  <path d="M625 96 L625 114" stroke="#7DBFA3" stroke-width="1.5"/>
+  <rect x="566" y="114" width="118" height="38" rx="3" fill="#EAF3EE" stroke="#A8D5C0"/>
+  <text x="625" y="138" text-anchor="middle" fill="#1B5C46" font-family="Poppins,Futura,'Century Gothic','Avenir Next',Avenir,sans-serif" font-size="14.5" font-weight="500">customer</text>
+  <rect x="699" y="66" width="118" height="30" rx="3" fill="#FFFFFF" stroke="#DCE4EA"/>
+  <text x="758" y="86" text-anchor="middle" fill="#5B6E80" font-family="Poppins,Futura,'Century Gothic','Avenir Next',Avenir,sans-serif" font-size="13" font-weight="500">Support</text>
+  <path d="M758 96 L758 114" stroke="#DCE4EA" stroke-width="1.5"/>
+  <rect x="699" y="114" width="118" height="38" rx="3" fill="#FFFFFF" stroke="#DCE4EA"/>
+  <text x="758" y="138" text-anchor="middle" fill="#5B6E80" font-family="Poppins,Futura,'Century Gothic','Avenir Next',Avenir,sans-serif" font-size="14.5" font-weight="500">reads it</text>
+  <rect x="832" y="66" width="118" height="30" rx="3" fill="#FFFFFF" stroke="#DCE4EA"/>
+  <text x="891" y="86" text-anchor="middle" fill="#5B6E80" font-family="Poppins,Futura,'Century Gothic','Avenir Next',Avenir,sans-serif" font-size="13" font-weight="500">Sales</text>
+  <path d="M891 96 L891 114" stroke="#DCE4EA" stroke-width="1.5"/>
+  <rect x="832" y="114" width="118" height="38" rx="3" fill="#FFFFFF" stroke="#DCE4EA"/>
+  <text x="891" y="138" text-anchor="middle" fill="#5B6E80" font-family="Poppins,Futura,'Century Gothic','Avenir Next',Avenir,sans-serif" font-size="14.5" font-weight="500">reads it</text>
+  <path d="M625 152 L625 172 L891 172" fill="none" stroke="#7DBFA3" stroke-width="1.5"/>
+  <path d="M758 172 L758 152" fill="none" stroke="#7DBFA3" stroke-width="1.5"/>
+  <path d="M754 158 L758 152 L762 158" fill="none" stroke="#7DBFA3" stroke-width="1.5"/>
+  <path d="M891 172 L891 152" fill="none" stroke="#7DBFA3" stroke-width="1.5"/>
+  <path d="M887 158 L891 152 L895 158" fill="none" stroke="#7DBFA3" stroke-width="1.5"/>
+  <text x="758" y="196" text-anchor="middle" fill="#5B6E80" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="12.5">the owner keeps it true and pushes it out</text>
+
+  <text x="500" y="244" text-anchor="middle" fill="#0B2545" font-family="Poppins,Futura,'Century Gothic','Avenir Next',Avenir,sans-serif" font-size="14.5" font-weight="500">The org chart on top already exists. The row underneath is the one nobody drew.</text>
+  <text x="500" y="286" text-anchor="middle" fill="#5B6E80" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="12.5">A run of acquisitions leaves this behind: the value arrives once,</text>
+  <text x="500" y="306" text-anchor="middle" fill="#5B6E80" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="12.5">and the cost of three answers arrives every year after.</text>
+  <text x="500" y="326" text-anchor="middle" fill="#5B6E80" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="12.5">Agents do not resolve it. They read all three and answer with confidence.</text>
+</svg></div>
+    <div class="cols five">
       <div class="col"><div class="rule"></div>
         <h3>A name against each capability</h3><p>Not whoever picked it up. One team answerable for each part of the system after the current deadline, and an operating process that keeps it that way.</p></div>
       <div class="col"><div class="rule"></div>
@@ -257,6 +322,8 @@
         <h3>The why, captured when it is decided</h3><p>Code says what it does. It never says why it was built that way. Written down by whoever made the call, at the time, not reconstructed later by somebody who was not there.</p></div>
       <div class="col"><div class="rule"></div>
         <h3>A route from a question to its owner</h3><p>Not whoever is nearest. The question reaches the team that owns it, and when something of theirs is broken they fix it, rather than everyone routing around it.</p></div>
+      <div class="col"><div class="rule"></div>
+        <h3>One owner for the data, the APIs and the agents</h3><p>Whoever owns a capability owns the data behind it, the APIs that expose it, and the agents that work on it. Agents do not arrive trained: somebody designs them, checks their work and keeps improving them. Count that inside their span of control rather than on top of it.</p></div>
     </div>
   </div>
 </section>
@@ -265,7 +332,8 @@
   <div class="wrap">
     <div class="head narrow">
       
-      <p class="eyebrow">What it is for</p>
+      
+      <p class="eyebrow">Where the velocity went</p>
       <h2>Fewer places to change,<br>year over year.</h2>
       <p>If the model is working, the number of systems you have to change to deliver one thing the
          business asked for goes down. That is the measure.</p>
@@ -284,10 +352,12 @@
       
       <p class="eyebrow">Where to start</p>
       <h2>Own what is&nbsp;nobody's job.</h2>
-      <p>Fund the four above, and the platform they run on. None of it is a tool decision, and
+      <p>Fund the five above, and the platform they run on. None of it is a tool decision, and
          nobody has to be persuaded to think in systems.</p>
+      
       <p>What it costs is ownership: a delivery date into a queue you do not control, time with
-         the teams until they want it, and funded work to remove what is already duplicated.
+         the teams until they want it, funded work to remove what is already duplicated, and
+         people to build the agent teams rather than only supervise them.
          Reading any of it as free is the most expensive mistake here.</p>
       <p>It needs an owner no single project produces.
          <a class="src" href="/what-you-already-have/">What the gaps in your machinery cost</a></p>
