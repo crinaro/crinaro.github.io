@@ -110,6 +110,11 @@
   @media (min-width:48rem) { .cols.five > .col:last-child:nth-child(odd) { grid-column:1 / -1; } }
   .col { display:flex; flex-direction:column; gap:.5rem; }
   .col .rule { width:2rem; height:3px; background:var(--green); border-radius:2px; margin-bottom:.4rem; }
+  .col .eyebrow.q { margin:0; color:var(--green); }
+  .bookmark { margin-top:2.4rem; padding:1.3rem 1.5rem; background:var(--paper);
+              border-left:3px solid var(--green); }
+  .bookmark p { margin:0; }
+  .bookmark .eyebrow { margin-bottom:.55rem; color:var(--green); }
   
   .src { font-family:var(--head); font-size:.92rem; letter-spacing:.02em;
          text-decoration:none; border-bottom:1px solid rgba(27,92,70,.35);
@@ -130,6 +135,9 @@
   .flow { overflow-x:auto; -webkit-overflow-scrolling:touch; }
   
   @media (max-width:40rem) {
+    .exhibit::before { content:"Scroll sideways for the whole chart →"; display:block;
+                       position:sticky; left:0; font-size:.75rem; color:var(--rblue);
+                       margin:0 0 .6rem; white-space:nowrap; }
     .flow::before { content:"Scroll sideways for the whole diagram →"; display:block;
                     position:sticky; left:0; font-size:.75rem; color:var(--muted);
                     margin:0 0 .5rem; white-space:nowrap; }
@@ -275,29 +283,92 @@
       
       
       
-      <p class="eyebrow">Adoption went well</p>
+      
+      <p class="eyebrow">Where you are</p>
       <h2>Agents went in,<br>your costs went up. Why?</h2>
       
       
       
-      <p>You already answer five questions about every team you run. Who owns this? Where do they
-         get their facts? How does a decision get made? Who does the work? Who builds the team?</p>
+      
+      <p>It is not just you. McKinsey asked 1,719 people across 97 nations for its August 2026
+         report.</p>
+    </div>
+    
+    <div class="exhibit"><svg viewBox="0 0 960 320" role="img"
+     aria-label="Three rows, each comparing 2025 with 2026. The share of organizations scaling AI across the enterprise rises from 38 percent to 44 percent. The share reporting EBIT impact is unchanged at 37 percent. The share who are AI high performers is unchanged at 6 percent. One line rises and two are flat.">
+  <text x="40" y="42" fill="#FFFFFF" font-family="Poppins,Futura,'Century Gothic','Avenir Next',Avenir,sans-serif" font-size="18" font-weight="500">Adoption went up. Impact did not.</text>
+  <text x="40" y="64" fill="#93B8D4" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="12.5">2025 to 2026, same survey both years</text>
+  <text x="40" y="101" fill="#FFFFFF" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="13.5">Scaling AI across the enterprise</text>
+  <line x1="330" y1="109" x2="760" y2="83" stroke="#FFFFFF" stroke-width="2.5"/>
+  <circle cx="330" cy="109" r="3.5" fill="#FFFFFF"/>
+  <circle cx="760" cy="83" r="5" fill="#FFFFFF"/>
+  <text x="790" y="92" fill="#FFFFFF" font-family="Poppins,Futura,'Century Gothic','Avenir Next',Avenir,sans-serif" font-size="27" font-weight="500">44%</text>
+  <text x="330" y="131" fill="#93B8D4" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="12">from 38%</text>
+  <text x="40" y="173" fill="#93B8D4" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="13.5">Reporting EBIT impact</text>
+  <line x1="330" y1="168" x2="760" y2="168" stroke="#93B8D4" stroke-width="1.5" stroke-dasharray="5 4"/>
+  <circle cx="330" cy="168" r="3.5" fill="#93B8D4"/>
+  <circle cx="760" cy="168" r="4" fill="#93B8D4"/>
+  <text x="790" y="177" fill="#93B8D4" font-family="Poppins,Futura,'Century Gothic','Avenir Next',Avenir,sans-serif" font-size="22" font-weight="500">37%</text>
+  <text x="330" y="190" fill="#93B8D4" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="12">unchanged</text>
+  <text x="40" y="245" fill="#93B8D4" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="13.5">AI high performers</text>
+  <line x1="330" y1="240" x2="760" y2="240" stroke="#93B8D4" stroke-width="1.5" stroke-dasharray="5 4"/>
+  <circle cx="330" cy="240" r="3.5" fill="#93B8D4"/>
+  <circle cx="760" cy="240" r="4" fill="#93B8D4"/>
+  <text x="790" y="249" fill="#93B8D4" font-family="Poppins,Futura,'Century Gothic','Avenir Next',Avenir,sans-serif" font-size="22" font-weight="500">6%</text>
+  <text x="330" y="262" fill="#93B8D4" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="12">unchanged</text>
+  <text x="40" y="296" fill="#93B8D4" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="12">McKinsey, State of AI 2026, pp. 5, 12 and 17. The lower two are drawn flat because the report states them</text>
+  <text x="40" y="314" fill="#93B8D4" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="12">as unchanged rather than printing a 2025 figure.</text>
+</svg></div>
+    <div class="stats">
+      <div class="stat">
+        <b>44%</b><p>say AI is scaling across the enterprise. The only line above that moved.</p>
+        <span class="base"><a href="https://www.mckinsey.com/capabilities/quantumblack/our-insights/the-state-of-ai">McKinsey, 1,719 respondents, p. 5</a></span>
+      </div>
+      <div class="stat">
+        <b>37%</b><p>say it reached EBIT. A survey answer, not an audited line.</p>
+        <span class="base"><a href="https://www.mckinsey.com/capabilities/quantumblack/our-insights/the-state-of-ai">Of respondents, not of companies, p. 12</a></span>
+      </div>
+      <div class="stat">
+        <b>6%</b><p>attribute 5% or more of EBIT to it. That share has not moved either.</p>
+        <span class="base"><a href="https://www.mckinsey.com/capabilities/quantumblack/our-insights/the-state-of-ai">And report significant value. McKinsey's AI high performers, p. 17</a></span>
+      </div>
+      <div class="stat">
+        <b>3 in 4</b><p>of that 6% report redesigning the work itself. One in four of the rest do.</p>
+        <span class="base"><a href="https://www.mckinsey.com/capabilities/quantumblack/our-insights/the-state-of-ai">Nearly three-quarters, and n = 92 against 1,429 others, p. 18</a></span>
+      </div>
+    </div>
+    <div class="head narrow">
+      
+      
+      
+      
+      
+      <p>Those figures are leaders grading their own organizations, and a second firm reports a
+         similar distance between adoption and return.<sup class="fn">1</sup> So the question is not whether you are adopting AI. It is
+         whether the way you adopt it can move EBIT.</p>
+      
+      <p>The way you adopt it is where the problem starts. Every team of people you run already
+         answers five questions: Who owns this? Where do they get their facts? How does a decision
+         get made? Who does the work? Who builds the team?</p>
       <p>Nobody adds fifteen people without answering them first. Agent teams are getting stood up
-         without the same controls.</p>
+         without the same controls. Each question has an answer further down, and none of the
+         answers is a tool.</p>
       
       
       
-      <p>Teams answer the first by adopting AI the way they already work, so it amplifies the
+      <p>Teams answer “Who owns this?” by adopting AI the way they already work, so it amplifies the
          organization it lands in and costs continue to rise.
          <a class="src" href="https://services.google.com/fh/files/misc/2025_state_of_ai_assisted_software_development.pdf">DORA reports the amplification</a>,
          across nearly five thousand practitioners.</p>
       <p>The other four stay nobody's job, so the system keeps the shape of the teams that built
-         it: <a class="src" href="/notes/five-user-apis/">why do we have five user APIs</a>. If you
-         can maintain the platform you have and keep building on it while you hit your financial
-         goals, keep going. If you cannot, the system has to change, not just the tools.</p>
+         it: <a class="src" href="/notes/five-user-apis/">why do we have five user APIs</a>.</p>
       
-      <p>The technology is new. The problem it lands in is not. Flow and ownership is what Conway
-         named, and what you already manage everywhere else.</p>
+      
+      <p>The technology is new. The problem it lands in is not: it is flow and ownership, which
+         you already manage everywhere else.</p>
+      
+      <p>Projects and acquisitions leave the same shape behind: three teams with three answers to
+         the same fact, and agents that read all three and answer with confidence.</p>
     </div>
     
     <div class="flow fig"><svg viewBox="40 0 920 350" role="img"
@@ -355,88 +426,38 @@
 </svg></div>
     <div class="cols five">
       <div class="col"><div class="rule"></div>
-        <h3>A name against each capability</h3><p>Not whoever picked it up. One team answerable for each part of the system after the current deadline, and an operating process that keeps it that way.</p></div>
+        <p class="eyebrow q">Who owns this?</p><h3>A name against each capability</h3><p>Not whoever picked it up. One team answerable for each part of the system after the current deadline, and an operating process that keeps it that way.</p></div>
       <div class="col"><div class="rule"></div>
-        <h3>One place the facts live</h3><p>How your system works, and the procedures people once learned by training, written where an agent can read them. Agents decide from what they are given. Without it, they guess. <a class="src" href="/notes/who-owns-the-answer/">Who owns the answer</a></p></div>
+        <p class="eyebrow q">Where do they get their facts?</p><h3>One place the facts live</h3><p>How your system works, and the procedures people once learned by training, written where an agent can read them. Agents decide from what they are given. Without it, they guess. <a class="src" href="/notes/who-owns-the-answer/">Who owns the answer</a></p></div>
       <div class="col"><div class="rule"></div>
-        <h3>The why, captured when it is decided</h3><p>Code says what it does. It never says why it was built that way, or which duplicate is meant to go. Written down by whoever made the call, at the time, not reconstructed later by somebody who was not there.</p></div>
+        <p class="eyebrow q">How does a decision get made?</p><h3>The why, captured when it is decided</h3><p>Code says what it does. It never says why it was built that way, or which duplicate is meant to go. Written down by whoever made the call, at the time, not reconstructed later by somebody who was not there.</p></div>
       <div class="col"><div class="rule"></div>
-        <h3>A route from a question to its owner</h3><p>Not whoever is nearest. The question reaches the team that owns it, and when something of theirs is broken they fix it, rather than everyone routing around it.</p></div>
+        <p class="eyebrow q">Who does the work?</p><h3>A route from a question to its owner</h3><p>Not whoever is nearest. The question reaches the team that owns it, and when something of theirs is broken they fix it, rather than everyone routing around it.</p></div>
       <div class="col"><div class="rule"></div>
-        <h3>One owner, from the data to the agents</h3><p>Whoever owns a capability owns the data behind it, the systems that read it, and the agents that work on it. Agents do not arrive trained: somebody designs them, checks their work and keeps improving them. Count that inside their span of control rather than on top of it.</p></div>
+        <p class="eyebrow q">Who builds the team?</p><h3>A team that builds the teams</h3><p>Agents do not arrive trained: somebody designs them, checks their work and keeps improving them. In engineering that may be the team that runs them; elsewhere it may be a separate group. Either way it is a role the organization stands up and staffs, not work added to the side of someone's desk.</p></div>
     </div>
     
     
     <div class="head narrow">
-      <p>It is not just you. McKinsey asked 1,719 people across 97 nations for its August 2026
-         report, and what they reported was this.</p>
+      
+      <ol class="refs">
+        <li><a class="src" href="https://kpmg.com/content/dam/kpmgsites/xx/pdf/2026/04/global-ai-pulse.pdf">KPMG, Global AI Pulse, April 2026</a>,
+          p. 10: a second firm, at one point rather than over a year. Nearly 40% of 2,110 leaders said
+          their organization was scaling AI or driving adoption
+          across the enterprise, and 8% reported an established return on investment.</li>
+      </ol>
     </div>
-    
-    <div class="exhibit"><svg viewBox="0 0 960 320" role="img"
-     aria-label="Three rows, each comparing 2025 with 2026. The share of organizations scaling AI across the enterprise rises from 38 percent to 44 percent. The share reporting EBIT impact is unchanged at 37 percent. The share who are AI high performers is unchanged at 6 percent. One line rises and two are flat.">
-  <text x="40" y="42" fill="#FFFFFF" font-family="Poppins,Futura,'Century Gothic','Avenir Next',Avenir,sans-serif" font-size="18" font-weight="500">Adoption went up. Impact did not.</text>
-  <text x="40" y="64" fill="#93B8D4" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="12.5">2025 to 2026, same survey both years</text>
-  <text x="40" y="101" fill="#FFFFFF" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="13.5">Scaling AI across the enterprise</text>
-  <line x1="330" y1="109" x2="760" y2="83" stroke="#FFFFFF" stroke-width="2.5"/>
-  <circle cx="330" cy="109" r="3.5" fill="#FFFFFF"/>
-  <circle cx="760" cy="83" r="5" fill="#FFFFFF"/>
-  <text x="790" y="92" fill="#FFFFFF" font-family="Poppins,Futura,'Century Gothic','Avenir Next',Avenir,sans-serif" font-size="27" font-weight="500">44%</text>
-  <text x="330" y="131" fill="#93B8D4" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="12">from 38%</text>
-  <text x="40" y="173" fill="#93B8D4" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="13.5">Reporting EBIT impact</text>
-  <line x1="330" y1="168" x2="760" y2="168" stroke="#93B8D4" stroke-width="1.5" stroke-dasharray="5 4"/>
-  <circle cx="330" cy="168" r="3.5" fill="#93B8D4"/>
-  <circle cx="760" cy="168" r="4" fill="#93B8D4"/>
-  <text x="790" y="177" fill="#93B8D4" font-family="Poppins,Futura,'Century Gothic','Avenir Next',Avenir,sans-serif" font-size="22" font-weight="500">37%</text>
-  <text x="330" y="190" fill="#93B8D4" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="12">unchanged</text>
-  <text x="40" y="245" fill="#93B8D4" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="13.5">AI high performers</text>
-  <line x1="330" y1="240" x2="760" y2="240" stroke="#93B8D4" stroke-width="1.5" stroke-dasharray="5 4"/>
-  <circle cx="330" cy="240" r="3.5" fill="#93B8D4"/>
-  <circle cx="760" cy="240" r="4" fill="#93B8D4"/>
-  <text x="790" y="249" fill="#93B8D4" font-family="Poppins,Futura,'Century Gothic','Avenir Next',Avenir,sans-serif" font-size="22" font-weight="500">6%</text>
-  <text x="330" y="262" fill="#93B8D4" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="12">unchanged</text>
-  <text x="40" y="296" fill="#93B8D4" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="12">McKinsey, State of AI 2026, pp. 5, 12 and 17. The lower two are drawn flat because the report states them</text>
-  <text x="40" y="314" fill="#93B8D4" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="12">as unchanged rather than printing a 2025 figure.</text>
-</svg></div>
-    <div class="stats">
-      <div class="stat">
-        <b>44%</b><p>say AI is scaling across the enterprise. The only line above that moved.</p>
-        <span class="base"><a href="https://www.mckinsey.com/capabilities/quantumblack/our-insights/the-state-of-ai">McKinsey, 1,719 respondents, p. 5</a></span>
-      </div>
-      <div class="stat">
-        <b>37%</b><p>say it reached EBIT. A survey answer, not an audited line.</p>
-        <span class="base"><a href="https://www.mckinsey.com/capabilities/quantumblack/our-insights/the-state-of-ai">Of respondents, not of companies, p. 12</a></span>
-      </div>
-      <div class="stat">
-        <b>6%</b><p>attribute 5% or more of EBIT to it. That share has not moved either.</p>
-        <span class="base"><a href="https://www.mckinsey.com/capabilities/quantumblack/our-insights/the-state-of-ai">And report significant value. McKinsey's AI high performers, p. 17</a></span>
-      </div>
-      <div class="stat">
-        <b>3 in 4</b><p>of that 6% report redesigning the work itself. One in four of the rest do.</p>
-        <span class="base"><a href="https://www.mckinsey.com/capabilities/quantumblack/our-insights/the-state-of-ai">Nearly three-quarters, and n = 92 against 1,429 others, p. 18</a></span>
-      </div>
-    </div>
+  </div>
+</section>
+
+
+<section>
+  <div class="wrap">
     <div class="head narrow">
       
+      <p class="eyebrow">Where to start</p>
+      <h2>Own what is&nbsp;nobody's job.</h2>
       
-      
-      
-      
-      <p>Those figures are leaders grading their own organizations, and a second firm reports a
-         similar distance between adoption and return.<sup class="fn">1</sup> So the question is not whether you are adopting AI. It is
-         whether the way you adopt it can move EBIT.</p>
-      <p>The 6% changed the work, not just the tools, three times as often as everyone else. You do
-         not get a different number out of the same system.</p>
-      
-      
-      <p>Prompt-style use is the easy thing to adopt. It assists a person and it does not make the
-         work repeatable, which is the difference between a team getting faster and a number
-         moving.</p>
-      
-      
-      <p>You could read all of this as simply early. Economists call that lag the
-         <a class="src" href="https://www.nber.org/papers/w25148">productivity J-curve</a>: the gain
-         arrives only after the work around the technology has been rebuilt. Either way the work has
-         to change, and nobody owns that change.</p>
       
       <p><a class="src" href="https://kpmg.com/content/dam/kpmgsites/xx/pdf/2026/06/global-ai-pulse-q2.pdf">KPMG asked 2,145 leaders</a>
          for its June 2026 report about running AI day to day: who can override it, who can pause
@@ -444,6 +465,15 @@
          managed.<sup class="fn">2</sup> An executive who owns AI and its controls is the start.
          Somebody also has to own the design: each process, each system and the data behind it, and
          how work moves between them, with the diligence you already give to organizing people.</p>
+      
+      <p>Fund an answer to each of the five questions above, and the platform they run on. None of
+         it is a tool decision. You can buy a product that maps what you already have; what you cannot buy is somebody answerable for keeping the map true.
+         <a class="src" href="/what-you-already-have/">What the gaps in your machinery cost</a></p>
+      
+      <p>What it costs is ownership: a delivery date into a queue you do not control, time with
+         the teams until they want it, funded work to remove what is already duplicated, and
+         people to build the agent teams rather than only supervise them.
+         Reading any of it as free is the most expensive mistake here.</p>
       
       
       
@@ -456,11 +486,21 @@
          system around them can take cost out. Leave it as it is and they amplify the organization you
          run today, costs included. That is a hard result to take to a board.</p>
       
-      <ol class="refs">
-        <li><a class="src" href="https://kpmg.com/content/dam/kpmgsites/xx/pdf/2026/04/global-ai-pulse.pdf">KPMG, Global AI Pulse, April 2026</a>,
-          p. 10: a second firm, at one point rather than over a year. Nearly 40% of 2,110 leaders said
-          their organization was scaling AI or driving adoption
-          across the enterprise, and 8% reported an established return on investment.</li>
+      <p>If you can maintain the platform you have and keep building on it while you hit your
+         financial goals, keep going. If you cannot, the system has to change, not just the
+         tools.</p>
+      
+      
+      <div class="bookmark">
+        <p class="eyebrow">Worth bookmarking</p>
+        
+        <p><b>What you can use, layer by layer.</b> The options at each layer of an agent setup:
+           a list, not a review, and every row carries the date it was read, so each visit shows
+           you how current it is.
+           <a class="src" href="/what-you-already-have/options/">See the options</a></p>
+      </div>
+      
+      <ol class="refs" start="2">
         <li><a class="src" href="https://www.ey.com/en_us/newsroom/2026/09/ey-survey-finds-that-autonomous-ai-implementation-outpaces-oversight-yielding-an-ai-governance-gap">EY, AI Risk and Governance Survey, September 2026</a>:
           a different firm, on controls. Of about 180 senior AI executives at US companies using agentic AI, 49% said their
           governance framework had not been updated for it, and 26% said they could not detect
@@ -477,56 +517,30 @@
     <div class="head narrow">
       
       
-      <p class="eyebrow">Where the velocity went</p>
+      
+      <p class="eyebrow">What success looks like</p>
       <h2>Fewer places to change,<br>year over year.</h2>
+      <p>The 6% who attribute 5% or more of EBIT to AI changed the work, not just the tools, three
+         times as often as everyone else. You do
+         not get a different number out of the same system.</p>
+      
+      
+      <p>Prompt-style use is the easy thing to adopt. It assists a person and it does not make the
+         work repeatable, which is the difference between a team getting faster and a number
+         moving.</p>
       <p>If your agent teams are working, the number of systems you have to change to deliver one thing the
          business asked for goes down. That is the measure.</p>
-      <p>Getting that number down takes going back and simplifying what is already there, and that is affordable at the
+      
+      
+      <p>You could read all of this as simply early. Economists call that lag the
+         <a class="src" href="https://www.nber.org/papers/w25148">productivity J-curve</a>: the gain
+         arrives only after the work around the technology has been rebuilt. Either way the work has
+         to change, and nobody owns that change.</p>
+      <p>Getting that count down takes going back and simplifying what is already there, and that is affordable at the
          same level of investment, if the organization prioritizes it. If it does not, the pattern holds. Two years on, the
          spend was real and the shape is the same. <i>We did so much.</i> Yes, you did. You did not
          change the pattern.
          <a class="src" href="/notes/count-the-changes/">Count the changes, not the repositories</a></p>
-    </div>
-  </div>
-</section>
-
-<section>
-  <div class="wrap">
-    <div class="head narrow">
-      
-      <p class="eyebrow">Where to start</p>
-      <h2>Own what is&nbsp;nobody's job.</h2>
-      
-      <p>Fund the five above, and the platform they run on. None of it is a tool decision, and
-         nobody has to be persuaded to think in systems. You can buy a product that maps what you
-         already have; what you cannot buy is somebody answerable for keeping the map true.</p>
-      
-      <p>What it costs is ownership: a delivery date into a queue you do not control, time with
-         the teams until they want it, funded work to remove what is already duplicated, and
-         people to build the agent teams rather than only supervise them.
-         Reading any of it as free is the most expensive mistake here.</p>
-      <p>It needs an owner no single project produces.
-         <a class="src" href="/what-you-already-have/">What the gaps in your machinery cost</a></p>
-    </div>
-  </div>
-</section>
-
-
-
-<section>
-  <div class="wrap">
-    <div class="head narrow">
-      
-      <p class="eyebrow">How the work gets done</p>
-      <h2>The model is under&nbsp;test, by being run.</h2>
-      <p>Not described: run, and still changing. Three agent teams keep it under test. One curates
-         the AI-SDLC reference this argument comes from. One maintains this brand and the page you
-         are reading. One runs a public marketplace you can open and install:
-         <a class="src" href="https://github.com/crinaro/marketplace">github.com/crinaro/marketplace</a>.
-         Three different problems on purpose, so the approach gets challenged rather than
-         confirmed.
-         <a class="src" href="/how-the-work-gets-done/">The three teams, and what each keeps
-         alive</a></p>
     </div>
   </div>
 </section>
@@ -545,6 +559,27 @@
       <div class="vert"><b>Healthcare</b><span>Records that cannot answer the question at the bedside</span></div>
       <div class="vert"><b>GovTech</b><span>Policy that never reaches the citizen as a working service</span></div>
       <div class="vert"><b>Travel</b><span>Fragmented inventory that fails the moment something goes wrong</span></div>
+    </div>
+  </div>
+</section>
+
+
+
+
+<section>
+  <div class="wrap">
+    <div class="head narrow">
+      
+      <p class="eyebrow">How the work gets done</p>
+      <h2>The model is under&nbsp;test, by being run.</h2>
+      <p>The model this page argues for is not described: it is run, and still changing. Three agent teams keep it under test. One curates AI-SDLC, the reference on delivering with agents that this argument
+         comes from. One maintains this brand and the page you
+         are reading. One runs a public marketplace you can open and install:
+         <a class="src" href="https://github.com/crinaro/marketplace">github.com/crinaro/marketplace</a>.
+         Three different problems on purpose, so the approach gets challenged rather than
+         confirmed.
+         <a class="src" href="/how-the-work-gets-done/">The three teams, and what each keeps
+         alive</a></p>
     </div>
   </div>
 </section>

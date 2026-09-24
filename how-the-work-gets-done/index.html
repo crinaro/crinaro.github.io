@@ -108,6 +108,11 @@
   @media (min-width:48rem) { .cols.five > .col:last-child:nth-child(odd) { grid-column:1 / -1; } }
   .col { display:flex; flex-direction:column; gap:.5rem; }
   .col .rule { width:2rem; height:3px; background:var(--green); border-radius:2px; margin-bottom:.4rem; }
+  .col .eyebrow.q { margin:0; color:var(--green); }
+  .bookmark { margin-top:2.4rem; padding:1.3rem 1.5rem; background:var(--paper);
+              border-left:3px solid var(--green); }
+  .bookmark p { margin:0; }
+  .bookmark .eyebrow { margin-bottom:.55rem; color:var(--green); }
   
   .src { font-family:var(--head); font-size:.92rem; letter-spacing:.02em;
          text-decoration:none; border-bottom:1px solid rgba(27,92,70,.35);
@@ -128,6 +133,9 @@
   .flow { overflow-x:auto; -webkit-overflow-scrolling:touch; }
   
   @media (max-width:40rem) {
+    .exhibit::before { content:"Scroll sideways for the whole chart →"; display:block;
+                       position:sticky; left:0; font-size:.75rem; color:var(--rblue);
+                       margin:0 0 .6rem; white-space:nowrap; }
     .flow::before { content:"Scroll sideways for the whole diagram →"; display:block;
                     position:sticky; left:0; font-size:.75rem; color:var(--muted);
                     margin:0 0 .5rem; white-space:nowrap; }

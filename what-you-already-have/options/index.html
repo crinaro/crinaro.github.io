@@ -105,6 +105,11 @@
   @media (min-width:48rem) { .cols.five > .col:last-child:nth-child(odd) { grid-column:1 / -1; } }
   .col { display:flex; flex-direction:column; gap:.5rem; }
   .col .rule { width:2rem; height:3px; background:var(--green); border-radius:2px; margin-bottom:.4rem; }
+  .col .eyebrow.q { margin:0; color:var(--green); }
+  .bookmark { margin-top:2.4rem; padding:1.3rem 1.5rem; background:var(--paper);
+              border-left:3px solid var(--green); }
+  .bookmark p { margin:0; }
+  .bookmark .eyebrow { margin-bottom:.55rem; color:var(--green); }
   
   .src { font-family:var(--head); font-size:.92rem; letter-spacing:.02em;
          text-decoration:none; border-bottom:1px solid rgba(27,92,70,.35);
@@ -125,6 +130,9 @@
   .flow { overflow-x:auto; -webkit-overflow-scrolling:touch; }
   
   @media (max-width:40rem) {
+    .exhibit::before { content:"Scroll sideways for the whole chart →"; display:block;
+                       position:sticky; left:0; font-size:.75rem; color:var(--rblue);
+                       margin:0 0 .6rem; white-space:nowrap; }
     .flow::before { content:"Scroll sideways for the whole diagram →"; display:block;
                     position:sticky; left:0; font-size:.75rem; color:var(--muted);
                     margin:0 0 .5rem; white-space:nowrap; }
@@ -239,6 +247,7 @@
             white-space:nowrap; display:inline-block; }
   
   .jump a { margin-right:1.8rem; }
+  .bookmark-line { margin:0 0 1.2rem; color:var(--ink-2); }
 </style>
 </head>
 <body>
@@ -257,6 +266,7 @@
   <p class="standfirst"><b>It is a list and not a review.</b> Nothing here ranks anything, no entry
      says a tool is good, and nobody here has operated most of them. A product missing from it was
      not evaluated and rejected. Nobody looked.</p>
+  <p class="bookmark-line"><b>Worth bookmarking.</b> Every row carries the date it was read, so each visit shows you how current it is.</p>
   <p class="written">List rendered 2026-09-13. The date on each row is the day its description
      was read, and the word beside it says whether that was <b>observed</b> on the page the row
      links to or <b>reasoned</b> from it. No push date, star count or license is printed here:

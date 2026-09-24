@@ -52,6 +52,8 @@ const CLAIM_HTML = CLAIM.replace(/\. /, '.<br>');
 
 const SUB = 'Ideas and patterns worked out over 30 years in healthcare, GovTech and travel, now applied with agents.';
 
+const QUESTIONS = ['Who owns this?', 'Where do they get their facts?', 'How does a decision get made?',
+                   'Who does the work?', 'Who builds the team?'];
 const problems = [
   ['A name against each capability',
    'Not whoever picked it up. One team answerable for each part of the system after the ' +
@@ -68,10 +70,11 @@ const problems = [
   ['A route from a question to its owner',
    'Not whoever is nearest. The question reaches the team that owns it, and when something of ' +
      'theirs is broken they fix it, rather than everyone routing around it.'],
-  ['One owner, from the data to the agents',
-   'Whoever owns a capability owns the data behind it, the systems that read it, and the agents ' +
-     'that work on it. Agents do not arrive trained: somebody designs them, checks their work ' +
-     'and keeps improving them. Count that inside their span of control rather than on top of it.'],
+  ['A team that builds the teams',
+   'Agents do not arrive trained: somebody designs them, checks their work and keeps ' +
+     'improving them. In engineering that may be the team that runs them; elsewhere it may be ' +
+     'a separate group. Either way it is a role the organization stands up and staffs, not ' +
+     'work added to the side of someone\'s desk.'],
 ];// The maintenance team, by role. These are real agent definitions — the six in
 const factory = [
   ['Architect', 'The shape of the thing: what is an agent, what is a script, what belongs in a manifest.'],
@@ -671,6 +674,11 @@ const CSS = `${FONTS}
   @media (min-width:48rem) { .cols.five > .col:last-child:nth-child(odd) { grid-column:1 / -1; } }
   .col { display:flex; flex-direction:column; gap:.5rem; }
   .col .rule { width:2rem; height:3px; background:var(--green); border-radius:2px; margin-bottom:.4rem; }
+  .col .eyebrow.q { margin:0; color:var(--green); }
+  .bookmark { margin-top:2.4rem; padding:1.3rem 1.5rem; background:var(--paper);
+              border-left:3px solid var(--green); }
+  .bookmark p { margin:0; }
+  .bookmark .eyebrow { margin-bottom:.55rem; color:var(--green); }
   .src { font-family:var(--head); font-size:.92rem; letter-spacing:.02em;
          text-decoration:none; border-bottom:1px solid rgba(27,92,70,.35);
          padding-bottom:1px; }
@@ -684,6 +692,9 @@ const CSS = `${FONTS}
 
   .flow { overflow-x:auto; -webkit-overflow-scrolling:touch; }
   @media (max-width:40rem) {
+    .exhibit::before { content:"Scroll sideways for the whole chart →"; display:block;
+                       position:sticky; left:0; font-size:.75rem; color:var(--rblue);
+                       margin:0 0 .6rem; white-space:nowrap; }
     .flow::before { content:"Scroll sideways for the whole diagram →"; display:block;
                     position:sticky; left:0; font-size:.75rem; color:var(--muted);
                     margin:0 0 .5rem; white-space:nowrap; }
@@ -1506,31 +1517,10 @@ ${CSS}
 <section>
   <div class="wrap">
     <div class="head narrow">
-      <p class="eyebrow">Adoption went well</p>
+      <p class="eyebrow">Where you are</p>
       <h2>Agents went in,<br>your costs went up. Why?</h2>
-      <p>You already answer five questions about every team you run. Who owns this? Where do they
-         get their facts? How does a decision get made? Who does the work? Who builds the team?</p>
-      <p>Nobody adds fifteen people without answering them first. Agent teams are getting stood up
-         without the same controls.</p>
-      <p>Teams answer the first by adopting AI the way they already work, so it amplifies the
-         organization it lands in and costs continue to rise.
-         <a class="src" href="https://services.google.com/fh/files/misc/2025_state_of_ai_assisted_software_development.pdf">DORA reports the amplification</a>,
-         across nearly five thousand practitioners.</p>
-      <p>The other four stay nobody's job, so the system keeps the shape of the teams that built
-         it: <a class="src" href="/notes/${NOTE.slug}/">why do we have five user APIs</a>. If you
-         can maintain the platform you have and keep building on it while you hit your financial
-         goals, keep going. If you cannot, the system has to change, not just the tools.</p>
-      <p>The technology is new. The problem it lands in is not. Flow and ownership is what Conway
-         named, and what you already manage everywhere else.</p>
-    </div>
-    <div class="flow fig">${ownership}</div>
-    <div class="cols five">
-      ${problems.map(([h, b]) => `<div class="col"><div class="rule"></div>
-        <h3>${h}</h3><p>${b}</p></div>`).join('\n      ')}
-    </div>
-    <div class="head narrow">
       <p>It is not just you. McKinsey asked 1,719 people across 97 nations for its August 2026
-         report, and what they reported was this.</p>
+         report.</p>
     </div>
     <div class="exhibit">${exhibit}</div>
     <div class="stats">
@@ -1543,31 +1533,73 @@ ${CSS}
       <p>Those figures are leaders grading their own organizations, and a second firm reports a
          similar distance between adoption and return.<sup class="fn">1</sup> So the question is not whether you are adopting AI. It is
          whether the way you adopt it can move EBIT.</p>
-      <p>The 6% changed the work, not just the tools, three times as often as everyone else. You do
-         not get a different number out of the same system.</p>
-      <p>Prompt-style use is the easy thing to adopt. It assists a person and it does not make the
-         work repeatable, which is the difference between a team getting faster and a number
-         moving.</p>
-      <p>You could read all of this as simply early. Economists call that lag the
-         <a class="src" href="https://www.nber.org/papers/w25148">productivity J-curve</a>: the gain
-         arrives only after the work around the technology has been rebuilt. Either way the work has
-         to change, and nobody owns that change.</p>
+      <p>The way you adopt it is where the problem starts. Every team of people you run already
+         answers five questions: Who owns this? Where do they get their facts? How does a decision
+         get made? Who does the work? Who builds the team?</p>
+      <p>Nobody adds fifteen people without answering them first. Agent teams are getting stood up
+         without the same controls. Each question has an answer further down, and none of the
+         answers is a tool.</p>
+      <p>Teams answer “Who owns this?” by adopting AI the way they already work, so it amplifies the
+         organization it lands in and costs continue to rise.
+         <a class="src" href="https://services.google.com/fh/files/misc/2025_state_of_ai_assisted_software_development.pdf">DORA reports the amplification</a>,
+         across nearly five thousand practitioners.</p>
+      <p>The other four stay nobody's job, so the system keeps the shape of the teams that built
+         it: <a class="src" href="/notes/${NOTE.slug}/">why do we have five user APIs</a>.</p>
+      <p>The technology is new. The problem it lands in is not: it is flow and ownership, which
+         you already manage everywhere else.</p>
+      <p>Projects and acquisitions leave the same shape behind: three teams with three answers to
+         the same fact, and agents that read all three and answer with confidence.</p>
+    </div>
+    <div class="flow fig">${ownership}</div>
+    <div class="cols five">
+      ${problems.map(([h, b], i) => `<div class="col"><div class="rule"></div>
+        <p class="eyebrow q">${QUESTIONS[i]}</p><h3>${h}</h3><p>${b}</p></div>`).join('\n      ')}
+    </div>
+    <div class="head narrow">
+      <ol class="refs">
+        <li><a class="src" href="https://kpmg.com/content/dam/kpmgsites/xx/pdf/2026/04/global-ai-pulse.pdf">KPMG, Global AI Pulse, April 2026</a>,
+          p. 10: a second firm, at one point rather than over a year. Nearly 40% of 2,110 leaders said
+          their organization was scaling AI or driving adoption
+          across the enterprise, and 8% reported an established return on investment.</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="head narrow">
+      <p class="eyebrow">Where to start</p>
+      <h2>Own what is&nbsp;nobody's job.</h2>
       <p><a class="src" href="https://kpmg.com/content/dam/kpmgsites/xx/pdf/2026/06/global-ai-pulse-q2.pdf">KPMG asked 2,145 leaders</a>
          for its June 2026 report about running AI day to day: who can override it, who can pause
          it, who answers for its data. Only about a third said the roles were very clear and well
          managed.<sup class="fn">2</sup> An executive who owns AI and its controls is the start.
          Somebody also has to own the design: each process, each system and the data behind it, and
          how work moves between them, with the diligence you already give to organizing people.</p>
+      <p>Fund an answer to each of the five questions above, and the platform they run on. None of
+         it is a tool decision. You can buy a product that maps what you already have; what you cannot buy is somebody answerable for keeping the map true.
+         <a class="src" href="/what-you-already-have/">What the gaps in your machinery cost</a></p>
+      <p>What it costs is ownership: a delivery date into a queue you do not control, time with
+         the teams until they want it, funded work to remove what is already duplicated, and
+         people to build the agent teams rather than only supervise them.
+         Reading any of it as free is the most expensive mistake here.</p>
       <p>The agents are already going in,<sup class="fn">3</sup> and 74% of
          <a class="src" href="https://www.deloitte.com/us/en/insights/topics/emerging-technologies/ai-agents-scaling-faster.html">the 3,235 leaders Deloitte asked</a>,
          as it reported in April 2026, expected at least moderate use by 2027. Designed first, the
          system around them can take cost out. Leave it as it is and they amplify the organization you
          run today, costs included. That is a hard result to take to a board.</p>
-      <ol class="refs">
-        <li><a class="src" href="https://kpmg.com/content/dam/kpmgsites/xx/pdf/2026/04/global-ai-pulse.pdf">KPMG, Global AI Pulse, April 2026</a>,
-          p. 10: a second firm, at one point rather than over a year. Nearly 40% of 2,110 leaders said
-          their organization was scaling AI or driving adoption
-          across the enterprise, and 8% reported an established return on investment.</li>
+      <p>If you can maintain the platform you have and keep building on it while you hit your
+         financial goals, keep going. If you cannot, the system has to change, not just the
+         tools.</p>
+      <div class="bookmark">
+        <p class="eyebrow">Worth bookmarking</p>
+        <p><b>What you can use, layer by layer.</b> The options at each layer of an agent setup:
+           a list, not a review, and every row carries the date it was read, so each visit shows
+           you how current it is.
+           <a class="src" href="/what-you-already-have/options/">See the options</a></p>
+      </div>
+      <ol class="refs" start="2">
         <li><a class="src" href="https://www.ey.com/en_us/newsroom/2026/09/ey-survey-finds-that-autonomous-ai-implementation-outpaces-oversight-yielding-an-ai-governance-gap">EY, AI Risk and Governance Survey, September 2026</a>:
           a different firm, on controls. Of about 180 senior AI executives at US companies using agentic AI, 49% said their
           governance framework had not been updated for it, and 26% said they could not detect
@@ -1582,51 +1614,25 @@ ${CSS}
 <section class="band">
   <div class="wrap">
     <div class="head narrow">
-      <p class="eyebrow">Where the velocity went</p>
+      <p class="eyebrow">What success looks like</p>
       <h2>Fewer places to change,<br>year over year.</h2>
+      <p>The 6% who attribute 5% or more of EBIT to AI changed the work, not just the tools, three
+         times as often as everyone else. You do
+         not get a different number out of the same system.</p>
+      <p>Prompt-style use is the easy thing to adopt. It assists a person and it does not make the
+         work repeatable, which is the difference between a team getting faster and a number
+         moving.</p>
       <p>If your agent teams are working, the number of systems you have to change to deliver one thing the
          business asked for goes down. That is the measure.</p>
-      <p>Getting that number down takes going back and simplifying what is already there, and that is affordable at the
+      <p>You could read all of this as simply early. Economists call that lag the
+         <a class="src" href="https://www.nber.org/papers/w25148">productivity J-curve</a>: the gain
+         arrives only after the work around the technology has been rebuilt. Either way the work has
+         to change, and nobody owns that change.</p>
+      <p>Getting that count down takes going back and simplifying what is already there, and that is affordable at the
          same level of investment, if the organization prioritizes it. If it does not, the pattern holds. Two years on, the
          spend was real and the shape is the same. <i>We did so much.</i> Yes, you did. You did not
          change the pattern.
          <a class="src" href="/notes/${NOTE_COUNT.slug}/">${NOTE_COUNT.title}</a></p>
-    </div>
-  </div>
-</section>
-
-<section>
-  <div class="wrap">
-    <div class="head narrow">
-      <p class="eyebrow">Where to start</p>
-      <h2>Own what is&nbsp;nobody's job.</h2>
-      <p>Fund the five above, and the platform they run on. None of it is a tool decision, and
-         nobody has to be persuaded to think in systems. You can buy a product that maps what you
-         already have; what you cannot buy is somebody answerable for keeping the map true.</p>
-      <p>What it costs is ownership: a delivery date into a queue you do not control, time with
-         the teams until they want it, funded work to remove what is already duplicated, and
-         people to build the agent teams rather than only supervise them.
-         Reading any of it as free is the most expensive mistake here.</p>
-      <p>It needs an owner no single project produces.
-         <a class="src" href="/what-you-already-have/">What the gaps in your machinery cost</a></p>
-    </div>
-  </div>
-</section>
-
-
-<section>
-  <div class="wrap">
-    <div class="head narrow">
-      <p class="eyebrow">How the work gets done</p>
-      <h2>The model is under&nbsp;test, by being run.</h2>
-      <p>Not described: run, and still changing. Three agent teams keep it under test. One curates
-         the AI-SDLC reference this argument comes from. One maintains this brand and the page you
-         are reading. One runs a public marketplace you can open and install:
-         <a class="src" href="https://github.com/crinaro/marketplace">github.com/crinaro/marketplace</a>.
-         Three different problems on purpose, so the approach gets challenged rather than
-         confirmed.
-         <a class="src" href="/how-the-work-gets-done/">The three teams, and what each keeps
-         alive</a></p>
     </div>
   </div>
 </section>
@@ -1642,6 +1648,25 @@ ${CSS}
     </div>
     <div class="verts">
       ${verticals.map(([n, d]) => `<div class="vert"><b>${n}</b><span>${d}</span></div>`).join('\n      ')}
+    </div>
+  </div>
+</section>
+
+
+
+<section>
+  <div class="wrap">
+    <div class="head narrow">
+      <p class="eyebrow">How the work gets done</p>
+      <h2>The model is under&nbsp;test, by being run.</h2>
+      <p>The model this page argues for is not described: it is run, and still changing. Three agent teams keep it under test. One curates AI-SDLC, the reference on delivering with agents that this argument
+         comes from. One maintains this brand and the page you
+         are reading. One runs a public marketplace you can open and install:
+         <a class="src" href="https://github.com/crinaro/marketplace">github.com/crinaro/marketplace</a>.
+         Three different problems on purpose, so the approach gets challenged rather than
+         confirmed.
+         <a class="src" href="/how-the-work-gets-done/">The three teams, and what each keeps
+         alive</a></p>
     </div>
   </div>
 </section>
@@ -2195,11 +2220,13 @@ writePage(path.join(DIST, 'what-you-already-have', 'options', 'index.html'), `${
   .jump { font-size:.92rem; line-height:2; color:var(--ink-2); margin:0 0 2.6rem; }
   .jump a { color:var(--ink); text-decoration:none; border-bottom:1px solid rgba(27,92,70,.3);
             white-space:nowrap; display:inline-block; }
-  .jump a { margin-right:1.8rem; }`)}
+  .jump a { margin-right:1.8rem; }
+  .bookmark-line { margin:0 0 1.2rem; color:var(--ink-2); }`)}
   <h1>The options at each layer</h1>
   <p class="standfirst"><b>It is a list and not a review.</b> Nothing here ranks anything, no entry
      says a tool is good, and nobody here has operated most of them. A product missing from it was
      not evaluated and rejected. Nobody looked.</p>
+  <p class="bookmark-line"><b>Worth bookmarking.</b> Every row carries the date it was read, so each visit shows you how current it is.</p>
   <p class="written">List rendered ${TOOLS.cut}. The date on each row is the day its description
      was read, and the word beside it says whether that was <b>observed</b> on the page the row
      links to or <b>reasoned</b> from it. No push date, star count or license is printed here:
