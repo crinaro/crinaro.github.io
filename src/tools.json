@@ -5,12 +5,28 @@
   ],
   "compute-and-isolation": [
    "Claude Managed Agents",
+   "Amp",
+   "Codex cloud",
+   "Copilot cloud agent",
+   "Cursor Cloud Agents",
+   "Devin Cloud",
+   "Factory",
+   "Jules",
+   "Kiro Cloud Sessions",
    "temporalio/temporal"
   ],
   "evaluate": [
    "Vellum"
   ],
   "orchestration": [
+   "Amp",
+   "Codex cloud",
+   "Copilot cloud agent",
+   "Cursor Cloud Agents",
+   "Devin Cloud",
+   "Factory",
+   "Jules",
+   "Kiro Cloud Sessions",
    "n8n-io/n8n"
   ],
   "publish-and-deliver": [
@@ -23,7 +39,7 @@
    "andrewyng/context-hub"
   ]
  },
- "cut": "2026-09-13",
+ "cut": "2026-09-25",
  "revision": null,
  "tools": [
   {
@@ -64,7 +80,7 @@
    "layer": "serving",
    "name": "deepseek-ai/DeepSeek-V4-Flash",
    "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash",
-   "what": "DeepSeek\u2019s V4 Flash text model, stored mostly in 8-bit and FP8 formats across 46 safetensors shards (about 291 billion parameters as the hub counts them), MIT-licensed and ungated."
+   "what": "DeepSeek\u2019s V4 Flash text model, stored mostly in 8-bit and FP8 formats across 46 safetensors shards (about 291 billion parameters as the Hugging Face hub counts them), MIT-licensed and ungated."
   },
   {
    "archived": false,
@@ -99,7 +115,7 @@
   {
    "archived": false,
    "asOf": "2026-09-03",
-   "basis": "reasoned",
+   "basis": "observed",
    "kind": "desktop-application",
    "layer": "serving",
    "name": "LM Studio",
@@ -124,7 +140,7 @@
    "layer": "serving",
    "name": "mistralai/Mistral-7B-Instruct-v0.3",
    "url": "https://huggingface.co/mistralai/Mistral-7B-Instruct-v0.3",
-   "what": "Mistral\u2019s 7-billion-parameter instruction-tuned text model, Apache-2.0 as the hub reports it, ungated, four safetensors shards, and tagged for vLLM rather than for the transformers library; its card says it is the instruct fine-tune of Mistral-7B-v0.3."
+   "what": "Mistral\u2019s 7-billion-parameter instruction-tuned text model, Apache-2.0 as the Hugging Face hub reports it, ungated, four safetensors shards, and tagged for vLLM rather than for the transformers library; its card says it is the instruct fine-tune of Mistral-7B-v0.3."
   },
   {
    "archived": false,
@@ -144,7 +160,7 @@
    "layer": "serving",
    "name": "openai/gpt-oss-120b",
    "url": "https://huggingface.co/openai/gpt-oss-120b",
-   "what": "The larger of OpenAI\u2019s two open-weight text models, about 117 billion parameters in the same 4-bit mxfp4 packing as its sibling, 22 safetensors shards, Apache-2.0, ungated."
+   "what": "The larger of OpenAI\u2019s two open-weight text models, about 117 billion parameters in the same 4-bit mxfp4 packing as openai/gpt-oss-20b, 22 safetensors shards, Apache-2.0, ungated."
   },
   {
    "archived": false,
@@ -154,7 +170,7 @@
    "layer": "serving",
    "name": "openai/gpt-oss-20b",
    "url": "https://huggingface.co/openai/gpt-oss-20b",
-   "what": "OpenAI\u2019s smaller open-weight text model, about 21 billion parameters, most of them stored in the 4-bit packing the hub tags as mxfp4 so the shards weigh far less than the count suggests; Apache-2.0, ungated, tagged for vLLM and transformers."
+   "what": "OpenAI\u2019s smaller open-weight text model, about 21 billion parameters, most of them stored in the 4-bit packing the Hugging Face hub tags as mxfp4 so the shards weigh far less than the count suggests; Apache-2.0, ungated, tagged for vLLM and transformers."
   },
   {
    "archived": false,
@@ -164,7 +180,7 @@
    "layer": "serving",
    "name": "Qwen/Qwen3-8B",
    "url": "https://huggingface.co/Qwen/Qwen3-8B",
-   "what": "An 8-billion-parameter dense text model from Alibaba\u2019s Qwen team, Apache-2.0, ungated, five safetensors shards, configuration model type qwen3; its card describes Qwen3 as a family of dense and mixture-of-experts models, of which this is a small dense member."
+   "what": "An 8-billion-parameter dense text model from Alibaba\u2019s Qwen team, Apache-2.0, ungated, five safetensors shards, configuration model type qwen3; its card places Qwen3 within a broader family that spans both dense and MoE (mixture-of-experts) architectures, of which this is a small dense member."
   },
   {
    "archived": false,
@@ -184,7 +200,7 @@
    "layer": "serving",
    "name": "Qwen/Qwen3.8-Flash-Next",
    "url": "https://huggingface.co/Qwen/Qwen3.8-Flash-Next",
-   "what": "A Qwen model that takes images as well as text (the hub files it as image-text-to-text), about 180 billion parameters in 131 safetensors shards, under a vendor-named license (Qwen Community 1.0) the hub reports as \u2018other\u2019."
+   "what": "A Qwen model that takes images as well as text (the Hugging Face hub files it as image-text-to-text), about 180 billion parameters in 131 safetensors shards, under a vendor-named license (Qwen Community 1.0) the hub classifies as an other-type license rather than a standard one."
   },
   {
    "archived": false,
@@ -204,7 +220,7 @@
    "layer": "gateway",
    "name": "AWS Bedrock",
    "url": "https://aws.amazon.com/bedrock/",
-   "what": "A managed API in front of many vendors\u2019 models. You do not run a serving process and you cannot read one: what you obtain is an endpoint and a bill, and the gateway and serving layers are collapsed behind it."
+   "what": "A managed API in front of many vendors\u2019 models. You do not run a serving process and you cannot read one: what you obtain is an endpoint and a bill, and both the routing between models and the serving of them happen behind it."
   },
   {
    "archived": false,
@@ -244,7 +260,7 @@
    "layer": "gateway",
    "name": "OpenRouter",
    "url": "https://openrouter.ai/",
-   "what": "A hosted gateway in front of many vendors\u2019 models. You obtain an endpoint and a bill; there is no serving process to read and no gateway process you run, so both layers are collapsed behind somebody else\u2019s API."
+   "what": "A hosted gateway in front of many vendors\u2019 models. You obtain an endpoint and a bill; there is no serving process to read and no gateway process you run, so both the routing and the serving happen behind somebody else\u2019s API."
   },
   {
    "archived": false,
@@ -294,12 +310,12 @@
    "layer": "orchestration",
    "name": "Claude Agent SDK",
    "url": "https://docs.claude.com/en/api/agent-sdk/overview",
-   "what": "A harness you import rather than a process you deploy, which is why it sits on orchestration and not on interface: the party sitting in front of it is your own program."
+   "what": "A harness you import rather than a process you deploy, so the party sitting in front of it is your own program rather than a person typing."
   },
   {
    "archived": false,
    "asOf": "2026-09-09",
-   "basis": "reasoned",
+   "basis": "observed",
    "kind": "hosted-service",
    "layer": "orchestration",
    "name": "Claude Managed Agents",
@@ -359,12 +375,22 @@
   {
    "archived": false,
    "asOf": "2026-09-03",
-   "basis": "reasoned",
+   "basis": "observed",
    "kind": "ide-extension",
    "layer": "interface",
    "name": "Amazon Q Developer",
    "url": "https://aws.amazon.com/q/developer/",
    "what": "An AWS-side coding assistant with an editor plugin, a CLI and a hosted surface."
+  },
+  {
+   "archived": false,
+   "asOf": "2026-09-23",
+   "basis": "observed",
+   "kind": "hosted-service",
+   "layer": "interface",
+   "name": "Amp",
+   "url": "https://ampcode.com/",
+   "what": "A coding agent with both an interactive mode (CLI, web, macOS/iOS) and an unattended cloud mode called Orbs that keeps working after the person who started it stops watching, per the vendor\u2019s own manual (ampcode.com/docs, read 2026-09-23)."
   },
   {
    "archived": false,
@@ -378,8 +404,18 @@
   },
   {
    "archived": false,
-   "asOf": "2026-09-03",
-   "basis": "reasoned",
+   "asOf": "2026-09-23",
+   "basis": "observed",
+   "kind": "ide",
+   "layer": "interface",
+   "name": "Antigravity",
+   "url": "https://antigravity.google",
+   "what": "Google\u2019s command center for driving several local coding agents at once; not itself a hosted agent, and its Remote Control reaches machines the buyer already owns (laptops, servers, desktops) rather than compute Google supplies."
+  },
+  {
+   "archived": false,
+   "asOf": "2026-09-23",
+   "basis": "observed",
    "kind": "chat-assistant",
    "layer": "interface",
    "name": "ChatGPT",
@@ -398,13 +434,73 @@
   },
   {
    "archived": false,
+   "asOf": "2026-09-23",
+   "basis": "observed",
+   "kind": "hosted-service",
+   "layer": "interface",
+   "name": "Codex cloud",
+   "url": "https://learn.chatgpt.com/docs/cloud",
+   "what": "OpenAI\u2019s hosted, asynchronous counterpart to the openai/codex CLI: tasks run in parallel cloud environments started from chatgpt.com, GitHub, GitLab, Linear or Slack, continue while the person who started them does something else, and end with a diff to review and a pull request to open."
+  },
+  {
+   "archived": false,
+   "asOf": "2026-09-23",
+   "basis": "observed",
+   "kind": "hosted-service",
+   "layer": "interface",
+   "name": "Copilot cloud agent",
+   "url": "https://docs.github.com/en/copilot/concepts/agents/cloud-agent/about-cloud-agent",
+   "what": "GitHub Copilot\u2019s hosted, asynchronous surface, separate from its editor extension, chat surface and CLI: a person assigns it a whole task."
+  },
+  {
+   "archived": false,
    "asOf": "2026-09-03",
-   "basis": "reasoned",
+   "basis": "observed",
    "kind": "ide",
    "layer": "interface",
    "name": "Cursor",
    "url": "https://cursor.com/docs",
    "what": "An editor with an agent built into it, which is why it sits on the line between something a person sits in front of and the thing holding the loop."
+  },
+  {
+   "archived": false,
+   "asOf": "2026-09-23",
+   "basis": "observed",
+   "kind": "hosted-service",
+   "layer": "interface",
+   "name": "Cursor Cloud Agents",
+   "url": "https://cursor.com/docs/cloud-agent",
+   "what": "Cursor\u2019s hosted, asynchronous mode, separate from the Cursor editor: a task is handed to it and left running in a cloud VM rather than on the local machine."
+  },
+  {
+   "archived": false,
+   "asOf": "2026-09-23",
+   "basis": "observed",
+   "kind": "hosted-service",
+   "layer": "interface",
+   "name": "Devin Cloud",
+   "url": "https://devin.ai/",
+   "what": "A hosted agent that takes a task, a ticket, a Slack mention, an on-call page, clones the target repository, plans the change and carries it out, then works review feedback and CI results on the pull request until it is approved and merged."
+  },
+  {
+   "archived": false,
+   "asOf": "2026-09-23",
+   "basis": "observed",
+   "kind": "ide",
+   "layer": "interface",
+   "name": "Devin Desktop",
+   "url": "https://devin.ai/blog/windsurf-is-now-devin-desktop",
+   "what": "An editor the vendor frames as an agent command center: one Kanban-style interface driving local agents and opening sessions in Devin Cloud, rather than a hosted agent itself."
+  },
+  {
+   "archived": false,
+   "asOf": "2026-09-23",
+   "basis": "observed",
+   "kind": "hosted-service",
+   "layer": "interface",
+   "name": "Factory",
+   "url": "https://factory.com/",
+   "what": "A hosted, multi-agent software-delivery platform: an agent the vendor calls a Droid is given a task from the terminal, an IDE, a browser, or Slack, and the result is a code change to review."
   },
   {
    "archived": true,
@@ -419,27 +515,27 @@
   {
    "archived": false,
    "asOf": "2026-09-03",
-   "basis": "reasoned",
+   "basis": "observed",
    "kind": "ide-extension",
    "layer": "interface",
    "name": "Gemini Code Assist",
    "url": "https://codeassist.google/",
-   "what": "Google\u2019s editor-side coding assistant, sold to organizations rather than to the browser user the Gemini row covers."
+   "what": "Google\u2019s editor-side coding assistant, sold to organizations rather than to the browser user of Google Gemini, the chat assistant."
   },
   {
    "archived": false,
-   "asOf": "2026-09-03",
-   "basis": "reasoned",
+   "asOf": "2026-09-23",
+   "basis": "observed",
    "kind": "ide-extension",
    "layer": "interface",
    "name": "GitHub Copilot",
-   "url": "https://docs.github.com/en/copilot/get-started/what-is-github-copilot",
-   "what": "Several products under one name: an inline completion extension in an editor, a chat surface, a CLI, and a coding agent that opens pull requests."
+   "url": "https://docs.github.com/en/copilot/get-started/about-github-copilot",
+   "what": "Several products under one name: an inline completion extension, a chat surface, a CLI, and Copilot cloud agent, a hosted agent a whole task can be assigned to."
   },
   {
    "archived": false,
    "asOf": "2026-09-03",
-   "basis": "reasoned",
+   "basis": "observed",
    "kind": "chat-assistant",
    "layer": "interface",
    "name": "Google Gemini",
@@ -458,13 +554,33 @@
   },
   {
    "archived": false,
+   "asOf": "2026-09-23",
+   "basis": "observed",
+   "kind": "hosted-service",
+   "layer": "interface",
+   "name": "Jules",
+   "url": "https://jules.google/",
+   "what": "A hosted agent that clones a GitHub repository into a Cloud VM, plans and makes a change, a bug fix, a version bump, a test, a feature, and opens a pull request for review."
+  },
+  {
+   "archived": false,
    "asOf": "2026-09-03",
-   "basis": "reasoned",
+   "basis": "observed",
    "kind": "ide",
    "layer": "interface",
    "name": "Kiro",
    "url": "https://kiro.dev/",
    "what": "An editor that owns the editing surface, like Cursor, and frames its workflow around specs rather than around chat."
+  },
+  {
+   "archived": false,
+   "asOf": "2026-09-23",
+   "basis": "observed",
+   "kind": "hosted-service",
+   "layer": "interface",
+   "name": "Kiro Cloud Sessions",
+   "url": "https://kiro.dev/docs/cloud-sessions/",
+   "what": "Kiro\u2019s hosted mode, separate from the Kiro specification-driven editor: a long task is handed to it and keeps running after the laptop closes."
   },
   {
    "archived": false,
@@ -474,7 +590,7 @@
    "layer": "interface",
    "name": "langflow-ai/langflow",
    "url": "https://github.com/langflow-ai/langflow",
-   "what": "A server you run with a visual authoring surface, which also exposes every workflow as an API and an MCP server."
+   "what": "A server you run with a visual authoring surface, which also exposes every workflow as an API and an MCP server, so a workflow drawn there can also be called by other programs and by agents."
   },
   {
    "archived": false,
@@ -644,7 +760,7 @@
    "layer": "author",
    "name": "ml-explore/mlx-lm",
    "url": "https://github.com/ml-explore/mlx-lm",
-   "what": "A Python package over mlx for generating text and fine-tuning language models on Apple silicon."
+   "what": "A Python package built over mlx, covering both text generation and fine-tuning of language models on Apple silicon."
   },
   {
    "archived": false,
@@ -718,7 +834,7 @@
   },
   {
    "archived": false,
-   "asOf": "2026-09-10",
+   "asOf": "2026-09-03",
    "basis": "observed",
    "kind": "repository",
    "layer": "cross-cutting",

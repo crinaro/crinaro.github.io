@@ -1541,8 +1541,8 @@ ${CSS}
          answers is a tool.</p>
       <p>Teams answer “Who owns this?” by adopting AI the way they already work, so it amplifies the
          organization it lands in and costs continue to rise.
-         <a class="src" href="https://services.google.com/fh/files/misc/2025_state_of_ai_assisted_software_development.pdf">DORA reports the amplification</a>,
-         across nearly five thousand practitioners.</p>
+         <a class="src" href="https://services.google.com/fh/files/misc/2025_state_of_ai_assisted_software_development.pdf">DORA found the amplification in AI generally</a>,
+         across nearly five thousand practitioners, most of whom were not yet using agents.</p>
       <p>The other four stay nobody's job, so the system keeps the shape of the teams that built
          it: <a class="src" href="/notes/${NOTE.slug}/">why do we have five user APIs</a>.</p>
       <p>The technology is new. The problem it lands in is not: it is flow and ownership, which
