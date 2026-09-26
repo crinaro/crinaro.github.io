@@ -223,6 +223,7 @@ const verticals = [
 
 
 const TOOLS = JSON.parse(fs.readFileSync(path.join(__dirname, 'tools.json'), 'utf8'));
+const REG = JSON.parse(fs.readFileSync(path.join(__dirname, 'regulated.json'), 'utf8'));
 
 const LAYER_NAMES = [
   ['compute-and-isolation', 'Somewhere isolated for work to run'],
@@ -2226,6 +2227,9 @@ writePage(path.join(DIST, 'what-you-already-have', 'options', 'index.html'), `${
      says a tool is good, and nobody here has operated most of them. A product missing from it was
      not evaluated and rejected. Nobody looked.</p>
   <p class="bookmark-line"><b>Worth bookmarking.</b> Every row carries the date it was read, so each visit shows you how current it is.</p>
+  <p class="bookmark-line"><b>If customer data will reach an agent,</b> start with
+     <a class="src" href="/what-you-already-have/customer-data/">what each cloud says about where it goes</a>,
+     model by model. It decides whether a tool is an option at all.</p>
   <p class="written">List rendered ${TOOLS.cut}. The date on each row is the day its description
      was read, and the word beside it says whether that was <b>observed</b> on the page the row
      links to or <b>reasoned</b> from it. No push date, star count or license is printed here:
@@ -2291,6 +2295,175 @@ writePage(path.join(DIST, 'what-you-already-have', 'options', 'index.html'), `${
 </html>`);
 console.log('       dist/what-you-already-have/options/ — ' + TOOLS.tools.length + ' tools in a table');
 
+const esc = x => String(x).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+const FIELD_LABEL = Object.fromEntries(REG.fields);
+const PUB = { AWS: 'AWS', Microsoft: 'Microsoft', Google: 'Google', Anthropic: 'Anthropic' };
+const slug = x => x.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+function regSource(st) {
+  return `<span class="rsrc">${PUB[st.publisher] || esc(st.publisher || '')}, `
+       + `<a href="${esc(st.url)}" rel="noopener">${esc(st.page)}</a>`
+       + `${st.section ? ' › ' + esc(st.section) : ''}, read ${st.read}</span>`;
+}
+function regStatement(st) {
+  if (st.status === 'NOT-STATED')
+    return `<p class="rnone">Not stated on the pages read.</p>`;
+  if (st.status === 'NOT-LISTED')
+    return `<p class="rnone"><b>Not listed.</b> <a href="${esc(st.url)}" rel="noopener">${esc(st.page)}</a>, `
+         + `read ${st.read}, does not list this combination.</p>`;
+  let body;
+  if (st.quote && /^\W{1,3}$/u.test(st.quote)) body = `Marked ${esc(st.quote)} in ${PUB[st.publisher] || 'the vendor'}’s table.`;
+  else if (st.quote) body = `“${esc(st.quote)}”`;
+  else {
+    const mark = /reads "([^"]+)"/.exec(st.note || '');
+    body = mark ? `Marked “${esc(mark[1])}” in ${PUB[st.publisher] || 'the vendor'}’s table.`
+         : /cell is empty/.test(st.note || '') ? `Left blank in ${PUB[st.publisher] || 'the vendor'}’s table.`
+         : esc(st.note || '');
+  }
+  const flag = st.status === 'STATED-EXCLUDED' ? '<b>Not offered.</b> '
+             : st.status === 'BLANK' ? '<b>Blank.</b> ' : '';
+  return `<p class="rq">${flag}${body}<br>${regSource(st)}</p>`;
+}
+const pairLabel = p => [p.model, ...p.qualifiers].join(' · ');
+function appliesTo(c, pairs) {
+  if (pairs.length === c.pairs.length)
+    return c.pairs.length === 1 ? 'The one combination' : `Every combination`;
+  const models = [...new Set(pairs.map(p => p.model))];
+  return models.map(m => {
+    const mine = pairs.filter(p => p.model === m), all = c.pairs.filter(p => p.model === m);
+    return mine.length === all.length && all.length > 1
+      ? `${esc(m)}, every option listed`
+      : `${esc(m)}: ${mine.map(p => esc(p.qualifiers.join(' · ') || 'no option recorded')).join('; ')}`;
+  }).join('<br>');
+}
+const covers = c => [...new Set(c.pairs.map(p => p.model))].map(m =>
+  `<b>${esc(m)}</b>: ${c.pairs.filter(p => p.model === m).map(p => esc(p.qualifiers.join(' · ') || 'no option recorded')).join('; ')}`).join('<br>');
+function regRows(c) {
+  const rowFor = (p, f) => p.rows.find(r => r.fields.includes(f));
+  const keyOf = r => JSON.stringify([r.main, r.broader, r.also]);
+  const perField = REG.fields.map(([f]) => {
+    const groups = [];
+    for (const p of c.pairs) {
+      const r = rowFor(p, f), k = keyOf(r);
+      const g = groups.find(x => x.key === k);
+      if (g) g.pairs.push(p); else groups.push({ key: k, row: r, pairs: [p] });
+    }
+    return { fields: [f], groups, sig: JSON.stringify(groups.map(g => [g.key, g.pairs.map(pairLabel)])) };
+  });
+  const merged = [];
+  for (const r of perField) {
+    const hit = merged.find(m => m.sig === r.sig);
+    if (hit) hit.fields.push(...r.fields); else merged.push(r);
+  }
+  return merged;
+}
+fs.mkdirSync(path.join(DIST, 'what-you-already-have', 'customer-data'), { recursive: true });
+writePage(path.join(DIST, 'what-you-already-have', 'customer-data', 'index.html'), `${pageHead(
+  'Customer data, by cloud and model',
+  'What each cloud and model maker says, in its own words, about where prompts are processed, what is kept, for how long and who can see it. One model on one cloud, tier and region at a time, each line dated.',
+  'https://crinaro.ai/what-you-already-have/customer-data/', `
+  .note-wrap { max-width:62rem; }
+  h2 { scroll-margin-top:1.5rem; margin-top:3.2rem; }
+  h3 { scroll-margin-top:1.5rem; font-size:1.05rem; margin:2.4rem 0 .2rem; color:var(--ink); }
+  .rmeta { font-family:var(--mono); font-size:.7rem; letter-spacing:.03em; color:var(--muted);
+           margin:0 0 .8rem; }
+  .tbl { overflow-x:auto; margin:0 0 1rem; }
+  table { border-collapse:collapse; width:100%; font-size:.92rem; table-layout:fixed; }
+  table.rt { min-width:34rem; }
+  col.c-q { width:24%; }
+  table.tiers { min-width:38rem; }
+  th { font-family:var(--mono); font-size:.66rem; letter-spacing:.13em; text-transform:uppercase;
+       color:var(--muted); text-align:left; font-weight:400; padding:0 1rem .5rem 0;
+       border-bottom:1px solid var(--hair); line-height:1.35; vertical-align:bottom; }
+  td { padding:.7rem 1rem .7rem 0; border-bottom:1px solid var(--hair); vertical-align:top;
+       color:var(--ink-2); }
+  td.fq { font-family:var(--head); font-weight:500; color:var(--ink); font-size:.88rem; }
+  .rq, .rnone { margin:0 0 .7rem; }
+  .rq:last-child, .rnone:last-child { margin-bottom:0; }
+  .rnone { color:var(--muted); }
+  .rsrc { display:block; margin-top:.25rem; font-family:var(--mono); font-size:.68rem;
+          letter-spacing:.02em; color:var(--muted); line-height:1.5; }
+  .rsrc a { color:var(--muted); }
+  .rsub { font-family:var(--mono); font-size:.62rem; letter-spacing:.06em;
+          color:var(--muted); margin:.9rem 0 .35rem; line-height:1.55; }
+  .rg + .rg { border-top:1px dashed var(--hair); margin-top:.9rem; }
+  .rg > .rsub:first-child { margin-top:.2rem; color:var(--green); }
+  .rg + .rg > .rsub:first-child { margin-top:.9rem; }
+  .jump { font-size:.92rem; line-height:1.9; color:var(--ink-2); margin:0 0 1.2rem; padding-left:1.1rem; }
+  .jump a { color:var(--ink); text-decoration:none; border-bottom:1px solid rgba(27,92,70,.3); }
+  .bound { border-left:3px solid var(--green); padding:.2rem 0 .2rem 1rem; margin:0 0 1.4rem; }
+  .attrib { font-size:.8rem; color:var(--muted); }
+  .covers { font-size:.86rem; color:var(--ink-2); line-height:1.7; margin:1.2rem 0 1rem; }
+  @media (max-width:640px) {
+    table.rt { min-width:0; }
+    table.rt colgroup, table.rt thead { display:none; }
+    table.rt tr, table.rt td { display:block; width:auto; }
+    table.rt td.fq { border-bottom:0; padding-bottom:.2rem; }
+    table.rt td { padding-top:.3rem; }
+  }`)}
+  <h1>Customer data, by cloud and model</h1>
+  <p class="standfirst"><b>If customer data can reach an agent, the first question is whether a
+     tool is an option at all.</b> This page puts the vendors’ own statements side by side: for one
+     model on one cloud, routing tier and region at a time, what their pages say about where prompts
+     are processed, what is kept and for how long, and who can see it.</p>
+  <div class="bound">
+  <p><b>It is not a compliance determination, and it is not your contract.</b> Every line is a
+     sentence from the vendor’s own page, with the page, the section and the date it was read.
+     Read the page, and your own agreement, before you rely on one.</p>
+  <p><b>It covers the call to the model and nothing else.</b> Where an agent tool runs its own
+     loop, sandbox and storage is a separate question. For a hosted agent, a private model endpoint
+     answers only the model call.</p>
+  <p><b>“Not stated”</b> means no sentence on the pages read answers it. It says nothing about what
+     a contract says.</p>
+  </div>
+  <p class="written">Covered: Claude Opus 4.8 and Claude Fable 5 on all three clouds, and GPT-4o on
+     Microsoft Foundry. A selection, not a survey. Rendered ${REG.cut}; the date on each line is the
+     day it was read. Treat every line as unverified after the date under its cloud.</p>
+
+  <h2 id="tiers">How each cloud names where a request can go</h2>
+  <p>Each cloud offers a narrow option that keeps processing in one place and wider ones that let it
+     move. The names differ, and sharing a column does not mean two clouds’ options reach equally far.</p>
+  <div class="tbl"><table class="tiers">
+    <thead><tr><th>Cloud</th><th>Narrowest</th><th>Middle</th><th>Widest</th></tr></thead>
+    <tbody>
+    ${REG.tiers.map(r => `<tr><td class="fq">${esc(r[0])}</td>${r.slice(1).map(c => `<td>${esc(c)}</td>`).join('')}</tr>`).join('\n    ')}
+    </tbody>
+  </table></div>
+
+  ${REG.clouds.map(c => `<h2 id="${slug(c.platform)}">${esc(c.platform)} (${esc(c.vendor)})</h2>
+  <p class="rmeta">Unverified after ${c.unverifiedAfter} · pages read: ${c.pages.map(pg => `<a href="${esc(pg.url)}" rel="noopener">${esc(pg.title)}</a>`).join(' · ')}</p>
+  ${c.tiers.length ? `<div class="tbl"><table class="rt"><colgroup><col class="c-q"><col></colgroup>
+    <thead><tr><th>Option</th><th>What ${esc(c.vendor)} says it means</th></tr></thead>
+    <tbody>
+    ${c.tiers.map(t => `<tr><td class="fq">${esc(t.name)}</td><td>${t.says.map(regStatement).join('')}</td></tr>`).join('\n    ')}
+    </tbody></table></div>` : ''}
+  <p class="covers">Covered on this cloud:<br>${covers(c)}</p>
+  <div class="tbl"><table class="rt"><colgroup><col class="c-q"><col></colgroup>
+    <thead><tr><th>Question</th><th>What the vendor says, and where it applies</th></tr></thead>
+    <tbody>
+    ${regRows(c).map(r => `<tr><td class="fq">${r.fields.map(f => esc(FIELD_LABEL[f])).join('<br>')}</td><td>${
+      r.groups.map(g => `<div class="rg"><p class="rsub">${appliesTo(c, g.pairs)}</p>${regStatement(g.row.main)}${
+        g.row.also.length ? `<p class="rsub">Also on the same page</p>${g.row.also.map(regStatement).join('')}` : ''}${
+        g.row.broader.length ? `<p class="rsub">Broader, and it also applies</p>${g.row.broader.map(regStatement).join('')}` : ''}</div>`).join('')
+    }</td></tr>`).join('\n    ')}
+    </tbody></table></div>`).join('\n\n  ')}
+
+  <p class="attrib">Lines attributed to Google are reproduced from work created and shared by Google
+     and used according to terms described in the
+     <a href="https://creativecommons.org/licenses/by/4.0/" rel="noopener">Creative Commons 4.0 Attribution License</a>.
+     Lines attributed to Microsoft are quoted from Microsoft Learn documentation, © Microsoft, whose
+     source is published in <a href="https://github.com/MicrosoftDocs/azure-ai-docs" rel="noopener">MicrosoftDocs/azure-ai-docs</a>
+     under the same license. Every quoted line remains its publisher’s.</p>
+
+  <div class="foot">
+    <p class="linkrow"><a class="src" href="/what-you-already-have/options/">The options at each layer</a>
+       <span class="sep">&middot;</span><a class="src" href="/what-you-already-have/">Back to where to start</a>
+       <span class="sep">&middot;</span><a class="src" href="/">Crinaro.AI</a></p>
+  </div>
+</div>
+</body>
+</html>`);
+console.log('       dist/what-you-already-have/customer-data/ — ' + REG.clouds.reduce((n, c) => n + c.pairs.length, 0) + ' model and cloud pairs');
+
 fs.writeFileSync(path.join(DIST, 'CNAME'), 'crinaro.ai\n');
 
 fs.writeFileSync(path.join(DIST, '.nojekyll'), '');
@@ -2305,6 +2478,7 @@ fs.writeFileSync(path.join(DIST, 'sitemap.xml'),
   `  <url><loc>https://crinaro.ai/how-the-work-gets-done/</loc><changefreq>monthly</changefreq></url>\n` +
   `  <url><loc>https://crinaro.ai/what-you-already-have/</loc><changefreq>monthly</changefreq></url>\n` +
   `  <url><loc>https://crinaro.ai/what-you-already-have/options/</loc><changefreq>monthly</changefreq></url>\n` +
+  `  <url><loc>https://crinaro.ai/what-you-already-have/customer-data/</loc><changefreq>monthly</changefreq></url>\n` +
   NOTES.map(n =>
     `  <url><loc>https://crinaro.ai/notes/${n.slug}/</loc><lastmod>${n.date}</lastmod></url>\n`).join('') +
   '</urlset>\n');

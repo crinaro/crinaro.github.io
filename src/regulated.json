@@ -1,0 +1,3215 @@
+{
+ "cut": "2026-09-25",
+ "fields": [
+  [
+   "Availability",
+   "Offered here?"
+  ],
+  [
+   "The model provider's access to prompts and outputs",
+   "Model maker sees prompts?"
+  ],
+  [
+   "Processor",
+   "Who processes the data"
+  ],
+  [
+   "Where prompts and outputs are processed",
+   "Where prompts are processed"
+  ],
+  [
+   "Where data at rest is stored",
+   "Where data is stored"
+  ],
+  [
+   "Retention modes",
+   "Retention options"
+  ],
+  [
+   "How long data is retained",
+   "How long it is kept"
+  ],
+  [
+   "Human review",
+   "Human review"
+  ],
+  [
+   "Use for training",
+   "Used for training?"
+  ],
+  [
+   "Sharing with third parties",
+   "Shared with others?"
+  ]
+ ],
+ "tiers": [
+  [
+   "AWS (Amazon Bedrock)",
+   "In-Region",
+   "Geographic",
+   "Global"
+  ],
+  [
+   "Microsoft (Microsoft Foundry)",
+   "Azure geography",
+   "Data Zone",
+   "Global"
+  ],
+  [
+   "Google (Gemini Enterprise Agent Platform)",
+   "Locational endpoints",
+   "Jurisdictional multi-region endpoints",
+   "Global endpoints"
+  ]
+ ],
+ "clouds": [
+  {
+   "platform": "Amazon Bedrock",
+   "vendor": "AWS",
+   "pages": [
+    {
+     "title": "Route model inference requests across AWS Regions with cross-Region inference",
+     "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/cross-region-inference.html",
+     "read": "2026-09-24"
+    },
+    {
+     "title": "Data protection",
+     "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/data-protection.html",
+     "read": "2026-09-24"
+    },
+    {
+     "title": "Data retention",
+     "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/data-retention.html",
+     "read": "2026-09-24"
+    },
+    {
+     "title": "Regional availability by models",
+     "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/models-region-compatibility.html",
+     "read": "2026-09-24"
+    },
+    {
+     "title": "Amazon Bedrock in AWS GovCloud (US)",
+     "url": "https://docs.aws.amazon.com/govcloud-us/latest/UserGuide/govcloud-bedrock.html",
+     "read": "2026-09-24"
+    },
+    {
+     "title": "API and data retention - Claude Platform Docs",
+     "url": "https://platform.claude.com/docs/en/manage-claude/api-and-data-retention",
+     "read": "2026-09-24"
+    }
+   ],
+   "tiers": [
+    {
+     "name": "In-Region",
+     "says": [
+      {
+       "status": "STATED",
+       "publisher": "AWS",
+       "page": "Regional availability by models",
+       "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/models-region-compatibility.html",
+       "section": "Inference options at a glance",
+       "read": "2026-09-24",
+       "quote": "Strictly within one Region"
+      }
+     ]
+    },
+    {
+     "name": "Geographic",
+     "says": [
+      {
+       "status": "STATED",
+       "publisher": "AWS",
+       "page": "Regional availability by models",
+       "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/models-region-compatibility.html",
+       "section": "Inference options at a glance",
+       "read": "2026-09-24",
+       "quote": "Within geographic boundaries (e.g., all EU Regions); prompts and outputs may move within the geography but not outside it"
+      }
+     ]
+    },
+    {
+     "name": "Global",
+     "says": [
+      {
+       "status": "STATED",
+       "publisher": "AWS",
+       "page": "Regional availability by models",
+       "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/models-region-compatibility.html",
+       "section": "Inference options at a glance",
+       "read": "2026-09-24",
+       "quote": "No geographic restrictions; data may be processed in any commercial Region"
+      }
+     ]
+    }
+   ],
+   "pairs": [
+    {
+     "title": "Claude Opus 4.8 on Amazon Bedrock · commercial Region · In-Region · us-east-1",
+     "model": "Claude Opus 4.8",
+     "platform": "Amazon Bedrock",
+     "qualifiers": [
+      "commercial Region",
+      "In-Region",
+      "us-east-1"
+     ],
+     "rows": [
+      {
+       "fields": [
+        "Availability"
+       ],
+       "main": {
+        "status": "STATED",
+        "publisher": "AWS",
+        "page": "Regional availability by models",
+        "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/models-region-compatibility.html",
+        "section": "Anthropic",
+        "read": "2026-09-24",
+        "note": "the table's mark for this cell reads \"supported\" (the text of the image in the cell)"
+       },
+       "broader": [],
+       "also": []
+      },
+      {
+       "fields": [
+        "The model provider's access to prompts and outputs"
+       ],
+       "main": {
+        "status": "STATED",
+        "publisher": "AWS",
+        "page": "Data protection",
+        "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/data-protection.html",
+        "section": "",
+        "read": "2026-09-24",
+        "quote": "Because the model providers don't have access to those accounts, they don't have access to Amazon Bedrock logs or to customer prompts and completions."
+       },
+       "broader": [],
+       "also": []
+      },
+      {
+       "fields": [
+        "Processor"
+       ],
+       "main": {
+        "status": "STATED",
+        "publisher": "Anthropic",
+        "page": "API and data retention - Claude Platform Docs",
+        "url": "https://platform.claude.com/docs/en/manage-claude/api-and-data-retention",
+        "section": "",
+        "read": "2026-09-24",
+        "quote": "On Amazon Bedrock and Google Cloud's Agent Platform, the cloud provider is the data processor; refer to those platforms' data retention and compliance documentation for their equivalent controls."
+       },
+       "broader": [],
+       "also": []
+      },
+      {
+       "fields": [
+        "Where prompts and outputs are processed"
+       ],
+       "main": {
+        "status": "STATED",
+        "publisher": "AWS",
+        "page": "Regional availability by models",
+        "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/models-region-compatibility.html",
+        "section": "Inference options at a glance",
+        "read": "2026-09-24",
+        "quote": "Strictly within one Region"
+       },
+       "broader": [],
+       "also": []
+      },
+      {
+       "fields": [
+        "Retention modes"
+       ],
+       "main": {
+        "status": "STATED",
+        "publisher": "AWS",
+        "page": "Data retention",
+        "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/data-retention.html",
+        "section": "Model availability and data retention",
+        "read": "2026-09-24",
+        "quote": "A model whose allowed_modes is [\"none\", \"default\", \"aws_review\", \"provider_data_share\"] (for example, Claude Opus 4.8)—the model permits none, so data is not retained whatever mode you set. A more permissive account or project setting does not cause its content to be retained, reviewed, or shared."
+       },
+       "broader": [],
+       "also": []
+      },
+      {
+       "fields": [
+        "How long data is retained"
+       ],
+       "main": {
+        "status": "STATED",
+        "publisher": "AWS",
+        "page": "Data retention",
+        "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/data-retention.html",
+        "section": "Model availability and data retention",
+        "read": "2026-09-24",
+        "quote": "A model whose allowed_modes is [\"none\", \"default\", \"aws_review\", \"provider_data_share\"] (for example, Claude Opus 4.8)—the model permits none, so data is not retained whatever mode you set. A more permissive account or project setting does not cause its content to be retained, reviewed, or shared."
+       },
+       "broader": [],
+       "also": []
+      },
+      {
+       "fields": [
+        "Human review"
+       ],
+       "main": {
+        "status": "STATED",
+        "publisher": "AWS",
+        "page": "Data retention",
+        "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/data-retention.html",
+        "section": "Model availability and data retention",
+        "read": "2026-09-24",
+        "quote": "A model whose allowed_modes is [\"none\", \"default\", \"aws_review\", \"provider_data_share\"] (for example, Claude Opus 4.8)—the model permits none, so data is not retained whatever mode you set. A more permissive account or project setting does not cause its content to be retained, reviewed, or shared."
+       },
+       "broader": [
+        {
+         "status": "STATED",
+         "publisher": "AWS",
+         "page": "Data retention",
+         "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/data-retention.html",
+         "section": "Data retention modes",
+         "read": "2026-09-24",
+         "quote": "If a model does not require human review, AWS will not review your content."
+        }
+       ],
+       "also": []
+      },
+      {
+       "fields": [
+        "Sharing with third parties"
+       ],
+       "main": {
+        "status": "STATED",
+        "publisher": "AWS",
+        "page": "Data retention",
+        "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/data-retention.html",
+        "section": "Model availability and data retention",
+        "read": "2026-09-24",
+        "quote": "A model whose allowed_modes is [\"none\", \"default\", \"aws_review\", \"provider_data_share\"] (for example, Claude Opus 4.8)—the model permits none, so data is not retained whatever mode you set. A more permissive account or project setting does not cause its content to be retained, reviewed, or shared."
+       },
+       "broader": [],
+       "also": []
+      },
+      {
+       "fields": [
+        "Where data at rest is stored",
+        "Use for training"
+       ],
+       "main": {
+        "status": "NOT-STATED"
+       },
+       "broader": [],
+       "also": []
+      }
+     ]
+    },
+    {
+     "title": "Claude Opus 4.8 on Amazon Bedrock · commercial Region · Geographic · eu-central-1",
+     "model": "Claude Opus 4.8",
+     "platform": "Amazon Bedrock",
+     "qualifiers": [
+      "commercial Region",
+      "Geographic",
+      "eu-central-1"
+     ],
+     "rows": [
+      {
+       "fields": [
+        "Availability"
+       ],
+       "main": {
+        "status": "STATED",
+        "publisher": "AWS",
+        "page": "Regional availability by models",
+        "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/models-region-compatibility.html",
+        "section": "Anthropic",
+        "read": "2026-09-24",
+        "note": "the table's mark for this cell reads \"supported\" (the text of the image in the cell)"
+       },
+       "broader": [],
+       "also": []
+      },
+      {
+       "fields": [
+        "The model provider's access to prompts and outputs"
+       ],
+       "main": {
+        "status": "STATED",
+        "publisher": "AWS",
+        "page": "Data protection",
+        "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/data-protection.html",
+        "section": "",
+        "read": "2026-09-24",
+        "quote": "Because the model providers don't have access to those accounts, they don't have access to Amazon Bedrock logs or to customer prompts and completions."
+       },
+       "broader": [],
+       "also": []
+      },
+      {
+       "fields": [
+        "Processor"
+       ],
+       "main": {
+        "status": "STATED",
+        "publisher": "Anthropic",
+        "page": "API and data retention - Claude Platform Docs",
+        "url": "https://platform.claude.com/docs/en/manage-claude/api-and-data-retention",
+        "section": "",
+        "read": "2026-09-24",
+        "quote": "On Amazon Bedrock and Google Cloud's Agent Platform, the cloud provider is the data processor; refer to those platforms' data retention and compliance documentation for their equivalent controls."
+       },
+       "broader": [],
+       "also": []
+      },
+      {
+       "fields": [
+        "Where prompts and outputs are processed"
+       ],
+       "main": {
+        "status": "STATED",
+        "publisher": "AWS",
+        "page": "Regional availability by models",
+        "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/models-region-compatibility.html",
+        "section": "Inference options at a glance",
+        "read": "2026-09-24",
+        "quote": "Within geographic boundaries (e.g., all EU Regions); prompts and outputs may move within the geography but not outside it"
+       },
+       "broader": [],
+       "also": []
+      },
+      {
+       "fields": [
+        "Retention modes"
+       ],
+       "main": {
+        "status": "STATED",
+        "publisher": "AWS",
+        "page": "Data retention",
+        "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/data-retention.html",
+        "section": "Model availability and data retention",
+        "read": "2026-09-24",
+        "quote": "A model whose allowed_modes is [\"none\", \"default\", \"aws_review\", \"provider_data_share\"] (for example, Claude Opus 4.8)—the model permits none, so data is not retained whatever mode you set. A more permissive account or project setting does not cause its content to be retained, reviewed, or shared."
+       },
+       "broader": [],
+       "also": []
+      },
+      {
+       "fields": [
+        "How long data is retained"
+       ],
+       "main": {
+        "status": "STATED",
+        "publisher": "AWS",
+        "page": "Data retention",
+        "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/data-retention.html",
+        "section": "Model availability and data retention",
+        "read": "2026-09-24",
+        "quote": "A model whose allowed_modes is [\"none\", \"default\", \"aws_review\", \"provider_data_share\"] (for example, Claude Opus 4.8)—the model permits none, so data is not retained whatever mode you set. A more permissive account or project setting does not cause its content to be retained, reviewed, or shared."
+       },
+       "broader": [],
+       "also": []
+      },
+      {
+       "fields": [
+        "Human review"
+       ],
+       "main": {
+        "status": "STATED",
+        "publisher": "AWS",
+        "page": "Data retention",
+        "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/data-retention.html",
+        "section": "Model availability and data retention",
+        "read": "2026-09-24",
+        "quote": "A model whose allowed_modes is [\"none\", \"default\", \"aws_review\", \"provider_data_share\"] (for example, Claude Opus 4.8)—the model permits none, so data is not retained whatever mode you set. A more permissive account or project setting does not cause its content to be retained, reviewed, or shared."
+       },
+       "broader": [
+        {
+         "status": "STATED",
+         "publisher": "AWS",
+         "page": "Data retention",
+         "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/data-retention.html",
+         "section": "Data retention modes",
+         "read": "2026-09-24",
+         "quote": "If a model does not require human review, AWS will not review your content."
+        }
+       ],
+       "also": []
+      },
+      {
+       "fields": [
+        "Sharing with third parties"
+       ],
+       "main": {
+        "status": "STATED",
+        "publisher": "AWS",
+        "page": "Data retention",
+        "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/data-retention.html",
+        "section": "Model availability and data retention",
+        "read": "2026-09-24",
+        "quote": "A model whose allowed_modes is [\"none\", \"default\", \"aws_review\", \"provider_data_share\"] (for example, Claude Opus 4.8)—the model permits none, so data is not retained whatever mode you set. A more permissive account or project setting does not cause its content to be retained, reviewed, or shared."
+       },
+       "broader": [],
+       "also": []
+      },
+      {
+       "fields": [
+        "Where data at rest is stored",
+        "Use for training"
+       ],
+       "main": {
+        "status": "NOT-STATED"
+       },
+       "broader": [],
+       "also": []
+      }
+     ]
+    },
+    {
+     "title": "Claude Opus 4.8 on Amazon Bedrock · commercial Region · In-Region · eu-central-1",
+     "model": "Claude Opus 4.8",
+     "platform": "Amazon Bedrock",
+     "qualifiers": [
+      "commercial Region",
+      "In-Region",
+      "eu-central-1"
+     ],
+     "rows": [
+      {
+       "fields": [
+        "Availability"
+       ],
+       "main": {
+        "status": "STATED-EXCLUDED",
+        "publisher": "AWS",
+        "page": "Regional availability by models",
+        "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/models-region-compatibility.html",
+        "section": "Anthropic",
+        "read": "2026-09-24",
+        "note": "the table's mark for this cell reads \"not-supported\" (the text of the image in the cell)"
+       },
+       "broader": [],
+       "also": []
+      },
+      {
+       "fields": [
+        "The model provider's access to prompts and outputs"
+       ],
+       "main": {
+        "status": "STATED",
+        "publisher": "AWS",
+        "page": "Data protection",
+        "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/data-protection.html",
+        "section": "",
+        "read": "2026-09-24",
+        "quote": "Because the model providers don't have access to those accounts, they don't have access to Amazon Bedrock logs or to customer prompts and completions."
+       },
+       "broader": [],
+       "also": []
+      },
+      {
+       "fields": [
+        "Processor"
+       ],
+       "main": {
+        "status": "STATED",
+        "publisher": "Anthropic",
+        "page": "API and data retention - Claude Platform Docs",
+        "url": "https://platform.claude.com/docs/en/manage-claude/api-and-data-retention",
+        "section": "",
+        "read": "2026-09-24",
+        "quote": "On Amazon Bedrock and Google Cloud's Agent Platform, the cloud provider is the data processor; refer to those platforms' data retention and compliance documentation for their equivalent controls."
+       },
+       "broader": [],
+       "also": []
+      },
+      {
+       "fields": [
+        "Where prompts and outputs are processed"
+       ],
+       "main": {
+        "status": "STATED",
+        "publisher": "AWS",
+        "page": "Regional availability by models",
+        "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/models-region-compatibility.html",
+        "section": "Inference options at a glance",
+        "read": "2026-09-24",
+        "quote": "Strictly within one Region"
+       },
+       "broader": [],
+       "also": []
+      },
+      {
+       "fields": [
+        "Retention modes"
+       ],
+       "main": {
+        "status": "STATED",
+        "publisher": "AWS",
+        "page": "Data retention",
+        "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/data-retention.html",
+        "section": "Model availability and data retention",
+        "read": "2026-09-24",
+        "quote": "A model whose allowed_modes is [\"none\", \"default\", \"aws_review\", \"provider_data_share\"] (for example, Claude Opus 4.8)—the model permits none, so data is not retained whatever mode you set. A more permissive account or project setting does not cause its content to be retained, reviewed, or shared."
+       },
+       "broader": [],
+       "also": []
+      },
+      {
+       "fields": [
+        "How long data is retained"
+       ],
+       "main": {
+        "status": "STATED",
+        "publisher": "AWS",
+        "page": "Data retention",
+        "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/data-retention.html",
+        "section": "Model availability and data retention",
+        "read": "2026-09-24",
+        "quote": "A model whose allowed_modes is [\"none\", \"default\", \"aws_review\", \"provider_data_share\"] (for example, Claude Opus 4.8)—the model permits none, so data is not retained whatever mode you set. A more permissive account or project setting does not cause its content to be retained, reviewed, or shared."
+       },
+       "broader": [],
+       "also": []
+      },
+      {
+       "fields": [
+        "Human review"
+       ],
+       "main": {
+        "status": "STATED",
+        "publisher": "AWS",
+        "page": "Data retention",
+        "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/data-retention.html",
+        "section": "Model availability and data retention",
+        "read": "2026-09-24",
+        "quote": "A model whose allowed_modes is [\"none\", \"default\", \"aws_review\", \"provider_data_share\"] (for example, Claude Opus 4.8)—the model permits none, so data is not retained whatever mode you set. A more permissive account or project setting does not cause its content to be retained, reviewed, or shared."
+       },
+       "broader": [
+        {
+         "status": "STATED",
+         "publisher": "AWS",
+         "page": "Data retention",
+         "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/data-retention.html",
+         "section": "Data retention modes",
+         "read": "2026-09-24",
+         "quote": "If a model does not require human review, AWS will not review your content."
+        }
+       ],
+       "also": []
+      },
+      {
+       "fields": [
+        "Sharing with third parties"
+       ],
+       "main": {
+        "status": "STATED",
+        "publisher": "AWS",
+        "page": "Data retention",
+        "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/data-retention.html",
+        "section": "Model availability and data retention",
+        "read": "2026-09-24",
+        "quote": "A model whose allowed_modes is [\"none\", \"default\", \"aws_review\", \"provider_data_share\"] (for example, Claude Opus 4.8)—the model permits none, so data is not retained whatever mode you set. A more permissive account or project setting does not cause its content to be retained, reviewed, or shared."
+       },
+       "broader": [],
+       "also": []
+      },
+      {
+       "fields": [
+        "Where data at rest is stored",
+        "Use for training"
+       ],
+       "main": {
+        "status": "NOT-STATED"
+       },
+       "broader": [],
+       "also": []
+      }
+     ]
+    },
+    {
+     "title": "Claude Opus 4.8 on Amazon Bedrock · AWS GovCloud (US) · In-Region · us-gov-west-1",
+     "model": "Claude Opus 4.8",
+     "platform": "Amazon Bedrock",
+     "qualifiers": [
+      "AWS GovCloud (US)",
+      "In-Region",
+      "us-gov-west-1"
+     ],
+     "rows": [
+      {
+       "fields": [
+        "Availability"
+       ],
+       "main": {
+        "status": "STATED",
+        "publisher": "AWS",
+        "page": "Regional availability by models",
+        "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/models-region-compatibility.html",
+        "section": "Anthropic",
+        "read": "2026-09-24",
+        "note": "the table's mark for this cell reads \"supported\" (the text of the image in the cell)"
+       },
+       "broader": [],
+       "also": []
+      },
+      {
+       "fields": [
+        "The model provider's access to prompts and outputs"
+       ],
+       "main": {
+        "status": "STATED",
+        "publisher": "AWS",
+        "page": "Data protection",
+        "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/data-protection.html",
+        "section": "",
+        "read": "2026-09-24",
+        "quote": "Because the model providers don't have access to those accounts, they don't have access to Amazon Bedrock logs or to customer prompts and completions."
+       },
+       "broader": [],
+       "also": []
+      },
+      {
+       "fields": [
+        "Processor"
+       ],
+       "main": {
+        "status": "STATED",
+        "publisher": "Anthropic",
+        "page": "API and data retention - Claude Platform Docs",
+        "url": "https://platform.claude.com/docs/en/manage-claude/api-and-data-retention",
+        "section": "",
+        "read": "2026-09-24",
+        "quote": "On Amazon Bedrock and Google Cloud's Agent Platform, the cloud provider is the data processor; refer to those platforms' data retention and compliance documentation for their equivalent controls."
+       },
+       "broader": [],
+       "also": []
+      },
+      {
+       "fields": [
+        "Where prompts and outputs are processed"
+       ],
+       "main": {
+        "status": "STATED",
+        "publisher": "AWS",
+        "page": "Regional availability by models",
+        "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/models-region-compatibility.html",
+        "section": "Inference options at a glance",
+        "read": "2026-09-24",
+        "quote": "Strictly within one Region"
+       },
+       "broader": [],
+       "also": []
+      },
+      {
+       "fields": [
+        "Where data at rest is stored"
+       ],
+       "main": {
+        "status": "STATED",
+        "publisher": "AWS",
+        "page": "Amazon Bedrock in AWS GovCloud (US)",
+        "url": "https://docs.aws.amazon.com/govcloud-us/latest/UserGuide/govcloud-bedrock.html",
+        "section": "Export-controlled content",
+        "read": "2026-09-24",
+        "quote": "For AWS Services architected within the AWS GovCloud (US) Regions, the following list explains how certain components of data may leave the AWS GovCloud (US) Regions in the normal course of the service offerings. The list can be used as a guide to help meet applicable customer compliance obligations. Data not included in the following list remains within the AWS GovCloud (US) Regions."
+       },
+       "broader": [],
+       "also": []
+      },
+      {
+       "fields": [
+        "Retention modes"
+       ],
+       "main": {
+        "status": "STATED",
+        "publisher": "AWS",
+        "page": "Data retention",
+        "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/data-retention.html",
+        "section": "Model availability and data retention",
+        "read": "2026-09-24",
+        "quote": "A model whose allowed_modes is [\"none\", \"default\", \"aws_review\", \"provider_data_share\"] (for example, Claude Opus 4.8)—the model permits none, so data is not retained whatever mode you set. A more permissive account or project setting does not cause its content to be retained, reviewed, or shared."
+       },
+       "broader": [],
+       "also": []
+      },
+      {
+       "fields": [
+        "How long data is retained"
+       ],
+       "main": {
+        "status": "STATED",
+        "publisher": "AWS",
+        "page": "Data retention",
+        "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/data-retention.html",
+        "section": "Model availability and data retention",
+        "read": "2026-09-24",
+        "quote": "A model whose allowed_modes is [\"none\", \"default\", \"aws_review\", \"provider_data_share\"] (for example, Claude Opus 4.8)—the model permits none, so data is not retained whatever mode you set. A more permissive account or project setting does not cause its content to be retained, reviewed, or shared."
+       },
+       "broader": [],
+       "also": []
+      },
+      {
+       "fields": [
+        "Human review"
+       ],
+       "main": {
+        "status": "STATED",
+        "publisher": "AWS",
+        "page": "Data retention",
+        "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/data-retention.html",
+        "section": "Model availability and data retention",
+        "read": "2026-09-24",
+        "quote": "A model whose allowed_modes is [\"none\", \"default\", \"aws_review\", \"provider_data_share\"] (for example, Claude Opus 4.8)—the model permits none, so data is not retained whatever mode you set. A more permissive account or project setting does not cause its content to be retained, reviewed, or shared."
+       },
+       "broader": [
+        {
+         "status": "STATED",
+         "publisher": "AWS",
+         "page": "Data retention",
+         "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/data-retention.html",
+         "section": "Data retention modes",
+         "read": "2026-09-24",
+         "quote": "If a model does not require human review, AWS will not review your content."
+        }
+       ],
+       "also": []
+      },
+      {
+       "fields": [
+        "Sharing with third parties"
+       ],
+       "main": {
+        "status": "STATED",
+        "publisher": "AWS",
+        "page": "Data retention",
+        "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/data-retention.html",
+        "section": "Model availability and data retention",
+        "read": "2026-09-24",
+        "quote": "A model whose allowed_modes is [\"none\", \"default\", \"aws_review\", \"provider_data_share\"] (for example, Claude Opus 4.8)—the model permits none, so data is not retained whatever mode you set. A more permissive account or project setting does not cause its content to be retained, reviewed, or shared."
+       },
+       "broader": [],
+       "also": []
+      },
+      {
+       "fields": [
+        "Use for training"
+       ],
+       "main": {
+        "status": "NOT-STATED"
+       },
+       "broader": [],
+       "also": []
+      }
+     ]
+    },
+    {
+     "title": "Claude Fable 5 on Amazon Bedrock · commercial Region · In-Region · us-east-1",
+     "model": "Claude Fable 5",
+     "platform": "Amazon Bedrock",
+     "qualifiers": [
+      "commercial Region",
+      "In-Region",
+      "us-east-1"
+     ],
+     "rows": [
+      {
+       "fields": [
+        "Availability"
+       ],
+       "main": {
+        "status": "STATED",
+        "publisher": "AWS",
+        "page": "Regional availability by models",
+        "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/models-region-compatibility.html",
+        "section": "Anthropic",
+        "read": "2026-09-24",
+        "note": "the table's mark for this cell reads \"supported\" (the text of the image in the cell)"
+       },
+       "broader": [],
+       "also": []
+      },
+      {
+       "fields": [
+        "The model provider's access to prompts and outputs"
+       ],
+       "main": {
+        "status": "STATED",
+        "publisher": "AWS",
+        "page": "Data protection",
+        "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/data-protection.html",
+        "section": "",
+        "read": "2026-09-24",
+        "quote": "Because the model providers don't have access to those accounts, they don't have access to Amazon Bedrock logs or to customer prompts and completions."
+       },
+       "broader": [],
+       "also": []
+      },
+      {
+       "fields": [
+        "Processor"
+       ],
+       "main": {
+        "status": "STATED",
+        "publisher": "Anthropic",
+        "page": "API and data retention - Claude Platform Docs",
+        "url": "https://platform.claude.com/docs/en/manage-claude/api-and-data-retention",
+        "section": "",
+        "read": "2026-09-24",
+        "quote": "On Amazon Bedrock and Google Cloud's Agent Platform, the cloud provider is the data processor; refer to those platforms' data retention and compliance documentation for their equivalent controls."
+       },
+       "broader": [],
+       "also": []
+      },
+      {
+       "fields": [
+        "Where prompts and outputs are processed"
+       ],
+       "main": {
+        "status": "STATED",
+        "publisher": "AWS",
+        "page": "Regional availability by models",
+        "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/models-region-compatibility.html",
+        "section": "Inference options at a glance",
+        "read": "2026-09-24",
+        "quote": "Strictly within one Region"
+       },
+       "broader": [],
+       "also": []
+      },
+      {
+       "fields": [
+        "Retention modes"
+       ],
+       "main": {
+        "status": "STATED",
+        "publisher": "AWS",
+        "page": "Data retention",
+        "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/data-retention.html",
+        "section": "Model availability and data retention",
+        "read": "2026-09-24",
+        "quote": "A model whose allowed_modes is [\"aws_review\", \"provider_data_share\"] (for example, Claude Fable 5)—human review is required, so data is retained within the AWS boundary and may be reviewed by AWS on any request. It is not shared with the model provider."
+       },
+       "broader": [],
+       "also": []
+      },
+      {
+       "fields": [
+        "How long data is retained"
+       ],
+       "main": {
+        "status": "STATED",
+        "publisher": "AWS",
+        "page": "Data retention",
+        "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/data-retention.html",
+        "section": "What data is retained and for how long",
+        "read": "2026-09-24",
+        "quote": "For models requiring aws_review (currently Claude Fable 5 and Claude Fable 5.1): user prompts and completions are retained within the AWS boundary for up to 30 days and may be reviewed by AWS to meet the human review requirement the model provider imposes as a condition of access. Your content is not shared with the model provider."
+       },
+       "broader": [
+        {
+         "status": "STATED",
+         "publisher": "Anthropic",
+         "page": "API and data retention - Claude Platform Docs",
+         "url": "https://platform.claude.com/docs/en/manage-claude/api-and-data-retention",
+         "section": "Model-specific data retention requirements",
+         "read": "2026-09-24",
+         "quote": "The 30-day data retention requirement applies wherever Covered Models are offered. On the Claude API (including Claude Platform on AWS), Anthropic handles retained data. On Amazon Bedrock and Google Cloud's Agent Platform, retained data stays within your cloud provider's environment; review each platform's documentation for enablement steps."
+        }
+       ],
+       "also": []
+      },
+      {
+       "fields": [
+        "Human review"
+       ],
+       "main": {
+        "status": "STATED",
+        "publisher": "AWS",
+        "page": "Data retention",
+        "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/data-retention.html",
+        "section": "What data is retained and for how long",
+        "read": "2026-09-24",
+        "quote": "For models requiring aws_review (currently Claude Fable 5 and Claude Fable 5.1): user prompts and completions are retained within the AWS boundary for up to 30 days and may be reviewed by AWS to meet the human review requirement the model provider imposes as a condition of access. Your content is not shared with the model provider."
+       },
+       "broader": [
+        {
+         "status": "STATED",
+         "publisher": "AWS",
+         "page": "Data retention",
+         "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/data-retention.html",
+         "section": "Data retention modes",
+         "read": "2026-09-24",
+         "quote": "If a model does not require human review, AWS will not review your content."
+        }
+       ],
+       "also": []
+      },
+      {
+       "fields": [
+        "Where data at rest is stored",
+        "Use for training",
+        "Sharing with third parties"
+       ],
+       "main": {
+        "status": "NOT-STATED"
+       },
+       "broader": [],
+       "also": []
+      }
+     ]
+    },
+    {
+     "title": "Claude Fable 5 on Amazon Bedrock · commercial Region · Geographic · eu-central-1",
+     "model": "Claude Fable 5",
+     "platform": "Amazon Bedrock",
+     "qualifiers": [
+      "commercial Region",
+      "Geographic",
+      "eu-central-1"
+     ],
+     "rows": [
+      {
+       "fields": [
+        "Availability"
+       ],
+       "main": {
+        "status": "STATED-EXCLUDED",
+        "publisher": "AWS",
+        "page": "Regional availability by models",
+        "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/models-region-compatibility.html",
+        "section": "Anthropic",
+        "read": "2026-09-24",
+        "note": "the table's mark for this cell reads \"not-supported\" (the text of the image in the cell)"
+       },
+       "broader": [],
+       "also": []
+      },
+      {
+       "fields": [
+        "The model provider's access to prompts and outputs"
+       ],
+       "main": {
+        "status": "STATED",
+        "publisher": "AWS",
+        "page": "Data protection",
+        "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/data-protection.html",
+        "section": "",
+        "read": "2026-09-24",
+        "quote": "Because the model providers don't have access to those accounts, they don't have access to Amazon Bedrock logs or to customer prompts and completions."
+       },
+       "broader": [],
+       "also": []
+      },
+      {
+       "fields": [
+        "Processor"
+       ],
+       "main": {
+        "status": "STATED",
+        "publisher": "Anthropic",
+        "page": "API and data retention - Claude Platform Docs",
+        "url": "https://platform.claude.com/docs/en/manage-claude/api-and-data-retention",
+        "section": "",
+        "read": "2026-09-24",
+        "quote": "On Amazon Bedrock and Google Cloud's Agent Platform, the cloud provider is the data processor; refer to those platforms' data retention and compliance documentation for their equivalent controls."
+       },
+       "broader": [],
+       "also": []
+      },
+      {
+       "fields": [
+        "Where prompts and outputs are processed"
+       ],
+       "main": {
+        "status": "STATED",
+        "publisher": "AWS",
+        "page": "Regional availability by models",
+        "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/models-region-compatibility.html",
+        "section": "Inference options at a glance",
+        "read": "2026-09-24",
+        "quote": "Within geographic boundaries (e.g., all EU Regions); prompts and outputs may move within the geography but not outside it"
+       },
+       "broader": [],
+       "also": []
+      },
+      {
+       "fields": [
+        "Retention modes"
+       ],
+       "main": {
+        "status": "STATED",
+        "publisher": "AWS",
+        "page": "Data retention",
+        "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/data-retention.html",
+        "section": "Model availability and data retention",
+        "read": "2026-09-24",
+        "quote": "A model whose allowed_modes is [\"aws_review\", \"provider_data_share\"] (for example, Claude Fable 5)—human review is required, so data is retained within the AWS boundary and may be reviewed by AWS on any request. It is not shared with the model provider."
+       },
+       "broader": [],
+       "also": []
+      },
+      {
+       "fields": [
+        "How long data is retained"
+       ],
+       "main": {
+        "status": "STATED",
+        "publisher": "AWS",
+        "page": "Data retention",
+        "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/data-retention.html",
+        "section": "What data is retained and for how long",
+        "read": "2026-09-24",
+        "quote": "For models requiring aws_review (currently Claude Fable 5 and Claude Fable 5.1): user prompts and completions are retained within the AWS boundary for up to 30 days and may be reviewed by AWS to meet the human review requirement the model provider imposes as a condition of access. Your content is not shared with the model provider."
+       },
+       "broader": [
+        {
+         "status": "STATED",
+         "publisher": "Anthropic",
+         "page": "API and data retention - Claude Platform Docs",
+         "url": "https://platform.claude.com/docs/en/manage-claude/api-and-data-retention",
+         "section": "Model-specific data retention requirements",
+         "read": "2026-09-24",
+         "quote": "The 30-day data retention requirement applies wherever Covered Models are offered. On the Claude API (including Claude Platform on AWS), Anthropic handles retained data. On Amazon Bedrock and Google Cloud's Agent Platform, retained data stays within your cloud provider's environment; review each platform's documentation for enablement steps."
+        }
+       ],
+       "also": []
+      },
+      {
+       "fields": [
+        "Human review"
+       ],
+       "main": {
+        "status": "STATED",
+        "publisher": "AWS",
+        "page": "Data retention",
+        "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/data-retention.html",
+        "section": "What data is retained and for how long",
+        "read": "2026-09-24",
+        "quote": "For models requiring aws_review (currently Claude Fable 5 and Claude Fable 5.1): user prompts and completions are retained within the AWS boundary for up to 30 days and may be reviewed by AWS to meet the human review requirement the model provider imposes as a condition of access. Your content is not shared with the model provider."
+       },
+       "broader": [
+        {
+         "status": "STATED",
+         "publisher": "AWS",
+         "page": "Data retention",
+         "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/data-retention.html",
+         "section": "Data retention modes",
+         "read": "2026-09-24",
+         "quote": "If a model does not require human review, AWS will not review your content."
+        }
+       ],
+       "also": []
+      },
+      {
+       "fields": [
+        "Where data at rest is stored",
+        "Use for training",
+        "Sharing with third parties"
+       ],
+       "main": {
+        "status": "NOT-STATED"
+       },
+       "broader": [],
+       "also": []
+      }
+     ]
+    },
+    {
+     "title": "Claude Fable 5 on Amazon Bedrock · AWS GovCloud (US) · In-Region · us-gov-west-1",
+     "model": "Claude Fable 5",
+     "platform": "Amazon Bedrock",
+     "qualifiers": [
+      "AWS GovCloud (US)",
+      "In-Region",
+      "us-gov-west-1"
+     ],
+     "rows": [
+      {
+       "fields": [
+        "Availability"
+       ],
+       "main": {
+        "status": "NOT-LISTED",
+        "page": "Regional availability by models",
+        "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/models-region-compatibility.html",
+        "read": "2026-09-24"
+       },
+       "broader": [],
+       "also": []
+      },
+      {
+       "fields": [
+        "The model provider's access to prompts and outputs"
+       ],
+       "main": {
+        "status": "STATED",
+        "publisher": "AWS",
+        "page": "Data protection",
+        "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/data-protection.html",
+        "section": "",
+        "read": "2026-09-24",
+        "quote": "Because the model providers don't have access to those accounts, they don't have access to Amazon Bedrock logs or to customer prompts and completions."
+       },
+       "broader": [],
+       "also": []
+      },
+      {
+       "fields": [
+        "Processor"
+       ],
+       "main": {
+        "status": "STATED",
+        "publisher": "Anthropic",
+        "page": "API and data retention - Claude Platform Docs",
+        "url": "https://platform.claude.com/docs/en/manage-claude/api-and-data-retention",
+        "section": "",
+        "read": "2026-09-24",
+        "quote": "On Amazon Bedrock and Google Cloud's Agent Platform, the cloud provider is the data processor; refer to those platforms' data retention and compliance documentation for their equivalent controls."
+       },
+       "broader": [],
+       "also": []
+      },
+      {
+       "fields": [
+        "Where prompts and outputs are processed"
+       ],
+       "main": {
+        "status": "STATED",
+        "publisher": "AWS",
+        "page": "Regional availability by models",
+        "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/models-region-compatibility.html",
+        "section": "Inference options at a glance",
+        "read": "2026-09-24",
+        "quote": "Strictly within one Region"
+       },
+       "broader": [],
+       "also": []
+      },
+      {
+       "fields": [
+        "Where data at rest is stored"
+       ],
+       "main": {
+        "status": "STATED",
+        "publisher": "AWS",
+        "page": "Amazon Bedrock in AWS GovCloud (US)",
+        "url": "https://docs.aws.amazon.com/govcloud-us/latest/UserGuide/govcloud-bedrock.html",
+        "section": "Export-controlled content",
+        "read": "2026-09-24",
+        "quote": "For AWS Services architected within the AWS GovCloud (US) Regions, the following list explains how certain components of data may leave the AWS GovCloud (US) Regions in the normal course of the service offerings. The list can be used as a guide to help meet applicable customer compliance obligations. Data not included in the following list remains within the AWS GovCloud (US) Regions."
+       },
+       "broader": [],
+       "also": []
+      },
+      {
+       "fields": [
+        "Retention modes"
+       ],
+       "main": {
+        "status": "STATED",
+        "publisher": "AWS",
+        "page": "Data retention",
+        "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/data-retention.html",
+        "section": "Model availability and data retention",
+        "read": "2026-09-24",
+        "quote": "A model whose allowed_modes is [\"aws_review\", \"provider_data_share\"] (for example, Claude Fable 5)—human review is required, so data is retained within the AWS boundary and may be reviewed by AWS on any request. It is not shared with the model provider."
+       },
+       "broader": [],
+       "also": []
+      },
+      {
+       "fields": [
+        "How long data is retained"
+       ],
+       "main": {
+        "status": "STATED",
+        "publisher": "AWS",
+        "page": "Data retention",
+        "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/data-retention.html",
+        "section": "What data is retained and for how long",
+        "read": "2026-09-24",
+        "quote": "For models requiring aws_review (currently Claude Fable 5 and Claude Fable 5.1): user prompts and completions are retained within the AWS boundary for up to 30 days and may be reviewed by AWS to meet the human review requirement the model provider imposes as a condition of access. Your content is not shared with the model provider."
+       },
+       "broader": [
+        {
+         "status": "STATED",
+         "publisher": "Anthropic",
+         "page": "API and data retention - Claude Platform Docs",
+         "url": "https://platform.claude.com/docs/en/manage-claude/api-and-data-retention",
+         "section": "Model-specific data retention requirements",
+         "read": "2026-09-24",
+         "quote": "The 30-day data retention requirement applies wherever Covered Models are offered. On the Claude API (including Claude Platform on AWS), Anthropic handles retained data. On Amazon Bedrock and Google Cloud's Agent Platform, retained data stays within your cloud provider's environment; review each platform's documentation for enablement steps."
+        }
+       ],
+       "also": []
+      },
+      {
+       "fields": [
+        "Human review"
+       ],
+       "main": {
+        "status": "STATED",
+        "publisher": "AWS",
+        "page": "Data retention",
+        "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/data-retention.html",
+        "section": "What data is retained and for how long",
+        "read": "2026-09-24",
+        "quote": "For models requiring aws_review (currently Claude Fable 5 and Claude Fable 5.1): user prompts and completions are retained within the AWS boundary for up to 30 days and may be reviewed by AWS to meet the human review requirement the model provider imposes as a condition of access. Your content is not shared with the model provider."
+       },
+       "broader": [
+        {
+         "status": "STATED",
+         "publisher": "AWS",
+         "page": "Data retention",
+         "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/data-retention.html",
+         "section": "Data retention modes",
+         "read": "2026-09-24",
+         "quote": "If a model does not require human review, AWS will not review your content."
+        }
+       ],
+       "also": []
+      },
+      {
+       "fields": [
+        "Use for training",
+        "Sharing with third parties"
+       ],
+       "main": {
+        "status": "NOT-STATED"
+       },
+       "broader": [],
+       "also": []
+      }
+     ]
+    }
+   ],
+   "unverifiedAfter": "2026-12-23"
+  },
+  {
+   "platform": "Microsoft Foundry",
+   "vendor": "Microsoft",
+   "pages": [
+    {
+     "title": "Microsoft Foundry in Azure Government",
+     "url": "https://learn.microsoft.com/en-us/azure/foundry/concepts/foundry-azure-government",
+     "read": "2026-09-24"
+    },
+    {
+     "title": "Deployment types for Microsoft Foundry Models",
+     "url": "https://learn.microsoft.com/en-us/azure/foundry/foundry-models/concepts/deployment-types",
+     "read": "2026-09-24"
+    },
+    {
+     "title": "Foundry Models sold by Azure in Azure Government",
+     "url": "https://learn.microsoft.com/en-us/azure/foundry/foundry-models/concepts/models-sold-directly-by-azure-gov",
+     "read": "2026-09-24"
+    },
+    {
+     "title": "Data, privacy, and security for Claude models in Microsoft Foundry",
+     "url": "https://learn.microsoft.com/en-us/azure/foundry/responsible-ai/claude-models/data-privacy",
+     "read": "2026-09-24"
+    },
+    {
+     "title": "Data, privacy, and security for Models sold by Azure in Microsoft Foundry",
+     "url": "https://learn.microsoft.com/en-us/azure/foundry/responsible-ai/openai/data-privacy",
+     "read": "2026-09-24"
+    }
+   ],
+   "tiers": [
+    {
+     "name": "Global",
+     "says": [
+      {
+       "status": "STATED",
+       "publisher": "Microsoft",
+       "page": "Data, privacy, and security for Claude models in Microsoft Foundry",
+       "url": "https://learn.microsoft.com/en-us/azure/foundry/responsible-ai/claude-models/data-privacy",
+       "section": "Hosted on Azure",
+       "read": "2026-09-24",
+       "quote": "Data at rest is stored in the selected Azure geography and processing is scoped to applicable “Global” or “DataZone” deployment options available on Microsoft Foundry."
+      },
+      {
+       "status": "STATED",
+       "publisher": "Microsoft",
+       "page": "Deployment types for Microsoft Foundry Models",
+       "url": "https://learn.microsoft.com/en-us/azure/foundry/foundry-models/concepts/deployment-types",
+       "section": "Deployment type comparison",
+       "read": "2026-09-24",
+       "quote": "Any Azure region"
+      },
+      {
+       "status": "STATED",
+       "publisher": "Microsoft",
+       "page": "Deployment types for Microsoft Foundry Models",
+       "url": "https://learn.microsoft.com/en-us/azure/foundry/foundry-models/concepts/deployment-types",
+       "section": "",
+       "read": "2026-09-24",
+       "quote": "Global types: May be processed in any Azure region"
+      }
+     ]
+    },
+    {
+     "name": "Data Zone",
+     "says": [
+      {
+       "status": "STATED",
+       "publisher": "Microsoft",
+       "page": "Data, privacy, and security for Claude models in Microsoft Foundry",
+       "url": "https://learn.microsoft.com/en-us/azure/foundry/responsible-ai/claude-models/data-privacy",
+       "section": "Hosted on Azure",
+       "read": "2026-09-24",
+       "quote": "Data at rest is stored in the selected Azure geography and processing is scoped to applicable “Global” or “DataZone” deployment options available on Microsoft Foundry."
+      },
+      {
+       "status": "STATED",
+       "publisher": "Microsoft",
+       "page": "Deployment types for Microsoft Foundry Models",
+       "url": "https://learn.microsoft.com/en-us/azure/foundry/foundry-models/concepts/deployment-types",
+       "section": "Deployment type comparison",
+       "read": "2026-09-24",
+       "quote": "Within data zone"
+      }
+     ]
+    },
+    {
+     "name": "Azure geography",
+     "says": [
+      {
+       "status": "STATED",
+       "publisher": "Microsoft",
+       "page": "Deployment types for Microsoft Foundry Models",
+       "url": "https://learn.microsoft.com/en-us/azure/foundry/foundry-models/concepts/deployment-types",
+       "section": "Deployment type comparison",
+       "read": "2026-09-24",
+       "quote": "Within Azure geography"
+      }
+     ]
+    }
+   ],
+   "pairs": [
+    {
+     "title": "Claude Opus 4.8 on Microsoft Foundry · Hosted on Azure · commercial · Global · no region recorded here",
+     "model": "Claude Opus 4.8",
+     "platform": "Microsoft Foundry",
+     "qualifiers": [
+      "Hosted on Azure",
+      "commercial",
+      "Global"
+     ],
+     "rows": [
+      {
+       "fields": [
+        "Availability"
+       ],
+       "main": {
+        "status": "NOT-STATED"
+       },
+       "broader": [],
+       "also": []
+      },
+      {
+       "fields": [
+        "The model provider's access to prompts and outputs"
+       ],
+       "main": {
+        "status": "STATED",
+        "publisher": "Microsoft",
+        "page": "Data, privacy, and security for Claude models in Microsoft Foundry",
+        "url": "https://learn.microsoft.com/en-us/azure/foundry/responsible-ai/claude-models/data-privacy",
+        "section": "Hosted on Azure",
+        "read": "2026-09-24",
+        "quote": "Anthropic personnel review customer content on an exceptions-only basis to investigate potential safety violations, subject to applicable Anthropic terms."
+       },
+       "broader": [],
+       "also": []
+      },
+      {
+       "fields": [
+        "Processor"
+       ],
+       "main": {
+        "status": "STATED",
+        "publisher": "Microsoft",
+        "page": "Data, privacy, and security for Claude models in Microsoft Foundry",
+        "url": "https://learn.microsoft.com/en-us/azure/foundry/responsible-ai/claude-models/data-privacy",
+        "section": "",
+        "read": "2026-09-24",
+        "quote": "For both hosting options, Anthropic is the seller and operator of Claude models in Microsoft Foundry and acts as an independent data processor for prompts and outputs associated with Claude models. Your use of the Claude models is subject to the terms of use Anthropic provides for Claude models and APIs."
+       },
+       "broader": [],
+       "also": []
+      },
+      {
+       "fields": [
+        "Where prompts and outputs are processed"
+       ],
+       "main": {
+        "status": "STATED",
+        "publisher": "Microsoft",
+        "page": "Data, privacy, and security for Claude models in Microsoft Foundry",
+        "url": "https://learn.microsoft.com/en-us/azure/foundry/responsible-ai/claude-models/data-privacy",
+        "section": "Hosted on Azure",
+        "read": "2026-09-24",
+        "quote": "If you choose the Hosted on Azure deployment option, your prompts and outputs are processed on Azure infrastructure, including request ingress, API services, and GPU inference."
+       },
+       "broader": [
+        {
+         "status": "STATED",
+         "publisher": "Microsoft",
+         "page": "Deployment types for Microsoft Foundry Models",
+         "url": "https://learn.microsoft.com/en-us/azure/foundry/foundry-models/concepts/deployment-types",
+         "section": "Deployment type comparison",
+         "read": "2026-09-24",
+         "quote": "Any Azure region"
+        },
+        {
+         "status": "STATED",
+         "publisher": "Microsoft",
+         "page": "Deployment types for Microsoft Foundry Models",
+         "url": "https://learn.microsoft.com/en-us/azure/foundry/foundry-models/concepts/deployment-types",
+         "section": "",
+         "read": "2026-09-24",
+         "quote": "Global types: May be processed in any Azure region"
+        }
+       ],
+       "also": []
+      },
+      {
+       "fields": [
+        "Where data at rest is stored"
+       ],
+       "main": {
+        "status": "STATED",
+        "publisher": "Microsoft",
+        "page": "Data, privacy, and security for Claude models in Microsoft Foundry",
+        "url": "https://learn.microsoft.com/en-us/azure/foundry/responsible-ai/claude-models/data-privacy",
+        "section": "Hosted on Azure",
+        "read": "2026-09-24",
+        "quote": "Data at rest is stored in the selected Azure geography and processing is scoped to applicable “Global” or “DataZone” deployment options available on Microsoft Foundry."
+       },
+       "broader": [],
+       "also": []
+      },
+      {
+       "fields": [
+        "Human review"
+       ],
+       "main": {
+        "status": "STATED",
+        "publisher": "Microsoft",
+        "page": "Data, privacy, and security for Claude models in Microsoft Foundry",
+        "url": "https://learn.microsoft.com/en-us/azure/foundry/responsible-ai/claude-models/data-privacy",
+        "section": "Hosted on Azure",
+        "read": "2026-09-24",
+        "quote": "Automatic safeguards flag content that might be sent to Anthropic Trust & Safety for review."
+       },
+       "broader": [],
+       "also": []
+      },
+      {
+       "fields": [
+        "Retention modes",
+        "How long data is retained",
+        "Use for training",
+        "Sharing with third parties"
+       ],
+       "main": {
+        "status": "NOT-STATED"
+       },
+       "broader": [],
+       "also": []
+      }
+     ]
+    },
+    {
+     "title": "Claude Fable 5 on Microsoft Foundry · Hosted on Azure · commercial · Global · no region recorded here",
+     "model": "Claude Fable 5",
+     "platform": "Microsoft Foundry",
+     "qualifiers": [
+      "Hosted on Azure",
+      "commercial",
+      "Global"
+     ],
+     "rows": [
+      {
+       "fields": [
+        "Availability"
+       ],
+       "main": {
+        "status": "NOT-STATED"
+       },
+       "broader": [],
+       "also": []
+      },
+      {
+       "fields": [
+        "The model provider's access to prompts and outputs"
+       ],
+       "main": {
+        "status": "STATED",
+        "publisher": "Microsoft",
+        "page": "Data, privacy, and security for Claude models in Microsoft Foundry",
+        "url": "https://learn.microsoft.com/en-us/azure/foundry/responsible-ai/claude-models/data-privacy",
+        "section": "Hosted on Azure",
+        "read": "2026-09-24",
+        "quote": "Anthropic personnel review customer content on an exceptions-only basis to investigate potential safety violations, subject to applicable Anthropic terms."
+       },
+       "broader": [],
+       "also": []
+      },
+      {
+       "fields": [
+        "Processor"
+       ],
+       "main": {
+        "status": "STATED",
+        "publisher": "Microsoft",
+        "page": "Data, privacy, and security for Claude models in Microsoft Foundry",
+        "url": "https://learn.microsoft.com/en-us/azure/foundry/responsible-ai/claude-models/data-privacy",
+        "section": "",
+        "read": "2026-09-24",
+        "quote": "For both hosting options, Anthropic is the seller and operator of Claude models in Microsoft Foundry and acts as an independent data processor for prompts and outputs associated with Claude models. Your use of the Claude models is subject to the terms of use Anthropic provides for Claude models and APIs."
+       },
+       "broader": [],
+       "also": []
+      },
+      {
+       "fields": [
+        "Where prompts and outputs are processed"
+       ],
+       "main": {
+        "status": "STATED",
+        "publisher": "Microsoft",
+        "page": "Data, privacy, and security for Claude models in Microsoft Foundry",
+        "url": "https://learn.microsoft.com/en-us/azure/foundry/responsible-ai/claude-models/data-privacy",
+        "section": "Hosted on Azure",
+        "read": "2026-09-24",
+        "quote": "If you choose the Hosted on Azure deployment option, your prompts and outputs are processed on Azure infrastructure, including request ingress, API services, and GPU inference."
+       },
+       "broader": [
+        {
+         "status": "STATED",
+         "publisher": "Microsoft",
+         "page": "Deployment types for Microsoft Foundry Models",
+         "url": "https://learn.microsoft.com/en-us/azure/foundry/foundry-models/concepts/deployment-types",
+         "section": "Deployment type comparison",
+         "read": "2026-09-24",
+         "quote": "Any Azure region"
+        },
+        {
+         "status": "STATED",
+         "publisher": "Microsoft",
+         "page": "Deployment types for Microsoft Foundry Models",
+         "url": "https://learn.microsoft.com/en-us/azure/foundry/foundry-models/concepts/deployment-types",
+         "section": "",
+         "read": "2026-09-24",
+         "quote": "Global types: May be processed in any Azure region"
+        }
+       ],
+       "also": []
+      },
+      {
+       "fields": [
+        "Where data at rest is stored"
+       ],
+       "main": {
+        "status": "STATED",
+        "publisher": "Microsoft",
+        "page": "Data, privacy, and security for Claude models in Microsoft Foundry",
+        "url": "https://learn.microsoft.com/en-us/azure/foundry/responsible-ai/claude-models/data-privacy",
+        "section": "Hosted on Azure",
+        "read": "2026-09-24",
+        "quote": "Data at rest is stored in the selected Azure geography and processing is scoped to applicable “Global” or “DataZone” deployment options available on Microsoft Foundry."
+       },
+       "broader": [],
+       "also": []
+      },
+      {
+       "fields": [
+        "Human review"
+       ],
+       "main": {
+        "status": "STATED",
+        "publisher": "Microsoft",
+        "page": "Data, privacy, and security for Claude models in Microsoft Foundry",
+        "url": "https://learn.microsoft.com/en-us/azure/foundry/responsible-ai/claude-models/data-privacy",
+        "section": "Hosted on Azure",
+        "read": "2026-09-24",
+        "quote": "Automatic safeguards flag content that might be sent to Anthropic Trust & Safety for review."
+       },
+       "broader": [],
+       "also": []
+      },
+      {
+       "fields": [
+        "Retention modes",
+        "How long data is retained",
+        "Use for training",
+        "Sharing with third parties"
+       ],
+       "main": {
+        "status": "NOT-STATED"
+       },
+       "broader": [],
+       "also": []
+      }
+     ]
+    },
+    {
+     "title": "GPT-4o on Microsoft Foundry · commercial · Azure geography · no region recorded here",
+     "model": "GPT-4o",
+     "platform": "Microsoft Foundry",
+     "qualifiers": [
+      "commercial",
+      "Azure geography"
+     ],
+     "rows": [
+      {
+       "fields": [
+        "Availability"
+       ],
+       "main": {
+        "status": "NOT-STATED"
+       },
+       "broader": [],
+       "also": []
+      },
+      {
+       "fields": [
+        "The model provider's access to prompts and outputs"
+       ],
+       "main": {
+        "status": "STATED",
+        "publisher": "Microsoft",
+        "page": "Data, privacy, and security for Models sold by Azure in Microsoft Foundry",
+        "url": "https://learn.microsoft.com/en-us/azure/foundry/responsible-ai/openai/data-privacy",
+        "section": "",
+        "read": "2026-09-24",
+        "quote": "are NOT available to OpenAI or other providers of Models sold by Azure."
+       },
+       "broader": [],
+       "also": []
+      },
+      {
+       "fields": [
+        "Processor"
+       ],
+       "main": {
+        "status": "STATED",
+        "publisher": "Microsoft",
+        "page": "Data, privacy, and security for Models sold by Azure in Microsoft Foundry",
+        "url": "https://learn.microsoft.com/en-us/azure/foundry/responsible-ai/openai/data-privacy",
+        "section": "",
+        "read": "2026-09-24",
+        "quote": "Models sold by Azure store and process data to provide the service and to monitor for uses that violate the applicable product terms. Please also see Microsoft Products and Services Data Protection Addendum, which governs data processing by Models sold by Azure."
+       },
+       "broader": [],
+       "also": []
+      },
+      {
+       "fields": [
+        "Where prompts and outputs are processed"
+       ],
+       "main": {
+        "status": "STATED",
+        "publisher": "Microsoft",
+        "page": "Data, privacy, and security for Models sold by Azure in Microsoft Foundry",
+        "url": "https://learn.microsoft.com/en-us/azure/foundry/responsible-ai/openai/data-privacy",
+        "section": "How does Foundry process data to provide Models sold by Azure?",
+        "read": "2026-09-24",
+        "quote": "Prompts and responses are processed within the customer-specified geography (unless you are using a Global or DataZone deployment type), but may be processed between regions within the geography for operational purposes (including performance and capacity management)."
+       },
+       "broader": [
+        {
+         "status": "STATED",
+         "publisher": "Microsoft",
+         "page": "Deployment types for Microsoft Foundry Models",
+         "url": "https://learn.microsoft.com/en-us/azure/foundry/foundry-models/concepts/deployment-types",
+         "section": "Deployment type comparison",
+         "read": "2026-09-24",
+         "quote": "Within Azure geography"
+        }
+       ],
+       "also": []
+      },
+      {
+       "fields": [
+        "Where data at rest is stored"
+       ],
+       "main": {
+        "status": "STATED",
+        "publisher": "Microsoft",
+        "page": "Data, privacy, and security for Models sold by Azure in Microsoft Foundry",
+        "url": "https://learn.microsoft.com/en-us/azure/foundry/responsible-ai/openai/data-privacy",
+        "section": "How does Foundry process data to provide Models sold by Azure?",
+        "read": "2026-09-24",
+        "quote": "Is stored at rest in the Foundry resource in the customer's Azure tenant, within the same geography as the resource;"
+       },
+       "broader": [],
+       "also": []
+      },
+      {
+       "fields": [
+        "Retention modes"
+       ],
+       "main": {
+        "status": "STATED",
+        "publisher": "Microsoft",
+        "page": "Data, privacy, and security for Models sold by Azure in Microsoft Foundry",
+        "url": "https://learn.microsoft.com/en-us/azure/foundry/responsible-ai/openai/data-privacy",
+        "section": "How does Foundry process data to provide Models sold by Azure?",
+        "read": "2026-09-24",
+        "quote": "If the customer has been approved for modified abuse monitoring (learn more at Abuse Monitoring )), the data storage and human review process described above is not performed."
+       },
+       "broader": [],
+       "also": []
+      },
+      {
+       "fields": [
+        "Human review"
+       ],
+       "main": {
+        "status": "STATED",
+        "publisher": "Microsoft",
+        "page": "Data, privacy, and security for Models sold by Azure in Microsoft Foundry",
+        "url": "https://learn.microsoft.com/en-us/azure/foundry/responsible-ai/openai/data-privacy",
+        "section": "How does Foundry process data to provide Models sold by Azure?",
+        "read": "2026-09-24",
+        "quote": "The human reviewers are authorized Microsoft employees who access the data via point wise queries using request IDs, Secure Access Workstations (SAWs), and Just-In-Time (JIT) request approval granted by team managers. For Models sold by Azure deployed in the European Economic Area, the authorized Microsoft employees are located in the European Economic Area."
+       },
+       "broader": [],
+       "also": []
+      },
+      {
+       "fields": [
+        "Use for training"
+       ],
+       "main": {
+        "status": "STATED",
+        "publisher": "Microsoft",
+        "page": "Data, privacy, and security for Models sold by Azure in Microsoft Foundry",
+        "url": "https://learn.microsoft.com/en-us/azure/foundry/responsible-ai/openai/data-privacy",
+        "section": "",
+        "read": "2026-09-24",
+        "quote": "are NOT used to train any generative AI foundation models without your permission or instruction."
+       },
+       "broader": [],
+       "also": []
+      },
+      {
+       "fields": [
+        "Sharing with third parties"
+       ],
+       "main": {
+        "status": "STATED",
+        "publisher": "Microsoft",
+        "page": "Data, privacy, and security for Models sold by Azure in Microsoft Foundry",
+        "url": "https://learn.microsoft.com/en-us/azure/foundry/responsible-ai/openai/data-privacy",
+        "section": "",
+        "read": "2026-09-24",
+        "quote": "are NOT available to other customers."
+       },
+       "broader": [],
+       "also": [
+        {
+         "status": "STATED",
+         "publisher": "Microsoft",
+         "page": "Data, privacy, and security for Models sold by Azure in Microsoft Foundry",
+         "url": "https://learn.microsoft.com/en-us/azure/foundry/responsible-ai/openai/data-privacy",
+         "section": "",
+         "read": "2026-09-24",
+         "quote": "Foundry is an Azure service; Microsoft hosts the Models sold by Azure in Microsoft's Azure environment and Models sold by Azure do NOT interact with any services operated by providers of Models sold by Azure, for example, OpenAI (e.g. ChatGPT, or the OpenAI API)."
+        }
+       ]
+      },
+      {
+       "fields": [
+        "How long data is retained"
+       ],
+       "main": {
+        "status": "NOT-STATED"
+       },
+       "broader": [],
+       "also": []
+      }
+     ]
+    },
+    {
+     "title": "GPT-4o on Microsoft Foundry · Azure Government · Data Zone · no region recorded here",
+     "model": "GPT-4o",
+     "platform": "Microsoft Foundry",
+     "qualifiers": [
+      "Azure Government",
+      "Data Zone"
+     ],
+     "rows": [
+      {
+       "fields": [
+        "Availability"
+       ],
+       "main": {
+        "status": "STATED",
+        "publisher": "Microsoft",
+        "page": "Foundry Models sold by Azure in Azure Government",
+        "url": "https://learn.microsoft.com/en-us/azure/foundry/foundry-models/concepts/models-sold-directly-by-azure-gov",
+        "section": "Model summary table and region availability",
+        "read": "2026-09-24",
+        "quote": "✅"
+       },
+       "broader": [
+        {
+         "status": "STATED",
+         "publisher": "Microsoft",
+         "page": "Foundry Models sold by Azure in Azure Government",
+         "url": "https://learn.microsoft.com/en-us/azure/foundry/foundry-models/concepts/models-sold-directly-by-azure-gov",
+         "section": "",
+         "read": "2026-09-24",
+         "quote": "Models sold by Azure include all Azure OpenAI models offered in Azure Government."
+        }
+       ],
+       "also": [
+        {
+         "status": "STATED",
+         "publisher": "Microsoft",
+         "page": "Foundry Models sold by Azure in Azure Government",
+         "url": "https://learn.microsoft.com/en-us/azure/foundry/foundry-models/concepts/models-sold-directly-by-azure-gov",
+         "section": "Model summary table and region availability",
+         "read": "2026-09-24",
+         "quote": "✅"
+        }
+       ]
+      },
+      {
+       "fields": [
+        "Where prompts and outputs are processed"
+       ],
+       "main": {
+        "status": "STATED",
+        "publisher": "Microsoft",
+        "page": "Foundry Models sold by Azure in Azure Government",
+        "url": "https://learn.microsoft.com/en-us/azure/foundry/foundry-models/concepts/models-sold-directly-by-azure-gov",
+        "section": "Model summary table and region availability",
+        "read": "2026-09-24",
+        "quote": "Standard: Has a USGov datazone deployment option, routing traffic within Azure Government to provide higher throughput."
+       },
+       "broader": [],
+       "also": []
+      },
+      {
+       "fields": [
+        "The model provider's access to prompts and outputs",
+        "Processor",
+        "Where data at rest is stored",
+        "Retention modes",
+        "How long data is retained",
+        "Human review",
+        "Use for training",
+        "Sharing with third parties"
+       ],
+       "main": {
+        "status": "NOT-STATED"
+       },
+       "broader": [],
+       "also": []
+      }
+     ]
+    },
+    {
+     "title": "Claude Opus 4.8 on Microsoft Foundry · Azure Government · no routing tier recorded here · no region recorded here",
+     "model": "Claude Opus 4.8",
+     "platform": "Microsoft Foundry",
+     "qualifiers": [
+      "Azure Government"
+     ],
+     "rows": [
+      {
+       "fields": [
+        "Availability"
+       ],
+       "main": {
+        "status": "NOT-LISTED",
+        "page": "Foundry Models sold by Azure in Azure Government",
+        "url": "https://learn.microsoft.com/en-us/azure/foundry/foundry-models/concepts/models-sold-directly-by-azure-gov",
+        "read": "2026-09-24"
+       },
+       "broader": [],
+       "also": []
+      },
+      {
+       "fields": [
+        "The model provider's access to prompts and outputs",
+        "Processor",
+        "Where prompts and outputs are processed",
+        "Where data at rest is stored",
+        "Retention modes",
+        "How long data is retained",
+        "Human review",
+        "Use for training",
+        "Sharing with third parties"
+       ],
+       "main": {
+        "status": "NOT-STATED"
+       },
+       "broader": [],
+       "also": []
+      }
+     ]
+    },
+    {
+     "title": "Claude Fable 5 on Microsoft Foundry · Azure Government · no routing tier recorded here · no region recorded here",
+     "model": "Claude Fable 5",
+     "platform": "Microsoft Foundry",
+     "qualifiers": [
+      "Azure Government"
+     ],
+     "rows": [
+      {
+       "fields": [
+        "Availability"
+       ],
+       "main": {
+        "status": "NOT-LISTED",
+        "page": "Foundry Models sold by Azure in Azure Government",
+        "url": "https://learn.microsoft.com/en-us/azure/foundry/foundry-models/concepts/models-sold-directly-by-azure-gov",
+        "read": "2026-09-24"
+       },
+       "broader": [],
+       "also": []
+      },
+      {
+       "fields": [
+        "The model provider's access to prompts and outputs",
+        "Processor",
+        "Where prompts and outputs are processed",
+        "Where data at rest is stored",
+        "Retention modes",
+        "How long data is retained",
+        "Human review",
+        "Use for training",
+        "Sharing with third parties"
+       ],
+       "main": {
+        "status": "NOT-STATED"
+       },
+       "broader": [],
+       "also": []
+      }
+     ]
+    },
+    {
+     "title": "Claude Opus 4.8 on Microsoft Foundry · Hosted on Anthropic infrastructure · commercial · no routing tier recorded here · no region recorded here",
+     "model": "Claude Opus 4.8",
+     "platform": "Microsoft Foundry",
+     "qualifiers": [
+      "Hosted on Anthropic infrastructure",
+      "commercial"
+     ],
+     "rows": [
+      {
+       "fields": [
+        "Availability"
+       ],
+       "main": {
+        "status": "NOT-STATED"
+       },
+       "broader": [],
+       "also": []
+      },
+      {
+       "fields": [
+        "The model provider's access to prompts and outputs"
+       ],
+       "main": {
+        "status": "STATED",
+        "publisher": "Microsoft",
+        "page": "Data, privacy, and security for Claude models in Microsoft Foundry",
+        "url": "https://learn.microsoft.com/en-us/azure/foundry/responsible-ai/claude-models/data-privacy",
+        "section": "Hosted on Anthropic Infrastructure",
+        "read": "2026-09-24",
+        "quote": "If you choose the Hosted on Anthropic Infrastructure deployment option, your prompts and outputs are processed on Anthropic hosted infrastructure. Data might be processed outside of Azure including outside of your selected Azure region."
+       },
+       "broader": [],
+       "also": []
+      },
+      {
+       "fields": [
+        "Processor"
+       ],
+       "main": {
+        "status": "STATED",
+        "publisher": "Microsoft",
+        "page": "Data, privacy, and security for Claude models in Microsoft Foundry",
+        "url": "https://learn.microsoft.com/en-us/azure/foundry/responsible-ai/claude-models/data-privacy",
+        "section": "",
+        "read": "2026-09-24",
+        "quote": "For both hosting options, Anthropic is the seller and operator of Claude models in Microsoft Foundry and acts as an independent data processor for prompts and outputs associated with Claude models. Your use of the Claude models is subject to the terms of use Anthropic provides for Claude models and APIs."
+       },
+       "broader": [],
+       "also": []
+      },
+      {
+       "fields": [
+        "Where prompts and outputs are processed"
+       ],
+       "main": {
+        "status": "STATED",
+        "publisher": "Microsoft",
+        "page": "Data, privacy, and security for Claude models in Microsoft Foundry",
+        "url": "https://learn.microsoft.com/en-us/azure/foundry/responsible-ai/claude-models/data-privacy",
+        "section": "Hosted on Anthropic Infrastructure",
+        "read": "2026-09-24",
+        "quote": "If you choose the Hosted on Anthropic Infrastructure deployment option, your prompts and outputs are processed on Anthropic hosted infrastructure. Data might be processed outside of Azure including outside of your selected Azure region."
+       },
+       "broader": [],
+       "also": []
+      },
+      {
+       "fields": [
+        "Where data at rest is stored",
+        "Retention modes",
+        "How long data is retained",
+        "Human review",
+        "Use for training",
+        "Sharing with third parties"
+       ],
+       "main": {
+        "status": "NOT-STATED"
+       },
+       "broader": [],
+       "also": []
+      }
+     ]
+    },
+    {
+     "title": "Claude Fable 5 on Microsoft Foundry · Hosted on Anthropic infrastructure · commercial · no routing tier recorded here · no region recorded here",
+     "model": "Claude Fable 5",
+     "platform": "Microsoft Foundry",
+     "qualifiers": [
+      "Hosted on Anthropic infrastructure",
+      "commercial"
+     ],
+     "rows": [
+      {
+       "fields": [
+        "Availability"
+       ],
+       "main": {
+        "status": "NOT-STATED"
+       },
+       "broader": [],
+       "also": []
+      },
+      {
+       "fields": [
+        "The model provider's access to prompts and outputs"
+       ],
+       "main": {
+        "status": "STATED",
+        "publisher": "Microsoft",
+        "page": "Data, privacy, and security for Claude models in Microsoft Foundry",
+        "url": "https://learn.microsoft.com/en-us/azure/foundry/responsible-ai/claude-models/data-privacy",
+        "section": "Hosted on Anthropic Infrastructure",
+        "read": "2026-09-24",
+        "quote": "If you choose the Hosted on Anthropic Infrastructure deployment option, your prompts and outputs are processed on Anthropic hosted infrastructure. Data might be processed outside of Azure including outside of your selected Azure region."
+       },
+       "broader": [],
+       "also": []
+      },
+      {
+       "fields": [
+        "Processor"
+       ],
+       "main": {
+        "status": "STATED",
+        "publisher": "Microsoft",
+        "page": "Data, privacy, and security for Claude models in Microsoft Foundry",
+        "url": "https://learn.microsoft.com/en-us/azure/foundry/responsible-ai/claude-models/data-privacy",
+        "section": "",
+        "read": "2026-09-24",
+        "quote": "For both hosting options, Anthropic is the seller and operator of Claude models in Microsoft Foundry and acts as an independent data processor for prompts and outputs associated with Claude models. Your use of the Claude models is subject to the terms of use Anthropic provides for Claude models and APIs."
+       },
+       "broader": [],
+       "also": []
+      },
+      {
+       "fields": [
+        "Where prompts and outputs are processed"
+       ],
+       "main": {
+        "status": "STATED",
+        "publisher": "Microsoft",
+        "page": "Data, privacy, and security for Claude models in Microsoft Foundry",
+        "url": "https://learn.microsoft.com/en-us/azure/foundry/responsible-ai/claude-models/data-privacy",
+        "section": "Hosted on Anthropic Infrastructure",
+        "read": "2026-09-24",
+        "quote": "If you choose the Hosted on Anthropic Infrastructure deployment option, your prompts and outputs are processed on Anthropic hosted infrastructure. Data might be processed outside of Azure including outside of your selected Azure region."
+       },
+       "broader": [],
+       "also": []
+      },
+      {
+       "fields": [
+        "Where data at rest is stored",
+        "Retention modes",
+        "How long data is retained",
+        "Human review",
+        "Use for training",
+        "Sharing with third parties"
+       ],
+       "main": {
+        "status": "NOT-STATED"
+       },
+       "broader": [],
+       "also": []
+      }
+     ]
+    }
+   ],
+   "unverifiedAfter": "2026-12-23"
+  },
+  {
+   "platform": "Gemini Enterprise Agent Platform",
+   "vendor": "Google",
+   "pages": [
+    {
+     "title": "Gemini Enterprise Agent Platform partner models for MaaS",
+     "url": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/partner-models/use-partner-models",
+     "read": "2026-09-24"
+    },
+    {
+     "title": "Data residency",
+     "url": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/resources/data-residency",
+     "read": "2026-09-24"
+    },
+    {
+     "title": "Gemini Enterprise Agent Platform and zero data retention",
+     "url": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/resources/zero-data-retention",
+     "read": "2026-09-24"
+    },
+    {
+     "title": "API and data retention - Claude Platform Docs",
+     "url": "https://platform.claude.com/docs/en/manage-claude/api-and-data-retention",
+     "read": "2026-09-24"
+    }
+   ],
+   "tiers": [
+    {
+     "name": "Locational endpoints",
+     "says": [
+      {
+       "status": "STATED",
+       "publisher": "Google",
+       "page": "Data residency",
+       "url": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/resources/data-residency",
+       "section": "Where your data lives and is processed",
+       "read": "2026-09-24",
+       "quote": "Locational endpoints: These endpoints (like us-central1, europe-west1) ensure that ML processing remains entirely within the broader multi-regional or country jurisdiction associated with that region (for example, requests to us-central1 are processed within the United States)."
+      }
+     ]
+    },
+    {
+     "name": "Jurisdictional multi-region endpoints",
+     "says": [
+      {
+       "status": "STATED",
+       "publisher": "Google",
+       "page": "Data residency",
+       "url": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/resources/data-residency",
+       "section": "Where your data lives and is processed",
+       "read": "2026-09-24",
+       "quote": "Jurisdictional multi-region endpoints: When you use jurisdictional endpoints, ML processing stays within that specific geographical region (such as the United States or the European Union)."
+      }
+     ]
+    },
+    {
+     "name": "Global endpoints",
+     "says": [
+      {
+       "status": "STATED",
+       "publisher": "Google",
+       "page": "Gemini Enterprise Agent Platform partner models for MaaS",
+       "url": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/partner-models/use-partner-models",
+       "section": "Regional, global, and multi-region endpoints",
+       "read": "2026-09-24",
+       "quote": "When you use the global endpoint, Google can process and serve your requests from any region that is supported by the model that you are using, which might result in higher latency in some cases."
+      }
+     ]
+    }
+   ],
+   "pairs": [
+    {
+     "title": "Claude Opus 4.8 on Gemini Enterprise Agent Platform · Jurisdictional multi-region endpoints · US multi-region",
+     "model": "Claude Opus 4.8",
+     "platform": "Gemini Enterprise Agent Platform",
+     "qualifiers": [
+      "Jurisdictional multi-region endpoints",
+      "US multi-region"
+     ],
+     "rows": [
+      {
+       "fields": [
+        "Availability"
+       ],
+       "main": {
+        "status": "STATED",
+        "publisher": "Google",
+        "page": "Gemini Enterprise Agent Platform partner models for MaaS",
+        "url": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/partner-models/use-partner-models",
+        "section": "Regional, global, and multi-region endpoints",
+        "read": "2026-09-24",
+        "quote": "Multi-region endpoints support all Claude models with versions 4.7 and later (for example, claude-opus-4-7, claude-opus-4-8, and claude-fable-5). Use the full Model ID including the version date where applicable."
+       },
+       "broader": [
+        {
+         "status": "STATED",
+         "publisher": "Google",
+         "page": "Gemini Enterprise Agent Platform partner models for MaaS",
+         "url": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/partner-models/use-partner-models",
+         "section": "",
+         "read": "2026-09-24",
+         "quote": "Anthropic's Claude and Mistral models are examples of third-party managed models that are available to use on Gemini Enterprise Agent Platform."
+        }
+       ],
+       "also": []
+      },
+      {
+       "fields": [
+        "Processor"
+       ],
+       "main": {
+        "status": "STATED",
+        "publisher": "Google",
+        "page": "Gemini Enterprise Agent Platform partner models for MaaS",
+        "url": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/partner-models/use-partner-models",
+        "section": "Grant user access to partner models",
+        "read": "2026-09-24",
+        "quote": "Customer prompts and model responses are not shared with third-parties when using the Gemini Enterprise API, including partner models. Google only processes Customer Data as instructed by the Customer, which is further described in our Cloud Data Processing Addendum."
+       },
+       "broader": [
+        {
+         "status": "STATED",
+         "publisher": "Anthropic",
+         "page": "API and data retention - Claude Platform Docs",
+         "url": "https://platform.claude.com/docs/en/manage-claude/api-and-data-retention",
+         "section": "",
+         "read": "2026-09-24",
+         "quote": "On Amazon Bedrock and Google Cloud's Agent Platform, the cloud provider is the data processor; refer to those platforms' data retention and compliance documentation for their equivalent controls."
+        }
+       ],
+       "also": []
+      },
+      {
+       "fields": [
+        "Where prompts and outputs are processed"
+       ],
+       "main": {
+        "status": "STATED",
+        "publisher": "Google",
+        "page": "Data residency",
+        "url": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/resources/data-residency",
+        "section": "Supported models",
+        "read": "2026-09-24",
+        "note": "the table's mark for this cell reads \"Supported\" (the label the page gives the mark for screen readers)"
+       },
+       "broader": [
+        {
+         "status": "STATED",
+         "publisher": "Google",
+         "page": "Data residency",
+         "url": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/resources/data-residency",
+         "section": "Where your data lives and is processed",
+         "read": "2026-09-24",
+         "quote": "Jurisdictional multi-region endpoints: When you use jurisdictional endpoints, ML processing stays within that specific geographical region (such as the United States or the European Union)."
+        }
+       ],
+       "also": []
+      },
+      {
+       "fields": [
+        "Where data at rest is stored"
+       ],
+       "main": {
+        "status": "STATED",
+        "publisher": "Google",
+        "page": "Gemini Enterprise Agent Platform partner models for MaaS",
+        "url": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/partner-models/use-partner-models",
+        "section": "Grant user access to partner models",
+        "read": "2026-09-24",
+        "quote": "Your data is stored at rest within the selected region or multi-region for partner models on Gemini Enterprise Agent Platform, but the regionalization of data processing may vary."
+       },
+       "broader": [
+        {
+         "status": "STATED",
+         "publisher": "Google",
+         "page": "Data residency",
+         "url": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/resources/data-residency",
+         "section": "",
+         "read": "2026-09-24",
+         "quote": "Data stored at rest in the customer selected location remains at rest in that location, independent of the Agent Platform endpoint called by that customer's request."
+        }
+       ],
+       "also": []
+      },
+      {
+       "fields": [
+        "Use for training"
+       ],
+       "main": {
+        "status": "STATED",
+        "publisher": "Google",
+        "page": "Gemini Enterprise Agent Platform and zero data retention",
+        "url": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/resources/zero-data-retention",
+        "section": "Training restriction",
+        "read": "2026-09-24",
+        "quote": "As outlined in \"Training Restriction\" in the Service Terms section of the Service Specific Terms, Google won't use your data to train or fine-tune any AI/ML models without your prior permission or instruction. This applies to all managed models on Gemini Enterprise Agent Platform, including GA and pre-GA models."
+       },
+       "broader": [],
+       "also": []
+      },
+      {
+       "fields": [
+        "Sharing with third parties"
+       ],
+       "main": {
+        "status": "STATED",
+        "publisher": "Google",
+        "page": "Gemini Enterprise Agent Platform partner models for MaaS",
+        "url": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/partner-models/use-partner-models",
+        "section": "Grant user access to partner models",
+        "read": "2026-09-24",
+        "quote": "Customer prompts and model responses are not shared with third-parties when using the Gemini Enterprise API, including partner models. Google only processes Customer Data as instructed by the Customer, which is further described in our Cloud Data Processing Addendum."
+       },
+       "broader": [],
+       "also": []
+      },
+      {
+       "fields": [
+        "The model provider's access to prompts and outputs",
+        "Retention modes",
+        "How long data is retained",
+        "Human review"
+       ],
+       "main": {
+        "status": "NOT-STATED"
+       },
+       "broader": [],
+       "also": []
+      }
+     ]
+    },
+    {
+     "title": "Claude Opus 4.8 on Gemini Enterprise Agent Platform · Jurisdictional multi-region endpoints · EU multi-region",
+     "model": "Claude Opus 4.8",
+     "platform": "Gemini Enterprise Agent Platform",
+     "qualifiers": [
+      "Jurisdictional multi-region endpoints",
+      "EU multi-region"
+     ],
+     "rows": [
+      {
+       "fields": [
+        "Availability"
+       ],
+       "main": {
+        "status": "STATED",
+        "publisher": "Google",
+        "page": "Gemini Enterprise Agent Platform partner models for MaaS",
+        "url": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/partner-models/use-partner-models",
+        "section": "Regional, global, and multi-region endpoints",
+        "read": "2026-09-24",
+        "quote": "Multi-region endpoints support all Claude models with versions 4.7 and later (for example, claude-opus-4-7, claude-opus-4-8, and claude-fable-5). Use the full Model ID including the version date where applicable."
+       },
+       "broader": [
+        {
+         "status": "STATED",
+         "publisher": "Google",
+         "page": "Gemini Enterprise Agent Platform partner models for MaaS",
+         "url": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/partner-models/use-partner-models",
+         "section": "",
+         "read": "2026-09-24",
+         "quote": "Anthropic's Claude and Mistral models are examples of third-party managed models that are available to use on Gemini Enterprise Agent Platform."
+        }
+       ],
+       "also": []
+      },
+      {
+       "fields": [
+        "Processor"
+       ],
+       "main": {
+        "status": "STATED",
+        "publisher": "Google",
+        "page": "Gemini Enterprise Agent Platform partner models for MaaS",
+        "url": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/partner-models/use-partner-models",
+        "section": "Grant user access to partner models",
+        "read": "2026-09-24",
+        "quote": "Customer prompts and model responses are not shared with third-parties when using the Gemini Enterprise API, including partner models. Google only processes Customer Data as instructed by the Customer, which is further described in our Cloud Data Processing Addendum."
+       },
+       "broader": [
+        {
+         "status": "STATED",
+         "publisher": "Anthropic",
+         "page": "API and data retention - Claude Platform Docs",
+         "url": "https://platform.claude.com/docs/en/manage-claude/api-and-data-retention",
+         "section": "",
+         "read": "2026-09-24",
+         "quote": "On Amazon Bedrock and Google Cloud's Agent Platform, the cloud provider is the data processor; refer to those platforms' data retention and compliance documentation for their equivalent controls."
+        }
+       ],
+       "also": []
+      },
+      {
+       "fields": [
+        "Where prompts and outputs are processed"
+       ],
+       "main": {
+        "status": "STATED",
+        "publisher": "Google",
+        "page": "Data residency",
+        "url": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/resources/data-residency",
+        "section": "Supported models",
+        "read": "2026-09-24",
+        "note": "the table's mark for this cell reads \"Supported\" (the label the page gives the mark for screen readers)"
+       },
+       "broader": [
+        {
+         "status": "STATED",
+         "publisher": "Google",
+         "page": "Data residency",
+         "url": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/resources/data-residency",
+         "section": "Where your data lives and is processed",
+         "read": "2026-09-24",
+         "quote": "The European Union multi-region (eu) endpoint strictly covers data residency within EU member states. Geographies outside the European Union political boundary, including the United Kingdom and Switzerland, are excluded from this endpoint."
+        },
+        {
+         "status": "STATED",
+         "publisher": "Google",
+         "page": "Data residency",
+         "url": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/resources/data-residency",
+         "section": "Where your data lives and is processed",
+         "read": "2026-09-24",
+         "quote": "Jurisdictional multi-region endpoints: When you use jurisdictional endpoints, ML processing stays within that specific geographical region (such as the United States or the European Union)."
+        }
+       ],
+       "also": []
+      },
+      {
+       "fields": [
+        "Where data at rest is stored"
+       ],
+       "main": {
+        "status": "STATED",
+        "publisher": "Google",
+        "page": "Gemini Enterprise Agent Platform partner models for MaaS",
+        "url": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/partner-models/use-partner-models",
+        "section": "Grant user access to partner models",
+        "read": "2026-09-24",
+        "quote": "Your data is stored at rest within the selected region or multi-region for partner models on Gemini Enterprise Agent Platform, but the regionalization of data processing may vary."
+       },
+       "broader": [
+        {
+         "status": "STATED",
+         "publisher": "Google",
+         "page": "Data residency",
+         "url": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/resources/data-residency",
+         "section": "",
+         "read": "2026-09-24",
+         "quote": "Data stored at rest in the customer selected location remains at rest in that location, independent of the Agent Platform endpoint called by that customer's request."
+        }
+       ],
+       "also": []
+      },
+      {
+       "fields": [
+        "Use for training"
+       ],
+       "main": {
+        "status": "STATED",
+        "publisher": "Google",
+        "page": "Gemini Enterprise Agent Platform and zero data retention",
+        "url": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/resources/zero-data-retention",
+        "section": "Training restriction",
+        "read": "2026-09-24",
+        "quote": "As outlined in \"Training Restriction\" in the Service Terms section of the Service Specific Terms, Google won't use your data to train or fine-tune any AI/ML models without your prior permission or instruction. This applies to all managed models on Gemini Enterprise Agent Platform, including GA and pre-GA models."
+       },
+       "broader": [],
+       "also": []
+      },
+      {
+       "fields": [
+        "Sharing with third parties"
+       ],
+       "main": {
+        "status": "STATED",
+        "publisher": "Google",
+        "page": "Gemini Enterprise Agent Platform partner models for MaaS",
+        "url": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/partner-models/use-partner-models",
+        "section": "Grant user access to partner models",
+        "read": "2026-09-24",
+        "quote": "Customer prompts and model responses are not shared with third-parties when using the Gemini Enterprise API, including partner models. Google only processes Customer Data as instructed by the Customer, which is further described in our Cloud Data Processing Addendum."
+       },
+       "broader": [],
+       "also": []
+      },
+      {
+       "fields": [
+        "The model provider's access to prompts and outputs",
+        "Retention modes",
+        "How long data is retained",
+        "Human review"
+       ],
+       "main": {
+        "status": "NOT-STATED"
+       },
+       "broader": [],
+       "also": []
+      }
+     ]
+    },
+    {
+     "title": "Claude Opus 4.8 on Gemini Enterprise Agent Platform · Locational endpoints · Belgium (europe-west1)",
+     "model": "Claude Opus 4.8",
+     "platform": "Gemini Enterprise Agent Platform",
+     "qualifiers": [
+      "Locational endpoints",
+      "Belgium (europe-west1)"
+     ],
+     "rows": [
+      {
+       "fields": [
+        "Availability"
+       ],
+       "main": {
+        "status": "NOT-STATED"
+       },
+       "broader": [],
+       "also": []
+      },
+      {
+       "fields": [
+        "Processor"
+       ],
+       "main": {
+        "status": "STATED",
+        "publisher": "Google",
+        "page": "Gemini Enterprise Agent Platform partner models for MaaS",
+        "url": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/partner-models/use-partner-models",
+        "section": "Grant user access to partner models",
+        "read": "2026-09-24",
+        "quote": "Customer prompts and model responses are not shared with third-parties when using the Gemini Enterprise API, including partner models. Google only processes Customer Data as instructed by the Customer, which is further described in our Cloud Data Processing Addendum."
+       },
+       "broader": [
+        {
+         "status": "STATED",
+         "publisher": "Anthropic",
+         "page": "API and data retention - Claude Platform Docs",
+         "url": "https://platform.claude.com/docs/en/manage-claude/api-and-data-retention",
+         "section": "",
+         "read": "2026-09-24",
+         "quote": "On Amazon Bedrock and Google Cloud's Agent Platform, the cloud provider is the data processor; refer to those platforms' data retention and compliance documentation for their equivalent controls."
+        }
+       ],
+       "also": []
+      },
+      {
+       "fields": [
+        "Where prompts and outputs are processed"
+       ],
+       "main": {
+        "status": "BLANK",
+        "publisher": "Google",
+        "page": "Data residency",
+        "url": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/resources/data-residency",
+        "section": "Supported models",
+        "read": "2026-09-24",
+        "note": "the cell is empty in Google's table"
+       },
+       "broader": [],
+       "also": []
+      },
+      {
+       "fields": [
+        "Where data at rest is stored"
+       ],
+       "main": {
+        "status": "STATED",
+        "publisher": "Google",
+        "page": "Gemini Enterprise Agent Platform partner models for MaaS",
+        "url": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/partner-models/use-partner-models",
+        "section": "Grant user access to partner models",
+        "read": "2026-09-24",
+        "quote": "Your data is stored at rest within the selected region or multi-region for partner models on Gemini Enterprise Agent Platform, but the regionalization of data processing may vary."
+       },
+       "broader": [
+        {
+         "status": "STATED",
+         "publisher": "Google",
+         "page": "Data residency",
+         "url": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/resources/data-residency",
+         "section": "",
+         "read": "2026-09-24",
+         "quote": "Data stored at rest in the customer selected location remains at rest in that location, independent of the Agent Platform endpoint called by that customer's request."
+        }
+       ],
+       "also": []
+      },
+      {
+       "fields": [
+        "Use for training"
+       ],
+       "main": {
+        "status": "STATED",
+        "publisher": "Google",
+        "page": "Gemini Enterprise Agent Platform and zero data retention",
+        "url": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/resources/zero-data-retention",
+        "section": "Training restriction",
+        "read": "2026-09-24",
+        "quote": "As outlined in \"Training Restriction\" in the Service Terms section of the Service Specific Terms, Google won't use your data to train or fine-tune any AI/ML models without your prior permission or instruction. This applies to all managed models on Gemini Enterprise Agent Platform, including GA and pre-GA models."
+       },
+       "broader": [],
+       "also": []
+      },
+      {
+       "fields": [
+        "Sharing with third parties"
+       ],
+       "main": {
+        "status": "STATED",
+        "publisher": "Google",
+        "page": "Gemini Enterprise Agent Platform partner models for MaaS",
+        "url": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/partner-models/use-partner-models",
+        "section": "Grant user access to partner models",
+        "read": "2026-09-24",
+        "quote": "Customer prompts and model responses are not shared with third-parties when using the Gemini Enterprise API, including partner models. Google only processes Customer Data as instructed by the Customer, which is further described in our Cloud Data Processing Addendum."
+       },
+       "broader": [],
+       "also": []
+      },
+      {
+       "fields": [
+        "The model provider's access to prompts and outputs",
+        "Retention modes",
+        "How long data is retained",
+        "Human review"
+       ],
+       "main": {
+        "status": "NOT-STATED"
+       },
+       "broader": [],
+       "also": []
+      }
+     ]
+    },
+    {
+     "title": "Claude Fable 5 on Gemini Enterprise Agent Platform · Jurisdictional multi-region endpoints · US multi-region",
+     "model": "Claude Fable 5",
+     "platform": "Gemini Enterprise Agent Platform",
+     "qualifiers": [
+      "Jurisdictional multi-region endpoints",
+      "US multi-region"
+     ],
+     "rows": [
+      {
+       "fields": [
+        "Availability"
+       ],
+       "main": {
+        "status": "STATED",
+        "publisher": "Google",
+        "page": "Gemini Enterprise Agent Platform partner models for MaaS",
+        "url": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/partner-models/use-partner-models",
+        "section": "Regional, global, and multi-region endpoints",
+        "read": "2026-09-24",
+        "quote": "Multi-region endpoints support all Claude models with versions 4.7 and later (for example, claude-opus-4-7, claude-opus-4-8, and claude-fable-5). Use the full Model ID including the version date where applicable."
+       },
+       "broader": [
+        {
+         "status": "STATED",
+         "publisher": "Google",
+         "page": "Gemini Enterprise Agent Platform partner models for MaaS",
+         "url": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/partner-models/use-partner-models",
+         "section": "",
+         "read": "2026-09-24",
+         "quote": "Anthropic's Claude and Mistral models are examples of third-party managed models that are available to use on Gemini Enterprise Agent Platform."
+        }
+       ],
+       "also": []
+      },
+      {
+       "fields": [
+        "Processor"
+       ],
+       "main": {
+        "status": "STATED",
+        "publisher": "Google",
+        "page": "Gemini Enterprise Agent Platform partner models for MaaS",
+        "url": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/partner-models/use-partner-models",
+        "section": "Grant user access to partner models",
+        "read": "2026-09-24",
+        "quote": "Customer prompts and model responses are not shared with third-parties when using the Gemini Enterprise API, including partner models. Google only processes Customer Data as instructed by the Customer, which is further described in our Cloud Data Processing Addendum."
+       },
+       "broader": [
+        {
+         "status": "STATED",
+         "publisher": "Anthropic",
+         "page": "API and data retention - Claude Platform Docs",
+         "url": "https://platform.claude.com/docs/en/manage-claude/api-and-data-retention",
+         "section": "",
+         "read": "2026-09-24",
+         "quote": "On Amazon Bedrock and Google Cloud's Agent Platform, the cloud provider is the data processor; refer to those platforms' data retention and compliance documentation for their equivalent controls."
+        }
+       ],
+       "also": []
+      },
+      {
+       "fields": [
+        "Where prompts and outputs are processed"
+       ],
+       "main": {
+        "status": "STATED",
+        "publisher": "Google",
+        "page": "Data residency",
+        "url": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/resources/data-residency",
+        "section": "Supported models",
+        "read": "2026-09-24",
+        "note": "the table's mark for this cell reads \"Supported\" (the label the page gives the mark for screen readers)"
+       },
+       "broader": [
+        {
+         "status": "STATED",
+         "publisher": "Google",
+         "page": "Data residency",
+         "url": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/resources/data-residency",
+         "section": "Where your data lives and is processed",
+         "read": "2026-09-24",
+         "quote": "Jurisdictional multi-region endpoints: When you use jurisdictional endpoints, ML processing stays within that specific geographical region (such as the United States or the European Union)."
+        }
+       ],
+       "also": []
+      },
+      {
+       "fields": [
+        "Where data at rest is stored"
+       ],
+       "main": {
+        "status": "STATED",
+        "publisher": "Google",
+        "page": "Gemini Enterprise Agent Platform partner models for MaaS",
+        "url": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/partner-models/use-partner-models",
+        "section": "Grant user access to partner models",
+        "read": "2026-09-24",
+        "quote": "Your data is stored at rest within the selected region or multi-region for partner models on Gemini Enterprise Agent Platform, but the regionalization of data processing may vary."
+       },
+       "broader": [
+        {
+         "status": "STATED",
+         "publisher": "Google",
+         "page": "Data residency",
+         "url": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/resources/data-residency",
+         "section": "",
+         "read": "2026-09-24",
+         "quote": "Data stored at rest in the customer selected location remains at rest in that location, independent of the Agent Platform endpoint called by that customer's request."
+        }
+       ],
+       "also": []
+      },
+      {
+       "fields": [
+        "How long data is retained"
+       ],
+       "main": {
+        "status": "STATED",
+        "publisher": "Anthropic",
+        "page": "API and data retention - Claude Platform Docs",
+        "url": "https://platform.claude.com/docs/en/manage-claude/api-and-data-retention",
+        "section": "Model-specific data retention requirements",
+        "read": "2026-09-24",
+        "quote": "The 30-day data retention requirement applies wherever Covered Models are offered. On the Claude API (including Claude Platform on AWS), Anthropic handles retained data. On Amazon Bedrock and Google Cloud's Agent Platform, retained data stays within your cloud provider's environment; review each platform's documentation for enablement steps."
+       },
+       "broader": [],
+       "also": []
+      },
+      {
+       "fields": [
+        "Use for training"
+       ],
+       "main": {
+        "status": "STATED",
+        "publisher": "Google",
+        "page": "Gemini Enterprise Agent Platform and zero data retention",
+        "url": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/resources/zero-data-retention",
+        "section": "Training restriction",
+        "read": "2026-09-24",
+        "quote": "As outlined in \"Training Restriction\" in the Service Terms section of the Service Specific Terms, Google won't use your data to train or fine-tune any AI/ML models without your prior permission or instruction. This applies to all managed models on Gemini Enterprise Agent Platform, including GA and pre-GA models."
+       },
+       "broader": [],
+       "also": []
+      },
+      {
+       "fields": [
+        "Sharing with third parties"
+       ],
+       "main": {
+        "status": "STATED",
+        "publisher": "Google",
+        "page": "Gemini Enterprise Agent Platform partner models for MaaS",
+        "url": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/partner-models/use-partner-models",
+        "section": "Grant user access to partner models",
+        "read": "2026-09-24",
+        "quote": "Customer prompts and model responses are not shared with third-parties when using the Gemini Enterprise API, including partner models. Google only processes Customer Data as instructed by the Customer, which is further described in our Cloud Data Processing Addendum."
+       },
+       "broader": [],
+       "also": []
+      },
+      {
+       "fields": [
+        "The model provider's access to prompts and outputs",
+        "Retention modes",
+        "Human review"
+       ],
+       "main": {
+        "status": "NOT-STATED"
+       },
+       "broader": [],
+       "also": []
+      }
+     ]
+    },
+    {
+     "title": "Claude Fable 5 on Gemini Enterprise Agent Platform · Jurisdictional multi-region endpoints · EU multi-region",
+     "model": "Claude Fable 5",
+     "platform": "Gemini Enterprise Agent Platform",
+     "qualifiers": [
+      "Jurisdictional multi-region endpoints",
+      "EU multi-region"
+     ],
+     "rows": [
+      {
+       "fields": [
+        "Availability"
+       ],
+       "main": {
+        "status": "STATED",
+        "publisher": "Google",
+        "page": "Gemini Enterprise Agent Platform partner models for MaaS",
+        "url": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/partner-models/use-partner-models",
+        "section": "Regional, global, and multi-region endpoints",
+        "read": "2026-09-24",
+        "quote": "Multi-region endpoints support all Claude models with versions 4.7 and later (for example, claude-opus-4-7, claude-opus-4-8, and claude-fable-5). Use the full Model ID including the version date where applicable."
+       },
+       "broader": [
+        {
+         "status": "STATED",
+         "publisher": "Google",
+         "page": "Gemini Enterprise Agent Platform partner models for MaaS",
+         "url": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/partner-models/use-partner-models",
+         "section": "",
+         "read": "2026-09-24",
+         "quote": "Anthropic's Claude and Mistral models are examples of third-party managed models that are available to use on Gemini Enterprise Agent Platform."
+        }
+       ],
+       "also": []
+      },
+      {
+       "fields": [
+        "Processor"
+       ],
+       "main": {
+        "status": "STATED",
+        "publisher": "Google",
+        "page": "Gemini Enterprise Agent Platform partner models for MaaS",
+        "url": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/partner-models/use-partner-models",
+        "section": "Grant user access to partner models",
+        "read": "2026-09-24",
+        "quote": "Customer prompts and model responses are not shared with third-parties when using the Gemini Enterprise API, including partner models. Google only processes Customer Data as instructed by the Customer, which is further described in our Cloud Data Processing Addendum."
+       },
+       "broader": [
+        {
+         "status": "STATED",
+         "publisher": "Anthropic",
+         "page": "API and data retention - Claude Platform Docs",
+         "url": "https://platform.claude.com/docs/en/manage-claude/api-and-data-retention",
+         "section": "",
+         "read": "2026-09-24",
+         "quote": "On Amazon Bedrock and Google Cloud's Agent Platform, the cloud provider is the data processor; refer to those platforms' data retention and compliance documentation for their equivalent controls."
+        }
+       ],
+       "also": []
+      },
+      {
+       "fields": [
+        "Where prompts and outputs are processed"
+       ],
+       "main": {
+        "status": "STATED",
+        "publisher": "Google",
+        "page": "Data residency",
+        "url": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/resources/data-residency",
+        "section": "Supported models",
+        "read": "2026-09-24",
+        "note": "the table's mark for this cell reads \"Supported\" (the label the page gives the mark for screen readers)"
+       },
+       "broader": [
+        {
+         "status": "STATED",
+         "publisher": "Google",
+         "page": "Data residency",
+         "url": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/resources/data-residency",
+         "section": "Where your data lives and is processed",
+         "read": "2026-09-24",
+         "quote": "The European Union multi-region (eu) endpoint strictly covers data residency within EU member states. Geographies outside the European Union political boundary, including the United Kingdom and Switzerland, are excluded from this endpoint."
+        },
+        {
+         "status": "STATED",
+         "publisher": "Google",
+         "page": "Data residency",
+         "url": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/resources/data-residency",
+         "section": "Where your data lives and is processed",
+         "read": "2026-09-24",
+         "quote": "Jurisdictional multi-region endpoints: When you use jurisdictional endpoints, ML processing stays within that specific geographical region (such as the United States or the European Union)."
+        }
+       ],
+       "also": []
+      },
+      {
+       "fields": [
+        "Where data at rest is stored"
+       ],
+       "main": {
+        "status": "STATED",
+        "publisher": "Google",
+        "page": "Gemini Enterprise Agent Platform partner models for MaaS",
+        "url": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/partner-models/use-partner-models",
+        "section": "Grant user access to partner models",
+        "read": "2026-09-24",
+        "quote": "Your data is stored at rest within the selected region or multi-region for partner models on Gemini Enterprise Agent Platform, but the regionalization of data processing may vary."
+       },
+       "broader": [
+        {
+         "status": "STATED",
+         "publisher": "Google",
+         "page": "Data residency",
+         "url": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/resources/data-residency",
+         "section": "",
+         "read": "2026-09-24",
+         "quote": "Data stored at rest in the customer selected location remains at rest in that location, independent of the Agent Platform endpoint called by that customer's request."
+        }
+       ],
+       "also": []
+      },
+      {
+       "fields": [
+        "How long data is retained"
+       ],
+       "main": {
+        "status": "STATED",
+        "publisher": "Anthropic",
+        "page": "API and data retention - Claude Platform Docs",
+        "url": "https://platform.claude.com/docs/en/manage-claude/api-and-data-retention",
+        "section": "Model-specific data retention requirements",
+        "read": "2026-09-24",
+        "quote": "The 30-day data retention requirement applies wherever Covered Models are offered. On the Claude API (including Claude Platform on AWS), Anthropic handles retained data. On Amazon Bedrock and Google Cloud's Agent Platform, retained data stays within your cloud provider's environment; review each platform's documentation for enablement steps."
+       },
+       "broader": [],
+       "also": []
+      },
+      {
+       "fields": [
+        "Use for training"
+       ],
+       "main": {
+        "status": "STATED",
+        "publisher": "Google",
+        "page": "Gemini Enterprise Agent Platform and zero data retention",
+        "url": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/resources/zero-data-retention",
+        "section": "Training restriction",
+        "read": "2026-09-24",
+        "quote": "As outlined in \"Training Restriction\" in the Service Terms section of the Service Specific Terms, Google won't use your data to train or fine-tune any AI/ML models without your prior permission or instruction. This applies to all managed models on Gemini Enterprise Agent Platform, including GA and pre-GA models."
+       },
+       "broader": [],
+       "also": []
+      },
+      {
+       "fields": [
+        "Sharing with third parties"
+       ],
+       "main": {
+        "status": "STATED",
+        "publisher": "Google",
+        "page": "Gemini Enterprise Agent Platform partner models for MaaS",
+        "url": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/partner-models/use-partner-models",
+        "section": "Grant user access to partner models",
+        "read": "2026-09-24",
+        "quote": "Customer prompts and model responses are not shared with third-parties when using the Gemini Enterprise API, including partner models. Google only processes Customer Data as instructed by the Customer, which is further described in our Cloud Data Processing Addendum."
+       },
+       "broader": [],
+       "also": []
+      },
+      {
+       "fields": [
+        "The model provider's access to prompts and outputs",
+        "Retention modes",
+        "Human review"
+       ],
+       "main": {
+        "status": "NOT-STATED"
+       },
+       "broader": [],
+       "also": []
+      }
+     ]
+    },
+    {
+     "title": "Claude Fable 5 on Gemini Enterprise Agent Platform · Locational endpoints · Belgium (europe-west1)",
+     "model": "Claude Fable 5",
+     "platform": "Gemini Enterprise Agent Platform",
+     "qualifiers": [
+      "Locational endpoints",
+      "Belgium (europe-west1)"
+     ],
+     "rows": [
+      {
+       "fields": [
+        "Availability"
+       ],
+       "main": {
+        "status": "NOT-STATED"
+       },
+       "broader": [],
+       "also": []
+      },
+      {
+       "fields": [
+        "Processor"
+       ],
+       "main": {
+        "status": "STATED",
+        "publisher": "Google",
+        "page": "Gemini Enterprise Agent Platform partner models for MaaS",
+        "url": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/partner-models/use-partner-models",
+        "section": "Grant user access to partner models",
+        "read": "2026-09-24",
+        "quote": "Customer prompts and model responses are not shared with third-parties when using the Gemini Enterprise API, including partner models. Google only processes Customer Data as instructed by the Customer, which is further described in our Cloud Data Processing Addendum."
+       },
+       "broader": [
+        {
+         "status": "STATED",
+         "publisher": "Anthropic",
+         "page": "API and data retention - Claude Platform Docs",
+         "url": "https://platform.claude.com/docs/en/manage-claude/api-and-data-retention",
+         "section": "",
+         "read": "2026-09-24",
+         "quote": "On Amazon Bedrock and Google Cloud's Agent Platform, the cloud provider is the data processor; refer to those platforms' data retention and compliance documentation for their equivalent controls."
+        }
+       ],
+       "also": []
+      },
+      {
+       "fields": [
+        "Where prompts and outputs are processed"
+       ],
+       "main": {
+        "status": "BLANK",
+        "publisher": "Google",
+        "page": "Data residency",
+        "url": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/resources/data-residency",
+        "section": "Supported models",
+        "read": "2026-09-24",
+        "note": "the cell is empty in Google's table"
+       },
+       "broader": [],
+       "also": []
+      },
+      {
+       "fields": [
+        "Where data at rest is stored"
+       ],
+       "main": {
+        "status": "STATED",
+        "publisher": "Google",
+        "page": "Gemini Enterprise Agent Platform partner models for MaaS",
+        "url": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/partner-models/use-partner-models",
+        "section": "Grant user access to partner models",
+        "read": "2026-09-24",
+        "quote": "Your data is stored at rest within the selected region or multi-region for partner models on Gemini Enterprise Agent Platform, but the regionalization of data processing may vary."
+       },
+       "broader": [
+        {
+         "status": "STATED",
+         "publisher": "Google",
+         "page": "Data residency",
+         "url": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/resources/data-residency",
+         "section": "",
+         "read": "2026-09-24",
+         "quote": "Data stored at rest in the customer selected location remains at rest in that location, independent of the Agent Platform endpoint called by that customer's request."
+        }
+       ],
+       "also": []
+      },
+      {
+       "fields": [
+        "How long data is retained"
+       ],
+       "main": {
+        "status": "STATED",
+        "publisher": "Anthropic",
+        "page": "API and data retention - Claude Platform Docs",
+        "url": "https://platform.claude.com/docs/en/manage-claude/api-and-data-retention",
+        "section": "Model-specific data retention requirements",
+        "read": "2026-09-24",
+        "quote": "The 30-day data retention requirement applies wherever Covered Models are offered. On the Claude API (including Claude Platform on AWS), Anthropic handles retained data. On Amazon Bedrock and Google Cloud's Agent Platform, retained data stays within your cloud provider's environment; review each platform's documentation for enablement steps."
+       },
+       "broader": [],
+       "also": []
+      },
+      {
+       "fields": [
+        "Use for training"
+       ],
+       "main": {
+        "status": "STATED",
+        "publisher": "Google",
+        "page": "Gemini Enterprise Agent Platform and zero data retention",
+        "url": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/resources/zero-data-retention",
+        "section": "Training restriction",
+        "read": "2026-09-24",
+        "quote": "As outlined in \"Training Restriction\" in the Service Terms section of the Service Specific Terms, Google won't use your data to train or fine-tune any AI/ML models without your prior permission or instruction. This applies to all managed models on Gemini Enterprise Agent Platform, including GA and pre-GA models."
+       },
+       "broader": [],
+       "also": []
+      },
+      {
+       "fields": [
+        "Sharing with third parties"
+       ],
+       "main": {
+        "status": "STATED",
+        "publisher": "Google",
+        "page": "Gemini Enterprise Agent Platform partner models for MaaS",
+        "url": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/partner-models/use-partner-models",
+        "section": "Grant user access to partner models",
+        "read": "2026-09-24",
+        "quote": "Customer prompts and model responses are not shared with third-parties when using the Gemini Enterprise API, including partner models. Google only processes Customer Data as instructed by the Customer, which is further described in our Cloud Data Processing Addendum."
+       },
+       "broader": [],
+       "also": []
+      },
+      {
+       "fields": [
+        "The model provider's access to prompts and outputs",
+        "Retention modes",
+        "Human review"
+       ],
+       "main": {
+        "status": "NOT-STATED"
+       },
+       "broader": [],
+       "also": []
+      }
+     ]
+    }
+   ],
+   "unverifiedAfter": "2026-12-23"
+  }
+ ]
+}

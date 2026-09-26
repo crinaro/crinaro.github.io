@@ -14,7 +14,7 @@ GitHub Pages serves this repo root as it stands, and the pages fetch nothing fro
 | `email/` | The email signature images |
 | `src/` | The generators and the logo SVGs |
 
-Fourteen pages in all. Everything at the repo root is generated output.
+Fifteen pages in all. Everything at the repo root is generated output.
 **Edit `src/build-site.js`, never `index.html`.** The next build overwrites it.
 
 ## Rebuild
