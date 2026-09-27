@@ -262,37 +262,37 @@
     <h3>Somewhere isolated for work to run</h3>
     <p><span class="lbl">You have it if</span>An agent run gets a workspace that is not somebody's laptop, and two runs cannot see each other.</p>
     <p><span class="lbl">Empty, it costs you</span>Every unattended run inherits one machine's credentials and state. This is the row that stops being optional first, because a scheduled job on a laptop stops when its owner takes leave and nothing reports that it stopped.</p>
-    <p><a class="src" href="/what-you-already-have/options/#l-compute-and-isolation">See the two options listed <span aria-hidden="true">&rarr;</span></a></p>
+    <p><a class="src" href="/what-you-already-have/options/#l-compute-and-isolation">See the five options listed <span aria-hidden="true">&rarr;</span></a></p>
   </div>
   <div class="row">
     <h3>Something serving a model</h3>
     <p><span class="lbl">You have it if</span>You run a process that holds weights, or you have decided on purpose that you never will.</p>
     <p><span class="lbl">Empty, it costs you</span>Nothing, if you buy inference and mean it. Empty is the correct state of this row for anyone who does.</p>
-    <p><a class="src" href="/what-you-already-have/options/#l-serving">See the fifteen options listed <span aria-hidden="true">&rarr;</span></a></p>
+    <p><a class="src" href="/what-you-already-have/options/#l-serving">See the twenty options listed <span aria-hidden="true">&rarr;</span></a></p>
   </div>
   <div class="row">
     <h3>Something routing between providers</h3>
     <p><span class="lbl">You have it if</span>Changing which model answers is a configuration change rather than a code change.</p>
     <p><span class="lbl">Empty, it costs you</span>Every switch becomes a code change in however many places call a model. One model and one consumer does not earn this row. A second of either does.</p>
-    <p><a class="src" href="/what-you-already-have/options/#l-gateway">See the six options listed <span aria-hidden="true">&rarr;</span></a></p>
+    <p><a class="src" href="/what-you-already-have/options/#l-gateway">See the twelve options listed <span aria-hidden="true">&rarr;</span></a></p>
   </div>
   <div class="row">
     <h3>Something supplying tools and context</h3>
     <p><span class="lbl">You have it if</span>An agent reaches your systems through a declared surface rather than through pasted text.</p>
     <p><span class="lbl">Empty, it costs you</span>Nothing records what an agent was actually given, so when a run comes back wrong there is nothing to inspect and nothing to change except the next prompt.</p>
-    <p><a class="src" href="/what-you-already-have/options/#l-context-and-tools">See the three options listed <span aria-hidden="true">&rarr;</span></a></p>
+    <p><a class="src" href="/what-you-already-have/options/#l-context-and-tools">See the ten options listed <span aria-hidden="true">&rarr;</span></a></p>
   </div>
   <div class="row">
     <h3>Something that survives a crash</h3>
     <p><span class="lbl">You have it if</span>A sequence that dies halfway resumes rather than restarts.</p>
     <p><span class="lbl">Empty, it costs you</span>Long work is only as reliable as the machine it started on. This row earns its place once a run is long enough that starting it again is expensive, and before that it is easy to buy too early.</p>
-    <p><a class="src" href="/what-you-already-have/options/#l-orchestration">See the seven options listed <span aria-hidden="true">&rarr;</span></a></p>
+    <p><a class="src" href="/what-you-already-have/options/#l-orchestration">See the sixteen options listed <span aria-hidden="true">&rarr;</span></a></p>
   </div>
   <div class="row">
     <h3>Something a person sits in front of</h3>
     <p><span class="lbl">You have it if</span>Nobody has to read a log to know what an agent did.</p>
     <p><span class="lbl">Empty, it costs you</span>You cannot tell a working agent team from a stuck one without going and asking the person running it.</p>
-    <p><a class="src" href="/what-you-already-have/options/#l-interface">See the 30 options listed <span aria-hidden="true">&rarr;</span></a></p>
+    <p><a class="src" href="/what-you-already-have/options/#l-interface">See the 42 options listed <span aria-hidden="true">&rarr;</span></a></p>
   </div>
   </div>
 
@@ -301,10 +301,11 @@
      the options have no row here, on purpose.</b> What you author and what it runs on, and the
      things that sit across all of it, are not on the request path in the way these
      six are, so an order of adoption says nothing useful about
-     them. Evaluating what an agent produced is not a row either, because too little turned up to
-     put in front of you as a set of options, and nor is delivering what is registered to the
-     machines that run it. Both are in <a class="src" href="/what-you-already-have/options/">the
-     options</a>, where each says how little is there and why. A registry of prompts or agent
+     them. Evaluating what an agent produced is not a row either. You can buy what runs an
+     evaluation, and <a class="src" href="/what-you-already-have/options/#l-evaluate">the options</a>
+     list seven products that trace, score and test, but none decides what a good result is: those
+     cases are yours to write. Nor is delivering what is registered to the machines that run it,
+     where the options hold one vendor feature. A registry of prompts or agent
      definitions is not a row here either, and that one is not scarcity: it has rows in the options.
      What it does not have is a place in this order, and this page does not invent one. Naming that
      is the alternative to selling you a gap as a layer.</p>

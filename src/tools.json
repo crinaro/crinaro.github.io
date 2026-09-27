@@ -39,7 +39,7 @@
    "andrewyng/context-hub"
   ]
  },
- "cut": "2026-09-25",
+ "cut": "2026-09-27",
  "revision": null,
  "tools": [
   {
@@ -54,6 +54,26 @@
   },
   {
    "archived": false,
+   "asOf": "2026-09-24",
+   "basis": "observed",
+   "kind": "hosted-service",
+   "layer": "compute-and-isolation",
+   "name": "Daytona",
+   "url": "https://www.daytona.io",
+   "what": "A hosted sandbox cloud for agent-run code, the same shape of product as E2B: disposable, isolated workspaces obtained on demand rather than a template-defined workspace a person provisions once."
+  },
+  {
+   "archived": false,
+   "asOf": "2026-09-24",
+   "basis": "observed",
+   "kind": "hosted-service",
+   "layer": "compute-and-isolation",
+   "name": "E2B",
+   "url": "https://e2b.dev",
+   "what": "A hosted cloud of disposable Firecracker microVMs, one per sandbox, reached over an SDK call rather than provisioned as a template-defined workspace: an agent gets an isolated machine to run code, browse and use tools in, and the sandbox can be paused and forked."
+  },
+  {
+   "archived": false,
    "asOf": "2026-09-08",
    "basis": "reasoned",
    "kind": "hosted-service",
@@ -61,6 +81,16 @@
    "name": "GitHub Codespaces",
    "url": "https://github.com/features/codespaces",
    "what": "A workspace defined by a file in the repository and hosted by the vendor."
+  },
+  {
+   "archived": false,
+   "asOf": "2026-09-24",
+   "basis": "observed",
+   "kind": "hosted-service",
+   "layer": "compute-and-isolation",
+   "name": "Runloop",
+   "url": "https://www.runloop.ai",
+   "what": "A hosted sandbox cloud for agents, comparable to E2B and Daytona: persistent Devboxes so an agent can analyze data or work across a long task without losing context, marketed explicitly for autonomous-agent workloads, model evaluation against real workloads, and agentic-commerce use cases."
   },
   {
    "archived": false,
@@ -74,6 +104,16 @@
   },
   {
    "archived": false,
+   "asOf": "2026-09-24",
+   "basis": "observed",
+   "kind": "hosted-service",
+   "layer": "serving",
+   "name": "Baseten",
+   "url": "https://www.baseten.co",
+   "what": "A hosted platform for deploying and scaling open-source and custom models in production, comparable to Together AI, Fireworks AI and Groq."
+  },
+  {
+   "archived": false,
    "asOf": "2026-09-11",
    "basis": "observed",
    "kind": "model",
@@ -81,6 +121,16 @@
    "name": "deepseek-ai/DeepSeek-V4-Flash",
    "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash",
    "what": "DeepSeek\u2019s V4 Flash text model, stored mostly in 8-bit and FP8 formats across 46 safetensors shards (about 291 billion parameters as the Hugging Face hub counts them), MIT-licensed and ungated."
+  },
+  {
+   "archived": false,
+   "asOf": "2026-09-24",
+   "basis": "observed",
+   "kind": "hosted-service",
+   "layer": "serving",
+   "name": "Fireworks AI",
+   "url": "https://fireworks.ai",
+   "what": "A hosted training-and-inference platform positioned around turning open models into a buyer\u2019s own specialized intelligence, fine-tuning and serving in one vendor, the same competitive set as Together AI and Baseten."
   },
   {
    "archived": false,
@@ -101,6 +151,16 @@
    "name": "google/gemma-4-31B-it",
    "url": "https://huggingface.co/google/gemma-4-31B-it",
    "what": "The Gemma 4 successor at about 31 billion parameters, images and text, two safetensors shards, Apache-2.0 as the hub reports it, and ungated."
+  },
+  {
+   "archived": false,
+   "asOf": "2026-09-24",
+   "basis": "observed",
+   "kind": "hosted-service",
+   "layer": "serving",
+   "name": "Groq",
+   "url": "https://groq.com",
+   "what": "A hosted inference platform built on Groq\u2019s own custom chips (LPUs), marketed on inference speed."
   },
   {
    "archived": true,
@@ -141,6 +201,16 @@
    "name": "mistralai/Mistral-7B-Instruct-v0.3",
    "url": "https://huggingface.co/mistralai/Mistral-7B-Instruct-v0.3",
    "what": "Mistral\u2019s 7-billion-parameter instruction-tuned text model, Apache-2.0 as the Hugging Face hub reports it, ungated, four safetensors shards, and tagged for vLLM rather than for the transformers library; its card says it is the instruct fine-tune of Mistral-7B-v0.3."
+  },
+  {
+   "archived": false,
+   "asOf": "2026-09-24",
+   "basis": "observed",
+   "kind": "hosted-service",
+   "layer": "serving",
+   "name": "Modal",
+   "url": "https://modal.com",
+   "what": "A general-purpose serverless compute platform for running arbitrary code on CPU or GPU at scale, used heavily for model serving and batch inference, and also offering sandboxed execution primitives that overlap with hosted agent sandboxes such as E2B, Daytona and Runloop."
   },
   {
    "archived": false,
@@ -204,6 +274,16 @@
   },
   {
    "archived": false,
+   "asOf": "2026-09-24",
+   "basis": "observed",
+   "kind": "hosted-service",
+   "layer": "serving",
+   "name": "Together AI",
+   "url": "https://www.together.ai",
+   "what": "A hosted inference API for open-weight models, positioned as the AI native cloud: serving, fine-tuning and (per its own broader marketing) training infrastructure for teams that do not want to run vLLM or similar themselves."
+  },
+  {
+   "archived": false,
    "asOf": "2026-09-03",
    "basis": "observed",
    "kind": "repository",
@@ -211,6 +291,16 @@
    "name": "vllm-project/vllm",
    "url": "https://github.com/vllm-project/vllm",
    "what": "A Python library and a server process that holds model weights in GPU memory and answers completion calls over an OpenAI-shaped API."
+  },
+  {
+   "archived": false,
+   "asOf": "2026-09-24",
+   "basis": "observed",
+   "kind": "hosted-service",
+   "layer": "gateway",
+   "name": "Anthropic API",
+   "url": "https://www.anthropic.com/api",
+   "what": "Anthropic\u2019s own hosted API for the Claude models, what Anthropic\u2019s support documentation calls the first-party API, separate from Claude Code, Cowork, or a model reached through a cloud platform like Bedrock, Azure Foundry or Vertex AI."
   },
   {
    "archived": false,
@@ -224,6 +314,16 @@
   },
   {
    "archived": false,
+   "asOf": "2026-09-24",
+   "basis": "observed",
+   "kind": "hosted-service",
+   "layer": "gateway",
+   "name": "Azure AI Foundry / Azure OpenAI",
+   "url": "https://azure.microsoft.com/en-us/products/ai-foundry",
+   "what": "Microsoft\u2019s platform for deploying third-party and first-party models (including Anthropic\u2019s Claude family and OpenAI\u2019s models) inside an Azure tenant, with two hosting options for Claude specifically: Hosted on Azure and Hosted on Anthropic Infrastructure."
+  },
+  {
+   "archived": false,
    "asOf": "2026-09-03",
    "basis": "observed",
    "kind": "repository",
@@ -231,6 +331,36 @@
    "name": "BerriAI/litellm",
    "url": "https://github.com/BerriAI/litellm",
    "what": "Two shapes in one repository: a Python SDK you import, and a proxy server you deploy in front of many providers."
+  },
+  {
+   "archived": false,
+   "asOf": "2026-09-24",
+   "basis": "observed",
+   "kind": "hosted-service",
+   "layer": "gateway",
+   "name": "Cloudflare AI Gateway",
+   "url": "https://developers.cloudflare.com/ai-gateway/",
+   "what": "A gateway feature on Cloudflare\u2019s existing edge/CDN platform: usage analytics, response caching, rate limiting and automatic model fallback in front of one or more providers, reached through Cloudflare\u2019s own network rather than a standalone company\u2019s infrastructure."
+  },
+  {
+   "archived": false,
+   "asOf": "2026-09-24",
+   "basis": "observed",
+   "kind": "hosted-service",
+   "layer": "gateway",
+   "name": "Google Vertex AI / Gemini Enterprise Agent Platform",
+   "url": "https://cloud.google.com/products/gemini-enterprise-agent-platform",
+   "what": "Google\u2019s rebrand of Vertex AI: the platform product itself was renamed, and the whole naming table under it renamed correspondingly (the studio, the API, the model garden, and so on)."
+  },
+  {
+   "archived": false,
+   "asOf": "2026-09-24",
+   "basis": "observed",
+   "kind": "repository",
+   "layer": "gateway",
+   "name": "Kong/kong",
+   "url": "https://github.com/Kong/kong",
+   "what": "A general-purpose, open-source API gateway (Apache-2.0) whose AI Gateway capability is a set of plugins on top of the same runtime, semantic caching, multi-LLM routing, prompt guardrails and MCP-related routing, rather than a separate product from a different codebase."
   },
   {
    "archived": false,
@@ -251,6 +381,16 @@
    "name": "Not Diamond",
    "url": "https://www.notdiamond.ai/",
    "what": "A router that chooses which model answers, sold on cost against frontier quality."
+  },
+  {
+   "archived": false,
+   "asOf": "2026-09-24",
+   "basis": "observed",
+   "kind": "hosted-service",
+   "layer": "gateway",
+   "name": "OpenAI API",
+   "url": "https://platform.openai.com/",
+   "what": "OpenAI\u2019s own hosted API for its models, configurable per organization with data controls including Zero Data Retention, Modified Abuse Monitoring, and a Business Associate and Healthcare Addendum for PHI processing, per its own documentation (developers.openai.com, as of 2026-09-24)."
   },
   {
    "archived": false,
@@ -284,6 +424,46 @@
   },
   {
    "archived": false,
+   "asOf": "2026-09-25",
+   "basis": "observed",
+   "kind": "hosted-service",
+   "layer": "context-and-tools",
+   "name": "Atlan",
+   "url": "https://atlan.com/",
+   "what": "A hosted SaaS that connects to an organization\u2019s business systems (the homepage names Slack, Teams and other unspecified systems) and builds what it calls an Enterprise Data Graph unifying metadata, lineage, glossary, quality signals and business semantics, queryable by humans and agents through Slack, Teams, Claude, ChatGPT, MCP, APIs and SQL."
+  },
+  {
+   "archived": false,
+   "asOf": "2026-09-24",
+   "basis": "observed",
+   "kind": "hosted-service",
+   "layer": "context-and-tools",
+   "name": "DeepWiki",
+   "url": "https://deepwiki.com",
+   "what": "A hosted product, built by Cognition (Devin\u2019s maker) and explicitly described by the vendor as powered by Devin, that generates conversational, browsable documentation for any public GitHub repository, a per-repository knowledge tier a team can point an agent\u2019s context-gathering at instead of, or alongside, the repository itself."
+  },
+  {
+   "archived": false,
+   "asOf": "2026-09-25",
+   "basis": "observed",
+   "kind": "repository",
+   "layer": "context-and-tools",
+   "name": "DeusData/codebase-memory-mcp",
+   "url": "https://github.com/DeusData/codebase-memory-mcp",
+   "what": "A native executable with a small verified runtime-asset set (no hosted service, no API key) that the vendor states indexes a codebase into a persistent, local knowledge graph via tree-sitter AST parsing, exposed to agents as 17 MCP tools including semantic search, call-chain and architecture-decision-record queries."
+  },
+  {
+   "archived": false,
+   "asOf": "2026-09-24",
+   "basis": "observed",
+   "kind": "hosted-service",
+   "layer": "context-and-tools",
+   "name": "Factory AutoWiki",
+   "url": "https://docs.factory.ai/cli/features/wiki/overview",
+   "what": "A feature of Factory that generates a structured wiki for a repository, architecture overviews, module breakdowns, cross-linked pages, and keeps it current as the code changes, rather than a one-time snapshot."
+  },
+  {
+   "archived": false,
    "asOf": "2026-09-03",
    "basis": "reasoned",
    "kind": "hosted-service",
@@ -294,6 +474,36 @@
   },
   {
    "archived": false,
+   "asOf": "2026-09-24",
+   "basis": "observed",
+   "kind": "hosted-service",
+   "layer": "context-and-tools",
+   "name": "HipAI",
+   "url": "https://gethip.ai/",
+   "what": "A hosted SaaS (dashboard at dashboard.gethip.ai) that connects to a customer\u2019s existing structured and unstructured data sources, the vendor names relational databases, internal documents and chat, and automatically builds a schema-free context graph of entities and relationships, which the customer\u2019s own agents and LLMs then query as a tool call, without the customer designing an ontology or running an ETL pipeline first."
+  },
+  {
+   "archived": false,
+   "asOf": "2026-09-25",
+   "basis": "observed",
+   "kind": "hosted-service",
+   "layer": "context-and-tools",
+   "name": "Lore",
+   "url": "https://www.getlore.ai/",
+   "what": "A free, currently hosted product (Lore Cloud) that ingests a project\u2019s documents (meeting notes, research, decisions, and files in common document, data and image formats) and makes them queryable by any MCP-compatible AI tool (Claude, ChatGPT, Cursor, Codex, CLI, TUI) with citations back to the original source, distinguished on its own FAQ from AI-memory systems that compress and lose detail."
+  },
+  {
+   "archived": false,
+   "asOf": "2026-09-25",
+   "basis": "observed",
+   "kind": "repository",
+   "layer": "context-and-tools",
+   "name": "open-metadata/OpenMetadata",
+   "url": "https://github.com/open-metadata/OpenMetadata",
+   "what": "A self-hostable, open-source (Apache-2.0) platform that ingests technical metadata, lineage, ownership, usage, glossaries and data quality signals from 130+ connectors into a unified knowledge graph, then exposes that graph to humans and agents through an MCP server, semantic search, APIs and SDKs."
+  },
+  {
+   "archived": false,
    "asOf": "2026-09-09",
    "basis": "reasoned",
    "kind": "repository",
@@ -301,6 +511,36 @@
    "name": "upstash/context7",
    "url": "https://github.com/upstash/context7",
    "what": "An MCP server that supplies up-to-date library documentation to a coding agent."
+  },
+  {
+   "archived": false,
+   "asOf": "2026-09-24",
+   "basis": "observed",
+   "kind": "repository",
+   "layer": "orchestration",
+   "name": "ag2ai/ag2",
+   "url": "https://github.com/ag2ai/ag2",
+   "what": "A multi-agent conversation framework that its GitHub description calls formerly AutoGen, now developed under its own AG2 organization; the GitHub API reports it as a separate repository, not a GitHub fork of microsoft/autogen (checked 2026-09-26)."
+  },
+  {
+   "archived": false,
+   "asOf": "2026-09-24",
+   "basis": "observed",
+   "kind": "hosted-service",
+   "layer": "orchestration",
+   "name": "Amazon Bedrock AgentCore",
+   "url": "https://aws.amazon.com/bedrock/agentcore/",
+   "what": "A set of modular, independently-usable managed services for running agents built with any open-source framework (CrewAI, LangGraph, LlamaIndex, Google ADK, OpenAI Agents SDK, Strands) and any foundation model, in or outside Bedrock: Runtime is a serverless, session-isolated execution environment for the agent process itself; Gateway turns APIs and Lambda functions into MCP-compatible tools; Identity is agent-scoped authentication against existing identity providers; Code Interpreter is a separate isolated sandbox for the agent to execute code in, distinct from Runtime\u2019s own isolation."
+  },
+  {
+   "archived": false,
+   "asOf": "2026-09-24",
+   "basis": "observed",
+   "kind": "hosted-service",
+   "layer": "orchestration",
+   "name": "Augment Code (Cosmos)",
+   "url": "https://www.augmentcode.com",
+   "what": "A platform (branded Cosmos) explicitly positioned around organizational scale rather than one developer\u2019s own editor: it connects agents across code review, test coverage, incident investigation, ticket-to-PR, large projects and security remediation."
   },
   {
    "archived": false,
@@ -334,6 +574,16 @@
   },
   {
    "archived": false,
+   "asOf": "2026-09-24",
+   "basis": "observed",
+   "kind": "repository",
+   "layer": "orchestration",
+   "name": "google/adk-python",
+   "url": "https://github.com/google/adk-python",
+   "what": "A code-first Python toolkit from Google for constructing, checking and shipping agents, positioned by its own maintainers as covering the checking step in the same package rather than as a separate purchase: its docs list an eval workflow (test files, a CLI, a web UI for reviewing runs) alongside the construction API."
+  },
+  {
+   "archived": false,
    "asOf": "2026-09-03",
    "basis": "observed",
    "kind": "repository",
@@ -354,6 +604,16 @@
   },
   {
    "archived": false,
+   "asOf": "2026-09-24",
+   "basis": "observed",
+   "kind": "hosted-service",
+   "layer": "orchestration",
+   "name": "Microsoft Foundry Agent Service",
+   "url": "https://learn.microsoft.com/en-us/azure/ai-services/agents/overview",
+   "what": "Microsoft\u2019s managed platform for constructing, running and scaling agents, spanning several capabilities under one name: an Agent Runtime that hosts and scales prompt agents and hosted agents, which package a team\u2019s own code; Toolboxes sharing tools (web search, file search, code execution, MCP servers, custom functions) across agents through one managed MCP endpoint; built-in observability with tracing, metrics and scored runs plus a preview optimizer that rewrites an agent\u2019s own instructions, skills, tool descriptions and model choice based on those scored runs, a scoring-and-improvement loop built into an orchestration platform; and a publishing surface that versions agents and registers them centrally, distinct from a self-run marketplace with a vendoring step."
+  },
+  {
+   "archived": false,
    "asOf": "2026-09-03",
    "basis": "observed",
    "kind": "repository",
@@ -364,6 +624,36 @@
   },
   {
    "archived": false,
+   "asOf": "2026-09-24",
+   "basis": "observed",
+   "kind": "repository",
+   "layer": "orchestration",
+   "name": "openai/openai-agents-python",
+   "url": "https://github.com/openai/openai-agents-python",
+   "what": "A lightweight Python framework for building multi-agent workflows: agents, handoffs between them, and guardrails, provider-agnostic despite the vendor."
+  },
+  {
+   "archived": false,
+   "asOf": "2026-09-24",
+   "basis": "observed",
+   "kind": "repository",
+   "layer": "orchestration",
+   "name": "pydantic/pydantic-ai",
+   "url": "https://github.com/pydantic/pydantic-ai",
+   "what": "A typed Python agent framework from the team behind Pydantic, positioned around type safety end to end across models, tools and structured output, rather than around a particular orchestration topology."
+  },
+  {
+   "archived": false,
+   "asOf": "2026-09-24",
+   "basis": "observed",
+   "kind": "repository",
+   "layer": "orchestration",
+   "name": "run-llama/llama_index",
+   "url": "https://github.com/run-llama/llama_index",
+   "what": "Originally an agent-and-retrieval framework; GitHub\u2019s own description of the project as of this read reframes it around ingesting and indexing documents, with agent construction now one capability inside that broader positioning rather than the project\u2019s own headline."
+  },
+  {
+   "archived": false,
    "asOf": "2026-09-03",
    "basis": "observed",
    "kind": "repository",
@@ -371,6 +661,36 @@
    "name": "temporalio/temporal",
    "url": "https://github.com/temporalio/temporal",
    "what": "A server you run, plus per-language client SDKs you import. The workflow code lives in your process; the server holds the durable state and replays it."
+  },
+  {
+   "archived": false,
+   "asOf": "2026-09-24",
+   "basis": "observed",
+   "kind": "hosted-service",
+   "layer": "orchestration",
+   "name": "Vertex AI Agent Engine (Gemini Enterprise Agent Platform)",
+   "url": "https://cloud.google.com/vertex-ai/generative-ai/docs/agent-engine/overview",
+   "what": "Google\u2019s managed agent runtime, formerly branded standalone as Vertex AI Agent Engine; its former URL now redirects into the documentation for the renamed Gemini Enterprise Agent Platform."
+  },
+  {
+   "archived": false,
+   "asOf": "2026-09-24",
+   "basis": "observed",
+   "kind": "repository",
+   "layer": "interface",
+   "name": "aaif-goose/goose",
+   "url": "https://github.com/aaif-goose/goose",
+   "what": "An open-source, model-agnostic agent that installs, executes, edits and tests code, extensible through MCP."
+  },
+  {
+   "archived": false,
+   "asOf": "2026-09-24",
+   "basis": "observed",
+   "kind": "repository",
+   "layer": "interface",
+   "name": "Aider-AI/aider",
+   "url": "https://github.com/Aider-AI/aider",
+   "what": "A terminal coding agent that edits files in a local git repository and commits its own changes, driven from the command line with the user\u2019s own model key."
   },
   {
    "archived": false,
@@ -414,6 +734,16 @@
   },
   {
    "archived": false,
+   "asOf": "2026-09-24",
+   "basis": "observed",
+   "kind": "hosted-service",
+   "layer": "interface",
+   "name": "Bolt",
+   "url": "https://bolt.new",
+   "what": "A hosted, browser-based builder that generates and runs a full-stack web application from a prompt, executing the generated code in-browser via StackBlitz\u2019s WebContainers technology rather than a server-side sandbox, a different execution shape from Replit Agent or v0, which run generated code on servers their vendors operate."
+  },
+  {
+   "archived": false,
    "asOf": "2026-09-23",
    "basis": "observed",
    "kind": "chat-assistant",
@@ -431,6 +761,16 @@
    "name": "Claude Code",
    "url": "https://docs.claude.com/en/docs/claude-code/overview",
    "what": "A coding agent from Anthropic that you run in a terminal or an editor, among four surfaces: you state work in words and it holds the conversation, chooses which tools to call, runs commands and manages its own context until the work is done or it stops to ask."
+  },
+  {
+   "archived": false,
+   "asOf": "2026-09-24",
+   "basis": "observed",
+   "kind": "repository",
+   "layer": "interface",
+   "name": "cline/cline",
+   "url": "https://github.com/cline/cline",
+   "what": "A coding agent shipped as several front ends onto one core: a VS Code / JetBrains extension, an installable CLI, a desktop app, and an SDK."
   },
   {
    "archived": false,
@@ -554,6 +894,16 @@
   },
   {
    "archived": false,
+   "asOf": "2026-09-24",
+   "basis": "observed",
+   "kind": "ide-extension",
+   "layer": "interface",
+   "name": "JetBrains Junie",
+   "url": "https://www.jetbrains.com/junie/",
+   "what": "JetBrains\u2019 coding agent, available inside JetBrains IDEs and, since its general availability in June 2026, as a standalone Junie CLI reached from a terminal, any IDE or CI/CD (JetBrains, March 2026), which can optionally connect to a running JetBrains IDE for its code intelligence (JetBrains, April 2026; JetBrains\u2019 announcement, as of 2026-09-26)."
+  },
+  {
+   "archived": false,
    "asOf": "2026-09-23",
    "basis": "observed",
    "kind": "hosted-service",
@@ -614,6 +964,16 @@
   },
   {
    "archived": false,
+   "asOf": "2026-09-24",
+   "basis": "observed",
+   "kind": "hosted-service",
+   "layer": "interface",
+   "name": "Lovable",
+   "url": "https://lovable.dev",
+   "what": "A hosted full-stack app builder generating real, exportable code from natural-language prompts, with its own docs describing enterprise governance features alongside the consumer-facing build flow."
+  },
+  {
+   "archived": false,
    "asOf": "2026-09-03",
    "basis": "reasoned",
    "kind": "hosted-service",
@@ -644,6 +1004,16 @@
   },
   {
    "archived": false,
+   "asOf": "2026-09-24",
+   "basis": "observed",
+   "kind": "repository",
+   "layer": "interface",
+   "name": "OpenHands/OpenHands",
+   "url": "https://github.com/OpenHands/OpenHands",
+   "what": "An open-source coding agent that plans and executes multi-step changes with terminal, browser and code-editing tools, run locally or self-hosted."
+  },
+  {
+   "archived": false,
    "asOf": "2026-09-06",
    "basis": "reasoned",
    "kind": "hosted-service",
@@ -651,6 +1021,26 @@
    "name": "Relevance AI",
    "url": "https://relevanceai.com/",
    "what": "A hosted builder aimed at business functions rather than at engineering. You do not own the runtime it executes on."
+  },
+  {
+   "archived": false,
+   "asOf": "2026-09-24",
+   "basis": "observed",
+   "kind": "hosted-service",
+   "layer": "interface",
+   "name": "Replit Agent",
+   "url": "https://replit.com/products/agent",
+   "what": "A hosted, browser-based agent that plans, writes, tests and deploys a full application from a natural-language description, with Replit supplying the compute, deployment and hosting end to end, closer in shape to Bolt, v0 and Lovable (build-and-ship a whole app in the vendor\u2019s own environment) than to a coding assistant added to a repository you already own."
+  },
+  {
+   "archived": false,
+   "asOf": "2026-09-24",
+   "basis": "observed",
+   "kind": "ide-extension",
+   "layer": "interface",
+   "name": "Sourcegraph Cody",
+   "url": "https://sourcegraph.com/cody",
+   "what": "A coding assistant that pulls context from Sourcegraph\u2019s own code-search index across local and remote repositories, available as extensions for VS Code, JetBrains and Visual Studio, a web app, and a CLI."
   },
   {
    "archived": false,
@@ -664,6 +1054,16 @@
   },
   {
    "archived": false,
+   "asOf": "2026-09-24",
+   "basis": "observed",
+   "kind": "hosted-service",
+   "layer": "interface",
+   "name": "v0",
+   "url": "https://v0.app",
+   "what": "Vercel\u2019s hosted builder for full-stack web applications, generating both UI and backend code from natural language and deploying directly onto Vercel\u2019s own platform, a build tool whose deployment target is its maker\u2019s own platform."
+  },
+  {
+   "archived": false,
    "asOf": "2026-09-03",
    "basis": "observed",
    "kind": "hosted-service",
@@ -671,6 +1071,26 @@
    "name": "Vellum",
    "url": "https://docs.vellum.ai/",
    "what": "Filed as an agent-evaluation service, but its own page, read 2026-09-03, describes a personal AI assistant with persistent memory and says nothing about evaluation. Which of those is the product could not be established."
+  },
+  {
+   "archived": false,
+   "asOf": "2026-09-24",
+   "basis": "observed",
+   "kind": "terminal-harness",
+   "layer": "interface",
+   "name": "Warp",
+   "url": "https://www.warp.dev",
+   "what": "A terminal application rebuilt around agents: it can drive one or more coding agents, run them against a task queue, and (per its own newer positioning) automate work across the SDLC rather than only completing commands interactively."
+  },
+  {
+   "archived": false,
+   "asOf": "2026-09-24",
+   "basis": "observed",
+   "kind": "repository",
+   "layer": "interface",
+   "name": "zed-industries/zed",
+   "url": "https://github.com/zed-industries/zed",
+   "what": "A native code editor, built by the team behind Atom and Tree-sitter, with a built-in agent panel that can plan and execute multi-file edits alongside its original real-time collaborative editing."
   },
   {
    "archived": false,
@@ -794,6 +1214,76 @@
   },
   {
    "archived": false,
+   "asOf": "2026-09-24",
+   "basis": "observed",
+   "kind": "repository",
+   "layer": "evaluate",
+   "name": "Arize-ai/phoenix",
+   "url": "https://github.com/Arize-ai/phoenix",
+   "what": "An open-source tracing and evaluation library: it instruments an application (via OpenTelemetry) to capture traces, then runs LLM-graded and code-graded evals against recorded runs or a curated dataset."
+  },
+  {
+   "archived": false,
+   "asOf": "2026-09-24",
+   "basis": "observed",
+   "kind": "hosted-service",
+   "layer": "evaluate",
+   "name": "Braintrust",
+   "url": "https://www.braintrust.dev",
+   "what": "A hosted platform for running production agents under observation: capturing traces from live traffic, scoring recorded runs against a dataset, and flagging a regression before it reaches a user, positioned by the vendor as built specifically for agents rather than adapted from a general APM tool."
+  },
+  {
+   "archived": false,
+   "asOf": "2026-09-24",
+   "basis": "observed",
+   "kind": "repository",
+   "layer": "evaluate",
+   "name": "confident-ai/deepeval",
+   "url": "https://github.com/confident-ai/deepeval",
+   "what": "An LLM evaluation framework structured like a unit-test library (assertions, metrics, pytest integration) rather than a hosted dashboard, with a companion hosted platform (Confident AI) this read did not open."
+  },
+  {
+   "archived": false,
+   "asOf": "2026-09-24",
+   "basis": "observed",
+   "kind": "hosted-service",
+   "layer": "evaluate",
+   "name": "Galileo",
+   "url": "https://www.galileo.ai",
+   "what": "A hosted observability and evaluation platform marketed at enterprise scale, framing itself around guarding a GenAI application in production as much as scoring it offline."
+  },
+  {
+   "archived": false,
+   "asOf": "2026-09-24",
+   "basis": "observed",
+   "kind": "repository",
+   "layer": "evaluate",
+   "name": "langfuse/langfuse",
+   "url": "https://github.com/langfuse/langfuse",
+   "what": "An open-source platform combining tracing, dataset-based evaluation, prompt versioning and a hosted cloud tier, which puts an evaluation harness and prompt versioning in one product."
+  },
+  {
+   "archived": false,
+   "asOf": "2026-09-24",
+   "basis": "observed",
+   "kind": "repository",
+   "layer": "evaluate",
+   "name": "promptfoo/promptfoo",
+   "url": "https://github.com/promptfoo/promptfoo",
+   "what": "A declarative, config-driven CLI for testing prompts and agents against a case set, comparing several models\u2019 outputs, and red-teaming for vulnerabilities, closer to what a CI pipeline would call a test runner than a dashboard-first observability platform."
+  },
+  {
+   "archived": false,
+   "asOf": "2026-09-24",
+   "basis": "observed",
+   "kind": "repository",
+   "layer": "evaluate",
+   "name": "wandb/weave",
+   "url": "https://github.com/wandb/weave",
+   "what": "Weights & Biases\u2019 toolkit for tracing and evaluating LLM applications, built on the same company\u2019s established experiment-tracking product for traditional ML training."
+  },
+  {
+   "archived": false,
    "asOf": "2026-09-09",
    "basis": "reasoned",
    "kind": "repository",
@@ -831,6 +1321,36 @@
    "name": "mlflow/mlflow",
    "url": "https://github.com/mlflow/mlflow",
    "what": "A server plus client libraries. Runs, parameters, artifacts and registered model versions go in; the registry half is what makes it a versioning surface rather than only a logging one."
+  },
+  {
+   "archived": false,
+   "asOf": "2026-09-24",
+   "basis": "observed",
+   "kind": "repository",
+   "layer": "register-and-version",
+   "name": "modelcontextprotocol/registry",
+   "url": "https://github.com/modelcontextprotocol/registry",
+   "what": "A registry service for MCP servers, developed by volunteers under the same GitHub organization that maintains the Model Context Protocol specification itself."
+  },
+  {
+   "archived": false,
+   "asOf": "2026-09-24",
+   "basis": "observed",
+   "kind": "hosted-service",
+   "layer": "register-and-version",
+   "name": "Smithery",
+   "url": "https://smithery.ai",
+   "what": "A hosted directory of MCP servers plus a managed layer in front of them: the vendor states that it handles authentication, credentials and sessions on the adopting team\u2019s behalf, so an agent can call a listed tool without that team standing up its own session/credential handling for that server."
+  },
+  {
+   "archived": false,
+   "asOf": "2026-09-24",
+   "basis": "observed",
+   "kind": "product-feature",
+   "layer": "publish-and-deliver",
+   "name": "Claude Code plugin marketplaces",
+   "url": "https://code.claude.com/docs/en/plugin-marketplaces",
+   "what": "A feature of Claude Code: a marketplace is a marketplace.json catalog, kept in a git repository or a local path, that lists plugins (skills, agents, hooks, MCP servers, LSP servers) for a team or a community to install from."
   },
   {
    "archived": false,

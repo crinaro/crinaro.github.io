@@ -270,7 +270,7 @@
   <p class="bookmark-line"><b>If customer data will reach an agent,</b> start with
      <a class="src" href="/what-you-already-have/customer-data/">what each cloud says about where it goes</a>,
      model by model. It decides whether a tool is an option at all.</p>
-  <p class="written">List rendered 2026-09-25. The date on each row is the day its description
+  <p class="written">List rendered 2026-09-27. The date on each row is the day its description
      was read, and the word beside it says whether that was <b>observed</b> on the page the row
      links to or <b>reasoned</b> from it. No push date, star count or license is printed here:
      the linked page shows all three, and a copy would go stale on somebody else's schedule.
@@ -300,10 +300,28 @@
       <td class="sg">observed 2026-09-03</td>
     </tr>
     <tr>
+      <td class="nm"><a href="https://www.daytona.io" rel="noopener">Daytona</a></td>
+      <td>A hosted sandbox cloud for agent-run code, the same shape of product as E2B: disposable, isolated workspaces obtained on demand rather than a template-defined workspace a person provisions once.</td>
+      <td class="ty">hosted service</td>
+      <td class="sg">observed 2026-09-24</td>
+    </tr>
+    <tr>
+      <td class="nm"><a href="https://e2b.dev" rel="noopener">E2B</a></td>
+      <td>A hosted cloud of disposable Firecracker microVMs, one per sandbox, reached over an SDK call rather than provisioned as a template-defined workspace: an agent gets an isolated machine to run code, browse and use tools in, and the sandbox can be paused and forked.</td>
+      <td class="ty">hosted service</td>
+      <td class="sg">observed 2026-09-24</td>
+    </tr>
+    <tr>
       <td class="nm"><a href="https://github.com/features/codespaces" rel="noopener">GitHub Codespaces</a></td>
       <td>A workspace defined by a file in the repository and hosted by the vendor.</td>
       <td class="ty">hosted service</td>
       <td class="sg">reasoned 2026-09-08</td>
+    </tr>
+    <tr>
+      <td class="nm"><a href="https://www.runloop.ai" rel="noopener">Runloop</a></td>
+      <td>A hosted sandbox cloud for agents, comparable to E2B and Daytona: persistent Devboxes so an agent can analyze data or work across a long task without losing context, marketed explicitly for autonomous-agent workloads, model evaluation against real workloads, and agentic-commerce use cases.</td>
+      <td class="ty">hosted service</td>
+      <td class="sg">observed 2026-09-24</td>
     </tr>
     </tbody>
   </table></div>
@@ -320,10 +338,22 @@
       <td class="sg">reasoned 2026-09-03</td>
     </tr>
     <tr>
+      <td class="nm"><a href="https://www.baseten.co" rel="noopener">Baseten</a></td>
+      <td>A hosted platform for deploying and scaling open-source and custom models in production, comparable to Together AI, Fireworks AI and Groq.</td>
+      <td class="ty">hosted service</td>
+      <td class="sg">observed 2026-09-24</td>
+    </tr>
+    <tr>
       <td class="nm"><a href="https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash" rel="noopener">deepseek-ai/DeepSeek-V4-Flash</a></td>
       <td>DeepSeek’s V4 Flash text model, stored mostly in 8-bit and FP8 formats across 46 safetensors shards (about 291 billion parameters as the Hugging Face hub counts them), MIT-licensed and ungated.</td>
       <td class="ty">model weights</td>
       <td class="sg">observed 2026-09-11</td>
+    </tr>
+    <tr>
+      <td class="nm"><a href="https://fireworks.ai" rel="noopener">Fireworks AI</a></td>
+      <td>A hosted training-and-inference platform positioned around turning open models into a buyer’s own specialized intelligence, fine-tuning and serving in one vendor, the same competitive set as Together AI and Baseten.</td>
+      <td class="ty">hosted service</td>
+      <td class="sg">observed 2026-09-24</td>
     </tr>
     <tr>
       <td class="nm"><a href="https://huggingface.co/google/gemma-3-27b-it" rel="noopener">google/gemma-3-27b-it</a></td>
@@ -336,6 +366,12 @@
       <td>The Gemma 4 successor at about 31 billion parameters, images and text, two safetensors shards, Apache-2.0 as the hub reports it, and ungated.</td>
       <td class="ty">model weights</td>
       <td class="sg">observed 2026-09-11</td>
+    </tr>
+    <tr>
+      <td class="nm"><a href="https://groq.com" rel="noopener">Groq</a></td>
+      <td>A hosted inference platform built on Groq’s own custom chips (LPUs), marketed on inference speed.</td>
+      <td class="ty">hosted service</td>
+      <td class="sg">observed 2026-09-24</td>
     </tr>
     <tr>
       <td class="nm"><a href="https://github.com/huggingface/text-generation-inference" rel="noopener">huggingface/text-generation-inference</a><span class="arch">archived</span></td>
@@ -360,6 +396,12 @@
       <td>Mistral’s 7-billion-parameter instruction-tuned text model, Apache-2.0 as the Hugging Face hub reports it, ungated, four safetensors shards, and tagged for vLLM rather than for the transformers library; its card says it is the instruct fine-tune of Mistral-7B-v0.3.</td>
       <td class="ty">model weights</td>
       <td class="sg">observed 2026-09-11</td>
+    </tr>
+    <tr>
+      <td class="nm"><a href="https://modal.com" rel="noopener">Modal</a></td>
+      <td>A general-purpose serverless compute platform for running arbitrary code on CPU or GPU at scale, used heavily for model serving and batch inference, and also offering sandboxed execution primitives that overlap with hosted agent sandboxes such as E2B, Daytona and Runloop.</td>
+      <td class="ty">hosted service</td>
+      <td class="sg">observed 2026-09-24</td>
     </tr>
     <tr>
       <td class="nm"><a href="https://github.com/ollama/ollama" rel="noopener">ollama/ollama</a></td>
@@ -398,6 +440,12 @@
       <td class="sg">observed 2026-09-11</td>
     </tr>
     <tr>
+      <td class="nm"><a href="https://www.together.ai" rel="noopener">Together AI</a></td>
+      <td>A hosted inference API for open-weight models, positioned as the AI native cloud: serving, fine-tuning and (per its own broader marketing) training infrastructure for teams that do not want to run vLLM or similar themselves.</td>
+      <td class="ty">hosted service</td>
+      <td class="sg">observed 2026-09-24</td>
+    </tr>
+    <tr>
       <td class="nm"><a href="https://github.com/vllm-project/vllm" rel="noopener">vllm-project/vllm</a></td>
       <td>A Python library and a server process that holds model weights in GPU memory and answers completion calls over an OpenAI-shaped API.</td>
       <td class="ty">repository</td>
@@ -412,16 +460,46 @@
     <thead><tr><th>Tool</th><th>What it is</th><th>Type</th><th>Read</th></tr></thead>
     <tbody>
     <tr>
+      <td class="nm"><a href="https://www.anthropic.com/api" rel="noopener">Anthropic API</a></td>
+      <td>Anthropic’s own hosted API for the Claude models, what Anthropic’s support documentation calls the first-party API, separate from Claude Code, Cowork, or a model reached through a cloud platform like Bedrock, Azure Foundry or Vertex AI.</td>
+      <td class="ty">hosted service</td>
+      <td class="sg">observed 2026-09-24</td>
+    </tr>
+    <tr>
       <td class="nm"><a href="https://aws.amazon.com/bedrock/" rel="noopener">AWS Bedrock</a></td>
       <td>A managed API in front of many vendors’ models.</td>
       <td class="ty">hosted service</td>
       <td class="sg">reasoned 2026-09-03</td>
     </tr>
     <tr>
+      <td class="nm"><a href="https://azure.microsoft.com/en-us/products/ai-foundry" rel="noopener">Azure AI Foundry / Azure OpenAI</a></td>
+      <td>Microsoft’s platform for deploying third-party and first-party models (including Anthropic’s Claude family and OpenAI’s models) inside an Azure tenant, with two hosting options for Claude specifically: Hosted on Azure and Hosted on Anthropic Infrastructure.</td>
+      <td class="ty">hosted service</td>
+      <td class="sg">observed 2026-09-24</td>
+    </tr>
+    <tr>
       <td class="nm"><a href="https://github.com/BerriAI/litellm" rel="noopener">BerriAI/litellm</a></td>
       <td>Two shapes in one repository: a Python SDK you import, and a proxy server you deploy in front of many providers.</td>
       <td class="ty">repository</td>
       <td class="sg">observed 2026-09-03</td>
+    </tr>
+    <tr>
+      <td class="nm"><a href="https://developers.cloudflare.com/ai-gateway/" rel="noopener">Cloudflare AI Gateway</a></td>
+      <td>A gateway feature on Cloudflare’s existing edge/CDN platform: usage analytics, response caching, rate limiting and automatic model fallback in front of one or more providers, reached through Cloudflare’s own network rather than a standalone company’s infrastructure.</td>
+      <td class="ty">hosted service</td>
+      <td class="sg">observed 2026-09-24</td>
+    </tr>
+    <tr>
+      <td class="nm"><a href="https://cloud.google.com/products/gemini-enterprise-agent-platform" rel="noopener">Google Vertex AI / Gemini Enterprise Agent Platform</a></td>
+      <td>Google’s rebrand of Vertex AI: the platform product itself was renamed, and the whole naming table under it renamed correspondingly (the studio, the API, the model garden, and so on).</td>
+      <td class="ty">hosted service</td>
+      <td class="sg">observed 2026-09-24</td>
+    </tr>
+    <tr>
+      <td class="nm"><a href="https://github.com/Kong/kong" rel="noopener">Kong/kong</a></td>
+      <td>A general-purpose, open-source API gateway (Apache-2.0) whose AI Gateway capability is a set of plugins on top of the same runtime, semantic caching, multi-LLM routing, prompt guardrails and MCP-related routing, rather than a separate product from a different codebase.</td>
+      <td class="ty">repository</td>
+      <td class="sg">observed 2026-09-24</td>
     </tr>
     <tr>
       <td class="nm"><a href="https://withmartian.com/" rel="noopener">Martian</a></td>
@@ -434,6 +512,12 @@
       <td>A router that chooses which model answers, sold on cost against frontier quality.</td>
       <td class="ty">hosted service</td>
       <td class="sg">reasoned 2026-09-06</td>
+    </tr>
+    <tr>
+      <td class="nm"><a href="https://platform.openai.com/" rel="noopener">OpenAI API</a></td>
+      <td>OpenAI’s own hosted API for its models, configurable per organization with data controls including Zero Data Retention, Modified Abuse Monitoring, and a Business Associate and Healthcare Addendum for PHI processing, per its own documentation (developers.openai.com, as of 2026-09-24).</td>
+      <td class="ty">hosted service</td>
+      <td class="sg">observed 2026-09-24</td>
     </tr>
     <tr>
       <td class="nm"><a href="https://openrouter.ai/" rel="noopener">OpenRouter</a></td>
@@ -462,10 +546,52 @@
       <td class="sg">observed 2026-09-09</td>
     </tr>
     <tr>
+      <td class="nm"><a href="https://atlan.com/" rel="noopener">Atlan</a></td>
+      <td>A hosted SaaS that connects to an organization’s business systems (the homepage names Slack, Teams and other unspecified systems) and builds what it calls an Enterprise Data Graph unifying metadata, lineage, glossary, quality signals and business semantics, queryable by humans and agents through Slack, Teams, Claude, ChatGPT, MCP, APIs and SQL.</td>
+      <td class="ty">hosted service</td>
+      <td class="sg">observed 2026-09-25</td>
+    </tr>
+    <tr>
+      <td class="nm"><a href="https://deepwiki.com" rel="noopener">DeepWiki</a></td>
+      <td>A hosted product, built by Cognition (Devin’s maker) and explicitly described by the vendor as powered by Devin, that generates conversational, browsable documentation for any public GitHub repository, a per-repository knowledge tier a team can point an agent’s context-gathering at instead of, or alongside, the repository itself.</td>
+      <td class="ty">hosted service</td>
+      <td class="sg">observed 2026-09-24</td>
+    </tr>
+    <tr>
+      <td class="nm"><a href="https://github.com/DeusData/codebase-memory-mcp" rel="noopener">DeusData/codebase-memory-mcp</a></td>
+      <td>A native executable with a small verified runtime-asset set (no hosted service, no API key) that the vendor states indexes a codebase into a persistent, local knowledge graph via tree-sitter AST parsing, exposed to agents as 17 MCP tools including semantic search, call-chain and architecture-decision-record queries.</td>
+      <td class="ty">repository</td>
+      <td class="sg">observed 2026-09-25</td>
+    </tr>
+    <tr>
+      <td class="nm"><a href="https://docs.factory.ai/cli/features/wiki/overview" rel="noopener">Factory AutoWiki</a></td>
+      <td>A feature of Factory that generates a structured wiki for a repository, architecture overviews, module breakdowns, cross-linked pages, and keeps it current as the code changes, rather than a one-time snapshot.</td>
+      <td class="ty">hosted service</td>
+      <td class="sg">observed 2026-09-24</td>
+    </tr>
+    <tr>
       <td class="nm"><a href="https://www.glean.com/" rel="noopener">Glean</a></td>
       <td>A hosted index over an organization’s own SaaS sources, reached as a service.</td>
       <td class="ty">hosted service</td>
       <td class="sg">reasoned 2026-09-03</td>
+    </tr>
+    <tr>
+      <td class="nm"><a href="https://gethip.ai/" rel="noopener">HipAI</a></td>
+      <td>A hosted SaaS (dashboard at dashboard.gethip.ai) that connects to a customer’s existing structured and unstructured data sources, the vendor names relational databases, internal documents and chat, and automatically builds a schema-free context graph of entities and relationships, which the customer’s own agents and LLMs then query as a tool call, without the customer designing an ontology or running an ETL pipeline first.</td>
+      <td class="ty">hosted service</td>
+      <td class="sg">observed 2026-09-24</td>
+    </tr>
+    <tr>
+      <td class="nm"><a href="https://www.getlore.ai/" rel="noopener">Lore</a></td>
+      <td>A free, currently hosted product (Lore Cloud) that ingests a project’s documents (meeting notes, research, decisions, and files in common document, data and image formats) and makes them queryable by any MCP-compatible AI tool (Claude, ChatGPT, Cursor, Codex, CLI, TUI) with citations back to the original source, distinguished on its own FAQ from AI-memory systems that compress and lose detail.</td>
+      <td class="ty">hosted service</td>
+      <td class="sg">observed 2026-09-25</td>
+    </tr>
+    <tr>
+      <td class="nm"><a href="https://github.com/open-metadata/OpenMetadata" rel="noopener">open-metadata/OpenMetadata</a></td>
+      <td>A self-hostable, open-source (Apache-2.0) platform that ingests technical metadata, lineage, ownership, usage, glossaries and data quality signals from 130+ connectors into a unified knowledge graph, then exposes that graph to humans and agents through an MCP server, semantic search, APIs and SDKs.</td>
+      <td class="ty">repository</td>
+      <td class="sg">observed 2026-09-25</td>
     </tr>
     <tr>
       <td class="nm"><a href="https://github.com/upstash/context7" rel="noopener">upstash/context7</a></td>
@@ -481,6 +607,24 @@
     <colgroup><col class="c-tool"><col class="c-what"><col class="c-type"><col class="c-read"></colgroup>
     <thead><tr><th>Tool</th><th>What it is</th><th>Type</th><th>Read</th></tr></thead>
     <tbody>
+    <tr>
+      <td class="nm"><a href="https://github.com/ag2ai/ag2" rel="noopener">ag2ai/ag2</a></td>
+      <td>A multi-agent conversation framework that its GitHub description calls formerly AutoGen, now developed under its own AG2 organization; the GitHub API reports it as a separate repository, not a GitHub fork of microsoft/autogen (checked 2026-09-26).</td>
+      <td class="ty">repository</td>
+      <td class="sg">observed 2026-09-24</td>
+    </tr>
+    <tr>
+      <td class="nm"><a href="https://aws.amazon.com/bedrock/agentcore/" rel="noopener">Amazon Bedrock AgentCore</a></td>
+      <td>A set of modular, independently-usable managed services for running agents built with any open-source framework (CrewAI, LangGraph, LlamaIndex, Google ADK, OpenAI Agents SDK, Strands) and any foundation model, in or outside Bedrock: Runtime is a serverless, session-isolated execution environment for the agent process itself; Gateway turns APIs and Lambda functions into MCP-compatible tools; Identity is agent-scoped authentication against existing identity providers; Code Interpreter is a separate isolated sandbox for the agent to execute code in, distinct from Runtime’s own isolation.</td>
+      <td class="ty">hosted service</td>
+      <td class="sg">observed 2026-09-24</td>
+    </tr>
+    <tr>
+      <td class="nm"><a href="https://www.augmentcode.com" rel="noopener">Augment Code (Cosmos)</a></td>
+      <td>A platform (branded Cosmos) explicitly positioned around organizational scale rather than one developer’s own editor: it connects agents across code review, test coverage, incident investigation, ticket-to-PR, large projects and security remediation.</td>
+      <td class="ty">hosted service</td>
+      <td class="sg">observed 2026-09-24</td>
+    </tr>
     <tr>
       <td class="nm"><a href="https://docs.claude.com/en/api/agent-sdk/overview" rel="noopener">Claude Agent SDK</a></td>
       <td>A harness you import rather than a process you deploy, so the party sitting in front of it is your own program rather than a person typing.</td>
@@ -500,6 +644,12 @@
       <td class="sg">observed 2026-09-03</td>
     </tr>
     <tr>
+      <td class="nm"><a href="https://github.com/google/adk-python" rel="noopener">google/adk-python</a></td>
+      <td>A code-first Python toolkit from Google for constructing, checking and shipping agents, positioned by its own maintainers as covering the checking step in the same package rather than as a separate purchase: its docs list an eval workflow (test files, a CLI, a web UI for reviewing runs) alongside the construction API.</td>
+      <td class="ty">repository</td>
+      <td class="sg">observed 2026-09-24</td>
+    </tr>
+    <tr>
       <td class="nm"><a href="https://github.com/langchain-ai/langgraph" rel="noopener">langchain-ai/langgraph</a></td>
       <td>A library you import into your own process, in Python or TypeScript.</td>
       <td class="ty">repository</td>
@@ -512,16 +662,46 @@
       <td class="sg">observed 2026-09-03</td>
     </tr>
     <tr>
+      <td class="nm"><a href="https://learn.microsoft.com/en-us/azure/ai-services/agents/overview" rel="noopener">Microsoft Foundry Agent Service</a></td>
+      <td>Microsoft’s managed platform for constructing, running and scaling agents, spanning several capabilities under one name: an Agent Runtime that hosts and scales prompt agents and hosted agents, which package a team’s own code; Toolboxes sharing tools (web search, file search, code execution, MCP servers, custom functions) across agents through one managed MCP endpoint; built-in observability with tracing, metrics and scored runs plus a preview optimizer that rewrites an agent’s own instructions, skills, tool descriptions and model choice based on those scored runs, a scoring-and-improvement loop built into an orchestration platform; and a publishing surface that versions agents and registers them centrally, distinct from a self-run marketplace with a vendoring step.</td>
+      <td class="ty">hosted service</td>
+      <td class="sg">observed 2026-09-24</td>
+    </tr>
+    <tr>
       <td class="nm"><a href="https://github.com/microsoft/agent-framework" rel="noopener">microsoft/agent-framework</a></td>
       <td>A library you import, in .NET and Python.</td>
       <td class="ty">repository</td>
       <td class="sg">observed 2026-09-03</td>
     </tr>
     <tr>
+      <td class="nm"><a href="https://github.com/openai/openai-agents-python" rel="noopener">openai/openai-agents-python</a></td>
+      <td>A lightweight Python framework for building multi-agent workflows: agents, handoffs between them, and guardrails, provider-agnostic despite the vendor.</td>
+      <td class="ty">repository</td>
+      <td class="sg">observed 2026-09-24</td>
+    </tr>
+    <tr>
+      <td class="nm"><a href="https://github.com/pydantic/pydantic-ai" rel="noopener">pydantic/pydantic-ai</a></td>
+      <td>A typed Python agent framework from the team behind Pydantic, positioned around type safety end to end across models, tools and structured output, rather than around a particular orchestration topology.</td>
+      <td class="ty">repository</td>
+      <td class="sg">observed 2026-09-24</td>
+    </tr>
+    <tr>
+      <td class="nm"><a href="https://github.com/run-llama/llama_index" rel="noopener">run-llama/llama_index</a></td>
+      <td>Originally an agent-and-retrieval framework; GitHub’s own description of the project as of this read reframes it around ingesting and indexing documents, with agent construction now one capability inside that broader positioning rather than the project’s own headline.</td>
+      <td class="ty">repository</td>
+      <td class="sg">observed 2026-09-24</td>
+    </tr>
+    <tr>
       <td class="nm"><a href="https://github.com/temporalio/temporal" rel="noopener">temporalio/temporal</a></td>
       <td>A server you run, plus per-language client SDKs you import.</td>
       <td class="ty">repository</td>
       <td class="sg">observed 2026-09-03</td>
+    </tr>
+    <tr>
+      <td class="nm"><a href="https://cloud.google.com/vertex-ai/generative-ai/docs/agent-engine/overview" rel="noopener">Vertex AI Agent Engine (Gemini Enterprise Agent Platform)</a></td>
+      <td>Google’s managed agent runtime, formerly branded standalone as Vertex AI Agent Engine; its former URL now redirects into the documentation for the renamed Gemini Enterprise Agent Platform.</td>
+      <td class="ty">hosted service</td>
+      <td class="sg">observed 2026-09-24</td>
     </tr>
     </tbody>
   </table></div>
@@ -531,6 +711,18 @@
     <colgroup><col class="c-tool"><col class="c-what"><col class="c-type"><col class="c-read"></colgroup>
     <thead><tr><th>Tool</th><th>What it is</th><th>Type</th><th>Read</th></tr></thead>
     <tbody>
+    <tr>
+      <td class="nm"><a href="https://github.com/aaif-goose/goose" rel="noopener">aaif-goose/goose</a></td>
+      <td>An open-source, model-agnostic agent that installs, executes, edits and tests code, extensible through MCP.</td>
+      <td class="ty">repository</td>
+      <td class="sg">observed 2026-09-24</td>
+    </tr>
+    <tr>
+      <td class="nm"><a href="https://github.com/Aider-AI/aider" rel="noopener">Aider-AI/aider</a></td>
+      <td>A terminal coding agent that edits files in a local git repository and commits its own changes, driven from the command line with the user’s own model key.</td>
+      <td class="ty">repository</td>
+      <td class="sg">observed 2026-09-24</td>
+    </tr>
     <tr>
       <td class="nm"><a href="https://aws.amazon.com/q/developer/" rel="noopener">Amazon Q Developer</a></td>
       <td>An AWS-side coding assistant with an editor plugin, a CLI and a hosted surface.</td>
@@ -556,6 +748,12 @@
       <td class="sg">observed 2026-09-23</td>
     </tr>
     <tr>
+      <td class="nm"><a href="https://bolt.new" rel="noopener">Bolt</a></td>
+      <td>A hosted, browser-based builder that generates and runs a full-stack web application from a prompt, executing the generated code in-browser via StackBlitz’s WebContainers technology rather than a server-side sandbox, a different execution shape from Replit Agent or v0, which run generated code on servers their vendors operate.</td>
+      <td class="ty">hosted service</td>
+      <td class="sg">observed 2026-09-24</td>
+    </tr>
+    <tr>
       <td class="nm"><a href="https://learn.chatgpt.com/docs/app" rel="noopener">ChatGPT</a></td>
       <td>A hosted assistant reached in a browser, a desktop application and mobile clients.</td>
       <td class="ty">chat assistant</td>
@@ -566,6 +764,12 @@
       <td>A coding agent from Anthropic that you run in a terminal or an editor, among four surfaces: you state work in words and it holds the conversation, chooses which tools to call, runs commands and manages its own context until the work is done or it stops to ask.</td>
       <td class="ty">terminal agent</td>
       <td class="sg">reasoned 2026-09-03</td>
+    </tr>
+    <tr>
+      <td class="nm"><a href="https://github.com/cline/cline" rel="noopener">cline/cline</a></td>
+      <td>A coding agent shipped as several front ends onto one core: a VS Code / JetBrains extension, an installable CLI, a desktop app, and an SDK.</td>
+      <td class="ty">repository</td>
+      <td class="sg">observed 2026-09-24</td>
     </tr>
     <tr>
       <td class="nm"><a href="https://learn.chatgpt.com/docs/cloud" rel="noopener">Codex cloud</a></td>
@@ -640,6 +844,12 @@
       <td class="sg">observed 2026-09-03</td>
     </tr>
     <tr>
+      <td class="nm"><a href="https://www.jetbrains.com/junie/" rel="noopener">JetBrains Junie</a></td>
+      <td>JetBrains’ coding agent, available inside JetBrains IDEs and, since its general availability in June 2026, as a standalone Junie CLI reached from a terminal, any IDE or CI/CD (JetBrains, March 2026), which can optionally connect to a running JetBrains IDE for its code intelligence (JetBrains, April 2026; JetBrains’ announcement, as of 2026-09-26).</td>
+      <td class="ty">editor extension</td>
+      <td class="sg">observed 2026-09-24</td>
+    </tr>
+    <tr>
       <td class="nm"><a href="https://jules.google/" rel="noopener">Jules</a></td>
       <td>A hosted agent that clones a GitHub repository into a Cloud VM, plans and makes a change, a bug fix, a version bump, a test, a feature, and opens a pull request for review.</td>
       <td class="ty">hosted service</td>
@@ -676,6 +886,12 @@
       <td class="sg">observed 2026-09-03</td>
     </tr>
     <tr>
+      <td class="nm"><a href="https://lovable.dev" rel="noopener">Lovable</a></td>
+      <td>A hosted full-stack app builder generating real, exportable code from natural-language prompts, with its own docs describing enterprise governance features alongside the consumer-facing build flow.</td>
+      <td class="ty">hosted service</td>
+      <td class="sg">observed 2026-09-24</td>
+    </tr>
+    <tr>
       <td class="nm"><a href="https://www.microsoft.com/en-us/microsoft-copilot/microsoft-copilot-studio" rel="noopener">Microsoft Copilot Studio</a></td>
       <td>A hosted builder for agents, licensed inside Microsoft 365 rather than bought separately.</td>
       <td class="ty">hosted service</td>
@@ -694,10 +910,28 @@
       <td class="sg">observed 2026-09-03</td>
     </tr>
     <tr>
+      <td class="nm"><a href="https://github.com/OpenHands/OpenHands" rel="noopener">OpenHands/OpenHands</a></td>
+      <td>An open-source coding agent that plans and executes multi-step changes with terminal, browser and code-editing tools, run locally or self-hosted.</td>
+      <td class="ty">repository</td>
+      <td class="sg">observed 2026-09-24</td>
+    </tr>
+    <tr>
       <td class="nm"><a href="https://relevanceai.com/" rel="noopener">Relevance AI</a></td>
       <td>A hosted builder aimed at business functions rather than at engineering.</td>
       <td class="ty">hosted service</td>
       <td class="sg">reasoned 2026-09-06</td>
+    </tr>
+    <tr>
+      <td class="nm"><a href="https://replit.com/products/agent" rel="noopener">Replit Agent</a></td>
+      <td>A hosted, browser-based agent that plans, writes, tests and deploys a full application from a natural-language description, with Replit supplying the compute, deployment and hosting end to end, closer in shape to Bolt, v0 and Lovable (build-and-ship a whole app in the vendor’s own environment) than to a coding assistant added to a repository you already own.</td>
+      <td class="ty">hosted service</td>
+      <td class="sg">observed 2026-09-24</td>
+    </tr>
+    <tr>
+      <td class="nm"><a href="https://sourcegraph.com/cody" rel="noopener">Sourcegraph Cody</a></td>
+      <td>A coding assistant that pulls context from Sourcegraph’s own code-search index across local and remote repositories, available as extensions for VS Code, JetBrains and Visual Studio, a web app, and a CLI.</td>
+      <td class="ty">editor extension</td>
+      <td class="sg">observed 2026-09-24</td>
     </tr>
     <tr>
       <td class="nm"><a href="https://www.stack-ai.com/" rel="noopener">Stack AI</a></td>
@@ -706,10 +940,28 @@
       <td class="sg">reasoned 2026-09-08</td>
     </tr>
     <tr>
+      <td class="nm"><a href="https://v0.app" rel="noopener">v0</a></td>
+      <td>Vercel’s hosted builder for full-stack web applications, generating both UI and backend code from natural language and deploying directly onto Vercel’s own platform, a build tool whose deployment target is its maker’s own platform.</td>
+      <td class="ty">hosted service</td>
+      <td class="sg">observed 2026-09-24</td>
+    </tr>
+    <tr>
       <td class="nm"><a href="https://docs.vellum.ai/" rel="noopener">Vellum</a></td>
       <td>Filed as an agent-evaluation service, but its own page, read 2026-09-03, describes a personal AI assistant with persistent memory and says nothing about evaluation.</td>
       <td class="ty">hosted service</td>
       <td class="sg">observed 2026-09-03</td>
+    </tr>
+    <tr>
+      <td class="nm"><a href="https://www.warp.dev" rel="noopener">Warp</a></td>
+      <td>A terminal application rebuilt around agents: it can drive one or more coding agents, run them against a task queue, and (per its own newer positioning) automate work across the SDLC rather than only completing commands interactively.</td>
+      <td class="ty">terminal agent</td>
+      <td class="sg">observed 2026-09-24</td>
+    </tr>
+    <tr>
+      <td class="nm"><a href="https://github.com/zed-industries/zed" rel="noopener">zed-industries/zed</a></td>
+      <td>A native code editor, built by the team behind Atom and Tree-sitter, with a built-in agent panel that can plan and execute multi-file edits alongside its original real-time collaborative editing.</td>
+      <td class="ty">repository</td>
+      <td class="sg">observed 2026-09-24</td>
     </tr>
     </tbody>
   </table></div>
@@ -795,7 +1047,54 @@
   </table></div>
 
   <h2 id="l-evaluate">Checking what came back</h2>
-  <p class="empty">Nothing is filed here. That is the state of the field as far as this list can say, not a gap in the reading: nothing that was looked at is an evaluation product.</p>
+  <div class="tbl"><table>
+    <colgroup><col class="c-tool"><col class="c-what"><col class="c-type"><col class="c-read"></colgroup>
+    <thead><tr><th>Tool</th><th>What it is</th><th>Type</th><th>Read</th></tr></thead>
+    <tbody>
+    <tr>
+      <td class="nm"><a href="https://github.com/Arize-ai/phoenix" rel="noopener">Arize-ai/phoenix</a></td>
+      <td>An open-source tracing and evaluation library: it instruments an application (via OpenTelemetry) to capture traces, then runs LLM-graded and code-graded evals against recorded runs or a curated dataset.</td>
+      <td class="ty">repository</td>
+      <td class="sg">observed 2026-09-24</td>
+    </tr>
+    <tr>
+      <td class="nm"><a href="https://www.braintrust.dev" rel="noopener">Braintrust</a></td>
+      <td>A hosted platform for running production agents under observation: capturing traces from live traffic, scoring recorded runs against a dataset, and flagging a regression before it reaches a user, positioned by the vendor as built specifically for agents rather than adapted from a general APM tool.</td>
+      <td class="ty">hosted service</td>
+      <td class="sg">observed 2026-09-24</td>
+    </tr>
+    <tr>
+      <td class="nm"><a href="https://github.com/confident-ai/deepeval" rel="noopener">confident-ai/deepeval</a></td>
+      <td>An LLM evaluation framework structured like a unit-test library (assertions, metrics, pytest integration) rather than a hosted dashboard, with a companion hosted platform (Confident AI) this read did not open.</td>
+      <td class="ty">repository</td>
+      <td class="sg">observed 2026-09-24</td>
+    </tr>
+    <tr>
+      <td class="nm"><a href="https://www.galileo.ai" rel="noopener">Galileo</a></td>
+      <td>A hosted observability and evaluation platform marketed at enterprise scale, framing itself around guarding a GenAI application in production as much as scoring it offline.</td>
+      <td class="ty">hosted service</td>
+      <td class="sg">observed 2026-09-24</td>
+    </tr>
+    <tr>
+      <td class="nm"><a href="https://github.com/langfuse/langfuse" rel="noopener">langfuse/langfuse</a></td>
+      <td>An open-source platform combining tracing, dataset-based evaluation, prompt versioning and a hosted cloud tier, which puts an evaluation harness and prompt versioning in one product.</td>
+      <td class="ty">repository</td>
+      <td class="sg">observed 2026-09-24</td>
+    </tr>
+    <tr>
+      <td class="nm"><a href="https://github.com/promptfoo/promptfoo" rel="noopener">promptfoo/promptfoo</a></td>
+      <td>A declarative, config-driven CLI for testing prompts and agents against a case set, comparing several models’ outputs, and red-teaming for vulnerabilities, closer to what a CI pipeline would call a test runner than a dashboard-first observability platform.</td>
+      <td class="ty">repository</td>
+      <td class="sg">observed 2026-09-24</td>
+    </tr>
+    <tr>
+      <td class="nm"><a href="https://github.com/wandb/weave" rel="noopener">wandb/weave</a></td>
+      <td>Weights & Biases’ toolkit for tracing and evaluating LLM applications, built on the same company’s established experiment-tracking product for traditional ML training.</td>
+      <td class="ty">repository</td>
+      <td class="sg">observed 2026-09-24</td>
+    </tr>
+    </tbody>
+  </table></div>
 
   <h2 id="l-register-and-version">Registering and versioning what you publish</h2>
   <div class="tbl"><table>
@@ -826,11 +1125,34 @@
       <td class="ty">repository</td>
       <td class="sg">observed 2026-09-03</td>
     </tr>
+    <tr>
+      <td class="nm"><a href="https://github.com/modelcontextprotocol/registry" rel="noopener">modelcontextprotocol/registry</a></td>
+      <td>A registry service for MCP servers, developed by volunteers under the same GitHub organization that maintains the Model Context Protocol specification itself.</td>
+      <td class="ty">repository</td>
+      <td class="sg">observed 2026-09-24</td>
+    </tr>
+    <tr>
+      <td class="nm"><a href="https://smithery.ai" rel="noopener">Smithery</a></td>
+      <td>A hosted directory of MCP servers plus a managed layer in front of them: the vendor states that it handles authentication, credentials and sessions on the adopting team’s behalf, so an agent can call a listed tool without that team standing up its own session/credential handling for that server.</td>
+      <td class="ty">hosted service</td>
+      <td class="sg">observed 2026-09-24</td>
+    </tr>
     </tbody>
   </table></div>
 
   <h2 id="l-publish-and-deliver">Delivering what you publish</h2>
-  <p class="empty">Nothing is filed here as its primary layer, and that is the state of the reading rather than of the field. The practice behind this list delivers a versioned definition as a pull request rather than through a product. <b>The list names four rows on this page as also serving this layer</b>, filed under <a class="src" href="#l-author">what you author, and what it runs on</a>: addyosmani/agent-skills, anthropics/skills, ComposioHQ/awesome-claude-skills and mattpocock/skills. No search has been run for products that deliver what you publish to the machines that run it, so an empty heading says nothing about whether they exist.</p>
+  <div class="tbl"><table>
+    <colgroup><col class="c-tool"><col class="c-what"><col class="c-type"><col class="c-read"></colgroup>
+    <thead><tr><th>Tool</th><th>What it is</th><th>Type</th><th>Read</th></tr></thead>
+    <tbody>
+    <tr>
+      <td class="nm"><a href="https://code.claude.com/docs/en/plugin-marketplaces" rel="noopener">Claude Code plugin marketplaces</a></td>
+      <td>A feature of Claude Code: a marketplace is a marketplace.json catalog, kept in a git repository or a local path, that lists plugins (skills, agents, hooks, MCP servers, LSP servers) for a team or a community to install from.</td>
+      <td class="ty">product feature</td>
+      <td class="sg">observed 2026-09-24</td>
+    </tr>
+    </tbody>
+  </table></div>
 
   <h2 id="l-cross-cutting">Across all of it</h2>
   <div class="tbl"><table>

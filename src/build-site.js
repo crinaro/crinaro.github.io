@@ -248,6 +248,7 @@ const KIND_LABEL = {
   'ide': 'editor',
   'chat-assistant': 'chat assistant',
   'terminal-harness': 'terminal agent',
+  'product-feature': 'product feature',
 };
 
 const EMPTY_LAYER = {
@@ -2168,10 +2169,11 @@ writePage(path.join(DIST, 'what-you-already-have', 'index.html'), `${pageHead(
      the options have no row here, on purpose.</b> What you author and what it runs on, and the
      things that sit across all of it, are not on the request path in the way these
      ${SPELLED[LAYERS.length].toLowerCase()} are, so an order of adoption says nothing useful about
-     them. Evaluating what an agent produced is not a row either, because too little turned up to
-     put in front of you as a set of options, and nor is delivering what is registered to the
-     machines that run it. Both are in <a class="src" href="/what-you-already-have/options/">the
-     options</a>, where each says how little is there and why. A registry of prompts or agent
+     them. Evaluating what an agent produced is not a row either. You can buy what runs an
+     evaluation, and <a class="src" href="/what-you-already-have/options/#l-evaluate">the options</a>
+     list seven products that trace, score and test, but none decides what a good result is: those
+     cases are yours to write. Nor is delivering what is registered to the machines that run it,
+     where the options hold one vendor feature. A registry of prompts or agent
      definitions is not a row here either, and that one is not scarcity: it has rows in the options.
      What it does not have is a place in this order, and this page does not invent one. Naming that
      is the alternative to selling you a gap as a layer.</p>
@@ -2339,7 +2341,7 @@ const covers = c => [...new Set(c.pairs.map(p => p.model))].map(m =>
   `<b>${esc(m)}</b>: ${c.pairs.filter(p => p.model === m).map(p => esc(p.qualifiers.join(' · ') || 'no option recorded')).join('; ')}`).join('<br>');
 function regRows(c) {
   const rowFor = (p, f) => p.rows.find(r => r.fields.includes(f));
-  const keyOf = r => JSON.stringify([r.main, r.broader, r.also]);
+  const keyOf = r => JSON.stringify([r.main, r.broader, r.also, r.context || []]);
   const perField = REG.fields.map(([f]) => {
     const groups = [];
     for (const p of c.pairs) {
@@ -2443,7 +2445,8 @@ writePage(path.join(DIST, 'what-you-already-have', 'customer-data', 'index.html'
     ${regRows(c).map(r => `<tr><td class="fq">${r.fields.map(f => esc(FIELD_LABEL[f])).join('<br>')}</td><td>${
       r.groups.map(g => `<div class="rg"><p class="rsub">${appliesTo(c, g.pairs)}</p>${regStatement(g.row.main)}${
         g.row.also.length ? `<p class="rsub">Also on the same page</p>${g.row.also.map(regStatement).join('')}` : ''}${
-        g.row.broader.length ? `<p class="rsub">Broader, and it also applies</p>${g.row.broader.map(regStatement).join('')}` : ''}</div>`).join('')
+        g.row.broader.length ? `<p class="rsub">Broader, and it also applies</p>${g.row.broader.map(regStatement).join('')}` : ''}${
+        (g.row.context || []).length ? `<p class="rsub">Broader, for context only: it does not name this option or region</p>${g.row.context.map(regStatement).join('')}` : ''}</div>`).join('')
     }</td></tr>`).join('\n    ')}
     </tbody></table></div>`).join('\n\n  ')}
 
@@ -2452,7 +2455,13 @@ writePage(path.join(DIST, 'what-you-already-have', 'customer-data', 'index.html'
      <a href="https://creativecommons.org/licenses/by/4.0/" rel="noopener">Creative Commons 4.0 Attribution License</a>.
      Lines attributed to Microsoft are quoted from Microsoft Learn documentation, © Microsoft, whose
      source is published in <a href="https://github.com/MicrosoftDocs/azure-ai-docs" rel="noopener">MicrosoftDocs/azure-ai-docs</a>
-     under the same license. Every quoted line remains its publisher’s.</p>
+     under the same license. Lines attributed to AWS are quoted from AWS documentation hosted on
+     docs.aws.amazon.com, which the <a href="https://aws.amazon.com/terms/" rel="noopener">AWS Site Terms</a>
+     state is licensed under the
+     <a href="https://creativecommons.org/licenses/by-sa/4.0/" rel="noopener">Creative Commons Attribution-ShareAlike 4.0 International License</a>;
+     a line shortened here is offered under the same license. Lines attributed to Anthropic are
+     quoted briefly, for comment, with attribution, and no license to them is claimed. Every quoted
+     line remains its publisher’s.</p>
 
   <div class="foot">
     <p class="linkrow"><a class="src" href="/what-you-already-have/options/">The options at each layer</a>
