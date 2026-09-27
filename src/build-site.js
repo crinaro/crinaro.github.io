@@ -2192,6 +2192,7 @@ writePage(path.join(DIST, 'what-you-already-have', 'index.html'), `${pageHead(
 </html>`);
 console.log('       dist/what-you-already-have/ — where to start');
 
+const slugT = x => x.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 fs.mkdirSync(path.join(DIST, 'what-you-already-have', 'options'), { recursive: true });
 writePage(path.join(DIST, 'what-you-already-have', 'options', 'index.html'), `${pageHead(
   'The options at each layer',
@@ -2223,12 +2224,22 @@ writePage(path.join(DIST, 'what-you-already-have', 'options', 'index.html'), `${
   .jump a { color:var(--ink); text-decoration:none; border-bottom:1px solid rgba(27,92,70,.3);
             white-space:nowrap; display:inline-block; }
   .jump a { margin-right:1.8rem; }
-  .bookmark-line { margin:0 0 1.2rem; color:var(--ink-2); }`)}
+  .bookmark-line { margin:0 0 1.2rem; color:var(--ink-2); }
+  .cmp { margin:.8rem 0 0; font-size:.84rem; color:var(--ink-2); line-height:1.55; }
+  .cmp-l { display:block; font-family:var(--mono); font-size:.62rem; letter-spacing:.1em;
+           text-transform:uppercase; color:var(--green); margin-bottom:.15rem; }
+  tr:target td { background:rgba(79,169,138,.08); }`)}
   <h1>The options at each layer</h1>
   <p class="standfirst"><b>It is a list and not a review.</b> Nothing here ranks anything, no entry
      says a tool is good, and nobody here has operated most of them. A product missing from it was
      not evaluated and rejected. Nobody looked.</p>
   <p class="bookmark-line"><b>Worth bookmarking.</b> Every row carries the date it was read, so each visit shows you how current it is.</p>
+  <p class="bookmark-line"><b>Data and compliance.</b> ${SPELLED[TOOLS.tools.filter(t => (t.compliance || []).length).length] || TOOLS.tools.filter(t => (t.compliance || []).length).length} of the ${TOOLS.tools.length}
+     rows say what was read about compliance or data handling, under the row’s description.
+     Several say only that nobody read the vendor’s security page. A row with no such line records
+     nothing either way, which is not the same as clean.</p>
+  <p class="jump">${TOOLS.tools.filter(t => (t.compliance || []).length).sort((a, b) => a.name.toLowerCase().localeCompare(b.name.toLowerCase()))
+        .map(t => `<a href="#t-${slugT(t.name)}">${t.name}</a>`).join('\n     ')}</p>
   <p class="bookmark-line"><b>If customer data will reach an agent,</b> start with
      <a class="src" href="/what-you-already-have/customer-data/">what each cloud says about where it goes</a>,
      model by model. It decides whether a tool is an option at all.</p>
@@ -2270,9 +2281,10 @@ writePage(path.join(DIST, 'what-you-already-have', 'options', 'index.html'), `${
     <colgroup><col class="c-tool"><col class="c-what"><col class="c-type"><col class="c-read"></colgroup>
     <thead><tr><th>Tool</th><th>What it is</th><th>Type</th><th>Read</th></tr></thead>
     <tbody>
-    ${list.map(t => `<tr>
+    ${list.map(t => `<tr id="t-${slugT(t.name)}">
       <td class="nm"><a href="${t.url}" rel="noopener">${t.name}</a>${t.archived ? '<span class="arch">archived</span>' : ''}</td>
-      <td>${(t.what.match(/^.*?[.!?](?=\s|$)/) || [t.what])[0]}</td>
+      <td>${(t.what.match(/^.*?[.!?](?=\s|$)/) || [t.what])[0]}${(t.compliance || []).length
+        ? `<p class="cmp"><span class="cmp-l">Data and compliance</span>${t.compliance.join(' ')}</p>` : ''}</td>
       <td class="ty">${KIND_LABEL[t.kind] || ''}</td>
       <td class="sg">${t.basis} ${t.asOf}</td>
     </tr>`).join('\n    ')}
