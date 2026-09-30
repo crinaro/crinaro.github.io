@@ -43,8 +43,9 @@
    "andrewyng/context-hub"
   ]
  },
- "cut": "2026-09-29",
+ "cut": "2026-09-30",
  "matrix": {
+  "about": "One row for each hosted product group in a tool-list entry's data and compliance block (a \"For \u2026\" line there naming a product), so an entry whose block has two such groups has two rows; one mark per compliance item, from what the maker's own pages state, each linked to the page behind it. Not a compliance determination: read the linked page before relying on a mark. An empty mark means no current statement of the item was taken for this product from what was read, and the cell's blank gives the status word of the line that left it empty. It never means the item does not hold. The full data and compliance block for each tool, with retention, training use and residency, is in the tool list. For HIPAA and GDPR a mark reads only the maker's own claim that its product complies with or supports the law: a definition of the law, a bare badge or a data processing addendum never marks either. On the GDPR and HIPAA columns the word comes from a reading of the maker's claim alone, which the tool list prints as no line of its own, so it can differ from the word on the tool list's GDPR or HIPAA BAA line. For HIPAA, a page read for the tool list's HIPAA BAA line counts as read for the claim, because that line shows the HIPAA sentences taken from the page, not only BAA offers. HIPAA BAA is marked Y only where the maker offers a Business Associate Agreement, and No where its page places the product outside one. A plan, deployment option or region shown in quotation marks is the maker's own name for it, and the marks are part of the value: keep them wherever the value is shown. A row resting on pages that speak for another product, whether or not another entry holds it, is not confirmed by being listed: its product names whose marks it carries.",
   "columns": [
    {
     "key": "soc2",
@@ -87,6 +88,13 @@
     "label": "DPA"
    }
   ],
+  "marks": {
+   "No": "the maker's page states that the item does not apply here",
+   "Y": "the maker's page states the item for this product; with companyWide, shown as Y\u2020, the mark rests instead on a sentence the maker files under the company, naming no product, and the page does not say whether its scope includes this product",
+   "Y*": "the maker's page states the item only for the plans, deployment options or regions named in plans, or only under the conditions named in conditions, or both; where a cell names both, the matrix does not say whether they apply together: the tool list's line for this item shows each plan and condition beside the page it comes from",
+   "companyWide": "set on a mark resting on a sentence the maker files under the company, naming no product, whether or not it is limited to a plan, deployment option, region or condition: the page does not say whether its scope includes this product, so confirm the scope on the page (shown as Y\u2020, as Y*\u2020 on a mark that also names plans or conditions, or as No\u2020 on an exclusion). A sentence whose own words reach every product the maker offers carries no companyWide",
+   "null": "no current statement of the item was taken for this product from what was read, and the cell's blank gives the status word of the line that left it empty. It never means the item does not hold. The words blank can carry, one sentence each: NOT-READ means no page of a kind that could answer it, and no search for one, is recorded as read for it for this product. NOT-STATED means a page of a kind that could answer it, or a search of the maker's site for one, was read for it, and no reviewed sentence answering it for this product was taken from it; a sentence that marks nothing, such as one describing the item as in progress, one naming it with no status, one about the law, or one naming a withdrawn revision, may sit under that line in the tool list. UNREADABLE means a page of a kind that could answer it, read for it, returned no readable text to the fetch used, and it is given even where another page read for it could be read and gave no answer, so it does not mean nothing was checked; the regulated-data statements list each maker's pages read and whether each could be read, and a person with a browser may be able to read the unreadable one. GATED means a page of a kind that could answer it, read for it, sits behind a login, an NDA request or a sales conversation, so nothing on it was read, and like UNREADABLE it is given even where another page read for it could be read. BLANK means the maker's own table leaves this cell empty. CONFLICTING means the sentences taken for it disagree. SALES-ONLY means the maker's page sends the question to a sales conversation. OPERATOR means the answer belongs to whoever runs the software."
+  },
   "notListed": [
    {
     "entry": "Kiro Cloud Sessions",
@@ -104,6 +112,8 @@
     "restsOnPagesOf": "Kiro"
    }
   ],
+  "notListedPreface": "Entries run by their operator (open-source software and model weights) are not listed: whoever runs them answers these questions for their own deployment. Where the maker also runs the same software as a hosted service, that hosted tier is a separate product and gets its own row once one of the maker's pages establishing it has been read; until then it has no row, and its absence says nothing about it. Also not listed: entries whose block rests on the same pages as an entry listed here, where a read of those pages found part of that record outside the entry. No marks are shown for them, and the listed entry's marks should not be read as theirs; each reason says what the pages show:",
+  "restrictionsAbout": "A restriction is a sentence on the maker's own page that places this product, or one plan, arrangement or feature of it, outside something a column asks about or outside zero data retention, or that bars using it where one of those items applies. It is not a mark and never a No: each cell keeps its own mark, and a restriction holds only for the scope shown with it, the condition, plans or arrangement it names. An item's condition and plans come from one sentence, so where it names both, it holds only where one of those plans and that condition apply at once. It is listed only where no column for the same item already reads No. The list covers the items in the columns and the zero-retention option, so it is not a full account of a maker's terms, and an empty list means none was recorded here, not that none exists. Beneath an item, also lists what else the tool list's line for that item shows that bears on it: another cell of the same row of the maker's table, or a mark the maker's own table gives the same item for this product that no column reads. Each carries its own page, section and read date, with a reviewed summary or, for a cell holding only a mark, the line the tool list generates from it; an empty also does not mean the maker says nothing more.",
   "rows": [
    {
     "cells": {
@@ -117,6 +127,7 @@
       "mark": "Y"
      },
      "government": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "hipaa": {
@@ -129,6 +140,7 @@
       "mark": "Y"
      },
      "hitrust": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "iso27001": {
@@ -137,9 +149,11 @@
       "mark": "Y"
      },
      "iso27701": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "iso42001": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "soc2": {
@@ -152,6 +166,7 @@
     "page": "https://aws.amazon.com/compliance/hipaa-compliance/",
     "pageKind": "trust",
     "product": null,
+    "restrictions": [],
     "toolList": "20-tool-list.md#amazon-bedrock-agentcore",
     "unverifiedAfter": "2026-12-23"
    },
@@ -167,9 +182,11 @@
       "mark": "Y"
      },
      "government": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "hipaa": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "hipaa_baa": {
@@ -178,6 +195,7 @@
       "mark": "Y"
      },
      "hitrust": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "iso27001": {
@@ -186,9 +204,11 @@
       "mark": "Y"
      },
      "iso27701": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "iso42001": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "soc2": {
@@ -201,6 +221,7 @@
     "page": "https://aws.amazon.com/compliance/hipaa-compliance/",
     "pageKind": "trust",
     "product": null,
+    "restrictions": [],
     "toolList": "20-tool-list.md#amazon-q-developer",
     "unverifiedAfter": "2026-12-23"
    },
@@ -216,6 +237,7 @@
       "mark": "Y"
      },
      "government": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "hipaa": {
@@ -231,6 +253,7 @@
       "mark": "Y"
      },
      "hitrust": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "iso27001": {
@@ -239,9 +262,11 @@
       "mark": "Y"
      },
      "iso27701": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "iso42001": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "soc2": {
@@ -254,36 +279,46 @@
     "page": "https://aws.amazon.com/compliance/hipaa-compliance/",
     "pageKind": "trust",
     "product": null,
+    "restrictions": [],
     "toolList": "20-tool-list.md#amazon-sagemaker",
     "unverifiedAfter": "2026-12-23"
    },
    {
     "cells": {
      "dpa": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "gdpr": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "government": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "hipaa": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "hipaa_baa": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "hitrust": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "iso27001": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "iso27701": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "iso42001": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "soc2": {
@@ -295,6 +330,7 @@
     "page": "https://ampcode.com/security",
     "pageKind": "trust",
     "product": null,
+    "restrictions": [],
     "toolList": "20-tool-list.md#amp",
     "unverifiedAfter": "2026-12-26"
    },
@@ -306,6 +342,7 @@
       "mark": "Y"
      },
      "gdpr": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "government": {
@@ -313,6 +350,7 @@
       "mark": "No"
      },
      "hipaa": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "hipaa_baa": {
@@ -327,6 +365,7 @@
       ]
      },
      "hitrust": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "iso27001": {
@@ -334,6 +373,7 @@
       "mark": "Y"
      },
      "iso27701": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "iso42001": {
@@ -349,39 +389,50 @@
     "page": "https://trust.anthropic.com/",
     "pageKind": "trust",
     "product": "Claude API",
+    "restrictions": [],
     "toolList": "20-tool-list.md#anthropic-api",
     "unverifiedAfter": "2026-12-23"
    },
    {
     "cells": {
      "dpa": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "gdpr": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "government": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "hipaa": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "hipaa_baa": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "hitrust": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "iso27001": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "iso27701": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "iso42001": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "soc2": {
+      "blank": "NOT-STATED",
       "mark": null
      }
     },
@@ -389,27 +440,34 @@
     "page": "https://antigravity.google",
     "pageKind": "product",
     "product": null,
+    "restrictions": [],
     "toolList": "20-tool-list.md#antigravity",
     "unverifiedAfter": null
    },
    {
     "cells": {
      "dpa": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "gdpr": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "government": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "hipaa": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "hipaa_baa": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "hitrust": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "iso27001": {
@@ -433,39 +491,50 @@
     "page": "https://security.atlan.com/",
     "pageKind": "trust",
     "product": null,
+    "restrictions": [],
     "toolList": "20-tool-list.md#atlan",
     "unverifiedAfter": "2026-12-26"
    },
    {
     "cells": {
      "dpa": {
+      "blank": "GATED",
       "mark": null
      },
      "gdpr": {
+      "blank": "GATED",
       "mark": null
      },
      "government": {
+      "blank": "GATED",
       "mark": null
      },
      "hipaa": {
+      "blank": "GATED",
       "mark": null
      },
      "hipaa_baa": {
+      "blank": "GATED",
       "mark": null
      },
      "hitrust": {
+      "blank": "GATED",
       "mark": null
      },
      "iso27001": {
+      "blank": "GATED",
       "mark": null
      },
      "iso27701": {
+      "blank": "GATED",
       "mark": null
      },
      "iso42001": {
+      "blank": "GATED",
       "mark": null
      },
      "soc2": {
+      "blank": "GATED",
       "mark": null
      }
     },
@@ -473,6 +542,7 @@
     "page": "https://www.augmentcode.com",
     "pageKind": "product",
     "product": null,
+    "restrictions": [],
     "toolList": "20-tool-list.md#augment-code-cosmos",
     "unverifiedAfter": null
    },
@@ -488,6 +558,7 @@
       "mark": "Y"
      },
      "government": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "hipaa": {
@@ -500,6 +571,7 @@
       "mark": "Y"
      },
      "hitrust": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "iso27001": {
@@ -508,9 +580,11 @@
       "mark": "Y"
      },
      "iso27701": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "iso42001": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "soc2": {
@@ -523,15 +597,18 @@
     "page": "https://aws.amazon.com/compliance/hipaa-compliance/",
     "pageKind": "trust",
     "product": "Amazon Bedrock from AWS",
+    "restrictions": [],
     "toolList": "20-tool-list.md#aws-bedrock",
     "unverifiedAfter": "2026-12-23"
    },
    {
     "cells": {
      "dpa": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "gdpr": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "government": {
@@ -539,12 +616,15 @@
       "mark": "No"
      },
      "hipaa": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "hipaa_baa": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "hitrust": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "iso27001": {
@@ -555,6 +635,7 @@
       "mark": "Y*"
      },
      "iso27701": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "iso42001": {
@@ -576,6 +657,7 @@
     "page": "https://trust.anthropic.com/",
     "pageKind": "trust",
     "product": "Claude in Amazon Bedrock from Anthropic",
+    "restrictions": [],
     "toolList": "20-tool-list.md#aws-bedrock",
     "unverifiedAfter": "2026-12-26"
    },
@@ -592,9 +674,11 @@
       "mark": "Y"
      },
      "government": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "hipaa": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "hipaa_baa": {
@@ -613,12 +697,15 @@
       "mark": "Y"
      },
      "iso27701": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "iso42001": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "soc2": {
+      "blank": "NOT-STATED",
       "mark": null
      }
     },
@@ -626,15 +713,18 @@
     "page": "https://learn.microsoft.com/en-us/azure/compliance/offerings/offering-dod-il5",
     "pageKind": "trust",
     "product": "Microsoft Foundry from Microsoft",
+    "restrictions": [],
     "toolList": "20-tool-list.md#azure-ai-foundry--azure-openai",
     "unverifiedAfter": "2026-12-23"
    },
    {
     "cells": {
      "dpa": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "gdpr": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "government": {
@@ -642,12 +732,15 @@
       "mark": "No"
      },
      "hipaa": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "hipaa_baa": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "hitrust": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "iso27001": {
@@ -655,6 +748,7 @@
       "mark": "Y"
      },
      "iso27701": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "iso42001": {
@@ -670,15 +764,39 @@
     "page": "https://trust.anthropic.com/",
     "pageKind": "trust",
     "product": "Claude in Microsoft Foundry, hosted on Anthropic from Anthropic",
+    "restrictions": [
+     {
+      "about": "HIPAA",
+      "also": [
+       {
+        "generated": "Anthropic's table marks this row and column \"\u2705\" (the symbol the cell shows).",
+        "page": "https://trust.anthropic.com/",
+        "readOn": "2026-09-27",
+        "section": "above the page's first section heading, table \"Welcome to the Anthropic Trust Center\", row \"Claude in Microsoft Foundry, hosted on Anthropic\", column \"HIPAA\""
+       }
+      ],
+      "columns": [
+       "hipaa_baa",
+       "hipaa"
+      ],
+      "condition": "the Claude API arrangement Anthropic calls HIPAA readiness",
+      "page": "https://platform.claude.com/docs/en/manage-claude/api-and-data-retention",
+      "readOn": "2026-09-24",
+      "section": "HIPAA readiness \u203a What HIPAA readiness does not cover",
+      "summary": "Anthropic's page: HIPAA readiness is not offered on Claude Platform on AWS or on Microsoft Foundry."
+     }
+    ],
     "toolList": "20-tool-list.md#azure-ai-foundry--azure-openai",
-    "unverifiedAfter": "2026-12-26"
+    "unverifiedAfter": "2026-12-23"
    },
    {
     "cells": {
      "dpa": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "gdpr": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "government": {
@@ -686,24 +804,31 @@
       "mark": "No"
      },
      "hipaa": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "hipaa_baa": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "hitrust": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "iso27001": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "iso27701": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "iso42001": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "soc2": {
+      "blank": "NOT-STATED",
       "mark": null
      }
     },
@@ -711,8 +836,30 @@
     "page": "https://trust.anthropic.com/",
     "pageKind": "trust",
     "product": "Claude in Microsoft Foundry, hosted on Azure from Anthropic",
+    "restrictions": [
+     {
+      "about": "HIPAA",
+      "also": [
+       {
+        "page": "https://trust.anthropic.com/",
+        "readOn": "2026-09-27",
+        "section": "above the page's first section heading, table \"Welcome to the Anthropic Trust Center\", row \"Claude in Microsoft Foundry, hosted on Azure\", column \"HIPAA\"",
+        "summary": "Anthropic's page: its trust-center table shows HIPAA for Claude in Microsoft Foundry, hosted on Azure, as in process, marked Q4 2026."
+       }
+      ],
+      "columns": [
+       "hipaa_baa",
+       "hipaa"
+      ],
+      "condition": "the Claude API arrangement Anthropic calls HIPAA readiness",
+      "page": "https://platform.claude.com/docs/en/manage-claude/api-and-data-retention",
+      "readOn": "2026-09-24",
+      "section": "HIPAA readiness \u203a What HIPAA readiness does not cover",
+      "summary": "Anthropic's page: HIPAA readiness is not offered on Claude Platform on AWS or on Microsoft Foundry."
+     }
+    ],
     "toolList": "20-tool-list.md#azure-ai-foundry--azure-openai",
-    "unverifiedAfter": "2026-12-27"
+    "unverifiedAfter": "2026-12-23"
    },
    {
     "cells": {
@@ -731,6 +878,7 @@
       "mark": "Y"
      },
      "hipaa": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "hipaa_baa": {
@@ -747,12 +895,15 @@
       "mark": "Y"
      },
      "iso27701": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "iso42001": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "soc2": {
+      "blank": "NOT-STATED",
       "mark": null
      }
     },
@@ -760,27 +911,34 @@
     "page": "https://learn.microsoft.com/en-us/azure/compliance/offerings/offering-dod-il5",
     "pageKind": "trust",
     "product": "Azure from Microsoft",
+    "restrictions": [],
     "toolList": "20-tool-list.md#azure-ai-foundry--azure-openai",
     "unverifiedAfter": "2026-12-23"
    },
    {
     "cells": {
      "dpa": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "gdpr": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "government": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "hipaa": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "hipaa_baa": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "hitrust": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "iso27001": {
@@ -788,9 +946,11 @@
       "mark": "Y"
      },
      "iso27701": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "iso42001": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "soc2": {
@@ -802,39 +962,50 @@
     "page": "https://trust.baseten.co/",
     "pageKind": "trust",
     "product": null,
+    "restrictions": [],
     "toolList": "20-tool-list.md#baseten",
-    "unverifiedAfter": "2026-12-27"
+    "unverifiedAfter": "2026-12-26"
    },
    {
     "cells": {
      "dpa": {
+      "blank": "NOT-READ",
       "mark": null
      },
      "gdpr": {
+      "blank": "NOT-READ",
       "mark": null
      },
      "government": {
+      "blank": "NOT-READ",
       "mark": null
      },
      "hipaa": {
+      "blank": "NOT-READ",
       "mark": null
      },
      "hipaa_baa": {
+      "blank": "NOT-READ",
       "mark": null
      },
      "hitrust": {
+      "blank": "NOT-READ",
       "mark": null
      },
      "iso27001": {
+      "blank": "NOT-READ",
       "mark": null
      },
      "iso27701": {
+      "blank": "NOT-READ",
       "mark": null
      },
      "iso42001": {
+      "blank": "NOT-READ",
       "mark": null
      },
      "soc2": {
+      "blank": "NOT-READ",
       "mark": null
      }
     },
@@ -842,39 +1013,50 @@
     "page": "https://bolt.new",
     "pageKind": "product",
     "product": null,
+    "restrictions": [],
     "toolList": "20-tool-list.md#bolt",
     "unverifiedAfter": null
    },
    {
     "cells": {
      "dpa": {
+      "blank": "UNREADABLE",
       "mark": null
      },
      "gdpr": {
+      "blank": "UNREADABLE",
       "mark": null
      },
      "government": {
+      "blank": "UNREADABLE",
       "mark": null
      },
      "hipaa": {
+      "blank": "UNREADABLE",
       "mark": null
      },
      "hipaa_baa": {
+      "blank": "UNREADABLE",
       "mark": null
      },
      "hitrust": {
+      "blank": "UNREADABLE",
       "mark": null
      },
      "iso27001": {
+      "blank": "UNREADABLE",
       "mark": null
      },
      "iso27701": {
+      "blank": "UNREADABLE",
       "mark": null
      },
      "iso42001": {
+      "blank": "UNREADABLE",
       "mark": null
      },
      "soc2": {
+      "blank": "UNREADABLE",
       "mark": null
      }
     },
@@ -882,46 +1064,58 @@
     "page": "https://www.braintrust.dev",
     "pageKind": "product",
     "product": null,
+    "restrictions": [],
     "toolList": "20-tool-list.md#braintrust",
     "unverifiedAfter": null
    },
    {
     "cells": {
      "dpa": {
+      "blank": "UNREADABLE",
       "mark": null
      },
      "gdpr": {
+      "blank": "UNREADABLE",
       "mark": null
      },
      "government": {
+      "blank": "UNREADABLE",
       "mark": null
      },
      "hipaa": {
+      "blank": "UNREADABLE",
       "mark": null
      },
      "hipaa_baa": {
+      "blank": "UNREADABLE",
       "mark": null
      },
      "hitrust": {
+      "blank": "UNREADABLE",
       "mark": null
      },
      "iso27001": {
+      "blank": "UNREADABLE",
       "mark": null
      },
      "iso27701": {
+      "blank": "UNREADABLE",
       "mark": null
      },
      "iso42001": {
+      "blank": "UNREADABLE",
       "mark": null
      },
      "soc2": {
+      "blank": "UNREADABLE",
       "mark": null
      }
     },
     "entry": "ChatGPT",
-    "page": "https://learn.chatgpt.com/docs/app",
-    "pageKind": "product",
+    "page": "https://trust.openai.com/",
+    "pageKind": "trust",
     "product": null,
+    "restrictions": [],
     "toolList": "20-tool-list.md#chatgpt",
     "unverifiedAfter": null
    },
@@ -933,18 +1127,23 @@
       "mark": "Y"
      },
      "gdpr": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "government": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "hipaa": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "hipaa_baa": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "hitrust": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "iso27001": {
@@ -953,6 +1152,7 @@
       "mark": "Y"
      },
      "iso27701": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "iso42001": {
@@ -970,6 +1170,7 @@
     "page": "https://trust.anthropic.com/",
     "pageKind": "trust",
     "product": null,
+    "restrictions": [],
     "toolList": "20-tool-list.md#claude-agent-sdk",
     "unverifiedAfter": "2026-12-26"
    },
@@ -981,25 +1182,31 @@
       "mark": "Y"
      },
      "gdpr": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "government": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "hipaa": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "hipaa_baa": {
       "conditions": [
+       "Claude Code with ZDR enabled",
        "Claude Code with ZDR enabled, on a qualified account"
       ],
-      "link": "https://support.claude.com/en/articles/13296973-hipaa-ready-enterprise-plans",
+      "link": "https://support.claude.com/en/articles/8114513-business-associate-agreements-baa-for-commercial-customers",
       "mark": "Y*",
       "plans": [
+       "Commercial",
        "Enterprise"
       ]
      },
      "hitrust": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "iso27001": {
@@ -1008,6 +1215,7 @@
       "mark": "Y"
      },
      "iso27701": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "iso42001": {
@@ -1025,6 +1233,37 @@
     "page": "https://trust.anthropic.com/",
     "pageKind": "trust",
     "product": null,
+    "restrictions": [
+     {
+      "about": "HIPAA",
+      "also": [],
+      "columns": [
+       "hipaa_baa",
+       "hipaa"
+      ],
+      "condition": "the Claude API arrangement Anthropic calls HIPAA readiness",
+      "page": "https://platform.claude.com/docs/en/manage-claude/api-and-data-retention",
+      "readOn": "2026-09-24",
+      "section": "HIPAA readiness \u203a What HIPAA readiness does not cover",
+      "summary": "Anthropic's page: Claude Code falls outside HIPAA readiness."
+     },
+     {
+      "about": "HIPAA",
+      "also": [],
+      "columns": [
+       "hipaa_baa",
+       "hipaa"
+      ],
+      "condition": "the Claude API arrangement Anthropic calls HIPAA readiness",
+      "page": "https://support.claude.com/en/articles/15455031-covered-models-under-a-business-associate-agreement-baa",
+      "plans": [
+       "Commercial"
+      ],
+      "readOn": "2026-09-24",
+      "section": "How to access Covered Models under the BAA, in a list",
+      "summary": "Anthropic's page: for reaching Covered Models in configurations the BAA covers, it notes that Claude Code is not an Eligible Service for an API organization that is HIPAA-ready."
+     }
+    ],
     "toolList": "20-tool-list.md#claude-code",
     "unverifiedAfter": "2026-12-23"
    },
@@ -1036,25 +1275,31 @@
       "mark": "Y"
      },
      "gdpr": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "government": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "hipaa": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "hipaa_baa": {
       "conditions": [
+       "Claude Code with ZDR enabled",
        "Claude Code with ZDR enabled, on a qualified account"
       ],
-      "link": "https://support.claude.com/en/articles/13296973-hipaa-ready-enterprise-plans",
+      "link": "https://support.claude.com/en/articles/8114513-business-associate-agreements-baa-for-commercial-customers",
       "mark": "Y*",
       "plans": [
+       "Commercial",
        "Enterprise"
       ]
      },
      "hitrust": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "iso27001": {
@@ -1063,6 +1308,7 @@
       "mark": "Y"
      },
      "iso27701": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "iso42001": {
@@ -1080,6 +1326,37 @@
     "page": "https://trust.anthropic.com/",
     "pageKind": "trust",
     "product": "Claude Code",
+    "restrictions": [
+     {
+      "about": "HIPAA",
+      "also": [],
+      "columns": [
+       "hipaa_baa",
+       "hipaa"
+      ],
+      "condition": "the Claude API arrangement Anthropic calls HIPAA readiness",
+      "page": "https://platform.claude.com/docs/en/manage-claude/api-and-data-retention",
+      "readOn": "2026-09-24",
+      "section": "HIPAA readiness \u203a What HIPAA readiness does not cover",
+      "summary": "Anthropic's page: Claude Code falls outside HIPAA readiness."
+     },
+     {
+      "about": "HIPAA",
+      "also": [],
+      "columns": [
+       "hipaa_baa",
+       "hipaa"
+      ],
+      "condition": "the Claude API arrangement Anthropic calls HIPAA readiness",
+      "page": "https://support.claude.com/en/articles/15455031-covered-models-under-a-business-associate-agreement-baa",
+      "plans": [
+       "Commercial"
+      ],
+      "readOn": "2026-09-24",
+      "section": "How to access Covered Models under the BAA, in a list",
+      "summary": "Anthropic's page: for reaching Covered Models in configurations the BAA covers, it notes that Claude Code is not an Eligible Service for an API organization that is HIPAA-ready."
+     }
+    ],
     "toolList": "20-tool-list.md#claude-code-plugin-marketplaces",
     "unverifiedAfter": "2026-12-23"
    },
@@ -1091,18 +1368,23 @@
       "mark": "Y"
      },
      "gdpr": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "government": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "hipaa": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "hipaa_baa": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "hitrust": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "iso27001": {
@@ -1111,6 +1393,7 @@
       "mark": "Y"
      },
      "iso27701": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "iso42001": {
@@ -1128,27 +1411,80 @@
     "page": "https://trust.anthropic.com/",
     "pageKind": "trust",
     "product": null,
+    "restrictions": [
+     {
+      "about": "HIPAA",
+      "also": [
+       {
+        "page": "https://platform.claude.com/docs/en/manage-claude/api-and-data-retention",
+        "readOn": "2026-09-24",
+        "section": "Feature eligibility, table \"Feature eligibility\", row \"Claude Managed Agents\", column \"Details\"",
+        "summary": "Anthropic's page: in its table of which Claude API features are eligible for ZDR and HIPAA readiness, the row for Claude Managed Agents gives as its details that sessions are stateful and transcripts are kept until the customer deletes them, for every Managed Agents sub-feature, \"Self-hosted sandboxes\" included."
+       }
+      ],
+      "columns": [
+       "hipaa_baa",
+       "hipaa"
+      ],
+      "condition": "the Claude API arrangement Anthropic calls HIPAA readiness",
+      "page": "https://platform.claude.com/docs/en/manage-claude/api-and-data-retention",
+      "readOn": "2026-09-24",
+      "section": "Feature eligibility, table \"Feature eligibility\", row \"Claude Managed Agents\", column \"HIPAA eligible\"",
+      "summary": "Anthropic's page: its feature-eligibility table marks Claude Managed Agents as not eligible for HIPAA readiness."
+     },
+     {
+      "about": "zero retention",
+      "also": [
+       {
+        "page": "https://platform.claude.com/docs/en/manage-claude/api-and-data-retention",
+        "readOn": "2026-09-24",
+        "section": "Feature eligibility, table \"Feature eligibility\", row \"Claude Managed Agents\", column \"Details\"",
+        "summary": "Anthropic's page: in its table of which Claude API features are eligible for ZDR and HIPAA readiness, the Claude Managed Agents row says sessions are stateful, with transcripts kept until the customer deletes them, and that this holds for every Managed Agents sub-feature, \"Self-hosted sandboxes\" included."
+       }
+      ],
+      "columns": [],
+      "page": "https://platform.claude.com/docs/en/manage-claude/api-and-data-retention",
+      "readOn": "2026-09-24",
+      "section": "Feature eligibility, table \"Feature eligibility\", row \"Claude Managed Agents\", column \"ZDR eligible\"",
+      "summary": "Anthropic's page: its feature-eligibility table marks Claude Managed Agents as not eligible for zero data retention (ZDR)."
+     },
+     {
+      "about": "zero retention",
+      "also": [],
+      "columns": [],
+      "page": "https://platform.claude.com/docs/en/manage-claude/api-and-data-retention",
+      "readOn": "2026-09-24",
+      "section": "Zero data retention (ZDR) \u203a What ZDR does not cover",
+      "summary": "Anthropic's page, listing what zero data retention (ZDR) leaves out: Claude Managed Agents keeps state, and its session transcripts remain stored until the customer deletes them."
+     }
+    ],
     "toolList": "20-tool-list.md#claude-managed-agents",
-    "unverifiedAfter": "2026-12-26"
+    "unverifiedAfter": "2026-12-23"
    },
    {
     "cells": {
      "dpa": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "gdpr": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "government": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "hipaa": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "hipaa_baa": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "hitrust": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "iso27001": {
@@ -1162,6 +1498,7 @@
       "mark": "Y"
      },
      "iso42001": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "soc2": {
@@ -1174,21 +1511,26 @@
     "page": "https://www.cloudflare.com/trust-hub/",
     "pageKind": "trust",
     "product": null,
+    "restrictions": [],
     "toolList": "20-tool-list.md#cloudflare-ai-gateway",
-    "unverifiedAfter": "2026-12-27"
+    "unverifiedAfter": "2026-12-26"
    },
    {
     "cells": {
      "dpa": {
+      "blank": "UNREADABLE",
       "mark": null
      },
      "gdpr": {
+      "blank": "UNREADABLE",
       "mark": null
      },
      "government": {
+      "blank": "UNREADABLE",
       "mark": null
      },
      "hipaa": {
+      "blank": "UNREADABLE",
       "mark": null
      },
      "hipaa_baa": {
@@ -1196,52 +1538,66 @@
       "mark": "No"
      },
      "hitrust": {
+      "blank": "UNREADABLE",
       "mark": null
      },
      "iso27001": {
+      "blank": "UNREADABLE",
       "mark": null
      },
      "iso27701": {
+      "blank": "UNREADABLE",
       "mark": null
      },
      "iso42001": {
+      "blank": "UNREADABLE",
       "mark": null
      },
      "soc2": {
+      "blank": "UNREADABLE",
       "mark": null
      }
     },
     "entry": "Codex cloud",
     "page": "https://learn.chatgpt.com/docs/cloud",
     "pageKind": "product",
-    "product": "Codex",
+    "product": null,
+    "restrictions": [],
     "toolList": "20-tool-list.md#codex-cloud",
     "unverifiedAfter": "2026-12-23"
    },
    {
     "cells": {
      "dpa": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "gdpr": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "government": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "hipaa": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "hipaa_baa": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "hitrust": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "iso27001": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "iso27701": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "iso42001": {
@@ -1257,6 +1613,7 @@
     "page": "https://copilot.github.trust.page",
     "pageKind": "trust",
     "product": "GitHub Copilot",
+    "restrictions": [],
     "toolList": "20-tool-list.md#copilot-cloud-agent",
     "unverifiedAfter": "2026-12-26"
    },
@@ -1268,15 +1625,19 @@
       "mark": "Y"
      },
      "gdpr": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "government": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "hipaa": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "hipaa_baa": {
+      "companyWide": true,
       "conditions": [
        "Privacy Mode enabled and locked organization-wide"
       ],
@@ -1287,6 +1648,7 @@
       ]
      },
      "hitrust": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "iso27001": {
@@ -1295,6 +1657,7 @@
       "mark": "Y"
      },
      "iso27701": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "iso42001": {
@@ -1312,6 +1675,7 @@
     "page": "https://cursor.com/security",
     "pageKind": "trust",
     "product": null,
+    "restrictions": [],
     "toolList": "20-tool-list.md#cursor",
     "unverifiedAfter": "2026-12-26"
    },
@@ -1323,15 +1687,19 @@
       "mark": "Y"
      },
      "gdpr": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "government": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "hipaa": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "hipaa_baa": {
+      "companyWide": true,
       "conditions": [
        "Privacy Mode enabled and locked organization-wide"
       ],
@@ -1342,6 +1710,7 @@
       ]
      },
      "hitrust": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "iso27001": {
@@ -1350,6 +1719,7 @@
       "mark": "Y"
      },
      "iso27701": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "iso42001": {
@@ -1367,27 +1737,34 @@
     "page": "https://cursor.com/security",
     "pageKind": "trust",
     "product": "Cursor",
+    "restrictions": [],
     "toolList": "20-tool-list.md#cursor-cloud-agents",
     "unverifiedAfter": "2026-12-26"
    },
    {
     "cells": {
      "dpa": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "gdpr": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "government": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "hipaa": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "hipaa_baa": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "hitrust": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "iso27001": {
@@ -1396,9 +1773,11 @@
       "mark": "Y"
      },
      "iso27701": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "iso42001": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "soc2": {
@@ -1410,6 +1789,7 @@
     "page": "https://trust.daytona.io",
     "pageKind": "trust",
     "product": null,
+    "restrictions": [],
     "toolList": "20-tool-list.md#daytona",
     "unverifiedAfter": "2026-12-26"
    },
@@ -1421,27 +1801,35 @@
       "mark": "Y"
      },
      "gdpr": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "government": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "hipaa": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "hipaa_baa": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "hitrust": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "iso27001": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "iso27701": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "iso42001": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "soc2": {
@@ -1454,6 +1842,7 @@
     "page": "https://deepwiki.com",
     "pageKind": "product",
     "product": null,
+    "restrictions": [],
     "toolList": "20-tool-list.md#deepwiki",
     "unverifiedAfter": "2026-12-26"
    },
@@ -1465,27 +1854,35 @@
       "mark": "Y"
      },
      "gdpr": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "government": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "hipaa": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "hipaa_baa": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "hitrust": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "iso27001": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "iso27701": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "iso42001": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "soc2": {
@@ -1498,6 +1895,7 @@
     "page": "https://devin.ai/",
     "pageKind": "product",
     "product": "Devin",
+    "restrictions": [],
     "toolList": "20-tool-list.md#devin-cloud",
     "unverifiedAfter": "2026-12-26"
    },
@@ -1509,27 +1907,35 @@
       "mark": "Y"
      },
      "gdpr": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "government": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "hipaa": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "hipaa_baa": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "hitrust": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "iso27001": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "iso27701": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "iso42001": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "soc2": {
@@ -1542,6 +1948,7 @@
     "page": "https://devin.ai/blog/windsurf-is-now-devin-desktop",
     "pageKind": "product",
     "product": "Devin",
+    "restrictions": [],
     "toolList": "20-tool-list.md#devin-desktop",
     "unverifiedAfter": "2026-12-26"
    },
@@ -1552,15 +1959,19 @@
       "mark": "Y"
      },
      "gdpr": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "government": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "hipaa": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "hipaa_baa": {
+      "companyWide": true,
       "link": "https://e2b.dev/security",
       "mark": "Y*",
       "plans": [
@@ -1568,15 +1979,19 @@
       ]
      },
      "hitrust": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "iso27001": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "iso27701": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "iso42001": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "soc2": {
@@ -1588,6 +2003,7 @@
     "page": "https://e2b.dev/security",
     "pageKind": "trust",
     "product": null,
+    "restrictions": [],
     "toolList": "20-tool-list.md#e2b",
     "unverifiedAfter": "2026-12-26"
    },
@@ -1599,12 +2015,15 @@
       "mark": "Y"
      },
      "gdpr": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "government": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "hipaa": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "hipaa_baa": {
@@ -1613,6 +2032,7 @@
       "mark": "Y"
      },
      "hitrust": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "iso27001": {
@@ -1621,6 +2041,7 @@
       "mark": "Y"
      },
      "iso27701": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "iso42001": {
@@ -1638,6 +2059,7 @@
     "page": "https://trust.factory.ai",
     "pageKind": "trust",
     "product": "Factory",
+    "restrictions": [],
     "toolList": "20-tool-list.md#factory",
     "unverifiedAfter": "2026-12-26"
    },
@@ -1649,12 +2071,15 @@
       "mark": "Y"
      },
      "gdpr": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "government": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "hipaa": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "hipaa_baa": {
@@ -1663,6 +2088,7 @@
       "mark": "Y"
      },
      "hitrust": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "iso27001": {
@@ -1671,6 +2097,7 @@
       "mark": "Y"
      },
      "iso27701": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "iso42001": {
@@ -1688,6 +2115,7 @@
     "page": "https://trust.factory.ai",
     "pageKind": "trust",
     "product": "Droid",
+    "restrictions": [],
     "toolList": "20-tool-list.md#factory",
     "unverifiedAfter": "2026-12-26"
    },
@@ -1699,12 +2127,15 @@
       "mark": "Y"
      },
      "gdpr": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "government": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "hipaa": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "hipaa_baa": {
@@ -1713,6 +2144,7 @@
       "mark": "Y"
      },
      "hitrust": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "iso27001": {
@@ -1721,6 +2153,7 @@
       "mark": "Y"
      },
      "iso27701": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "iso42001": {
@@ -1738,39 +2171,50 @@
     "page": "https://trust.factory.ai",
     "pageKind": "trust",
     "product": null,
+    "restrictions": [],
     "toolList": "20-tool-list.md#factory-autowiki",
     "unverifiedAfter": "2026-12-26"
    },
    {
     "cells": {
      "dpa": {
+      "blank": "NOT-READ",
       "mark": null
      },
      "gdpr": {
+      "blank": "NOT-READ",
       "mark": null
      },
      "government": {
+      "blank": "NOT-READ",
       "mark": null
      },
      "hipaa": {
+      "blank": "NOT-READ",
       "mark": null
      },
      "hipaa_baa": {
+      "blank": "NOT-READ",
       "mark": null
      },
      "hitrust": {
+      "blank": "NOT-READ",
       "mark": null
      },
      "iso27001": {
+      "blank": "NOT-READ",
       "mark": null
      },
      "iso27701": {
+      "blank": "NOT-READ",
       "mark": null
      },
      "iso42001": {
+      "blank": "NOT-READ",
       "mark": null
      },
      "soc2": {
+      "blank": "NOT-READ",
       "mark": null
      }
     },
@@ -1778,39 +2222,50 @@
     "page": "https://fireworks.ai",
     "pageKind": "product",
     "product": null,
+    "restrictions": [],
     "toolList": "20-tool-list.md#fireworks-ai",
     "unverifiedAfter": null
    },
    {
     "cells": {
      "dpa": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "gdpr": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "government": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "hipaa": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "hipaa_baa": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "hitrust": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "iso27001": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "iso27701": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "iso42001": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "soc2": {
+      "blank": "NOT-STATED",
       "mark": null
      }
     },
@@ -1818,6 +2273,7 @@
     "page": "https://www.galileo.ai",
     "pageKind": "product",
     "product": null,
+    "restrictions": [],
     "toolList": "20-tool-list.md#galileo",
     "unverifiedAfter": null
    },
@@ -1829,12 +2285,15 @@
       "mark": "Y"
      },
      "gdpr": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "government": {
+      "blank": "NOT-READ",
       "mark": null
      },
      "hipaa": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "hipaa_baa": {
@@ -1842,6 +2301,7 @@
       "mark": "Y"
      },
      "hitrust": {
+      "blank": "NOT-READ",
       "mark": null
      },
      "iso27001": {
@@ -1849,9 +2309,11 @@
       "mark": "Y"
      },
      "iso27701": {
+      "blank": "NOT-READ",
       "mark": null
      },
      "iso42001": {
+      "blank": "NOT-READ",
       "mark": null
      },
      "soc2": {
@@ -1863,39 +2325,50 @@
     "page": "https://cloud.google.com/security/compliance/hipaa",
     "pageKind": "trust",
     "product": null,
+    "restrictions": [],
     "toolList": "20-tool-list.md#gemini-code-assist",
     "unverifiedAfter": "2026-12-26"
    },
    {
     "cells": {
      "dpa": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "gdpr": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "government": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "hipaa": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "hipaa_baa": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "hitrust": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "iso27001": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "iso27701": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "iso42001": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "soc2": {
+      "blank": "NOT-STATED",
       "mark": null
      }
     },
@@ -1903,33 +2376,42 @@
     "page": "https://github.com/trust-center",
     "pageKind": "trust",
     "product": null,
+    "restrictions": [],
     "toolList": "20-tool-list.md#github-codespaces",
     "unverifiedAfter": null
    },
    {
     "cells": {
      "dpa": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "gdpr": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "government": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "hipaa": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "hipaa_baa": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "hitrust": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "iso27001": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "iso27701": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "iso42001": {
@@ -1945,27 +2427,34 @@
     "page": "https://copilot.github.trust.page",
     "pageKind": "trust",
     "product": null,
+    "restrictions": [],
     "toolList": "20-tool-list.md#github-copilot",
     "unverifiedAfter": "2026-12-26"
    },
    {
     "cells": {
      "dpa": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "gdpr": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "government": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "hipaa": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "hipaa_baa": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "hitrust": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "iso27001": {
@@ -1973,6 +2462,7 @@
       "mark": "Y"
      },
      "iso27701": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "iso42001": {
@@ -1988,39 +2478,50 @@
     "page": "https://trust.glean.com",
     "pageKind": "trust",
     "product": null,
+    "restrictions": [],
     "toolList": "20-tool-list.md#glean",
     "unverifiedAfter": "2026-12-27"
    },
    {
     "cells": {
      "dpa": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "gdpr": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "government": {
+      "blank": "NOT-READ",
       "mark": null
      },
      "hipaa": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "hipaa_baa": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "hitrust": {
+      "blank": "NOT-READ",
       "mark": null
      },
      "iso27001": {
+      "blank": "NOT-READ",
       "mark": null
      },
      "iso27701": {
+      "blank": "NOT-READ",
       "mark": null
      },
      "iso42001": {
+      "blank": "NOT-READ",
       "mark": null
      },
      "soc2": {
+      "blank": "NOT-READ",
       "mark": null
      }
     },
@@ -2028,39 +2529,50 @@
     "page": "https://gemini.google.com/",
     "pageKind": "product",
     "product": "Google Gemini",
+    "restrictions": [],
     "toolList": "20-tool-list.md#google-gemini",
     "unverifiedAfter": null
    },
    {
     "cells": {
      "dpa": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "gdpr": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "government": {
+      "blank": "NOT-READ",
       "mark": null
      },
      "hipaa": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "hipaa_baa": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "hitrust": {
+      "blank": "NOT-READ",
       "mark": null
      },
      "iso27001": {
+      "blank": "NOT-READ",
       "mark": null
      },
      "iso27701": {
+      "blank": "NOT-READ",
       "mark": null
      },
      "iso42001": {
+      "blank": "NOT-READ",
       "mark": null
      },
      "soc2": {
+      "blank": "NOT-READ",
       "mark": null
      }
     },
@@ -2068,6 +2580,7 @@
     "page": "https://gemini.google.com/",
     "pageKind": "product",
     "product": "Gemini",
+    "restrictions": [],
     "toolList": "20-tool-list.md#google-gemini",
     "unverifiedAfter": null
    },
@@ -2087,6 +2600,7 @@
       "mark": "Y*"
      },
      "government": {
+      "blank": "NOT-READ",
       "mark": null
      },
      "hipaa": {
@@ -2098,9 +2612,11 @@
       "mark": "Y*"
      },
      "hipaa_baa": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "hitrust": {
+      "blank": "NOT-READ",
       "mark": null
      },
      "iso27001": {
@@ -2108,9 +2624,11 @@
       "mark": "Y"
      },
      "iso27701": {
+      "blank": "NOT-READ",
       "mark": null
      },
      "iso42001": {
+      "blank": "NOT-READ",
       "mark": null
      },
      "soc2": {
@@ -2122,15 +2640,18 @@
     "page": "https://cloud.google.com/security/compliance/iso-27001",
     "pageKind": "trust",
     "product": "Gemini Enterprise Agent Platform from Google",
+    "restrictions": [],
     "toolList": "20-tool-list.md#google-vertex-ai--gemini-enterprise-agent-platform",
     "unverifiedAfter": "2026-12-26"
    },
    {
     "cells": {
      "dpa": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "gdpr": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "government": {
@@ -2138,12 +2659,15 @@
       "mark": "No"
      },
      "hipaa": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "hipaa_baa": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "hitrust": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "iso27001": {
@@ -2154,6 +2678,7 @@
       "mark": "Y*"
      },
      "iso27701": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "iso42001": {
@@ -2175,6 +2700,7 @@
     "page": "https://trust.anthropic.com/",
     "pageKind": "trust",
     "product": "Claude on Google Cloud's Vertex AI from Anthropic",
+    "restrictions": [],
     "toolList": "20-tool-list.md#google-vertex-ai--gemini-enterprise-agent-platform",
     "unverifiedAfter": "2026-12-26"
    },
@@ -2186,6 +2712,7 @@
       "mark": "Y"
      },
      "gdpr": {
+      "blank": "UNREADABLE",
       "mark": null
      },
      "government": {
@@ -2193,6 +2720,7 @@
       "mark": "Y"
      },
      "hipaa": {
+      "blank": "UNREADABLE",
       "mark": null
      },
      "hipaa_baa": {
@@ -2200,6 +2728,7 @@
       "mark": "Y"
      },
      "hitrust": {
+      "blank": "UNREADABLE",
       "mark": null
      },
      "iso27001": {
@@ -2207,9 +2736,11 @@
       "mark": "Y"
      },
      "iso27701": {
+      "blank": "UNREADABLE",
       "mark": null
      },
      "iso42001": {
+      "blank": "UNREADABLE",
       "mark": null
      },
      "soc2": {
@@ -2221,39 +2752,50 @@
     "page": "https://cloud.google.com/security/compliance/fedramp",
     "pageKind": "trust",
     "product": "Google Cloud from Google",
+    "restrictions": [],
     "toolList": "20-tool-list.md#google-vertex-ai--gemini-enterprise-agent-platform",
     "unverifiedAfter": "2026-12-26"
    },
    {
     "cells": {
      "dpa": {
+      "blank": "NOT-READ",
       "mark": null
      },
      "gdpr": {
+      "blank": "NOT-READ",
       "mark": null
      },
      "government": {
+      "blank": "NOT-READ",
       "mark": null
      },
      "hipaa": {
+      "blank": "NOT-READ",
       "mark": null
      },
      "hipaa_baa": {
+      "blank": "NOT-READ",
       "mark": null
      },
      "hitrust": {
+      "blank": "NOT-READ",
       "mark": null
      },
      "iso27001": {
+      "blank": "NOT-READ",
       "mark": null
      },
      "iso27701": {
+      "blank": "NOT-READ",
       "mark": null
      },
      "iso42001": {
+      "blank": "NOT-READ",
       "mark": null
      },
      "soc2": {
+      "blank": "NOT-READ",
       "mark": null
      }
     },
@@ -2261,39 +2803,51 @@
     "page": "https://groq.com",
     "pageKind": "product",
     "product": null,
+    "restrictions": [],
     "toolList": "20-tool-list.md#groq",
     "unverifiedAfter": null
    },
    {
     "cells": {
      "dpa": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "gdpr": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "government": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "hipaa": {
-      "mark": null
+      "companyWide": true,
+      "link": "https://gethip.ai/terms.html",
+      "mark": "No"
      },
      "hipaa_baa": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "hitrust": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "iso27001": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "iso27701": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "iso42001": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "soc2": {
+      "blank": "NOT-STATED",
       "mark": null
      }
     },
@@ -2301,39 +2855,50 @@
     "page": "https://gethip.ai/",
     "pageKind": "product",
     "product": null,
+    "restrictions": [],
     "toolList": "20-tool-list.md#hipai",
-    "unverifiedAfter": null
+    "unverifiedAfter": "2026-12-26"
    },
    {
     "cells": {
      "dpa": {
+      "blank": "NOT-READ",
       "mark": null
      },
      "gdpr": {
+      "blank": "NOT-READ",
       "mark": null
      },
      "government": {
+      "blank": "NOT-READ",
       "mark": null
      },
      "hipaa": {
+      "blank": "NOT-READ",
       "mark": null
      },
      "hipaa_baa": {
+      "blank": "NOT-READ",
       "mark": null
      },
      "hitrust": {
+      "blank": "NOT-READ",
       "mark": null
      },
      "iso27001": {
+      "blank": "NOT-READ",
       "mark": null
      },
      "iso27701": {
+      "blank": "NOT-READ",
       "mark": null
      },
      "iso42001": {
+      "blank": "NOT-READ",
       "mark": null
      },
      "soc2": {
+      "blank": "NOT-READ",
       "mark": null
      }
     },
@@ -2341,39 +2906,50 @@
     "page": "https://www.jetbrains.com/junie/",
     "pageKind": "product",
     "product": null,
+    "restrictions": [],
     "toolList": "20-tool-list.md#jetbrains-junie",
     "unverifiedAfter": null
    },
    {
     "cells": {
      "dpa": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "gdpr": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "government": {
+      "blank": "NOT-READ",
       "mark": null
      },
      "hipaa": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "hipaa_baa": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "hitrust": {
+      "blank": "NOT-READ",
       "mark": null
      },
      "iso27001": {
+      "blank": "NOT-READ",
       "mark": null
      },
      "iso27701": {
+      "blank": "NOT-READ",
       "mark": null
      },
      "iso42001": {
+      "blank": "NOT-READ",
       "mark": null
      },
      "soc2": {
+      "blank": "NOT-READ",
       "mark": null
      }
     },
@@ -2381,18 +2957,22 @@
     "page": "https://jules.google/",
     "pageKind": "product",
     "product": null,
+    "restrictions": [],
     "toolList": "20-tool-list.md#jules",
     "unverifiedAfter": null
    },
    {
     "cells": {
      "dpa": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "gdpr": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "government": {
+      "blank": "NOT-READ",
       "mark": null
      },
      "hipaa": {
@@ -2403,21 +2983,27 @@
       "mark": "Y*"
      },
      "hipaa_baa": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "hitrust": {
+      "blank": "NOT-READ",
       "mark": null
      },
      "iso27001": {
+      "blank": "NOT-READ",
       "mark": null
      },
      "iso27701": {
+      "blank": "NOT-READ",
       "mark": null
      },
      "iso42001": {
+      "blank": "NOT-READ",
       "mark": null
      },
      "soc2": {
+      "blank": "NOT-READ",
       "mark": null
      }
     },
@@ -2425,39 +3011,50 @@
     "page": "https://kiro.dev/",
     "pageKind": "product",
     "product": "Kiro from Kiro",
+    "restrictions": [],
     "toolList": "20-tool-list.md#kiro",
     "unverifiedAfter": "2026-12-23"
    },
    {
     "cells": {
      "dpa": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "gdpr": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "government": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "hipaa": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "hipaa_baa": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "hitrust": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "iso27001": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "iso27701": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "iso42001": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "soc2": {
+      "blank": "NOT-STATED",
       "mark": null
      }
     },
@@ -2465,6 +3062,7 @@
     "page": "https://aws.amazon.com/compliance/iso-certified/",
     "pageKind": "trust",
     "product": "Kiro from AWS",
+    "restrictions": [],
     "toolList": "20-tool-list.md#kiro",
     "unverifiedAfter": null
    },
@@ -2479,6 +3077,7 @@
       "mark": "Y"
      },
      "government": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "hipaa": {
@@ -2489,9 +3088,11 @@
       "mark": "Y*"
      },
      "hipaa_baa": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "hitrust": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "iso27001": {
@@ -2499,9 +3100,11 @@
       "mark": "Y"
      },
      "iso27701": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "iso42001": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "soc2": {
@@ -2513,27 +3116,34 @@
     "page": "https://langfuse.com/security",
     "pageKind": "trust",
     "product": "Langfuse Cloud",
+    "restrictions": [],
     "toolList": "20-tool-list.md#langfuselangfuse",
     "unverifiedAfter": "2026-12-26"
    },
    {
     "cells": {
      "dpa": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "gdpr": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "government": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "hipaa": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "hipaa_baa": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "hitrust": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "iso27001": {
@@ -2541,9 +3151,11 @@
       "mark": "Y"
      },
      "iso27701": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "iso42001": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "soc2": {
@@ -2555,39 +3167,50 @@
     "page": "https://trust.langchain.com/",
     "pageKind": "trust",
     "product": null,
+    "restrictions": [],
     "toolList": "20-tool-list.md#langsmith-context-hub",
     "unverifiedAfter": "2026-12-26"
    },
    {
     "cells": {
      "dpa": {
+      "blank": "NOT-READ",
       "mark": null
      },
      "gdpr": {
+      "blank": "NOT-READ",
       "mark": null
      },
      "government": {
+      "blank": "NOT-READ",
       "mark": null
      },
      "hipaa": {
+      "blank": "NOT-READ",
       "mark": null
      },
      "hipaa_baa": {
+      "blank": "NOT-READ",
       "mark": null
      },
      "hitrust": {
+      "blank": "NOT-READ",
       "mark": null
      },
      "iso27001": {
+      "blank": "NOT-READ",
       "mark": null
      },
      "iso27701": {
+      "blank": "NOT-READ",
       "mark": null
      },
      "iso42001": {
+      "blank": "NOT-READ",
       "mark": null
      },
      "soc2": {
+      "blank": "NOT-READ",
       "mark": null
      }
     },
@@ -2595,39 +3218,50 @@
     "page": "https://lmstudio.ai/",
     "pageKind": "product",
     "product": null,
+    "restrictions": [],
     "toolList": "20-tool-list.md#lm-studio",
     "unverifiedAfter": null
    },
    {
     "cells": {
      "dpa": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "gdpr": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "government": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "hipaa": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "hipaa_baa": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "hitrust": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "iso27001": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "iso27701": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "iso42001": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "soc2": {
+      "blank": "NOT-STATED",
       "mark": null
      }
     },
@@ -2635,39 +3269,50 @@
     "page": "https://www.getlore.ai/",
     "pageKind": "product",
     "product": null,
+    "restrictions": [],
     "toolList": "20-tool-list.md#lore",
     "unverifiedAfter": null
    },
    {
     "cells": {
      "dpa": {
+      "blank": "NOT-READ",
       "mark": null
      },
      "gdpr": {
+      "blank": "NOT-READ",
       "mark": null
      },
      "government": {
+      "blank": "NOT-READ",
       "mark": null
      },
      "hipaa": {
+      "blank": "NOT-READ",
       "mark": null
      },
      "hipaa_baa": {
+      "blank": "NOT-READ",
       "mark": null
      },
      "hitrust": {
+      "blank": "NOT-READ",
       "mark": null
      },
      "iso27001": {
+      "blank": "NOT-READ",
       "mark": null
      },
      "iso27701": {
+      "blank": "NOT-READ",
       "mark": null
      },
      "iso42001": {
+      "blank": "NOT-READ",
       "mark": null
      },
      "soc2": {
+      "blank": "NOT-READ",
       "mark": null
      }
     },
@@ -2675,39 +3320,50 @@
     "page": "https://lovable.dev",
     "pageKind": "product",
     "product": null,
+    "restrictions": [],
     "toolList": "20-tool-list.md#lovable",
     "unverifiedAfter": null
    },
    {
     "cells": {
      "dpa": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "gdpr": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "government": {
+      "blank": "NOT-READ",
       "mark": null
      },
      "hipaa": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "hipaa_baa": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "hitrust": {
+      "blank": "NOT-READ",
       "mark": null
      },
      "iso27001": {
+      "blank": "NOT-READ",
       "mark": null
      },
      "iso27701": {
+      "blank": "NOT-READ",
       "mark": null
      },
      "iso42001": {
+      "blank": "NOT-READ",
       "mark": null
      },
      "soc2": {
+      "blank": "NOT-READ",
       "mark": null
      }
     },
@@ -2715,39 +3371,50 @@
     "page": "https://withmartian.com/",
     "pageKind": "product",
     "product": "Martian",
+    "restrictions": [],
     "toolList": "20-tool-list.md#martian",
     "unverifiedAfter": null
    },
    {
     "cells": {
      "dpa": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "gdpr": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "government": {
+      "blank": "NOT-READ",
       "mark": null
      },
      "hipaa": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "hipaa_baa": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "hitrust": {
+      "blank": "NOT-READ",
       "mark": null
      },
      "iso27001": {
+      "blank": "NOT-READ",
       "mark": null
      },
      "iso27701": {
+      "blank": "NOT-READ",
       "mark": null
      },
      "iso42001": {
+      "blank": "NOT-READ",
       "mark": null
      },
      "soc2": {
+      "blank": "NOT-READ",
       "mark": null
      }
     },
@@ -2755,6 +3422,7 @@
     "page": "https://withmartian.com/",
     "pageKind": "product",
     "product": "Martian Gateway",
+    "restrictions": [],
     "toolList": "20-tool-list.md#martian",
     "unverifiedAfter": null
    },
@@ -2771,9 +3439,11 @@
       "mark": "Y"
      },
      "government": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "hipaa": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "hipaa_baa": {
@@ -2792,12 +3462,15 @@
       "mark": "Y"
      },
      "iso27701": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "iso42001": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "soc2": {
+      "blank": "NOT-STATED",
       "mark": null
      }
     },
@@ -2805,6 +3478,7 @@
     "page": "https://learn.microsoft.com/en-us/azure/compliance/offerings/offering-dod-il5",
     "pageKind": "trust",
     "product": null,
+    "restrictions": [],
     "toolList": "20-tool-list.md#microsoft-agent-365",
     "unverifiedAfter": "2026-12-23"
    },
@@ -2821,9 +3495,11 @@
       "mark": "Y"
      },
      "government": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "hipaa": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "hipaa_baa": {
@@ -2842,12 +3518,15 @@
       "mark": "Y"
      },
      "iso27701": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "iso42001": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "soc2": {
+      "blank": "NOT-STATED",
       "mark": null
      }
     },
@@ -2855,6 +3534,7 @@
     "page": "https://learn.microsoft.com/en-us/azure/compliance/offerings/offering-dod-il5",
     "pageKind": "trust",
     "product": null,
+    "restrictions": [],
     "toolList": "20-tool-list.md#microsoft-copilot-studio",
     "unverifiedAfter": "2026-12-23"
    },
@@ -2871,9 +3551,11 @@
       "mark": "Y"
      },
      "government": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "hipaa": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "hipaa_baa": {
@@ -2892,12 +3574,15 @@
       "mark": "Y"
      },
      "iso27701": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "iso42001": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "soc2": {
+      "blank": "NOT-STATED",
       "mark": null
      }
     },
@@ -2905,6 +3590,7 @@
     "page": "https://learn.microsoft.com/en-us/azure/compliance/offerings/offering-dod-il5",
     "pageKind": "trust",
     "product": "Microsoft Foundry Agent Service",
+    "restrictions": [],
     "toolList": "20-tool-list.md#microsoft-foundry-agent-service",
     "unverifiedAfter": "2026-12-23"
    },
@@ -2925,6 +3611,7 @@
       "mark": "Y"
      },
      "hipaa": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "hipaa_baa": {
@@ -2941,12 +3628,15 @@
       "mark": "Y"
      },
      "iso27701": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "iso42001": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "soc2": {
+      "blank": "NOT-STATED",
       "mark": null
      }
     },
@@ -2954,21 +3644,26 @@
     "page": "https://learn.microsoft.com/en-us/azure/compliance/offerings/offering-dod-il5",
     "pageKind": "trust",
     "product": "Azure",
+    "restrictions": [],
     "toolList": "20-tool-list.md#microsoft-foundry-agent-service",
     "unverifiedAfter": "2026-12-23"
    },
    {
     "cells": {
      "dpa": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "gdpr": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "government": {
+      "blank": "NOT-READ",
       "mark": null
      },
      "hipaa": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "hipaa_baa": {
@@ -2979,18 +3674,23 @@
       ]
      },
      "hitrust": {
+      "blank": "NOT-READ",
       "mark": null
      },
      "iso27001": {
+      "blank": "NOT-READ",
       "mark": null
      },
      "iso27701": {
+      "blank": "NOT-READ",
       "mark": null
      },
      "iso42001": {
+      "blank": "NOT-READ",
       "mark": null
      },
      "soc2": {
+      "blank": "NOT-READ",
       "mark": null
      }
     },
@@ -2998,39 +3698,50 @@
     "page": "https://modal.com",
     "pageKind": "product",
     "product": null,
+    "restrictions": [],
     "toolList": "20-tool-list.md#modal",
     "unverifiedAfter": "2026-12-26"
    },
    {
     "cells": {
      "dpa": {
+      "blank": "NOT-READ",
       "mark": null
      },
      "gdpr": {
+      "blank": "NOT-READ",
       "mark": null
      },
      "government": {
+      "blank": "NOT-READ",
       "mark": null
      },
      "hipaa": {
+      "blank": "NOT-READ",
       "mark": null
      },
      "hipaa_baa": {
+      "blank": "NOT-READ",
       "mark": null
      },
      "hitrust": {
+      "blank": "NOT-READ",
       "mark": null
      },
      "iso27001": {
+      "blank": "NOT-READ",
       "mark": null
      },
      "iso27701": {
+      "blank": "NOT-READ",
       "mark": null
      },
      "iso42001": {
+      "blank": "NOT-READ",
       "mark": null
      },
      "soc2": {
+      "blank": "NOT-READ",
       "mark": null
      }
     },
@@ -3038,43 +3749,53 @@
     "page": "https://www.notdiamond.ai/",
     "pageKind": "product",
     "product": null,
+    "restrictions": [],
     "toolList": "20-tool-list.md#not-diamond",
     "unverifiedAfter": null
    },
    {
     "cells": {
      "dpa": {
+      "blank": "UNREADABLE",
       "mark": null
      },
      "gdpr": {
+      "blank": "UNREADABLE",
       "mark": null
      },
      "government": {
+      "blank": "UNREADABLE",
       "mark": null
      },
      "hipaa": {
+      "blank": "UNREADABLE",
       "mark": null
      },
      "hipaa_baa": {
       "link": "https://developers.openai.com/api/docs/guides/your-data",
       "mark": "Y*",
       "plans": [
-       "retention with safety processing"
+       "\u201cPrivate Retention with PSP\u201d"
       ]
      },
      "hitrust": {
+      "blank": "UNREADABLE",
       "mark": null
      },
      "iso27001": {
+      "blank": "UNREADABLE",
       "mark": null
      },
      "iso27701": {
+      "blank": "UNREADABLE",
       "mark": null
      },
      "iso42001": {
+      "blank": "UNREADABLE",
       "mark": null
      },
      "soc2": {
+      "blank": "UNREADABLE",
       "mark": null
      }
     },
@@ -3082,36 +3803,46 @@
     "page": "https://platform.openai.com/",
     "pageKind": "product",
     "product": null,
+    "restrictions": [],
     "toolList": "20-tool-list.md#openai-api",
-    "unverifiedAfter": "2026-12-28"
+    "unverifiedAfter": "2026-12-23"
    },
    {
     "cells": {
      "dpa": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "gdpr": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "government": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "hipaa": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "hipaa_baa": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "hitrust": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "iso27001": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "iso27701": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "iso42001": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "soc2": {
@@ -3123,15 +3854,18 @@
     "page": "https://trust.openrouter.ai/",
     "pageKind": "trust",
     "product": null,
+    "restrictions": [],
     "toolList": "20-tool-list.md#openrouter",
     "unverifiedAfter": "2026-12-26"
    },
    {
     "cells": {
      "dpa": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "gdpr": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "government": {
@@ -3140,12 +3874,15 @@
       "mark": "Y"
      },
      "hipaa": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "hipaa_baa": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "hitrust": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "iso27001": {
@@ -3154,9 +3891,11 @@
       "mark": "Y"
      },
      "iso27701": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "iso42001": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "soc2": {
@@ -3169,15 +3908,18 @@
     "page": "https://trust.perplexity.ai",
     "pageKind": "trust",
     "product": "Perplexity API",
+    "restrictions": [],
     "toolList": "20-tool-list.md#perplexity",
     "unverifiedAfter": "2026-12-28"
    },
    {
     "cells": {
      "dpa": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "gdpr": {
+      "companyWide": true,
       "link": "https://docs.portkey.ai/docs/product/enterprise-offering",
       "mark": "Y*",
       "plans": [
@@ -3185,9 +3927,11 @@
       ]
      },
      "government": {
+      "blank": "NOT-READ",
       "mark": null
      },
      "hipaa": {
+      "companyWide": true,
       "link": "https://docs.portkey.ai/docs/product/enterprise-offering",
       "mark": "Y*",
       "plans": [
@@ -3202,18 +3946,23 @@
       ]
      },
      "hitrust": {
+      "blank": "NOT-READ",
       "mark": null
      },
      "iso27001": {
+      "blank": "NOT-READ",
       "mark": null
      },
      "iso27701": {
+      "blank": "NOT-READ",
       "mark": null
      },
      "iso42001": {
+      "blank": "NOT-READ",
       "mark": null
      },
      "soc2": {
+      "blank": "NOT-READ",
       "mark": null
      }
     },
@@ -3221,36 +3970,46 @@
     "page": "https://portkey.ai/",
     "pageKind": "product",
     "product": null,
+    "restrictions": [],
     "toolList": "20-tool-list.md#portkey",
     "unverifiedAfter": "2026-12-26"
    },
    {
     "cells": {
      "dpa": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "gdpr": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "government": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "hipaa": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "hipaa_baa": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "hitrust": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "iso27001": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "iso27701": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "iso42001": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "soc2": {
@@ -3262,39 +4021,50 @@
     "page": "https://trust.relevanceai.com",
     "pageKind": "trust",
     "product": null,
+    "restrictions": [],
     "toolList": "20-tool-list.md#relevance-ai",
     "unverifiedAfter": "2026-12-26"
    },
    {
     "cells": {
      "dpa": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "gdpr": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "government": {
+      "blank": "NOT-READ",
       "mark": null
      },
      "hipaa": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "hipaa_baa": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "hitrust": {
+      "blank": "NOT-READ",
       "mark": null
      },
      "iso27001": {
+      "blank": "NOT-READ",
       "mark": null
      },
      "iso27701": {
+      "blank": "NOT-READ",
       "mark": null
      },
      "iso42001": {
+      "blank": "NOT-READ",
       "mark": null
      },
      "soc2": {
+      "blank": "NOT-READ",
       "mark": null
      }
     },
@@ -3302,36 +4072,46 @@
     "page": "https://replit.com/products/agent",
     "pageKind": "product",
     "product": null,
+    "restrictions": [],
     "toolList": "20-tool-list.md#replit-agent",
     "unverifiedAfter": null
    },
    {
     "cells": {
      "dpa": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "gdpr": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "government": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "hipaa": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "hipaa_baa": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "hitrust": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "iso27001": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "iso27701": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "iso42001": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "soc2": {
@@ -3343,39 +4123,50 @@
     "page": "https://compliance.runloop.ai/",
     "pageKind": "trust",
     "product": null,
+    "restrictions": [],
     "toolList": "20-tool-list.md#runloop",
     "unverifiedAfter": "2026-12-26"
    },
    {
     "cells": {
      "dpa": {
+      "blank": "NOT-READ",
       "mark": null
      },
      "gdpr": {
+      "blank": "NOT-READ",
       "mark": null
      },
      "government": {
+      "blank": "NOT-READ",
       "mark": null
      },
      "hipaa": {
+      "blank": "NOT-READ",
       "mark": null
      },
      "hipaa_baa": {
+      "blank": "NOT-READ",
       "mark": null
      },
      "hitrust": {
+      "blank": "NOT-READ",
       "mark": null
      },
      "iso27001": {
+      "blank": "NOT-READ",
       "mark": null
      },
      "iso27701": {
+      "blank": "NOT-READ",
       "mark": null
      },
      "iso42001": {
+      "blank": "NOT-READ",
       "mark": null
      },
      "soc2": {
+      "blank": "NOT-READ",
       "mark": null
      }
     },
@@ -3383,27 +4174,34 @@
     "page": "https://smithery.ai",
     "pageKind": "product",
     "product": null,
+    "restrictions": [],
     "toolList": "20-tool-list.md#smithery",
     "unverifiedAfter": null
    },
    {
     "cells": {
      "dpa": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "gdpr": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "government": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "hipaa": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "hipaa_baa": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "hitrust": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "iso27001": {
@@ -3412,9 +4210,11 @@
       "mark": "Y"
      },
      "iso27701": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "iso42001": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "soc2": {
@@ -3427,27 +4227,34 @@
     "page": "https://security.sourcegraph.com/",
     "pageKind": "trust",
     "product": "Sourcegraph Cody",
+    "restrictions": [],
     "toolList": "20-tool-list.md#sourcegraph-cody",
     "unverifiedAfter": "2026-12-26"
    },
    {
     "cells": {
      "dpa": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "gdpr": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "government": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "hipaa": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "hipaa_baa": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "hitrust": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "iso27001": {
@@ -3456,9 +4263,11 @@
       "mark": "Y"
      },
      "iso27701": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "iso42001": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "soc2": {
@@ -3471,27 +4280,34 @@
     "page": "https://security.sourcegraph.com/",
     "pageKind": "trust",
     "product": "Sourcegraph",
+    "restrictions": [],
     "toolList": "20-tool-list.md#sourcegraph-cody",
     "unverifiedAfter": "2026-12-26"
    },
    {
     "cells": {
      "dpa": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "gdpr": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "government": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "hipaa": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "hipaa_baa": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "hitrust": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "iso27001": {
@@ -3499,9 +4315,11 @@
       "mark": "Y"
      },
      "iso27701": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "iso42001": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "soc2": {
@@ -3513,6 +4331,7 @@
     "page": "https://trust.stackai.com",
     "pageKind": "trust",
     "product": null,
+    "restrictions": [],
     "toolList": "20-tool-list.md#stack-ai",
     "unverifiedAfter": "2026-12-27"
    },
@@ -3523,18 +4342,23 @@
       "mark": "Y"
      },
      "gdpr": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "government": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "hipaa": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "hipaa_baa": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "hitrust": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "iso27001": {
@@ -3542,9 +4366,11 @@
       "mark": "Y"
      },
      "iso27701": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "iso42001": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "soc2": {
@@ -3556,6 +4382,7 @@
     "page": "https://trust.together.ai/",
     "pageKind": "trust",
     "product": null,
+    "restrictions": [],
     "toolList": "20-tool-list.md#together-ai",
     "unverifiedAfter": "2026-12-26"
    },
@@ -3572,9 +4399,11 @@
       "mark": "Y"
      },
      "government": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "hipaa": {
+      "companyWide": true,
       "link": "https://vercel.com/security",
       "mark": "Y*",
       "plans": [
@@ -3582,9 +4411,11 @@
       ]
      },
      "hipaa_baa": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "hitrust": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "iso27001": {
@@ -3593,9 +4424,11 @@
       "mark": "Y"
      },
      "iso27701": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "iso42001": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "soc2": {
@@ -3608,18 +4441,22 @@
     "page": "https://vercel.com/security",
     "pageKind": "trust",
     "product": null,
+    "restrictions": [],
     "toolList": "20-tool-list.md#v0",
     "unverifiedAfter": "2026-12-26"
    },
    {
     "cells": {
      "dpa": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "gdpr": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "government": {
+      "blank": "NOT-READ",
       "mark": null
      },
      "hipaa": {
@@ -3627,21 +4464,27 @@
       "mark": "Y"
      },
      "hipaa_baa": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "hitrust": {
+      "blank": "NOT-READ",
       "mark": null
      },
      "iso27001": {
+      "blank": "NOT-READ",
       "mark": null
      },
      "iso27701": {
+      "blank": "NOT-READ",
       "mark": null
      },
      "iso42001": {
+      "blank": "NOT-READ",
       "mark": null
      },
      "soc2": {
+      "blank": "NOT-READ",
       "mark": null
      }
     },
@@ -3649,8 +4492,9 @@
     "page": "https://docs.vellum.ai/",
     "pageKind": "product",
     "product": null,
+    "restrictions": [],
     "toolList": "20-tool-list.md#vellum",
-    "unverifiedAfter": "2026-12-27"
+    "unverifiedAfter": "2026-12-26"
    },
    {
     "cells": {
@@ -3668,6 +4512,7 @@
       "mark": "Y*"
      },
      "government": {
+      "blank": "NOT-READ",
       "mark": null
      },
      "hipaa": {
@@ -3679,9 +4524,11 @@
       "mark": "Y*"
      },
      "hipaa_baa": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "hitrust": {
+      "blank": "NOT-READ",
       "mark": null
      },
      "iso27001": {
@@ -3689,9 +4536,11 @@
       "mark": "Y"
      },
      "iso27701": {
+      "blank": "NOT-READ",
       "mark": null
      },
      "iso42001": {
+      "blank": "NOT-READ",
       "mark": null
      },
      "soc2": {
@@ -3703,6 +4552,7 @@
     "page": "https://cloud.google.com/security/compliance/iso-27001",
     "pageKind": "trust",
     "product": "Gemini Enterprise Agent Platform",
+    "restrictions": [],
     "toolList": "20-tool-list.md#vertex-ai-agent-engine-gemini-enterprise-agent-platform",
     "unverifiedAfter": "2026-12-26"
    },
@@ -3714,6 +4564,7 @@
       "mark": "Y"
      },
      "gdpr": {
+      "blank": "UNREADABLE",
       "mark": null
      },
      "government": {
@@ -3721,6 +4572,7 @@
       "mark": "Y"
      },
      "hipaa": {
+      "blank": "UNREADABLE",
       "mark": null
      },
      "hipaa_baa": {
@@ -3728,6 +4580,7 @@
       "mark": "Y"
      },
      "hitrust": {
+      "blank": "UNREADABLE",
       "mark": null
      },
      "iso27001": {
@@ -3735,9 +4588,11 @@
       "mark": "Y"
      },
      "iso27701": {
+      "blank": "UNREADABLE",
       "mark": null
      },
      "iso42001": {
+      "blank": "UNREADABLE",
       "mark": null
      },
      "soc2": {
@@ -3749,36 +4604,46 @@
     "page": "https://cloud.google.com/security/compliance/fedramp",
     "pageKind": "trust",
     "product": "Google Cloud",
+    "restrictions": [],
     "toolList": "20-tool-list.md#vertex-ai-agent-engine-gemini-enterprise-agent-platform",
     "unverifiedAfter": "2026-12-26"
    },
    {
     "cells": {
      "dpa": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "gdpr": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "government": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "hipaa": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "hipaa_baa": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "hitrust": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "iso27001": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "iso27701": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "iso42001": {
+      "blank": "NOT-STATED",
       "mark": null
      },
      "soc2": {
@@ -3790,6 +4655,7 @@
     "page": "https://www.warp.dev/legal/security",
     "pageKind": "trust",
     "product": null,
+    "restrictions": [],
     "toolList": "20-tool-list.md#warp",
     "unverifiedAfter": "2026-12-26"
    }

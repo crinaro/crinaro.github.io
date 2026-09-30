@@ -2200,7 +2200,7 @@ const pageName = (title, url) => B_ERROR_TITLE.test(String(title || '').trim())
 const escB = x => String(x).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 
 const MATRIX = TOOLS.matrix || null;
-const CW_NOTE = 'stated for the company; confirm on the page that its scope includes this product';
+const CW_NOTE = 'filed under the company, naming no product; confirm on the page that its scope includes this product';
 function matrixCell(c) {
   if (!c || c.mark === null) return `<td class="cm-c"></td>`;
   const notes = [];
@@ -2213,14 +2213,51 @@ function matrixCell(c) {
 }
 const bCapM = x => x ? x[0].toUpperCase() + x.slice(1) : x;
 const shortCol = l => l.replace('ISO/IEC ', 'ISO ').replace(/\s*\(.*\)$/, '');
+const BLANK_GROUPS = [
+  ['Not checked', ['NOT-READ']],
+  ['A page could not be read', ['UNREADABLE', 'GATED']],
+  ['Checked, not stated', ['NOT-STATED', 'BLANK']],
+  ['Pages disagree', ['CONFLICTING']],
+  ['Sent to sales', ['SALES-ONLY']],
+  ['You run it', ['OPERATOR']],
+];
+function blankGroups(r) {
+  for (const c of MATRIX.columns) {
+    const x = r.cells[c.key];
+    if (x.mark === null && !BLANK_GROUPS.some(([, w]) => w.includes(x.blank)))
+      throw new Error(`compliance: ${r.entry}, ${c.key}: blank word ${x.blank} has no group in BLANK_GROUPS`);
+  }
+  return BLANK_GROUPS.map(([label, words]) => {
+    const cols = MATRIX.columns.filter(c => r.cells[c.key].mark === null && words.includes(r.cells[c.key].blank));
+    return cols.length ? `<span class="cc-b"><span class="cc-bl">${label}:</span> ${
+      cols.map(c => escB(shortCol(c.label))).join(', ')}</span>` : '';
+  }).join('');
+}
+const hostOf = u => String(u).replace(/^https?:\/\//, '').replace(/\/.*$/, '');
+function restrictionsRow(t, cls) {
+  if (!MATRIX) return '';
+  const rows = MATRIX.rows.filter(r => r.entry === t.name && r.restrictions.length);
+  if (!rows.length) return '';
+  const cite = x => `<a href="${escB(x.page)}" rel="noopener">${escB(hostOf(x.page))}</a>, ${escB(x.section)}, read ${escB(x.readOn)}.`;
+  const items = rows.flatMap(r => r.restrictions.map(it => {
+    const scope = [it.condition ? `under ${it.condition}` : '', it.plans ? `on ${it.plans.join(', ')}` : '']
+      .filter(Boolean).join(', ');
+    return `<p class="rs-i"><span class="rs-l">Restriction${r.product ? `, ${escB(r.product)}` : ''}: ${
+      escB(it.about)}${scope ? ` (${escB(scope)})` : ''}.</span> ${escB(it.summary)} ${cite(it)}${
+      it.companyWide ? ` <span class="rs-cw">† ${escB(bCapM(CW_NOTE))}.</span>` : ''}</p>${
+      it.also.map(al => `<p class="rs-a">Also: ${escB(al.summary || al.generated)} ${cite(al)}</p>`).join('')}`;
+  }));
+  return `<tr class="rs${cls}"><td colspan="5" data-l="Restrictions">${items.join('')}</td></tr>`;
+}
 function complianceCell(t) {
+  if (MATRIX) MATRIX.rows.filter(r => r.entry === t.name).forEach(blankGroups);
   if (!MATRIX) return '';
   const rows = MATRIX.rows.filter(r => r.entry === t.name);
   if (!rows.length) {
     const nl = (MATRIX.notListed || []).find(o => o.entry === t.name);
-    if (nl) return `<span class="cc-none">Not in the compliance record.</span> <a class="cc-why" href="#compliance-not-listed">Why</a>`;
+    if (nl) return `<span class="cc-none">Nothing found yet.</span> <a class="cc-why" href="#compliance-not-listed">Why</a>`;
     if (t.kind === 'repository' || t.kind === 'model') return '<span class="cc-none">You run it, so you answer these.</span>';
-    return '<span class="cc-none">No compliance row.</span>';
+    return '<span class="cc-none">Nothing found yet.</span>';
   }
   return rows.map(r => {
     const items = MATRIX.columns.filter(c => r.cells[c.key].mark !== null).map(c => {
@@ -2235,7 +2272,8 @@ function complianceCell(t) {
         said ? `<span class="vh"> (${escB(said)})</span>` : ''}</a>${x.companyWide ? '<span aria-hidden="true">†</span>' : ''}`;
     });
     return `<div class="cc">${r.product ? `<span class="cc-p">${escB(r.product)}</span>` : ''}${
-      items.length ? `<span class="cc-i">${items.map(x => `<span class="cc-g">${x}</span>`).join(' ')}</span>` : '<span class="cc-none">Nothing marked.</span>'}${
+      items.length ? `<span class="cc-i">${items.map(x => `<span class="cc-g">${x}</span>`).join(' ')}</span>`
+        : (r.restrictions.length ? '' : '<span class="cc-none">Nothing found yet.</span>')}${r.restrictions.length ? `<span class="cc-rn">${r.restrictions.length === 1 ? 'A restriction' : 'Restrictions'} below.</span>` : ''}${
       r.unverifiedAfter ? `<span class="cc-d">Unverified after ${r.unverifiedAfter}</span>` : ''}</div>`;
   }).join('');
 }
@@ -2246,6 +2284,7 @@ const MATRIX_CSS = MATRIX ? MATRIX.columns.map(c =>
 function matrixHtml() {
   const notListed = MATRIX ? (MATRIX.notListed || []) : [];
   const k = (term, def) => `<dt>${term}</dt><dd>${def}</dd>`;
+  const groups = BLANK_GROUPS.map(([label, words]) => `${label} <span class="kw">(${words.join(', ')})</span>`).join('<br>');
   return `<h2 id="compliance">Key</h2>
   <p class="key-bound"><b>Not a compliance determination.</b> Each item repeats what the vendor’s own
      page says, and links to it. Check that page, and your own agreement, before relying on it.</p>
@@ -2255,20 +2294,35 @@ function matrixHtml() {
       k('<span class="ks">SOC 2*</span>', 'Only on some plans, regions or conditions. Hover for which.'),
       k('<span class="ks">SOC 2†</span>', 'Stated for the whole company. Confirm it covers this product.'),
       k('<span class="ks">No HIPAA BAA</span>', 'The vendor says it does not apply.'),
-      k('Not named', 'Not a no. Nothing was found, or nobody checked.'),
+      k('Restriction', 'The vendor limits or bars use where the item applies. Shown under the tool.'),
+      k('Not shown', 'Not found yet. It needs more investigation, and is not a no.'),
       k('<b>Bold name</b>', 'The product the items below it belong to.'),
       k('You run it', 'Open-source software or model weights: whoever runs it answers these.'),
       k('Unverified after', 'Recheck the vendor’s page after this date.'),
     ].join('\n    ') : ''}
     ${k('Read', 'The day the description was read: <b>observed</b> on the linked page, or <b>reasoned</b> from it.')}
   </dl>
-  <p class="key-note">HIPAA and GDPR are named only where the vendor says the product complies. A tool
-     resting on several products passes the filter when they carry the checked items between them.
-     For where customer data goes, model by model, see
+  ${MATRIX ? `<details class="cm-more"><summary>The compliance record’s own definitions</summary>
+  <p class="key-note">As the authors of the compliance record wrote them, in the file this page is built
+     from. Where they mention the tool list or a list of pages read, those are parts of the record
+     this site does not publish.</p>
+  <p class="key-note">${escB(MATRIX.about)}</p>
+  <dl class="key key-v">
+    ${[k('Y', escB(MATRIX.marks.Y)), k('Y*', escB(MATRIX.marks['Y*'])), k('†', escB(MATRIX.marks.companyWide)),
+       k('No', escB(MATRIX.marks.No)), k('Blank', escB(MATRIX.marks.null)), k('Restriction', escB(MATRIX.restrictionsAbout))].join('\n    ')}
+  </dl>
+  </details>` : ''}
+  <p class="key-note">A tool resting on several products passes the filter when they carry the checked
+     items between them. For where customer data goes, model by model, see
      <a class="src" href="/what-you-already-have/customer-data/">customer data by cloud</a>.</p>${notListed.length ? `
-  <p class="key-note" id="compliance-not-listed"><b>Not in the compliance record:</b> ${notListed.map(o =>
-    `${escB(o.entry)}, whose compliance pages do not cover all of it. ${escB(o.reason)} ${
-      o.pages.map(pg => `<a href="${escB(pg.url)}" rel="noopener">${escB(String(pg.url).replace(/^https?:\/\//, '').replace(/\/$/, ''))}</a>, read ${escB(pg.readOn)}`).join('; ')}.`).join(' ')}</p>` : ''}`;
+  <p class="key-note" id="compliance-not-listed">${notListed.map(o => `<b>${escB(o.entry)}</b>`).join(', ')}
+     ${notListed.length === 1 ? 'shows nothing because the pages it rests on do not fully cover it' : 'show nothing because the pages they rest on do not fully cover them'}.
+     The reason is in the record’s own words below.</p>
+  <details class="cm-more"><summary>Why ${notListed.length === 1 ? 'it shows' : 'they show'} nothing, in the record’s own words</summary>
+  <p class="key-note">${escB(MATRIX.notListedPreface)} ${notListed.map(o =>
+    `<b>${escB(o.entry)}</b>. ${escB(o.reason)} ${
+      o.pages.map(pg => `<a href="${escB(pg.url)}" rel="noopener">${escB(String(pg.url).replace(/^https?:\/\//, '').replace(/\/$/, ''))}</a>, read ${escB(pg.readOn)}`).join('; ')}.`).join(' ')}</p>
+  </details>` : ''}`;
 }
 fs.mkdirSync(path.join(DIST, 'what-you-already-have', 'options'), { recursive: true });
 writePage(path.join(DIST, 'what-you-already-have', 'options', 'index.html'), `${pageHead(
@@ -2328,7 +2382,18 @@ writePage(path.join(DIST, 'what-you-already-have', 'options', 'index.html'), `${
   .cc-none { color:var(--muted); }
   .cc-g { white-space:nowrap; margin-right:1.35rem; }
   .cc-why { color:var(--ink-2); }
+  .cc-b { display:block; color:var(--muted); }
+  .cc-bl { color:var(--ink-2); }
+  .cc-rn { display:block; color:var(--ink-2); font-style:italic; }
+  tr.rs td { padding:.1rem 1rem .8rem 0; font-size:.84rem; line-height:1.55; color:var(--ink-2); }
+  tr.rs p { margin:.35rem 0 0; }
+  .rs-l { font-weight:500; color:var(--ink); }
+  .rs-a { padding-left:1.2rem; }
+  .rs a { color:var(--ink-2); text-decoration:none; border-bottom:1px solid rgba(27,92,70,.3); overflow-wrap:anywhere; }
+  tr.has-rs td { border-bottom:0; }
+  .kw { font-family:var(--mono); font-size:.72rem; color:var(--muted); font-weight:400; }
   @media (max-width:640px) {
+    table.lt tr.has-rs { border-bottom:0; }
     table.lt { min-width:0; table-layout:auto; }
     table.lt colgroup, table.lt thead { display:none; }
     table.lt tr { display:block; border-bottom:1px solid var(--hair); padding:.7rem 0; }
@@ -2355,12 +2420,15 @@ writePage(path.join(DIST, 'what-you-already-have', 'options', 'index.html'), `${
     .secnav { grid-template-columns:1fr 1fr; }
     .secnav a { padding:.55rem .6rem; column-gap:.45rem; }
     .sn-l { font-size:.82rem; }
+    .cm-f label { white-space:normal; }
   }
   .key-bound { margin:0 0 1rem; color:var(--ink-2); }
   .key { display:grid; grid-template-columns:max-content 1fr; gap:.35rem 1.2rem; margin:0 0 1rem;
          font-size:.9rem; color:var(--ink-2); }
   .key dt { font-weight:500; color:var(--ink); }
   .key dd { margin:0; }
+  .key { grid-template-columns:fit-content(15rem) 1fr; }
+  @media (max-width:640px) { .key { grid-template-columns:1fr; } .key dd { margin-bottom:.5rem; } }
   .ks { font-family:var(--body); border-bottom:1px solid rgba(27,92,70,.3); }
   .key-note { font-size:.86rem; color:var(--ink-2); line-height:1.6; }
   .cm-more { margin:0 0 1.6rem; color:var(--ink-2); }
@@ -2419,14 +2487,16 @@ ${MATRIX_CSS}
     <colgroup><col class="c-tool"><col class="c-what">${MATRIX ? '<col class="c-cc">' : ''}<col class="c-type"><col class="c-read"></colgroup>
     <thead><tr><th>Tool</th><th>What it is</th>${MATRIX ? '<th>Compliance</th>' : ''}<th>Type</th><th>Read</th></tr></thead>
     <tbody>
-    ${list.map(t => `<tr id="t-${slugT(t.name)}"${toolY(t).length ? ` class="${toolY(t).join(' ')}"` : ''}>
+    ${list.map(t => { const ys = toolY(t).join(' '), rs = restrictionsRow(t, ys ? ' ' + ys : '');
+      const cls = [ys, rs ? 'has-rs' : ''].filter(Boolean).join(' ');
+      return `<tr id="t-${slugT(t.name)}"${cls ? ` class="${cls}"` : ''}>
       <td class="nm"><a href="${t.url}" rel="noopener">${t.name}</a>${t.archived ? '<span class="arch">archived</span>' : ''}</td>
       <td>${(t.what.match(/^.*?[.!?](?=\s|$)/) || [t.what])[0]}${(t.compliance || []).length
         ? `<p class="cmp"><span class="cmp-l">Data and compliance</span>${t.compliance.join(' ')}</p>` : ''}</td>
       ${MATRIX ? `<td class="cc-td" data-l="Compliance">${complianceCell(t)}</td>` : ''}
       <td class="ty" data-l="Type">${KIND_LABEL[t.kind] || ''}</td>
       <td class="sg" data-l="Read">${t.basis} ${t.asOf}</td>
-    </tr>`).join('\n    ')}
+    </tr>${rs ? '\n    ' + rs : ''}`; }).join('\n    ')}
     </tbody>
   </table></div>`;
   }).filter(Boolean).join('\n\n  ')}
