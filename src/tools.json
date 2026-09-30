@@ -15,10 +15,14 @@
    "Kiro Cloud Sessions",
    "temporalio/temporal"
   ],
+  "context-and-tools": [
+   "Perplexity"
+  ],
   "evaluate": [
    "Vellum"
   ],
   "orchestration": [
+   "Perplexity",
    "Amp",
    "Codex cloud",
    "Copilot cloud agent",
@@ -39,7 +43,3758 @@
    "andrewyng/context-hub"
   ]
  },
- "cut": "2026-09-27",
+ "cut": "2026-09-29",
+ "matrix": {
+  "columns": [
+   {
+    "key": "soc2",
+    "label": "SOC 2"
+   },
+   {
+    "key": "iso27001",
+    "label": "ISO/IEC 27001"
+   },
+   {
+    "key": "iso27701",
+    "label": "ISO/IEC 27701"
+   },
+   {
+    "key": "iso42001",
+    "label": "ISO/IEC 42001"
+   },
+   {
+    "key": "hipaa_baa",
+    "label": "HIPAA BAA"
+   },
+   {
+    "key": "hipaa",
+    "label": "HIPAA"
+   },
+   {
+    "key": "hitrust",
+    "label": "HITRUST"
+   },
+   {
+    "key": "government",
+    "label": "Government (FedRAMP, GovRAMP, DoD IL)"
+   },
+   {
+    "key": "gdpr",
+    "label": "GDPR"
+   },
+   {
+    "key": "dpa",
+    "label": "DPA"
+   }
+  ],
+  "notListed": [
+   {
+    "entry": "Kiro Cloud Sessions",
+    "pages": [
+     {
+      "readOn": "2026-09-24",
+      "url": "https://aws.amazon.com/compliance/hipaa-eligible-services-reference"
+     },
+     {
+      "readOn": "2026-09-24",
+      "url": "https://kiro.dev/docs/cloud-sessions/"
+     }
+    ],
+    "reason": "AWS's HIPAA eligible services reference lists Kiro with Kiro Web carved out; Kiro's documentation describes cloud sessions as the environment that runs Kiro Web and Mobile, so part of what cloud sessions run falls on the side AWS carves out. The IDE and CLI can also attach to them, and no page read says whether a session reached that way counts as eligible.",
+    "restsOnPagesOf": "Kiro"
+   }
+  ],
+  "rows": [
+   {
+    "cells": {
+     "dpa": {
+      "companyWide": true,
+      "link": "https://aws.amazon.com/compliance/gdpr-center/",
+      "mark": "Y"
+     },
+     "gdpr": {
+      "link": "https://aws.amazon.com/compliance/gdpr-center/",
+      "mark": "Y"
+     },
+     "government": {
+      "mark": null
+     },
+     "hipaa": {
+      "link": "https://aws.amazon.com/compliance/hipaa-eligible-services-reference",
+      "mark": "Y"
+     },
+     "hipaa_baa": {
+      "companyWide": true,
+      "link": "https://aws.amazon.com/compliance/hipaa-compliance/",
+      "mark": "Y"
+     },
+     "hitrust": {
+      "mark": null
+     },
+     "iso27001": {
+      "companyWide": true,
+      "link": "https://aws.amazon.com/compliance/iso-27001-faqs/",
+      "mark": "Y"
+     },
+     "iso27701": {
+      "mark": null
+     },
+     "iso42001": {
+      "mark": null
+     },
+     "soc2": {
+      "companyWide": true,
+      "link": "https://aws.amazon.com/compliance/soc-faqs/",
+      "mark": "Y"
+     }
+    },
+    "entry": "Amazon Bedrock AgentCore",
+    "page": "https://aws.amazon.com/compliance/hipaa-compliance/",
+    "pageKind": "trust",
+    "product": null,
+    "toolList": "20-tool-list.md#amazon-bedrock-agentcore",
+    "unverifiedAfter": "2026-12-23"
+   },
+   {
+    "cells": {
+     "dpa": {
+      "companyWide": true,
+      "link": "https://aws.amazon.com/compliance/gdpr-center/",
+      "mark": "Y"
+     },
+     "gdpr": {
+      "link": "https://aws.amazon.com/compliance/gdpr-center/",
+      "mark": "Y"
+     },
+     "government": {
+      "mark": null
+     },
+     "hipaa": {
+      "mark": null
+     },
+     "hipaa_baa": {
+      "companyWide": true,
+      "link": "https://aws.amazon.com/compliance/hipaa-compliance/",
+      "mark": "Y"
+     },
+     "hitrust": {
+      "mark": null
+     },
+     "iso27001": {
+      "companyWide": true,
+      "link": "https://aws.amazon.com/compliance/iso-27001-faqs/",
+      "mark": "Y"
+     },
+     "iso27701": {
+      "mark": null
+     },
+     "iso42001": {
+      "mark": null
+     },
+     "soc2": {
+      "companyWide": true,
+      "link": "https://aws.amazon.com/compliance/soc-faqs/",
+      "mark": "Y"
+     }
+    },
+    "entry": "Amazon Q Developer",
+    "page": "https://aws.amazon.com/compliance/hipaa-compliance/",
+    "pageKind": "trust",
+    "product": null,
+    "toolList": "20-tool-list.md#amazon-q-developer",
+    "unverifiedAfter": "2026-12-23"
+   },
+   {
+    "cells": {
+     "dpa": {
+      "companyWide": true,
+      "link": "https://aws.amazon.com/compliance/gdpr-center/",
+      "mark": "Y"
+     },
+     "gdpr": {
+      "link": "https://aws.amazon.com/compliance/gdpr-center/",
+      "mark": "Y"
+     },
+     "government": {
+      "mark": null
+     },
+     "hipaa": {
+      "conditions": [
+       "SageMaker AI other than Studio Lab, Ground Truth Plus, Public Workforce and Vendor Workforce"
+      ],
+      "link": "https://aws.amazon.com/compliance/hipaa-eligible-services-reference",
+      "mark": "Y*"
+     },
+     "hipaa_baa": {
+      "companyWide": true,
+      "link": "https://aws.amazon.com/compliance/hipaa-compliance/",
+      "mark": "Y"
+     },
+     "hitrust": {
+      "mark": null
+     },
+     "iso27001": {
+      "companyWide": true,
+      "link": "https://aws.amazon.com/compliance/iso-27001-faqs/",
+      "mark": "Y"
+     },
+     "iso27701": {
+      "mark": null
+     },
+     "iso42001": {
+      "mark": null
+     },
+     "soc2": {
+      "companyWide": true,
+      "link": "https://aws.amazon.com/compliance/soc-faqs/",
+      "mark": "Y"
+     }
+    },
+    "entry": "Amazon SageMaker",
+    "page": "https://aws.amazon.com/compliance/hipaa-compliance/",
+    "pageKind": "trust",
+    "product": null,
+    "toolList": "20-tool-list.md#amazon-sagemaker",
+    "unverifiedAfter": "2026-12-23"
+   },
+   {
+    "cells": {
+     "dpa": {
+      "mark": null
+     },
+     "gdpr": {
+      "mark": null
+     },
+     "government": {
+      "mark": null
+     },
+     "hipaa": {
+      "mark": null
+     },
+     "hipaa_baa": {
+      "mark": null
+     },
+     "hitrust": {
+      "mark": null
+     },
+     "iso27001": {
+      "mark": null
+     },
+     "iso27701": {
+      "mark": null
+     },
+     "iso42001": {
+      "mark": null
+     },
+     "soc2": {
+      "link": "https://ampcode.com/security",
+      "mark": "Y"
+     }
+    },
+    "entry": "Amp",
+    "page": "https://ampcode.com/security",
+    "pageKind": "trust",
+    "product": null,
+    "toolList": "20-tool-list.md#amp",
+    "unverifiedAfter": "2026-12-26"
+   },
+   {
+    "cells": {
+     "dpa": {
+      "companyWide": true,
+      "link": "https://www.anthropic.com/legal/data-processing-addendum",
+      "mark": "Y"
+     },
+     "gdpr": {
+      "mark": null
+     },
+     "government": {
+      "link": "https://trust.anthropic.com/",
+      "mark": "No"
+     },
+     "hipaa": {
+      "mark": null
+     },
+     "hipaa_baa": {
+      "conditions": [
+       "the Claude API arrangement Anthropic calls HIPAA readiness"
+      ],
+      "link": "https://support.claude.com/en/articles/8114513-business-associate-agreements-baa-for-commercial-customers",
+      "mark": "Y*",
+      "plans": [
+       "Commercial",
+       "Enterprise"
+      ]
+     },
+     "hitrust": {
+      "mark": null
+     },
+     "iso27001": {
+      "link": "https://trust.anthropic.com/",
+      "mark": "Y"
+     },
+     "iso27701": {
+      "mark": null
+     },
+     "iso42001": {
+      "link": "https://trust.anthropic.com/",
+      "mark": "Y"
+     },
+     "soc2": {
+      "link": "https://trust.anthropic.com/",
+      "mark": "Y"
+     }
+    },
+    "entry": "Anthropic API",
+    "page": "https://trust.anthropic.com/",
+    "pageKind": "trust",
+    "product": "Claude API",
+    "toolList": "20-tool-list.md#anthropic-api",
+    "unverifiedAfter": "2026-12-23"
+   },
+   {
+    "cells": {
+     "dpa": {
+      "mark": null
+     },
+     "gdpr": {
+      "mark": null
+     },
+     "government": {
+      "mark": null
+     },
+     "hipaa": {
+      "mark": null
+     },
+     "hipaa_baa": {
+      "mark": null
+     },
+     "hitrust": {
+      "mark": null
+     },
+     "iso27001": {
+      "mark": null
+     },
+     "iso27701": {
+      "mark": null
+     },
+     "iso42001": {
+      "mark": null
+     },
+     "soc2": {
+      "mark": null
+     }
+    },
+    "entry": "Antigravity",
+    "page": "https://antigravity.google",
+    "pageKind": "product",
+    "product": null,
+    "toolList": "20-tool-list.md#antigravity",
+    "unverifiedAfter": null
+   },
+   {
+    "cells": {
+     "dpa": {
+      "mark": null
+     },
+     "gdpr": {
+      "mark": null
+     },
+     "government": {
+      "mark": null
+     },
+     "hipaa": {
+      "mark": null
+     },
+     "hipaa_baa": {
+      "mark": null
+     },
+     "hitrust": {
+      "mark": null
+     },
+     "iso27001": {
+      "link": "https://security.atlan.com/",
+      "mark": "Y"
+     },
+     "iso27701": {
+      "link": "https://security.atlan.com/",
+      "mark": "Y"
+     },
+     "iso42001": {
+      "link": "https://security.atlan.com/",
+      "mark": "Y"
+     },
+     "soc2": {
+      "link": "https://security.atlan.com/",
+      "mark": "Y"
+     }
+    },
+    "entry": "Atlan",
+    "page": "https://security.atlan.com/",
+    "pageKind": "trust",
+    "product": null,
+    "toolList": "20-tool-list.md#atlan",
+    "unverifiedAfter": "2026-12-26"
+   },
+   {
+    "cells": {
+     "dpa": {
+      "mark": null
+     },
+     "gdpr": {
+      "mark": null
+     },
+     "government": {
+      "mark": null
+     },
+     "hipaa": {
+      "mark": null
+     },
+     "hipaa_baa": {
+      "mark": null
+     },
+     "hitrust": {
+      "mark": null
+     },
+     "iso27001": {
+      "mark": null
+     },
+     "iso27701": {
+      "mark": null
+     },
+     "iso42001": {
+      "mark": null
+     },
+     "soc2": {
+      "mark": null
+     }
+    },
+    "entry": "Augment Code (Cosmos)",
+    "page": "https://www.augmentcode.com",
+    "pageKind": "product",
+    "product": null,
+    "toolList": "20-tool-list.md#augment-code-cosmos",
+    "unverifiedAfter": null
+   },
+   {
+    "cells": {
+     "dpa": {
+      "companyWide": true,
+      "link": "https://aws.amazon.com/compliance/gdpr-center/",
+      "mark": "Y"
+     },
+     "gdpr": {
+      "link": "https://aws.amazon.com/compliance/gdpr-center/",
+      "mark": "Y"
+     },
+     "government": {
+      "mark": null
+     },
+     "hipaa": {
+      "link": "https://aws.amazon.com/compliance/hipaa-eligible-services-reference",
+      "mark": "Y"
+     },
+     "hipaa_baa": {
+      "companyWide": true,
+      "link": "https://aws.amazon.com/compliance/hipaa-compliance/",
+      "mark": "Y"
+     },
+     "hitrust": {
+      "mark": null
+     },
+     "iso27001": {
+      "companyWide": true,
+      "link": "https://aws.amazon.com/compliance/iso-27001-faqs/",
+      "mark": "Y"
+     },
+     "iso27701": {
+      "mark": null
+     },
+     "iso42001": {
+      "mark": null
+     },
+     "soc2": {
+      "companyWide": true,
+      "link": "https://aws.amazon.com/compliance/soc-faqs/",
+      "mark": "Y"
+     }
+    },
+    "entry": "AWS Bedrock",
+    "page": "https://aws.amazon.com/compliance/hipaa-compliance/",
+    "pageKind": "trust",
+    "product": "Amazon Bedrock from AWS",
+    "toolList": "20-tool-list.md#aws-bedrock",
+    "unverifiedAfter": "2026-12-23"
+   },
+   {
+    "cells": {
+     "dpa": {
+      "mark": null
+     },
+     "gdpr": {
+      "mark": null
+     },
+     "government": {
+      "link": "https://trust.anthropic.com/",
+      "mark": "No"
+     },
+     "hipaa": {
+      "mark": null
+     },
+     "hipaa_baa": {
+      "mark": null
+     },
+     "hitrust": {
+      "mark": null
+     },
+     "iso27001": {
+      "conditions": [
+       "Anthropic's footnote on this row: its marks cover only the model and the containers Anthropic supplies to partners"
+      ],
+      "link": "https://trust.anthropic.com/",
+      "mark": "Y*"
+     },
+     "iso27701": {
+      "mark": null
+     },
+     "iso42001": {
+      "conditions": [
+       "Anthropic's footnote on this row: its marks cover only the model and the containers Anthropic supplies to partners"
+      ],
+      "link": "https://trust.anthropic.com/",
+      "mark": "Y*"
+     },
+     "soc2": {
+      "conditions": [
+       "Anthropic's footnote on this row: its marks cover only the model and the containers Anthropic supplies to partners"
+      ],
+      "link": "https://trust.anthropic.com/",
+      "mark": "Y*"
+     }
+    },
+    "entry": "AWS Bedrock",
+    "page": "https://trust.anthropic.com/",
+    "pageKind": "trust",
+    "product": "Claude in Amazon Bedrock from Anthropic",
+    "toolList": "20-tool-list.md#aws-bedrock",
+    "unverifiedAfter": "2026-12-26"
+   },
+   {
+    "cells": {
+     "dpa": {
+      "companyWide": true,
+      "link": "https://www.microsoft.com/licensing/docs/view/Microsoft-Products-and-Services-Data-Protection-Addendum-DPA",
+      "mark": "Y"
+     },
+     "gdpr": {
+      "companyWide": true,
+      "link": "https://www.microsoft.com/en-us/trust-center/privacy/gdpr-overview",
+      "mark": "Y"
+     },
+     "government": {
+      "mark": null
+     },
+     "hipaa": {
+      "mark": null
+     },
+     "hipaa_baa": {
+      "companyWide": true,
+      "link": "https://learn.microsoft.com/en-us/compliance/regulatory/offering-hipaa-hitech",
+      "mark": "Y"
+     },
+     "hitrust": {
+      "companyWide": true,
+      "link": "https://learn.microsoft.com/en-us/compliance/regulatory/offering-hipaa-hitech",
+      "mark": "Y"
+     },
+     "iso27001": {
+      "companyWide": true,
+      "link": "https://learn.microsoft.com/en-us/compliance/regulatory/offering-hipaa-hitech",
+      "mark": "Y"
+     },
+     "iso27701": {
+      "mark": null
+     },
+     "iso42001": {
+      "mark": null
+     },
+     "soc2": {
+      "mark": null
+     }
+    },
+    "entry": "Azure AI Foundry / Azure OpenAI",
+    "page": "https://learn.microsoft.com/en-us/azure/compliance/offerings/offering-dod-il5",
+    "pageKind": "trust",
+    "product": "Microsoft Foundry from Microsoft",
+    "toolList": "20-tool-list.md#azure-ai-foundry--azure-openai",
+    "unverifiedAfter": "2026-12-23"
+   },
+   {
+    "cells": {
+     "dpa": {
+      "mark": null
+     },
+     "gdpr": {
+      "mark": null
+     },
+     "government": {
+      "link": "https://trust.anthropic.com/",
+      "mark": "No"
+     },
+     "hipaa": {
+      "mark": null
+     },
+     "hipaa_baa": {
+      "mark": null
+     },
+     "hitrust": {
+      "mark": null
+     },
+     "iso27001": {
+      "link": "https://trust.anthropic.com/",
+      "mark": "Y"
+     },
+     "iso27701": {
+      "mark": null
+     },
+     "iso42001": {
+      "link": "https://trust.anthropic.com/",
+      "mark": "Y"
+     },
+     "soc2": {
+      "link": "https://trust.anthropic.com/",
+      "mark": "Y"
+     }
+    },
+    "entry": "Azure AI Foundry / Azure OpenAI",
+    "page": "https://trust.anthropic.com/",
+    "pageKind": "trust",
+    "product": "Claude in Microsoft Foundry, hosted on Anthropic from Anthropic",
+    "toolList": "20-tool-list.md#azure-ai-foundry--azure-openai",
+    "unverifiedAfter": "2026-12-26"
+   },
+   {
+    "cells": {
+     "dpa": {
+      "mark": null
+     },
+     "gdpr": {
+      "mark": null
+     },
+     "government": {
+      "link": "https://trust.anthropic.com/",
+      "mark": "No"
+     },
+     "hipaa": {
+      "mark": null
+     },
+     "hipaa_baa": {
+      "mark": null
+     },
+     "hitrust": {
+      "mark": null
+     },
+     "iso27001": {
+      "mark": null
+     },
+     "iso27701": {
+      "mark": null
+     },
+     "iso42001": {
+      "mark": null
+     },
+     "soc2": {
+      "mark": null
+     }
+    },
+    "entry": "Azure AI Foundry / Azure OpenAI",
+    "page": "https://trust.anthropic.com/",
+    "pageKind": "trust",
+    "product": "Claude in Microsoft Foundry, hosted on Azure from Anthropic",
+    "toolList": "20-tool-list.md#azure-ai-foundry--azure-openai",
+    "unverifiedAfter": "2026-12-27"
+   },
+   {
+    "cells": {
+     "dpa": {
+      "companyWide": true,
+      "link": "https://www.microsoft.com/licensing/docs/view/Microsoft-Products-and-Services-Data-Protection-Addendum-DPA",
+      "mark": "Y"
+     },
+     "gdpr": {
+      "companyWide": true,
+      "link": "https://www.microsoft.com/en-us/trust-center/privacy/gdpr-overview",
+      "mark": "Y"
+     },
+     "government": {
+      "link": "https://learn.microsoft.com/en-us/azure/compliance/offerings/offering-fedramp",
+      "mark": "Y"
+     },
+     "hipaa": {
+      "mark": null
+     },
+     "hipaa_baa": {
+      "link": "https://learn.microsoft.com/en-us/azure/compliance/offerings/offering-hipaa-us",
+      "mark": "Y"
+     },
+     "hitrust": {
+      "companyWide": true,
+      "link": "https://learn.microsoft.com/en-us/compliance/regulatory/offering-hipaa-hitech",
+      "mark": "Y"
+     },
+     "iso27001": {
+      "link": "https://learn.microsoft.com/en-us/azure/compliance/offerings/offering-hipaa-us",
+      "mark": "Y"
+     },
+     "iso27701": {
+      "mark": null
+     },
+     "iso42001": {
+      "mark": null
+     },
+     "soc2": {
+      "mark": null
+     }
+    },
+    "entry": "Azure AI Foundry / Azure OpenAI",
+    "page": "https://learn.microsoft.com/en-us/azure/compliance/offerings/offering-dod-il5",
+    "pageKind": "trust",
+    "product": "Azure from Microsoft",
+    "toolList": "20-tool-list.md#azure-ai-foundry--azure-openai",
+    "unverifiedAfter": "2026-12-23"
+   },
+   {
+    "cells": {
+     "dpa": {
+      "mark": null
+     },
+     "gdpr": {
+      "mark": null
+     },
+     "government": {
+      "mark": null
+     },
+     "hipaa": {
+      "mark": null
+     },
+     "hipaa_baa": {
+      "mark": null
+     },
+     "hitrust": {
+      "mark": null
+     },
+     "iso27001": {
+      "link": "https://trust.baseten.co/",
+      "mark": "Y"
+     },
+     "iso27701": {
+      "mark": null
+     },
+     "iso42001": {
+      "mark": null
+     },
+     "soc2": {
+      "link": "https://trust.baseten.co/",
+      "mark": "Y"
+     }
+    },
+    "entry": "Baseten",
+    "page": "https://trust.baseten.co/",
+    "pageKind": "trust",
+    "product": null,
+    "toolList": "20-tool-list.md#baseten",
+    "unverifiedAfter": "2026-12-27"
+   },
+   {
+    "cells": {
+     "dpa": {
+      "mark": null
+     },
+     "gdpr": {
+      "mark": null
+     },
+     "government": {
+      "mark": null
+     },
+     "hipaa": {
+      "mark": null
+     },
+     "hipaa_baa": {
+      "mark": null
+     },
+     "hitrust": {
+      "mark": null
+     },
+     "iso27001": {
+      "mark": null
+     },
+     "iso27701": {
+      "mark": null
+     },
+     "iso42001": {
+      "mark": null
+     },
+     "soc2": {
+      "mark": null
+     }
+    },
+    "entry": "Bolt",
+    "page": "https://bolt.new",
+    "pageKind": "product",
+    "product": null,
+    "toolList": "20-tool-list.md#bolt",
+    "unverifiedAfter": null
+   },
+   {
+    "cells": {
+     "dpa": {
+      "mark": null
+     },
+     "gdpr": {
+      "mark": null
+     },
+     "government": {
+      "mark": null
+     },
+     "hipaa": {
+      "mark": null
+     },
+     "hipaa_baa": {
+      "mark": null
+     },
+     "hitrust": {
+      "mark": null
+     },
+     "iso27001": {
+      "mark": null
+     },
+     "iso27701": {
+      "mark": null
+     },
+     "iso42001": {
+      "mark": null
+     },
+     "soc2": {
+      "mark": null
+     }
+    },
+    "entry": "Braintrust",
+    "page": "https://www.braintrust.dev",
+    "pageKind": "product",
+    "product": null,
+    "toolList": "20-tool-list.md#braintrust",
+    "unverifiedAfter": null
+   },
+   {
+    "cells": {
+     "dpa": {
+      "mark": null
+     },
+     "gdpr": {
+      "mark": null
+     },
+     "government": {
+      "mark": null
+     },
+     "hipaa": {
+      "mark": null
+     },
+     "hipaa_baa": {
+      "mark": null
+     },
+     "hitrust": {
+      "mark": null
+     },
+     "iso27001": {
+      "mark": null
+     },
+     "iso27701": {
+      "mark": null
+     },
+     "iso42001": {
+      "mark": null
+     },
+     "soc2": {
+      "mark": null
+     }
+    },
+    "entry": "ChatGPT",
+    "page": "https://learn.chatgpt.com/docs/app",
+    "pageKind": "product",
+    "product": null,
+    "toolList": "20-tool-list.md#chatgpt",
+    "unverifiedAfter": null
+   },
+   {
+    "cells": {
+     "dpa": {
+      "companyWide": true,
+      "link": "https://www.anthropic.com/legal/data-processing-addendum",
+      "mark": "Y"
+     },
+     "gdpr": {
+      "mark": null
+     },
+     "government": {
+      "mark": null
+     },
+     "hipaa": {
+      "mark": null
+     },
+     "hipaa_baa": {
+      "mark": null
+     },
+     "hitrust": {
+      "mark": null
+     },
+     "iso27001": {
+      "companyWide": true,
+      "link": "https://trust.anthropic.com/",
+      "mark": "Y"
+     },
+     "iso27701": {
+      "mark": null
+     },
+     "iso42001": {
+      "companyWide": true,
+      "link": "https://trust.anthropic.com/",
+      "mark": "Y"
+     },
+     "soc2": {
+      "companyWide": true,
+      "link": "https://trust.anthropic.com/",
+      "mark": "Y"
+     }
+    },
+    "entry": "Claude Agent SDK",
+    "page": "https://trust.anthropic.com/",
+    "pageKind": "trust",
+    "product": null,
+    "toolList": "20-tool-list.md#claude-agent-sdk",
+    "unverifiedAfter": "2026-12-26"
+   },
+   {
+    "cells": {
+     "dpa": {
+      "companyWide": true,
+      "link": "https://www.anthropic.com/legal/data-processing-addendum",
+      "mark": "Y"
+     },
+     "gdpr": {
+      "mark": null
+     },
+     "government": {
+      "mark": null
+     },
+     "hipaa": {
+      "mark": null
+     },
+     "hipaa_baa": {
+      "conditions": [
+       "Claude Code with ZDR enabled, on a qualified account"
+      ],
+      "link": "https://support.claude.com/en/articles/13296973-hipaa-ready-enterprise-plans",
+      "mark": "Y*",
+      "plans": [
+       "Enterprise"
+      ]
+     },
+     "hitrust": {
+      "mark": null
+     },
+     "iso27001": {
+      "companyWide": true,
+      "link": "https://trust.anthropic.com/",
+      "mark": "Y"
+     },
+     "iso27701": {
+      "mark": null
+     },
+     "iso42001": {
+      "companyWide": true,
+      "link": "https://trust.anthropic.com/",
+      "mark": "Y"
+     },
+     "soc2": {
+      "companyWide": true,
+      "link": "https://trust.anthropic.com/",
+      "mark": "Y"
+     }
+    },
+    "entry": "Claude Code",
+    "page": "https://trust.anthropic.com/",
+    "pageKind": "trust",
+    "product": null,
+    "toolList": "20-tool-list.md#claude-code",
+    "unverifiedAfter": "2026-12-23"
+   },
+   {
+    "cells": {
+     "dpa": {
+      "companyWide": true,
+      "link": "https://www.anthropic.com/legal/data-processing-addendum",
+      "mark": "Y"
+     },
+     "gdpr": {
+      "mark": null
+     },
+     "government": {
+      "mark": null
+     },
+     "hipaa": {
+      "mark": null
+     },
+     "hipaa_baa": {
+      "conditions": [
+       "Claude Code with ZDR enabled, on a qualified account"
+      ],
+      "link": "https://support.claude.com/en/articles/13296973-hipaa-ready-enterprise-plans",
+      "mark": "Y*",
+      "plans": [
+       "Enterprise"
+      ]
+     },
+     "hitrust": {
+      "mark": null
+     },
+     "iso27001": {
+      "companyWide": true,
+      "link": "https://trust.anthropic.com/",
+      "mark": "Y"
+     },
+     "iso27701": {
+      "mark": null
+     },
+     "iso42001": {
+      "companyWide": true,
+      "link": "https://trust.anthropic.com/",
+      "mark": "Y"
+     },
+     "soc2": {
+      "companyWide": true,
+      "link": "https://trust.anthropic.com/",
+      "mark": "Y"
+     }
+    },
+    "entry": "Claude Code plugin marketplaces",
+    "page": "https://trust.anthropic.com/",
+    "pageKind": "trust",
+    "product": "Claude Code",
+    "toolList": "20-tool-list.md#claude-code-plugin-marketplaces",
+    "unverifiedAfter": "2026-12-23"
+   },
+   {
+    "cells": {
+     "dpa": {
+      "companyWide": true,
+      "link": "https://www.anthropic.com/legal/data-processing-addendum",
+      "mark": "Y"
+     },
+     "gdpr": {
+      "mark": null
+     },
+     "government": {
+      "mark": null
+     },
+     "hipaa": {
+      "mark": null
+     },
+     "hipaa_baa": {
+      "mark": null
+     },
+     "hitrust": {
+      "mark": null
+     },
+     "iso27001": {
+      "companyWide": true,
+      "link": "https://trust.anthropic.com/",
+      "mark": "Y"
+     },
+     "iso27701": {
+      "mark": null
+     },
+     "iso42001": {
+      "companyWide": true,
+      "link": "https://trust.anthropic.com/",
+      "mark": "Y"
+     },
+     "soc2": {
+      "companyWide": true,
+      "link": "https://trust.anthropic.com/",
+      "mark": "Y"
+     }
+    },
+    "entry": "Claude Managed Agents",
+    "page": "https://trust.anthropic.com/",
+    "pageKind": "trust",
+    "product": null,
+    "toolList": "20-tool-list.md#claude-managed-agents",
+    "unverifiedAfter": "2026-12-26"
+   },
+   {
+    "cells": {
+     "dpa": {
+      "mark": null
+     },
+     "gdpr": {
+      "mark": null
+     },
+     "government": {
+      "mark": null
+     },
+     "hipaa": {
+      "mark": null
+     },
+     "hipaa_baa": {
+      "mark": null
+     },
+     "hitrust": {
+      "mark": null
+     },
+     "iso27001": {
+      "companyWide": true,
+      "link": "https://www.cloudflare.com/trust-hub/",
+      "mark": "Y"
+     },
+     "iso27701": {
+      "companyWide": true,
+      "link": "https://www.cloudflare.com/trust-hub/",
+      "mark": "Y"
+     },
+     "iso42001": {
+      "mark": null
+     },
+     "soc2": {
+      "companyWide": true,
+      "link": "https://www.cloudflare.com/trust-hub/",
+      "mark": "Y"
+     }
+    },
+    "entry": "Cloudflare AI Gateway",
+    "page": "https://www.cloudflare.com/trust-hub/",
+    "pageKind": "trust",
+    "product": null,
+    "toolList": "20-tool-list.md#cloudflare-ai-gateway",
+    "unverifiedAfter": "2026-12-27"
+   },
+   {
+    "cells": {
+     "dpa": {
+      "mark": null
+     },
+     "gdpr": {
+      "mark": null
+     },
+     "government": {
+      "mark": null
+     },
+     "hipaa": {
+      "mark": null
+     },
+     "hipaa_baa": {
+      "link": "https://learn.chatgpt.com/docs/hipaa-configuration",
+      "mark": "No"
+     },
+     "hitrust": {
+      "mark": null
+     },
+     "iso27001": {
+      "mark": null
+     },
+     "iso27701": {
+      "mark": null
+     },
+     "iso42001": {
+      "mark": null
+     },
+     "soc2": {
+      "mark": null
+     }
+    },
+    "entry": "Codex cloud",
+    "page": "https://learn.chatgpt.com/docs/cloud",
+    "pageKind": "product",
+    "product": "Codex",
+    "toolList": "20-tool-list.md#codex-cloud",
+    "unverifiedAfter": "2026-12-23"
+   },
+   {
+    "cells": {
+     "dpa": {
+      "mark": null
+     },
+     "gdpr": {
+      "mark": null
+     },
+     "government": {
+      "mark": null
+     },
+     "hipaa": {
+      "mark": null
+     },
+     "hipaa_baa": {
+      "mark": null
+     },
+     "hitrust": {
+      "mark": null
+     },
+     "iso27001": {
+      "mark": null
+     },
+     "iso27701": {
+      "mark": null
+     },
+     "iso42001": {
+      "link": "https://copilot.github.trust.page",
+      "mark": "Y"
+     },
+     "soc2": {
+      "link": "https://copilot.github.trust.page",
+      "mark": "Y"
+     }
+    },
+    "entry": "Copilot cloud agent",
+    "page": "https://copilot.github.trust.page",
+    "pageKind": "trust",
+    "product": "GitHub Copilot",
+    "toolList": "20-tool-list.md#copilot-cloud-agent",
+    "unverifiedAfter": "2026-12-26"
+   },
+   {
+    "cells": {
+     "dpa": {
+      "companyWide": true,
+      "link": "https://cursor.com/docs/enterprise/privacy-and-data-governance",
+      "mark": "Y"
+     },
+     "gdpr": {
+      "mark": null
+     },
+     "government": {
+      "mark": null
+     },
+     "hipaa": {
+      "mark": null
+     },
+     "hipaa_baa": {
+      "conditions": [
+       "Privacy Mode enabled and locked organization-wide"
+      ],
+      "link": "https://cursor.com/docs/enterprise/baa",
+      "mark": "Y*",
+      "plans": [
+       "Enterprise"
+      ]
+     },
+     "hitrust": {
+      "mark": null
+     },
+     "iso27001": {
+      "companyWide": true,
+      "link": "https://cursor.com/security",
+      "mark": "Y"
+     },
+     "iso27701": {
+      "mark": null
+     },
+     "iso42001": {
+      "companyWide": true,
+      "link": "https://cursor.com/security",
+      "mark": "Y"
+     },
+     "soc2": {
+      "companyWide": true,
+      "link": "https://cursor.com/security",
+      "mark": "Y"
+     }
+    },
+    "entry": "Cursor",
+    "page": "https://cursor.com/security",
+    "pageKind": "trust",
+    "product": null,
+    "toolList": "20-tool-list.md#cursor",
+    "unverifiedAfter": "2026-12-26"
+   },
+   {
+    "cells": {
+     "dpa": {
+      "companyWide": true,
+      "link": "https://cursor.com/docs/enterprise/privacy-and-data-governance",
+      "mark": "Y"
+     },
+     "gdpr": {
+      "mark": null
+     },
+     "government": {
+      "mark": null
+     },
+     "hipaa": {
+      "mark": null
+     },
+     "hipaa_baa": {
+      "conditions": [
+       "Privacy Mode enabled and locked organization-wide"
+      ],
+      "link": "https://cursor.com/docs/enterprise/baa",
+      "mark": "Y*",
+      "plans": [
+       "Enterprise"
+      ]
+     },
+     "hitrust": {
+      "mark": null
+     },
+     "iso27001": {
+      "companyWide": true,
+      "link": "https://cursor.com/security",
+      "mark": "Y"
+     },
+     "iso27701": {
+      "mark": null
+     },
+     "iso42001": {
+      "companyWide": true,
+      "link": "https://cursor.com/security",
+      "mark": "Y"
+     },
+     "soc2": {
+      "companyWide": true,
+      "link": "https://cursor.com/security",
+      "mark": "Y"
+     }
+    },
+    "entry": "Cursor Cloud Agents",
+    "page": "https://cursor.com/security",
+    "pageKind": "trust",
+    "product": "Cursor",
+    "toolList": "20-tool-list.md#cursor-cloud-agents",
+    "unverifiedAfter": "2026-12-26"
+   },
+   {
+    "cells": {
+     "dpa": {
+      "mark": null
+     },
+     "gdpr": {
+      "mark": null
+     },
+     "government": {
+      "mark": null
+     },
+     "hipaa": {
+      "mark": null
+     },
+     "hipaa_baa": {
+      "mark": null
+     },
+     "hitrust": {
+      "mark": null
+     },
+     "iso27001": {
+      "companyWide": true,
+      "link": "https://trust.daytona.io",
+      "mark": "Y"
+     },
+     "iso27701": {
+      "mark": null
+     },
+     "iso42001": {
+      "mark": null
+     },
+     "soc2": {
+      "link": "https://trust.daytona.io",
+      "mark": "Y"
+     }
+    },
+    "entry": "Daytona",
+    "page": "https://trust.daytona.io",
+    "pageKind": "trust",
+    "product": null,
+    "toolList": "20-tool-list.md#daytona",
+    "unverifiedAfter": "2026-12-26"
+   },
+   {
+    "cells": {
+     "dpa": {
+      "companyWide": true,
+      "link": "https://cognition.com/legal/data-processing-statement",
+      "mark": "Y"
+     },
+     "gdpr": {
+      "mark": null
+     },
+     "government": {
+      "mark": null
+     },
+     "hipaa": {
+      "mark": null
+     },
+     "hipaa_baa": {
+      "mark": null
+     },
+     "hitrust": {
+      "mark": null
+     },
+     "iso27001": {
+      "mark": null
+     },
+     "iso27701": {
+      "mark": null
+     },
+     "iso42001": {
+      "mark": null
+     },
+     "soc2": {
+      "companyWide": true,
+      "link": "https://cognition.com/legal/data-processing-statement",
+      "mark": "Y"
+     }
+    },
+    "entry": "DeepWiki",
+    "page": "https://deepwiki.com",
+    "pageKind": "product",
+    "product": null,
+    "toolList": "20-tool-list.md#deepwiki",
+    "unverifiedAfter": "2026-12-26"
+   },
+   {
+    "cells": {
+     "dpa": {
+      "companyWide": true,
+      "link": "https://cognition.com/legal/data-processing-statement",
+      "mark": "Y"
+     },
+     "gdpr": {
+      "mark": null
+     },
+     "government": {
+      "mark": null
+     },
+     "hipaa": {
+      "mark": null
+     },
+     "hipaa_baa": {
+      "mark": null
+     },
+     "hitrust": {
+      "mark": null
+     },
+     "iso27001": {
+      "mark": null
+     },
+     "iso27701": {
+      "mark": null
+     },
+     "iso42001": {
+      "mark": null
+     },
+     "soc2": {
+      "companyWide": true,
+      "link": "https://cognition.com/legal/data-processing-statement",
+      "mark": "Y"
+     }
+    },
+    "entry": "Devin Cloud",
+    "page": "https://devin.ai/",
+    "pageKind": "product",
+    "product": "Devin",
+    "toolList": "20-tool-list.md#devin-cloud",
+    "unverifiedAfter": "2026-12-26"
+   },
+   {
+    "cells": {
+     "dpa": {
+      "companyWide": true,
+      "link": "https://cognition.com/legal/data-processing-statement",
+      "mark": "Y"
+     },
+     "gdpr": {
+      "mark": null
+     },
+     "government": {
+      "mark": null
+     },
+     "hipaa": {
+      "mark": null
+     },
+     "hipaa_baa": {
+      "mark": null
+     },
+     "hitrust": {
+      "mark": null
+     },
+     "iso27001": {
+      "mark": null
+     },
+     "iso27701": {
+      "mark": null
+     },
+     "iso42001": {
+      "mark": null
+     },
+     "soc2": {
+      "companyWide": true,
+      "link": "https://cognition.com/legal/data-processing-statement",
+      "mark": "Y"
+     }
+    },
+    "entry": "Devin Desktop",
+    "page": "https://devin.ai/blog/windsurf-is-now-devin-desktop",
+    "pageKind": "product",
+    "product": "Devin",
+    "toolList": "20-tool-list.md#devin-desktop",
+    "unverifiedAfter": "2026-12-26"
+   },
+   {
+    "cells": {
+     "dpa": {
+      "link": "https://e2b.dev/security",
+      "mark": "Y"
+     },
+     "gdpr": {
+      "mark": null
+     },
+     "government": {
+      "mark": null
+     },
+     "hipaa": {
+      "mark": null
+     },
+     "hipaa_baa": {
+      "link": "https://e2b.dev/security",
+      "mark": "Y*",
+      "plans": [
+       "Enterprise"
+      ]
+     },
+     "hitrust": {
+      "mark": null
+     },
+     "iso27001": {
+      "mark": null
+     },
+     "iso27701": {
+      "mark": null
+     },
+     "iso42001": {
+      "mark": null
+     },
+     "soc2": {
+      "link": "https://e2b.dev/security",
+      "mark": "Y"
+     }
+    },
+    "entry": "E2B",
+    "page": "https://e2b.dev/security",
+    "pageKind": "trust",
+    "product": null,
+    "toolList": "20-tool-list.md#e2b",
+    "unverifiedAfter": "2026-12-26"
+   },
+   {
+    "cells": {
+     "dpa": {
+      "companyWide": true,
+      "link": "https://factory.com/legal/data-processing-agreement",
+      "mark": "Y"
+     },
+     "gdpr": {
+      "mark": null
+     },
+     "government": {
+      "mark": null
+     },
+     "hipaa": {
+      "mark": null
+     },
+     "hipaa_baa": {
+      "companyWide": true,
+      "link": "https://factory.com/legal/baa",
+      "mark": "Y"
+     },
+     "hitrust": {
+      "mark": null
+     },
+     "iso27001": {
+      "companyWide": true,
+      "link": "https://trust.factory.ai",
+      "mark": "Y"
+     },
+     "iso27701": {
+      "mark": null
+     },
+     "iso42001": {
+      "companyWide": true,
+      "link": "https://trust.factory.ai",
+      "mark": "Y"
+     },
+     "soc2": {
+      "companyWide": true,
+      "link": "https://trust.factory.ai",
+      "mark": "Y"
+     }
+    },
+    "entry": "Factory",
+    "page": "https://trust.factory.ai",
+    "pageKind": "trust",
+    "product": "Factory",
+    "toolList": "20-tool-list.md#factory",
+    "unverifiedAfter": "2026-12-26"
+   },
+   {
+    "cells": {
+     "dpa": {
+      "companyWide": true,
+      "link": "https://factory.com/legal/data-processing-agreement",
+      "mark": "Y"
+     },
+     "gdpr": {
+      "mark": null
+     },
+     "government": {
+      "mark": null
+     },
+     "hipaa": {
+      "mark": null
+     },
+     "hipaa_baa": {
+      "companyWide": true,
+      "link": "https://factory.com/legal/baa",
+      "mark": "Y"
+     },
+     "hitrust": {
+      "mark": null
+     },
+     "iso27001": {
+      "companyWide": true,
+      "link": "https://trust.factory.ai",
+      "mark": "Y"
+     },
+     "iso27701": {
+      "mark": null
+     },
+     "iso42001": {
+      "companyWide": true,
+      "link": "https://trust.factory.ai",
+      "mark": "Y"
+     },
+     "soc2": {
+      "companyWide": true,
+      "link": "https://trust.factory.ai",
+      "mark": "Y"
+     }
+    },
+    "entry": "Factory",
+    "page": "https://trust.factory.ai",
+    "pageKind": "trust",
+    "product": "Droid",
+    "toolList": "20-tool-list.md#factory",
+    "unverifiedAfter": "2026-12-26"
+   },
+   {
+    "cells": {
+     "dpa": {
+      "companyWide": true,
+      "link": "https://factory.com/legal/data-processing-agreement",
+      "mark": "Y"
+     },
+     "gdpr": {
+      "mark": null
+     },
+     "government": {
+      "mark": null
+     },
+     "hipaa": {
+      "mark": null
+     },
+     "hipaa_baa": {
+      "companyWide": true,
+      "link": "https://factory.com/legal/baa",
+      "mark": "Y"
+     },
+     "hitrust": {
+      "mark": null
+     },
+     "iso27001": {
+      "companyWide": true,
+      "link": "https://trust.factory.ai",
+      "mark": "Y"
+     },
+     "iso27701": {
+      "mark": null
+     },
+     "iso42001": {
+      "companyWide": true,
+      "link": "https://trust.factory.ai",
+      "mark": "Y"
+     },
+     "soc2": {
+      "companyWide": true,
+      "link": "https://trust.factory.ai",
+      "mark": "Y"
+     }
+    },
+    "entry": "Factory AutoWiki",
+    "page": "https://trust.factory.ai",
+    "pageKind": "trust",
+    "product": null,
+    "toolList": "20-tool-list.md#factory-autowiki",
+    "unverifiedAfter": "2026-12-26"
+   },
+   {
+    "cells": {
+     "dpa": {
+      "mark": null
+     },
+     "gdpr": {
+      "mark": null
+     },
+     "government": {
+      "mark": null
+     },
+     "hipaa": {
+      "mark": null
+     },
+     "hipaa_baa": {
+      "mark": null
+     },
+     "hitrust": {
+      "mark": null
+     },
+     "iso27001": {
+      "mark": null
+     },
+     "iso27701": {
+      "mark": null
+     },
+     "iso42001": {
+      "mark": null
+     },
+     "soc2": {
+      "mark": null
+     }
+    },
+    "entry": "Fireworks AI",
+    "page": "https://fireworks.ai",
+    "pageKind": "product",
+    "product": null,
+    "toolList": "20-tool-list.md#fireworks-ai",
+    "unverifiedAfter": null
+   },
+   {
+    "cells": {
+     "dpa": {
+      "mark": null
+     },
+     "gdpr": {
+      "mark": null
+     },
+     "government": {
+      "mark": null
+     },
+     "hipaa": {
+      "mark": null
+     },
+     "hipaa_baa": {
+      "mark": null
+     },
+     "hitrust": {
+      "mark": null
+     },
+     "iso27001": {
+      "mark": null
+     },
+     "iso27701": {
+      "mark": null
+     },
+     "iso42001": {
+      "mark": null
+     },
+     "soc2": {
+      "mark": null
+     }
+    },
+    "entry": "Galileo",
+    "page": "https://www.galileo.ai",
+    "pageKind": "product",
+    "product": null,
+    "toolList": "20-tool-list.md#galileo",
+    "unverifiedAfter": null
+   },
+   {
+    "cells": {
+     "dpa": {
+      "companyWide": true,
+      "link": "https://cloud.google.com/terms/data-processing-addendum",
+      "mark": "Y"
+     },
+     "gdpr": {
+      "mark": null
+     },
+     "government": {
+      "mark": null
+     },
+     "hipaa": {
+      "mark": null
+     },
+     "hipaa_baa": {
+      "link": "https://cloud.google.com/security/compliance/hipaa",
+      "mark": "Y"
+     },
+     "hitrust": {
+      "mark": null
+     },
+     "iso27001": {
+      "link": "https://cloud.google.com/security/compliance/iso-27001",
+      "mark": "Y"
+     },
+     "iso27701": {
+      "mark": null
+     },
+     "iso42001": {
+      "mark": null
+     },
+     "soc2": {
+      "link": "https://cloud.google.com/security/compliance/soc-2",
+      "mark": "Y"
+     }
+    },
+    "entry": "Gemini Code Assist",
+    "page": "https://cloud.google.com/security/compliance/hipaa",
+    "pageKind": "trust",
+    "product": null,
+    "toolList": "20-tool-list.md#gemini-code-assist",
+    "unverifiedAfter": "2026-12-26"
+   },
+   {
+    "cells": {
+     "dpa": {
+      "mark": null
+     },
+     "gdpr": {
+      "mark": null
+     },
+     "government": {
+      "mark": null
+     },
+     "hipaa": {
+      "mark": null
+     },
+     "hipaa_baa": {
+      "mark": null
+     },
+     "hitrust": {
+      "mark": null
+     },
+     "iso27001": {
+      "mark": null
+     },
+     "iso27701": {
+      "mark": null
+     },
+     "iso42001": {
+      "mark": null
+     },
+     "soc2": {
+      "mark": null
+     }
+    },
+    "entry": "GitHub Codespaces",
+    "page": "https://github.com/trust-center",
+    "pageKind": "trust",
+    "product": null,
+    "toolList": "20-tool-list.md#github-codespaces",
+    "unverifiedAfter": null
+   },
+   {
+    "cells": {
+     "dpa": {
+      "mark": null
+     },
+     "gdpr": {
+      "mark": null
+     },
+     "government": {
+      "mark": null
+     },
+     "hipaa": {
+      "mark": null
+     },
+     "hipaa_baa": {
+      "mark": null
+     },
+     "hitrust": {
+      "mark": null
+     },
+     "iso27001": {
+      "mark": null
+     },
+     "iso27701": {
+      "mark": null
+     },
+     "iso42001": {
+      "link": "https://copilot.github.trust.page",
+      "mark": "Y"
+     },
+     "soc2": {
+      "link": "https://copilot.github.trust.page",
+      "mark": "Y"
+     }
+    },
+    "entry": "GitHub Copilot",
+    "page": "https://copilot.github.trust.page",
+    "pageKind": "trust",
+    "product": null,
+    "toolList": "20-tool-list.md#github-copilot",
+    "unverifiedAfter": "2026-12-26"
+   },
+   {
+    "cells": {
+     "dpa": {
+      "mark": null
+     },
+     "gdpr": {
+      "mark": null
+     },
+     "government": {
+      "mark": null
+     },
+     "hipaa": {
+      "mark": null
+     },
+     "hipaa_baa": {
+      "mark": null
+     },
+     "hitrust": {
+      "mark": null
+     },
+     "iso27001": {
+      "link": "https://trust.glean.com",
+      "mark": "Y"
+     },
+     "iso27701": {
+      "mark": null
+     },
+     "iso42001": {
+      "link": "https://trust.glean.com",
+      "mark": "Y"
+     },
+     "soc2": {
+      "link": "https://trust.glean.com",
+      "mark": "Y"
+     }
+    },
+    "entry": "Glean",
+    "page": "https://trust.glean.com",
+    "pageKind": "trust",
+    "product": null,
+    "toolList": "20-tool-list.md#glean",
+    "unverifiedAfter": "2026-12-27"
+   },
+   {
+    "cells": {
+     "dpa": {
+      "mark": null
+     },
+     "gdpr": {
+      "mark": null
+     },
+     "government": {
+      "mark": null
+     },
+     "hipaa": {
+      "mark": null
+     },
+     "hipaa_baa": {
+      "mark": null
+     },
+     "hitrust": {
+      "mark": null
+     },
+     "iso27001": {
+      "mark": null
+     },
+     "iso27701": {
+      "mark": null
+     },
+     "iso42001": {
+      "mark": null
+     },
+     "soc2": {
+      "mark": null
+     }
+    },
+    "entry": "Google Gemini",
+    "page": "https://gemini.google.com/",
+    "pageKind": "product",
+    "product": "Google Gemini",
+    "toolList": "20-tool-list.md#google-gemini",
+    "unverifiedAfter": null
+   },
+   {
+    "cells": {
+     "dpa": {
+      "mark": null
+     },
+     "gdpr": {
+      "mark": null
+     },
+     "government": {
+      "mark": null
+     },
+     "hipaa": {
+      "mark": null
+     },
+     "hipaa_baa": {
+      "mark": null
+     },
+     "hitrust": {
+      "mark": null
+     },
+     "iso27001": {
+      "mark": null
+     },
+     "iso27701": {
+      "mark": null
+     },
+     "iso42001": {
+      "mark": null
+     },
+     "soc2": {
+      "mark": null
+     }
+    },
+    "entry": "Google Gemini",
+    "page": "https://gemini.google.com/",
+    "pageKind": "product",
+    "product": "Gemini",
+    "toolList": "20-tool-list.md#google-gemini",
+    "unverifiedAfter": null
+   },
+   {
+    "cells": {
+     "dpa": {
+      "companyWide": true,
+      "link": "https://cloud.google.com/terms/data-processing-addendum",
+      "mark": "Y"
+     },
+     "gdpr": {
+      "companyWide": true,
+      "conditions": [
+       "requests to a locational endpoint"
+      ],
+      "link": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/resources/data-residency",
+      "mark": "Y*"
+     },
+     "government": {
+      "mark": null
+     },
+     "hipaa": {
+      "companyWide": true,
+      "conditions": [
+       "requests to a locational endpoint"
+      ],
+      "link": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/resources/data-residency",
+      "mark": "Y*"
+     },
+     "hipaa_baa": {
+      "mark": null
+     },
+     "hitrust": {
+      "mark": null
+     },
+     "iso27001": {
+      "link": "https://cloud.google.com/security/compliance/iso-27001",
+      "mark": "Y"
+     },
+     "iso27701": {
+      "mark": null
+     },
+     "iso42001": {
+      "mark": null
+     },
+     "soc2": {
+      "link": "https://cloud.google.com/security/compliance/soc-2",
+      "mark": "Y"
+     }
+    },
+    "entry": "Google Vertex AI / Gemini Enterprise Agent Platform",
+    "page": "https://cloud.google.com/security/compliance/iso-27001",
+    "pageKind": "trust",
+    "product": "Gemini Enterprise Agent Platform from Google",
+    "toolList": "20-tool-list.md#google-vertex-ai--gemini-enterprise-agent-platform",
+    "unverifiedAfter": "2026-12-26"
+   },
+   {
+    "cells": {
+     "dpa": {
+      "mark": null
+     },
+     "gdpr": {
+      "mark": null
+     },
+     "government": {
+      "link": "https://trust.anthropic.com/",
+      "mark": "No"
+     },
+     "hipaa": {
+      "mark": null
+     },
+     "hipaa_baa": {
+      "mark": null
+     },
+     "hitrust": {
+      "mark": null
+     },
+     "iso27001": {
+      "conditions": [
+       "Anthropic's footnote on this row: its marks cover only the model and the containers Anthropic supplies to partners"
+      ],
+      "link": "https://trust.anthropic.com/",
+      "mark": "Y*"
+     },
+     "iso27701": {
+      "mark": null
+     },
+     "iso42001": {
+      "conditions": [
+       "Anthropic's footnote on this row: its marks cover only the model and the containers Anthropic supplies to partners"
+      ],
+      "link": "https://trust.anthropic.com/",
+      "mark": "Y*"
+     },
+     "soc2": {
+      "conditions": [
+       "Anthropic's footnote on this row: its marks cover only the model and the containers Anthropic supplies to partners"
+      ],
+      "link": "https://trust.anthropic.com/",
+      "mark": "Y*"
+     }
+    },
+    "entry": "Google Vertex AI / Gemini Enterprise Agent Platform",
+    "page": "https://trust.anthropic.com/",
+    "pageKind": "trust",
+    "product": "Claude on Google Cloud's Vertex AI from Anthropic",
+    "toolList": "20-tool-list.md#google-vertex-ai--gemini-enterprise-agent-platform",
+    "unverifiedAfter": "2026-12-26"
+   },
+   {
+    "cells": {
+     "dpa": {
+      "companyWide": true,
+      "link": "https://cloud.google.com/terms/data-processing-addendum",
+      "mark": "Y"
+     },
+     "gdpr": {
+      "mark": null
+     },
+     "government": {
+      "link": "https://cloud.google.com/security/compliance/fedramp",
+      "mark": "Y"
+     },
+     "hipaa": {
+      "mark": null
+     },
+     "hipaa_baa": {
+      "link": "https://cloud.google.com/security/compliance/hipaa",
+      "mark": "Y"
+     },
+     "hitrust": {
+      "mark": null
+     },
+     "iso27001": {
+      "link": "https://cloud.google.com/security/compliance/iso-27001",
+      "mark": "Y"
+     },
+     "iso27701": {
+      "mark": null
+     },
+     "iso42001": {
+      "mark": null
+     },
+     "soc2": {
+      "link": "https://cloud.google.com/security/compliance/soc-2",
+      "mark": "Y"
+     }
+    },
+    "entry": "Google Vertex AI / Gemini Enterprise Agent Platform",
+    "page": "https://cloud.google.com/security/compliance/fedramp",
+    "pageKind": "trust",
+    "product": "Google Cloud from Google",
+    "toolList": "20-tool-list.md#google-vertex-ai--gemini-enterprise-agent-platform",
+    "unverifiedAfter": "2026-12-26"
+   },
+   {
+    "cells": {
+     "dpa": {
+      "mark": null
+     },
+     "gdpr": {
+      "mark": null
+     },
+     "government": {
+      "mark": null
+     },
+     "hipaa": {
+      "mark": null
+     },
+     "hipaa_baa": {
+      "mark": null
+     },
+     "hitrust": {
+      "mark": null
+     },
+     "iso27001": {
+      "mark": null
+     },
+     "iso27701": {
+      "mark": null
+     },
+     "iso42001": {
+      "mark": null
+     },
+     "soc2": {
+      "mark": null
+     }
+    },
+    "entry": "Groq",
+    "page": "https://groq.com",
+    "pageKind": "product",
+    "product": null,
+    "toolList": "20-tool-list.md#groq",
+    "unverifiedAfter": null
+   },
+   {
+    "cells": {
+     "dpa": {
+      "mark": null
+     },
+     "gdpr": {
+      "mark": null
+     },
+     "government": {
+      "mark": null
+     },
+     "hipaa": {
+      "mark": null
+     },
+     "hipaa_baa": {
+      "mark": null
+     },
+     "hitrust": {
+      "mark": null
+     },
+     "iso27001": {
+      "mark": null
+     },
+     "iso27701": {
+      "mark": null
+     },
+     "iso42001": {
+      "mark": null
+     },
+     "soc2": {
+      "mark": null
+     }
+    },
+    "entry": "HipAI",
+    "page": "https://gethip.ai/",
+    "pageKind": "product",
+    "product": null,
+    "toolList": "20-tool-list.md#hipai",
+    "unverifiedAfter": null
+   },
+   {
+    "cells": {
+     "dpa": {
+      "mark": null
+     },
+     "gdpr": {
+      "mark": null
+     },
+     "government": {
+      "mark": null
+     },
+     "hipaa": {
+      "mark": null
+     },
+     "hipaa_baa": {
+      "mark": null
+     },
+     "hitrust": {
+      "mark": null
+     },
+     "iso27001": {
+      "mark": null
+     },
+     "iso27701": {
+      "mark": null
+     },
+     "iso42001": {
+      "mark": null
+     },
+     "soc2": {
+      "mark": null
+     }
+    },
+    "entry": "JetBrains Junie",
+    "page": "https://www.jetbrains.com/junie/",
+    "pageKind": "product",
+    "product": null,
+    "toolList": "20-tool-list.md#jetbrains-junie",
+    "unverifiedAfter": null
+   },
+   {
+    "cells": {
+     "dpa": {
+      "mark": null
+     },
+     "gdpr": {
+      "mark": null
+     },
+     "government": {
+      "mark": null
+     },
+     "hipaa": {
+      "mark": null
+     },
+     "hipaa_baa": {
+      "mark": null
+     },
+     "hitrust": {
+      "mark": null
+     },
+     "iso27001": {
+      "mark": null
+     },
+     "iso27701": {
+      "mark": null
+     },
+     "iso42001": {
+      "mark": null
+     },
+     "soc2": {
+      "mark": null
+     }
+    },
+    "entry": "Jules",
+    "page": "https://jules.google/",
+    "pageKind": "product",
+    "product": null,
+    "toolList": "20-tool-list.md#jules",
+    "unverifiedAfter": null
+   },
+   {
+    "cells": {
+     "dpa": {
+      "mark": null
+     },
+     "gdpr": {
+      "mark": null
+     },
+     "government": {
+      "mark": null
+     },
+     "hipaa": {
+      "conditions": [
+       "the Kiro IDE and CLI"
+      ],
+      "link": "https://kiro.dev/docs/privacy-and-security/compliance-validation/",
+      "mark": "Y*"
+     },
+     "hipaa_baa": {
+      "mark": null
+     },
+     "hitrust": {
+      "mark": null
+     },
+     "iso27001": {
+      "mark": null
+     },
+     "iso27701": {
+      "mark": null
+     },
+     "iso42001": {
+      "mark": null
+     },
+     "soc2": {
+      "mark": null
+     }
+    },
+    "entry": "Kiro",
+    "page": "https://kiro.dev/",
+    "pageKind": "product",
+    "product": "Kiro from Kiro",
+    "toolList": "20-tool-list.md#kiro",
+    "unverifiedAfter": "2026-12-23"
+   },
+   {
+    "cells": {
+     "dpa": {
+      "mark": null
+     },
+     "gdpr": {
+      "mark": null
+     },
+     "government": {
+      "mark": null
+     },
+     "hipaa": {
+      "mark": null
+     },
+     "hipaa_baa": {
+      "mark": null
+     },
+     "hitrust": {
+      "mark": null
+     },
+     "iso27001": {
+      "mark": null
+     },
+     "iso27701": {
+      "mark": null
+     },
+     "iso42001": {
+      "mark": null
+     },
+     "soc2": {
+      "mark": null
+     }
+    },
+    "entry": "Kiro",
+    "page": "https://aws.amazon.com/compliance/iso-certified/",
+    "pageKind": "trust",
+    "product": "Kiro from AWS",
+    "toolList": "20-tool-list.md#kiro",
+    "unverifiedAfter": null
+   },
+   {
+    "cells": {
+     "dpa": {
+      "link": "https://langfuse.com/security",
+      "mark": "Y"
+     },
+     "gdpr": {
+      "link": "https://langfuse.com/security",
+      "mark": "Y"
+     },
+     "government": {
+      "mark": null
+     },
+     "hipaa": {
+      "conditions": [
+       "Langfuse Cloud's HIPAA data region"
+      ],
+      "link": "https://langfuse.com/security",
+      "mark": "Y*"
+     },
+     "hipaa_baa": {
+      "mark": null
+     },
+     "hitrust": {
+      "mark": null
+     },
+     "iso27001": {
+      "link": "https://langfuse.com/security",
+      "mark": "Y"
+     },
+     "iso27701": {
+      "mark": null
+     },
+     "iso42001": {
+      "mark": null
+     },
+     "soc2": {
+      "link": "https://langfuse.com/security",
+      "mark": "Y"
+     }
+    },
+    "entry": "langfuse/langfuse",
+    "page": "https://langfuse.com/security",
+    "pageKind": "trust",
+    "product": "Langfuse Cloud",
+    "toolList": "20-tool-list.md#langfuselangfuse",
+    "unverifiedAfter": "2026-12-26"
+   },
+   {
+    "cells": {
+     "dpa": {
+      "mark": null
+     },
+     "gdpr": {
+      "mark": null
+     },
+     "government": {
+      "mark": null
+     },
+     "hipaa": {
+      "mark": null
+     },
+     "hipaa_baa": {
+      "mark": null
+     },
+     "hitrust": {
+      "mark": null
+     },
+     "iso27001": {
+      "link": "https://trust.langchain.com/",
+      "mark": "Y"
+     },
+     "iso27701": {
+      "mark": null
+     },
+     "iso42001": {
+      "mark": null
+     },
+     "soc2": {
+      "link": "https://trust.langchain.com/",
+      "mark": "Y"
+     }
+    },
+    "entry": "LangSmith Context Hub",
+    "page": "https://trust.langchain.com/",
+    "pageKind": "trust",
+    "product": null,
+    "toolList": "20-tool-list.md#langsmith-context-hub",
+    "unverifiedAfter": "2026-12-26"
+   },
+   {
+    "cells": {
+     "dpa": {
+      "mark": null
+     },
+     "gdpr": {
+      "mark": null
+     },
+     "government": {
+      "mark": null
+     },
+     "hipaa": {
+      "mark": null
+     },
+     "hipaa_baa": {
+      "mark": null
+     },
+     "hitrust": {
+      "mark": null
+     },
+     "iso27001": {
+      "mark": null
+     },
+     "iso27701": {
+      "mark": null
+     },
+     "iso42001": {
+      "mark": null
+     },
+     "soc2": {
+      "mark": null
+     }
+    },
+    "entry": "LM Studio",
+    "page": "https://lmstudio.ai/",
+    "pageKind": "product",
+    "product": null,
+    "toolList": "20-tool-list.md#lm-studio",
+    "unverifiedAfter": null
+   },
+   {
+    "cells": {
+     "dpa": {
+      "mark": null
+     },
+     "gdpr": {
+      "mark": null
+     },
+     "government": {
+      "mark": null
+     },
+     "hipaa": {
+      "mark": null
+     },
+     "hipaa_baa": {
+      "mark": null
+     },
+     "hitrust": {
+      "mark": null
+     },
+     "iso27001": {
+      "mark": null
+     },
+     "iso27701": {
+      "mark": null
+     },
+     "iso42001": {
+      "mark": null
+     },
+     "soc2": {
+      "mark": null
+     }
+    },
+    "entry": "Lore",
+    "page": "https://www.getlore.ai/",
+    "pageKind": "product",
+    "product": null,
+    "toolList": "20-tool-list.md#lore",
+    "unverifiedAfter": null
+   },
+   {
+    "cells": {
+     "dpa": {
+      "mark": null
+     },
+     "gdpr": {
+      "mark": null
+     },
+     "government": {
+      "mark": null
+     },
+     "hipaa": {
+      "mark": null
+     },
+     "hipaa_baa": {
+      "mark": null
+     },
+     "hitrust": {
+      "mark": null
+     },
+     "iso27001": {
+      "mark": null
+     },
+     "iso27701": {
+      "mark": null
+     },
+     "iso42001": {
+      "mark": null
+     },
+     "soc2": {
+      "mark": null
+     }
+    },
+    "entry": "Lovable",
+    "page": "https://lovable.dev",
+    "pageKind": "product",
+    "product": null,
+    "toolList": "20-tool-list.md#lovable",
+    "unverifiedAfter": null
+   },
+   {
+    "cells": {
+     "dpa": {
+      "mark": null
+     },
+     "gdpr": {
+      "mark": null
+     },
+     "government": {
+      "mark": null
+     },
+     "hipaa": {
+      "mark": null
+     },
+     "hipaa_baa": {
+      "mark": null
+     },
+     "hitrust": {
+      "mark": null
+     },
+     "iso27001": {
+      "mark": null
+     },
+     "iso27701": {
+      "mark": null
+     },
+     "iso42001": {
+      "mark": null
+     },
+     "soc2": {
+      "mark": null
+     }
+    },
+    "entry": "Martian",
+    "page": "https://withmartian.com/",
+    "pageKind": "product",
+    "product": "Martian",
+    "toolList": "20-tool-list.md#martian",
+    "unverifiedAfter": null
+   },
+   {
+    "cells": {
+     "dpa": {
+      "mark": null
+     },
+     "gdpr": {
+      "mark": null
+     },
+     "government": {
+      "mark": null
+     },
+     "hipaa": {
+      "mark": null
+     },
+     "hipaa_baa": {
+      "mark": null
+     },
+     "hitrust": {
+      "mark": null
+     },
+     "iso27001": {
+      "mark": null
+     },
+     "iso27701": {
+      "mark": null
+     },
+     "iso42001": {
+      "mark": null
+     },
+     "soc2": {
+      "mark": null
+     }
+    },
+    "entry": "Martian",
+    "page": "https://withmartian.com/",
+    "pageKind": "product",
+    "product": "Martian Gateway",
+    "toolList": "20-tool-list.md#martian",
+    "unverifiedAfter": null
+   },
+   {
+    "cells": {
+     "dpa": {
+      "companyWide": true,
+      "link": "https://www.microsoft.com/licensing/docs/view/Microsoft-Products-and-Services-Data-Protection-Addendum-DPA",
+      "mark": "Y"
+     },
+     "gdpr": {
+      "companyWide": true,
+      "link": "https://www.microsoft.com/en-us/trust-center/privacy/gdpr-overview",
+      "mark": "Y"
+     },
+     "government": {
+      "mark": null
+     },
+     "hipaa": {
+      "mark": null
+     },
+     "hipaa_baa": {
+      "companyWide": true,
+      "link": "https://learn.microsoft.com/en-us/compliance/regulatory/offering-hipaa-hitech",
+      "mark": "Y"
+     },
+     "hitrust": {
+      "companyWide": true,
+      "link": "https://learn.microsoft.com/en-us/compliance/regulatory/offering-hipaa-hitech",
+      "mark": "Y"
+     },
+     "iso27001": {
+      "companyWide": true,
+      "link": "https://learn.microsoft.com/en-us/compliance/regulatory/offering-hipaa-hitech",
+      "mark": "Y"
+     },
+     "iso27701": {
+      "mark": null
+     },
+     "iso42001": {
+      "mark": null
+     },
+     "soc2": {
+      "mark": null
+     }
+    },
+    "entry": "Microsoft Agent 365",
+    "page": "https://learn.microsoft.com/en-us/azure/compliance/offerings/offering-dod-il5",
+    "pageKind": "trust",
+    "product": null,
+    "toolList": "20-tool-list.md#microsoft-agent-365",
+    "unverifiedAfter": "2026-12-23"
+   },
+   {
+    "cells": {
+     "dpa": {
+      "companyWide": true,
+      "link": "https://www.microsoft.com/licensing/docs/view/Microsoft-Products-and-Services-Data-Protection-Addendum-DPA",
+      "mark": "Y"
+     },
+     "gdpr": {
+      "companyWide": true,
+      "link": "https://www.microsoft.com/en-us/trust-center/privacy/gdpr-overview",
+      "mark": "Y"
+     },
+     "government": {
+      "mark": null
+     },
+     "hipaa": {
+      "mark": null
+     },
+     "hipaa_baa": {
+      "companyWide": true,
+      "link": "https://learn.microsoft.com/en-us/compliance/regulatory/offering-hipaa-hitech",
+      "mark": "Y"
+     },
+     "hitrust": {
+      "companyWide": true,
+      "link": "https://learn.microsoft.com/en-us/compliance/regulatory/offering-hipaa-hitech",
+      "mark": "Y"
+     },
+     "iso27001": {
+      "companyWide": true,
+      "link": "https://learn.microsoft.com/en-us/compliance/regulatory/offering-hipaa-hitech",
+      "mark": "Y"
+     },
+     "iso27701": {
+      "mark": null
+     },
+     "iso42001": {
+      "mark": null
+     },
+     "soc2": {
+      "mark": null
+     }
+    },
+    "entry": "Microsoft Copilot Studio",
+    "page": "https://learn.microsoft.com/en-us/azure/compliance/offerings/offering-dod-il5",
+    "pageKind": "trust",
+    "product": null,
+    "toolList": "20-tool-list.md#microsoft-copilot-studio",
+    "unverifiedAfter": "2026-12-23"
+   },
+   {
+    "cells": {
+     "dpa": {
+      "companyWide": true,
+      "link": "https://www.microsoft.com/licensing/docs/view/Microsoft-Products-and-Services-Data-Protection-Addendum-DPA",
+      "mark": "Y"
+     },
+     "gdpr": {
+      "companyWide": true,
+      "link": "https://www.microsoft.com/en-us/trust-center/privacy/gdpr-overview",
+      "mark": "Y"
+     },
+     "government": {
+      "mark": null
+     },
+     "hipaa": {
+      "mark": null
+     },
+     "hipaa_baa": {
+      "companyWide": true,
+      "link": "https://learn.microsoft.com/en-us/compliance/regulatory/offering-hipaa-hitech",
+      "mark": "Y"
+     },
+     "hitrust": {
+      "companyWide": true,
+      "link": "https://learn.microsoft.com/en-us/compliance/regulatory/offering-hipaa-hitech",
+      "mark": "Y"
+     },
+     "iso27001": {
+      "companyWide": true,
+      "link": "https://learn.microsoft.com/en-us/compliance/regulatory/offering-hipaa-hitech",
+      "mark": "Y"
+     },
+     "iso27701": {
+      "mark": null
+     },
+     "iso42001": {
+      "mark": null
+     },
+     "soc2": {
+      "mark": null
+     }
+    },
+    "entry": "Microsoft Foundry Agent Service",
+    "page": "https://learn.microsoft.com/en-us/azure/compliance/offerings/offering-dod-il5",
+    "pageKind": "trust",
+    "product": "Microsoft Foundry Agent Service",
+    "toolList": "20-tool-list.md#microsoft-foundry-agent-service",
+    "unverifiedAfter": "2026-12-23"
+   },
+   {
+    "cells": {
+     "dpa": {
+      "companyWide": true,
+      "link": "https://www.microsoft.com/licensing/docs/view/Microsoft-Products-and-Services-Data-Protection-Addendum-DPA",
+      "mark": "Y"
+     },
+     "gdpr": {
+      "companyWide": true,
+      "link": "https://www.microsoft.com/en-us/trust-center/privacy/gdpr-overview",
+      "mark": "Y"
+     },
+     "government": {
+      "link": "https://learn.microsoft.com/en-us/azure/compliance/offerings/offering-fedramp",
+      "mark": "Y"
+     },
+     "hipaa": {
+      "mark": null
+     },
+     "hipaa_baa": {
+      "link": "https://learn.microsoft.com/en-us/azure/compliance/offerings/offering-hipaa-us",
+      "mark": "Y"
+     },
+     "hitrust": {
+      "companyWide": true,
+      "link": "https://learn.microsoft.com/en-us/compliance/regulatory/offering-hipaa-hitech",
+      "mark": "Y"
+     },
+     "iso27001": {
+      "link": "https://learn.microsoft.com/en-us/azure/compliance/offerings/offering-hipaa-us",
+      "mark": "Y"
+     },
+     "iso27701": {
+      "mark": null
+     },
+     "iso42001": {
+      "mark": null
+     },
+     "soc2": {
+      "mark": null
+     }
+    },
+    "entry": "Microsoft Foundry Agent Service",
+    "page": "https://learn.microsoft.com/en-us/azure/compliance/offerings/offering-dod-il5",
+    "pageKind": "trust",
+    "product": "Azure",
+    "toolList": "20-tool-list.md#microsoft-foundry-agent-service",
+    "unverifiedAfter": "2026-12-23"
+   },
+   {
+    "cells": {
+     "dpa": {
+      "mark": null
+     },
+     "gdpr": {
+      "mark": null
+     },
+     "government": {
+      "mark": null
+     },
+     "hipaa": {
+      "mark": null
+     },
+     "hipaa_baa": {
+      "link": "https://modal.com/docs/guide/security",
+      "mark": "Y*",
+      "plans": [
+       "Enterprise"
+      ]
+     },
+     "hitrust": {
+      "mark": null
+     },
+     "iso27001": {
+      "mark": null
+     },
+     "iso27701": {
+      "mark": null
+     },
+     "iso42001": {
+      "mark": null
+     },
+     "soc2": {
+      "mark": null
+     }
+    },
+    "entry": "Modal",
+    "page": "https://modal.com",
+    "pageKind": "product",
+    "product": null,
+    "toolList": "20-tool-list.md#modal",
+    "unverifiedAfter": "2026-12-26"
+   },
+   {
+    "cells": {
+     "dpa": {
+      "mark": null
+     },
+     "gdpr": {
+      "mark": null
+     },
+     "government": {
+      "mark": null
+     },
+     "hipaa": {
+      "mark": null
+     },
+     "hipaa_baa": {
+      "mark": null
+     },
+     "hitrust": {
+      "mark": null
+     },
+     "iso27001": {
+      "mark": null
+     },
+     "iso27701": {
+      "mark": null
+     },
+     "iso42001": {
+      "mark": null
+     },
+     "soc2": {
+      "mark": null
+     }
+    },
+    "entry": "Not Diamond",
+    "page": "https://www.notdiamond.ai/",
+    "pageKind": "product",
+    "product": null,
+    "toolList": "20-tool-list.md#not-diamond",
+    "unverifiedAfter": null
+   },
+   {
+    "cells": {
+     "dpa": {
+      "mark": null
+     },
+     "gdpr": {
+      "mark": null
+     },
+     "government": {
+      "mark": null
+     },
+     "hipaa": {
+      "mark": null
+     },
+     "hipaa_baa": {
+      "link": "https://developers.openai.com/api/docs/guides/your-data",
+      "mark": "Y*",
+      "plans": [
+       "retention with safety processing"
+      ]
+     },
+     "hitrust": {
+      "mark": null
+     },
+     "iso27001": {
+      "mark": null
+     },
+     "iso27701": {
+      "mark": null
+     },
+     "iso42001": {
+      "mark": null
+     },
+     "soc2": {
+      "mark": null
+     }
+    },
+    "entry": "OpenAI API",
+    "page": "https://platform.openai.com/",
+    "pageKind": "product",
+    "product": null,
+    "toolList": "20-tool-list.md#openai-api",
+    "unverifiedAfter": "2026-12-28"
+   },
+   {
+    "cells": {
+     "dpa": {
+      "mark": null
+     },
+     "gdpr": {
+      "mark": null
+     },
+     "government": {
+      "mark": null
+     },
+     "hipaa": {
+      "mark": null
+     },
+     "hipaa_baa": {
+      "mark": null
+     },
+     "hitrust": {
+      "mark": null
+     },
+     "iso27001": {
+      "mark": null
+     },
+     "iso27701": {
+      "mark": null
+     },
+     "iso42001": {
+      "mark": null
+     },
+     "soc2": {
+      "link": "https://trust.openrouter.ai/",
+      "mark": "Y"
+     }
+    },
+    "entry": "OpenRouter",
+    "page": "https://trust.openrouter.ai/",
+    "pageKind": "trust",
+    "product": null,
+    "toolList": "20-tool-list.md#openrouter",
+    "unverifiedAfter": "2026-12-26"
+   },
+   {
+    "cells": {
+     "dpa": {
+      "mark": null
+     },
+     "gdpr": {
+      "mark": null
+     },
+     "government": {
+      "companyWide": true,
+      "link": "https://trust.perplexity.ai",
+      "mark": "Y"
+     },
+     "hipaa": {
+      "mark": null
+     },
+     "hipaa_baa": {
+      "mark": null
+     },
+     "hitrust": {
+      "mark": null
+     },
+     "iso27001": {
+      "companyWide": true,
+      "link": "https://trust.perplexity.ai",
+      "mark": "Y"
+     },
+     "iso27701": {
+      "mark": null
+     },
+     "iso42001": {
+      "mark": null
+     },
+     "soc2": {
+      "companyWide": true,
+      "link": "https://trust.perplexity.ai",
+      "mark": "Y"
+     }
+    },
+    "entry": "Perplexity",
+    "page": "https://trust.perplexity.ai",
+    "pageKind": "trust",
+    "product": "Perplexity API",
+    "toolList": "20-tool-list.md#perplexity",
+    "unverifiedAfter": "2026-12-28"
+   },
+   {
+    "cells": {
+     "dpa": {
+      "mark": null
+     },
+     "gdpr": {
+      "link": "https://docs.portkey.ai/docs/product/enterprise-offering",
+      "mark": "Y*",
+      "plans": [
+       "Enterprise"
+      ]
+     },
+     "government": {
+      "mark": null
+     },
+     "hipaa": {
+      "link": "https://docs.portkey.ai/docs/product/enterprise-offering",
+      "mark": "Y*",
+      "plans": [
+       "Enterprise"
+      ]
+     },
+     "hipaa_baa": {
+      "link": "https://docs.portkey.ai/docs/product/enterprise-offering",
+      "mark": "Y*",
+      "plans": [
+       "Enterprise"
+      ]
+     },
+     "hitrust": {
+      "mark": null
+     },
+     "iso27001": {
+      "mark": null
+     },
+     "iso27701": {
+      "mark": null
+     },
+     "iso42001": {
+      "mark": null
+     },
+     "soc2": {
+      "mark": null
+     }
+    },
+    "entry": "Portkey",
+    "page": "https://portkey.ai/",
+    "pageKind": "product",
+    "product": null,
+    "toolList": "20-tool-list.md#portkey",
+    "unverifiedAfter": "2026-12-26"
+   },
+   {
+    "cells": {
+     "dpa": {
+      "mark": null
+     },
+     "gdpr": {
+      "mark": null
+     },
+     "government": {
+      "mark": null
+     },
+     "hipaa": {
+      "mark": null
+     },
+     "hipaa_baa": {
+      "mark": null
+     },
+     "hitrust": {
+      "mark": null
+     },
+     "iso27001": {
+      "mark": null
+     },
+     "iso27701": {
+      "mark": null
+     },
+     "iso42001": {
+      "mark": null
+     },
+     "soc2": {
+      "link": "https://trust.relevanceai.com",
+      "mark": "Y"
+     }
+    },
+    "entry": "Relevance AI",
+    "page": "https://trust.relevanceai.com",
+    "pageKind": "trust",
+    "product": null,
+    "toolList": "20-tool-list.md#relevance-ai",
+    "unverifiedAfter": "2026-12-26"
+   },
+   {
+    "cells": {
+     "dpa": {
+      "mark": null
+     },
+     "gdpr": {
+      "mark": null
+     },
+     "government": {
+      "mark": null
+     },
+     "hipaa": {
+      "mark": null
+     },
+     "hipaa_baa": {
+      "mark": null
+     },
+     "hitrust": {
+      "mark": null
+     },
+     "iso27001": {
+      "mark": null
+     },
+     "iso27701": {
+      "mark": null
+     },
+     "iso42001": {
+      "mark": null
+     },
+     "soc2": {
+      "mark": null
+     }
+    },
+    "entry": "Replit Agent",
+    "page": "https://replit.com/products/agent",
+    "pageKind": "product",
+    "product": null,
+    "toolList": "20-tool-list.md#replit-agent",
+    "unverifiedAfter": null
+   },
+   {
+    "cells": {
+     "dpa": {
+      "mark": null
+     },
+     "gdpr": {
+      "mark": null
+     },
+     "government": {
+      "mark": null
+     },
+     "hipaa": {
+      "mark": null
+     },
+     "hipaa_baa": {
+      "mark": null
+     },
+     "hitrust": {
+      "mark": null
+     },
+     "iso27001": {
+      "mark": null
+     },
+     "iso27701": {
+      "mark": null
+     },
+     "iso42001": {
+      "mark": null
+     },
+     "soc2": {
+      "link": "https://compliance.runloop.ai/",
+      "mark": "Y"
+     }
+    },
+    "entry": "Runloop",
+    "page": "https://compliance.runloop.ai/",
+    "pageKind": "trust",
+    "product": null,
+    "toolList": "20-tool-list.md#runloop",
+    "unverifiedAfter": "2026-12-26"
+   },
+   {
+    "cells": {
+     "dpa": {
+      "mark": null
+     },
+     "gdpr": {
+      "mark": null
+     },
+     "government": {
+      "mark": null
+     },
+     "hipaa": {
+      "mark": null
+     },
+     "hipaa_baa": {
+      "mark": null
+     },
+     "hitrust": {
+      "mark": null
+     },
+     "iso27001": {
+      "mark": null
+     },
+     "iso27701": {
+      "mark": null
+     },
+     "iso42001": {
+      "mark": null
+     },
+     "soc2": {
+      "mark": null
+     }
+    },
+    "entry": "Smithery",
+    "page": "https://smithery.ai",
+    "pageKind": "product",
+    "product": null,
+    "toolList": "20-tool-list.md#smithery",
+    "unverifiedAfter": null
+   },
+   {
+    "cells": {
+     "dpa": {
+      "mark": null
+     },
+     "gdpr": {
+      "mark": null
+     },
+     "government": {
+      "mark": null
+     },
+     "hipaa": {
+      "mark": null
+     },
+     "hipaa_baa": {
+      "mark": null
+     },
+     "hitrust": {
+      "mark": null
+     },
+     "iso27001": {
+      "companyWide": true,
+      "link": "https://security.sourcegraph.com/",
+      "mark": "Y"
+     },
+     "iso27701": {
+      "mark": null
+     },
+     "iso42001": {
+      "mark": null
+     },
+     "soc2": {
+      "companyWide": true,
+      "link": "https://security.sourcegraph.com/",
+      "mark": "Y"
+     }
+    },
+    "entry": "Sourcegraph Cody",
+    "page": "https://security.sourcegraph.com/",
+    "pageKind": "trust",
+    "product": "Sourcegraph Cody",
+    "toolList": "20-tool-list.md#sourcegraph-cody",
+    "unverifiedAfter": "2026-12-26"
+   },
+   {
+    "cells": {
+     "dpa": {
+      "mark": null
+     },
+     "gdpr": {
+      "mark": null
+     },
+     "government": {
+      "mark": null
+     },
+     "hipaa": {
+      "mark": null
+     },
+     "hipaa_baa": {
+      "mark": null
+     },
+     "hitrust": {
+      "mark": null
+     },
+     "iso27001": {
+      "companyWide": true,
+      "link": "https://security.sourcegraph.com/",
+      "mark": "Y"
+     },
+     "iso27701": {
+      "mark": null
+     },
+     "iso42001": {
+      "mark": null
+     },
+     "soc2": {
+      "companyWide": true,
+      "link": "https://security.sourcegraph.com/",
+      "mark": "Y"
+     }
+    },
+    "entry": "Sourcegraph Cody",
+    "page": "https://security.sourcegraph.com/",
+    "pageKind": "trust",
+    "product": "Sourcegraph",
+    "toolList": "20-tool-list.md#sourcegraph-cody",
+    "unverifiedAfter": "2026-12-26"
+   },
+   {
+    "cells": {
+     "dpa": {
+      "mark": null
+     },
+     "gdpr": {
+      "mark": null
+     },
+     "government": {
+      "mark": null
+     },
+     "hipaa": {
+      "mark": null
+     },
+     "hipaa_baa": {
+      "mark": null
+     },
+     "hitrust": {
+      "mark": null
+     },
+     "iso27001": {
+      "link": "https://trust.stackai.com",
+      "mark": "Y"
+     },
+     "iso27701": {
+      "mark": null
+     },
+     "iso42001": {
+      "mark": null
+     },
+     "soc2": {
+      "link": "https://trust.stackai.com",
+      "mark": "Y"
+     }
+    },
+    "entry": "Stack AI",
+    "page": "https://trust.stackai.com",
+    "pageKind": "trust",
+    "product": null,
+    "toolList": "20-tool-list.md#stack-ai",
+    "unverifiedAfter": "2026-12-27"
+   },
+   {
+    "cells": {
+     "dpa": {
+      "link": "https://trust.together.ai/",
+      "mark": "Y"
+     },
+     "gdpr": {
+      "mark": null
+     },
+     "government": {
+      "mark": null
+     },
+     "hipaa": {
+      "mark": null
+     },
+     "hipaa_baa": {
+      "mark": null
+     },
+     "hitrust": {
+      "mark": null
+     },
+     "iso27001": {
+      "link": "https://trust.together.ai/",
+      "mark": "Y"
+     },
+     "iso27701": {
+      "mark": null
+     },
+     "iso42001": {
+      "mark": null
+     },
+     "soc2": {
+      "link": "https://trust.together.ai/",
+      "mark": "Y"
+     }
+    },
+    "entry": "Together AI",
+    "page": "https://trust.together.ai/",
+    "pageKind": "trust",
+    "product": null,
+    "toolList": "20-tool-list.md#together-ai",
+    "unverifiedAfter": "2026-12-26"
+   },
+   {
+    "cells": {
+     "dpa": {
+      "companyWide": true,
+      "link": "https://vercel.com/security",
+      "mark": "Y"
+     },
+     "gdpr": {
+      "companyWide": true,
+      "link": "https://vercel.com/security",
+      "mark": "Y"
+     },
+     "government": {
+      "mark": null
+     },
+     "hipaa": {
+      "link": "https://vercel.com/security",
+      "mark": "Y*",
+      "plans": [
+       "Enterprise"
+      ]
+     },
+     "hipaa_baa": {
+      "mark": null
+     },
+     "hitrust": {
+      "mark": null
+     },
+     "iso27001": {
+      "companyWide": true,
+      "link": "https://security.vercel.com",
+      "mark": "Y"
+     },
+     "iso27701": {
+      "mark": null
+     },
+     "iso42001": {
+      "mark": null
+     },
+     "soc2": {
+      "companyWide": true,
+      "link": "https://security.vercel.com",
+      "mark": "Y"
+     }
+    },
+    "entry": "v0",
+    "page": "https://vercel.com/security",
+    "pageKind": "trust",
+    "product": null,
+    "toolList": "20-tool-list.md#v0",
+    "unverifiedAfter": "2026-12-26"
+   },
+   {
+    "cells": {
+     "dpa": {
+      "mark": null
+     },
+     "gdpr": {
+      "mark": null
+     },
+     "government": {
+      "mark": null
+     },
+     "hipaa": {
+      "link": "https://docs.vellum.ai/product/security/data-privacy-and-storage",
+      "mark": "Y"
+     },
+     "hipaa_baa": {
+      "mark": null
+     },
+     "hitrust": {
+      "mark": null
+     },
+     "iso27001": {
+      "mark": null
+     },
+     "iso27701": {
+      "mark": null
+     },
+     "iso42001": {
+      "mark": null
+     },
+     "soc2": {
+      "mark": null
+     }
+    },
+    "entry": "Vellum",
+    "page": "https://docs.vellum.ai/",
+    "pageKind": "product",
+    "product": null,
+    "toolList": "20-tool-list.md#vellum",
+    "unverifiedAfter": "2026-12-27"
+   },
+   {
+    "cells": {
+     "dpa": {
+      "companyWide": true,
+      "link": "https://cloud.google.com/terms/data-processing-addendum",
+      "mark": "Y"
+     },
+     "gdpr": {
+      "companyWide": true,
+      "conditions": [
+       "requests to a locational endpoint"
+      ],
+      "link": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/resources/data-residency",
+      "mark": "Y*"
+     },
+     "government": {
+      "mark": null
+     },
+     "hipaa": {
+      "companyWide": true,
+      "conditions": [
+       "requests to a locational endpoint"
+      ],
+      "link": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/resources/data-residency",
+      "mark": "Y*"
+     },
+     "hipaa_baa": {
+      "mark": null
+     },
+     "hitrust": {
+      "mark": null
+     },
+     "iso27001": {
+      "link": "https://cloud.google.com/security/compliance/iso-27001",
+      "mark": "Y"
+     },
+     "iso27701": {
+      "mark": null
+     },
+     "iso42001": {
+      "mark": null
+     },
+     "soc2": {
+      "link": "https://cloud.google.com/security/compliance/soc-2",
+      "mark": "Y"
+     }
+    },
+    "entry": "Vertex AI Agent Engine (Gemini Enterprise Agent Platform)",
+    "page": "https://cloud.google.com/security/compliance/iso-27001",
+    "pageKind": "trust",
+    "product": "Gemini Enterprise Agent Platform",
+    "toolList": "20-tool-list.md#vertex-ai-agent-engine-gemini-enterprise-agent-platform",
+    "unverifiedAfter": "2026-12-26"
+   },
+   {
+    "cells": {
+     "dpa": {
+      "companyWide": true,
+      "link": "https://cloud.google.com/terms/data-processing-addendum",
+      "mark": "Y"
+     },
+     "gdpr": {
+      "mark": null
+     },
+     "government": {
+      "link": "https://cloud.google.com/security/compliance/fedramp",
+      "mark": "Y"
+     },
+     "hipaa": {
+      "mark": null
+     },
+     "hipaa_baa": {
+      "link": "https://cloud.google.com/security/compliance/hipaa",
+      "mark": "Y"
+     },
+     "hitrust": {
+      "mark": null
+     },
+     "iso27001": {
+      "link": "https://cloud.google.com/security/compliance/iso-27001",
+      "mark": "Y"
+     },
+     "iso27701": {
+      "mark": null
+     },
+     "iso42001": {
+      "mark": null
+     },
+     "soc2": {
+      "link": "https://cloud.google.com/security/compliance/soc-2",
+      "mark": "Y"
+     }
+    },
+    "entry": "Vertex AI Agent Engine (Gemini Enterprise Agent Platform)",
+    "page": "https://cloud.google.com/security/compliance/fedramp",
+    "pageKind": "trust",
+    "product": "Google Cloud",
+    "toolList": "20-tool-list.md#vertex-ai-agent-engine-gemini-enterprise-agent-platform",
+    "unverifiedAfter": "2026-12-26"
+   },
+   {
+    "cells": {
+     "dpa": {
+      "mark": null
+     },
+     "gdpr": {
+      "mark": null
+     },
+     "government": {
+      "mark": null
+     },
+     "hipaa": {
+      "mark": null
+     },
+     "hipaa_baa": {
+      "mark": null
+     },
+     "hitrust": {
+      "mark": null
+     },
+     "iso27001": {
+      "mark": null
+     },
+     "iso27701": {
+      "mark": null
+     },
+     "iso42001": {
+      "mark": null
+     },
+     "soc2": {
+      "link": "https://www.warp.dev/legal/security",
+      "mark": "Y"
+     }
+    },
+    "entry": "Warp",
+    "page": "https://www.warp.dev/legal/security",
+    "pageKind": "trust",
+    "product": null,
+    "toolList": "20-tool-list.md#warp",
+    "unverifiedAfter": "2026-12-26"
+   }
+  ]
+ },
  "revision": null,
  "tools": [
   {
@@ -68,9 +3823,7 @@
    "archived": false,
    "asOf": "2026-09-24",
    "basis": "observed",
-   "compliance": [
-    "A Bring Your Own Cloud mode on Enterprise plans deploys the same software into the buyer\u2019s own AWS or Google Cloud account (Azure not yet supported), which moves the isolation boundary and the residency question back onto the buyer\u2019s own account rather than E2B\u2019s."
-   ],
+   "compliance": [],
    "kind": "hosted-service",
    "layer": "compute-and-isolation",
    "name": "E2B",
@@ -92,9 +3845,7 @@
    "archived": false,
    "asOf": "2026-09-24",
    "basis": "observed",
-   "compliance": [
-    "No security or trust page was opened, and no compliance claim is made here."
-   ],
+   "compliance": [],
    "kind": "hosted-service",
    "layer": "compute-and-isolation",
    "name": "Runloop",
@@ -138,9 +3889,7 @@
    "archived": false,
    "asOf": "2026-09-24",
    "basis": "observed",
-   "compliance": [
-    "Its security page returned no readable text when fetched, and no compliance claim is made here."
-   ],
+   "compliance": [],
    "kind": "hosted-service",
    "layer": "serving",
    "name": "Fireworks AI",
@@ -305,9 +4054,7 @@
    "archived": false,
    "asOf": "2026-09-24",
    "basis": "observed",
-   "compliance": [
-    "Its security page (together.ai/security) returned no readable text when fetched, and no compliance claim is made here."
-   ],
+   "compliance": [],
    "kind": "hosted-service",
    "layer": "serving",
    "name": "Together AI",
@@ -329,14 +4076,12 @@
    "archived": false,
    "asOf": "2026-09-24",
    "basis": "observed",
-   "compliance": [
-    "Its business-associate and retention terms are on Anthropic\u2019s own support pages (support.claude.com, as of 2026-09-24) and are not restated here."
-   ],
+   "compliance": [],
    "kind": "hosted-service",
    "layer": "gateway",
    "name": "Anthropic API",
    "url": "https://www.anthropic.com/api",
-   "what": "Anthropic\u2019s own hosted API for the Claude models, what Anthropic\u2019s support documentation calls the first-party API, separate from Claude Code, Cowork, or a model reached through a cloud platform like Bedrock, Azure Foundry or Vertex AI."
+   "what": "Anthropic\u2019s own hosted API for the Claude models, what Anthropic\u2019s support documentation calls the first-party API, separate from Claude Code, Cowork, or a model reached through a cloud platform like Bedrock, Microsoft Foundry or Google Cloud\u2019s Agent Platform."
   },
   {
    "archived": false,
@@ -450,6 +4195,17 @@
   },
   {
    "archived": false,
+   "asOf": "2026-09-29",
+   "basis": "observed",
+   "compliance": [],
+   "kind": "hosted-service",
+   "layer": "gateway",
+   "name": "Perplexity",
+   "url": "https://www.perplexity.ai/",
+   "what": "An API platform that puts several vendors\u2019 models behind one key and adds web search to them: a Router API for open-weight models Perplexity hosts (private preview), an Agent API that reaches Anthropic, Google, OpenAI and xAI models with web search, remote MCP servers and a code sandbox, a Search API, and embeddings."
+  },
+  {
+   "archived": false,
    "asOf": "2026-09-06",
    "basis": "reasoned",
    "compliance": [],
@@ -474,10 +4230,7 @@
    "archived": false,
    "asOf": "2026-09-25",
    "basis": "observed",
-   "compliance": [
-    "The homepage links a documentation site (docs.atlan.com) and a security/trust page (security.atlan.com), and carries badges whose element ids name an AICPA attestation, GDPR, HIPAA and ISO 27001/27701 certification, with alt text that reads only Achievement; none of those pages was opened, and the badges themselves are the only compliance signal read here.",
-    "Not read: retention terms, who processes data, or pricing."
-   ],
+   "compliance": [],
    "kind": "hosted-service",
    "layer": "context-and-tools",
    "name": "Atlan",
@@ -532,10 +4285,7 @@
    "archived": false,
    "asOf": "2026-09-24",
    "basis": "observed",
-   "compliance": [
-    "Not stated on the three pages read: which underlying LLM or model provider, if any, HipAI\u2019s own graph-construction step sends ingested Customer Data to; a SOC 2 report, an ISO 27001 or 42001 certification, HITRUST validation, a signed BAA or a zero-data-retention option; and data residency options.",
-    "HipAI\u2019s Terms of Use say the service is not built to meet such regulations, name HIPAA and FISMA among them as examples, and bar its use wherever those laws would apply to your interactions (gethip.ai/terms.html, as of 2026-09-26)."
-   ],
+   "compliance": [],
    "kind": "hosted-service",
    "layer": "context-and-tools",
    "name": "HipAI",
@@ -601,9 +4351,7 @@
    "archived": false,
    "asOf": "2026-09-24",
    "basis": "observed",
-   "compliance": [
-    "A Trust Center is linked from its homepage and was not opened, so no compliance claim is made here."
-   ],
+   "compliance": [],
    "kind": "hosted-service",
    "layer": "orchestration",
    "name": "Augment Code (Cosmos)",
@@ -625,9 +4373,7 @@
    "archived": false,
    "asOf": "2026-09-09",
    "basis": "observed",
-   "compliance": [
-    "Anthropic\u2019s overview page listed it as not eligible for Zero Data Retention or a HIPAA BAA when read on 2026-09-09; it is a beta, and a beta\u2019s eligibility can change without notice."
-   ],
+   "compliance": [],
    "kind": "hosted-service",
    "layer": "orchestration",
    "name": "Claude Managed Agents",
@@ -1122,9 +4868,7 @@
    "archived": false,
    "asOf": "2026-09-24",
    "basis": "observed",
-   "compliance": [
-    "Not checked: the hosted offering\u2019s own compliance posture, which this read did not open separately from the repository."
-   ],
+   "compliance": [],
    "kind": "repository",
    "layer": "interface",
    "name": "OpenHands/OpenHands",
@@ -1146,9 +4890,7 @@
    "archived": false,
    "asOf": "2026-09-24",
    "basis": "observed",
-   "compliance": [
-    "Its Trust Center (trust.replit.com) returned no readable text when fetched, and no compliance claim beyond that page\u2019s existence is made here."
-   ],
+   "compliance": [],
    "kind": "hosted-service",
    "layer": "interface",
    "name": "Replit Agent",
@@ -1170,9 +4912,7 @@
    "archived": false,
    "asOf": "2026-09-08",
    "basis": "reasoned",
-   "compliance": [
-    "Its own page leads with security and compliance rather than with capability, which is the axis a closed builder competes on once several of them can draw the same graph."
-   ],
+   "compliance": [],
    "kind": "hosted-service",
    "layer": "interface",
    "name": "Stack AI",
@@ -1205,9 +4945,7 @@
    "archived": false,
    "asOf": "2026-09-24",
    "basis": "observed",
-   "compliance": [
-    "Its own security page (warp.dev/security, as of 2026-09-24) states a SOC 2 Type 2 attestation from an accredited third party; HIPAA/BAA language does not appear on that page."
-   ],
+   "compliance": [],
    "kind": "terminal-harness",
    "layer": "interface",
    "name": "Warp",
@@ -1372,9 +5110,7 @@
    "archived": false,
    "asOf": "2026-09-24",
    "basis": "observed",
-   "compliance": [
-    "Its security page returned no readable text when fetched, and no compliance claim is made here."
-   ],
+   "compliance": [],
    "kind": "hosted-service",
    "layer": "evaluate",
    "name": "Braintrust",
@@ -1407,9 +5143,7 @@
    "archived": false,
    "asOf": "2026-09-24",
    "basis": "observed",
-   "compliance": [
-    "Its own security page (langfuse.com/security, as of 2026-09-24) states annual SOC 2 Type II and ISO 27001 audits and describes Langfuse Cloud as a fully managed, multi-tenant SaaS deployment with per-project tenant isolation; self-hosting is offered for teams that want the isolation boundary kept in their own account instead."
-   ],
+   "compliance": [],
    "kind": "repository",
    "layer": "evaluate",
    "name": "langfuse/langfuse",
@@ -1431,9 +5165,7 @@
    "archived": false,
    "asOf": "2026-09-24",
    "basis": "observed",
-   "compliance": [
-    "This description rests on the repository\u2019s own GitHub description, because the product page returned no readable text when fetched, and nothing is said here about the hosted wandb.ai product\u2019s compliance."
-   ],
+   "compliance": [],
    "kind": "repository",
    "layer": "evaluate",
    "name": "wandb/weave",
@@ -1499,9 +5231,7 @@
    "archived": false,
    "asOf": "2026-09-24",
    "basis": "observed",
-   "compliance": [
-    "Not checked: whether Arcade.dev\u2019s own compliance posture now governs Smithery\u2019s hosted sessions."
-   ],
+   "compliance": [],
    "kind": "hosted-service",
    "layer": "register-and-version",
    "name": "Smithery",
@@ -1510,7 +5240,7 @@
   },
   {
    "archived": false,
-   "asOf": "2026-09-24",
+   "asOf": "2026-09-29",
    "basis": "observed",
    "compliance": [],
    "kind": "product-feature",

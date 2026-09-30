@@ -690,6 +690,7 @@ const CSS = `${FONTS}
          border-bottom:none; }
 
   a.src { white-space:nowrap; }
+  @media (max-width:480px) { a.src { white-space:normal; } }
   .linkrow .sep { display:inline; }
 
   .flow { overflow-x:auto; -webkit-overflow-scrolling:touch; }
@@ -2193,13 +2194,99 @@ writePage(path.join(DIST, 'what-you-already-have', 'index.html'), `${pageHead(
 console.log('       dist/what-you-already-have/ — where to start');
 
 const slugT = x => x.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+
+const B_ERROR_TITLE = /^(?:404\b.*|(?:page )?not found|just a moment\.*|access denied|forbidden)$/i;
+const pageName = (title, url) => B_ERROR_TITLE.test(String(title || '').trim())
+  ? String(url).replace(/^https?:\/\//, '').replace(/\/$/, '') : String(title || '');
+const escB = x => String(x).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+
+const MATRIX = TOOLS.matrix || null;
+const CW_NOTE = 'stated for the company; confirm on the page that its scope includes this product';
+function matrixCell(c) {
+  if (!c || c.mark === null) return `<td class="cm-c"></td>`;
+  const notes = [];
+  if (c.plans) notes.push(`only on ${c.plans.join(', ')}`);
+  if (c.conditions) notes.push(`only under ${c.conditions.join('; ')}`);
+  if (c.companyWide) notes.push(CW_NOTE);
+  const said = notes.join('. ');
+  return `<td class="cm-c"><a href="${escB(c.link)}" rel="noopener"${said ? ` title="${escB(bCapM(said))}"` : ''}>${
+    c.mark}${said ? `<span class="vh"> (${escB(said)})</span>` : ''}</a>${c.companyWide ? '<span aria-hidden="true">†</span>' : ''}</td>`;
+}
+const bCapM = x => x ? x[0].toUpperCase() + x.slice(1) : x;
+const MATRIX_CSS = MATRIX ? MATRIX.columns.map(c =>
+  `  .cm-wrap:has(#f-${c.key}:checked) tbody tr:not(.y-${c.key}) { display:none; }`).join('\n') : '';
+function matrixHtml() {
+  if (!MATRIX) return '';
+  const cols = MATRIX.columns;
+  const label = r => r.entry + (r.product ? ` · ${r.product}` : '');
+  const n = cols.length;
+  const notListed = MATRIX.notListed || [];
+  const rows = [...MATRIX.rows].sort((a, b) => label(a).toLowerCase().localeCompare(label(b).toLowerCase()));
+  return `<h2 id="compliance">Compliance, tool by tool</h2>
+  <p><b>None of this is a compliance determination.</b> Each mark says only what a vendor’s own
+     page states. Open the page, and your own agreement, before a decision rests on a mark.</p>
+  <ul class="cm-key">
+    <li><b>Y</b>: the vendor’s own page states it for this product. The mark links to that page.</li>
+    <li><b>Y*</b>: the page states it only for certain plans, deployment options or regions, or only
+        under certain conditions. Hold the pointer over the mark to see which; on a touch screen,
+        open the page. A Y* with no dagger can also rest on a sentence that names only a plan or a
+        region, not a product, so open the page to see whether it reaches this one.</li>
+    <li><b>No</b>: the vendor’s page states it does not apply to this product.</li>
+    <li><b>A dagger</b>, as in <b>Y†</b>, <b>Y*†</b> or <b>No†</b>: the page says it for the company
+        as a whole and does not name this product. Confirm on the page that it covers the product.</li>
+    <li><b>A blank cell is not a no.</b> It can mean nothing was found, or no page that could say
+        was read. It can also mean the item is only in progress, a listing gave no status, a
+        certificate names a retired version of the standard, or two pages disagree.</li>
+  </ul>
+  <p>Three columns have a narrow meaning. HIPAA and GDPR are marked only where the vendor says its
+     product complies with or supports the law. HIPAA BAA is marked Y only where the vendor offers a
+     Business Associate Agreement, and No where its page places the product outside one, as Codex
+     cloud’s row shows.</p>
+  <p>Each name links to the vendor’s trust page, or to the product’s own page where no trust page
+     was read. Where a row says “Marks for” a product, the marks are that product’s. That happens
+     where a tool rests on several products, is a repository’s hosted service, or goes by another
+     name. It also happens where a tool carries another product’s marks: Copilot cloud agent carries
+     GitHub Copilot’s, Claude Code plugin marketplaces carry Claude Code’s, and Vertex AI Agent Engine
+     carries Google Cloud’s and Gemini Enterprise Agent Platform’s. A tool is not confirmed by being
+     listed: the row names the product whose marks it carries.</p>
+  <p>Open-source software and model weights you run yourself have no row: whoever runs them answers
+     these questions. Treat a row as unverified after the date in its last column. That date counts
+     only the pages behind the marks, so a row with no marks has no date, and its blanks are still
+     not a no.</p>
+  <div class="cm-wrap">
+  <fieldset class="cm-f"><legend>Show only products marked Y or Y*, with or without a dagger, in every column you check</legend>
+    ${cols.map(c => `<label><input type="checkbox" id="f-${c.key}"> ${escB(c.label)}</label>`).join('\n    ')}
+  </fieldset>
+  <div class="tbl"><table class="cm">
+    <caption class="vh">Compliance items by product. Y: stated on the vendor’s page. Y*: only on the plans or under the conditions named. No: the vendor states it does not apply. A dagger after any of them: stated for the company without naming this product. Blank: never a no.</caption>
+    <thead><tr><th scope="col">Product</th>${cols.map(c => `<th scope="col" class="cm-h">${escB(c.label)}</th>`).join('')}<th scope="col" class="cm-h">Unverified after</th></tr></thead>
+    <tbody>
+    ${rows.map(r => {
+      const ys = cols.filter(c => /^Y/.test(r.cells[c.key].mark || '')).map(c => `y-${c.key}`);
+      const kind = r.pageKind === 'trust' ? 'Trust page' : 'Product page';
+      return `<tr${ys.length ? ` class="${ys.join(' ')}"` : ''}><th scope="row" class="cm-t"><a href="${escB(r.page)}" rel="noopener" title="${kind}">${escB(r.entry)}</a>${
+        r.product ? `<span class="cm-p">Marks for ${escB(r.product)}</span>` : ''}</th>${
+        cols.map(c => matrixCell(r.cells[c.key])).join('')}<td class="cm-d">${r.unverifiedAfter || ''}</td></tr>`;
+    }).join('\n    ')}
+    </tbody>
+  </table></div>
+  </div>${notListed.length ? `
+  <h3 id="compliance-not-listed">Not in the table</h3>
+  <p>${notListed.length === 1 ? 'One tool on this page relies on another tool’s compliance pages, and a reading of those pages found they do not cover all of it. It has no row. Do not read the other tool’s marks as its own.' : `${SPELLED[notListed.length] || notListed.length} tools on this page rely on another tool’s compliance pages, and a reading of those pages found they do not cover all of them. They have no row. Do not read the other tool’s marks as theirs.`}
+     The reason below is in the words of the record the table is built from, with the pages it
+     rests on and the day each was read.</p>
+  <ul class="cm-nl">
+    ${notListed.map(o => `<li><b>${escB(o.entry)}</b>, on ${escB(o.restsOnPagesOf)}’s pages. ${escB(o.reason)} ${
+      o.pages.map(pg => `<a href="${escB(pg.url)}" rel="noopener">${escB(String(pg.url).replace(/^https?:\/\//, '').replace(/\/$/, ''))}</a>, read ${escB(pg.readOn)}`).join('; ')}.</li>`).join('\n    ')}
+  </ul>` : ''}`;
+}
 fs.mkdirSync(path.join(DIST, 'what-you-already-have', 'options'), { recursive: true });
 writePage(path.join(DIST, 'what-you-already-have', 'options', 'index.html'), `${pageHead(
   'The options at each layer',
   'The tools this work has had to make a decision about, grouped by where they sit, with what each one is and the public signals readable on a stated date. A list, not a review.',
   'https://crinaro.ai/what-you-already-have/options/', `
   .note-wrap { max-width:62rem; }
-  .tbl { overflow-x:auto; margin:0 0 2.6rem; }
+  .tbl { overflow-x:auto; margin:0 0 2.6rem; position:relative; }
   table { border-collapse:collapse; width:100%; min-width:44rem; font-size:.92rem;
            table-layout:fixed; }
   col.c-tool { width:23%; } col.c-what { width:44%; } col.c-type { width:17%; }
@@ -2228,21 +2315,50 @@ writePage(path.join(DIST, 'what-you-already-have', 'options', 'index.html'), `${
   .cmp { margin:.8rem 0 0; font-size:.84rem; color:var(--ink-2); line-height:1.55; }
   .cmp-l { display:block; font-family:var(--mono); font-size:.62rem; letter-spacing:.1em;
            text-transform:uppercase; color:var(--green); margin-bottom:.15rem; }
+  .vh { position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0);
+        white-space:nowrap; }
+  table.cm { min-width:46rem; table-layout:auto; }
+  .cm th.cm-h { white-space:normal; text-align:center; padding:0 .4rem .5rem; }
+  .cm th.cm-t { position:sticky; left:0; z-index:1; background:var(--ground); min-width:9.5rem; }
+  .cm thead th:first-child { position:sticky; left:0; z-index:1; background:var(--ground); }
+  .cm th.cm-t { font-family:var(--head); font-weight:500; text-align:left; padding:.45rem 1rem .45rem 0;
+                border-bottom:1px solid var(--hair); overflow-wrap:normal; text-transform:none;
+                letter-spacing:normal; font-size:.92rem; color:var(--ink); vertical-align:baseline; }
+  .cm th.cm-t a { color:var(--ink); text-decoration:none; border-bottom:1px solid rgba(27,92,70,.35); }
+  .cm td.cm-c { text-align:center; padding:.45rem .5rem; font-family:var(--mono); font-size:.8rem; }
+  .cm td.cm-c a { color:var(--ink); text-decoration:none; border-bottom:1px solid rgba(27,92,70,.35); }
+  .cm-f { border:0; margin:0 0 1rem; padding:0; font-size:.9rem; color:var(--ink-2); line-height:2; }
+  .cm-f legend { font-weight:500; color:var(--ink); padding:0; margin-bottom:.2rem; }
+  .cm-f label { margin-right:1.2rem; white-space:nowrap; }
+  .cm-key { color:var(--ink-2); padding-left:1.2rem; margin:0 0 1.2rem; }
+  .cm-key li { margin:0 0 .45rem; }
+  .cm-p { display:block; font-family:var(--body); font-weight:400; font-size:.8rem; color:var(--ink-2); }
+  .cm-nl { font-size:.9rem; color:var(--ink-2); line-height:1.6; padding-left:1.2rem; }
+  .cm-nl a { color:var(--ink); text-decoration:none; border-bottom:1px solid rgba(27,92,70,.35);
+             overflow-wrap:anywhere; }
+  .cm td.cm-d { font-family:var(--mono); font-size:.66rem; color:var(--muted); white-space:nowrap;
+                text-align:center; padding:.45rem 0 .45rem .4rem; }
+${MATRIX_CSS}
   tr:target td { background:rgba(79,169,138,.08); }`)}
   <h1>The options at each layer</h1>
   <p class="standfirst"><b>It is a list and not a review.</b> Nothing here ranks anything, no entry
      says a tool is good, and nobody here has operated most of them. A product missing from it was
      not evaluated and rejected. Nobody looked.</p>
-  <p class="bookmark-line"><b>Worth bookmarking.</b> Every row carries the date it was read, so each visit shows you how current it is.</p>
-  <p class="bookmark-line"><b>Data and compliance.</b> ${SPELLED[TOOLS.tools.filter(t => (t.compliance || []).length).length] || TOOLS.tools.filter(t => (t.compliance || []).length).length} of the ${TOOLS.tools.length}
+  <p class="bookmark-line"><b>Worth bookmarking.</b> Every row in the layer tables carries the date it was read, so each visit shows you how current it is. The compliance table at the end gives each row a date to treat it as unverified after.</p>
+  ${MATRIX ? `<p class="bookmark-line"><b>Compliance.</b> <a class="src" href="#compliance">A table
+     at the end of this page</a> marks, tool by tool, what the vendor’s own page states on
+     ${(SPELLED[MATRIX.columns.length] || String(MATRIX.columns.length)).toLowerCase()} compliance items:
+     ${MATRIX.columns.map(c => escB(c.label)).join(', ').replace(/, ([^,]*)$/, ' and $1')}. Each mark
+     links to the page, and you can narrow it to the tools marked in the columns you need.</p>`
+  : `<p class="bookmark-line"><b>Data and compliance.</b> ${SPELLED[TOOLS.tools.filter(t => (t.compliance || []).length).length] || TOOLS.tools.filter(t => (t.compliance || []).length).length} of the ${TOOLS.tools.length}
      rows say what was read about compliance or data handling, under the row’s description.
      Several say only that nobody read the vendor’s security page. A row with no such line records
      nothing either way, which is not the same as clean.</p>
   <p class="jump">${TOOLS.tools.filter(t => (t.compliance || []).length).sort((a, b) => a.name.toLowerCase().localeCompare(b.name.toLowerCase()))
-        .map(t => `<a href="#t-${slugT(t.name)}">${t.name}</a>`).join('\n     ')}</p>
+        .map(t => `<a href="#t-${slugT(t.name)}">${t.name}</a>`).join('\n     ')}</p>`}
   <p class="bookmark-line"><b>If customer data will reach an agent,</b> start with
      <a class="src" href="/what-you-already-have/customer-data/">what each cloud says about where it goes</a>,
-     model by model. It decides whether a tool is an option at all.</p>
+     model by model. It can show whether a tool is an option at all.</p>
   <p class="written">List rendered ${TOOLS.cut}. The date on each row is the day its description
      was read, and the word beside it says whether that was <b>observed</b> on the page the row
      links to or <b>reasoned</b> from it. No push date, star count or license is printed here:
@@ -2292,6 +2408,8 @@ writePage(path.join(DIST, 'what-you-already-have', 'options', 'index.html'), `${
   </table></div>`;
   }).filter(Boolean).join('\n\n  ')}
 
+  ${matrixHtml()}
+
   <h2 id="signals">How to read a signal, on anything</h2>
   <p>These keep working on tools that never appear here.</p>
   ${SIGNALS.map(([name, text]) => `<p><b>${name}.</b> ${text}</p>`).join('\n  ')}
@@ -2315,26 +2433,22 @@ const PUB = { AWS: 'AWS', Microsoft: 'Microsoft', Google: 'Google', Anthropic: '
 const slug = x => x.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 function regSource(st) {
   return `<span class="rsrc">${PUB[st.publisher] || esc(st.publisher || '')}, `
-       + `<a href="${esc(st.url)}" rel="noopener">${esc(st.page)}</a>`
+       + `<a href="${esc(st.url)}" rel="noopener">${esc(pageName(st.page, st.url))}</a>`
        + `${st.section ? ' › ' + esc(st.section) : ''}, read ${st.read}</span>`;
 }
 function regStatement(st) {
   if (st.status === 'NOT-STATED')
     return `<p class="rnone">Not stated on the pages read.</p>`;
   if (st.status === 'NOT-LISTED')
-    return `<p class="rnone"><b>Not listed.</b> <a href="${esc(st.url)}" rel="noopener">${esc(st.page)}</a>, `
+    return `<p class="rnone"><b>Not listed.</b> <a href="${esc(st.url)}" rel="noopener">${esc(pageName(st.page, st.url))}</a>, `
          + `read ${st.read}, does not list this combination.</p>`;
   let body;
-  if (st.quote && /^\W{1,3}$/u.test(st.quote)) body = `Marked ${esc(st.quote)} in ${PUB[st.publisher] || 'the vendor'}’s table.`;
-  else if (st.quote) body = `“${esc(st.quote)}”`;
-  else {
-    const mark = /reads "([^"]+)"/.exec(st.note || '');
-    body = mark ? `Marked “${esc(mark[1])}” in ${PUB[st.publisher] || 'the vendor'}’s table.`
-         : /cell is empty/.test(st.note || '') ? `Left blank in ${PUB[st.publisher] || 'the vendor'}’s table.`
-         : esc(st.note || '');
-  }
+  const who = PUB[st.publisher] || esc(st.publisher || 'the vendor');
+  if (st.form === 'cell')
+    body = st.mark ? `Marked “${esc(st.mark)}” in ${who}’s table.` : `Left blank in ${who}’s table.`;
+  else body = esc(st.text || '');
   const flag = st.status === 'STATED-EXCLUDED' ? '<b>Not offered.</b> '
-             : st.status === 'BLANK' ? '<b>Blank.</b> ' : '';
+             : '';
   return `<p class="rq">${flag}${body}<br>${regSource(st)}</p>`;
 }
 const pairLabel = p => [p.model, ...p.qualifiers].join(' · ');
@@ -2373,7 +2487,7 @@ function regRows(c) {
 fs.mkdirSync(path.join(DIST, 'what-you-already-have', 'customer-data'), { recursive: true });
 writePage(path.join(DIST, 'what-you-already-have', 'customer-data', 'index.html'), `${pageHead(
   'Customer data, by cloud and model',
-  'What each cloud and model maker says, in its own words, about where prompts are processed, what is kept, for how long and who can see it. One model on one cloud, tier and region at a time, each line dated.',
+  'What each cloud and model maker’s own pages say, summarized and linked, about where prompts are processed, what is kept, for how long and who can see it. One model on one cloud, tier and region at a time, each line dated.',
   'https://crinaro.ai/what-you-already-have/customer-data/', `
   .note-wrap { max-width:62rem; }
   h2 { scroll-margin-top:1.5rem; margin-top:3.2rem; }
@@ -2416,16 +2530,18 @@ writePage(path.join(DIST, 'what-you-already-have', 'customer-data', 'index.html'
   }`)}
   <h1>Customer data, by cloud and model</h1>
   <p class="standfirst"><b>If customer data can reach an agent, the first question is whether a
-     tool is an option at all.</b> This page puts the vendors’ own statements side by side: for one
-     model on one cloud, routing tier and region at a time, what their pages say about where prompts
-     are processed, what is kept and for how long, and who can see it.</p>
+     tool is an option at all.</b> This page puts what the vendors’ own pages say side by side. It
+     takes one model on one cloud, routing tier and region at a time: where prompts are processed,
+     what is kept and for how long, and who can see it.</p>
   <div class="bound">
   <p><b>It is not a compliance determination, and it is not your contract.</b> Every line is a
-     sentence from the vendor’s own page, with the page, the section and the date it was read.
-     Read the page, and your own agreement, before you rely on one.</p>
-  <p><b>It covers the call to the model and nothing else.</b> Where an agent tool runs its own
-     loop, sandbox and storage is a separate question. For a hosted agent, a private model endpoint
-     answers only the model call.</p>
+     summary of one passage on the vendor’s own page, in plain words rather than the vendor’s, and
+     kept to what that passage covers. Each links to the page and gives the section and the date it
+     was read. Where the vendor’s page gives only a mark in a table, the line reports that mark. Read the
+     page, and your own agreement, before you rely on one.</p>
+  <p><b>It covers the call to the model and nothing else.</b> If an agent tool runs its own loop,
+     sandbox or storage, where those run is a separate question, and this page does not answer it. A
+     private model endpoint covers the model call only, not the rest of a hosted agent.</p>
   <p><b>“Not stated”</b> means no sentence on the pages read answers it. It says nothing about what
      a contract says.</p>
   </div>
@@ -2444,15 +2560,15 @@ writePage(path.join(DIST, 'what-you-already-have', 'customer-data', 'index.html'
   </table></div>
 
   ${REG.clouds.map(c => `<h2 id="${slug(c.platform)}">${esc(c.platform)} (${esc(c.vendor)})</h2>
-  <p class="rmeta">Unverified after ${c.unverifiedAfter} · pages read: ${c.pages.map(pg => `<a href="${esc(pg.url)}" rel="noopener">${esc(pg.title)}</a>`).join(' · ')}</p>
+  <p class="rmeta">Unverified after ${c.unverifiedAfter} · pages read: ${c.pages.map(pg => `<a href="${esc(pg.url)}" rel="noopener">${esc(pageName(pg.title, pg.url))}</a>`).join(' · ')}</p>
   ${c.tiers.length ? `<div class="tbl"><table class="rt"><colgroup><col class="c-q"><col></colgroup>
-    <thead><tr><th>Option</th><th>What ${esc(c.vendor)} says it means</th></tr></thead>
+    <thead><tr><th>Option</th><th>What ${esc(c.vendor)}’s pages say it means</th></tr></thead>
     <tbody>
     ${c.tiers.map(t => `<tr><td class="fq">${esc(t.name)}</td><td>${t.says.map(regStatement).join('')}</td></tr>`).join('\n    ')}
     </tbody></table></div>` : ''}
   <p class="covers">Covered on this cloud:<br>${covers(c)}</p>
   <div class="tbl"><table class="rt"><colgroup><col class="c-q"><col></colgroup>
-    <thead><tr><th>Question</th><th>What the vendor says, and where it applies</th></tr></thead>
+    <thead><tr><th>Question</th><th>What the vendor’s pages say, and where it applies</th></tr></thead>
     <tbody>
     ${regRows(c).map(r => `<tr><td class="fq">${r.fields.map(f => esc(FIELD_LABEL[f])).join('<br>')}</td><td>${
       r.groups.map(g => `<div class="rg"><p class="rsub">${appliesTo(c, g.pairs)}</p>${regStatement(g.row.main)}${
@@ -2462,18 +2578,18 @@ writePage(path.join(DIST, 'what-you-already-have', 'customer-data', 'index.html'
     }</td></tr>`).join('\n    ')}
     </tbody></table></div>`).join('\n\n  ')}
 
-  <p class="attrib">Lines attributed to Google are reproduced from work created and shared by Google
-     and used according to terms described in the
+  <p class="attrib">Every line summarizes its publisher’s page in words that are not the
+     publisher’s; the linked page is the authority on what it says. Lines attributed to Google
+     summarize work created and shared by Google and used according to terms described in the
      <a href="https://creativecommons.org/licenses/by/4.0/" rel="noopener">Creative Commons 4.0 Attribution License</a>.
-     Lines attributed to Microsoft are quoted from Microsoft Learn documentation, © Microsoft, whose
+     Lines attributed to Microsoft summarize Microsoft Learn documentation, © Microsoft, whose
      source is published in <a href="https://github.com/MicrosoftDocs/azure-ai-docs" rel="noopener">MicrosoftDocs/azure-ai-docs</a>
-     under the same license. Lines attributed to AWS are quoted from AWS documentation hosted on
+     under the Creative Commons Attribution 4.0 International License. Lines attributed to AWS summarize AWS documentation hosted on
      docs.aws.amazon.com, which the <a href="https://aws.amazon.com/terms/" rel="noopener">AWS Site Terms</a>
      state is licensed under the
      <a href="https://creativecommons.org/licenses/by-sa/4.0/" rel="noopener">Creative Commons Attribution-ShareAlike 4.0 International License</a>;
-     a line shortened here is offered under the same license. Lines attributed to Anthropic are
-     quoted briefly, for comment, with attribution, and no license to them is claimed. Every quoted
-     line remains its publisher’s.</p>
+     a line drawn from it is offered here under the same license. Lines attributed to Anthropic
+     summarize its pages, with attribution, and no license to them is claimed.</p>
 
   <div class="foot">
     <p class="linkrow"><a class="src" href="/what-you-already-have/options/">The options at each layer</a>
