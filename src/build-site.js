@@ -226,17 +226,17 @@ const TOOLS = JSON.parse(fs.readFileSync(path.join(__dirname, 'tools.json'), 'ut
 const REG = JSON.parse(fs.readFileSync(path.join(__dirname, 'regulated.json'), 'utf8'));
 
 const LAYER_NAMES = [
-  ['compute-and-isolation', 'Somewhere isolated for work to run'],
-  ['serving',               'Something serving a model'],
-  ['gateway',               'Something routing between providers'],
-  ['context-and-tools',     'Something supplying tools and context'],
-  ['orchestration',         'Something that survives a crash'],
-  ['interface',             'Something a person sits in front of'],
-  ['author',                'What you author, and what it runs on'],
-  ['evaluate',              'Checking what came back'],
-  ['register-and-version',  'Registering and versioning what you publish'],
-  ['publish-and-deliver',   'Delivering what you publish'],
-  ['cross-cutting',         'Across all of it'],
+  ['compute-and-isolation', 'Sandboxes for agents',         'A safe place for each run, not someone’s laptop'],
+  ['serving',               'Model hosting',                'Running models yourself, or buying inference'],
+  ['gateway',               'Model access and routing',     'One way in to many model providers'],
+  ['context-and-tools',     'Company knowledge for agents', 'Where agents get facts and reach your systems'],
+  ['orchestration',         'Agent frameworks and runtimes','What runs multi-step work and picks up after a failure'],
+  ['interface',             'Coding agents and assistants', 'What people use to work with agents'],
+  ['author',                'Skills and specs',             'The instructions agents follow'],
+  ['evaluate',              'Testing agent output',         'Tracing, scoring and test runs'],
+  ['register-and-version',  'Catalogs and registries',      'Which agents and tools exist, and which version'],
+  ['publish-and-deliver',   'Distribution to teams',        'Getting skills and tools onto people’s machines'],
+  ['cross-cutting',         'Security and secrets',         'Credentials agents use without holding them'],
 ];
 
 const KIND_LABEL = {
@@ -273,22 +273,22 @@ const SPELLED = ['No', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven',
                  'Nineteen', 'Twenty'];
 
 const LAYERS = [
-  ['compute-and-isolation', 'Somewhere isolated for work to run',
+  ['compute-and-isolation', 'Sandboxes for agents',
    'An agent run gets a workspace that is not somebody\'s laptop, and two runs cannot see each other.',
    'Every unattended run inherits one machine\'s credentials and state. This is the row that stops being optional first, because a scheduled job on a laptop stops when its owner takes leave and nothing reports that it stopped.'],
-  ['serving', 'Something serving a model',
+  ['serving', 'Model hosting',
    'You run a process that holds weights, or you have decided on purpose that you never will.',
    'Nothing, if you buy inference and mean it. Empty is the correct state of this row for anyone who does.'],
-  ['gateway', 'Something routing between providers',
+  ['gateway', 'Model access and routing',
    'Changing which model answers is a configuration change rather than a code change.',
    'Every switch becomes a code change in however many places call a model. One model and one consumer does not earn this row. A second of either does.'],
-  ['context-and-tools', 'Something supplying tools and context',
+  ['context-and-tools', 'Company knowledge for agents',
    'An agent reaches your systems through a declared surface rather than through pasted text.',
    'Nothing records what an agent was actually given, so when a run comes back wrong there is nothing to inspect and nothing to change except the next prompt.'],
-  ['orchestration', 'Something that survives a crash',
+  ['orchestration', 'Agent frameworks and runtimes',
    'A sequence that dies halfway resumes rather than restarts.',
    'Long work is only as reliable as the machine it started on. This row earns its place once a run is long enough that starting it again is expensive, and before that it is easy to buy too early.'],
-  ['interface', 'Something a person sits in front of',
+  ['interface', 'Coding agents and assistants',
    'Nobody has to read a log to know what an agent did.',
    'You cannot tell a working agent team from a stuck one without going and asking the person running it.'],
 ];
@@ -2167,15 +2167,14 @@ writePage(path.join(DIST, 'what-you-already-have', 'index.html'), `${pageHead(
 
   <p>The order is the order these stop being optional in, which is an argument about what depends on
      what and not about what is good. <b>${SPELLED[LAYER_NAMES.length - LAYERS.length]} groups in
-     the options have no row here, on purpose.</b> What you author and what it runs on, and the
-     things that sit across all of it, are not on the request path in the way these
-     ${SPELLED[LAYERS.length].toLowerCase()} are, so an order of adoption says nothing useful about
-     them. Evaluating what an agent produced is not a row either. You can buy what runs an
+     the options have no row here, on purpose.</b> Skills and specs, and security and secrets, are
+     not on the request path in the way these ${SPELLED[LAYERS.length].toLowerCase()} are, so an
+     order of adoption says nothing useful about them. Testing agent output is not a row either. You can buy what runs an
      evaluation, and <a class="src" href="/what-you-already-have/options/#l-evaluate">the options</a>
      list seven products that trace, score and test, but none decides what a good result is: those
-     cases are yours to write. Nor is delivering what is registered to the machines that run it,
-     where the options hold one vendor feature. A registry of prompts or agent
-     definitions is not a row here either, and that one is not scarcity: it has rows in the options.
+     cases are yours to write. Nor is distribution to teams, where the options hold one vendor
+     feature. Catalogs and registries are not a row here either, and that is not scarcity: they
+     have rows in the options.
      What it does not have is a place in this order, and this page does not invent one. Naming that
      is the alternative to selling you a gap as a layer.</p>
 
@@ -2213,72 +2212,63 @@ function matrixCell(c) {
     c.mark}${said ? `<span class="vh"> (${escB(said)})</span>` : ''}</a>${c.companyWide ? '<span aria-hidden="true">†</span>' : ''}</td>`;
 }
 const bCapM = x => x ? x[0].toUpperCase() + x.slice(1) : x;
+const shortCol = l => l.replace('ISO/IEC ', 'ISO ').replace(/\s*\(.*\)$/, '');
+function complianceCell(t) {
+  if (!MATRIX) return '';
+  const rows = MATRIX.rows.filter(r => r.entry === t.name);
+  if (!rows.length) {
+    const nl = (MATRIX.notListed || []).find(o => o.entry === t.name);
+    if (nl) return `<span class="cc-none">Not in the compliance record.</span> <a class="cc-why" href="#compliance-not-listed">Why</a>`;
+    if (t.kind === 'repository' || t.kind === 'model') return '<span class="cc-none">You run it, so you answer these.</span>';
+    return '<span class="cc-none">No compliance row.</span>';
+  }
+  return rows.map(r => {
+    const items = MATRIX.columns.filter(c => r.cells[c.key].mark !== null).map(c => {
+      const x = r.cells[c.key];
+      const notes = [];
+      if (x.plans) notes.push(`only on ${x.plans.join(', ')}`);
+      if (x.conditions) notes.push(`only under ${x.conditions.join('; ')}`);
+      if (x.companyWide) notes.push(CW_NOTE);
+      const said = notes.join('. ');
+      const name = x.mark === 'No' ? `No ${shortCol(c.label)}` : shortCol(c.label) + (x.mark === 'Y*' ? '*' : '');
+      return `<a href="${escB(x.link)}" rel="noopener"${said ? ` title="${escB(bCapM(said))}"` : ''}>${escB(name)}${
+        said ? `<span class="vh"> (${escB(said)})</span>` : ''}</a>${x.companyWide ? '<span aria-hidden="true">†</span>' : ''}`;
+    });
+    return `<div class="cc">${r.product ? `<span class="cc-p">${escB(r.product)}</span>` : ''}${
+      items.length ? `<span class="cc-i">${items.map(x => `<span class="cc-g">${x}</span>`).join(' ')}</span>` : '<span class="cc-none">Nothing marked.</span>'}${
+      r.unverifiedAfter ? `<span class="cc-d">Unverified after ${r.unverifiedAfter}</span>` : ''}</div>`;
+  }).join('');
+}
+const toolY = t => !MATRIX ? [] : [...new Set(MATRIX.rows.filter(r => r.entry === t.name).flatMap(r =>
+  MATRIX.columns.filter(c => /^Y/.test(r.cells[c.key].mark || '')).map(c => `y-${c.key}`)))];
 const MATRIX_CSS = MATRIX ? MATRIX.columns.map(c =>
   `  .cm-wrap:has(#f-${c.key}:checked) tbody tr:not(.y-${c.key}) { display:none; }`).join('\n') : '';
 function matrixHtml() {
-  if (!MATRIX) return '';
-  const cols = MATRIX.columns;
-  const label = r => r.entry + (r.product ? ` · ${r.product}` : '');
-  const n = cols.length;
-  const notListed = MATRIX.notListed || [];
-  const rows = [...MATRIX.rows].sort((a, b) => label(a).toLowerCase().localeCompare(label(b).toLowerCase()));
-  return `<h2 id="compliance">Compliance, tool by tool</h2>
-  <p><b>None of this is a compliance determination.</b> Each mark says only what a vendor’s own
-     page states. Open the page, and your own agreement, before a decision rests on a mark.</p>
-  <ul class="cm-key">
-    <li><b>Y</b>: the vendor’s own page states it for this product. The mark links to that page.</li>
-    <li><b>Y*</b>: the page states it only for certain plans, deployment options or regions, or only
-        under certain conditions. Hold the pointer over the mark to see which; on a touch screen,
-        open the page. A Y* with no dagger can also rest on a sentence that names only a plan or a
-        region, not a product, so open the page to see whether it reaches this one.</li>
-    <li><b>No</b>: the vendor’s page states it does not apply to this product.</li>
-    <li><b>A dagger</b>, as in <b>Y†</b>, <b>Y*†</b> or <b>No†</b>: the page says it for the company
-        as a whole and does not name this product. Confirm on the page that it covers the product.</li>
-    <li><b>A blank cell is not a no.</b> It can mean nothing was found, or no page that could say
-        was read. It can also mean the item is only in progress, a listing gave no status, a
-        certificate names a retired version of the standard, or two pages disagree.</li>
-  </ul>
-  <p>Three columns have a narrow meaning. HIPAA and GDPR are marked only where the vendor says its
-     product complies with or supports the law. HIPAA BAA is marked Y only where the vendor offers a
-     Business Associate Agreement, and No where its page places the product outside one, as Codex
-     cloud’s row shows.</p>
-  <p>Each name links to the vendor’s trust page, or to the product’s own page where no trust page
-     was read. Where a row says “Marks for” a product, the marks are that product’s. That happens
-     where a tool rests on several products, is a repository’s hosted service, or goes by another
-     name. It also happens where a tool carries another product’s marks: Copilot cloud agent carries
-     GitHub Copilot’s, Claude Code plugin marketplaces carry Claude Code’s, and Vertex AI Agent Engine
-     carries Google Cloud’s and Gemini Enterprise Agent Platform’s. A tool is not confirmed by being
-     listed: the row names the product whose marks it carries.</p>
-  <p>Open-source software and model weights you run yourself have no row: whoever runs them answers
-     these questions. Treat a row as unverified after the date in its last column. That date counts
-     only the pages behind the marks, so a row with no marks has no date, and its blanks are still
-     not a no.</p>
-  <div class="cm-wrap">
-  <fieldset class="cm-f"><legend>Show only products marked Y or Y*, with or without a dagger, in every column you check</legend>
-    ${cols.map(c => `<label><input type="checkbox" id="f-${c.key}"> ${escB(c.label)}</label>`).join('\n    ')}
-  </fieldset>
-  <div class="tbl"><table class="cm">
-    <caption class="vh">Compliance items by product. Y: stated on the vendor’s page. Y*: only on the plans or under the conditions named. No: the vendor states it does not apply. A dagger after any of them: stated for the company without naming this product. Blank: never a no.</caption>
-    <thead><tr><th scope="col">Product</th>${cols.map(c => `<th scope="col" class="cm-h">${escB(c.label)}</th>`).join('')}<th scope="col" class="cm-h">Unverified after</th></tr></thead>
-    <tbody>
-    ${rows.map(r => {
-      const ys = cols.filter(c => /^Y/.test(r.cells[c.key].mark || '')).map(c => `y-${c.key}`);
-      const kind = r.pageKind === 'trust' ? 'Trust page' : 'Product page';
-      return `<tr${ys.length ? ` class="${ys.join(' ')}"` : ''}><th scope="row" class="cm-t"><a href="${escB(r.page)}" rel="noopener" title="${kind}">${escB(r.entry)}</a>${
-        r.product ? `<span class="cm-p">Marks for ${escB(r.product)}</span>` : ''}</th>${
-        cols.map(c => matrixCell(r.cells[c.key])).join('')}<td class="cm-d">${r.unverifiedAfter || ''}</td></tr>`;
-    }).join('\n    ')}
-    </tbody>
-  </table></div>
-  </div>${notListed.length ? `
-  <h3 id="compliance-not-listed">Not in the table</h3>
-  <p>${notListed.length === 1 ? 'One tool on this page relies on another tool’s compliance pages, and a reading of those pages found they do not cover all of it. It has no row. Do not read the other tool’s marks as its own.' : `${SPELLED[notListed.length] || notListed.length} tools on this page rely on another tool’s compliance pages, and a reading of those pages found they do not cover all of them. They have no row. Do not read the other tool’s marks as theirs.`}
-     The reason below is in the words of the record the table is built from, with the pages it
-     rests on and the day each was read.</p>
-  <ul class="cm-nl">
-    ${notListed.map(o => `<li><b>${escB(o.entry)}</b>, on ${escB(o.restsOnPagesOf)}’s pages. ${escB(o.reason)} ${
-      o.pages.map(pg => `<a href="${escB(pg.url)}" rel="noopener">${escB(String(pg.url).replace(/^https?:\/\//, '').replace(/\/$/, ''))}</a>, read ${escB(pg.readOn)}`).join('; ')}.</li>`).join('\n    ')}
-  </ul>` : ''}`;
+  const notListed = MATRIX ? (MATRIX.notListed || []) : [];
+  const k = (term, def) => `<dt>${term}</dt><dd>${def}</dd>`;
+  return `<h2 id="compliance">Key</h2>
+  <p class="key-bound"><b>Not a compliance determination.</b> Each item repeats what the vendor’s own
+     page says, and links to it. Check that page, and your own agreement, before relying on it.</p>
+  <dl class="key">
+    ${MATRIX ? [
+      k('<span class="ks">SOC 2</span>', 'Stated on the vendor’s page for this product.'),
+      k('<span class="ks">SOC 2*</span>', 'Only on some plans, regions or conditions. Hover for which.'),
+      k('<span class="ks">SOC 2†</span>', 'Stated for the whole company. Confirm it covers this product.'),
+      k('<span class="ks">No HIPAA BAA</span>', 'The vendor says it does not apply.'),
+      k('Not named', 'Not a no. Nothing was found, or nobody checked.'),
+      k('<b>Bold name</b>', 'The product the items below it belong to.'),
+      k('You run it', 'Open-source software or model weights: whoever runs it answers these.'),
+      k('Unverified after', 'Recheck the vendor’s page after this date.'),
+    ].join('\n    ') : ''}
+    ${k('Read', 'The day the description was read: <b>observed</b> on the linked page, or <b>reasoned</b> from it.')}
+  </dl>
+  <p class="key-note">HIPAA and GDPR are named only where the vendor says the product complies. A tool
+     resting on several products passes the filter when they carry the checked items between them.
+     For where customer data goes, model by model, see
+     <a class="src" href="/what-you-already-have/customer-data/">customer data by cloud</a>.</p>${notListed.length ? `
+  <p class="key-note" id="compliance-not-listed"><b>Not in the compliance record:</b> ${notListed.map(o =>
+    `${escB(o.entry)}, whose compliance pages do not cover all of it. ${escB(o.reason)} ${
+      o.pages.map(pg => `<a href="${escB(pg.url)}" rel="noopener">${escB(String(pg.url).replace(/^https?:\/\//, '').replace(/\/$/, ''))}</a>, read ${escB(pg.readOn)}`).join('; ')}.`).join(' ')}</p>` : ''}`;
 }
 fs.mkdirSync(path.join(DIST, 'what-you-already-have', 'options'), { recursive: true });
 writePage(path.join(DIST, 'what-you-already-have', 'options', 'index.html'), `${pageHead(
@@ -2287,10 +2277,10 @@ writePage(path.join(DIST, 'what-you-already-have', 'options', 'index.html'), `${
   'https://crinaro.ai/what-you-already-have/options/', `
   .note-wrap { max-width:62rem; }
   .tbl { overflow-x:auto; margin:0 0 2.6rem; position:relative; }
-  table { border-collapse:collapse; width:100%; min-width:44rem; font-size:.92rem;
+  table { border-collapse:collapse; width:100%; min-width:54rem; font-size:.92rem;
            table-layout:fixed; }
-  col.c-tool { width:23%; } col.c-what { width:44%; } col.c-type { width:17%; }
-  col.c-read { width:16%; }
+  col.c-tool { width:15%; } col.c-what { width:31%; } col.c-type { width:11%; }
+  col.c-read { width:17%; }
   .empty { color:var(--muted); margin:0 0 2.6rem; }
   td.ty { white-space:nowrap; }
   th { font-family:var(--mono); font-size:.66rem; letter-spacing:.13em; text-transform:uppercase;
@@ -2330,6 +2320,51 @@ writePage(path.join(DIST, 'what-you-already-have', 'options', 'index.html'), `${
   .cm-f { border:0; margin:0 0 1rem; padding:0; font-size:.9rem; color:var(--ink-2); line-height:2; }
   .cm-f legend { font-weight:500; color:var(--ink); padding:0; margin-bottom:.2rem; }
   .cm-f label { margin-right:1.2rem; white-space:nowrap; }
+  col.c-cc { width:26%; }
+  .cc-td { font-size:.84rem; line-height:1.5; }
+  .cc + .cc { margin-top:.6rem; }
+  .cc-p { display:block; font-weight:500; color:var(--ink); }
+  .cc-i a { color:var(--ink-2); text-decoration:none; border-bottom:1px solid rgba(27,92,70,.3); }
+  .cc-none { color:var(--muted); }
+  .cc-g { white-space:nowrap; margin-right:1.35rem; }
+  .cc-why { color:var(--ink-2); }
+  @media (max-width:640px) {
+    table.lt { min-width:0; table-layout:auto; }
+    table.lt colgroup, table.lt thead { display:none; }
+    table.lt tr { display:block; border-bottom:1px solid var(--hair); padding:.7rem 0; }
+    table.lt td { display:block; border:0; padding:.15rem 0; width:auto; white-space:normal; }
+    table.lt td[data-l]::before { content:attr(data-l); display:block; font-family:var(--mono);
+      font-size:.6rem; letter-spacing:.12em; text-transform:uppercase; color:var(--muted); margin-top:.4rem; }
+  }
+  .cc-d { display:block; font-family:var(--mono); font-size:.62rem; color:var(--muted); margin-top:.15rem; }
+  .secnav { display:grid; grid-template-columns:repeat(auto-fill,minmax(13.5rem,1fr)); gap:.7rem 1.5rem;
+            margin:0 0 2rem; }
+  .secnav a { display:grid; grid-template-columns:auto 1fr; column-gap:.7rem; align-items:baseline;
+              padding:.7rem .9rem; border:1px solid var(--hair); border-radius:6px;
+              text-decoration:none; color:var(--ink); background:var(--ground); }
+  .secnav a:hover { border-color:var(--green); }
+  .sn-n { font-family:var(--mono); font-size:.7rem; color:var(--green); grid-row:span 3; }
+  .sn-l { font-family:var(--head); font-weight:500; font-size:.92rem; line-height:1.3; }
+  .sn-c { grid-column:2; font-size:.76rem; color:var(--muted); line-height:1.35; }
+  .sn-k { font-family:var(--mono); font-size:.64rem; margin-top:.2rem; }
+  .secnav a.sn-x { background:var(--paper); }
+  .secnav a.sn-x .sn-l, .secnav a.sn-x .sn-c { grid-column:1 / -1; }
+  .cm-f { border:1px solid var(--hair) !important; border-radius:6px; padding:.5rem .9rem .3rem !important;
+          min-width:0; box-sizing:border-box; margin-left:0; margin-right:0; }
+  @media (max-width:640px) {
+    .secnav { grid-template-columns:1fr 1fr; }
+    .secnav a { padding:.55rem .6rem; column-gap:.45rem; }
+    .sn-l { font-size:.82rem; }
+  }
+  .key-bound { margin:0 0 1rem; color:var(--ink-2); }
+  .key { display:grid; grid-template-columns:max-content 1fr; gap:.35rem 1.2rem; margin:0 0 1rem;
+         font-size:.9rem; color:var(--ink-2); }
+  .key dt { font-weight:500; color:var(--ink); }
+  .key dd { margin:0; }
+  .ks { font-family:var(--body); border-bottom:1px solid rgba(27,92,70,.3); }
+  .key-note { font-size:.86rem; color:var(--ink-2); line-height:1.6; }
+  .cm-more { margin:0 0 1.6rem; color:var(--ink-2); }
+  .cm-more summary { cursor:pointer; font-weight:500; color:var(--ink); margin-bottom:.8rem; }
   .cm-key { color:var(--ink-2); padding-left:1.2rem; margin:0 0 1.2rem; }
   .cm-key li { margin:0 0 .45rem; }
   .cm-p { display:block; font-family:var(--body); font-weight:400; font-size:.8rem; color:var(--ink-2); }
@@ -2341,34 +2376,21 @@ writePage(path.join(DIST, 'what-you-already-have', 'options', 'index.html'), `${
 ${MATRIX_CSS}
   tr:target td { background:rgba(79,169,138,.08); }`)}
   <h1>The options at each layer</h1>
-  <p class="standfirst"><b>It is a list and not a review.</b> Nothing here ranks anything, no entry
-     says a tool is good, and nobody here has operated most of them. A product missing from it was
-     not evaluated and rejected. Nobody looked.</p>
-  <p class="bookmark-line"><b>Worth bookmarking.</b> Every row in the layer tables carries the date it was read, so each visit shows you how current it is. The compliance table at the end gives each row a date to treat it as unverified after.</p>
-  ${MATRIX ? `<p class="bookmark-line"><b>Compliance.</b> <a class="src" href="#compliance">A table
-     at the end of this page</a> marks, tool by tool, what the vendor’s own page states on
-     ${(SPELLED[MATRIX.columns.length] || String(MATRIX.columns.length)).toLowerCase()} compliance items:
-     ${MATRIX.columns.map(c => escB(c.label)).join(', ').replace(/, ([^,]*)$/, ' and $1')}. Each mark
-     links to the page, and you can narrow it to the tools marked in the columns you need.</p>`
-  : `<p class="bookmark-line"><b>Data and compliance.</b> ${SPELLED[TOOLS.tools.filter(t => (t.compliance || []).length).length] || TOOLS.tools.filter(t => (t.compliance || []).length).length} of the ${TOOLS.tools.length}
-     rows say what was read about compliance or data handling, under the row’s description.
-     Several say only that nobody read the vendor’s security page. A row with no such line records
-     nothing either way, which is not the same as clean.</p>
-  <p class="jump">${TOOLS.tools.filter(t => (t.compliance || []).length).sort((a, b) => a.name.toLowerCase().localeCompare(b.name.toLowerCase()))
-        .map(t => `<a href="#t-${slugT(t.name)}">${t.name}</a>`).join('\n     ')}</p>`}
-  <p class="bookmark-line"><b>If customer data will reach an agent,</b> start with
-     <a class="src" href="/what-you-already-have/customer-data/">what each cloud says about where it goes</a>,
-     model by model. It can show whether a tool is an option at all.</p>
-  <p class="written">List rendered ${TOOLS.cut}. The date on each row is the day its description
-     was read, and the word beside it says whether that was <b>observed</b> on the page the row
-     links to or <b>reasoned</b> from it. No push date, star count or license is printed here:
-     the linked page shows all three, and a copy would go stale on somebody else's schedule.
-     <a class="src" href="#signals">How to read them when you get there</a>.</p>
+  <p class="standfirst">A list, not a review: nothing is ranked, and a tool missing from it was not
+     evaluated and rejected. Nobody looked. Rendered ${TOOLS.cut}.</p>
 
-  <p class="jump">${LAYER_NAMES.filter(([k]) => TOOLS.tools.some(t => t.layer === k) || EMPTY_LAYER[k])
-      .map(([k, label]) => `<a href="#l-${k}">${label}</a>`)
-      .join('\n      ')}</p>
+  <nav class="secnav" aria-label="Sections">
+    ${LAYER_NAMES.filter(([k]) => TOOLS.tools.some(t => t.layer === k) || EMPTY_LAYER[k]).map(([k, label, sub], i) => {
+      const n = TOOLS.tools.filter(t => t.layer === k).length;
+      return `<a href="#l-${k}"><span class="sn-n">${String(i + 1).padStart(2, '0')}</span><span class="sn-l">${label}</span><span class="sn-c">${sub}</span><span class="sn-c sn-k">${n} ${n === 1 ? 'tool' : 'tools'}</span></a>`;
+    }).join('\n    ')}
+    <a href="#compliance" class="sn-x"><span class="sn-l">Key</span><span class="sn-c">How to read the tables</span></a>
+  </nav>
 
+  <div class="cm-wrap">
+  ${MATRIX ? `  <fieldset class="cm-f"><legend>Filter by compliance</legend>
+    ${MATRIX.columns.map(c => `<label><input type="checkbox" id="f-${c.key}"> ${escB(c.label)}</label>`).join('\n    ')}
+  </fieldset>` : ''}
   ${LAYER_NAMES.map(([key, label]) => {
     const list = TOOLS.tools.filter(t => t.layer === key)
                             .sort((a, b) => a.name.toLowerCase().localeCompare(b.name.toLowerCase()));
@@ -2393,20 +2415,22 @@ ${MATRIX_CSS}
            + `${e.after ? ' ' + e.after : ''}</p>`;
     }
     return `<h2 id="l-${key}">${label}</h2>
-  <div class="tbl"><table>
-    <colgroup><col class="c-tool"><col class="c-what"><col class="c-type"><col class="c-read"></colgroup>
-    <thead><tr><th>Tool</th><th>What it is</th><th>Type</th><th>Read</th></tr></thead>
+  <div class="tbl"><table class="lt">
+    <colgroup><col class="c-tool"><col class="c-what">${MATRIX ? '<col class="c-cc">' : ''}<col class="c-type"><col class="c-read"></colgroup>
+    <thead><tr><th>Tool</th><th>What it is</th>${MATRIX ? '<th>Compliance</th>' : ''}<th>Type</th><th>Read</th></tr></thead>
     <tbody>
-    ${list.map(t => `<tr id="t-${slugT(t.name)}">
+    ${list.map(t => `<tr id="t-${slugT(t.name)}"${toolY(t).length ? ` class="${toolY(t).join(' ')}"` : ''}>
       <td class="nm"><a href="${t.url}" rel="noopener">${t.name}</a>${t.archived ? '<span class="arch">archived</span>' : ''}</td>
       <td>${(t.what.match(/^.*?[.!?](?=\s|$)/) || [t.what])[0]}${(t.compliance || []).length
         ? `<p class="cmp"><span class="cmp-l">Data and compliance</span>${t.compliance.join(' ')}</p>` : ''}</td>
-      <td class="ty">${KIND_LABEL[t.kind] || ''}</td>
-      <td class="sg">${t.basis} ${t.asOf}</td>
+      ${MATRIX ? `<td class="cc-td" data-l="Compliance">${complianceCell(t)}</td>` : ''}
+      <td class="ty" data-l="Type">${KIND_LABEL[t.kind] || ''}</td>
+      <td class="sg" data-l="Read">${t.basis} ${t.asOf}</td>
     </tr>`).join('\n    ')}
     </tbody>
   </table></div>`;
   }).filter(Boolean).join('\n\n  ')}
+  </div>
 
   ${matrixHtml()}
 
