@@ -38,8 +38,18 @@ if (!fs.existsSync(FONTS_CSS)) {
 const FONTS = fs.readFileSync(FONTS_CSS, 'utf8').trim();
 
 const EMAIL = 'john@crinaro.ai';
+const OWN_HOST = /^https?:\/\/(?:www\.)?crinaro\.(?:ai|github\.io)(?:[\/?#]|$)/i;
+const externalLinks = html => html.replace(/<a\b([^>]*?)>/g, (tag, attrs) => {
+  const href = /\shref="([^"]*)"/.exec(attrs);
+  if (!href || !/^https?:\/\//i.test(href[1]) || OWN_HOST.test(href[1])) return tag;
+  let a = attrs.replace(/\starget="[^"]*"/, '');
+  const rel = /\srel="([^"]*)"/.exec(a);
+  const words = new Set([...(rel ? rel[1].split(/\s+/) : []), 'noopener', 'noreferrer'].filter(Boolean));
+  a = rel ? a.replace(rel[0], ` rel="${[...words].join(' ')}"`) : `${a} rel="${[...words].join(' ')}"`;
+  return `<a${a} target="_blank">`;
+});
 const writePage = (p, html) => {
-  const out = html
+  const out = externalLinks(html)
     .replace(/<!--[\s\S]*?-->/g, '')
     .replace(/<style>([\s\S]*?)<\/style>/g,
              (_, css) => `<style>${css.replace(/\/\*[\s\S]*?\*\//g, '')}</style>`);
