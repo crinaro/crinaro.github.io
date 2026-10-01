@@ -39,17 +39,21 @@ const FONTS = fs.readFileSync(FONTS_CSS, 'utf8').trim();
 
 const EMAIL = 'john@crinaro.ai';
 const OWN_HOST = /^https?:\/\/(?:www\.)?crinaro\.(?:ai|github\.io)(?:[\/?#]|$)/i;
-const externalLinks = html => html.replace(/<a\b([^>]*?)>/g, (tag, attrs) => {
+const externalLinks = html => html.replace(/<a\b([^>]*?)>([\s\S]*?)<\/a>/g, (whole, attrs, inner) => {
   const href = /\shref="([^"]*)"/.exec(attrs);
-  if (!href || !/^https?:\/\//i.test(href[1]) || OWN_HOST.test(href[1])) return tag;
+  if (!href || !/^https?:\/\//i.test(href[1]) || OWN_HOST.test(href[1])) return whole;
   let a = attrs.replace(/\starget="[^"]*"/, '');
   const rel = /\srel="([^"]*)"/.exec(a);
   const words = new Set([...(rel ? rel[1].split(/\s+/) : []), 'noopener', 'noreferrer'].filter(Boolean));
   a = rel ? a.replace(rel[0], ` rel="${[...words].join(' ')}"`) : `${a} rel="${[...words].join(' ')}"`;
-  return `<a${a} target="_blank">`;
+  const quiet = /\sclass="[^"]*\bnoext\b/.test(a);
+  const mark = quiet ? '' : '⁠<span class="ext-m" aria-hidden="true">↗</span><span class="ext-vh"> (opens in a new tab)</span>';
+  return `<a${a} target="_blank">${inner}${mark}</a>`;
 });
+const EXT_CSS = `<style>.ext-m { font-size:.78em; margin-left:.1em; vertical-align:.08em; text-decoration:none; }
+  .ext-vh { position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; }</style>`;
 const writePage = (p, html) => {
-  const out = externalLinks(html)
+  const out = externalLinks(html).replace('</head>', `${EXT_CSS}\n</head>`)
     .replace(/<!--[\s\S]*?-->/g, '')
     .replace(/<style>([\s\S]*?)<\/style>/g,
              (_, css) => `<style>${css.replace(/\/\*[\s\S]*?\*\//g, '')}</style>`);
@@ -2278,7 +2282,7 @@ function complianceCell(t) {
       if (x.companyWide) notes.push(CW_NOTE);
       const said = notes.join('. ');
       const name = x.mark === 'No' ? `No ${shortCol(c.label)}` : shortCol(c.label) + (x.mark === 'Y*' ? '*' : '');
-      return `<a href="${escB(x.link)}" rel="noopener"${said ? ` title="${escB(bCapM(said))}"` : ''}>${escB(name)}${
+      return `<a class="noext" href="${escB(x.link)}" rel="noopener"${said ? ` title="${escB(bCapM(said))}"` : ''}>${escB(name)}${
         said ? `<span class="vh"> (${escB(said)})</span>` : ''}</a>${x.companyWide ? '<span aria-hidden="true">†</span>' : ''}`;
     });
     return `<div class="cc">${r.product ? `<span class="cc-p">${escB(r.product)}</span>` : ''}${
