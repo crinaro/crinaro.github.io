@@ -2248,26 +2248,36 @@ function blankGroups(r) {
   }).join('');
 }
 const hostOf = u => String(u).replace(/^https?:\/\//, '').replace(/\/.*$/, '');
-const sectionText = x => String(x).replace(/\.\s*$/, '');
+const citeOf = x => {
+  const sec = String(x.section).trim();
+  const has = /[\p{L}\p{N}]/u.test(sec);
+  const read = has && /[.!?]$/.test(sec) ? ' Read' : ', read';
+  return `<a href="${escB(x.page)}" rel="noopener">${escB(hostOf(x.page))}</a>${
+    has ? `, ${escB(sec)}` : ''}${read} ${escB(x.readOn)}.`;
+};
+const GEN_LABEL = 'From the vendor’s table, not a reviewed summary:';
+const wordsOf = x => x.generated !== undefined
+  ? `<span class="gen">${GEN_LABEL}</span> ${escB(x.generated)}` : escB(x.summary);
 function restrictionsRow(t, cls) {
   if (!MATRIX) return '';
   const rows = MATRIX.rows.filter(r => r.entry === t.name && r.restrictions.length);
   if (!rows.length) return '';
-  const cite = x => `<a href="${escB(x.page)}" rel="noopener">${escB(hostOf(x.page))}</a>, ${escB(sectionText(x.section))}, read ${escB(x.readOn)}.`;
+  const cite = citeOf;
   const items = rows.flatMap(r => r.restrictions.map(it => {
     const scope = [it.condition ? `under ${it.condition}` : '', it.plans ? `on ${it.plans.join(', ')}` : '']
       .filter(Boolean).join(', ');
     return `<p class="rs-i"><span class="rs-l">Restriction${r.product ? `, ${escB(r.product)}` : ''}: ${
       escB(it.about)}${scope ? ` (${escB(scope)})` : ''}.</span> ${escB(it.summary)} ${cite(it)}${
       it.companyWide ? ` <span class="rs-cw">† ${escB(bCapM(CW_NOTE))}.</span>` : ''}</p>${
-      it.also.map(al => `<p class="rs-a">Also: ${escB(al.summary || al.generated)} ${cite(al)}</p>`).join('')}`;
+      it.also.map(al => `<p class="rs-a">Also: ${wordsOf(al)} ${cite(al)}</p>`).join('')}`;
   }));
   return `<tr class="rs${cls}"><td colspan="5" data-l="Restrictions">${items.join('')}</td></tr>`;
 }
 const SELF_RUN = 'You run it, so you answer these.';
+const NOT_SHOWN = 'Not shown to hold.';
 function detailParts(label, detail) {
   if (!detail) return [shortCol(label), ''];
-  if (detail.startsWith(label + ':')) return [shortCol(detail), ''];
+  if (detail.startsWith(label + ':')) return [shortCol(label) + detail.slice(label.length), ''];
   if (detail.startsWith(label + ' ')) return [shortCol(label), detail.slice(label.length + 1)];
   return [shortCol(label), detail];
 }
@@ -2278,12 +2288,13 @@ function complianceCell(t) {
   const selfRun = t.kind === 'repository' || t.kind === 'model';
   if (!rows.length) {
     const nl = (MATRIX.notListed || []).find(o => o.entry === t.name);
-    if (nl) return `<span class="cc-none">Nothing found yet.</span> <a class="cc-why" href="#compliance-not-listed">Why</a>`;
+    if (nl) return `<span class="cc-none">${NOT_SHOWN}</span> <a class="cc-why" href="#compliance-not-listed">Why</a>`;
     if (selfRun) return `<span class="cc-none">${SELF_RUN}</span>`;
-    return '<span class="cc-none">Nothing found yet.</span>';
+    return `<span class="cc-none">${NOT_SHOWN}</span>`;
   }
+  const holds = x => x.mark === 'Y' || x.mark === 'Y*';
   return rows.map(r => {
-    const items = MATRIX.columns.filter(c => r.cells[c.key].mark !== null).map(c => {
+    const items = MATRIX.columns.filter(c => holds(r.cells[c.key])).map(c => {
       const x = r.cells[c.key];
       const notes = [];
       if (x.plans) notes.push(`only on ${x.plans.join(', ')}`);
@@ -2291,14 +2302,14 @@ function complianceCell(t) {
       if (x.companyWide) notes.push(CW_NOTE);
       const said = notes.join('. ');
       const [nm, rest] = detailParts(c.label, x.detail);
-      const name = x.mark === 'No' ? `No ${nm}` : nm + (x.mark === 'Y*' ? '*' : '');
+      const name = nm + (x.mark === 'Y*' ? '*' : '');
       return `<a class="noext" href="${escB(x.link)}" rel="noopener"${said ? ` title="${escB(bCapM(said))}"` : ''}>${escB(name)}${
         said ? `<span class="vh"> (${escB(said)})</span>` : ''}</a>${x.companyWide ? '<span aria-hidden="true">†</span>' : ''}${
         rest ? ` <span class="cc-dt">${escB(rest)}</span>` : ''}`;
     });
     return `<div class="cc">${r.product ? `<span class="cc-p">${escB(r.product)}</span>` : ''}${
       items.length ? `<span class="cc-i">${items.map(x => `<span class="cc-g">${x}</span>`).join(' ')}</span>`
-        : (r.restrictions.length ? '' : '<span class="cc-none">Nothing found yet.</span>')}${r.restrictions.length ? `<span class="cc-rn">${r.restrictions.length === 1 ? 'A restriction' : 'Restrictions'} below.</span>` : ''}${
+        : (r.restrictions.length ? '' : `<span class="cc-none">${NOT_SHOWN}</span>`)}${r.restrictions.length ? `<span class="cc-rn">${r.restrictions.length === 1 ? 'A restriction' : 'Restrictions'} below.</span>` : ''}${
       r.unverifiedAfter ? `<span class="cc-d">Unverified after ${r.unverifiedAfter}</span>` : ''}</div>`;
   }).join('') + (selfRun ? `<div class="cc"><span class="cc-none">The software itself: ${SELF_RUN.toLowerCase()}</span></div>` : '');
 }
@@ -2306,7 +2317,7 @@ const DH_TAG = { 'STATED-EXCLUDED': 'Ruled out', 'SALES-ONLY': 'Ask sales' };
 function dataHandlingRow(t, cls) {
   if (!MATRIX || !MATRIX.dataHandlingColumns) return '';
   const cols = MATRIX.dataHandlingColumns;
-  const cite = x => `<a href="${escB(x.page)}" rel="noopener">${escB(hostOf(x.page))}</a>, ${escB(sectionText(x.section))}, read ${escB(x.readOn)}.`;
+  const cite = citeOf;
   const dag = `<span aria-hidden="true">†</span><span class="vh"> (${escB(CW_NOTE)})</span>`;
   const blocks = MATRIX.rows.filter(r => r.entry === t.name).map(r => {
     const answered = cols.filter(c => r.dataHandling[c.key].status !== null);
@@ -2320,9 +2331,9 @@ function dataHandlingRow(t, cls) {
           && (!sm.condition || (f.conditions || []).includes(sm.condition));
         const lead = sameScope ? '' : [sm.plans ? `On ${sm.plans.join(', ')}` : '', sm.condition ? `Under ${sm.condition}` : '']
           .filter(Boolean).join(', ');
+        const ownDag = sm.companyWide && !(f.companyWide && f.summaries.every(s => s.companyWide));
         return `<p class="dh-i">${DH_TAG[sm.state] ? `<span class="dh-st">${DH_TAG[sm.state]}</span>` : ''}${
-          sm.companyWide && !f.companyWide ? dag : ''} ${lead ? `${escB(lead)}: ` : ''}${
-          escB(sm.summary || sm.generated)} ${cite(sm)}</p>`;
+          ownDag ? dag : ''} ${lead ? `${escB(lead)}: ` : ''}${wordsOf(sm)} ${cite(sm)}</p>`;
       }).join('');
       const tag = DH_TAG[f.status] || '';
       const st = !tag ? '' : f.summaries.some(sm => sm.page === f.link) ? `<span class="dh-s">${tag}</span>`
@@ -2351,10 +2362,9 @@ function matrixHtml() {
       k('<span class="ks">SOC 2</span>', 'Stated on the vendor’s page for this product.'),
       k('<span class="ks">SOC 2*</span>', 'Only on some plans, regions or conditions. Hover for which.'),
       k('<span class="ks">SOC 2†</span>', 'Filed under the company, naming no product. Confirm on the vendor’s page that it covers this product.'),
-      k('<span class="ks">No HIPAA BAA</span>', `In the record’s words: ${escB(MATRIX.marks.No)}`),
       k('<span class="ks">SOC 2</span> <span class="cc-dt">Type II</span>', 'Detail: the edition, report type or program the record names behind a mark. Not a grade: a mark without it is not a weaker one.'),
       k('Restriction', 'The vendor limits or bars use where the item applies. Shown under the tool.'),
-      k('Not shown', 'Not found yet. It needs more investigation, and is not a no.'),
+      k('Not shown to hold', 'An item missing from a tool’s list, or a tool that reads “Not shown to hold.”: nothing on the record shows the tool holds it. The vendor’s page may rule out all or part of it (on the Government column, some programs or levels only), or nothing may have been found yet; check the vendor’s page before relying on either.'),
       k('<b>Bold name</b>', 'The product the items below it belong to.'),
       k('You run it', 'Open-source software or model weights: whoever runs it answers these. Where the maker also hosts it, the hosted product has its own bold name above that line.'),
       k('Data handling', 'Under a tool, folded: what the vendor’s pages say about where customer data is kept, for how long, whether it trains models, who receives it and where the product runs. Only answered questions are shown, and none is a yes or a no: read the summary.'),
@@ -2367,7 +2377,7 @@ function matrixHtml() {
   <p class="key-note">As the authors of the compliance record wrote them, in the file this page is built
      from. Where they mention the tool list or a list of pages read, those are parts of the record
      this site does not publish. What they call a row’s dataHandling is the Data handling line under
-     each tool here.</p>
+     each tool here. This page leaves out items marked No, as it does blank ones.</p>
   <p class="key-note">${escB(MATRIX.about)}</p>
   <dl class="key key-v">
     ${[k('Y', escB(MATRIX.marks.Y)), k('Y*', escB(MATRIX.marks['Y*'])), k('†', escB(MATRIX.marks.companyWide)),
@@ -2468,6 +2478,7 @@ writePage(path.join(DIST, 'what-you-already-have', 'options', 'index.html'), `${
   .dh-st { color:var(--ink); margin-right:.35rem; }
   .dh-st::after { content:':'; }
   .dh-sc { color:var(--muted); }
+  .gen { font-style:italic; }
   .dh a { color:var(--ink-2); text-decoration:none; border-bottom:1px solid rgba(27,92,70,.3); overflow-wrap:anywhere; }
   .dh a.dh-s { color:var(--ink); }
   .kw { font-family:var(--mono); font-size:.72rem; color:var(--muted); font-weight:400; }
