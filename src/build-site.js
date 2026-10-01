@@ -2248,11 +2248,12 @@ function blankGroups(r) {
   }).join('');
 }
 const hostOf = u => String(u).replace(/^https?:\/\//, '').replace(/\/.*$/, '');
+const sectionText = x => String(x).replace(/\.\s*$/, '');
 function restrictionsRow(t, cls) {
   if (!MATRIX) return '';
   const rows = MATRIX.rows.filter(r => r.entry === t.name && r.restrictions.length);
   if (!rows.length) return '';
-  const cite = x => `<a href="${escB(x.page)}" rel="noopener">${escB(hostOf(x.page))}</a>, ${escB(x.section)}, read ${escB(x.readOn)}.`;
+  const cite = x => `<a href="${escB(x.page)}" rel="noopener">${escB(hostOf(x.page))}</a>, ${escB(sectionText(x.section))}, read ${escB(x.readOn)}.`;
   const items = rows.flatMap(r => r.restrictions.map(it => {
     const scope = [it.condition ? `under ${it.condition}` : '', it.plans ? `on ${it.plans.join(', ')}` : '']
       .filter(Boolean).join(', ');
@@ -2263,14 +2264,22 @@ function restrictionsRow(t, cls) {
   }));
   return `<tr class="rs${cls}"><td colspan="5" data-l="Restrictions">${items.join('')}</td></tr>`;
 }
+const SELF_RUN = 'You run it, so you answer these.';
+function detailParts(label, detail) {
+  if (!detail) return [shortCol(label), ''];
+  if (detail.startsWith(label + ':')) return [shortCol(detail), ''];
+  if (detail.startsWith(label + ' ')) return [shortCol(label), detail.slice(label.length + 1)];
+  return [shortCol(label), detail];
+}
 function complianceCell(t) {
   if (MATRIX) MATRIX.rows.filter(r => r.entry === t.name).forEach(blankGroups);
   if (!MATRIX) return '';
   const rows = MATRIX.rows.filter(r => r.entry === t.name);
+  const selfRun = t.kind === 'repository' || t.kind === 'model';
   if (!rows.length) {
     const nl = (MATRIX.notListed || []).find(o => o.entry === t.name);
     if (nl) return `<span class="cc-none">Nothing found yet.</span> <a class="cc-why" href="#compliance-not-listed">Why</a>`;
-    if (t.kind === 'repository' || t.kind === 'model') return '<span class="cc-none">You run it, so you answer these.</span>';
+    if (selfRun) return `<span class="cc-none">${SELF_RUN}</span>`;
     return '<span class="cc-none">Nothing found yet.</span>';
   }
   return rows.map(r => {
@@ -2281,15 +2290,50 @@ function complianceCell(t) {
       if (x.conditions) notes.push(`only under ${x.conditions.join('; ')}`);
       if (x.companyWide) notes.push(CW_NOTE);
       const said = notes.join('. ');
-      const name = x.mark === 'No' ? `No ${shortCol(c.label)}` : shortCol(c.label) + (x.mark === 'Y*' ? '*' : '');
+      const [nm, rest] = detailParts(c.label, x.detail);
+      const name = x.mark === 'No' ? `No ${nm}` : nm + (x.mark === 'Y*' ? '*' : '');
       return `<a class="noext" href="${escB(x.link)}" rel="noopener"${said ? ` title="${escB(bCapM(said))}"` : ''}>${escB(name)}${
-        said ? `<span class="vh"> (${escB(said)})</span>` : ''}</a>${x.companyWide ? '<span aria-hidden="true">†</span>' : ''}`;
+        said ? `<span class="vh"> (${escB(said)})</span>` : ''}</a>${x.companyWide ? '<span aria-hidden="true">†</span>' : ''}${
+        rest ? ` <span class="cc-dt">${escB(rest)}</span>` : ''}`;
     });
     return `<div class="cc">${r.product ? `<span class="cc-p">${escB(r.product)}</span>` : ''}${
       items.length ? `<span class="cc-i">${items.map(x => `<span class="cc-g">${x}</span>`).join(' ')}</span>`
         : (r.restrictions.length ? '' : '<span class="cc-none">Nothing found yet.</span>')}${r.restrictions.length ? `<span class="cc-rn">${r.restrictions.length === 1 ? 'A restriction' : 'Restrictions'} below.</span>` : ''}${
       r.unverifiedAfter ? `<span class="cc-d">Unverified after ${r.unverifiedAfter}</span>` : ''}</div>`;
-  }).join('');
+  }).join('') + (selfRun ? `<div class="cc"><span class="cc-none">The software itself: ${SELF_RUN.toLowerCase()}</span></div>` : '');
+}
+const DH_TAG = { 'STATED-EXCLUDED': 'Ruled out', 'SALES-ONLY': 'Ask sales' };
+function dataHandlingRow(t, cls) {
+  if (!MATRIX || !MATRIX.dataHandlingColumns) return '';
+  const cols = MATRIX.dataHandlingColumns;
+  const cite = x => `<a href="${escB(x.page)}" rel="noopener">${escB(hostOf(x.page))}</a>, ${escB(sectionText(x.section))}, read ${escB(x.readOn)}.`;
+  const dag = `<span aria-hidden="true">†</span><span class="vh"> (${escB(CW_NOTE)})</span>`;
+  const blocks = MATRIX.rows.filter(r => r.entry === t.name).map(r => {
+    const answered = cols.filter(c => r.dataHandling[c.key].status !== null);
+    if (!answered.length) return '';
+    const fields = answered.map(c => {
+      const f = r.dataHandling[c.key];
+      const scope = [f.plans ? `only on ${f.plans.join(', ')}` : '', f.conditions ? `only under ${f.conditions.join('; ')}` : '']
+        .filter(Boolean).join('; ');
+      const sums = f.summaries.map(sm => {
+        const sameScope = (!sm.plans || (f.plans || []).join() === sm.plans.join())
+          && (!sm.condition || (f.conditions || []).includes(sm.condition));
+        const lead = sameScope ? '' : [sm.plans ? `On ${sm.plans.join(', ')}` : '', sm.condition ? `Under ${sm.condition}` : '']
+          .filter(Boolean).join(', ');
+        return `<p class="dh-i">${DH_TAG[sm.state] ? `<span class="dh-st">${DH_TAG[sm.state]}</span>` : ''}${
+          sm.companyWide && !f.companyWide ? dag : ''} ${lead ? `${escB(lead)}: ` : ''}${
+          escB(sm.summary || sm.generated)} ${cite(sm)}</p>`;
+      }).join('');
+      const tag = DH_TAG[f.status] || '';
+      const st = !tag ? '' : f.summaries.some(sm => sm.page === f.link) ? `<span class="dh-s">${tag}</span>`
+        : `<a class="dh-s noext" href="${escB(f.link)}" rel="noopener">${tag}</a>`;
+      return `<div class="dh-f"><p class="dh-h"><b>${escB(c.label)}</b> ${st}${f.companyWide ? dag : ''}${scope ? ` <span class="dh-sc">(${escB(scope)})</span>` : ''}</p>${sums}</div>`;
+    }).join('');
+    return `<details class="dh-d"><summary>Data handling${r.product ? `, ${escB(r.product)}` : ''}: ${
+      answered.map(c => escB(c.label)).join(', ')}</summary>${fields}</details>`;
+  }).filter(Boolean);
+  if (!blocks.length) return '';
+  return `<tr class="dh${cls}"><td colspan="5" data-l="Data handling">${blocks.join('')}</td></tr>`;
 }
 const toolY = t => !MATRIX ? [] : [...new Set(MATRIX.rows.filter(r => r.entry === t.name).flatMap(r =>
   MATRIX.columns.filter(c => /^Y/.test(r.cells[c.key].mark || '')).map(c => `y-${c.key}`)))];
@@ -2306,12 +2350,15 @@ function matrixHtml() {
     ${MATRIX ? [
       k('<span class="ks">SOC 2</span>', 'Stated on the vendor’s page for this product.'),
       k('<span class="ks">SOC 2*</span>', 'Only on some plans, regions or conditions. Hover for which.'),
-      k('<span class="ks">SOC 2†</span>', 'Stated for the whole company. Confirm it covers this product.'),
-      k('<span class="ks">No HIPAA BAA</span>', 'The vendor says it does not apply.'),
+      k('<span class="ks">SOC 2†</span>', 'Filed under the company, naming no product. Confirm on the vendor’s page that it covers this product.'),
+      k('<span class="ks">No HIPAA BAA</span>', `In the record’s words: ${escB(MATRIX.marks.No)}`),
+      k('<span class="ks">SOC 2</span> <span class="cc-dt">Type II</span>', 'Detail: the edition, report type or program the record names behind a mark. Not a grade: a mark without it is not a weaker one.'),
       k('Restriction', 'The vendor limits or bars use where the item applies. Shown under the tool.'),
       k('Not shown', 'Not found yet. It needs more investigation, and is not a no.'),
       k('<b>Bold name</b>', 'The product the items below it belong to.'),
-      k('You run it', 'Open-source software or model weights: whoever runs it answers these.'),
+      k('You run it', 'Open-source software or model weights: whoever runs it answers these. Where the maker also hosts it, the hosted product has its own bold name above that line.'),
+      k('Data handling', 'Under a tool, folded: what the vendor’s pages say about where customer data is kept, for how long, whether it trains models, who receives it and where the product runs. Only answered questions are shown, and none is a yes or a no: read the summary.'),
+      k('Ruled out', 'Under data handling: the vendor’s page excludes it within the scope shown. Under Training use, that is the vendor saying it does not train on that data. “Ask sales” means the page sends you to sales.'),
       k('Unverified after', 'Recheck the vendor’s page after this date.'),
     ].join('\n    ') : ''}
     ${k('Read', 'The day the description was read: <b>observed</b> on the linked page, or <b>reasoned</b> from it.')}
@@ -2319,11 +2366,13 @@ function matrixHtml() {
   ${MATRIX ? `<details class="cm-more"><summary>The compliance record’s own definitions</summary>
   <p class="key-note">As the authors of the compliance record wrote them, in the file this page is built
      from. Where they mention the tool list or a list of pages read, those are parts of the record
-     this site does not publish.</p>
+     this site does not publish. What they call a row’s dataHandling is the Data handling line under
+     each tool here.</p>
   <p class="key-note">${escB(MATRIX.about)}</p>
   <dl class="key key-v">
     ${[k('Y', escB(MATRIX.marks.Y)), k('Y*', escB(MATRIX.marks['Y*'])), k('†', escB(MATRIX.marks.companyWide)),
-       k('No', escB(MATRIX.marks.No)), k('Blank', escB(MATRIX.marks.null)), k('Restriction', escB(MATRIX.restrictionsAbout))].join('\n    ')}
+       k('No', escB(MATRIX.marks.No)), k('Blank', escB(MATRIX.marks.null)), k('Detail', escB(MATRIX.detailAbout)),
+       k('Restriction', escB(MATRIX.restrictionsAbout)), k('Data handling', escB(MATRIX.dataHandlingAbout))].join('\n    ')}
   </dl>
   </details>` : ''}
   <p class="key-note">A tool resting on several products passes the filter when they carry the checked
@@ -2405,6 +2454,22 @@ writePage(path.join(DIST, 'what-you-already-have', 'options', 'index.html'), `${
   .rs-a { padding-left:1.2rem; }
   .rs a { color:var(--ink-2); text-decoration:none; border-bottom:1px solid rgba(27,92,70,.3); overflow-wrap:anywhere; }
   tr.has-rs td { border-bottom:0; }
+  .cc-dt { font-size:.74rem; color:var(--muted); white-space:normal; }
+  tr.dh td { padding:.1rem 1rem .8rem 0; font-size:.84rem; line-height:1.55; color:var(--ink-2);
+             overflow-wrap:anywhere; }
+  .dh-d { margin:.35rem 0 0; }
+  .dh-d summary { cursor:pointer; color:var(--ink); font-weight:500; }
+  .dh-f { margin:.55rem 0 0 1.2rem; }
+  tr.dh p.dh-h { margin:0; }
+  tr.dh p.dh-i { margin:.15rem 0 0 1.2rem; }
+  .dh-s, .dh-st { font-size:.78rem; font-weight:500; }
+  .dh-s { color:var(--ink); }
+  a.dh-s { text-decoration:none; border-bottom:1px solid rgba(27,92,70,.3); }
+  .dh-st { color:var(--ink); margin-right:.35rem; }
+  .dh-st::after { content:':'; }
+  .dh-sc { color:var(--muted); }
+  .dh a { color:var(--ink-2); text-decoration:none; border-bottom:1px solid rgba(27,92,70,.3); overflow-wrap:anywhere; }
+  .dh a.dh-s { color:var(--ink); }
   .kw { font-family:var(--mono); font-size:.72rem; color:var(--muted); font-weight:400; }
   @media (max-width:640px) {
     table.lt tr.has-rs { border-bottom:0; }
@@ -2501,8 +2566,10 @@ ${MATRIX_CSS}
     <colgroup><col class="c-tool"><col class="c-what">${MATRIX ? '<col class="c-cc">' : ''}<col class="c-type"><col class="c-read"></colgroup>
     <thead><tr><th>Tool</th><th>What it is</th>${MATRIX ? '<th>Compliance</th>' : ''}<th>Type</th><th>Read</th></tr></thead>
     <tbody>
-    ${list.map(t => { const ys = toolY(t).join(' '), rs = restrictionsRow(t, ys ? ' ' + ys : '');
-      const cls = [ys, rs ? 'has-rs' : ''].filter(Boolean).join(' ');
+    ${list.map(t => { const ys = toolY(t).join(' ');
+      const dh = dataHandlingRow(t, ys ? ' ' + ys : '');
+      const rs = restrictionsRow(t, (ys ? ' ' + ys : '') + (dh ? ' has-rs' : ''));
+      const cls = [ys, rs || dh ? 'has-rs' : ''].filter(Boolean).join(' ');
       return `<tr id="t-${slugT(t.name)}"${cls ? ` class="${cls}"` : ''}>
       <td class="nm"><a href="${t.url}" rel="noopener">${t.name}</a>${t.archived ? '<span class="arch">archived</span>' : ''}</td>
       <td>${(t.what.match(/^.*?[.!?](?=\s|$)/) || [t.what])[0]}${(t.compliance || []).length
@@ -2510,7 +2577,7 @@ ${MATRIX_CSS}
       ${MATRIX ? `<td class="cc-td" data-l="Compliance">${complianceCell(t)}</td>` : ''}
       <td class="ty" data-l="Type">${KIND_LABEL[t.kind] || ''}</td>
       <td class="sg" data-l="Read">${t.basis} ${t.asOf}</td>
-    </tr>${rs ? '\n    ' + rs : ''}`; }).join('\n    ')}
+    </tr>${rs ? '\n    ' + rs : ''}${dh ? '\n    ' + dh : ''}`; }).join('\n    ')}
     </tbody>
   </table></div>`;
   }).filter(Boolean).join('\n\n  ')}
