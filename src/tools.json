@@ -43,9 +43,9 @@
    "andrewyng/context-hub"
   ]
  },
- "cut": "2026-09-30",
+ "cut": "2026-10-01",
  "matrix": {
-  "about": "One row for each hosted product group in a tool-list entry's data and compliance block (a \"For \u2026\" line there naming a product), so an entry whose block has two such groups has two rows; one mark per compliance item, from what the maker's own pages state, each linked to the page behind it. Not a compliance determination: read the linked page before relying on a mark. An empty mark means no current statement of the item was taken for this product from what was read, and the cell's blank gives the status word of the line that left it empty. It never means the item does not hold. Retention, training use, residency and the other data-handling questions are in each row's dataHandling, never among the marks, and the full data and compliance block for each tool is in the tool list. For HIPAA and GDPR a mark reads only the maker's own claim that its product complies with or supports the law: a definition of the law, a bare badge or a data processing addendum never marks either. On the GDPR and HIPAA columns the word comes from a reading of the maker's claim alone, which the tool list prints as no line of its own, so it can differ from the word on the tool list's GDPR or HIPAA BAA line. For HIPAA, a page read for the tool list's HIPAA BAA line counts as read for the claim, because that line shows the HIPAA sentences taken from the page, not only BAA offers. HIPAA BAA is marked Y only where the maker offers a Business Associate Agreement, and No where its page places the product outside one. A plan, deployment option or region shown in quotation marks is the maker's own name for it, and the marks are part of the value: keep them wherever the value is shown. A row resting on pages that speak for another product, whether or not another entry holds it, is not confirmed by being listed: its product names whose marks it carries.",
+  "about": "One row for each hosted product group in a tool-list entry's data and compliance block (a \"For \u2026\" line there naming a product), so an entry whose block has two such groups has two rows; one mark per compliance item, from what the maker's own pages state, each linked to the page behind it. Not a compliance determination: read the linked page before relying on a mark. An empty mark means no current statement taken for this product from what was read marks the item, and the cell's blank gives the reason in one word: the status word of the line that left it empty, or PARTLY-EXCLUDED, which no line reads. It never means the item does not hold. Retention, training use, residency and the other data-handling questions are in each row's dataHandling, never among the marks, and the full data and compliance block for each tool is in the tool list. For HIPAA and GDPR a mark reads only the maker's own claim that its product complies with or supports the law: a definition of the law, a bare badge or a data processing addendum never marks either. On the GDPR and HIPAA columns the word comes from a reading of the maker's claim alone, which the tool list prints as no line of its own, so it can differ from the word on the tool list's GDPR or HIPAA BAA line. For HIPAA, a page read for the tool list's HIPAA BAA line counts as read for the claim, because that line shows the HIPAA sentences taken from the page, not only BAA offers. HIPAA BAA is marked Y only where the maker offers a Business Associate Agreement, and No where its page places the product outside one. A plan, deployment option or region shown in quotation marks is the maker's own name for it, and the marks are part of the value: keep them wherever the value is shown. A row resting on pages that speak for another product, whether or not another entry holds it, is not confirmed by being listed: its product names whose marks it carries.",
   "columns": [
    {
     "key": "soc2",
@@ -88,7 +88,7 @@
     "label": "DPA"
    }
   ],
-  "dataHandlingAbout": "Each data-handling field repeats one line of the tool list's data and compliance block for this product, under that line's own label. Where the line answers, its status is the line's status word: it says whether and how the maker's pages answer the question, never whether the answer is good for you. A stated exclusion under Training use, for example, is the maker saying it does not train on some data, within the scope and conditions the line shows; marked the way the compliance columns are, that would be a No, which there reads as something the product lacks, so these fields carry no Y or No. Nor does the status word say which way an answer goes: a line reading STATED can also carry a maker saying it does not train, so read the summaries for what each page says. Each answer comes with the page, section and read date it rests on and a reviewed summary, or, for a table cell holding only a mark, the line generated from it, and each carries the state of its own sentence or cell, which can differ from the field's status; read both before relying on a field. companyWide, plans and conditions, where present, mean what they mean on a mark, and a summary's condition is the one its own sentence holds under. An empty field has no status: like an empty compliance cell it carries the line's word in blank, with the same meanings, and no summaries. Where it can run lists what the maker offers, not where a given deployment runs.",
+  "dataHandlingAbout": "Each data-handling field repeats one line of the tool list's data and compliance block for this product, under that line's own label. Where the line answers, its status is the line's status word: it says whether and how the maker's pages answer the question, never whether the answer is good for you. Data residency, Default retention, Training use, Model provider and Telemetry ask what the maker does, so an answer to one of them never reads STATED-EXCLUDED, and its status word does not say which way the answer goes: a Training use line reading STATED can carry a maker saying it does not train on some data or a maker saying it does. Zero-retention option and Where it can run read STATED-EXCLUDED where the maker's page places this product, or a plan, deployment option, region or feature of it, outside zero data retention or outside a place it can run, and only within the scope and conditions the line shows. None of these fields is marked the way the compliance columns are, where a No reads as something the product lacks and names no plan or condition, so they carry no Y or No; read the summaries for what each page says. Each answer comes with the page, section and read date it rests on and a reviewed summary, or, for a table cell holding only a mark, the line generated from it, and each carries the state of its own sentence or cell, which can differ from the field's status; read both before relying on a field. companyWide, plans and conditions, where present, mean what they mean on a mark, and a summary's condition is the one its own sentence holds under. An empty field has no status: like an empty compliance cell it carries the line's word in blank, with the same meanings, and no summaries. Where it can run lists what the maker offers, not where a given deployment runs.",
   "dataHandlingColumns": [
    {
     "key": "data_residency",
@@ -119,13 +119,13 @@
     "label": "Telemetry"
    }
   ],
-  "detailAbout": "Where present, detail names the edition, report type or level of a mark, from the framework its deciding sentence, badge or table cell is recorded under, such as the year of an ISO standard or the type of a SOC 2 report; on the Government column it names the program, such as FedRAMP or DoD IL, and a level only where the recorded framework carries one, so it can leave out a level the maker's page states, such as Moderate or IL4: the linked page gives it. It is not a grade: a cell without detail is not a weaker mark, and the matrix never orders marks by it. It appears only on a marked cell.",
+  "detailAbout": "Where present, detail names the edition, report type or level of a mark, from the framework its deciding sentence, badge or table cell is recorded under, such as the year of an ISO standard or the type of a SOC 2 report; on the Government column it names the program, such as FedRAMP or DoD IL, and a level only where the recorded framework carries one, such as FedRAMP High or DoD IL4, so it can leave out a level the maker's page states where no recorded framework carries that level: the linked page gives it. It is not a grade: a cell without detail is not a weaker mark, and the matrix never orders marks by it. It appears only on a marked cell.",
   "marks": {
-   "No": "the maker's page states that the item does not apply here; on the Government column, whose title names several programs, a No can rest on exclusions at particular programs or levels rather than at every one, so open the linked page to see which.",
+   "No": "the maker's page states that the item does not apply here; on the Government column, whose title names several programs, a No rests on the page placing the product outside a program as a whole. An exclusion at one level only, such as FedRAMP High or DoD IL4, never makes the cell No, and it is listed under the row's restrictions wherever the cell does not read No for another reason. Where the cell would otherwise read No and every exclusion behind it is of that kind, the cell is empty and reads PARTLY-EXCLUDED.",
    "Y": "the maker's page states the item for this product; with companyWide, shown as Y\u2020, the mark rests instead on a sentence the maker files under the company, naming no product, and the page does not say whether its scope includes this product",
    "Y*": "the maker's page states the item only for the plans, deployment options or regions named in plans, or only under the conditions named in conditions, or both; where a cell names both, the matrix does not say whether they apply together: the tool list's line for this item shows each plan and condition beside the page it comes from",
    "companyWide": "set on a mark resting on a sentence the maker files under the company, naming no product, whether or not it is limited to a plan, deployment option, region or condition: the page does not say whether its scope includes this product, so confirm the scope on the page (shown as Y\u2020, as Y*\u2020 on a mark that also names plans or conditions, or as No\u2020 on an exclusion). A sentence whose own words reach every product the maker offers carries no companyWide",
-   "null": "no current statement of the item was taken for this product from what was read, and the cell's blank gives the status word of the line that left it empty. It never means the item does not hold. The words blank can carry, one sentence each: NOT-READ means no page of a kind that could answer it, and no search for one, is recorded as read for it for this product. NOT-STATED means a page of a kind that could answer it, or a search of the maker's site for one, was read for it, and no reviewed sentence answering it for this product was taken from it; a sentence that marks nothing, such as one describing the item as in progress, one naming it with no status, one about the law, or one naming a withdrawn revision, may sit under that line in the tool list. UNREADABLE means a page of a kind that could answer it, read for it, returned no readable text to the fetch used, and it is given even where another page read for it could be read and gave no answer, so it does not mean nothing was checked; the regulated-data statements list each maker's pages read and whether each could be read, and a person with a browser may be able to read the unreadable one. GATED means a page of a kind that could answer it, read for it, sits behind a login, an NDA request or a sales conversation, so nothing on it was read, and like UNREADABLE it is given even where another page read for it could be read. BLANK means the maker's own table leaves this cell empty. CONFLICTING means the sentences taken for it disagree. SALES-ONLY means the maker's page sends the question to a sales conversation. OPERATOR means the answer belongs to whoever runs the software."
+   "null": "no current statement taken for this product from what was read marks the item, and the cell's blank gives the reason in one word: the status word of the line that left it empty, or PARTLY-EXCLUDED, which no line reads. It never means the item does not hold. The words blank can carry, one sentence each: NOT-READ means no page of a kind that could answer it, and no search for one, is recorded as read for it for this product. NOT-STATED means a page of a kind that could answer it, or a search of the maker's site for one, was read for it, and no reviewed sentence answering it for this product was taken from it; a sentence that marks nothing, such as one describing the item as in progress, one naming it with no status, one about the law, or one naming a withdrawn revision, may sit under that line in the tool list. UNREADABLE means a page of a kind that could answer it, read for it, returned no readable text to the fetch used, and it is given even where another page read for it could be read and gave no answer, so it does not mean nothing was checked; the regulated-data statements list each maker's pages read and whether each could be read, and a person with a browser may be able to read the unreadable one. GATED means a page of a kind that could answer it, read for it, sits behind a login, an NDA request or a sales conversation, so nothing on it was read, and like UNREADABLE it is given even where another page read for it could be read. BLANK means the maker's own table leaves this cell empty. CONFLICTING means the sentences taken for it disagree. SALES-ONLY means the maker's page sends the question to a sales conversation. PARTLY-EXCLUDED means the maker's page places this product outside the item only at particular programs or levels, or only for particular plans, deployment options or regions or under particular conditions, each listed under the row's restrictions, and does not say the item applies or does not apply as a whole. OPERATOR means the answer belongs to whoever runs the software."
   },
   "notListed": [
    {
@@ -145,7 +145,7 @@
    }
   ],
   "notListedPreface": "Entries run by their operator (open-source software and model weights) are not listed: whoever runs them answers these questions for their own deployment. Where the maker also runs the same software as a hosted service, that hosted tier is a separate product and gets its own row once one of the maker's pages establishing it has been read; until then it has no row, and its absence says nothing about it. Also not listed: entries whose block rests on the same pages as an entry listed here, where a read of those pages found part of that record outside the entry. No marks are shown for them, and the listed entry's marks should not be read as theirs; each reason says what the pages show:",
-  "restrictionsAbout": "A restriction is a sentence on the maker's own page that places this product, or one plan, arrangement or feature of it, outside something a column asks about or outside zero data retention, or that bars using it where one of those items applies. It is not a mark and never a No: each cell keeps its own mark, and a restriction holds only for the scope shown with it, the condition, plans or arrangement it names. An item's condition and plans come from one sentence, so where it names both, it holds only where one of those plans and that condition apply at once. It is listed only where no column for the same item already reads No. The list covers the items in the columns and the zero-retention option, so it is not a full account of a maker's terms, and an empty list means none was recorded here, not that none exists. Beneath an item, also lists what else the tool list's line for that item shows that bears on it: another cell of the same row of the maker's table, or a mark the maker's own table gives the same item for this product that no column reads. Each carries its own page, section and read date, with a reviewed summary or, for a cell holding only a mark, the line the tool list generates from it; an empty also does not mean the maker says nothing more.",
+  "restrictionsAbout": "A restriction is a sentence on the maker's own page, or a cell of the maker's own table, that places this product, or one plan, arrangement or feature of it, outside something a column asks about or outside zero data retention, or that bars using it where one of those items applies. It is not a mark and never a No: each cell keeps its own mark, and a restriction holds only for the scope shown with it, the condition, plans or arrangement it names. An item's condition and plans come from one sentence, so where it names both, it holds only where one of those plans and that condition apply at once. It is listed only where no column for the same item already reads No. The list covers the items in the columns and the zero-retention option, so it is not a full account of a maker's terms, and an empty list means none was recorded here, not that none exists. Beneath an item, also lists what else the tool list's line for that item shows that bears on it: another cell of the same row of the maker's table, or a mark the maker's own table gives the same item for this product that no column reads. Each carries its own page, section and read date, with a reviewed summary or, for a cell holding only a mark, the line the tool list generates from it; an empty also does not mean the maker says nothing more.",
   "rows": [
    {
     "cells": {
@@ -565,13 +565,13 @@
      },
      "training_use": {
       "link": "https://ampcode.com/security",
-      "status": "STATED-EXCLUDED",
+      "status": "STATED",
       "summaries": [
        {
         "page": "https://ampcode.com/security",
         "readOn": "2026-09-27",
         "section": "Model Training",
-        "state": "STATED-EXCLUDED",
+        "state": "STATED",
         "summary": "Amp's page: Amp and its subprocessors do not train models on a user's data, unless that user has explicitly chosen to opt in."
        },
        {
@@ -624,8 +624,8 @@
       "mark": null
      },
      "government": {
-      "link": "https://trust.anthropic.com/",
-      "mark": "No"
+      "blank": "PARTLY-EXCLUDED",
+      "mark": null
      },
      "hipaa": {
       "blank": "NOT-STATED",
@@ -725,7 +725,32 @@
     "page": "https://trust.anthropic.com/",
     "pageKind": "trust",
     "product": "Claude API",
-    "restrictions": [],
+    "restrictions": [
+     {
+      "about": "Government",
+      "also": [
+       {
+        "generated": "Anthropic's table excludes this row and column; its mark reads \"N/A\" (the symbol the cell shows).",
+        "page": "https://trust.anthropic.com/",
+        "readOn": "2026-09-27",
+        "section": "above the page's first section heading, table \"Welcome to the Anthropic Trust Center\", row \"Claude via Anthropic's API\", column \"FedRAMP High\""
+       },
+       {
+        "generated": "Anthropic's table excludes this row and column; its mark reads \"N/A\" (the symbol the cell shows).",
+        "page": "https://trust.anthropic.com/",
+        "readOn": "2026-09-27",
+        "section": "above the page's first section heading, table \"Welcome to the Anthropic Trust Center\", row \"Claude via Anthropic's API\", column \"DoD IL5\""
+       }
+      ],
+      "columns": [
+       "government"
+      ],
+      "generated": "Anthropic's table excludes this row and column; its mark reads \"N/A\" (the symbol the cell shows).",
+      "page": "https://trust.anthropic.com/",
+      "readOn": "2026-09-27",
+      "section": "above the page's first section heading, table \"Welcome to the Anthropic Trust Center\", row \"Claude via Anthropic's API\", column \"DoD IL4\""
+     }
+    ],
     "toolList": "20-tool-list.md#anthropic-api",
     "unverifiedAfter": "2026-12-23"
    },
@@ -1159,8 +1184,8 @@
       "mark": null
      },
      "government": {
-      "link": "https://trust.anthropic.com/",
-      "mark": "No"
+      "blank": "PARTLY-EXCLUDED",
+      "mark": null
      },
      "hipaa": {
       "blank": "NOT-STATED",
@@ -1244,7 +1269,33 @@
     "page": "https://trust.anthropic.com/",
     "pageKind": "trust",
     "product": "Claude in Amazon Bedrock from Anthropic",
-    "restrictions": [],
+    "restrictions": [
+     {
+      "about": "Government",
+      "also": [
+       {
+        "generated": "Anthropic's table excludes this row and column; its mark reads \"N/A\" (the symbol the cell shows).",
+        "page": "https://trust.anthropic.com/",
+        "readOn": "2026-09-27",
+        "section": "above the page's first section heading, table \"Welcome to the Anthropic Trust Center\", row \"Claude in Amazon Bedrock *\", column \"FedRAMP High\""
+       },
+       {
+        "generated": "Anthropic's table excludes this row and column; its mark reads \"N/A\" (the symbol the cell shows).",
+        "page": "https://trust.anthropic.com/",
+        "readOn": "2026-09-27",
+        "section": "above the page's first section heading, table \"Welcome to the Anthropic Trust Center\", row \"Claude in Amazon Bedrock *\", column \"DoD IL5\""
+       }
+      ],
+      "columns": [
+       "government"
+      ],
+      "condition": "Anthropic's footnote on this row: its marks cover only the model and the containers Anthropic supplies to partners",
+      "generated": "Anthropic's table excludes this row and column; its mark reads \"N/A\" (the symbol the cell shows).",
+      "page": "https://trust.anthropic.com/",
+      "readOn": "2026-09-27",
+      "section": "above the page's first section heading, table \"Welcome to the Anthropic Trust Center\", row \"Claude in Amazon Bedrock *\", column \"DoD IL4\""
+     }
+    ],
     "toolList": "20-tool-list.md#aws-bedrock",
     "unverifiedAfter": "2026-12-23"
    },
@@ -1414,8 +1465,8 @@
       "mark": null
      },
      "government": {
-      "link": "https://trust.anthropic.com/",
-      "mark": "No"
+      "blank": "PARTLY-EXCLUDED",
+      "mark": null
      },
      "hipaa": {
       "blank": "NOT-STATED",
@@ -1493,7 +1544,14 @@
     "restrictions": [
      {
       "about": "HIPAA",
-      "also": [],
+      "also": [
+       {
+        "generated": "HIPAA, marked by the maker, kind of evidence not stated. Anthropic's table marks this row and column \"\u2705\" (the symbol the cell shows).",
+        "page": "https://trust.anthropic.com/",
+        "readOn": "2026-09-27",
+        "section": "above the page's first section heading, table \"Welcome to the Anthropic Trust Center\", row \"Claude in Microsoft Foundry, hosted on Anthropic\", column \"HIPAA\""
+       }
+      ],
       "columns": [
        "hipaa_baa",
        "hipaa"
@@ -1503,6 +1561,30 @@
       "readOn": "2026-09-24",
       "section": "HIPAA readiness \u203a What HIPAA readiness does not cover",
       "summary": "Anthropic's page: HIPAA readiness is not offered on Claude Platform on AWS or on Microsoft Foundry."
+     },
+     {
+      "about": "Government",
+      "also": [
+       {
+        "generated": "Anthropic's table excludes this row and column; its mark reads \"N/A\" (the symbol the cell shows).",
+        "page": "https://trust.anthropic.com/",
+        "readOn": "2026-09-27",
+        "section": "above the page's first section heading, table \"Welcome to the Anthropic Trust Center\", row \"Claude in Microsoft Foundry, hosted on Anthropic\", column \"FedRAMP High\""
+       },
+       {
+        "generated": "Anthropic's table excludes this row and column; its mark reads \"N/A\" (the symbol the cell shows).",
+        "page": "https://trust.anthropic.com/",
+        "readOn": "2026-09-27",
+        "section": "above the page's first section heading, table \"Welcome to the Anthropic Trust Center\", row \"Claude in Microsoft Foundry, hosted on Anthropic\", column \"DoD IL5\""
+       }
+      ],
+      "columns": [
+       "government"
+      ],
+      "generated": "Anthropic's table excludes this row and column; its mark reads \"N/A\" (the symbol the cell shows).",
+      "page": "https://trust.anthropic.com/",
+      "readOn": "2026-09-27",
+      "section": "above the page's first section heading, table \"Welcome to the Anthropic Trust Center\", row \"Claude in Microsoft Foundry, hosted on Anthropic\", column \"DoD IL4\""
      }
     ],
     "toolList": "20-tool-list.md#azure-ai-foundry--azure-openai",
@@ -1519,8 +1601,8 @@
       "mark": null
      },
      "government": {
-      "link": "https://trust.anthropic.com/",
-      "mark": "No"
+      "blank": "PARTLY-EXCLUDED",
+      "mark": null
      },
      "hipaa": {
       "blank": "NOT-STATED",
@@ -1614,6 +1696,30 @@
       "readOn": "2026-09-24",
       "section": "HIPAA readiness \u203a What HIPAA readiness does not cover",
       "summary": "Anthropic's page: HIPAA readiness is not offered on Claude Platform on AWS or on Microsoft Foundry."
+     },
+     {
+      "about": "Government",
+      "also": [
+       {
+        "generated": "Anthropic's table excludes this row and column; its mark reads \"N/A\" (the symbol the cell shows).",
+        "page": "https://trust.anthropic.com/",
+        "readOn": "2026-09-27",
+        "section": "above the page's first section heading, table \"Welcome to the Anthropic Trust Center\", row \"Claude in Microsoft Foundry, hosted on Azure\", column \"FedRAMP High\""
+       },
+       {
+        "generated": "Anthropic's table excludes this row and column; its mark reads \"N/A\" (the symbol the cell shows).",
+        "page": "https://trust.anthropic.com/",
+        "readOn": "2026-09-27",
+        "section": "above the page's first section heading, table \"Welcome to the Anthropic Trust Center\", row \"Claude in Microsoft Foundry, hosted on Azure\", column \"DoD IL5\""
+       }
+      ],
+      "columns": [
+       "government"
+      ],
+      "generated": "Anthropic's table excludes this row and column; its mark reads \"N/A\" (the symbol the cell shows).",
+      "page": "https://trust.anthropic.com/",
+      "readOn": "2026-09-27",
+      "section": "above the page's first section heading, table \"Welcome to the Anthropic Trust Center\", row \"Claude in Microsoft Foundry, hosted on Azure\", column \"DoD IL4\""
      }
     ],
     "toolList": "20-tool-list.md#azure-ai-foundry--azure-openai",
@@ -1632,7 +1738,7 @@
       "mark": "Y"
      },
      "government": {
-      "detail": "FedRAMP",
+      "detail": "FedRAMP High",
       "link": "https://learn.microsoft.com/en-us/azure/compliance/offerings/offering-fedramp",
       "mark": "Y"
      },
@@ -1963,7 +2069,7 @@
       "conditions": [
        "OpenAI's FedRAMP 20x Services and Features card: only the ChatGPT features and API endpoints it lists as Class C (Moderate)"
       ],
-      "detail": "FedRAMP 20x",
+      "detail": "FedRAMP 20x Moderate",
       "link": "https://trust.openai.com/",
       "mark": "Y*",
       "plans": [
@@ -2274,6 +2380,16 @@
         "section": "Local Claude Code: Data flow and dependencies",
         "state": "STATED",
         "summary": "Anthropic's page: to reach the model, Claude Code sends data across the network, all prompts and model outputs among it, encrypted in transit with TLS 1.2 or later."
+       },
+       {
+        "page": "https://code.claude.com/docs/en/data-usage",
+        "plans": [
+         "Hosted on Azure"
+        ],
+        "readOn": "2026-09-24",
+        "section": "Local Claude Code: Data flow and dependencies, table \"Local Claude Code: Data flow and dependencies\", row \"Microsoft Foundry\", column \"Encryption at rest\"",
+        "state": "STATED",
+        "summary": "Anthropic's page: for Hosted on Azure deployments, the only data Anthropic receives is usage metadata and content that its safety systems flag."
        }
       ]
      },
@@ -2283,10 +2399,24 @@
       "summaries": [
        {
         "page": "https://code.claude.com/docs/en/data-usage",
+        "readOn": "2026-10-01",
+        "section": "Telemetry services",
+        "state": "STATED",
+        "summary": "Anthropic's page: Claude Code's metrics, covering latency, reliability and how it is used, go over TLS both to Anthropic and to logging infrastructure run by third parties."
+       },
+       {
+        "page": "https://code.claude.com/docs/en/data-usage",
+        "readOn": "2026-10-01",
+        "section": "Telemetry services",
+        "state": "STATED",
+        "summary": "Anthropic's page: Claude Code's error reports, carrying stack traces and the messages of errors raised inside its own code, go over TLS to an error-tracking service that a third party runs. A few lines on, the page limits this: error reporting is active only if the user has signed in on a Pro or Max subscription, the Claude Code version in use is 2.1.198 or later, the connection goes straight to the Claude API, and the user's organization has no HIPAA or zero data retention agreement."
+       },
+       {
+        "page": "https://code.claude.com/docs/en/data-usage",
         "readOn": "2026-09-24",
         "section": "Telemetry services",
         "state": "STATED",
-        "summary": "Anthropic's page: Claude Code sends operational telemetry of two kinds, usage metrics and error reports."
+        "summary": "Anthropic's page: Claude Code sends operational telemetry of two kinds, usage metrics and error reports. A few lines on, the page limits the error reports: error reporting is active only if the user has signed in on a Pro or Max subscription, the Claude Code version in use is 2.1.198 or later, the connection goes straight to the Claude API, and the user's organization has no HIPAA or zero data retention agreement."
        },
        {
         "page": "https://code.claude.com/docs/en/data-usage",
@@ -2309,16 +2439,6 @@
         "section": "Default behaviors by API provider",
         "state": "STATED",
         "summary": "Anthropic's page: on Microsoft Foundry, Amazon Bedrock, Claude Platform on AWS or Google Cloud's Agent Platform, Claude Code turns off telemetry, error reporting and bug reporting by default."
-       },
-       {
-        "page": "https://code.claude.com/docs/en/data-usage",
-        "plans": [
-         "Hosted on Azure"
-        ],
-        "readOn": "2026-09-24",
-        "section": "Local Claude Code: Data flow and dependencies, table \"Local Claude Code: Data flow and dependencies\", row \"Microsoft Foundry\", column \"Encryption at rest\"",
-        "state": "STATED",
-        "summary": "Anthropic's page: for Hosted on Azure deployments, the only data Anthropic receives is usage metadata and content that its safety systems flag."
        }
       ]
      },
@@ -2339,7 +2459,7 @@
         ],
         "readOn": "2026-09-24",
         "section": "Data policies \u203a Data training policy",
-        "state": "STATED-EXCLUDED",
+        "state": "STATED",
         "summary": "Anthropic's page, for commercial users, a group whose list includes Enterprise: code or prompts that reach Claude Code on commercial terms are not used by Anthropic to train generative models, unless the customer has opted to give its data for model improvement, as in the Developer Partner Program."
        },
        {
@@ -2591,6 +2711,16 @@
         "section": "Local Claude Code: Data flow and dependencies",
         "state": "STATED",
         "summary": "Anthropic's page: to reach the model, Claude Code sends data across the network, all prompts and model outputs among it, encrypted in transit with TLS 1.2 or later."
+       },
+       {
+        "page": "https://code.claude.com/docs/en/data-usage",
+        "plans": [
+         "Hosted on Azure"
+        ],
+        "readOn": "2026-09-24",
+        "section": "Local Claude Code: Data flow and dependencies, table \"Local Claude Code: Data flow and dependencies\", row \"Microsoft Foundry\", column \"Encryption at rest\"",
+        "state": "STATED",
+        "summary": "Anthropic's page: for Hosted on Azure deployments, the only data Anthropic receives is usage metadata and content that its safety systems flag."
        }
       ]
      },
@@ -2600,10 +2730,24 @@
       "summaries": [
        {
         "page": "https://code.claude.com/docs/en/data-usage",
+        "readOn": "2026-10-01",
+        "section": "Telemetry services",
+        "state": "STATED",
+        "summary": "Anthropic's page: Claude Code's metrics, covering latency, reliability and how it is used, go over TLS both to Anthropic and to logging infrastructure run by third parties."
+       },
+       {
+        "page": "https://code.claude.com/docs/en/data-usage",
+        "readOn": "2026-10-01",
+        "section": "Telemetry services",
+        "state": "STATED",
+        "summary": "Anthropic's page: Claude Code's error reports, carrying stack traces and the messages of errors raised inside its own code, go over TLS to an error-tracking service that a third party runs. A few lines on, the page limits this: error reporting is active only if the user has signed in on a Pro or Max subscription, the Claude Code version in use is 2.1.198 or later, the connection goes straight to the Claude API, and the user's organization has no HIPAA or zero data retention agreement."
+       },
+       {
+        "page": "https://code.claude.com/docs/en/data-usage",
         "readOn": "2026-09-24",
         "section": "Telemetry services",
         "state": "STATED",
-        "summary": "Anthropic's page: Claude Code sends operational telemetry of two kinds, usage metrics and error reports."
+        "summary": "Anthropic's page: Claude Code sends operational telemetry of two kinds, usage metrics and error reports. A few lines on, the page limits the error reports: error reporting is active only if the user has signed in on a Pro or Max subscription, the Claude Code version in use is 2.1.198 or later, the connection goes straight to the Claude API, and the user's organization has no HIPAA or zero data retention agreement."
        },
        {
         "page": "https://code.claude.com/docs/en/data-usage",
@@ -2626,16 +2770,6 @@
         "section": "Default behaviors by API provider",
         "state": "STATED",
         "summary": "Anthropic's page: on Microsoft Foundry, Amazon Bedrock, Claude Platform on AWS or Google Cloud's Agent Platform, Claude Code turns off telemetry, error reporting and bug reporting by default."
-       },
-       {
-        "page": "https://code.claude.com/docs/en/data-usage",
-        "plans": [
-         "Hosted on Azure"
-        ],
-        "readOn": "2026-09-24",
-        "section": "Local Claude Code: Data flow and dependencies, table \"Local Claude Code: Data flow and dependencies\", row \"Microsoft Foundry\", column \"Encryption at rest\"",
-        "state": "STATED",
-        "summary": "Anthropic's page: for Hosted on Azure deployments, the only data Anthropic receives is usage metadata and content that its safety systems flag."
        }
       ]
      },
@@ -2656,7 +2790,7 @@
         ],
         "readOn": "2026-09-24",
         "section": "Data policies \u203a Data training policy",
-        "state": "STATED-EXCLUDED",
+        "state": "STATED",
         "summary": "Anthropic's page, for commercial users, a group whose list includes Enterprise: code or prompts that reach Claude Code on commercial terms are not used by Anthropic to train generative models, unless the customer has opted to give its data for model improvement, as in the Developer Partner Program."
        },
        {
@@ -3240,19 +3374,8 @@
       ]
      },
      "telemetry": {
-      "companyWide": true,
-      "link": "https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement",
-      "status": "COMPANY-WIDE",
-      "summaries": [
-       {
-        "companyWide": true,
-        "page": "https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement",
-        "readOn": "2026-09-27",
-        "section": "Personal Data We Collect \u203a Automatically",
-        "state": "STATED",
-        "summary": "GitHub's page: as service usage information, GitHub collects personal information on how people interact with its services, including IP address, device and session details, request timestamps, operating system, app version, contributions to repositories and feature performance."
-       }
-      ]
+      "blank": "NOT-STATED",
+      "status": null
      },
      "training_use": {
       "link": "https://copilot.github.trust.page",
@@ -3270,7 +3393,7 @@
         ],
         "readOn": "2026-09-29",
         "section": "FAQ",
-        "state": "STATED-EXCLUDED",
+        "state": "STATED",
         "summary": "GitHub's page: data from Copilot Business or Enterprise customers is not used by GitHub to train AI models."
        }
       ]
@@ -3519,7 +3642,7 @@
         ],
         "readOn": "2026-09-24",
         "section": "Does Cursor's Zero Data Retention policy apply when using my own API keys?",
-        "state": "STATED",
+        "state": "STATED-EXCLUDED",
         "summary": "Cursor's page: its Zero Data Retention policy is not in effect for requests made with a customer's own API keys."
        }
       ]
@@ -3529,7 +3652,20 @@
     "page": "https://cursor.com/security",
     "pageKind": "trust",
     "product": null,
-    "restrictions": [],
+    "restrictions": [
+     {
+      "about": "zero retention",
+      "also": [],
+      "columns": [],
+      "page": "https://cursor.com/help/models-and-usage/api-keys",
+      "plans": [
+       "Custom API keys (BYOK)"
+      ],
+      "readOn": "2026-09-24",
+      "section": "Does Cursor's Zero Data Retention policy apply when using my own API keys?",
+      "summary": "Cursor's page: its Zero Data Retention policy is not in effect for requests made with a customer's own API keys."
+     }
+    ],
     "toolList": "20-tool-list.md#cursor",
     "unverifiedAfter": "2026-12-23"
    },
@@ -3734,7 +3870,7 @@
         ],
         "readOn": "2026-09-24",
         "section": "Does Cursor's Zero Data Retention policy apply when using my own API keys?",
-        "state": "STATED",
+        "state": "STATED-EXCLUDED",
         "summary": "Cursor's page: its Zero Data Retention policy is not in effect for requests made with a customer's own API keys."
        }
       ]
@@ -3744,7 +3880,20 @@
     "page": "https://cursor.com/security",
     "pageKind": "trust",
     "product": "Cursor",
-    "restrictions": [],
+    "restrictions": [
+     {
+      "about": "zero retention",
+      "also": [],
+      "columns": [],
+      "page": "https://cursor.com/help/models-and-usage/api-keys",
+      "plans": [
+       "Custom API keys (BYOK)"
+      ],
+      "readOn": "2026-09-24",
+      "section": "Does Cursor's Zero Data Retention policy apply when using my own API keys?",
+      "summary": "Cursor's page: its Zero Data Retention policy is not in effect for requests made with a customer's own API keys."
+     }
+    ],
     "toolList": "20-tool-list.md#cursor-cloud-agents",
     "unverifiedAfter": "2026-12-23"
    },
@@ -4475,17 +4624,12 @@
      },
      "telemetry": {
       "companyWide": true,
-      "link": "https://factory.com/legal/privacy-policy",
-      "status": "COMPANY-WIDE",
+      "link": "https://docs.factory.ai/enterprise/hierarchical-settings-and-org-control",
+      "plans": [
+       "Enterprise"
+      ],
+      "status": "PLAN-SPECIFIC",
       "summaries": [
-       {
-        "companyWide": true,
-        "page": "https://factory.com/legal/privacy-policy",
-        "readOn": "2026-09-27",
-        "section": "How and why we use your data \u203a Improving Factory",
-        "state": "STATED",
-        "summary": "Factory's page: among the purposes it processes personal information for, improving the product covers product analytics, trials of features, and study of how users' sessions and usage patterns look, with legitimate interests as the legal basis."
-       },
        {
         "companyWide": true,
         "page": "https://docs.factory.ai/enterprise/hierarchical-settings-and-org-control",
@@ -4766,17 +4910,12 @@
      },
      "telemetry": {
       "companyWide": true,
-      "link": "https://factory.com/legal/privacy-policy",
-      "status": "COMPANY-WIDE",
+      "link": "https://docs.factory.ai/enterprise/hierarchical-settings-and-org-control",
+      "plans": [
+       "Enterprise"
+      ],
+      "status": "PLAN-SPECIFIC",
       "summaries": [
-       {
-        "companyWide": true,
-        "page": "https://factory.com/legal/privacy-policy",
-        "readOn": "2026-09-27",
-        "section": "How and why we use your data \u203a Improving Factory",
-        "state": "STATED",
-        "summary": "Factory's page: among the purposes it processes personal information for, improving the product covers product analytics, trials of features, and study of how users' sessions and usage patterns look, with legitimate interests as the legal basis."
-       },
        {
         "companyWide": true,
         "page": "https://docs.factory.ai/enterprise/hierarchical-settings-and-org-control",
@@ -5089,17 +5228,12 @@
      },
      "telemetry": {
       "companyWide": true,
-      "link": "https://factory.com/legal/privacy-policy",
-      "status": "COMPANY-WIDE",
+      "link": "https://docs.factory.ai/enterprise/hierarchical-settings-and-org-control",
+      "plans": [
+       "Enterprise"
+      ],
+      "status": "PLAN-SPECIFIC",
       "summaries": [
-       {
-        "companyWide": true,
-        "page": "https://factory.com/legal/privacy-policy",
-        "readOn": "2026-09-27",
-        "section": "How and why we use your data \u203a Improving Factory",
-        "state": "STATED",
-        "summary": "Factory's page: among the purposes it processes personal information for, improving the product covers product analytics, trials of features, and study of how users' sessions and usage patterns look, with legitimate interests as the legal basis."
-       },
        {
         "companyWide": true,
         "page": "https://docs.factory.ai/enterprise/hierarchical-settings-and-org-control",
@@ -5267,7 +5401,7 @@
         "page": "https://fireworks.ai/privacy-policy",
         "readOn": "2026-09-27",
         "section": "above the page's first section heading, in a list",
-        "state": "STATED-EXCLUDED",
+        "state": "STATED",
         "summary": "Fireworks AI's page: among the key privacy commitments in its privacy notice, it does not train or improve its AI models on a user's API inputs, prompts or training data without that user's explicit opt-in."
        }
       ]
@@ -5720,19 +5854,8 @@
       ]
      },
      "telemetry": {
-      "companyWide": true,
-      "link": "https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement",
-      "status": "COMPANY-WIDE",
-      "summaries": [
-       {
-        "companyWide": true,
-        "page": "https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement",
-        "readOn": "2026-09-27",
-        "section": "Personal Data We Collect \u203a Automatically",
-        "state": "STATED",
-        "summary": "GitHub's page: as service usage information, GitHub collects personal information on how people interact with its services, including IP address, device and session details, request timestamps, operating system, app version, contributions to repositories and feature performance."
-       }
-      ]
+      "blank": "NOT-STATED",
+      "status": null
      },
      "training_use": {
       "link": "https://copilot.github.trust.page",
@@ -5750,7 +5873,7 @@
         ],
         "readOn": "2026-09-29",
         "section": "FAQ",
-        "state": "STATED-EXCLUDED",
+        "state": "STATED",
         "summary": "GitHub's page: data from Copilot Business or Enterprise customers is not used by GitHub to train AI models."
        }
       ]
@@ -5991,7 +6114,7 @@
         "page": "https://support.google.com/gemini/answer/13594961?hl=en",
         "readOn": "2026-09-27",
         "section": "Privacy questions \u203a Gemini Live \u203a Gemini Live audio, videos & screenshares",
-        "state": "STATED-EXCLUDED",
+        "state": "STATED",
         "summary": "Google's page: by default, Google does not use a user's Gemini Live audio, video or screen shares to improve its services."
        },
        {
@@ -6015,7 +6138,7 @@
         "page": "https://support.google.com/gemini/answer/13594961?hl=en",
         "readOn": "2026-09-27",
         "section": "Privacy questions \u203a General \u203a How you can control what\u2019s shared with reviewers",
-        "state": "STATED-EXCLUDED",
+        "state": "STATED",
         "summary": "Google's page: Google does not train its AI models on temporary chats in Gemini."
        }
       ]
@@ -6151,7 +6274,7 @@
         "page": "https://support.google.com/gemini/answer/13594961?hl=en",
         "readOn": "2026-09-27",
         "section": "Privacy questions \u203a Gemini Live \u203a Gemini Live audio, videos & screenshares",
-        "state": "STATED-EXCLUDED",
+        "state": "STATED",
         "summary": "Google's page: by default, Google does not use a user's Gemini Live audio, video or screen shares to improve its services."
        },
        {
@@ -6175,7 +6298,7 @@
         "page": "https://support.google.com/gemini/answer/13594961?hl=en",
         "readOn": "2026-09-27",
         "section": "Privacy questions \u203a General \u203a How you can control what\u2019s shared with reviewers",
-        "state": "STATED-EXCLUDED",
+        "state": "STATED",
         "summary": "Google's page: Google does not train its AI models on temporary chats in Gemini."
        }
       ]
@@ -6362,8 +6485,8 @@
       "mark": null
      },
      "government": {
-      "link": "https://trust.anthropic.com/",
-      "mark": "No"
+      "blank": "PARTLY-EXCLUDED",
+      "mark": null
      },
      "hipaa": {
       "blank": "NOT-STATED",
@@ -6447,7 +6570,33 @@
     "page": "https://trust.anthropic.com/",
     "pageKind": "trust",
     "product": "Claude on Google Cloud's Vertex AI from Anthropic",
-    "restrictions": [],
+    "restrictions": [
+     {
+      "about": "Government",
+      "also": [
+       {
+        "generated": "Anthropic's table excludes this row and column; its mark reads \"N/A\" (the symbol the cell shows).",
+        "page": "https://trust.anthropic.com/",
+        "readOn": "2026-09-27",
+        "section": "above the page's first section heading, table \"Welcome to the Anthropic Trust Center\", row \"Claude on Google Cloud's Vertex AI *\", column \"FedRAMP High\""
+       },
+       {
+        "generated": "Anthropic's table excludes this row and column; its mark reads \"N/A\" (the symbol the cell shows).",
+        "page": "https://trust.anthropic.com/",
+        "readOn": "2026-09-27",
+        "section": "above the page's first section heading, table \"Welcome to the Anthropic Trust Center\", row \"Claude on Google Cloud's Vertex AI *\", column \"DoD IL5\""
+       }
+      ],
+      "columns": [
+       "government"
+      ],
+      "condition": "Anthropic's footnote on this row: its marks cover only the model and the containers Anthropic supplies to partners",
+      "generated": "Anthropic's table excludes this row and column; its mark reads \"N/A\" (the symbol the cell shows).",
+      "page": "https://trust.anthropic.com/",
+      "readOn": "2026-09-27",
+      "section": "above the page's first section heading, table \"Welcome to the Anthropic Trust Center\", row \"Claude on Google Cloud's Vertex AI *\", column \"DoD IL4\""
+     }
+    ],
     "toolList": "20-tool-list.md#google-vertex-ai--gemini-enterprise-agent-platform",
     "unverifiedAfter": "2026-12-23"
    },
@@ -6463,7 +6612,7 @@
       "mark": null
      },
      "government": {
-      "detail": "FedRAMP",
+      "detail": "FedRAMP High",
       "link": "https://cloud.google.com/security/compliance/fedramp",
       "mark": "Y"
      },
@@ -6709,13 +6858,13 @@
      },
      "training_use": {
       "link": "https://gethip.ai/privacy.html",
-      "status": "STATED-EXCLUDED",
+      "status": "STATED",
       "summaries": [
        {
         "page": "https://gethip.ai/privacy.html",
         "readOn": "2026-09-27",
         "section": "How We Use Personal Data \u203a 2.2 Processor Purposes",
-        "state": "STATED-EXCLUDED",
+        "state": "STATED",
         "summary": "HipAI's privacy policy: HipAI does not train its general-purpose models on Customer Data, the page's term, and uses Customer Data only to provide the Services for the customer that submitted it, not even to profile third parties."
        }
       ]
@@ -7541,13 +7690,13 @@
      },
      "training_use": {
       "link": "https://lmstudio.ai/app-privacy",
-      "status": "STATED-EXCLUDED",
+      "status": "STATED",
       "summaries": [
        {
         "page": "https://lmstudio.ai/app-privacy",
         "readOn": "2026-09-27",
         "section": "What we process and why \u203a When You Use Cloud Services",
-        "state": "STATED-EXCLUDED",
+        "state": "STATED",
         "summary": "LM Studio's page: for cloud-service requests, web search and cloud models being examples, neither the request nor the response is kept once the request finishes, and the data goes to no other use, training included."
        }
       ]
@@ -7743,10 +7892,17 @@
       "summaries": [
        {
         "page": "https://lovable.dev/privacy",
-        "readOn": "2026-09-27",
-        "section": "above the page's first section heading",
+        "readOn": "2026-10-01",
+        "section": "above the page's first section heading, in a list",
         "state": "STATED",
-        "summary": "Lovable's page: its privacy policy defines Usage Data as data on how its Services are reached and used, such as feature and API-call events, builds and deployments, metering and billing telemetry, logs and diagnostics."
+        "summary": "Lovable's page: under analytics and performance, one of the groups into which it sorts the cookies, pixels, SDKs and like tools it and selected partners use, Lovable lists feature adoption, diagnosing errors and how the service performs, served by analytics providers, first-party as well as third-party. Further down, the page says that in the EEA, the UK and Switzerland it gets consent before setting cookies that are not essential, and that in the United States it honors GPC and other opt-out preference signals."
+       },
+       {
+        "page": "https://lovable.dev/privacy",
+        "readOn": "2026-10-01",
+        "section": "above the page's first section heading, in a list",
+        "state": "STATED",
+        "summary": "Lovable's page: with the user's consent where required, Lovable records a sample of sessions through a session-replay provider working on its behalf, to learn how people use the product and to repair problems with its usability."
        },
        {
         "page": "https://lovable.dev/privacy",
@@ -7775,7 +7931,7 @@
         ],
         "readOn": "2026-09-27",
         "section": "above the page's first section heading, in a list",
-        "state": "STATED-EXCLUDED",
+        "state": "STATED",
         "summary": "Lovable's page: in its list of what it does not train on, Lovable includes Customer Content and Usage Data from Business and Enterprise customers, and says its Data Processing Agreement sets out that prohibition."
        },
        {
@@ -8279,7 +8435,7 @@
       "mark": "Y"
      },
      "government": {
-      "detail": "FedRAMP",
+      "detail": "FedRAMP High",
       "link": "https://learn.microsoft.com/en-us/azure/compliance/offerings/offering-fedramp",
       "mark": "Y"
      },
@@ -8628,7 +8784,7 @@
       "conditions": [
        "OpenAI's FedRAMP 20x Services and Features card: only the ChatGPT features and API endpoints it lists as Class C (Moderate)"
       ],
-      "detail": "FedRAMP 20x",
+      "detail": "FedRAMP 20x Moderate",
       "link": "https://trust.openai.com/",
       "mark": "Y*"
      },
@@ -9058,7 +9214,7 @@
      },
      "government": {
       "companyWide": true,
-      "detail": "FedRAMP 20x",
+      "detail": "FedRAMP 20x Low",
       "link": "https://trust.perplexity.ai",
       "mark": "Y"
      },
@@ -10452,7 +10608,7 @@
       "mark": null
      },
      "government": {
-      "detail": "FedRAMP",
+      "detail": "FedRAMP High",
       "link": "https://cloud.google.com/security/compliance/fedramp",
       "mark": "Y"
      },

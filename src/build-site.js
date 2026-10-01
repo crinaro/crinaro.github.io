@@ -2233,6 +2233,7 @@ const BLANK_GROUPS = [
   ['Checked, not stated', ['NOT-STATED', 'BLANK']],
   ['Pages disagree', ['CONFLICTING']],
   ['Sent to sales', ['SALES-ONLY']],
+  ['Partly ruled out', ['PARTLY-EXCLUDED']],
   ['You run it', ['OPERATOR']],
 ];
 function blankGroups(r) {
@@ -2267,7 +2268,7 @@ function restrictionsRow(t, cls) {
     const scope = [it.condition ? `under ${it.condition}` : '', it.plans ? `on ${it.plans.join(', ')}` : '']
       .filter(Boolean).join(', ');
     return `<p class="rs-i"><span class="rs-l">Restriction${r.product ? `, ${escB(r.product)}` : ''}: ${
-      escB(it.about)}${scope ? ` (${escB(scope)})` : ''}.</span> ${escB(it.summary)} ${cite(it)}${
+      escB(it.about)}${scope ? ` (${escB(scope)})` : ''}.</span> ${wordsOf(it)} ${cite(it)}${
       it.companyWide ? ` <span class="rs-cw">† ${escB(bCapM(CW_NOTE))}.</span>` : ''}</p>${
       it.also.map(al => `<p class="rs-a">Also: ${wordsOf(al)} ${cite(al)}</p>`).join('')}`;
   }));
@@ -2324,11 +2325,13 @@ function dataHandlingRow(t, cls) {
     if (!answered.length) return '';
     const fields = answered.map(c => {
       const f = r.dataHandling[c.key];
-      const scope = [f.plans ? `only on ${f.plans.join(', ')}` : '', f.conditions ? `only under ${f.conditions.join('; ')}` : '']
+      const scopeKey = x => JSON.stringify([x.plans || [], x.condition ? [x.condition] : (x.conditions || [])]);
+      const oneScope = f.summaries.every(sm => scopeKey(sm) === scopeKey(f.summaries[0]))
+        && scopeKey(f.summaries[0]) === scopeKey(f);
+      const scope = !oneScope ? '' : [f.plans ? `only on ${f.plans.join(', ')}` : '', f.conditions ? `only under ${f.conditions.join('; ')}` : '']
         .filter(Boolean).join('; ');
       const sums = f.summaries.map(sm => {
-        const sameScope = (!sm.plans || (f.plans || []).join() === sm.plans.join())
-          && (!sm.condition || (f.conditions || []).includes(sm.condition));
+        const sameScope = oneScope;
         const lead = sameScope ? '' : [sm.plans ? `On ${sm.plans.join(', ')}` : '', sm.condition ? `Under ${sm.condition}` : '']
           .filter(Boolean).join(', ');
         const ownDag = sm.companyWide && !(f.companyWide && f.summaries.every(s => s.companyWide));
@@ -2363,12 +2366,13 @@ function matrixHtml() {
       k('<span class="ks">SOC 2*</span>', 'Only on some plans, regions or conditions. Hover for which.'),
       k('<span class="ks">SOC 2†</span>', 'Filed under the company, naming no product. Confirm on the vendor’s page that it covers this product.'),
       k('<span class="ks">SOC 2</span> <span class="cc-dt">Type II</span>', 'Detail: the edition, report type or program the record names behind a mark. Not a grade: a mark without it is not a weaker one.'),
-      k('Restriction', 'The vendor limits or bars use where the item applies. Shown under the tool.'),
-      k('Not shown to hold', 'An item missing from a tool’s list, or a tool that reads “Not shown to hold.”: nothing on the record shows the tool holds it. The vendor’s page may rule out all or part of it (on the Government column, some programs or levels only), or nothing may have been found yet; check the vendor’s page before relying on either.'),
+      k('Restriction', 'The vendor excludes the product, or part of it, from an item, or bars using it where the item applies. Shown under the tool.'),
+      k('Not shown to hold', 'An item missing from a tool’s list, or a tool marked “Not shown to hold”: nothing found so far shows the tool holds it. The vendor may exclude it, or it may not have been found yet. Where a vendor excludes only part of it, such as one government level or one plan, that usually shows as a restriction under the tool.'),
       k('<b>Bold name</b>', 'The product the items below it belong to.'),
       k('You run it', 'Open-source software or model weights: whoever runs it answers these. Where the maker also hosts it, the hosted product has its own bold name above that line.'),
       k('Data handling', 'Under a tool, folded: what the vendor’s pages say about where customer data is kept, for how long, whether it trains models, who receives it and where the product runs. Only answered questions are shown, and none is a yes or a no: read the summary.'),
-      k('Ruled out', 'Under data handling: the vendor’s page excludes it within the scope shown. Under Training use, that is the vendor saying it does not train on that data. “Ask sales” means the page sends you to sales.'),
+      k('Ruled out', 'Used only under data handling, for the zero-retention option and where the product can run: the vendor’s page says it does not apply to the product, or to the plan, feature or condition named. Whether a vendor trains on your data is never ruled out; its answer is in the summary.'),
+      k('Ask sales', 'The vendor’s page sends you to sales for the answer.'),
       k('Unverified after', 'Recheck the vendor’s page after this date.'),
     ].join('\n    ') : ''}
     ${k('Read', 'The day the description was read: <b>observed</b> on the linked page, or <b>reasoned</b> from it.')}
