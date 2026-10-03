@@ -1574,10 +1574,11 @@ ${CSS}
     </div>
     <div class="head narrow">
       <ol class="refs">
-        <li><a class="src" href="https://kpmg.com/content/dam/kpmgsites/xx/pdf/2026/04/global-ai-pulse.pdf">KPMG, Global AI Pulse, April 2026</a>,
-          p. 10: a second firm, at one point rather than over a year. Nearly 40% of 2,110 leaders said
-          their organization was scaling AI or driving adoption
-          across the enterprise, and 8% reported an established return on investment.</li>
+        <li><a class="src" href="https://assets.kpmg.com/content/dam/kpmgsites/xx/pdf/2026/09/global-ai-pulse.pdf">KPMG, Global AI Pulse, September 2026</a>,
+          p. 7: a second firm, across two waves of its own study. 13% of 2,131 leaders were still
+          experimenting, against 22% in April, while the share reporting an established return
+          changed less, from 8% to 10%. KPMG reads movement between quarters as direction rather
+          than step change.</li>
       </ol>
     </div>
   </div>
@@ -1621,8 +1622,9 @@ ${CSS}
           a different firm, on controls. Of about 180 senior AI executives at US companies using agentic AI, 49% said their
           governance framework had not been updated for it, and 26% said they could not detect
           unauthorized agents operating internally.</li>
-        <li>KPMG's April report again, note 1, not the June one above, p. 12: of 2,110 leaders, 17% were piloting AI agents, 14%
-          deploying them and 18% scaling them across multiple functions.</li>
+        <li>KPMG's September report again, note 1, not the June one above, p. 3: of 2,131 leaders, 38% said
+          their organization was developing or implementing multi-agent systems, and significant
+          employee adoption of AI agents had risen to 34% from 25% in April.</li>
       </ol>
     </div>
   </div>
@@ -2275,6 +2277,25 @@ function restrictionsRow(t, cls) {
   return `<tr class="rs${cls}"><td colspan="5" data-l="Restrictions">${items.join('')}</td></tr>`;
 }
 const SELF_RUN = 'You run it, so you answer these.';
+const FORMAT_ONLY = {
+  dataHandlingAbout: [
+    'A field reading PLAN-SPECIFIC carries plans, which can name a deployment option or a region as well as a plan; a field reading CONDITIONAL carries conditions; and a field reading COMPANY-WIDE carries companyWide.',
+    'The pairing runs one way: a field can carry more than its status calls for, such as a PLAN-SPECIFIC field that also carries conditions or companyWide.',
+    'A change to that list of states or to those three pairings comes with a new format number.',
+  ],
+  restrictionsAbout: [
+    'Each restriction carries about, columns, page, section, readOn and also; exactly one of summary and generated; and, where they apply, condition, plans and companyWide.',
+    'A change to those keys, or to which are required, comes with a new format number.',
+  ],
+};
+function withoutFormat(text, sentences) {
+  let out = text;
+  for (const sn of sentences) {
+    if (!out.includes(sn)) throw new Error(`FORMAT_ONLY: the record no longer says "${sn.slice(0, 60)}…"; re-read it and update the list`);
+    out = out.replace(sn, '');
+  }
+  return out.replace(/ {2,}/g, ' ').trim();
+}
 const NOT_SHOWN = 'Not shown to hold.';
 function detailParts(label, detail) {
   if (!detail) return [shortCol(label), ''];
@@ -2367,11 +2388,11 @@ function matrixHtml() {
       k('<span class="ks">SOC 2†</span>', 'Filed under the company, naming no product. Confirm on the vendor’s page that it covers this product.'),
       k('<span class="ks">SOC 2</span> <span class="cc-dt">Type II</span>', 'Detail: the edition, report type or program the record names behind a mark. Not a grade: a mark without it is not a weaker one.'),
       k('Restriction', 'The vendor excludes the product, or part of it, from an item, or bars using it where the item applies. Shown under the tool.'),
-      k('Not shown to hold', 'An item missing from a tool’s list, or a tool marked “Not shown to hold”: nothing found so far shows the tool holds it. The vendor may exclude it, or it may not have been found yet. Where a vendor excludes only part of it, such as one government level or one plan, that usually shows as a restriction under the tool.'),
+      k('Not shown to hold', 'An item missing from a tool’s list, or a tool marked “Not shown to hold”: nothing found so far shows the tool holds it. The vendor may exclude it, or it may not have been found yet. Where a vendor excludes only part of it, such as one government level or one plan, that shows as a restriction under the tool, unless the vendor’s page also rules out the whole item.'),
       k('<b>Bold name</b>', 'The product the items below it belong to.'),
       k('You run it', 'Open-source software or model weights: whoever runs it answers these. Where the maker also hosts it, the hosted product has its own bold name above that line.'),
       k('Data handling', 'Under a tool, folded: what the vendor’s pages say about where customer data is kept, for how long, whether it trains models, who receives it and where the product runs. Only answered questions are shown, and none is a yes or a no: read the summary.'),
-      k('Ruled out', 'Used only under data handling, for the zero-retention option and where the product can run: the vendor’s page says it does not apply to the product, or to the plan, feature or condition named. Whether a vendor trains on your data is never ruled out; its answer is in the summary.'),
+      k('Ruled out', 'Used only under data handling, for the zero-retention option and where the product can run: the vendor’s page says it does not apply to the product, or to the plan, deployment option, region, feature or condition named. Whether a vendor trains on your data is never ruled out; its answer is in the summary.'),
       k('Ask sales', 'The vendor’s page sends you to sales for the answer.'),
       k('Unverified after', 'Recheck the vendor’s page after this date.'),
     ].join('\n    ') : ''}
@@ -2381,12 +2402,15 @@ function matrixHtml() {
   <p class="key-note">As the authors of the compliance record wrote them, in the file this page is built
      from. Where they mention the tool list or a list of pages read, those are parts of the record
      this site does not publish. What they call a row’s dataHandling is the Data handling line under
-     each tool here. This page leaves out items marked No, as it does blank ones.</p>
+     each tool here, their marks.null is the definition shown here as Blank, and their also is the list of further entries under each restriction. This page leaves out items marked No, as it does blank ones, and the record's
+     sentences that only describe its own file format: the keys each entry carries, and when the
+     format number changes.</p>
   <p class="key-note">${escB(MATRIX.about)}</p>
   <dl class="key key-v">
     ${[k('Y', escB(MATRIX.marks.Y)), k('Y*', escB(MATRIX.marks['Y*'])), k('†', escB(MATRIX.marks.companyWide)),
        k('No', escB(MATRIX.marks.No)), k('Blank', escB(MATRIX.marks.null)), k('Detail', escB(MATRIX.detailAbout)),
-       k('Restriction', escB(MATRIX.restrictionsAbout)), k('Data handling', escB(MATRIX.dataHandlingAbout))].join('\n    ')}
+       k('Restriction', escB(withoutFormat(MATRIX.restrictionsAbout, FORMAT_ONLY.restrictionsAbout))),
+       k('Data handling', escB(withoutFormat(MATRIX.dataHandlingAbout, FORMAT_ONLY.dataHandlingAbout)))].join('\n    ')}
   </dl>
   </details>` : ''}
   <p class="key-note">A tool resting on several products passes the filter when they carry the checked
