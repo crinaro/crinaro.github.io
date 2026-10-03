@@ -1,6 +1,7 @@
 {
  "alsoServed": {
   "author": [
+   "JuliusBrussee/caveman",
    "BerriAI/litellm"
   ],
   "compute-and-isolation": [
@@ -43,9 +44,9 @@
    "andrewyng/context-hub"
   ]
  },
- "cut": "2026-10-01",
+ "cut": "2026-10-03",
  "matrix": {
-  "about": "One row for each hosted product group in a tool-list entry's data and compliance block (a \"For \u2026\" line there naming a product), so an entry whose block has two such groups has two rows; one mark per compliance item, from what the maker's own pages state, each linked to the page behind it. Not a compliance determination: read the linked page before relying on a mark. An empty mark means no current statement taken for this product from what was read marks the item, and the cell's blank gives the reason in one word: the status word of the line that left it empty, or PARTLY-EXCLUDED, which no line reads. It never means the item does not hold. Retention, training use, residency and the other data-handling questions are in each row's dataHandling, never among the marks, and the full data and compliance block for each tool is in the tool list. For HIPAA and GDPR a mark reads only the maker's own claim that its product complies with or supports the law: a definition of the law, a bare badge or a data processing addendum never marks either. On the GDPR and HIPAA columns the word comes from a reading of the maker's claim alone, which the tool list prints as no line of its own, so it can differ from the word on the tool list's GDPR or HIPAA BAA line. For HIPAA, a page read for the tool list's HIPAA BAA line counts as read for the claim, because that line shows the HIPAA sentences taken from the page, not only BAA offers. HIPAA BAA is marked Y only where the maker offers a Business Associate Agreement, and No where its page places the product outside one. A plan, deployment option or region shown in quotation marks is the maker's own name for it, and the marks are part of the value: keep them wherever the value is shown. A row resting on pages that speak for another product, whether or not another entry holds it, is not confirmed by being listed: its product names whose marks it carries.",
+  "about": "One row for each hosted product group in a tool's data and compliance block (the block is under the tool's \"Tool-list entry\" heading in the regulated-data statements, and each group is a \"For \u2026\" line there naming a product), so a block with two such groups has two rows; one mark per compliance item, from what the maker's own pages state, each linked to the page behind it. Not a compliance determination: read the linked page before relying on a mark. An empty mark means no current statement taken for this product from what was read marks the item, and the cell's blank gives the reason in one word: the status word of the line that left it empty, or PARTLY-EXCLUDED, which no line reads. It never means the item does not hold. Retention, training use, residency and the other data-handling questions are in each row's dataHandling, never among the marks, and the full data and compliance block for each tool (called the block below) is in the regulated-data statements document, under that tool's 'Tool-list entry: <entry>' heading, where <entry> is the row's entry; the tool list entry gives only a short summary. For HIPAA and GDPR a mark reads only the maker's own claim that its product complies with or supports the law: a definition of the law, a bare badge or a data processing addendum never marks either. On the GDPR and HIPAA columns the word comes from a reading of the maker's claim alone, which the block prints as no line of its own, so it can differ from the word on the block's GDPR or HIPAA BAA line. For HIPAA, a page read for the block's HIPAA BAA line counts as read for the claim, because that line shows the HIPAA sentences taken from the page, not only BAA offers. HIPAA BAA is marked Y only where the maker offers a Business Associate Agreement, and No where its page places the product outside one. A plan, deployment option or region shown in quotation marks is the maker's own name for it, and the marks are part of the value: keep them wherever the value is shown. A row resting on pages that speak for another product, whether or not another entry holds it, is not confirmed by being listed: its product names whose marks it carries.",
   "columns": [
    {
     "key": "soc2",
@@ -88,7 +89,7 @@
     "label": "DPA"
    }
   ],
-  "dataHandlingAbout": "Each data-handling field repeats one line of the tool list's data and compliance block for this product, under that line's own label. Where the line answers, its status is the line's status word: it says whether and how the maker's pages answer the question, never whether the answer is good for you. Data residency, Default retention, Training use, Model provider and Telemetry ask what the maker does, so an answer to one of them never reads STATED-EXCLUDED, and its status word does not say which way the answer goes: a Training use line reading STATED can carry a maker saying it does not train on some data or a maker saying it does. Zero-retention option and Where it can run read STATED-EXCLUDED where the maker's page places this product, or a plan, deployment option, region or feature of it, outside zero data retention or outside a place it can run, and only within the scope and conditions the line shows. None of these fields is marked the way the compliance columns are, where a No reads as something the product lacks and names no plan or condition, so they carry no Y or No; read the summaries for what each page says. Each answer comes with the page, section and read date it rests on and a reviewed summary, or, for a table cell holding only a mark, the line generated from it, and each carries the state of its own sentence or cell, which can differ from the field's status; read both before relying on a field. Each entry in summaries carries one of three states: STATED, STATED-EXCLUDED or SALES-ONLY. companyWide, plans and conditions, where present, mean what they mean on a mark, and a summary's condition is the one its own sentence holds under. A field reading PLAN-SPECIFIC carries plans, which can name a deployment option or a region as well as a plan; a field reading CONDITIONAL carries conditions; and a field reading COMPANY-WIDE carries companyWide. The pairing runs one way: a field can carry more than its status calls for, such as a PLAN-SPECIFIC field that also carries conditions or companyWide. A change to that list of states or to those three pairings comes with a new format number. An empty field has no status and no summaries: its blank carries the status word the tool list's line prints, with the meaning marks.null gives that word. It never carries PARTLY-EXCLUDED, which no line reads: a line whose answers are all exclusions still has a status, and the field carries it. Where it can run lists what the maker offers, not where a given deployment runs.",
+  "dataHandlingAbout": "Each data-handling field repeats one line of the data and compliance block for this product, under that line's own label. Where the line answers, its status is the line's status word: it says whether and how the maker's pages answer the question, never whether the answer is good for you. Data residency, Default retention, Training use, Model provider and Telemetry ask what the maker does, so an answer to one of them never reads STATED-EXCLUDED, and its status word does not say which way the answer goes: a Training use line reading STATED can carry a maker saying it does not train on some data or a maker saying it does. Zero-retention option and Where it can run read STATED-EXCLUDED where the maker's page places this product, or a plan, deployment option, region or feature of it, outside zero data retention or outside a place it can run, and only within the scope and conditions the line shows. None of these fields is marked the way the compliance columns are, where a No reads as something the product lacks and names no plan or condition, so they carry no Y or No; read the summaries for what each page says. Each answer comes with the page, section and read date it rests on and a reviewed summary, or, for a table cell holding only a mark, the line generated from it, and each carries the state of its own sentence or cell, which can differ from the field's status; read both before relying on a field. Each entry in summaries carries one of three states: STATED, STATED-EXCLUDED or SALES-ONLY. companyWide, plans and conditions, where present, mean what they mean on a mark, and a summary's condition is the one its own sentence holds under. A field reading PLAN-SPECIFIC carries plans, which can name a deployment option or a region as well as a plan; a field reading CONDITIONAL carries conditions; and a field reading COMPANY-WIDE carries companyWide. The pairing runs one way: a field can carry more than its status calls for, such as a PLAN-SPECIFIC field that also carries conditions or companyWide. A change to that list of states or to those three pairings comes with a new format number. An empty field has no status and no summaries: its blank carries the status word the block's line prints, with the meaning marks.null gives that word. It never carries PARTLY-EXCLUDED, which no line reads: a line whose answers are all exclusions still has a status, and the field carries it. Where it can run lists what the maker offers, not where a given deployment runs.",
   "dataHandlingColumns": [
    {
     "key": "data_residency",
@@ -123,9 +124,9 @@
   "marks": {
    "No": "the maker's page states that the item does not apply here; on the Government column, whose title names several programs, a No rests on the page placing the product outside a program as a whole. An exclusion at one level only, such as FedRAMP High or DoD IL4, never makes the cell No, and it is listed under the row's restrictions wherever the cell does not read No for another reason. Where the cell would otherwise read No and every exclusion behind it is of that kind, the cell is empty and reads PARTLY-EXCLUDED.",
    "Y": "the maker's page states the item for this product; with companyWide, shown as Y\u2020, the mark rests instead on a sentence the maker files under the company, naming no product, and the page does not say whether its scope includes this product",
-   "Y*": "the maker's page states the item only for the plans, deployment options or regions named in plans, or only under the conditions named in conditions, or both; where a cell names both, the matrix does not say whether they apply together: the tool list's line for this item shows each plan and condition beside the page it comes from",
+   "Y*": "the maker's page states the item only for the plans, deployment options or regions named in plans, or only under the conditions named in conditions or in the row's rowConditions, or both; where a cell names both, the matrix does not say whether they apply together: the block's line for this item shows each plan and condition beside the page it comes from",
    "companyWide": "set on a mark resting on a sentence the maker files under the company, naming no product, whether or not it is limited to a plan, deployment option, region or condition: the page does not say whether its scope includes this product, so confirm the scope on the page (shown as Y\u2020, as Y*\u2020 on a mark that also names plans or conditions, or as No\u2020 on an exclusion). A sentence whose own words reach every product the maker offers carries no companyWide",
-   "null": "no current statement taken for this product from what was read marks the item, and the cell's blank gives the reason in one word: the status word of the line that left it empty, or PARTLY-EXCLUDED, which no line reads. It never means the item does not hold. The words blank can carry, one sentence each: NOT-READ means no page of a kind that could answer it, and no search for one, is recorded as read for it for this product. NOT-STATED means a page of a kind that could answer it, or a search of the maker's site for one, was read for it, and no reviewed sentence answering it for this product was taken from it; a sentence that marks nothing, such as one describing the item as in progress, one naming it with no status, one about the law, or one naming a withdrawn revision, may sit under that line in the tool list. UNREADABLE means a page of a kind that could answer it, read for it, returned no readable text to the fetch used, and it is given even where another page read for it could be read and gave no answer, so it does not mean nothing was checked; the regulated-data statements list each maker's pages read and whether each could be read, and a person with a browser may be able to read the unreadable one. GATED means a page of a kind that could answer it, read for it, sits behind a login, an NDA request or a sales conversation, so nothing on it was read, and like UNREADABLE it is given even where another page read for it could be read. BLANK means the maker's own table leaves this cell empty. CONFLICTING means the sentences taken for it disagree. SALES-ONLY means the maker's page sends the question to a sales conversation. PARTLY-EXCLUDED means the maker's page places this product outside the item only at particular levels of a Government program, such as FedRAMP High or DoD IL4, or only for particular plans, deployment options or regions or under particular conditions, each listed under the row's restrictions, and does not say the item applies or does not apply as a whole. OPERATOR means the answer belongs to whoever runs the software."
+   "null": "no current statement taken for this product from what was read marks the item, and the cell's blank gives the reason in one word: the status word of the line that left it empty, or PARTLY-EXCLUDED, which no line reads. It never means the item does not hold. The words blank can carry, one sentence each: NOT-READ means no page of a kind that could answer it, and no search for one, is recorded as read for it for this product. NOT-STATED means a page of a kind that could answer it, or a search of the maker's site for one, was read for it, and no reviewed sentence answering it for this product was taken from it; a sentence that marks nothing, such as one describing the item as in progress, one naming it with no status, one about the law, or one naming a withdrawn revision, may sit under that line in the data and compliance block (in the regulated-data statements). UNREADABLE means a page of a kind that could answer it, read for it, returned no readable text to the fetch used, and it is given even where another page read for it could be read and gave no answer, so it does not mean nothing was checked; the regulated-data statements list each maker's pages read and whether each could be read, and a person with a browser may be able to read the unreadable one. GATED means a page of a kind that could answer it, read for it, sits behind a login, an NDA request or a sales conversation, so nothing on it was read, and like UNREADABLE it is given even where another page read for it could be read. BLANK means the maker's own table leaves this cell empty. CONFLICTING means the sentences taken for it disagree. SALES-ONLY means the maker's page sends the question to a sales conversation. PARTLY-EXCLUDED means the maker's page places this product outside the item only at particular levels of a Government program, such as FedRAMP High or DoD IL4, or only for particular plans, deployment options or regions or under particular conditions, each listed under the row's restrictions, and does not say the item applies or does not apply as a whole. OPERATOR means the answer belongs to whoever runs the software."
   },
   "notListed": [
    {
@@ -145,7 +146,8 @@
    }
   ],
   "notListedPreface": "Entries run by their operator (open-source software and model weights) are not listed: whoever runs them answers these questions for their own deployment. Where the maker also runs the same software as a hosted service, that hosted tier is a separate product and gets its own row once one of the maker's pages establishing it has been read; until then it has no row, and its absence says nothing about it. Also not listed: entries whose block rests on the same pages as an entry listed here, where a read of those pages found part of that record outside the entry. No marks are shown for them, and the listed entry's marks should not be read as theirs; each reason says what the pages show:",
-  "restrictionsAbout": "A restriction is a sentence on the maker's own page, or a cell of the maker's own table, that places this product, or a plan, deployment option, region, arrangement or feature of it, outside something a column asks about or outside zero data retention, or that bars using it where one of those items applies. It is not a mark and never a No: each cell keeps its own mark, and a restriction holds only for the scope shown with it, the condition, plans or arrangement it names. An item's condition and plans belong to the one sentence or table cell it rests on, so where it names both, it holds only where one of those plans and that condition apply at once. It is listed only where no column for the same item already reads No. The list covers the items in the columns and the zero-retention option, so it is not a full account of a maker's terms, and an empty list means none was recorded here, not that none exists. Beneath an item, also lists what else the tool list's line for that item shows that bears on it: another cell of the same row of the maker's table, or a mark the maker's own table gives the same item for this product that no column reads. Each carries its own page, section and read date, with a reviewed summary or, for a cell holding only a mark, the line the tool list generates from it; an empty also does not mean the maker says nothing more. Each restriction carries about, columns, page, section, readOn and also; exactly one of summary and generated; and, where they apply, condition, plans and companyWide. A change to those keys, or to which are required, comes with a new format number.",
+  "restrictionsAbout": "A restriction is a sentence on the maker's own page, or a cell of the maker's own table, that places this product, or a plan, deployment option, region, arrangement or feature of it, outside something a column asks about or outside zero data retention, or that bars using it where one of those items applies. It is not a mark and never a No: each cell keeps its own mark, and a restriction holds only for the scope shown with it, the condition, plans or arrangement it names. An item's condition and plans belong to the one sentence or table cell it rests on, so where it names both, it holds only where one of those plans and that condition apply at once. It is listed only where no column for the same item already reads No. The list covers the items in the columns and the zero-retention option, so it is not a full account of a maker's terms, and an empty list means none was recorded here, not that none exists. Beneath an item, also lists what else the block's line for that item shows that bears on it: another cell of the same row of the maker's table, or a mark the maker's own table gives the same item for this product that no column reads. Each carries its own page, section and read date, with a reviewed summary or, for a cell holding only a mark, the line the block generates from it; an empty also does not mean the maker says nothing more. Each restriction carries about, columns and also; exactly one of summary and generated; either page, section and readOn, where it rests on one place, or levels and levelLocators, where it rests on several cells of one row of the maker's table that say the same thing for different levels: levels names each level once, in the table's column order, and levelLocators gives, for each level in the same order, its page, table, row, column and readOn; and, where they apply, condition, plans and companyWide. A change to those keys, or to which are required, comes with a new format number.",
+  "rowConditionsAbout": "Where one condition holds for every marked cell of a row, and the row has two or more marked cells, the row carries it once, in rowConditions, and neither its cells nor its restrictions repeat it; a cell keeps any condition that is its own. A Y* cell in such a row may then carry neither plans nor conditions: it holds under the row's condition. A row with no such condition carries no rowConditions.",
   "rows": [
    {
     "cells": {
@@ -728,27 +730,39 @@
     "restrictions": [
      {
       "about": "Government",
-      "also": [
-       {
-        "generated": "Anthropic's table excludes this row and column; its mark reads \"N/A\" (the symbol the cell shows).",
-        "page": "https://trust.anthropic.com/",
-        "readOn": "2026-09-27",
-        "section": "above the page's first section heading, table \"Welcome to the Anthropic Trust Center\", row \"Claude via Anthropic's API\", column \"FedRAMP High\""
-       },
-       {
-        "generated": "Anthropic's table excludes this row and column; its mark reads \"N/A\" (the symbol the cell shows).",
-        "page": "https://trust.anthropic.com/",
-        "readOn": "2026-09-27",
-        "section": "above the page's first section heading, table \"Welcome to the Anthropic Trust Center\", row \"Claude via Anthropic's API\", column \"DoD IL5\""
-       }
-      ],
+      "also": [],
       "columns": [
        "government"
       ],
       "generated": "Anthropic's table excludes this row and column; its mark reads \"N/A\" (the symbol the cell shows).",
-      "page": "https://trust.anthropic.com/",
-      "readOn": "2026-09-27",
-      "section": "above the page's first section heading, table \"Welcome to the Anthropic Trust Center\", row \"Claude via Anthropic's API\", column \"DoD IL4\""
+      "levelLocators": [
+       {
+        "column": "FedRAMP High",
+        "page": "https://trust.anthropic.com/",
+        "readOn": "2026-09-27",
+        "row": "Claude via Anthropic's API",
+        "table": "Welcome to the Anthropic Trust Center"
+       },
+       {
+        "column": "DoD IL4",
+        "page": "https://trust.anthropic.com/",
+        "readOn": "2026-09-27",
+        "row": "Claude via Anthropic's API",
+        "table": "Welcome to the Anthropic Trust Center"
+       },
+       {
+        "column": "DoD IL5",
+        "page": "https://trust.anthropic.com/",
+        "readOn": "2026-09-27",
+        "row": "Claude via Anthropic's API",
+        "table": "Welcome to the Anthropic Trust Center"
+       }
+      ],
+      "levels": [
+       "FedRAMP High",
+       "DoD IL4",
+       "DoD IL5"
+      ]
      }
     ],
     "toolList": "20-tool-list.md#anthropic-api",
@@ -1200,9 +1214,6 @@
       "mark": null
      },
      "iso27001": {
-      "conditions": [
-       "Anthropic's footnote on this row: its marks cover only the model and the containers Anthropic supplies to partners"
-      ],
       "link": "https://trust.anthropic.com/",
       "mark": "Y*"
      },
@@ -1211,16 +1222,10 @@
       "mark": null
      },
      "iso42001": {
-      "conditions": [
-       "Anthropic's footnote on this row: its marks cover only the model and the containers Anthropic supplies to partners"
-      ],
       "link": "https://trust.anthropic.com/",
       "mark": "Y*"
      },
      "soc2": {
-      "conditions": [
-       "Anthropic's footnote on this row: its marks cover only the model and the containers Anthropic supplies to partners"
-      ],
       "detail": "SOC 2 Type II",
       "link": "https://trust.anthropic.com/",
       "mark": "Y*"
@@ -1272,29 +1277,43 @@
     "restrictions": [
      {
       "about": "Government",
-      "also": [
-       {
-        "generated": "Anthropic's table excludes this row and column; its mark reads \"N/A\" (the symbol the cell shows).",
-        "page": "https://trust.anthropic.com/",
-        "readOn": "2026-09-27",
-        "section": "above the page's first section heading, table \"Welcome to the Anthropic Trust Center\", row \"Claude in Amazon Bedrock *\", column \"FedRAMP High\""
-       },
-       {
-        "generated": "Anthropic's table excludes this row and column; its mark reads \"N/A\" (the symbol the cell shows).",
-        "page": "https://trust.anthropic.com/",
-        "readOn": "2026-09-27",
-        "section": "above the page's first section heading, table \"Welcome to the Anthropic Trust Center\", row \"Claude in Amazon Bedrock *\", column \"DoD IL5\""
-       }
-      ],
+      "also": [],
       "columns": [
        "government"
       ],
-      "condition": "Anthropic's footnote on this row: its marks cover only the model and the containers Anthropic supplies to partners",
       "generated": "Anthropic's table excludes this row and column; its mark reads \"N/A\" (the symbol the cell shows).",
-      "page": "https://trust.anthropic.com/",
-      "readOn": "2026-09-27",
-      "section": "above the page's first section heading, table \"Welcome to the Anthropic Trust Center\", row \"Claude in Amazon Bedrock *\", column \"DoD IL4\""
+      "levelLocators": [
+       {
+        "column": "FedRAMP High",
+        "page": "https://trust.anthropic.com/",
+        "readOn": "2026-09-27",
+        "row": "Claude in Amazon Bedrock *",
+        "table": "Welcome to the Anthropic Trust Center"
+       },
+       {
+        "column": "DoD IL4",
+        "page": "https://trust.anthropic.com/",
+        "readOn": "2026-09-27",
+        "row": "Claude in Amazon Bedrock *",
+        "table": "Welcome to the Anthropic Trust Center"
+       },
+       {
+        "column": "DoD IL5",
+        "page": "https://trust.anthropic.com/",
+        "readOn": "2026-09-27",
+        "row": "Claude in Amazon Bedrock *",
+        "table": "Welcome to the Anthropic Trust Center"
+       }
+      ],
+      "levels": [
+       "FedRAMP High",
+       "DoD IL4",
+       "DoD IL5"
+      ]
      }
+    ],
+    "rowConditions": [
+     "Anthropic's footnote on this row: its marks cover only the model and the containers Anthropic supplies to partners"
     ],
     "toolList": "20-tool-list.md#aws-bedrock",
     "unverifiedAfter": "2026-12-23"
@@ -1564,27 +1583,39 @@
      },
      {
       "about": "Government",
-      "also": [
-       {
-        "generated": "Anthropic's table excludes this row and column; its mark reads \"N/A\" (the symbol the cell shows).",
-        "page": "https://trust.anthropic.com/",
-        "readOn": "2026-09-27",
-        "section": "above the page's first section heading, table \"Welcome to the Anthropic Trust Center\", row \"Claude in Microsoft Foundry, hosted on Anthropic\", column \"FedRAMP High\""
-       },
-       {
-        "generated": "Anthropic's table excludes this row and column; its mark reads \"N/A\" (the symbol the cell shows).",
-        "page": "https://trust.anthropic.com/",
-        "readOn": "2026-09-27",
-        "section": "above the page's first section heading, table \"Welcome to the Anthropic Trust Center\", row \"Claude in Microsoft Foundry, hosted on Anthropic\", column \"DoD IL5\""
-       }
-      ],
+      "also": [],
       "columns": [
        "government"
       ],
       "generated": "Anthropic's table excludes this row and column; its mark reads \"N/A\" (the symbol the cell shows).",
-      "page": "https://trust.anthropic.com/",
-      "readOn": "2026-09-27",
-      "section": "above the page's first section heading, table \"Welcome to the Anthropic Trust Center\", row \"Claude in Microsoft Foundry, hosted on Anthropic\", column \"DoD IL4\""
+      "levelLocators": [
+       {
+        "column": "FedRAMP High",
+        "page": "https://trust.anthropic.com/",
+        "readOn": "2026-09-27",
+        "row": "Claude in Microsoft Foundry, hosted on Anthropic",
+        "table": "Welcome to the Anthropic Trust Center"
+       },
+       {
+        "column": "DoD IL4",
+        "page": "https://trust.anthropic.com/",
+        "readOn": "2026-09-27",
+        "row": "Claude in Microsoft Foundry, hosted on Anthropic",
+        "table": "Welcome to the Anthropic Trust Center"
+       },
+       {
+        "column": "DoD IL5",
+        "page": "https://trust.anthropic.com/",
+        "readOn": "2026-09-27",
+        "row": "Claude in Microsoft Foundry, hosted on Anthropic",
+        "table": "Welcome to the Anthropic Trust Center"
+       }
+      ],
+      "levels": [
+       "FedRAMP High",
+       "DoD IL4",
+       "DoD IL5"
+      ]
      }
     ],
     "toolList": "20-tool-list.md#azure-ai-foundry--azure-openai",
@@ -1699,27 +1730,39 @@
      },
      {
       "about": "Government",
-      "also": [
-       {
-        "generated": "Anthropic's table excludes this row and column; its mark reads \"N/A\" (the symbol the cell shows).",
-        "page": "https://trust.anthropic.com/",
-        "readOn": "2026-09-27",
-        "section": "above the page's first section heading, table \"Welcome to the Anthropic Trust Center\", row \"Claude in Microsoft Foundry, hosted on Azure\", column \"FedRAMP High\""
-       },
-       {
-        "generated": "Anthropic's table excludes this row and column; its mark reads \"N/A\" (the symbol the cell shows).",
-        "page": "https://trust.anthropic.com/",
-        "readOn": "2026-09-27",
-        "section": "above the page's first section heading, table \"Welcome to the Anthropic Trust Center\", row \"Claude in Microsoft Foundry, hosted on Azure\", column \"DoD IL5\""
-       }
-      ],
+      "also": [],
       "columns": [
        "government"
       ],
       "generated": "Anthropic's table excludes this row and column; its mark reads \"N/A\" (the symbol the cell shows).",
-      "page": "https://trust.anthropic.com/",
-      "readOn": "2026-09-27",
-      "section": "above the page's first section heading, table \"Welcome to the Anthropic Trust Center\", row \"Claude in Microsoft Foundry, hosted on Azure\", column \"DoD IL4\""
+      "levelLocators": [
+       {
+        "column": "FedRAMP High",
+        "page": "https://trust.anthropic.com/",
+        "readOn": "2026-09-27",
+        "row": "Claude in Microsoft Foundry, hosted on Azure",
+        "table": "Welcome to the Anthropic Trust Center"
+       },
+       {
+        "column": "DoD IL4",
+        "page": "https://trust.anthropic.com/",
+        "readOn": "2026-09-27",
+        "row": "Claude in Microsoft Foundry, hosted on Azure",
+        "table": "Welcome to the Anthropic Trust Center"
+       },
+       {
+        "column": "DoD IL5",
+        "page": "https://trust.anthropic.com/",
+        "readOn": "2026-09-27",
+        "row": "Claude in Microsoft Foundry, hosted on Azure",
+        "table": "Welcome to the Anthropic Trust Center"
+       }
+      ],
+      "levels": [
+       "FedRAMP High",
+       "DoD IL4",
+       "DoD IL5"
+      ]
      }
     ],
     "toolList": "20-tool-list.md#azure-ai-foundry--azure-openai",
@@ -6501,9 +6544,6 @@
       "mark": null
      },
      "iso27001": {
-      "conditions": [
-       "Anthropic's footnote on this row: its marks cover only the model and the containers Anthropic supplies to partners"
-      ],
       "link": "https://trust.anthropic.com/",
       "mark": "Y*"
      },
@@ -6512,16 +6552,10 @@
       "mark": null
      },
      "iso42001": {
-      "conditions": [
-       "Anthropic's footnote on this row: its marks cover only the model and the containers Anthropic supplies to partners"
-      ],
       "link": "https://trust.anthropic.com/",
       "mark": "Y*"
      },
      "soc2": {
-      "conditions": [
-       "Anthropic's footnote on this row: its marks cover only the model and the containers Anthropic supplies to partners"
-      ],
       "detail": "SOC 2 Type II",
       "link": "https://trust.anthropic.com/",
       "mark": "Y*"
@@ -6573,29 +6607,43 @@
     "restrictions": [
      {
       "about": "Government",
-      "also": [
-       {
-        "generated": "Anthropic's table excludes this row and column; its mark reads \"N/A\" (the symbol the cell shows).",
-        "page": "https://trust.anthropic.com/",
-        "readOn": "2026-09-27",
-        "section": "above the page's first section heading, table \"Welcome to the Anthropic Trust Center\", row \"Claude on Google Cloud's Vertex AI *\", column \"FedRAMP High\""
-       },
-       {
-        "generated": "Anthropic's table excludes this row and column; its mark reads \"N/A\" (the symbol the cell shows).",
-        "page": "https://trust.anthropic.com/",
-        "readOn": "2026-09-27",
-        "section": "above the page's first section heading, table \"Welcome to the Anthropic Trust Center\", row \"Claude on Google Cloud's Vertex AI *\", column \"DoD IL5\""
-       }
-      ],
+      "also": [],
       "columns": [
        "government"
       ],
-      "condition": "Anthropic's footnote on this row: its marks cover only the model and the containers Anthropic supplies to partners",
       "generated": "Anthropic's table excludes this row and column; its mark reads \"N/A\" (the symbol the cell shows).",
-      "page": "https://trust.anthropic.com/",
-      "readOn": "2026-09-27",
-      "section": "above the page's first section heading, table \"Welcome to the Anthropic Trust Center\", row \"Claude on Google Cloud's Vertex AI *\", column \"DoD IL4\""
+      "levelLocators": [
+       {
+        "column": "FedRAMP High",
+        "page": "https://trust.anthropic.com/",
+        "readOn": "2026-09-27",
+        "row": "Claude on Google Cloud's Vertex AI *",
+        "table": "Welcome to the Anthropic Trust Center"
+       },
+       {
+        "column": "DoD IL4",
+        "page": "https://trust.anthropic.com/",
+        "readOn": "2026-09-27",
+        "row": "Claude on Google Cloud's Vertex AI *",
+        "table": "Welcome to the Anthropic Trust Center"
+       },
+       {
+        "column": "DoD IL5",
+        "page": "https://trust.anthropic.com/",
+        "readOn": "2026-09-27",
+        "row": "Claude on Google Cloud's Vertex AI *",
+        "table": "Welcome to the Anthropic Trust Center"
+       }
+      ],
+      "levels": [
+       "FedRAMP High",
+       "DoD IL4",
+       "DoD IL5"
+      ]
      }
+    ],
+    "rowConditions": [
+     "Anthropic's footnote on this row: its marks cover only the model and the containers Anthropic supplies to partners"
     ],
     "toolList": "20-tool-list.md#google-vertex-ai--gemini-enterprise-agent-platform",
     "unverifiedAfter": "2026-12-23"
@@ -11170,6 +11218,17 @@
   },
   {
    "archived": false,
+   "asOf": "2026-10-02",
+   "basis": "observed",
+   "compliance": [],
+   "kind": "repository",
+   "layer": "gateway",
+   "name": "JuliusBrussee/caveman",
+   "url": "https://github.com/JuliusBrussee/caveman",
+   "what": "A repository with three parts, per its README: a skill telling a coding agent to write tersely, a local proxy between the agent and its model provider that shrinks tool output, logs and diffs before they are sent, and a middleware for an application\u2019s own model calls."
+  },
+  {
+   "archived": false,
    "asOf": "2026-09-24",
    "basis": "observed",
    "compliance": [],
@@ -12036,6 +12095,17 @@
    "name": "ComposioHQ/awesome-claude-skills",
    "url": "https://github.com/ComposioHQ/awesome-claude-skills",
    "what": "Both a list and an implementation, which is why one word for it is wrong."
+  },
+  {
+   "archived": false,
+   "asOf": "2026-10-02",
+   "basis": "observed",
+   "compliance": [],
+   "kind": "repository",
+   "layer": "author",
+   "name": "garrytan/gstack",
+   "url": "https://github.com/garrytan/gstack",
+   "what": "A set of Markdown slash commands for Claude Code, each a role such as product review, engineering review, design review, code review, QA, security audit or release, which the README says is 23 specialists and eight power tools and calls the maintainer\u2019s own software factory."
   },
   {
    "archived": false,

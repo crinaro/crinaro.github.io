@@ -2216,7 +2216,11 @@ const pageName = (title, url) => B_ERROR_TITLE.test(String(title || '').trim())
 const escB = x => String(x).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 
 const MATRIX = TOOLS.matrix || null;
+const ROW_COND_NOTE = 'only under the condition noted under this row’s items';
+const rowCondNote = r => r.rowConditions
+  ? `<span class="cc-rc">Applies to every item above: ${r.rowConditions.map(escB).join('; ')}.</span>` : '';
 const CW_NOTE = 'filed under the company, naming no product; confirm on the page that its scope includes this product';
+const CW_REF = 'marked †, explained in the key';
 function matrixCell(c) {
   if (!c || c.mark === null) return `<td class="cm-c"></td>`;
   const notes = [];
@@ -2261,6 +2265,17 @@ const citeOf = x => {
 const GEN_LABEL = 'From the vendor’s table, not a reviewed summary:';
 const wordsOf = x => x.generated !== undefined
   ? `<span class="gen">${GEN_LABEL}</span> ${escB(x.generated)}` : escB(x.summary);
+const listOf = xs => xs.length < 3 ? xs.join(' and ') : `${xs.slice(0, -1).join(', ')} and ${xs[xs.length - 1]}`;
+const quoted = x => `"${escB(x)}"`;
+const citeLevels = it => {
+  const groups = [];
+  it.levelLocators.forEach(lc => {
+    const g = groups.find(x => x.page === lc.page && x.table === lc.table && x.row === lc.row && x.readOn === lc.readOn);
+    if (g) g.columns.push(lc.column); else groups.push({ ...lc, columns: [lc.column] });
+  });
+  return groups.map(g => `<a href="${escB(g.page)}" rel="noopener">${escB(hostOf(g.page))}</a>, table ${quoted(g.table)}, row ${
+    quoted(g.row)}, ${g.columns.length === 1 ? 'column' : 'columns'} ${listOf(g.columns.map(quoted))}, read ${escB(g.readOn)}.`).join(' ');
+};
 function restrictionsRow(t, cls) {
   if (!MATRIX) return '';
   const rows = MATRIX.rows.filter(r => r.entry === t.name && r.restrictions.length);
@@ -2269,9 +2284,10 @@ function restrictionsRow(t, cls) {
   const items = rows.flatMap(r => r.restrictions.map(it => {
     const scope = [it.condition ? `under ${it.condition}` : '', it.plans ? `on ${it.plans.join(', ')}` : '']
       .filter(Boolean).join(', ');
+    const at = it.levels ? ` at ${listOf(it.levels.map(escB))}` : '';
     return `<p class="rs-i"><span class="rs-l">Restriction${r.product ? `, ${escB(r.product)}` : ''}: ${
-      escB(it.about)}${scope ? ` (${escB(scope)})` : ''}.</span> ${wordsOf(it)} ${cite(it)}${
-      it.companyWide ? ` <span class="rs-cw">† ${escB(bCapM(CW_NOTE))}.</span>` : ''}</p>${
+      escB(it.about)}${at}${scope ? ` (${escB(scope)})` : ''}.</span> ${wordsOf(it)} ${it.levels ? citeLevels(it) : cite(it)}${
+      it.companyWide ? `<span aria-hidden="true">†</span><span class="vh"> (${CW_REF})</span>` : ''}</p>${
       it.also.map(al => `<p class="rs-a">Also: ${wordsOf(al)} ${cite(al)}</p>`).join('')}`;
   }));
   return `<tr class="rs${cls}"><td colspan="5" data-l="Restrictions">${items.join('')}</td></tr>`;
@@ -2284,7 +2300,7 @@ const FORMAT_ONLY = {
     'A change to that list of states or to those three pairings comes with a new format number.',
   ],
   restrictionsAbout: [
-    'Each restriction carries about, columns, page, section, readOn and also; exactly one of summary and generated; and, where they apply, condition, plans and companyWide.',
+    'Each restriction carries about, columns and also; exactly one of summary and generated; either page, section and readOn, where it rests on one place, or levels and levelLocators, where it rests on several cells of one row of the maker\'s table that say the same thing for different levels: levels names each level once, in the table\'s column order, and levelLocators gives, for each level in the same order, its page, table, row, column and readOn; and, where they apply, condition, plans and companyWide.',
     'A change to those keys, or to which are required, comes with a new format number.',
   ],
 };
@@ -2321,17 +2337,18 @@ function complianceCell(t) {
       const notes = [];
       if (x.plans) notes.push(`only on ${x.plans.join(', ')}`);
       if (x.conditions) notes.push(`only under ${x.conditions.join('; ')}`);
-      if (x.companyWide) notes.push(CW_NOTE);
+      if (x.mark === 'Y*' && !x.plans && !x.conditions && r.rowConditions) notes.push(ROW_COND_NOTE);
       const said = notes.join('. ');
+      const heard = [...notes, ...(x.companyWide ? [CW_REF] : [])].join('. ');
       const [nm, rest] = detailParts(c.label, x.detail);
       const name = nm + (x.mark === 'Y*' ? '*' : '');
       return `<a class="noext" href="${escB(x.link)}" rel="noopener"${said ? ` title="${escB(bCapM(said))}"` : ''}>${escB(name)}${
-        said ? `<span class="vh"> (${escB(said)})</span>` : ''}</a>${x.companyWide ? '<span aria-hidden="true">†</span>' : ''}${
+        heard ? `<span class="vh"> (${escB(heard)})</span>` : ''}</a>${x.companyWide ? '<span aria-hidden="true">†</span>' : ''}${
         rest ? ` <span class="cc-dt">${escB(rest)}</span>` : ''}`;
     });
     return `<div class="cc">${r.product ? `<span class="cc-p">${escB(r.product)}</span>` : ''}${
       items.length ? `<span class="cc-i">${items.map(x => `<span class="cc-g">${x}</span>`).join(' ')}</span>`
-        : (r.restrictions.length ? '' : `<span class="cc-none">${NOT_SHOWN}</span>`)}${r.restrictions.length ? `<span class="cc-rn">${r.restrictions.length === 1 ? 'A restriction' : 'Restrictions'} below.</span>` : ''}${
+        : (r.restrictions.length ? '' : `<span class="cc-none">${NOT_SHOWN}</span>`)}${items.length ? rowCondNote(r) : ''}${r.restrictions.length ? `<span class="cc-rn">${r.restrictions.length === 1 ? 'A restriction' : 'Restrictions'} below.</span>` : ''}${
       r.unverifiedAfter ? `<span class="cc-d">Unverified after ${r.unverifiedAfter}</span>` : ''}</div>`;
   }).join('') + (selfRun ? `<div class="cc"><span class="cc-none">The software itself: ${SELF_RUN.toLowerCase()}</span></div>` : '');
 }
@@ -2340,7 +2357,7 @@ function dataHandlingRow(t, cls) {
   if (!MATRIX || !MATRIX.dataHandlingColumns) return '';
   const cols = MATRIX.dataHandlingColumns;
   const cite = citeOf;
-  const dag = `<span aria-hidden="true">†</span><span class="vh"> (${escB(CW_NOTE)})</span>`;
+  const dag = `<span aria-hidden="true">†</span><span class="vh"> (${CW_REF})</span>`;
   const blocks = MATRIX.rows.filter(r => r.entry === t.name).map(r => {
     const answered = cols.filter(c => r.dataHandling[c.key].status !== null);
     if (!answered.length) return '';
@@ -2364,8 +2381,7 @@ function dataHandlingRow(t, cls) {
         : `<a class="dh-s noext" href="${escB(f.link)}" rel="noopener">${tag}</a>`;
       return `<div class="dh-f"><p class="dh-h"><b>${escB(c.label)}</b> ${st}${f.companyWide ? dag : ''}${scope ? ` <span class="dh-sc">(${escB(scope)})</span>` : ''}</p>${sums}</div>`;
     }).join('');
-    return `<details class="dh-d"><summary>Data handling${r.product ? `, ${escB(r.product)}` : ''}: ${
-      answered.map(c => escB(c.label)).join(', ')}</summary>${fields}</details>`;
+    return `<details class="dh-d"><summary>Data handling${r.product ? `, ${escB(r.product)}` : ''}: what the vendor’s pages say</summary>${fields}</details>`;
   }).filter(Boolean);
   if (!blocks.length) return '';
   return `<tr class="dh${cls}"><td colspan="5" data-l="Data handling">${blocks.join('')}</td></tr>`;
@@ -2410,6 +2426,7 @@ function matrixHtml() {
     ${[k('Y', escB(MATRIX.marks.Y)), k('Y*', escB(MATRIX.marks['Y*'])), k('†', escB(MATRIX.marks.companyWide)),
        k('No', escB(MATRIX.marks.No)), k('Blank', escB(MATRIX.marks.null)), k('Detail', escB(MATRIX.detailAbout)),
        k('Restriction', escB(withoutFormat(MATRIX.restrictionsAbout, FORMAT_ONLY.restrictionsAbout))),
+       k('Row condition', escB(MATRIX.rowConditionsAbout)),
        k('Data handling', escB(withoutFormat(MATRIX.dataHandlingAbout, FORMAT_ONLY.dataHandlingAbout)))].join('\n    ')}
   </dl>
   </details>` : ''}
@@ -2486,6 +2503,7 @@ writePage(path.join(DIST, 'what-you-already-have', 'options', 'index.html'), `${
   .cc-b { display:block; color:var(--muted); }
   .cc-bl { color:var(--ink-2); }
   .cc-rn { display:block; color:var(--ink-2); font-style:italic; }
+  .cc-rc { display:block; color:var(--ink-2); font-size:.8rem; margin-top:.25rem; white-space:normal; }
   tr.rs td { padding:.1rem 1rem .8rem 0; font-size:.84rem; line-height:1.55; color:var(--ink-2); }
   tr.rs p { margin:.35rem 0 0; }
   .rs-l { font-weight:500; color:var(--ink); }
