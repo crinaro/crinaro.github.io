@@ -233,8 +233,8 @@
     <h1>How the work&nbsp;gets done.</h1>
     
     <p>The model this site argues for is run rather than described. Here are the three things it
-       is run on, the agent teams that keep each alive, and one capability spec followed from the
-       team that writes it to the merge that reconciles against it.</p>
+       is run on, the agent teams that keep each alive, and one new capability, followed from the
+       team that asks for it to the check that the finished work does what was asked.</p>
   </div>
 </header>
 
@@ -252,7 +252,7 @@
     </div>
     <div class="cols">
       <div class="col"><div class="rule"></div>
-        <p class="eyebrow">Private</p><h3>The AI-SDLC reference</h3><p>Delivery end to end on an agentic model, not one team’s repos: what gets asked for, how it is built, how you know it shipped. Worked into patterns another team can pick up. It has an agent team of its own, inside a repository you cannot open, so that team is not set out here.</p></div>
+        <p class="eyebrow">Private</p><h3>The AI-SDLC reference</h3><p>Delivery end to end on an agentic model, across teams rather than inside one: what gets asked for, how it is built, how you know it shipped. Worked into patterns another team can pick up. It has an agent team of its own, in a private project you cannot open, so that team is not set out here.</p></div>
       <div class="col"><div class="rule"></div>
         <p class="eyebrow">Internal · seven agents</p><h3>This brand</h3><p>The page you are reading, the deck, the identity and the rules that govern them. One agent each for the claim, the voice, the render, the argument against, the contradictions with what is already published, the path a reader actually takes, and whether the whole thing still says what its sources say.</p></div>
       <div class="col"><div class="rule"></div>
@@ -269,13 +269,13 @@
       <h2>A factory that maintains, not just builds.</h2>
       <p>These six maintain the marketplace. Generating something with AI is the easy half now.
          The other half decides whether the thing is still alive in six months: keeping the
-         documents true, the gates green, the releases loading, and the claims about the system
+         documents true, the checks passing, the releases loading, and the claims about the system
          honest. That is the half these six do, and none of them writes features.</p>
     </div>
     <div class="verts">
       <div class="vert"><b>Architect</b><span>The shape of the thing: what is an agent, what is a script, what belongs in a manifest.</span></div>
       <div class="vert"><b>Deployment auditor</b><span>Where it can actually run: a desktop, a schedule, a headless container, and whether the docs say so truthfully.</span></div>
-      <div class="vert"><b>Gate keeper</b><span>The checks. The regression suite, the fixtures, and whether CI agrees with what passed locally.</span></div>
+      <div class="vert"><b>Gate keeper</b><span>The checks. The regression suite, the fixtures, and whether the automatic run on every change agrees with what passed on the author’s machine.</span></div>
       <div class="vert"><b>Docs steward</b><span>The written record: decisions, rulebooks, and stale claims about a system that has moved on.</span></div>
       <div class="vert"><b>Release manager</b><span>Shipping, so it actually loads for someone. Versions, catalog, cache, and a check from a fresh session.</span></div>
       <div class="vert"><b>Delivery verifier</b><span>What people actually install after the push: whether it matches what shipped, and whether a claimed fix is really in it.</span></div>
@@ -283,7 +283,7 @@
     
     <p class="note">All six are agent definitions in a private repository, so you cannot read
        them. What they maintain is public: a plugin carrying nine installable agents, a connector,
-       their documentation, and a version history you can walk back. That is one repository run
+       their documentation, and a version history you can walk back. That is one product run
        this way, not an organization.</p>
     
     <p class="note" id="notes">Most of this is argued at length in
@@ -297,22 +297,23 @@
     <div class="head narrow">
       <p class="eyebrow">Inside AI-SDLC</p>
       <h2>One capability, across&nbsp;every team it touches.</h2>
-      <p>A capability spec is written by a roadmap team, becomes work across other people’s
-         repositories, and is reconciled at the merge against what was asked for. The diagram
-         follows one of them the whole way.</p>
+      
+      <p>A roadmap team asks for a new capability in writing. The ask becomes work in other
+         teams’ code, and that work is checked against the ask before it is accepted. The diagram
+         follows one ask the whole way.</p>
     </div>
     <div class="flow"><svg viewBox="0 0 1000 272" role="img"
-     aria-label="A capability spec becomes work items across repos, built by agents on routed compute, then merged and reconciled against the original spec, with a knowledge layer underneath every stage">
+     aria-label="A roadmap team asks for a new capability. It becomes work items across teams’ code, built by agents on routed compute, then checked against what was asked before it is accepted, with a knowledge layer underneath every stage">
   <g>
     <rect x="0" y="26" width="176" height="86" rx="3" fill="#F2F6F8" stroke="#DCE4EA"/>
-    <text x="88" y="64" text-anchor="middle" fill="#0B2545" font-family="Poppins,Futura,'Century Gothic','Avenir Next',Avenir,sans-serif" font-size="17" font-weight="500">Capability spec</text>
-    <text x="88" y="86" text-anchor="middle" fill="#5B6E80" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="12.5">roadmap team</text>
+    <text x="88" y="64" text-anchor="middle" fill="#0B2545" font-family="Poppins,Futura,'Century Gothic','Avenir Next',Avenir,sans-serif" font-size="17" font-weight="500">New capability</text>
+    <text x="88" y="86" text-anchor="middle" fill="#5B6E80" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="12.5">a roadmap team asks</text>
     <path d="M88 112 L88 196" stroke="#93B8D4" stroke-width="1.5" stroke-dasharray="3 5"/>
   </g>
   <g>
     <rect x="206" y="26" width="176" height="86" rx="3" fill="#F2F6F8" stroke="#DCE4EA"/>
     <text x="294" y="64" text-anchor="middle" fill="#0B2545" font-family="Poppins,Futura,'Century Gothic','Avenir Next',Avenir,sans-serif" font-size="17" font-weight="500">Work items</text>
-    <text x="294" y="86" text-anchor="middle" fill="#5B6E80" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="12.5">across repos</text>
+    <text x="294" y="86" text-anchor="middle" fill="#5B6E80" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="12.5">across teams’ code</text>
     <path d="M294 112 L294 196" stroke="#93B8D4" stroke-width="1.5" stroke-dasharray="3 5"/>
   </g>
   <g>
@@ -329,8 +330,8 @@
   </g>
   <g>
     <rect x="824" y="26" width="176" height="86" rx="3" fill="#F2F6F8" stroke="#DCE4EA"/>
-    <text x="912" y="64" text-anchor="middle" fill="#0B2545" font-family="Poppins,Futura,'Century Gothic','Avenir Next',Avenir,sans-serif" font-size="17" font-weight="500">Merged, reconciled</text>
-    <text x="912" y="86" text-anchor="middle" fill="#5B6E80" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="12.5">against the spec</text>
+    <text x="912" y="64" text-anchor="middle" fill="#0B2545" font-family="Poppins,Futura,'Century Gothic','Avenir Next',Avenir,sans-serif" font-size="17" font-weight="500">Checked</text>
+    <text x="912" y="86" text-anchor="middle" fill="#5B6E80" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="12.5">against the ask</text>
     <path d="M912 112 L912 196" stroke="#93B8D4" stroke-width="1.5" stroke-dasharray="3 5"/>
   </g>
   <path d="M186 62 l7 7 -7 7" fill="none" stroke="#1B5C46" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
@@ -339,7 +340,7 @@
   <path d="M804 62 l7 7 -7 7" fill="none" stroke="#1B5C46" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
   <rect x="0" y="196" width="1000" height="66" rx="3" fill="#0B2545"/>
   <text x="24" y="224" fill="#FFFFFF" font-family="Poppins,Futura,'Century Gothic','Avenir Next',Avenir,sans-serif" font-size="16" font-weight="500">The knowledge layer</text>
-  <text x="24" y="246" fill="#93B8D4" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="13">Current-state index, generated from the repositories: queried, never re-derived.</text>
+  <text x="24" y="246" fill="#93B8D4" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="13">Current-state index, generated from the code: queried, never re-derived.</text>
 </svg></div>
     <p class="note">Every decision on that path is written down the same way, so a team that did
        not make it can pick it up:</p>
@@ -358,7 +359,7 @@
        separately, and standing without it:
        <a class="src" href="/what-you-already-have/">what the gaps cost</a>, which runs the pieces
        of infrastructure an agent setup can have in the order they stop being optional, and names
-       some of what exists at each. The layers, and the way to read a repository, change more slowly
+       some of what exists at each. The layers, and the way to read a tool’s public signals, change more slowly
        than the tools under them. The tools move on their own schedules, so the list prints dates
        rather than intervals and says where nobody has looked.</p>
   </div>

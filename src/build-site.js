@@ -93,7 +93,7 @@ const problems = [
 const factory = [
   ['Architect', 'The shape of the thing: what is an agent, what is a script, what belongs in a manifest.'],
   ['Deployment auditor', 'Where it can actually run: a desktop, a schedule, a headless container, and whether the docs say so truthfully.'],
-  ['Gate keeper', 'The checks. The regression suite, the fixtures, and whether CI agrees with what passed locally.'],
+  ['Gate keeper', 'The checks. The regression suite, the fixtures, and whether the automatic run on every change agrees with what passed on the author’s machine.'],
   ['Docs steward', 'The written record: decisions, rulebooks, and stale claims about a system that has moved on.'],
   ['Release manager', 'Shipping, so it actually loads for someone. Versions, catalog, cache, and a check from a fresh session.'],
   ['Delivery verifier', 'What people actually install after the push: whether it matches what shipped, and whether a claimed fix is really in it.'],
@@ -101,7 +101,7 @@ const factory = [
 
 const assets = [
   ['The AI-SDLC reference', 'Private',
-   'Delivery end to end on an agentic model, not one team’s repos: what gets asked for, how it is built, how you know it shipped. Worked into patterns another team can pick up. It has an agent team of its own, inside a repository you cannot open, so that team is not set out here.'],
+   'Delivery end to end on an agentic model, across teams rather than inside one: what gets asked for, how it is built, how you know it shipped. Worked into patterns another team can pick up. It has an agent team of its own, in a private project you cannot open, so that team is not set out here.'],
   ['This brand', 'Internal · seven agents',
    'The page you are reading, the deck, the identity and the rules that govern them. One agent each for the claim, the voice, the render, the argument against, the contradictions with what is already published, the path a reader actually takes, and whether the whole thing still says what its sources say.'],
   ['The plugin marketplace', 'Public · installable',
@@ -112,11 +112,11 @@ const assets = [
 ];
 
 const STAGES = [
-  ['Capability spec', 'roadmap team'],
-  ['Work items', 'across repos'],
+  ['New capability', 'a roadmap team asks'],
+  ['Work items', 'across teams’ code'],
   ['Agents', 'marketplace + local'],
   ['Compute, routing', 'per role, per model'],
-  ['Merged, reconciled', 'against the spec'],
+  ['Checked', 'against the ask'],
 ];
 const SOAI = 'https://www.mckinsey.com/capabilities/quantumblack/our-insights/the-state-of-ai';
 
@@ -198,7 +198,7 @@ ${OWN_TEAMS.map((t, i) => {
 
 const BOX_W = 176, BOX_GAP = 30, BOX_Y = 26, BOX_H = 86, KB_Y = 196;
 const flow = `<svg viewBox="0 0 1000 272" role="img"
-     aria-label="A capability spec becomes work items across repos, built by agents on routed compute, then merged and reconciled against the original spec, with a knowledge layer underneath every stage">
+     aria-label="A roadmap team asks for a new capability. It becomes work items across teams’ code, built by agents on routed compute, then checked against what was asked before it is accepted, with a knowledge layer underneath every stage">
   ${STAGES.map(([t, s], i) => {
     const x = i * (BOX_W + BOX_GAP), cx = x + BOX_W / 2;
     return `<g>
@@ -214,7 +214,7 @@ const flow = `<svg viewBox="0 0 1000 272" role="img"
   }).join('\n  ')}
   <rect x="0" y="${KB_Y}" width="1000" height="66" rx="3" fill="#0B2545"/>
   <text x="24" y="${KB_Y + 28}" fill="#FFFFFF" font-family="${HEAD_SVG}" font-size="16" font-weight="500">The knowledge layer</text>
-  <text x="24" y="${KB_Y + 50}" fill="#93B8D4" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="13">Current-state index, generated from the repositories: queried, never re-derived.</text>
+  <text x="24" y="${KB_Y + 50}" fill="#93B8D4" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="13">Current-state index, generated from the code: queried, never re-derived.</text>
 </svg>`;
 
 const method = [
@@ -1435,7 +1435,7 @@ const WORK_SECTIONS = `
       <h2>A factory that maintains, not just builds.</h2>
       <p>These six maintain the marketplace. Generating something with AI is the easy half now.
          The other half decides whether the thing is still alive in six months: keeping the
-         documents true, the gates green, the releases loading, and the claims about the system
+         documents true, the checks passing, the releases loading, and the claims about the system
          honest. That is the half these six do, and none of them writes features.</p>
     </div>
     <div class="verts">
@@ -1443,7 +1443,7 @@ const WORK_SECTIONS = `
     </div>
     <p class="note">All six are agent definitions in a private repository, so you cannot read
        them. What they maintain is public: a plugin carrying nine installable agents, a connector,
-       their documentation, and a version history you can walk back. That is one repository run
+       their documentation, and a version history you can walk back. That is one product run
        this way, not an organization.</p>
     <p class="note" id="notes">Most of this is argued at length in
        <a class="src" href="/notes/">the notes</a>, where the index says which of them are one
@@ -1456,9 +1456,9 @@ const WORK_SECTIONS = `
     <div class="head narrow">
       <p class="eyebrow">Inside AI-SDLC</p>
       <h2>One capability, across&nbsp;every team it touches.</h2>
-      <p>A capability spec is written by a roadmap team, becomes work across other people’s
-         repositories, and is reconciled at the merge against what was asked for. The diagram
-         follows one of them the whole way.</p>
+      <p>A roadmap team asks for a new capability in writing. The ask becomes work in other
+         teams’ code, and that work is checked against the ask before it is accepted. The diagram
+         follows one ask the whole way.</p>
     </div>
     <div class="flow">${flow}</div>
     <p class="note">Every decision on that path is written down the same way, so a team that did
@@ -1473,7 +1473,7 @@ const WORK_SECTIONS = `
        separately, and standing without it:
        <a class="src" href="/what-you-already-have/">what the gaps cost</a>, which runs the pieces
        of infrastructure an agent setup can have in the order they stop being optional, and names
-       some of what exists at each. The layers, and the way to read a repository, change more slowly
+       some of what exists at each. The layers, and the way to read a tool’s public signals, change more slowly
        than the tools under them. The tools move on their own schedules, so the list prints dates
        rather than intervals and says where nobody has looked.</p>
   </div>
@@ -1754,8 +1754,8 @@ ${CSS}
     <a class="note-home" href="/">${svg('crinaro-ai-horizontal-reversed.svg')}</a>
     <h1>How the work&nbsp;gets done.</h1>
     <p>The model this site argues for is run rather than described. Here are the three things it
-       is run on, the agent teams that keep each alive, and one capability spec followed from the
-       team that writes it to the merge that reconciles against it.</p>
+       is run on, the agent teams that keep each alive, and one new capability, followed from the
+       team that asks for it to the check that the finished work does what was asked.</p>
   </div>
 </header>
 
