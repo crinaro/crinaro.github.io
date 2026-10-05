@@ -119,6 +119,7 @@ const STAGES = [
   ['Checked', 'against the ask'],
 ];
 const SOAI = 'https://www.mckinsey.com/capabilities/quantumblack/our-insights/the-state-of-ai';
+const MANIFESTO = 'https://www.mckinsey.com/capabilities/tech-and-ai/our-insights/the-ai-transformation-manifesto';
 
 const ROWS = [
   ['Scaling AI across the enterprise', '44%', 'from 38%', true],
@@ -1550,6 +1551,10 @@ ${CSS}
       <p>Those figures are leaders grading their own organizations, and a second firm reports a
          similar distance between adoption and return.<sup class="fn">1</sup> So the question is not whether you are adopting AI. It is
          whether the way you adopt it can move EBIT.</p>
+      <p>The AI often changes nothing, <a class="src" href="${MANIFESTO}">McKinsey's advice says</a>,
+         when the work on either side of it is left as it was. A model can predict a machine
+         failure days ahead, and maintenance still runs on the calendar. The prediction changed.
+         The way the decision gets made did not.</p>
       <p>The way you adopt it is where the problem starts. Every team of people you run already
          answers five questions: Who owns this? Where do they get their facts? How does a decision
          get made? Who does the work? Who builds the team?</p>
