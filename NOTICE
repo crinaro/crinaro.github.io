@@ -1,0 +1,44 @@
+crinaro.github.io
+Copyright 2026 Crinaro
+
+Licensed under the Apache License, Version 2.0. See LICENSE.
+
+PROVENANCE
+
+The pages here and the generators in src/ were produced with model assistance
+under human direction and review. No copyright is claimed in any portion that
+is purely machine-generated; whatever rights are held in this work are
+licensed under the Apache License, Version 2.0.
+
+No figure is published here for the proportion of that work which is
+model-involved. This repository is generated output, and the history that
+would support such a figure is not in it.
+
+THIRD-PARTY
+
+src/fonts.css embeds a Latin subset of Poppins, at weights 400, 500 and 700,
+base64-encoded as woff2. Poppins is not covered by the Apache License above.
+It is licensed under the SIL Open Font License, Version 1.1, whose full text
+and the font's own copyright notice are in licenses/Poppins-OFL.txt.
+
+what-you-already-have/options/ and what-you-already-have/customer-data/
+summarize other publishers' pages, each line linked to its source. Lines
+drawn from AWS documentation on docs.aws.amazon.com are offered under the
+Creative Commons Attribution-ShareAlike 4.0 International License, as the
+AWS Site Terms require, not under the Apache License above. No license is
+claimed to any other publisher's pages. Each page's closing paragraph says
+which license covers which lines.
+
+TRADEMARK
+
+The Apache License, Version 2.0 grants no rights in the trade names,
+trademarks, service marks or product names of the licensor. "Crinaro" and
+"crinaro.ai" are not licensed by that grant and are reserved.
+
+The ridge mark and the wordmark are reserved on the same basis. The SVG files
+in src/logo/ are covered by the license as files; that grant is not permission
+to use the mark as an identifier of origin.
+
+All vendor, product and model names and marks belong to their owners and are
+used only to identify the products discussed; no endorsement or affiliation
+is implied.

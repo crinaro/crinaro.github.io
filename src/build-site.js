@@ -1,0 +1,3000 @@
+#!/usr/bin/env node
+/*
+ * Builds index.html — one self-contained static file.
+ *
+ * No framework, no bundler, no runtime dependency. The logo SVGs are inlined
+ * from ../logo/ai/ at build time, so the site can never drift from the mark,
+ * and the deployed artifact makes zero external requests. That is both the
+ * cheapest thing to host and the fastest thing to load.
+ *
+ * Run: node build-site.js   ->   dist/index.html
+ */
+const fs = require('fs');
+const path = require('path');
+
+const LOGO = path.join(__dirname, 'logo', 'ai');
+const DIST = path.join(__dirname, '..');   // repo root — Pages serves from here
+fs.mkdirSync(DIST, { recursive: true });
+
+for (const owned of ['notes', 'icons']) {
+  fs.rmSync(path.join(DIST, owned), { recursive: true, force: true });
+}
+
+const HEAD_SVG = "Poppins,Futura,'Century Gothic','Avenir Next',Avenir,sans-serif";
+const headStack = s => s.replace(
+  /font-family="Futura,\s*'Century Gothic',\s*'Avenir Next',\s*Avenir,\s*sans-serif"/g,
+  `font-family="${HEAD_SVG}"`);
+
+const svg = n => headStack(fs.readFileSync(path.join(LOGO, n), 'utf8')
+  .replace(/<\?xml[^>]*>/, '')
+  .replace(/ width="\d+" height="\d+"/, '')
+  .trim());
+
+const FONTS_CSS = path.join(__dirname, 'fonts.css');
+if (!fs.existsSync(FONTS_CSS)) {
+  console.error('missing site/fonts.css — run: python3 build-fonts.py');
+  process.exit(1);
+}
+const FONTS = fs.readFileSync(FONTS_CSS, 'utf8').trim();
+
+const EMAIL = 'john@crinaro.ai';
+const OWN_HOST = /^https?:\/\/(?:www\.)?crinaro\.(?:ai|github\.io)(?:[\/?#]|$)/i;
+const externalLinks = html => html.replace(/<a\b([^>]*?)>([\s\S]*?)<\/a>/g, (whole, attrs, inner) => {
+  const href = /\shref="([^"]*)"/.exec(attrs);
+  if (!href || !/^https?:\/\//i.test(href[1]) || OWN_HOST.test(href[1])) return whole;
+  let a = attrs.replace(/\starget="[^"]*"/, '');
+  const rel = /\srel="([^"]*)"/.exec(a);
+  const words = new Set([...(rel ? rel[1].split(/\s+/) : []), 'noopener', 'noreferrer'].filter(Boolean));
+  a = rel ? a.replace(rel[0], ` rel="${[...words].join(' ')}"`) : `${a} rel="${[...words].join(' ')}"`;
+  const quiet = /\sclass="[^"]*\bnoext\b/.test(a);
+  const mark = quiet ? '' : '⁠<span class="ext-m" aria-hidden="true">↗</span><span class="ext-vh"> (opens in a new tab)</span>';
+  return `<a${a} target="_blank">${inner}${mark}</a>`;
+});
+const EXT_CSS = `<style>.ext-m { font-size:.78em; margin-left:.1em; vertical-align:.08em; text-decoration:none; }
+  .ext-vh { position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; }</style>`;
+const writePage = (p, html) => {
+  const out = externalLinks(html).replace('</head>', `${EXT_CSS}\n</head>`)
+    .replace(/<!--[\s\S]*?-->/g, '')
+    .replace(/<style>([\s\S]*?)<\/style>/g,
+             (_, css) => `<style>${css.replace(/\/\*[\s\S]*?\*\//g, '')}</style>`);
+  fs.writeFileSync(p, out);
+  return Buffer.byteLength(out);
+};
+
+const CLAIM = 'AI from higher ground.';
+const CLAIM_HTML = CLAIM.replace(/\. /, '.<br>');
+
+const SUB = 'Ideas and patterns worked out over 30 years in healthcare, GovTech and travel, now applied with agents.';
+
+const QUESTIONS = ['Who owns this?', 'Where do they get their facts?', 'How does a decision get made?',
+                   'Who does the work?', 'Who builds the team?'];
+const problems = [
+  ['A name against each capability',
+   'Not whoever picked it up. One team answerable for each part of the system after the ' +
+     'current deadline, and an operating process that keeps it that way.'],
+  ['One place the facts live',
+   'How your system works, and the procedures people once learned by training, written ' +
+     'where an agent can read them. Agents decide from what they are given. Without it, they ' +
+     'guess. ' +
+     '<a class="src" href="/notes/who-owns-the-answer/">Who owns the answer</a>'],
+  ['The why, captured when it is decided',
+   'Code says what it does. It never says why it was built that way, or which duplicate is ' +
+     'meant to go. Written down by whoever made the call, at the time, not reconstructed later ' +
+     'by somebody who was not there.'],
+  ['A route from a question to its owner',
+   'Not whoever is nearest. The question reaches the team that owns it, and when something of ' +
+     'theirs is broken they fix it, rather than everyone routing around it.'],
+  ['A team that builds the teams',
+   'Agents do not arrive trained: somebody designs them, checks their work and keeps ' +
+     'improving them. In engineering that may be the team that runs them; elsewhere it may be ' +
+     'a separate group. Either way it is a role the organization stands up and staffs, not ' +
+     'work added to the side of someone\'s desk.'],
+];// The maintenance team, by role. These are real agent definitions — the six in
+const factory = [
+  ['Architect', 'The shape of the thing: what is an agent, what is a script, what belongs in a manifest.'],
+  ['Deployment auditor', 'Where it can actually run: a desktop, a schedule, a headless container, and whether the docs say so truthfully.'],
+  ['Gate keeper', 'The checks. The regression suite, the fixtures, and whether the automatic run on every change agrees with what passed on the author’s machine.'],
+  ['Docs steward', 'The written record: decisions, rulebooks, and stale claims about a system that has moved on.'],
+  ['Release manager', 'Shipping, so it actually loads for someone. Versions, catalog, cache, and a check from a fresh session.'],
+  ['Delivery verifier', 'What people actually install after the push: whether it matches what shipped, and whether a claimed fix is really in it.'],
+];
+
+const assets = [
+  ['The AI-SDLC reference', 'Private',
+   'Delivery end to end on an agentic model, across teams rather than inside one: what gets asked for, how it is built, how you know it shipped. Worked into patterns another team can pick up. It has an agent team of its own, in a private project you cannot open, so that team is not set out here.'],
+  ['This brand', 'Internal · seven agents',
+   'The page you are reading, the deck, the identity and the rules that govern them. One agent each for the claim, the voice, the render, the argument against, the contradictions with what is already published, the path a reader actually takes, and whether the whole thing still says what its sources say.'],
+  ['The plugin marketplace', 'Public · installable',
+  'One of the places the AI-SDLC reference is tested, and the one in public. Plugins are ' +
+   'added as problems are worked through. So far: an agent team that helps whoever installs it ' +
+   'find their next opportunity, full-time or fractional, and a connector for several mailboxes.',
+   'https://github.com/crinaro/marketplace', 'Read the marketplace'],
+];
+
+const STAGES = [
+  ['New capability', 'a roadmap team asks'],
+  ['Work items', 'across teams’ code'],
+  ['Agents', 'marketplace + local'],
+  ['Compute, routing', 'per role, per model'],
+  ['Checked', 'against the ask'],
+];
+const SOAI = 'https://www.mckinsey.com/capabilities/quantumblack/our-insights/the-state-of-ai';
+const MANIFESTO = 'https://www.mckinsey.com/capabilities/tech-and-ai/our-insights/the-ai-transformation-manifesto';
+
+const ROWS = [
+  ['Scaling AI across the enterprise', '44%', 'from 38%', true],
+  ['Reporting EBIT impact', '37%', 'unchanged', false],
+  ['AI high performers', '6%', 'unchanged', false],
+];
+const RY = [96, 168, 240], LX = 40, L0 = 330, L1 = 760, VX = 790;
+const exhibit = `<svg viewBox="0 0 960 320" role="img"
+     aria-label="Three rows, each comparing 2025 with 2026. The share of organizations scaling AI across the enterprise rises from 38 percent to 44 percent. The share reporting EBIT impact is unchanged at 37 percent. The share who are AI high performers is unchanged at 6 percent. One line rises and two are flat.">
+  <text x="${LX}" y="42" fill="#FFFFFF" font-family="${HEAD_SVG}" font-size="18" font-weight="500">Adoption went up. Impact did not.</text>
+  <text x="${LX}" y="64" fill="#93B8D4" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="12.5">2025 to 2026, same survey both years</text>
+${ROWS.map(([label, value, note, rising], i) => {
+  const y = RY[i], c = rising ? '#FFFFFF' : '#93B8D4';
+  const ya = rising ? y + 13 : y, yb = rising ? y - 13 : y;
+  return `  <text x="${LX}" y="${y + 5}" fill="${c}" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="13.5">${label}</text>
+  <line x1="${L0}" y1="${ya}" x2="${L1}" y2="${yb}" stroke="${c}" stroke-width="${rising ? 2.5 : 1.5}"${rising ? '' : ' stroke-dasharray="5 4"'}/>
+  <circle cx="${L0}" cy="${ya}" r="3.5" fill="${c}"/>
+  <circle cx="${L1}" cy="${yb}" r="${rising ? 5 : 4}" fill="${c}"/>
+  <text x="${VX}" y="${yb + 9}" fill="${c}" font-family="${HEAD_SVG}" font-size="${rising ? 27 : 22}" font-weight="500">${value}</text>
+  <text x="${L0}" y="${ya + 22}" fill="#93B8D4" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="12">${note}</text>`;
+}).join('\n')}
+  <text x="${LX}" y="296" fill="#93B8D4" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="12">McKinsey, State of AI 2026, pp. 5, 12 and 17. The lower two are drawn flat because the report states them</text>
+  <text x="${LX}" y="314" fill="#93B8D4" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="12">as unchanged rather than printing a 2025 figure.</text>
+</svg>`;
+
+const stats = [
+  ['44%', 'say AI is scaling across the enterprise. The only line above that moved.',
+   'McKinsey, 1,719 respondents, p. 5', SOAI],
+  ['37%', 'say it reached EBIT. A survey answer, not an audited line.',
+   'Of respondents, not of companies, p. 12', SOAI],
+  ['6%', 'attribute 5% or more of EBIT to it. That share has not moved either.',
+   'And report significant value. McKinsey\'s AI high performers, p. 17', SOAI],
+  ['3 in 4', 'of that 6% report redesigning the work itself. One in four of the rest do.',
+   'Nearly three-quarters, and n = 92 against 1,429 others, p. 18', SOAI],
+];
+
+const OWN_TEAMS = ['Billing', 'Support', 'Sales'];
+const ownership = `<svg viewBox="40 0 920 350" role="img"
+     aria-label="Two columns. On the left, three teams each hold their own customer record and the three disagree, because each one is correct inside its own system. On the right, the same three teams, but one of them owns the customer record and the other two read from it.">
+  <text x="40" y="24" fill="#0B2545" font-family="${HEAD_SVG}" font-size="16" font-weight="500">Nobody owns the fact</text>
+  <text x="40" y="44" fill="#5B6E80" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="12.5">three teams, three answers</text>
+${OWN_TEAMS.map((t, i) => {
+  const x = 40 + i * 133;
+  return `  <rect x="${x}" y="66" width="118" height="30" rx="3" fill="#FFFFFF" stroke="#DCE4EA"/>
+  <text x="${x + 59}" y="86" text-anchor="middle" fill="#0B2545" font-family="${HEAD_SVG}" font-size="13" font-weight="500">${t}</text>
+  <path d="M${x + 59} 96 L${x + 59} 114" stroke="#93B8D4" stroke-width="1.5"/>
+  <rect x="${x}" y="114" width="118" height="38" rx="3" fill="#F2F6F8" stroke="#DCE4EA"/>
+  <text x="${x + 59}" y="138" text-anchor="middle" fill="#0B2545" font-family="${HEAD_SVG}" font-size="14.5" font-weight="500">customer</text>`;
+}).join('\n')}
+  <path d="M161 133 L170 133" stroke="#93B8D4" stroke-width="1.5" stroke-dasharray="3 3"/>
+  <path d="M294 133 L303 133" stroke="#93B8D4" stroke-width="1.5" stroke-dasharray="3 3"/>
+  <text x="232" y="196" text-anchor="middle" fill="#5B6E80" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="12.5">each one is right inside its own system</text>
+
+  <text x="566" y="24" fill="#1B5C46" font-family="${HEAD_SVG}" font-size="16" font-weight="500">One owner, and it travels</text>
+  <text x="566" y="44" fill="#5B6E80" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="12.5">one team answerable, the rest read it</text>
+${OWN_TEAMS.map((t, i) => {
+  const x = 566 + i * 133;
+  const owner = i === 0;
+  return `  <rect x="${x}" y="66" width="118" height="30" rx="3" fill="${owner ? '#EAF3EE' : '#FFFFFF'}" stroke="${owner ? '#A8D5C0' : '#DCE4EA'}"/>
+  <text x="${x + 59}" y="86" text-anchor="middle" fill="${owner ? '#1B5C46' : '#5B6E80'}" font-family="${HEAD_SVG}" font-size="13" font-weight="500">${t}</text>
+  <path d="M${x + 59} 96 L${x + 59} 114" stroke="${owner ? '#7DBFA3' : '#DCE4EA'}" stroke-width="1.5"/>
+  <rect x="${x}" y="114" width="118" height="38" rx="3" fill="${owner ? '#EAF3EE' : '#FFFFFF'}" stroke="${owner ? '#A8D5C0' : '#DCE4EA'}"/>
+  <text x="${x + 59}" y="138" text-anchor="middle" fill="${owner ? '#1B5C46' : '#5B6E80'}" font-family="${HEAD_SVG}" font-size="14.5" font-weight="500">${owner ? 'customer' : 'reads it'}</text>`;
+}).join('\n')}
+  <path d="M625 152 L625 172 L891 172" fill="none" stroke="#7DBFA3" stroke-width="1.5"/>
+  <path d="M758 172 L758 152" fill="none" stroke="#7DBFA3" stroke-width="1.5"/>
+  <path d="M754 158 L758 152 L762 158" fill="none" stroke="#7DBFA3" stroke-width="1.5"/>
+  <path d="M891 172 L891 152" fill="none" stroke="#7DBFA3" stroke-width="1.5"/>
+  <path d="M887 158 L891 152 L895 158" fill="none" stroke="#7DBFA3" stroke-width="1.5"/>
+  <text x="758" y="196" text-anchor="middle" fill="#5B6E80" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="12.5">the owner keeps it true and pushes it out</text>
+
+  <text x="500" y="244" text-anchor="middle" fill="#0B2545" font-family="${HEAD_SVG}" font-size="14.5" font-weight="500">The org chart on top already exists. The row underneath is the one nobody drew.</text>
+  <text x="500" y="286" text-anchor="middle" fill="#5B6E80" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="12.5">A run of acquisitions leaves this behind: the value arrives once,</text>
+  <text x="500" y="306" text-anchor="middle" fill="#5B6E80" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="12.5">and the cost of three answers arrives every year after.</text>
+  <text x="500" y="326" text-anchor="middle" fill="#5B6E80" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="12.5">Agents do not resolve it. They read all three and answer with confidence.</text>
+</svg>`;
+
+const BOX_W = 176, BOX_GAP = 30, BOX_Y = 26, BOX_H = 86, KB_Y = 196;
+const flow = `<svg viewBox="0 0 1000 272" role="img"
+     aria-label="A roadmap team asks for a new capability. It becomes work items across teams’ code, built by agents on routed compute, then checked against what was asked before it is accepted, with a knowledge layer underneath every stage">
+  ${STAGES.map(([t, s], i) => {
+    const x = i * (BOX_W + BOX_GAP), cx = x + BOX_W / 2;
+    return `<g>
+    <rect x="${x}" y="${BOX_Y}" width="${BOX_W}" height="${BOX_H}" rx="3" fill="#F2F6F8" stroke="#DCE4EA"/>
+    <text x="${cx}" y="${BOX_Y + 38}" text-anchor="middle" fill="#0B2545" font-family="${HEAD_SVG}" font-size="17" font-weight="500">${t}</text>
+    <text x="${cx}" y="${BOX_Y + 60}" text-anchor="middle" fill="#5B6E80" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="12.5">${s}</text>
+    <path d="M${cx} ${BOX_Y + BOX_H} L${cx} ${KB_Y}" stroke="#93B8D4" stroke-width="1.5" stroke-dasharray="3 5"/>
+  </g>`;
+  }).join('\n  ')}
+  ${STAGES.slice(1).map((_, i) => {
+    const gx = (i + 1) * (BOX_W + BOX_GAP) - BOX_GAP / 2;
+    return `<path d="M${gx - 5} ${BOX_Y + 36} l7 7 -7 7" fill="none" stroke="#1B5C46" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>`;
+  }).join('\n  ')}
+  <rect x="0" y="${KB_Y}" width="1000" height="66" rx="3" fill="#0B2545"/>
+  <text x="24" y="${KB_Y + 28}" fill="#FFFFFF" font-family="${HEAD_SVG}" font-size="16" font-weight="500">The knowledge layer</text>
+  <text x="24" y="${KB_Y + 50}" fill="#93B8D4" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="13">Current-state index, generated from the code: queried, never re-derived.</text>
+</svg>`;
+
+const method = [
+  ['The options',
+   'Constraints differ by organization. Each decision names the real alternatives rather than one best practice.'],
+  ['The signal',
+   'A decision table that picks between them, against things you can actually observe. Not “it depends”.'],
+  ['The trigger',
+   'The specific, felt pain that says it is time for the more complex option, so you do not buy infrastructure for a problem you do not have yet.'],
+];
+
+
+const verticals = [
+  ['Healthcare', 'Records that cannot answer the question at the bedside'],
+  ['GovTech', 'Policy that never reaches the citizen as a working service'],
+  ['Travel', 'Fragmented inventory that fails the moment something goes wrong'],
+];
+
+
+
+
+const TOOLS = JSON.parse(fs.readFileSync(path.join(__dirname, 'tools.json'), 'utf8'));
+const REG = JSON.parse(fs.readFileSync(path.join(__dirname, 'regulated.json'), 'utf8'));
+
+const LAYER_NAMES = [
+  ['compute-and-isolation', 'Sandboxes for agents',         'A safe place for each run, not someone’s laptop'],
+  ['serving',               'Model hosting',                'Running models yourself, or buying inference'],
+  ['gateway',               'Model access and routing',     'One way in to many model providers'],
+  ['context-and-tools',     'Company knowledge for agents', 'Where agents get facts and reach your systems'],
+  ['orchestration',         'Agent frameworks and runtimes','What runs multi-step work and picks up after a failure'],
+  ['interface',             'Coding agents and assistants', 'What people use to work with agents'],
+  ['author',                'Skills and specs',             'The instructions agents follow'],
+  ['evaluate',              'Testing agent output',         'Tracing, scoring and test runs'],
+  ['register-and-version',  'Catalogs and registries',      'Which agents and tools exist, and which version'],
+  ['publish-and-deliver',   'Distribution to teams',        'Getting skills and tools onto people’s machines'],
+  ['cross-cutting',         'Security and secrets',         'Credentials agents use without holding them'],
+];
+
+const KIND_LABEL = {
+  'repository': 'repository',
+  'model': 'model weights',
+  'hosted-service': 'hosted service',
+  'desktop-application': 'desktop application',
+  'ide-extension': 'editor extension',
+  'ide': 'editor',
+  'chat-assistant': 'chat assistant',
+  'terminal-harness': 'terminal agent',
+  'product-feature': 'product feature',
+};
+
+const EMPTY_LAYER = {
+  'evaluate': {
+    text: 'Nothing is filed here. That is the state of the field as far as this list can say, ' +
+          'not a gap in the reading: nothing that was looked at is an evaluation product.',
+    points: false,
+  },
+  'publish-and-deliver': {
+    text: 'Nothing is filed here as its primary layer, and that is the state of the reading rather ' +
+          'than of the field. The practice behind this list delivers a versioned definition as a ' +
+          'pull request rather than through a product.',
+    after: 'No search has been run for products that deliver what you publish to the machines that ' +
+           'run it, so an empty heading says nothing about whether they exist.',
+    points: true,
+  },
+};
+
+const SPELLED = ['No', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven',
+                 'Eight', 'Nine', 'Ten', 'Eleven', 'Twelve', 'Thirteen',
+                 'Fourteen', 'Fifteen', 'Sixteen', 'Seventeen', 'Eighteen',
+                 'Nineteen', 'Twenty'];
+
+const LAYERS = [
+  ['compute-and-isolation', 'Sandboxes for agents',
+   'An agent run gets a workspace that is not somebody\'s laptop, and two runs cannot see each other.',
+   'Every unattended run inherits one machine\'s credentials and state. This is the row that stops being optional first, because a scheduled job on a laptop stops when its owner takes leave and nothing reports that it stopped.'],
+  ['serving', 'Model hosting',
+   'You run a process that holds weights, or you have decided on purpose that you never will.',
+   'Nothing, if you buy inference and mean it. Empty is the correct state of this row for anyone who does.'],
+  ['gateway', 'Model access and routing',
+   'Changing which model answers is a configuration change rather than a code change.',
+   'Every switch becomes a code change in however many places call a model. One model and one consumer does not earn this row. A second of either does.'],
+  ['context-and-tools', 'Company knowledge for agents',
+   'An agent reaches your systems through a declared surface rather than through pasted text.',
+   'Nothing records what an agent was actually given, so when a run comes back wrong there is nothing to inspect and nothing to change except the next prompt.'],
+  ['orchestration', 'Agent frameworks and runtimes',
+   'A sequence that dies halfway resumes rather than restarts.',
+   'Long work is only as reliable as the machine it started on. This row earns its place once a run is long enough that starting it again is expensive, and before that it is easy to buy too early.'],
+  ['interface', 'Coding agents and assistants',
+   'Nobody has to read a log to know what an agent did.',
+   'You cannot tell a working agent team from a stuck one without going and asking the person running it.'],
+];
+
+const NOTE_SCOPE = {
+  slug: 'same-request-same-answer',
+  title: 'Same request, same answer',
+  author: 'John Kelly',
+  date: '2026-09-02',
+  dateHuman: '2 September 2026',
+  standfirst: 'How you scope a team used to be a question about coordination cost. It now decides ' +
+              'whether you can hand that team a specification at all, and a team you can only ' +
+              'prompt gives you nothing to test the answer against.',
+  gist: [
+    'In an estate other teams already own, a change that crosses their systems cannot be ' +
+      'specified by one team alone: the spec would describe things it does not own. A team scoped to ' +
+      'something it owns can be handed a spec.',
+    'That is not a matter of taste. A prompt is a conversation, and the answer can differ every ' +
+      'time it is run, with nothing to check the difference against. Systems a business depends ' +
+      'on need the same request to land somewhere you can test.',
+  ],
+  body: `
+<p>For a long time the argument about how to shape delivery teams was an argument about
+   coordination. Split people by feature and one team carries a change from end to end, paying for
+   it in breadth. Split them by component and each team goes deep, paying for it in handoffs. Both
+   sides had evidence, and both were arguing about the same thing: what it costs for one group of
+   people to get something from another group of people.</p>
+
+<p>That argument assumed a person on each end. The receiving team could be told roughly what was
+   wanted and work the rest out, because working the rest out is what people do. It is why the
+   handoff was expensive, and it is also why it was survivable.</p>
+
+<h3>What an agent team can be given</h3>
+
+<p>An agent team is scoped to what it can be pointed at, and the question is whether that scope has
+   an edge. A team whose remit is everything a request might touch has nothing to write a
+   specification against. Not because breaking the request into parts is impossible: people do it
+   every day. Because there is no reason to. A team that owns the whole surface can always absorb
+   the work, so the decomposition happens only when a boundary makes it happen. What gets handed
+   over instead is a description of intent, refined by asking again.</p>
+
+<p>This is not an argument about vertical against horizontal. A team aligned to a stream of work,
+   owning one bounded context end to end, has an edge and passes the same test. The failing case is
+   not a slice through the stack. It is a remit with no boundary anywhere in it.</p>
+
+<p>A team scoped to something it owns has a request with an edge. It can be written down, against a
+   contract, and handed over.</p>
+
+<div class="flow"><svg viewBox="0 0 1000 300" role="img"
+     aria-label="Two columns. A team scoped without a boundary takes in everything a request might touch, has nothing to specify against, and its output varies with nothing to test it. A team scoped to something it owns works against one contract, can be given a specification, and its output varies inside something testable.">
+  <text x="40" y="26" fill="#0B2545" font-family="${HEAD_SVG}" font-size="16" font-weight="500">Scoped without a boundary</text>
+  <text x="40" y="46" fill="#5B6E80" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="12.5">the request has no edge</text>
+  <rect x="40" y="70" width="384" height="46" rx="3" fill="#F2F6F8" stroke="#DCE4EA"/>
+  <text x="232" y="98" text-anchor="middle" fill="#0B2545" font-family="${HEAD_SVG}" font-size="14.5" font-weight="500">Everything a request might touch</text>
+  <path d="M232 116 L232 136" stroke="#93B8D4" stroke-width="1.5"/>
+  <rect x="40" y="136" width="384" height="46" rx="3" fill="#F2F6F8" stroke="#DCE4EA"/>
+  <text x="232" y="164" text-anchor="middle" fill="#0B2545" font-family="${HEAD_SVG}" font-size="14.5" font-weight="500">Nothing to specify against</text>
+  <path d="M232 182 L232 202" stroke="#93B8D4" stroke-width="1.5"/>
+  <rect x="40" y="202" width="384" height="46" rx="3" fill="#F2F6F8" stroke="#DCE4EA"/>
+  <text x="232" y="230" text-anchor="middle" fill="#0B2545" font-family="${HEAD_SVG}" font-size="14.5" font-weight="500">Variation with nothing to test it</text>
+  <text x="576" y="26" fill="#1B5C46" font-family="${HEAD_SVG}" font-size="16" font-weight="500">Scoped to something it owns</text>
+  <text x="576" y="46" fill="#5B6E80" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="12.5">the request has an edge</text>
+  <rect x="576" y="70" width="384" height="46" rx="3" fill="#EAF3EE" stroke="#A8D5C0"/>
+  <text x="768" y="98" text-anchor="middle" fill="#1B5C46" font-family="${HEAD_SVG}" font-size="14.5" font-weight="500">One contract it is answerable for</text>
+  <path d="M768 116 L768 136" stroke="#7DBFA3" stroke-width="1.5"/>
+  <rect x="576" y="136" width="384" height="46" rx="3" fill="#EAF3EE" stroke="#A8D5C0"/>
+  <text x="768" y="164" text-anchor="middle" fill="#1B5C46" font-family="${HEAD_SVG}" font-size="14.5" font-weight="500">You can write it a specification</text>
+  <path d="M768 182 L768 202" stroke="#7DBFA3" stroke-width="1.5"/>
+  <rect x="576" y="202" width="384" height="46" rx="3" fill="#EAF3EE" stroke="#A8D5C0"/>
+  <text x="768" y="230" text-anchor="middle" fill="#1B5C46" font-family="${HEAD_SVG}" font-size="14.5" font-weight="500">Variation inside something testable</text>
+  <text x="500" y="284" text-anchor="middle" fill="#5B6E80" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="12.5">The difference is not speed. It is whether there is anything to check the second run against.</text>
+</svg></div>
+
+<h3>Why that is not a preference</h3>
+
+<p>Prompting is the right way to explore, and it is where the work starts. What it does not give
+   you is a result you can check. Ask a second time and you get a second answer, as reasonable as the
+   first and different from it, and nothing in the exchange tells you which one to keep.</p>
+
+<p>Runs vary for reasons that have nothing to do with scope. The model moves under a stable name,
+   sampling is not deterministic, and the same request can be served differently depending on what
+   else the machine is doing. Drawing a boundary does not fix any of that, and a note on this site
+   already says so: the method in <a href="/notes/prompting-to-specifying/">the piece on
+   specifying</a> starts by running two identical arms, which is only worth doing because two
+   identical arms differ.</p>
+
+<p>So the claim here is not that a specification produces the same output twice. It does not. The
+   claim is narrower and more useful: a bounded request constrains the space an answer can land in,
+   and a constrained space is what makes a test mean something. A contract can be replayed against
+   whatever came back. Intent cannot.</p>
+
+<p>Variation is fine while you are exploring. It is not fine in a system a business runs on.
+   Enterprise systems earn their keep by being
+   predictable: the same input produces the same behavior, a release does what the last release
+   did except where it was meant to change, and a customer relying on it can plan around it. That
+   is what quality means at that scale, and it is built out of repeatability rather than out of any
+   single good answer.</p>
+
+<p>So the question of how you scope a team stopped being an organizational preference and became a
+   question about whether your delivery is repeatable. Not how fast the team is. Whether the same
+   request lands somewhere you can test, every time it is run.</p>
+
+<h3>The objection, and why it does not hold</h3>
+
+<p>The obvious answer is that a party who does not own something cannot write a good specification
+   for it: it will miss the invariants, the failure modes and the couplings that only the owner
+   knows, so the work satisfies the request and does not work. If that were disqualifying,
+   contract-first development would never work, and it does.</p>
+
+<p>But it works for a reason worth being precise about, because the reason is the answer to the
+   objection. A contract is agreed by both parties and then verified against the real thing, every
+   build. The requester writes what it needs; the owner says whether that is what the component
+   does; the test replays it. Nobody in that practice believes a specification thrown over a wall
+   is sufficient, and nothing here should be read as proposing one. A contract never fully
+   describes behavior either. Somebody ends up depending on something it did not promise,
+   which is an argument for the owner being in the loop rather than against writing it down.</p>
+
+<p>When a specification is wrong, the cause can sit upstream of the team receiving it, in
+   analysis that was not done. That was true before agents. What has changed is the cost of being
+   wrong: the turnaround is hours, so a specification that missed something gets corrected and
+   re-run rather than absorbed into a release nobody wants to reopen. The argument for keeping the
+   work inside one team was that going outside it was slow. That is the part that moved, and it is
+   worth saying that it moved for the writing rather than for the agreeing. Getting another team to
+   care is the same problem it always was.</p>
+
+<p>And the specification is not overhead you pay for the privilege of splitting the work. The team
+   receiving it has to update what its component says about itself, and the specification is what
+   that update is written from. A request that never got written down leaves nothing behind for the
+   next one to read.</p>
+
+<h3>What to call the unit, which matters more than it sounds</h3>
+
+<p>Component, service, module, capability: organizations fill these words in differently, which is
+   most of why arguments between delivery frameworks talk past each other. Two people can agree
+   completely about features and disagree entirely about what a feature is.</p>
+
+<p>So the unit here is defined by a test rather than by a word. It is whatever satisfies two
+   conditions at once: one team can own what it says about itself, and a specification can be
+   written against it without describing anything else. If those hold, the name does not matter. If
+   they do not hold, no name will fix it.</p>
+
+<p><b>What is not known.</b> That a bounded request produces output which varies less, or varies
+   more usefully, than an unbounded one is stated here as a mechanism and not as a measurement.
+   Nothing here has run the comparison. It is a real experiment: the same request given to a
+   broadly scoped team and to a narrowly scoped one, several times each, with the runs compared to
+   each other rather than to a target. Until somebody does that, the honest version of this note is
+   that the bounded request is the one you can write a test for, which is a claim about what is
+   checkable rather than about what varies.</p>
+`,
+  next: ['prompting-to-specifying', 'From prompting to specifying',
+         'What changes for an engineer once the spec, not the prompt, is the thing being edited.'],
+};
+
+const SIGNALS = [
+  ['Stars',
+   'Attention accumulated over a repository\'s whole life, so age is part of what it measures: ' +
+   'an older project out-stars a better younger one by default. Nothing prompts anybody to ' +
+   'un-star a project they stopped using.'],
+  ['Last push',
+   'When a commit last reached the default branch. A bot bumping a dependency and a rewrite of the ' +
+   'scheduler are the same date here, and a project whose real work happens on release branches ' +
+   'looks quieter than it is.'],
+  ['Archived',
+   'The owner set a flag, which is a fact rather than an inference. What it means is ambiguous: a ' +
+   'project that moved to a new organization leaves a tombstone identical to one that stopped. ' +
+   'Check whether the same name is alive somewhere else before concluding anything.'],
+  ['The license, twice',
+   'What the host reports and what is actually in the tree are not always the same answer. For ' +
+   'anything you copy into your own repository, the directory you copy is the unit to check, at the ' +
+   'revision you copy it from.'],
+  ['Open issues',
+   'The count rises with adoption and falls with triage policy, so a low number means few ' +
+   'problems, or no queue, or a bot closing them on a timer. A signal with opposite readings is ' +
+   'not a signal until you know which regime you are in.'],
+];
+
+const NOTE_COUNT = {
+  slug: 'count-the-changes',
+  title: 'Count the repetitive changes, not the repositories',
+  author: 'John Kelly',
+  date: '2026-09-05',
+  dateHuman: '5 September 2026',
+  standfirst: 'If your agent teams are working, one change the business asks for touches fewer ' +
+              'places over time. This is how you would know, and the number the argument most naturally suggests is the ' +
+              'wrong one.',
+  gist: [
+    'The number a leader already has is what maintenance and critical defects cost. It is what ' +
+      'makes somebody ask the question, and it cannot answer it, because scale and age and ' +
+      'regulation explain it just as well.',
+    'The number that can answer is how many changes the system needs for one functional change. ' +
+      'It only works with a distinction attached: three edits composing one behavior is fine, and ' +
+      'the same rule landing in four places is the cost.',
+  ],
+  body: `
+<p>The home page states the measure and stops there: if your agent teams are working, the number of systems you have to change to deliver one thing the business asked for goes down. This is what sits behind it, and the first thing it needs is a distinction: the places that
+   count are the ones somebody has to keep in agreement by hand. What follows is not a measurement.
+   It is the pair of numbers that would tell you whether the agent teams are working.</p>
+
+<h3>The number that makes somebody ask</h3>
+
+<p>What a company has to spend on maintenance and on critical customer defects is already on
+   somebody's desk. Nobody has to be persuaded it matters, and when it climbs the explanation is
+   rarely to hand. That is its whole strength.</p>
+
+<p>It can also be explained by scale, by age, by regulation, and by having more customers than
+   last year. So on its own it cannot be attributed to duplicated work, and reading a rising
+   maintenance line as evidence of it is picking one explanation from several that fit. The lagging number
+   is what makes somebody ask. It is not what answers.</p>
+
+<h3>The number that can answer</h3>
+
+<p>The instrument is <b>how many changes have to be made in the system for the same functional
+   change.</b> One behavior, asked for once. Count where it has to land, and note who owns each
+   place, because three edits inside one team's remit is not the same cost as three across three
+   backlogs.</p>
+
+<p><b>That is deliberately not a count of repositories</b>, and the reason matters more than the
+   instrument. The same estate arrives at the same repository count by several different routes,
+   and creating something new can be the correct call even where ownership is exactly right.
+   It is the count the argument seems to suggest, and the first one to reject. A repository count
+   answers a question nobody asked, and answers it confidently.</p>
+
+<h3>The distinction that makes it an instrument rather than a complaint</h3>
+
+<div class="flow"><svg viewBox="0 0 1000 336" role="img"
+     aria-label="Two columns. On the left, one decision enforced three times is distributed work: nothing has to be kept in step by hand, and three is not a cost. On the right, one decision re-derived four times is duplicated work: four places to find by hand, and four is the cost. Same number, opposite meaning.">
+  <text x="40" y="24" fill="#1B5C46" font-family="${HEAD_SVG}" font-size="16" font-weight="500">One behavior, three places</text>
+  <text x="40" y="44" fill="#5B6E80" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="12.5">distributed work</text>
+  <rect x="40" y="64" width="440" height="52" rx="3" fill="#EAF3EE" stroke="#A8D5C0"/>
+  <text x="260" y="95" text-anchor="middle" fill="#1B5C46" font-family="${HEAD_SVG}" font-size="14.5" font-weight="500">One decision, enforced three times</text>
+  <path d="M260 116 L260 140" stroke="#7DBFA3" stroke-width="1.5"/>
+  <rect x="40" y="140" width="440" height="52" rx="3" fill="#EAF3EE" stroke="#A8D5C0"/>
+  <text x="260" y="171" text-anchor="middle" fill="#1B5C46" font-family="${HEAD_SVG}" font-size="14.5" font-weight="500">Nothing to keep in step by hand</text>
+  <path d="M260 192 L260 216" stroke="#7DBFA3" stroke-width="1.5"/>
+  <rect x="40" y="216" width="440" height="52" rx="3" fill="#EAF3EE" stroke="#A8D5C0"/>
+  <text x="260" y="247" text-anchor="middle" fill="#1B5C46" font-family="${HEAD_SVG}" font-size="14.5" font-weight="500">Three is not a cost</text>
+  <text x="520" y="24" fill="#0B2545" font-family="${HEAD_SVG}" font-size="16" font-weight="500">One rule, four places</text>
+  <text x="520" y="44" fill="#5B6E80" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="12.5">duplicated work</text>
+  <rect x="520" y="64" width="440" height="52" rx="3" fill="#F2F6F8" stroke="#DCE4EA"/>
+  <text x="740" y="95" text-anchor="middle" fill="#0B2545" font-family="${HEAD_SVG}" font-size="14.5" font-weight="500">One decision, re-derived four times</text>
+  <path d="M740 116 L740 140" stroke="#93B8D4" stroke-width="1.5"/>
+  <rect x="520" y="140" width="440" height="52" rx="3" fill="#F2F6F8" stroke="#DCE4EA"/>
+  <text x="740" y="171" text-anchor="middle" fill="#0B2545" font-family="${HEAD_SVG}" font-size="14.5" font-weight="500">Four places to find, by hand</text>
+  <path d="M740 192 L740 216" stroke="#93B8D4" stroke-width="1.5"/>
+  <rect x="520" y="216" width="440" height="52" rx="3" fill="#F2F6F8" stroke="#DCE4EA"/>
+  <text x="740" y="247" text-anchor="middle" fill="#0B2545" font-family="${HEAD_SVG}" font-size="14.5" font-weight="500">Four is the cost</text>
+  <text x="500" y="308" text-anchor="middle" fill="#5B6E80" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="12.5">The same number on both sides. The test is whether anybody has to keep them in agreement.</text>
+</svg></div>
+
+<p>A capability that spans a frontend, a service and a schema is <b>distributed work</b>: three
+   different edits composing one behavior. Three means nothing bad. A capability where the same
+   decision has been worked out separately in four places is <b>duplicated work</b>, and four is the
+   cost.</p>
+
+<p><b>The test is not how many places. It is whether they have to be kept in agreement by hand.</b>
+   A rule written down once and enforced at three layers because each layer has a different job
+   costs nothing when it changes, and validating in a browser and again in a service is exactly
+   that: not waste, and not one thing done three times. Four teams that each arrived at their own
+   version of a pricing rule have four places to find, and somebody has to find all four.</p>
+
+<p><b>Same number, opposite meaning.</b> Any dashboard that counts touched systems without making
+   that distinction is measuring your architecture and calling it waste, and it will be believed
+   because it has a number on it.</p>
+
+
+<h3>Why this is cheaper than it sounds</h3>
+
+<p>The judgment the instrument needs is already being made. A team breaking a request down knows,
+   at the moment it does so, which of the items in front of it are the same work repeated. That is
+   narrower than knowing what already exists somewhere else in the estate, which nothing in the
+   process is looking at and which is a different problem. It is still the judgment this needs, and
+   nothing on the artifact has anywhere to put it, so it is made and thrown away.</p>
+
+<p><b>One field on a decomposition record is the whole instrument.</b> Not a program, not a
+   dashboard, not a new practice. A place to write down something somebody already knows.</p>
+
+<p><b>And it stays honest only while nobody is judged on it.</b> The field goes up precisely when a
+   team built its own copy rather than going to ask another team to change something, which makes it
+   a confession written by the person confessing. Attach it to a review, or carry it up as a team
+   target, and distributed becomes the answer to every question. The number goes flat and the
+   duplication continues underneath it. It is worth reading across an estate, by somebody who is not
+   deciding anybody's year, and it is worth nothing as a target.</p>
+
+<p>It also assumes there is a decomposition record at all.
+   <a href="/notes/the-last-hop/">The note on the last hop</a> argues that some teams minimized documentation wherever they were allowed to, and that the breakdown
+   historically lived in an engineer's head. Where that is still true this is not cheap. That agents
+   need it written down at all is the first reason to start; this is the second.</p>
+
+<p>Version control can tell you what changed together, afterwards, with nobody filling in anything.
+   That is worth having and it is a different instrument: it records what did change together and
+   cannot tell you whether it should have. This one is filled in before the work, by the only people
+   in a position to know.</p>
+
+<h3>Two shapes, and I am not going to tell you which arrives first</h3>
+
+<p>Several services implementing the same behavior is one shape, and it is visible from inside
+   engineering. Several end-user systems needing the same change is the other, and it is visible
+   from outside, because watching one feature ship three times needs no access to any code.</p>
+
+<p>Which of the two gets noticed first is not something anybody here has counted. It reads as
+   though it has an obvious answer, which is exactly what a frequency claim looks like before
+   somebody checks it.</p>
+
+<p><b>What is not known.</b> Both numbers together would show whether the agent teams are working. <b>Neither shows what
+   that is worth.</b> There is no cost model
+   behind any of this, so this says what to watch and prices none of it. And the outcome itself
+   remains unmeasured: the instrument is what would test the claim, not evidence that it
+   holds.</p>
+`,
+  next: ['the-last-hop', 'The last hop nobody wrote down',
+         'Where the breakdown happens, and why the part that used to live in an engineer\'s head is now the input.'],
+};
+
+const CSS = `${FONTS}
+
+  :root {
+    --navy:#0B2545; --navy-2:#123256; --paper:#F2F6F8; --ground:#FFFFFF;
+    --green:#1B5C46; --rgreen:#4FA98A; --blue:#5B84A9; --rblue:#93B8D4;
+    --ink:#0B2545; --ink-2:#3D5570; --muted:#5B6E80; --hair:#DCE4EA;
+    --head:Poppins,Futura,"Century Gothic","Avenir Next",Avenir,"Trebuchet MS",sans-serif;
+    --body:"Helvetica Neue",Helvetica,Arial,system-ui,sans-serif;
+    --mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+  }
+  *,*::before,*::after { box-sizing:border-box; }
+  html { scroll-behavior:smooth; }
+  @media (prefers-reduced-motion:reduce) {
+    html { scroll-behavior:auto; }
+    *,*::before,*::after { animation-duration:.01ms !important; animation-iteration-count:1 !important; }
+  }
+  body {
+    margin:0; background:var(--ground); color:var(--ink);
+    font:17px/1.65 var(--body); -webkit-font-smoothing:antialiased;
+  }
+  .wrap { max-width:62rem; margin:0 auto; padding:0 1.5rem; }
+  .narrow { max-width:none; }
+  p, li { text-wrap:pretty; }
+
+  h1,h2,h3 { font-family:var(--head); font-weight:500; letter-spacing:.005em;
+             text-wrap:balance; margin:0; }
+  h1 { font-size:clamp(2rem,5.6vw,3.4rem); line-height:1.05; }
+  h2 { font-size:clamp(1.6rem,3.8vw,2.3rem); line-height:1.12; }
+  h3 { font-size:1.08rem; font-weight:700; font-family:var(--body); letter-spacing:-.01em; }
+  p { margin:0; color:var(--ink-2); }
+  .eyebrow { font-family:var(--mono); font-size:.7rem; letter-spacing:.2em;
+             text-transform:uppercase; color:var(--muted); margin:0; }
+
+  section { padding:5.5rem 0; border-top:1px solid var(--hair); }
+  .stack { display:flex; flex-direction:column; gap:1.1rem; }
+  .head { display:flex; flex-direction:column; gap:.75rem; margin-bottom:2.6rem; }
+  .head:last-child { margin-bottom:0; }
+
+  .hero { background:var(--navy); border:0; padding:0; }
+  .hero .wrap { padding-top:4rem; padding-bottom:4.5rem;
+                display:flex; flex-direction:column; gap:2.4rem; }
+  .hero svg { width:100%; max-width:26rem; height:auto; display:block; }
+  .hero h1 { color:#FFFFFF; max-width:32ch; }
+  .hero p { color:var(--rblue); font-size:1.1rem; max-width:none; }
+  .band .src { color:var(--rblue); border-bottom-color:rgba(147,184,212,.45); }
+  .band .src:hover { color:#FFFFFF; border-bottom-color:#FFFFFF; }
+  .hero .src { color:var(--rblue); border-bottom-color:rgba(147,184,212,.45);
+               align-self:flex-start; margin-top:.4rem; }
+  .hero .routes { align-self:flex-start; margin-top:.6rem; }
+  .hero .routes p { margin:0 0 1.4rem; }
+  .hero .routes p:last-child { margin-bottom:0; }
+  .hero .routes .src { margin-top:0; }
+  .hero .routes .rl { font-family:var(--mono); font-size:.66rem; letter-spacing:.16em;
+                      text-transform:uppercase; color:#93B8D4; display:block; margin-bottom:.25rem; }
+  .hero .src:hover { color:#FFFFFF; border-bottom-color:#FFFFFF; }
+
+  .cta {
+    display:inline-flex; align-items:center; gap:.6rem; align-self:flex-start;
+    font-family:var(--head); font-size:1rem; letter-spacing:.04em;
+    text-decoration:none; padding:.85rem 1.5rem; border-radius:2px;
+    background:var(--rgreen); color:var(--navy); font-weight:700;
+    transition:background .15s ease, transform .15s ease;
+  }
+  .cta:hover { background:#6FC4A5; transform:translateY(-1px); }
+  .cta.dark { background:var(--green); color:#FFFFFF; }
+  .cta.dark:hover { background:#25755A; }
+
+  .cols { display:grid; grid-template-columns:1fr; gap:2rem; }
+  @media (min-width:48rem) { .cols { grid-template-columns:repeat(3,1fr); gap:2.4rem; } }
+  @media (min-width:48rem) { .cols.four { grid-template-columns:repeat(2,1fr); } }
+  @media (min-width:48rem) { .cols.five { grid-template-columns:repeat(2,1fr); } }
+  @media (min-width:48rem) { .cols.five > .col:last-child:nth-child(odd) { grid-column:1 / -1; } }
+  .col { display:flex; flex-direction:column; gap:.5rem; }
+  .col .rule { width:2rem; height:3px; background:var(--green); border-radius:2px; margin-bottom:.4rem; }
+  .col .eyebrow.q { margin:0; color:var(--green); }
+  .bookmark { margin-top:2.4rem; padding:1.3rem 1.5rem; background:var(--paper);
+              border-left:3px solid var(--green); }
+  .bookmark p { margin:0; }
+  .bookmark .eyebrow { margin-bottom:.55rem; color:var(--green); }
+  .src { font-family:var(--head); font-size:.92rem; letter-spacing:.02em;
+         text-decoration:none; border-bottom:1px solid rgba(27,92,70,.35);
+         padding-bottom:1px; }
+  .src:hover { border-bottom-color:var(--green); }
+
+  .sep { display:inline-block; padding:0 .7rem; color:var(--ink-2);
+         border-bottom:none; }
+
+  a.src { white-space:nowrap; }
+  @media (max-width:480px) { a.src { white-space:normal; } }
+  .linkrow .sep { display:inline; }
+
+  .flow { overflow-x:auto; -webkit-overflow-scrolling:touch; }
+  @media (max-width:40rem) {
+    .exhibit::before { content:"Scroll sideways for the whole chart →"; display:block;
+                       position:sticky; left:0; font-size:.75rem; color:var(--rblue);
+                       margin:0 0 .6rem; white-space:nowrap; }
+    .flow::before { content:"Scroll sideways for the whole diagram →"; display:block;
+                    position:sticky; left:0; font-size:.75rem; color:var(--muted);
+                    margin:0 0 .5rem; white-space:nowrap; }
+  }
+  .fig { margin:.6rem 0 3.4rem; }
+  .stats { display:grid; grid-template-columns:1fr; gap:2.2rem 2.4rem; margin:2.6rem 0 0; }
+  @media (min-width:34rem) { .stats { grid-template-columns:repeat(2,1fr); } }
+  @media (min-width:62rem) { .stats { grid-template-columns:repeat(4,1fr); } }
+  .stat b { display:block; font-family:var(--head); font-weight:500; line-height:1;
+            font-size:clamp(2.7rem,5.2vw,3.5rem); color:var(--ink); letter-spacing:-.02em; }
+  .stat p { margin:.7rem 0 0; font-size:.98rem; line-height:1.5; color:var(--ink-2); }
+  .stat { display:flex; flex-direction:column; height:100%; }
+  .stat .base { display:block; margin-top:auto; padding-top:.55rem; font-size:.78rem;
+                line-height:1.45; color:var(--muted); }
+  .stat .base a { color:var(--muted); border-bottom:1px solid var(--hair); }
+  .stat .base a:hover { color:var(--ink); border-bottom-color:var(--ink); }
+  .stats + .head { margin-top:2.4rem; }
+  .exhibit { background:var(--navy); border-radius:4px; padding:1.6rem 1.2rem 1rem;
+             margin:2.2rem 0 0; overflow-x:auto; -webkit-overflow-scrolling:touch; }
+  .exhibit svg { width:100%; min-width:34rem; height:auto; display:block; }
+  .cols.five + .head { margin-top:3rem; }
+  .flow svg { width:100%; min-width:38rem; height:auto; display:block; }
+  .note { margin-top:2.4rem; font-size:.95rem; color:var(--muted); max-width:none; }
+  .foot { margin-top:3.4rem; padding-top:1.8rem; border-top:1px solid var(--hair);
+          font-size:.95rem; color:var(--muted); max-width:none; }
+  .foot p { margin:0 0 1rem; }
+  .refs { margin:2.4rem 0 0; padding:1.4rem 0 0 1.2rem; border-top:1px solid var(--hair);
+          font-size:.88rem; line-height:1.5; color:var(--muted); max-width:none; }
+  .refs li { margin:0 0 .6rem; padding-left:.2rem; }
+  .refs a.src { color:var(--muted); white-space:normal; }
+  sup.fn { font-size:.7em; line-height:0; color:var(--muted); margin-left:.1em; }
+
+  .verts { display:grid; grid-template-columns:1fr; gap:0;
+           border-top:1px solid var(--hair); }
+  .vert { display:grid; grid-template-columns:1fr; gap:.2rem;
+          padding:1.15rem 0; border-bottom:1px solid var(--hair); }
+  @media (min-width:44rem) { .vert { grid-template-columns:12rem 1fr; gap:2rem; align-items:baseline; } }
+  .vert > b { font-family:var(--head); font-size:1.15rem; font-weight:500; color:var(--ink); }
+  .vert span { color:var(--ink-2); }
+
+  .band { background:var(--navy); border:0; }
+  .band h2, .band h3 { color:#FFFFFF; }
+  .band p { color:var(--rblue); }
+  .band .eyebrow { color:var(--rblue); }
+  .band .rule { background:var(--rgreen); }
+  .band .step { border-color:var(--navy-2); }
+  .band .step .when { color:var(--rgreen); }
+
+  footer { background:var(--navy); padding:3rem 0 3.5rem; }
+  footer .wrap { display:flex; flex-direction:column; gap:1.6rem; }
+  footer svg { width:100%; max-width:15rem; height:auto; }
+  footer a { color:var(--rblue); }
+  .fine { font-size:.82rem; color:#7891AB; }
+
+  a { color:var(--green); }
+  :focus-visible { outline:2px solid var(--rgreen); outline-offset:3px; }`;
+
+const NOTE = {
+  slug: 'five-user-apis',
+  series: 'ownership',
+  part: 1,
+  next: ['the-last-hop', 'The last hop nobody wrote down',
+         'Ownership settles who answers for a component. The next piece is about the work of ' +
+         'getting a request to them at all.'],
+  title: 'Why do we have five user APIs',
+  author: 'John Kelly',
+  date: '2026-08-20',
+  dateHuman: '20 August 2026',
+  standfirst: 'Nobody ever decided to build the same component five times. Projects have goals, ' +
+              'and maintaining the platform is not one of them, so the system ends up being ' +
+              'whatever the projects left behind.',
+  gist: [
+    'Deliver the project, or look after the system. The conflict is old, and it resolves the ' +
+      'same way, because the project has a goal and a date and the system has neither.',
+    'Agents do not resolve it by themselves. Every agent team is scoped to a component, so an ' +
+      'organization that never settled who owns what has taken the brake off rather than slowed ' +
+      'anything down.',
+  ],
+  body: `
+<p>The question gets asked two years on, and it always has that shape. It is worth
+   understanding where it comes from, because it is not incompetence and nobody ever decided it. In
+   my career it has come from two places, projects and acquisitions. Both leave the same shape behind, and this note follows the
+   project.</p>
+
+<p>We had projects, and a project has a goal. It is funded to deliver that goal, it is measured on
+   that goal, and maintaining the platform underneath is not on the list. That is not a criticism of
+   projects. It is what a project is for.</p>
+
+<p>So the project defines the system it needs in order to reach its goal, the team stands that
+   system up, and when the project ends the team is left owning the whole of what it touched,
+   because that is what got defined. Run another one next year, with a different goal and a
+   different team, and you have two.</p>
+
+<div class="flow"><svg viewBox="0 0 1000 336" role="img"
+     aria-label="Three projects, each building its own slice of the system. Each slice contains a User API, so the same component exists three times. Nobody decided that.">
+  <text x="176" y="64" text-anchor="end" fill="#5B6E80" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="11" letter-spacing="1.2">ONE PROJECT</text>
+  <rect x="200" y="30" width="252" height="56" rx="3" fill="#F2F6F8" stroke="#DCE4EA"/>
+  <text x="326" y="64" text-anchor="middle" fill="#0B2545" font-family="${HEAD_SVG}" font-size="16" font-weight="500">Portal</text>
+  <rect x="468" y="30" width="252" height="56" rx="3" fill="#EAF3EE" stroke="#A8D5C0"/>
+  <text x="594" y="64" text-anchor="middle" fill="#1B5C46" font-family="${HEAD_SVG}" font-size="16" font-weight="500">User API</text>
+  <rect x="736" y="30" width="252" height="56" rx="3" fill="#F2F6F8" stroke="#DCE4EA"/>
+  <text x="862" y="64" text-anchor="middle" fill="#0B2545" font-family="${HEAD_SVG}" font-size="16" font-weight="500">Reporting</text>
+  <text x="176" y="150" text-anchor="end" fill="#5B6E80" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="11" letter-spacing="1.2">ANOTHER, LATER</text>
+  <rect x="200" y="116" width="252" height="56" rx="3" fill="#F2F6F8" stroke="#DCE4EA"/>
+  <text x="326" y="150" text-anchor="middle" fill="#0B2545" font-family="${HEAD_SVG}" font-size="16" font-weight="500">Checkout</text>
+  <rect x="468" y="116" width="252" height="56" rx="3" fill="#EAF3EE" stroke="#A8D5C0"/>
+  <text x="594" y="150" text-anchor="middle" fill="#1B5C46" font-family="${HEAD_SVG}" font-size="16" font-weight="500">User API</text>
+  <rect x="736" y="116" width="252" height="56" rx="3" fill="#F2F6F8" stroke="#DCE4EA"/>
+  <text x="862" y="150" text-anchor="middle" fill="#0B2545" font-family="${HEAD_SVG}" font-size="16" font-weight="500">Events</text>
+  <text x="176" y="236" text-anchor="end" fill="#5B6E80" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="11" letter-spacing="1.2">ANOTHER, LATER STILL</text>
+  <rect x="200" y="202" width="252" height="56" rx="3" fill="#F2F6F8" stroke="#DCE4EA"/>
+  <text x="326" y="236" text-anchor="middle" fill="#0B2545" font-family="${HEAD_SVG}" font-size="16" font-weight="500">Mobile</text>
+  <rect x="468" y="202" width="252" height="56" rx="3" fill="#EAF3EE" stroke="#A8D5C0"/>
+  <text x="594" y="236" text-anchor="middle" fill="#1B5C46" font-family="${HEAD_SVG}" font-size="16" font-weight="500">User API</text>
+  <rect x="736" y="202" width="252" height="56" rx="3" fill="#F2F6F8" stroke="#DCE4EA"/>
+  <text x="862" y="236" text-anchor="middle" fill="#0B2545" font-family="${HEAD_SVG}" font-size="16" font-weight="500">Search</text>
+  <path d="M468 274 L468 288 L720 288 L720 274" stroke="#7DBFA3" stroke-width="1.5" fill="none"/>
+  <text x="594" y="316" text-anchor="middle" fill="#0B2545" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="11.5" letter-spacing="1.2">THE SAME COMPONENT, THREE TIMES. NOBODY DECIDED IT.</text>
+</svg></div>
+
+<p>Each of those was a reasonable decision. Every project was right locally. Nothing in the process
+   was capable of noticing that the thing being asked for already existed somewhere else, because
+   nothing in the process was looking at the whole. That is Conway's law read as a diagnostic rather
+   than as advice: the duplicates are the communication structure of the teams, made visible.</p>
+
+<h2>The correction sits above team design</h2>
+
+<p>Systems thinking, enterprise architecture in the old sense of the phrase, is what defines the
+   system architecture, and the architecture is what defines the breakdown into teams. The order
+   matters: teams downstream of the architecture, not the architecture downstream of whoever shipped
+   last.</p>
+
+<p>A cadence still carries the communication across the organization, and it has to hold. But it is
+   not what decides this. What the teams inside it are aligned to is.</p>
+
+<h2>What agents change, and it is not what people expect</h2>
+
+<p>This is the part I would not treat as history. Agents do not fix an ownership model and they do
+   not break one. They amplify whichever one you already have, so the question is only ever which
+   one that is.</p>
+
+<p>And the amplification is not even-handed, which is the part worth sitting with. A team that needs
+   a component changed has two ways to get it. Ask the team that owns it, or build its own. Both
+   just got cheaper to do. Only the first still ends in front of somebody who can say no, because
+   the review standing between a team and its own second copy sits inside the team that wants it,
+   run by the people taking the cheaper option today rather than by whoever carries the bill later.</p>
+
+<p>So what was holding the estate's shape was never only the architecture. It was partly how much
+   any one project could afford to build for itself, and that is the part agents relax. The
+   conditions that produced five user APIs are unchanged. What has changed is how quickly they can
+   produce the next five, and nothing in that mechanism prefers a good ownership model to a bad
+   one.</p>
+
+<p>Set up the other way, the same property is the fix. A team that owns an asset and expects to
+   still be answerable for it next quarter behaves differently from a team assembled around an
+   initiative, and an agent team is the most literal version of that there has ever been: it is
+   scoped to the component whether anybody writes the ownership down or not. The only question is
+   whether the organization chose the scope or inherited it.</p>
+
+<h2>The question worth asking</h2>
+
+<p>One question, asked at the organization level rather than the team level. Does it make sense for
+   this system to have more than one of these?</p>
+
+<p>If the answer is yes, there is no issue and nothing should block. Bounded contexts are a
+   perfectly good yes, and forcing one canonical model is its own well-documented mistake. If the
+   answer is no, the duplicate is not the problem. It is where the problem became visible. What I
+   object to is the case where nobody asked.</p>
+
+<p>One thing this does not do, and it matters more than it looks. Getting ownership right contains
+   the problem: it stops the sixth user API being created without anybody deciding to. It does not
+   remove the five you already have. That is remediation, it is its own funded work, and it will not
+   happen inside the project that noticed it, because that project has a goal and this is not it.
+   Anybody telling you the alignment fixes what you already built is selling you something.</p>
+`,
+};
+
+const NOTE_HOP = {
+  slug: 'the-last-hop',
+  series: 'ownership',
+  part: 2,
+  next: ['shared-skills', 'A shared skill does not drive consistency across distributed ownership',
+         'Decomposition gets the work to the right teams. It does nothing about several teams ' +
+         'inside one layer, which is the last piece.'],
+  title: 'The last hop nobody wrote down',
+  author: 'John Kelly',
+  date: '2026-08-22',
+  dateHuman: '22 August 2026',
+  standfirst: 'Where engineers did the final decomposition in their heads, it worked because they ' +
+              'knew the system. An agent can read the code, but not who owns the next component, ' +
+              'so the breakdown for each request has to be written down.',
+  gist: [
+    'The bridge from an outcome to the components that implement it was real work, done reliably, ' +
+      'and invisible. It never had to be written down in order to happen.',
+    'It does now. Which means the teams that already had the discipline start ahead, and the ones ' +
+      'running lean on it are further behind than they think.',
+  ],
+  body: `
+<p>Take an API team, working the old way. They get an epic and break it into user stories. The
+   stories name an outcome: the API. But the outcome is delivered through changes across
+   several components, often across several repositories, and how much of that got written down
+   varied by team.</p>
+
+<p>Some broke it down and recorded it. Others minimized documentation wherever they
+   were allowed to. Not out of carelessness: the engineers understood the system well enough to
+   execute without being told, and writing it down bought them nothing at the time. The bridge from
+   the outcome to the components that implement it was real work, done reliably, and invisible.</p>
+
+<p>An agent can read the code. What it cannot read is who owns the next component, or whether
+   another team already has a version of it, because that is not in the code it is reading. Nothing fills
+   the gap between “build the API” and the specific changes in the specific components, so the work has to be broken down to the teams that maintain
+   those components, explicitly, in a way it never had to be before.</p>
+
+<div class="flow"><svg viewBox="0 0 1000 400" role="img"
+     aria-label="An initiative becomes one capability, the capability becomes one component delivery per stack team, and the API delivery alone becomes four specifications: a facade and three domain services. A dashed line marks where decomposition used to stop, above the specification row.">
+  <text x="140" y="46" text-anchor="end" fill="#5B6E80" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="11" letter-spacing="1.4">INITIATIVE</text>
+  <rect x="160" y="16" width="840" height="46" rx="3" fill="#F2F6F8" stroke="#DCE4EA"/>
+  <text x="580" y="45" text-anchor="middle" fill="#0B2545" font-family="${HEAD_SVG}" font-size="16" font-weight="500">One thing the business asked for</text>
+  <path d="M580 62 L580 90" stroke="#93B8D4" stroke-width="1.5"/>
+
+  <text x="140" y="120" text-anchor="end" fill="#5B6E80" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="11" letter-spacing="1.4">CAPABILITY</text>
+  <rect x="160" y="90" width="840" height="54" rx="3" fill="#F2F6F8" stroke="#DCE4EA"/>
+  <text x="580" y="114" text-anchor="middle" fill="#0B2545" font-family="${HEAD_SVG}" font-size="16" font-weight="500">What we want for the sales team, or the customer</text>
+  <text x="580" y="133" text-anchor="middle" fill="#5B6E80" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="12.5">the level a product manager can still explain</text>
+    <path d="M580 144 C580 162 238 158 238 176" stroke="#93B8D4" stroke-width="1.5" fill="none"/>
+  <path d="M580 144 C580 162 408 158 408 176" stroke="#93B8D4" stroke-width="1.5" fill="none"/>
+  <path d="M580 144 C580 162 578 158 578 176" stroke="#93B8D4" stroke-width="1.5" fill="none"/>
+  <path d="M580 144 C580 162 748 158 748 176" stroke="#93B8D4" stroke-width="1.5" fill="none"/>
+  <path d="M580 144 C580 162 918 158 918 176" stroke="#93B8D4" stroke-width="1.5" fill="none"/>
+
+  <text x="140" y="205" text-anchor="end" fill="#5B6E80" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="11" letter-spacing="1.4">COMPONENT</text>
+  <text x="140" y="220" text-anchor="end" fill="#5B6E80" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="11" letter-spacing="1.4">DELIVERY</text>
+    <rect x="160" y="176" width="156" height="54" rx="3" fill="#F2F6F8" stroke="#DCE4EA"/>
+  <text x="238" y="208" text-anchor="middle" fill="#0B2545" font-family="${HEAD_SVG}" font-size="15" font-weight="500">UI</text>
+  <rect x="330" y="176" width="156" height="54" rx="3" fill="#EAF3EE" stroke="#A8D5C0"/>
+  <text x="408" y="200" text-anchor="middle" fill="#1B5C46" font-family="${HEAD_SVG}" font-size="15" font-weight="500">API</text>
+  <text x="408" y="218" text-anchor="middle" fill="#5B6E80" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="11.5">the one worked below</text>
+  <rect x="500" y="176" width="156" height="54" rx="3" fill="#F2F6F8" stroke="#DCE4EA"/>
+  <text x="578" y="208" text-anchor="middle" fill="#0B2545" font-family="${HEAD_SVG}" font-size="15" font-weight="500">Core logic</text>
+  <rect x="670" y="176" width="156" height="54" rx="3" fill="#F2F6F8" stroke="#DCE4EA"/>
+  <text x="748" y="208" text-anchor="middle" fill="#0B2545" font-family="${HEAD_SVG}" font-size="15" font-weight="500">Analytics</text>
+  <rect x="840" y="176" width="156" height="54" rx="3" fill="#F2F6F8" stroke="#DCE4EA"/>
+  <text x="918" y="208" text-anchor="middle" fill="#0B2545" font-family="${HEAD_SVG}" font-size="15" font-weight="500">Reporting</text>
+
+  <path d="M160 268 L1000 268" stroke="#B9C6D0" stroke-width="1" stroke-dasharray="4 5"/>
+  <rect x="800" y="255" width="200" height="17" fill="#FFFFFF"/>
+  <text x="996" y="268" text-anchor="end" fill="#0B2545" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="11" letter-spacing="1.2">WHERE IT USED TO STOP</text>
+    <path d="M408 230 C408 272 257 262 257 300" stroke="#7DBFA3" stroke-width="1.5" fill="none"/>
+  <path d="M408 230 C408 272 472 262 472 300" stroke="#7DBFA3" stroke-width="1.5" fill="none"/>
+  <path d="M408 230 C408 272 687 262 687 300" stroke="#7DBFA3" stroke-width="1.5" fill="none"/>
+  <path d="M408 230 C408 272 902 262 902 300" stroke="#7DBFA3" stroke-width="1.5" fill="none"/>
+
+  <text x="140" y="335" text-anchor="end" fill="#1B5C46" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="11" letter-spacing="1.4">SPEC</text>
+  <text x="140" y="350" text-anchor="end" fill="#5B6E80" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="11" letter-spacing="1.4">PER TEAM</text>
+    <rect x="160" y="300" width="195" height="58" rx="3" fill="#EAF3EE" stroke="#A8D5C0"/>
+  <text x="257" y="326" text-anchor="middle" fill="#1B5C46" font-family="${HEAD_SVG}" font-size="15" font-weight="500">Facade layer</text>
+  <text x="257" y="344" text-anchor="middle" fill="#5B6E80" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="11.5">new interface</text>
+  <rect x="375" y="300" width="195" height="58" rx="3" fill="#EAF3EE" stroke="#A8D5C0"/>
+  <text x="472" y="326" text-anchor="middle" fill="#1B5C46" font-family="${HEAD_SVG}" font-size="15" font-weight="500">Domain service</text>
+  <text x="472" y="344" text-anchor="middle" fill="#5B6E80" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="11.5">one</text>
+  <rect x="590" y="300" width="195" height="58" rx="3" fill="#EAF3EE" stroke="#A8D5C0"/>
+  <text x="687" y="326" text-anchor="middle" fill="#1B5C46" font-family="${HEAD_SVG}" font-size="15" font-weight="500">Domain service</text>
+  <text x="687" y="344" text-anchor="middle" fill="#5B6E80" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="11.5">two</text>
+  <rect x="805" y="300" width="195" height="58" rx="3" fill="#EAF3EE" stroke="#A8D5C0"/>
+  <text x="902" y="326" text-anchor="middle" fill="#1B5C46" font-family="${HEAD_SVG}" font-size="15" font-weight="500">Domain service</text>
+  <text x="902" y="344" text-anchor="middle" fill="#5B6E80" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="11.5">three</text>
+</svg></div>
+
+<p>Take the API delivery. The new experience needs a facade layer interface, and the facade calls
+   three domain services, so one line on the plan is four specifications for four agent teams. How
+   many depends on the repositories and the architecture rather than on the requirement: two
+   organizations handed the same capability will staff it differently and both can be right.
+   Deciding team structure from the shape of the backlog means reading the wrong document.</p>
+
+<p>None of those four can write the others on their own. The facade team cannot specify a domain service it does
+   not own, and no domain team can see the whole path. Being wrong about the cut does not surface as
+   a bad specification. It surfaces as four teams delivering exactly what they were asked for and a
+   capability that does not work.</p>
+
+<h2>What that is worth, and to whom</h2>
+
+<p>The teams that already had the discipline start ahead. Writing down the breakdown for each
+   request read as overhead for years, and it is now the input. That is an uncomfortable thing to tell a team that has been running lean
+   on it.</p>
+
+<p>It also changes what skipping it costs. Generation is cheap now, so a team that is not
+   aligned to the components it touches still produces the work. It just produces it
+   in places nobody is answerable for. That used to be limited by how much a team could write by
+   hand, and it is not limited by that any more.</p>
+`,
+};
+
+const NOTE_SKILL = {
+  slug: 'shared-skills',
+  series: 'ownership',
+  part: 3,
+  title: 'A shared skill does not drive consistency across distributed ownership',
+  author: 'John Kelly',
+  date: '2026-08-25',
+  dateHuman: '25 August 2026',
+  standfirst: 'Standards, review boards and reference implementations all degraded the same way: ' +
+              'each team read them differently. A shared skill removes the re-reading. It does not ' +
+              'remove the interpretation.',
+  gist: [
+    'One layer is often several teams. Four API teams now means four agent teams producing API ' +
+      'code, and nothing in the decomposition makes their output agree.',
+    'Publishing the convention once is a real advance and it is the distribution half. Linters ' +
+      'check the shape of what each team produced. I have not seen anything that checks the judgment.',
+  ],
+  body: `
+<p>Aligning teams to components handles a request that spans components. It does nothing about
+   several teams inside one of them. Four API teams means four agent teams producing API code, and
+   nothing in the decomposition makes their output agree with each other.</p>
+
+<p>Standards, review boards, reference implementations and templates have all been the answer to
+   this at different times, and they degrade the same way. Each team reads the document slightly
+   differently, and what the teams actually do drifts from what it says.</p>
+
+<p>A shared skill looks like it fixes that, and it half does. Publish the convention once, install
+   it everywhere, and the same instruction is executing in every team rather than a document each
+   team interprets. That is real, and it removes the step where a human re-reads a standard once per
+   team.</p>
+
+<div class="flow"><svg viewBox="0 0 1000 356" role="img"
+     aria-label="One published convention is installed by four teams. Every installed file is byte-identical and is checked. What each team then produced is different. Its shape can be linted; its judgment is not checked.">
+  <rect x="330" y="20" width="452" height="56" rx="3" fill="#F2F6F8" stroke="#DCE4EA"/>
+  <text x="556" y="53" text-anchor="middle" fill="#0B2545" font-family="${HEAD_SVG}" font-size="16" font-weight="500">One published convention</text>
+  <path d="M556 76 L556 92" stroke="#93B8D4" stroke-width="1.5"/>
+  <path d="M556 92 C556 116 222 110 222 134" stroke="#93B8D4" stroke-width="1.5" fill="none"/>
+  <rect x="130" y="134" width="184" height="56" rx="3" fill="#EAF3EE" stroke="#A8D5C0"/>
+  <text x="222" y="158" text-anchor="middle" fill="#1B5C46" font-family="${HEAD_SVG}" font-size="15" font-weight="500">Team A</text>
+  <text x="222" y="177" text-anchor="middle" fill="#5B6E80" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="11.5">installed file, identical</text>
+  <path d="M222 190 L222 250" stroke="#B9C6D0" stroke-width="1.5" stroke-dasharray="3 5"/>
+  <rect x="130" y="250" width="184" height="56" rx="3" fill="#FFFFFF" stroke="#DCE4EA"/>
+  <text x="222" y="274" text-anchor="middle" fill="#0B2545" font-family="${HEAD_SVG}" font-size="15" font-weight="500">what it produced</text>
+  <text x="222" y="293" text-anchor="middle" fill="#5B6E80" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="11.5">different codebase, different result</text>
+  <path d="M556 92 C556 116 440 110 440 134" stroke="#93B8D4" stroke-width="1.5" fill="none"/>
+  <rect x="348" y="134" width="184" height="56" rx="3" fill="#EAF3EE" stroke="#A8D5C0"/>
+  <text x="440" y="158" text-anchor="middle" fill="#1B5C46" font-family="${HEAD_SVG}" font-size="15" font-weight="500">Team B</text>
+  <text x="440" y="177" text-anchor="middle" fill="#5B6E80" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="11.5">installed file, identical</text>
+  <path d="M440 190 L440 250" stroke="#B9C6D0" stroke-width="1.5" stroke-dasharray="3 5"/>
+  <rect x="348" y="250" width="184" height="56" rx="3" fill="#FFFFFF" stroke="#DCE4EA"/>
+  <text x="440" y="274" text-anchor="middle" fill="#0B2545" font-family="${HEAD_SVG}" font-size="15" font-weight="500">what it produced</text>
+  <text x="440" y="293" text-anchor="middle" fill="#5B6E80" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="11.5">different codebase, different result</text>
+  <path d="M556 92 C556 116 658 110 658 134" stroke="#93B8D4" stroke-width="1.5" fill="none"/>
+  <rect x="566" y="134" width="184" height="56" rx="3" fill="#EAF3EE" stroke="#A8D5C0"/>
+  <text x="658" y="158" text-anchor="middle" fill="#1B5C46" font-family="${HEAD_SVG}" font-size="15" font-weight="500">Team C</text>
+  <text x="658" y="177" text-anchor="middle" fill="#5B6E80" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="11.5">installed file, identical</text>
+  <path d="M658 190 L658 250" stroke="#B9C6D0" stroke-width="1.5" stroke-dasharray="3 5"/>
+  <rect x="566" y="250" width="184" height="56" rx="3" fill="#FFFFFF" stroke="#DCE4EA"/>
+  <text x="658" y="274" text-anchor="middle" fill="#0B2545" font-family="${HEAD_SVG}" font-size="15" font-weight="500">what it produced</text>
+  <text x="658" y="293" text-anchor="middle" fill="#5B6E80" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="11.5">different codebase, different result</text>
+  <path d="M556 92 C556 116 876 110 876 134" stroke="#93B8D4" stroke-width="1.5" fill="none"/>
+  <rect x="784" y="134" width="184" height="56" rx="3" fill="#EAF3EE" stroke="#A8D5C0"/>
+  <text x="876" y="158" text-anchor="middle" fill="#1B5C46" font-family="${HEAD_SVG}" font-size="15" font-weight="500">Team D</text>
+  <text x="876" y="177" text-anchor="middle" fill="#5B6E80" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="11.5">installed file, identical</text>
+  <path d="M876 190 L876 250" stroke="#B9C6D0" stroke-width="1.5" stroke-dasharray="3 5"/>
+  <rect x="784" y="250" width="184" height="56" rx="3" fill="#FFFFFF" stroke="#DCE4EA"/>
+  <text x="876" y="274" text-anchor="middle" fill="#0B2545" font-family="${HEAD_SVG}" font-size="15" font-weight="500">what it produced</text>
+  <text x="876" y="293" text-anchor="middle" fill="#5B6E80" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="11.5">different codebase, different result</text>
+  <text x="112" y="166" text-anchor="end" fill="#1B5C46" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="11" letter-spacing="1.2">CHECKED</text>
+  <text x="112" y="263" text-anchor="end" fill="#0B2545" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="11" letter-spacing="1.2">JUDGMENT</text>
+  <text x="112" y="278" text-anchor="end" fill="#0B2545" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="11" letter-spacing="1.2">NOT</text>
+  <text x="112" y="293" text-anchor="end" fill="#0B2545" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="11" letter-spacing="1.2">CHECKED</text>
+  <text x="556" y="340" text-anchor="middle" fill="#0B2545" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="11.5" letter-spacing="1.2">THE FILE IS THE SAME. THE WORK IS NOT.</text>
+</svg></div>
+
+<p>What it does not do on its own is make the output consistent. The instruction is executed by a model, once
+   per team, against a different codebase with a different existing shape, so conforming installs
+   can still produce divergent work while every report reads clean, because what is being compared
+   is the file rather than what the file produced. <b>A shared skill is a consistency mechanism. Across teams that each own
+   their share of one layer, it does not drive consistency on its own.</b></p>
+
+<p>Interpretation did not leave the system when the standard became a shared file. It moved
+   somewhere less observable. A human who reads a standard differently argues about it in review. A
+   model that reads it differently ships work that conforms in appearance.</p>
+
+<p>What would close it is a check on the output rather than on the file, published alongside the
+   convention and run by whoever installs it. Half of that exists. Zalando publishes its API
+   guidelines with a linter that checks an API definition against them, and architecture fitness
+   functions do the same for structure. They catch the shape: paths, naming, status codes. They do
+   not catch the judgment a skill now carries, such as how errors are handled or what a field
+   means. With ownership spread across teams, that is where the work can diverge, and a check
+   for it is what I have not seen built.</p>
+`,
+};
+
+
+const NOTE_BOUNDARY = {
+  slug: 'coaching-is-a-file',
+  series: 'boundary',
+  part: 1,
+  title: 'Coaching is a file now',
+  author: 'John Kelly',
+  date: '2026-08-24',
+  dateHuman: '24 August 2026',
+  standfirst: 'One public repository used to be fine. With agent teams, the thing that says how ' +
+              'your engineers work is an artifact for the first time, and I would not expect most ' +
+              'teams to want it published alongside the product.',
+  gist: [
+    'You used to coach engineers in review comments and design meetings. None of it could be ' +
+      'published, because none of it was a thing you could publish.',
+    'Now it is a directory. So for the first time you have to decide whether it goes out with the ' +
+      'product, and I would expect most teams to decide it does not.',
+  ],
+  body: `
+<p>One public repository used to be fine. The product was the code, and publishing the code
+   published the product. Whatever else the team knew stayed where it had always been, which was
+   nowhere you could point at.</p>
+
+<h2>What agent teams add that was never there before</h2>
+
+<p>An agent team is a set of definitions. Which agent owns what, how each one behaves, what it
+   refuses, what it hands back and to whom. Written down, versioned, reviewed. That is not
+   documentation about your engineering practice. It <em>is</em> your engineering practice, in the
+   only form it has ever existed in outside somebody's head.</p>
+
+<p>Think about what your engineers are actually doing now. They used to be coached, and now they are
+   doing the coaching, through configuration. Same job, and a different medium: instead of telling a
+   colleague what good looks like on this team, they are writing it down where an agent will act on
+   it every time rather than once.</p>
+
+<p>That coaching used to be unpublishable, and not because anybody was hiding it. It was not a
+   thing. It lived in a review comment, in what a senior engineer said in a design meeting, in the
+   standard everyone on the team knew and nobody had typed. There was no file, so there was no
+   question about where the file went.</p>
+
+<p>Now there is a file, and a file has to be somewhere. For the first time you have to decide
+   whether how your team works ships alongside what your team built.</p>
+
+<h2>I would keep it private, and I think most teams will</h2>
+
+<p>Not because there is anything embarrassing in it. Because it is the accumulated judgment of your
+   team about how work should be done, it is the thing that decides whether the output is any good,
+   and it is now copyable in a way it never was when it lived in people. A user installing your
+   product needs the product. They do not need the roster, the decisions behind it, or the
+   half-finished argument about what an agent should refuse.</p>
+
+<p>So: a private repository where the team and its definitions live, a public one that is what a
+   user installs, and a publish step between them.</p>
+
+<h2>Publishing is a filter, not a branch</h2>
+
+<p>The step that makes it hold is that publishing writes a tree rather than a history. Each release
+   lands as a single commit carrying the current published set, at the same paths the files occupy
+   in private.</p>
+
+<div class="flow"><svg viewBox="0 0 1000 340" role="img"
+     aria-label="A private repository holds every version it ever had, including a design record that was added and later deleted, still fetchable from the log. The public repository holds one commit per release, each carrying the whole current tree and nothing before it, so the deleted file was never there at all.">
+  <text x="150" y="62" text-anchor="end" fill="#5B6E80" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="11" letter-spacing="1.2">PRIVATE</text>
+  <path d="M180 62 L960 62" stroke="#93B8D4" stroke-width="1.5"/>
+  <circle cx="180" cy="62" r="4.5" fill="#93B8D4" stroke="#0B2545" stroke-width="0"/>
+  <circle cx="276" cy="62" r="4.5" fill="#93B8D4" stroke="#0B2545" stroke-width="0"/>
+  <circle cx="372" cy="62" r="6" fill="#FFFFFF" stroke="#0B2545" stroke-width="1.6"/>
+  <path d="M372 70 L372 88" stroke="#B9C6D0" stroke-width="1" stroke-dasharray="3 4"/>
+  <text x="372" y="104" text-anchor="middle" fill="#0B2545" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="12.5">design record added</text>
+  <circle cx="468" cy="62" r="4.5" fill="#93B8D4" stroke="#0B2545" stroke-width="0"/>
+  <circle cx="564" cy="62" r="6" fill="#FFFFFF" stroke="#0B2545" stroke-width="1.6"/>
+  <path d="M564 70 L564 88" stroke="#B9C6D0" stroke-width="1" stroke-dasharray="3 4"/>
+  <text x="564" y="104" text-anchor="middle" fill="#0B2545" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="12.5">and deleted</text>
+  <circle cx="660" cy="62" r="4.5" fill="#93B8D4" stroke="#0B2545" stroke-width="0"/>
+  <circle cx="756" cy="62" r="4.5" fill="#93B8D4" stroke="#0B2545" stroke-width="0"/>
+  <circle cx="852" cy="62" r="4.5" fill="#93B8D4" stroke="#0B2545" stroke-width="0"/>
+  <circle cx="948" cy="62" r="4.5" fill="#93B8D4" stroke="#0B2545" stroke-width="0"/>
+  <text x="180" y="132" fill="#5B6E80" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="12.5">every version it ever held, still fetchable from the log</text>
+  <text x="150" y="220" text-anchor="end" fill="#1B5C46" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="11" letter-spacing="1.2">PUBLIC</text>
+  <path d="M180 220 L960 220" stroke="#7DBFA3" stroke-width="1.5"/>
+  <circle cx="310" cy="220" r="7" fill="#EAF3EE" stroke="#1B5C46" stroke-width="1.6"/>
+  <path d="M310 228 L310 246" stroke="#A8D5C0" stroke-width="1"/>
+  <text x="310" y="262" text-anchor="middle" fill="#1B5C46" font-family="${HEAD_SVG}" font-size="14" font-weight="500">One commit</text>
+  <text x="310" y="280" text-anchor="middle" fill="#5B6E80" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="12">the whole current tree</text>
+  <circle cx="570" cy="220" r="7" fill="#EAF3EE" stroke="#1B5C46" stroke-width="1.6"/>
+  <path d="M570 228 L570 246" stroke="#A8D5C0" stroke-width="1"/>
+  <text x="570" y="262" text-anchor="middle" fill="#1B5C46" font-family="${HEAD_SVG}" font-size="14" font-weight="500">One commit</text>
+  <text x="570" y="280" text-anchor="middle" fill="#5B6E80" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="12">the whole current tree</text>
+  <circle cx="830" cy="220" r="7" fill="#EAF3EE" stroke="#1B5C46" stroke-width="1.6"/>
+  <path d="M830 228 L830 246" stroke="#A8D5C0" stroke-width="1"/>
+  <text x="830" y="262" text-anchor="middle" fill="#1B5C46" font-family="${HEAD_SVG}" font-size="14" font-weight="500">One commit</text>
+  <text x="830" y="280" text-anchor="middle" fill="#5B6E80" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="12">the whole current tree</text>
+  <text x="180" y="192" fill="#5B6E80" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="12.5">one per release, and nothing before it</text>
+  <text x="570" y="322" text-anchor="middle" fill="#0B2545" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="11.5" letter-spacing="1.2">DELETED IN PRIVATE. NEVER HELD IN PUBLIC.</text>
+</svg></div>
+
+<p>Which answers a problem people meet the hard way, by never creating it. A repository keeps
+   every blob it has ever held, so deleting a file at the head does not remove the version you
+   deleted. Publishing a tree means the public repository never held it. Not "no longer holds".
+   Never held. That also rules out the arrangement that looks safest and is not, a private branch
+   and a public branch in one repository: branches share a single object store, so a blob committed
+   on either is fetchable from the whole thing.</p>
+
+<p>The corollary is that nobody works in the public repository. Its history is a publish log, and a
+   hand edit there is a change no gate reviewed that the next publish will silently revert.</p>
+`,
+  next: ['the-direction-people-forget', 'The direction people forget',
+         'Publishing is the easy direction. What comes back the other way is the harder problem, ' +
+         'and it is the one most designs leave open.'],
+};
+
+const NOTE_CROSSING = {
+  slug: 'the-direction-people-forget',
+  series: 'boundary',
+  part: 2,
+  title: 'The direction people forget',
+  author: 'John Kelly',
+  date: '2026-08-26',
+  dateHuman: '26 August 2026',
+  standfirst: 'The front door is public and the work is private, so reports have to cross inward. ' +
+              'Outbound is the direction a design guards first. The inbound one carries text an ' +
+              'agent will read as instructions.',
+  gist: [
+    'A report arrives where somebody found the problem. The team that can fix it works somewhere ' +
+      'else, and the fix has to arrive back as a release.',
+    'Every arrow across that boundary crosses a trust domain, and the two directions are not ' +
+      'symmetric. A design that guards only one has guarded the easy one.',
+  ],
+  body: `
+<p>Publishing is the easy direction. The harder problem is that the front door is public and the
+   work is private.</p>
+
+<p>Someone who installed a plugin reports a defect where they found it, on the public repository.
+   That is correct, and they should not have to know anything about how the thing is maintained. But
+   the team that can fix it works in the private repository, and the fix has
+   to arrive back on the public side as a release.</p>
+
+<div class="flow"><svg viewBox="0 0 1000 396" role="img"
+     aria-label="Two repositories. The private one holds the agent team, the decisions and the work in flight. The public one holds only what a user installs. Publishing sends one commit outward carrying the current tree. Mirroring sends reports inward only. Acknowledging a reporter is a separate outward step.">
+  <rect x="40" y="16" width="392" height="168" rx="3" fill="#F2F6F8" stroke="#DCE4EA"/>
+  <text x="64" y="48" fill="#0B2545" font-family="${HEAD_SVG}" font-size="16" font-weight="500">Private</text>
+  <text x="132" y="48" fill="#5B6E80" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="12.5">where the team works</text>
+  <text x="64" y="80" fill="#5B6E80" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="13">The agent team and its roster</text>
+  <text x="64" y="106" fill="#5B6E80" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="13">Architecture decisions</text>
+  <text x="64" y="132" fill="#5B6E80" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="13">Work in flight</text>
+  <text x="64" y="158" fill="#5B6E80" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="13">The source it all comes from</text>
+  <rect x="568" y="16" width="392" height="168" rx="3" fill="#EAF3EE" stroke="#A8D5C0"/>
+  <text x="592" y="48" fill="#1B5C46" font-family="${HEAD_SVG}" font-size="16" font-weight="500">Public</text>
+  <text x="654" y="48" fill="#5B6E80" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="12.5">what leaves the building</text>
+  <text x="592" y="80" fill="#5B6E80" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="13">What a user installs</text>
+  <text x="592" y="106" fill="#5B6E80" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="13">Its documentation</text>
+  <text x="592" y="132" fill="#5B6E80" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="13">A version history</text>
+  <text x="592" y="158" fill="#5B6E80" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="13">and nothing else</text>
+  <path d="M64 232 L930 232" stroke="#7DBFA3" stroke-width="1.5" fill="none"/>
+  <path d="M922 227 L932 232 L922 237 Z" fill="#7DBFA3"/>
+  <rect x="60" y="202" width="564" height="22" fill="#FFFFFF"/>
+  <text x="64" y="210" text-anchor="start" fill="#1B5C46" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="10.5" letter-spacing="1.2">PUBLISH</text>
+  <text x="64" y="226" text-anchor="start" fill="#5B6E80" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="12.5">One commit carrying the current tree. Never a history, so no old blob exists to leak.</text>
+  <path d="M70 300 L936 300" stroke="#93B8D4" stroke-width="1.5" fill="none"/>
+  <path d="M78 295 L68 300 L78 305 Z" fill="#93B8D4"/>
+  <rect x="376" y="270" width="564" height="22" fill="#FFFFFF"/>
+  <text x="936" y="278" text-anchor="end" fill="#0B2545" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="10.5" letter-spacing="1.2">MIRROR</text>
+  <text x="936" y="294" text-anchor="end" fill="#5B6E80" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="12.5">Reads public, writes private, one direction. Nothing in it can push private content out.</text>
+  <path d="M64 368 L930 368" stroke="#7DBFA3" stroke-width="1.5" fill="none"/>
+  <path d="M922 363 L932 368 L922 373 Z" fill="#7DBFA3"/>
+  <rect x="60" y="338" width="564" height="22" fill="#FFFFFF"/>
+  <text x="64" y="346" text-anchor="start" fill="#1B5C46" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="10.5" letter-spacing="1.2">ACKNOWLEDGE</text>
+  <text x="64" y="362" text-anchor="start" fill="#5B6E80" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="12.5">A separate, deliberate step. Posting outward is never a side effect of reading in.</text>
+</svg></div>
+
+<h2>What the inward path has to guarantee</h2>
+
+<p>So reports are mirrored across: read public, write private, one direction, with nothing in that
+   path able to push private content outward. That constraint is what makes it safe to run
+   unattended. Acknowledging the reporter on the public thread is a separate, deliberate step,
+   because posting outward is a different act from reading inward and should never be a side effect
+   of a mirror.</p>
+
+<p>Filing runs the same way from the inside. A request against the team that owns a capability is an
+   issue on that team's repository, which is the private one, and the tool that files it refuses
+   outright when the target is public. A public issue is permanent, the scan that would catch a leak
+   is a pattern match, and a pattern match cannot see an employer's name inside a URL slug. It also
+   never files partially: either an issue URL comes back or a refusal does, with a non-zero exit. A
+   printed report is not a filed report.</p>
+
+<h2>Inbound is the one that carries instructions</h2>
+
+<p>Every arrow crossing that boundary crosses a trust domain, and the two directions are not
+   symmetric. Outbound risks publishing something that should not have left, and that failure is
+   easy to picture. Inbound risks importing text that an agent will read as instructions.</p>
+
+<p>A mirrored issue body is written by anyone with an account, and it lands in a repository where
+   agents read issues and act on them. So it is carried across fenced and labeled as
+   reporter-supplied data. An agent acting on <em>please run X</em> found inside an issue body is
+   executing a stranger's instructions. A design that guards only one direction has guarded the easy
+   one, and outbound is the easy one, because it is the one that is easy to imagine.</p>
+`,
+};
+
+const NOTE_CADENCE = {
+  slug: 'prompting-to-specifying',
+  title: 'From prompting to specifying',
+  author: 'John Kelly',
+  date: '2026-08-26',
+  dateHuman: '26 August 2026',
+  standfirst: 'The shift is not that engineers write less code. It is that when the output is ' +
+              'wrong, the thing you edit stops being the prompt and becomes the spec or the agent ' +
+              'definition.',
+  gist: [
+    'A prompt is a conversation you have once. A spec and an agent definition are files you ' +
+      'change, version and re-run, so the fix applies next time and to everybody.',
+    'Which creates a problem the old way never had. You cannot tell from a single run whether the ' +
+      'change did what you wanted, so teams need several branches going at once.',
+  ],
+  body: `
+<p>The first way to work with an agent is by prompting it. You ask, it answers, the answer is
+   not quite right, so you ask again with more detail. It works, and it is the right place to start.
+   What it does not do is accumulate. The understanding you built up getting to a good answer lives
+   in that session and goes when the session does, and the next person starts where you started.</p>
+
+<div class="flow"><svg viewBox="0 0 1000 348" role="img"
+     aria-label="Two loops side by side. Prompting: you ask, it answers, it is not right so you ask again, and nothing persists. Specifying: the spec and the agent definition produce the work, it is not right so you change a file, and everyone gets it on the next run.">
+  <text x="40" y="26" fill="#0B2545" font-family="${HEAD_SVG}" font-size="16" font-weight="500">Prompting</text>
+  <text x="40" y="46" fill="#5B6E80" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="12.5">the fix lives in the session and dies with it</text>
+  <rect x="40" y="70" width="384" height="46" rx="3" fill="#F2F6F8" stroke="#DCE4EA"/>
+  <text x="232" y="98" text-anchor="middle" fill="#0B2545" font-family="${HEAD_SVG}" font-size="14.5" font-weight="500">You ask</text>
+  <path d="M232 116 L232 136" stroke="#93B8D4" stroke-width="1.5"/>
+  <rect x="40" y="136" width="384" height="46" rx="3" fill="#F2F6F8" stroke="#DCE4EA"/>
+  <text x="232" y="164" text-anchor="middle" fill="#0B2545" font-family="${HEAD_SVG}" font-size="14.5" font-weight="500">It answers</text>
+  <path d="M232 182 L232 202" stroke="#93B8D4" stroke-width="1.5"/>
+  <rect x="40" y="202" width="384" height="46" rx="3" fill="#F2F6F8" stroke="#DCE4EA"/>
+  <text x="232" y="230" text-anchor="middle" fill="#0B2545" font-family="${HEAD_SVG}" font-size="14.5" font-weight="500">Not right, so you ask again</text>
+  <text x="576" y="26" fill="#1B5C46" font-family="${HEAD_SVG}" font-size="16" font-weight="500">Specifying</text>
+  <text x="576" y="46" fill="#5B6E80" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="12.5">the fix is a file, and it applies next time</text>
+  <rect x="576" y="70" width="384" height="46" rx="3" fill="#EAF3EE" stroke="#A8D5C0"/>
+  <text x="768" y="98" text-anchor="middle" fill="#1B5C46" font-family="${HEAD_SVG}" font-size="14.5" font-weight="500">The spec and the agent definition</text>
+  <path d="M768 116 L768 136" stroke="#7DBFA3" stroke-width="1.5"/>
+  <rect x="576" y="136" width="384" height="46" rx="3" fill="#EAF3EE" stroke="#A8D5C0"/>
+  <text x="768" y="164" text-anchor="middle" fill="#1B5C46" font-family="${HEAD_SVG}" font-size="14.5" font-weight="500">They produce the work</text>
+  <path d="M768 182 L768 202" stroke="#7DBFA3" stroke-width="1.5"/>
+  <rect x="576" y="202" width="384" height="46" rx="3" fill="#EAF3EE" stroke="#A8D5C0"/>
+  <text x="768" y="230" text-anchor="middle" fill="#1B5C46" font-family="${HEAD_SVG}" font-size="14.5" font-weight="500">Not right, so you change a file</text>
+  <path d="M232 264 L232 300 L22 300 L22 84" stroke="#93B8D4" stroke-width="1.5" fill="none" stroke-dasharray="3 5"/>
+  <path d="M768 264 L768 300 L978 300 L978 84" stroke="#7DBFA3" stroke-width="1.5" fill="none"/>
+  <path d="M973 92 L978 80 L983 92 Z" fill="#7DBFA3"/>
+  <path d="M17 92 L22 80 L27 92 Z" fill="#93B8D4"/>
+  <text x="232" y="330" text-anchor="middle" fill="#5B6E80" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="12.5">nothing persists</text>
+  <text x="768" y="330" text-anchor="middle" fill="#1B5C46" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="12.5">and everyone gets it next run</text>
+</svg></div>
+
+<p>The shift is that when the output is wrong you stop reaching for a better prompt and start
+   changing one of two things: the specification the work was written against, or the definition of
+   the agent that did the work. Both are files. Both are versioned and reviewed like anything else.
+   Both apply on the next run, to everyone, without anybody having to be told.</p>
+
+<p>That is a different skill from prompting, and it is closer to something engineers already know. A
+   bad output is a defect, and a defect has a cause that lives somewhere you can edit. The question
+   stops being <em>how do I ask for this better</em> and becomes <em>which file was wrong, the one
+   describing what I wanted or the one describing who does it</em>.</p>
+
+<h2>The problem this creates</h2>
+
+<p>Prompting answers immediately. Changing a spec or an agent definition does not, because what you
+   are moving is how it behaves rather than what it said once, and one run tells you little. You want
+   the old version and the new one on the same work at the same time.</p>
+
+<p>How you run them depends on what you changed, and it is a fork rather than a ladder.</p>
+
+<p>Change a <b>spec</b> and two working directories of one clone is right: one repository, two
+   directories, already comparing against a shared base.</p>
+
+<p>Change an <b>agent definition</b> and that shape tells you nothing. Two working directories are
+   one machine, so everything at the machine level, your environment, your tools, your authenticated
+   connections, is shared between the arms and cannot be varied. A change whose effect depends on any
+   of it reads as <em>no effect</em>. You need two environments, two machines or two workspaces in a
+   remote one, so that tier becomes something you can move. The bill is that a shared constant is now
+   a per-arm variable somebody has to equalize on purpose.</p>
+
+<h2>Two things to do before you believe the result</h2>
+
+<p><b>Freeze the task before you write the change.</b> A task picked afterwards is one the change
+   happens to help, and nothing in either run will show you that.</p>
+
+<p><b>Run an identical pair first.</b> Same task, same procedure, no change between the arms. If two
+   identical arms differ about as much as two different arms did, the method has no resolution on
+   that task and any verdict from it is noise. <em>Cannot tell</em> has to be an answer you are
+   willing to record, or you will only ever get the answer you went looking for.</p>
+
+<p>Two smaller ones, and neither is a control. Run the arms close together and note when each ran,
+   because the model can move underneath a stable name between them, and that is the one difference
+   nobody can find afterwards. Read the results without knowing which is which, if you can. The
+   timing note bounds how much drift could explain rather than removing it, and where one person
+   writes the change and reads the results, reading blind is not available at all.</p>
+
+<h2>The question to keep asking</h2>
+
+<p>Is it producing the outcome you wanted? Not is the code good, and not was the run green. Whether
+   the change you made to the spec or to the agent definition moved the work in the direction you
+   intended, and whether it will keep doing that when somebody else runs it.</p>
+
+<p>None of that is a way of knowing it did. It is a way of finding out, and the difference matters:
+   it ranks two arms and measures neither, it is one run each at unknown resolution, and it is
+   manual, so it cannot run on every change. I have not seen a verdict produced this way, mine or
+   anybody's. What it does prevent is changing a file, liking the next answer, and calling that
+   evidence.</p>
+
+<p>Teams that get here need time for it. Refining an agent team produces nothing shippable that
+   week, so it is the first thing traded away when delivery is late. It is also the thing that
+   decides what every following week produces.</p>
+`,
+};
+
+const WORK_SECTIONS = `
+<section>
+  <div class="wrap">
+    <div class="head narrow">
+      <p class="eyebrow">What the teams maintain</p>
+      <h2>Three assets, kept alive.</h2>
+      <p>Not projects that shipped and stopped. Each is still under maintenance by an agent&nbsp;team.
+         The last is public, so you can install it and read its history.</p>
+    </div>
+    <div class="cols">
+      ${assets.map(([n, role, b, href, cta]) => `<div class="col"><div class="rule"></div>
+        <p class="eyebrow">${role}</p><h3>${n}</h3><p>${b}</p>${href ? `
+        <p><a class="src" href="${href}">${cta} <span aria-hidden="true">&rarr;</span></a></p>` : ''}</div>`).join('\n      ')}
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="head narrow">
+      <p class="eyebrow">One team, in full</p>
+      <h2>A factory that maintains, not just builds.</h2>
+      <p>These six maintain the marketplace. Generating something with AI is the easy half now.
+         The other half decides whether the thing is still alive in six months: keeping the
+         documents true, the checks passing, the releases loading, and the claims about the system
+         honest. That is the half these six do, and none of them writes features.</p>
+    </div>
+    <div class="verts">
+      ${factory.map(([n, d]) => `<div class="vert"><b>${n}</b><span>${d}</span></div>`).join('\n      ')}
+    </div>
+    <p class="note">All six are agent definitions in a private repository, so you cannot read
+       them. What they maintain is public: two plugins carrying ten installable agents and a
+       connector between them, their documentation, and a version history you can walk back. That is one product run
+       this way, not an organization.</p>
+    <p class="note" id="notes">Most of this is argued at length in
+       <a class="src" href="/notes/">the notes</a>, where the index says which of them are one
+       argument with which, and where to start.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="head narrow">
+      <p class="eyebrow">Inside AI-SDLC</p>
+      <h2>One capability, across&nbsp;every team it touches.</h2>
+      <p>A roadmap team asks for a new capability in writing. The ask becomes work in other
+         teams’ code, and that work is checked against the ask before it is accepted. The diagram
+         follows one ask the whole way.</p>
+    </div>
+    <div class="flow">${flow}</div>
+    <p class="note">Every decision on that path is written down the same way, so a team that did
+       not make it can pick it up:</p>
+    <div class="cols" style="margin-top:3.2rem">
+      ${method.map(([h, b]) => `<div class="col"><div class="rule"></div>
+        <h3>${h}</h3><p>${b}</p></div>`).join('\n      ')}
+    </div>
+    <p class="note">The reference is on no schedule, and this page does not say it is current. It is
+       not published, so the diagram above shows how far the work reaches, not the decisions inside
+       it. Published
+       separately, and standing without it:
+       <a class="src" href="/what-you-already-have/">what the gaps cost</a>, which runs the pieces
+       of infrastructure an agent setup can have in the order they stop being optional, and names
+       some of what exists at each. The layers, and the way to read a tool’s public signals, change more slowly
+       than the tools under them. The tools move on their own schedules, so the list prints dates
+       rather than intervals and says where nobody has looked.</p>
+  </div>
+</section>
+`;
+
+const html = `<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Crinaro.AI · AI from higher ground</title>
+<meta name="description" content="${SUB}">
+<meta property="og:title" content="Crinaro.AI">
+<meta property="og:description" content="${CLAIM} ${SUB}">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://crinaro.ai/">
+<meta property="og:image" content="https://crinaro.ai/icons/crinaro-og-1200x630.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Crinaro.AI · AI from higher ground">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,${encodeURIComponent(svg('crinaro-ai-mark-small.svg'))}">
+<link rel="icon" type="image/png" sizes="32x32" href="/icons/crinaro-favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/icons/crinaro-favicon-16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/icons/crinaro-icon-180.png">
+<style>
+${CSS}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    ${svg('crinaro-ai-animated.svg')}
+    <h1>${CLAIM_HTML}</h1>
+    <p>${SUB}</p>
+  </div>
+</header>
+
+<main>
+
+<section class="band">
+  <div class="wrap">
+    <div class="head narrow">
+      <p class="eyebrow">The method</p>
+      <h2>The whole view decides the design.</h2>
+      <p>Stand where the whole system is visible before deciding anything. The test of a decision
+         made from there is whether the team still owns and runs what was built when you come back
+         to it, and whether <em>do not build this</em> was ever an available answer. Crinaro is a
+         ridge line, from the Italian <i>crinale</i>: the crest path where you can see down both
+         sides.</p>
+    </div>
+  </div>
+</section>
+
+
+<section>
+  <div class="wrap">
+    <div class="head narrow">
+      <p class="eyebrow">Where you are</p>
+      <h2>Agents went in,<br>your costs went up. Why?</h2>
+      <p>It is not just you. McKinsey asked 1,719 people across 97 nations for its August 2026
+         report.</p>
+    </div>
+    <div class="exhibit">${exhibit}</div>
+    <div class="stats">
+      ${stats.map(([n, claim, base, href]) => `<div class="stat">
+        <b>${n}</b><p>${claim}</p>
+        <span class="base"><a href="${href}">${base}</a></span>
+      </div>`).join('\n      ')}
+    </div>
+    <div class="head narrow">
+      <p>Those figures are leaders grading their own organizations, and a second firm reports a
+         similar distance between adoption and return.<sup class="fn">1</sup> So the question is not whether you are adopting AI. It is
+         whether the way you adopt it can move EBIT.</p>
+      <p>The AI often changes nothing, <a class="src" href="${MANIFESTO}">McKinsey's advice says</a>,
+         when the work on either side of it is left as it was. A model can predict a machine
+         failure days ahead, and maintenance still runs on the calendar. The prediction changed.
+         The way the decision gets made did not.</p>
+      <p>The way you adopt it is where the problem starts. Every team of people you run already
+         answers five questions: Who owns this? Where do they get their facts? How does a decision
+         get made? Who does the work? Who builds the team?</p>
+      <p>Nobody adds fifteen people without answering them first. Agent teams are getting stood up
+         without the same controls. Each question has an answer further down, and none of the
+         answers is a tool.</p>
+      <p>Teams answer “Who owns this?” by adopting AI the way they already work, so it amplifies the
+         organization it lands in and costs continue to rise.
+         <a class="src" href="https://services.google.com/fh/files/misc/2025_state_of_ai_assisted_software_development.pdf">DORA found the amplification in AI generally</a>,
+         across nearly five thousand practitioners, most of whom were not yet using agents.</p>
+      <p>The other four stay nobody's job, so the system keeps the shape of the teams that built
+         it: <a class="src" href="/notes/${NOTE.slug}/">why do we have five user APIs</a>.</p>
+      <p>The technology is new. The problem it lands in is not: it is flow and ownership, which
+         you already manage everywhere else.</p>
+      <p>Projects and acquisitions leave the same shape behind: three teams with three answers to
+         the same fact, and agents that read all three and answer with confidence.</p>
+    </div>
+    <div class="flow fig">${ownership}</div>
+    <div class="cols five">
+      ${problems.map(([h, b], i) => `<div class="col"><div class="rule"></div>
+        <p class="eyebrow q">${QUESTIONS[i]}</p><h3>${h}</h3><p>${b}</p></div>`).join('\n      ')}
+    </div>
+    <div class="head narrow">
+      <ol class="refs">
+        <li><a class="src" href="https://assets.kpmg.com/content/dam/kpmgsites/xx/pdf/2026/09/global-ai-pulse.pdf">KPMG, Global AI Pulse, September 2026</a>,
+          p. 7: a second firm, across two waves of its own study. 13% of 2,131 leaders were still
+          experimenting, against 22% in April, while the share reporting an established return
+          changed less, from 8% to 10%. KPMG reads movement between quarters as direction rather
+          than step change.</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="head narrow">
+      <p class="eyebrow">Where to start</p>
+      <h2>Own what is&nbsp;nobody's job.</h2>
+      <p>If you can maintain the platform you have and keep building on it while you hit your
+         financial goals, keep going. If you cannot, this is where to start.</p>
+      <p>First, decide who owns what. Only about a third of the
+         <a class="src" href="https://kpmg.com/content/dam/kpmgsites/xx/pdf/2026/06/global-ai-pulse-q2.pdf">2,145 leaders KPMG asked</a>
+         for its June 2026 report said the roles for running AI day to day were very clear and well
+         managed.<sup class="fn">2</sup> An executive who owns AI and its controls is the start. Somebody
+         also has to own the design: each process, each system and the data behind it, and how work
+         moves between them.</p>
+      <p>Then fund an answer to each of the five questions above, and the platform they run on. None
+         of it is a tool purchase. You can buy a product that maps what you already have; you cannot
+         buy somebody answerable for keeping the map true.
+         <a class="src" href="/what-you-already-have/">What the gaps in your machinery cost</a></p>
+      <p>Budget for what ownership costs. Your delivery dates will depend on other teams' queues.
+         Teams need time before they take on the change. Removing what is already duplicated is work
+         that has to be funded, and so are the people who build the agent teams. Treating any of it
+         as free is the most expensive mistake here.</p>
+      <p>The agents are already going in,<sup class="fn">3</sup> and 74% of
+         <a class="src" href="https://www.deloitte.com/us/en/insights/topics/emerging-technologies/ai-agents-scaling-faster.html">the 3,235 leaders Deloitte asked</a>,
+         as it reported in April 2026, expected at least moderate use by 2027. Designed first, the
+         system around them can take cost out. Left as it is, they amplify the organization you run
+         today, costs included, and that is a hard result to take to a board.</p>
+      <div class="bookmark">
+        <p class="eyebrow">Worth bookmarking</p>
+        <p><b>What you can use, layer by layer.</b> The options at each layer of an agent setup:
+           a list, not a review, and every row carries the date it was read, so each visit shows
+           you how current it is.
+           <a class="src" href="/what-you-already-have/options/">See the options</a></p>
+      </div>
+      <ol class="refs" start="2">
+        <li><a class="src" href="https://www.ey.com/en_us/newsroom/2026/09/ey-survey-finds-that-autonomous-ai-implementation-outpaces-oversight-yielding-an-ai-governance-gap">EY, AI Risk and Governance Survey, September 2026</a>:
+          a different firm, on controls. Of about 180 senior AI executives at US companies using agentic AI, 49% said their
+          governance framework had not been updated for it, and 26% said they could not detect
+          unauthorized agents operating internally.</li>
+        <li>KPMG's September report again, note 1, not the June one above, p. 3: of 2,131 leaders, 38% said
+          their organization was developing or implementing multi-agent systems, and significant
+          employee adoption of AI agents had risen to 34% from 25% in April.</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<section class="band">
+  <div class="wrap">
+    <div class="head narrow">
+      <p class="eyebrow">What success looks like</p>
+      <h2>Fewer places to change,<br>year over year.</h2>
+      <p>If your agent teams are working, the number of systems you have to change to deliver one
+         thing the business asked for goes down. That is the measure.</p>
+      <p>The 6% who attribute 5% or more of EBIT to AI changed the work, not just the tools, three
+         times as often as everyone else. Prompt-style use makes a person faster without making the
+         work repeatable. You do not get a different number out of the same system.
+         <a class="src" href="https://www.mckinsey.com/capabilities/tech-and-ai/our-insights/the-top-trends-in-tech">McKinsey's September 2026 technology outlook</a>
+         puts it the same way: agentic AI is changing operating models, not just tools.</p>
+
+      <p>It may simply be early: economists call the lag the
+         <a class="src" href="https://www.nber.org/papers/w25148">productivity J-curve</a>, where the
+         gain arrives only after the work around the technology is rebuilt. Either way, somebody has to
+         own the rebuilding.</p>
+      <p>Success is not more agents in more places. It is a count that goes down year over year,
+         because each thing the business asks for touches fewer systems that somebody has to keep in
+         agreement by hand.
+         <a class="src" href="/notes/${NOTE_COUNT.slug}/">${NOTE_COUNT.title}</a></p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="head narrow">
+      <p class="eyebrow">Where this comes from</p>
+      <h2>Patterns learned in hard places.</h2>
+      <p>None of this is industry-specific. The experience behind it is: regulated,
+         legacy-heavy, and full of decisions that are judgment calls rather than lookups. What
+         holds up there travels.</p>
+    </div>
+    <div class="verts">
+      ${verticals.map(([n, d]) => `<div class="vert"><b>${n}</b><span>${d}</span></div>`).join('\n      ')}
+    </div>
+  </div>
+</section>
+
+
+
+<section>
+  <div class="wrap">
+    <div class="head narrow">
+      <p class="eyebrow">How the work gets done</p>
+      <h2>The model is under&nbsp;test, by being run.</h2>
+      <p>The model this page argues for is not described: it is run, and still changing. Three agent teams keep it under test. One curates AI-SDLC, the reference on delivering with agents that this argument
+         comes from. One maintains this brand and the page you
+         are reading. One runs a public marketplace you can open and install:
+         <a class="src" href="https://github.com/crinaro/marketplace">github.com/crinaro/marketplace</a>.
+         Three different problems on purpose, so the approach gets challenged rather than
+         confirmed.
+         <a class="src" href="/how-the-work-gets-done/">The three teams, and what each keeps
+         alive</a></p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="narrow stack">
+      <p class="eyebrow">If any of this is useful</p>
+      <h2>Say where it breaks.</h2>
+      <p>These are patterns, not prescriptions, and the interesting mail is the mail that says a
+         piece of it does not hold: in your architecture, at your size, with the constraints you
+         actually have. That is a conversation worth having whether or not anything follows it.</p>
+      <p style="margin-top:.8rem">
+        <a class="src" href="mailto:${EMAIL}?subject=Crinaro">${EMAIL}</a>
+      </p>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    ${svg('crinaro-ai-horizontal-reversed.svg')}
+    <p class="fine">
+      <a href="mailto:${EMAIL}">${EMAIL}</a> &nbsp;·&nbsp; crinaro.ai
+    </p>
+  </div>
+</footer>
+
+</body>
+</html>
+`;
+
+const indexBytes = writePage(path.join(DIST, 'index.html'), html);
+
+const workHtml = `<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How the work gets done · Crinaro.AI</title>
+<meta name="description" content="The agent teams that maintain three assets, and one capability followed across every team it touches.">
+<meta property="og:title" content="How the work gets done">
+<meta property="og:description" content="The agent teams that maintain three assets, and one capability followed across every team it touches.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://crinaro.ai/how-the-work-gets-done/">
+<meta property="og:image" content="https://crinaro.ai/icons/crinaro-og-1200x630.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Crinaro.AI · AI from higher ground">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,${encodeURIComponent(svg('crinaro-ai-mark-small.svg'))}">
+<link rel="icon" type="image/png" sizes="32x32" href="/icons/crinaro-favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/icons/crinaro-favicon-16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/icons/crinaro-icon-180.png">
+<style>
+${CSS}
+  .hero h1 { max-width:20ch; }
+  .hero p { max-width:none; }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <a class="note-home" href="/">${svg('crinaro-ai-horizontal-reversed.svg')}</a>
+    <h1>How the work&nbsp;gets done.</h1>
+    <p>The model this site argues for is run rather than described. Here are the three things it
+       is run on, the agent teams that keep each alive, and one new capability, followed from the
+       team that asks for it to the check that the finished work does what was asked.</p>
+  </div>
+</header>
+
+<main>
+
+${WORK_SECTIONS}
+
+<section>
+  <div class="wrap">
+    <div class="head narrow">
+      <p class="eyebrow">Back</p>
+      <h2>Where this sits.</h2>
+      <p>The argument these are run against is on the
+         <a class="src" href="/">home page</a>, worked out at length
+         <a class="src" href="/notes/">in the notes</a>, and the machinery half is
+         <a class="src" href="/what-you-already-have/">what the gaps cost</a>.</p>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    ${svg('crinaro-ai-horizontal-reversed.svg')}
+    <p class="fine">
+      <a href="mailto:${EMAIL}">${EMAIL}</a> &nbsp;\u00b7&nbsp; crinaro.ai
+    </p>
+  </div>
+</footer>
+
+</body>
+</html>
+`;
+fs.mkdirSync(path.join(DIST, 'how-the-work-gets-done'), { recursive: true });
+writePage(path.join(DIST, 'how-the-work-gets-done', 'index.html'), workHtml);
+console.log('       dist/how-the-work-gets-done/ — the three run-on-this sections');
+
+const NOTE_ANSWER = {
+  slug: 'who-owns-the-answer',
+  title: 'Who owns the answer',
+  author: 'John Kelly',
+  date: '2026-09-02',
+  dateHuman: '2 September 2026',
+  standfirst: 'Duplicate services and duplicate facts both fail quietly. The difference is that ' +
+              'you can count the services. Nothing anywhere enumerates the facts, so the first ' +
+              'person to find out can be a customer.',
+  gist: [
+    'Every team that cannot get an answer keeps a copy of its own. That is a fork, the same as a ' +
+      'forked component, except that nothing anywhere reports the divergence.',
+    'A person handles two conflicting answers by knowing who to trust. An agent has no such ' +
+      'prior, so it does not hesitate. Which makes this an ownership question before it is a ' +
+      'tooling one.',
+  ],
+  body: `
+<p>Two teams end up with two implementations of the same thing. Neither of them breaks. They run
+   side by side and drift, and one day a customer is locked out of one channel and not the other, or
+   two totals disagree. Nothing pages anybody for that. But the duplicates can at least be counted, and
+   <a href="/notes/five-user-apis/">another note</a> covers how they get there.
+   Each has a repository, a deployment, a bill and a name, so an organization that decides to go
+   looking will find them.</p>
+
+<p>Now the same thing in the record. Support keeps its own description of how a feature behaves,
+   because asking took too long and the release could not wait. Engineering changes the feature.
+   Nothing reports that the two have drifted apart, and this time there is nothing to count either.
+   No repository, no bill, no name. You cannot build the list. Nobody finds out until a customer is
+   told something engineering stopped believing.</p>
+
+<h3>Why a person survives this and an agent does not</h3>
+
+<p>People carry an unwritten prior. Trust the team that owns a thing over the team that consumes
+   it. Trust the recent page over the old one. Trust the person who actually wrote it. None of that
+   is written down anywhere, and it is the thing that makes a scattered record workable.</p>
+
+<p>An agent has none of it unless somebody encodes it. Handed two answers that disagree, it has no
+   tie-breaker, so it will be wrong and it will not hesitate. It also pays that cost on every
+   request rather than once, because every breakdown of a request pulls from whatever it can reach
+   and reconciles them again.</p>
+
+<h3>Two tiers, and the second one is not authoritative</h3>
+
+<div class="flow"><svg viewBox="0 0 1000 352" role="img"
+     aria-label="A routing layer holds two kinds of thing side by side: decisions that span the parts, owned there, and a current-state view of everything below, a mirror that is authoritative nowhere. Underneath, the parts of the estate each own what they say about themselves, and a job polls them for what changed and feeds the mirror.">
+  <text x="40" y="24" fill="#0B2545" font-family="${HEAD_SVG}" font-size="16" font-weight="500">The layer that routes a request</text>
+  <text x="40" y="44" fill="#5B6E80" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="12.5">holds two kinds of thing, and has to say which is which</text>
+  <rect x="40" y="64" width="440" height="72" rx="3" fill="#EAF3EE" stroke="#A8D5C0"/>
+  <text x="260" y="94" text-anchor="middle" fill="#1B5C46" font-family="${HEAD_SVG}" font-size="14.5" font-weight="500">Decisions that span the parts</text>
+  <text x="260" y="116" text-anchor="middle" fill="#5B6E80" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="12.5">owned here, because no one part can own them</text>
+  <rect x="520" y="64" width="440" height="72" rx="3" fill="#F2F6F8" stroke="#DCE4EA" stroke-dasharray="5 4"/>
+  <text x="740" y="94" text-anchor="middle" fill="#0B2545" font-family="${HEAD_SVG}" font-size="14.5" font-weight="500">Current state of everything below</text>
+  <text x="740" y="116" text-anchor="middle" fill="#5B6E80" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="12.5">a mirror, authoritative nowhere</text>
+  <path d="M180 258 L180 208 M500 258 L500 208 M820 258 L820 208 M180 208 L820 208 M740 208 L740 140" stroke="#7DBFA3" stroke-width="1.5" fill="none"/>
+  <path d="M736 148 L740 136 L744 148 Z" fill="#7DBFA3"/>
+  <text x="192" y="200" fill="#5B6E80" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="12.5">a job polls them for what changed since it last looked</text>
+  <rect x="40" y="258" width="280" height="44" rx="3" fill="#EAF3EE" stroke="#A8D5C0"/>
+  <text x="180" y="286" text-anchor="middle" fill="#1B5C46" font-family="${HEAD_SVG}" font-size="14.5" font-weight="500">One part of the estate</text>
+  <rect x="360" y="258" width="280" height="44" rx="3" fill="#EAF3EE" stroke="#A8D5C0"/>
+  <text x="500" y="286" text-anchor="middle" fill="#1B5C46" font-family="${HEAD_SVG}" font-size="14.5" font-weight="500">Another</text>
+  <rect x="680" y="258" width="280" height="44" rx="3" fill="#EAF3EE" stroke="#A8D5C0"/>
+  <text x="820" y="286" text-anchor="middle" fill="#1B5C46" font-family="${HEAD_SVG}" font-size="14.5" font-weight="500">And another</text>
+  <text x="500" y="332" text-anchor="middle" fill="#5B6E80" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="12.5">each owns what it says about itself, and is the source of truth for it</text>
+</svg></div>
+
+<p>The shape that works mirrors the ownership already in place. Each part of the estate owns what it
+   says about itself: what it does, how it behaves, how to use it. Above that sits a layer holding
+   the things no single part can own, the decisions that span them, and those are genuinely owned
+   there and are the real thing.</p>
+
+<p>The same layer also carries a current-state view of everything underneath. That view is not
+   authoritative and should never be treated as though it were. The parts are. It exists so that
+   whoever is breaking a request down, a person or an agent, can see across the estate well enough
+   to route it.</p>
+
+<p><b>And the layer has to mark which of its contents is which.</b> A person infers it from context
+   and from tone. An agent reads a mirrored fact as a settled decision and acts on it.</p>
+
+<h3>None of this shape is new, and it still does not hold</h3>
+
+<p>Anyone who has run a service catalog has this already: an entry for each part, living as a file
+   in that part's own repository, with a loop that re-reads them and refreshes the view. It works.
+   The same shape, under an older name and fed by discovery rather than by files, has been in
+   enterprise estates for a long time. So the argument here is not that somebody should build the
+   thing. A reader who needs it can probably already point at one.</p>
+
+<p>It is that the thing gets built and then is not believed, and the reasons are not tooling
+   reasons. A part that writes down something wrong gets mirrored faithfully, and the wrong answer
+   now travels further and looks endorsed. Two parts describing the same interface differently both
+   qualify as saying what they say about themselves, so the mirror ends up carrying the
+   disagreement, sourced and owned, with no rule for settling it. And the mirror only ever sees what
+   somebody chose to publish.</p>
+
+<p>Which is the caveat on the best part of this. A blank entry fails loudly only if something reads
+   the blank. Left alone, a catalog fills with parts that have an owner and nothing else, and no
+   one is paged for that either. Making absence loud takes an explicit completeness check with a
+   threshold and a name against it. That is the machinery, and it is the part people skip.</p>
+
+<h3>What keeps it current, and what that costs</h3>
+
+<p>A job polls the parts for what changed since it last looked. The view is generated rather than
+   written, and that is what makes "not authoritative" a property of the thing rather than a rule
+   somebody has to remember. A central architecture document that people edit by hand is a fork
+   with a better name.</p>
+
+<p>The cost is that the view is always slightly behind. Between two runs it describes a system that
+   has already moved, and a routing decision made inside that window can be wrong. The interval is
+   an architecture decision rather than a detail.</p>
+
+<p>And a mirror is not the only way. Where the parts can answer a query, the better answer is to
+   compose the shape of the estate centrally and resolve the contents on demand, which has no
+   staleness in it at all. What is centralized then is the map, not the state. Polling is what you
+   are left with when the parts are of different generations and most of them cannot serve
+   a query. That is a constraint, not a preference, and it is
+   worth knowing which of the two estates you have.</p>
+
+<h3>Consolidated means addressable, not centralized</h3>
+
+<p>One warning about that word, because it is where this gets built wrong. Consolidating the record
+   means one place to address, with each slice owned by whoever owns the thing it describes. It does
+   not mean one team owning all of the knowledge. That team ends up owning everything and knowing
+   nothing, and it rebuilds the middle layer this whole shape exists to remove. The consolidation
+   is in the addressing, not in the authorship.</p>
+
+<h3>The part worth having, and it inverts the failure</h3>
+
+<p>A projection can only show what a part actually wrote down. So a part that documents nothing
+   shows up blank. Compare that with the case this replaces, where the same gap gets filled by
+   somebody else's copy: plausible, sourced from nobody, and true once. Same missing information,
+   opposite visibility.</p>
+
+<p>Both fail quietly. Only one of them can be listed. That is the whole trade, and it is worth
+   making.</p>
+
+<p><b>What is not known, and one thing this does not solve.</b> The separation between addressing
+   and authorship is an intention rather than a mechanism. Nothing in the shape enforces it, and the
+   gradient runs the wrong way: every genuinely hard question is one no single part can own, so it
+   arrives upstairs, and the layer thickens one reasonable decision at a time. Keeping it thin is a
+   discipline somebody has to defend, and this note has no answer for what happens when nobody
+   does.</p>
+
+<p>The rest is a shape rather than a result. I have not run it across an organization, and the
+   interval question is open: nothing here has measured what a stale view costs a routing decision,
+   which is the number that would tell you how often to poll. The argument is about which failures
+   can be found, not about what any of it saves.</p>
+`,
+  next: ['five-user-apis', 'Why do we have five user APIs',
+         'The same failure in the code rather than in the record, and the one people already recognize.'],
+};
+
+
+const NOTES = [NOTE, NOTE_HOP, NOTE_SKILL, NOTE_BOUNDARY, NOTE_CROSSING, NOTE_CADENCE, NOTE_SCOPE, NOTE_ANSWER, NOTE_COUNT];
+
+const noteHead = (title, desc, url) => `<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>${title} · Crinaro.AI</title>
+<meta name="description" content="${desc}">
+<meta property="og:title" content="${title}">
+<meta property="og:description" content="${desc}">
+<meta property="og:url" content="${url}">
+<meta property="og:image" content="https://crinaro.ai/icons/crinaro-og-1200x630.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,${encodeURIComponent(svg('crinaro-ai-mark-small.svg'))}">
+<link rel="icon" type="image/png" sizes="32x32" href="/icons/crinaro-favicon-32.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/icons/crinaro-icon-180.png">`;
+
+const SERIES = [
+  ['ownership', 'The argument, in three parts'],
+  ['boundary',  'Two repositories, in two parts'],
+];
+const seriesOf = k => NOTES.filter(n => n.series === k).sort((a, b) => a.part - b.part);
+const standalone = NOTES.filter(n => !n.series).sort((a, b) => b.date.localeCompare(a.date));
+
+fs.mkdirSync(path.join(DIST, 'notes'), { recursive: true });
+writePage(path.join(DIST, 'notes', 'index.html'), `${noteHead(
+  'Notes', 'Pieces on delivery, ownership and agentic development, written as they are worked out.',
+  'https://crinaro.ai/notes/')}
+<style>
+${CSS}
+  .note-wrap { max-width:62rem; margin:0 auto; padding:3.5rem 1.5rem 5rem; }
+  .note-home { display:inline-block; margin-bottom:3rem; }
+  .note-home svg { width:11rem; height:auto; display:block; }
+  h1 { font-family:var(--head); font-weight:500; font-size:clamp(1.8rem,4vw,2.6rem);
+       line-height:1.12; margin:0 0 1rem; }
+  .standfirst { font-size:1.12rem; color:var(--ink-2); margin:0 0 3rem;
+                padding-bottom:2.6rem; border-bottom:1px solid var(--hair); }
+  .entry { margin:0 0 2.8rem; }
+  .entry time { font-family:var(--mono); font-size:.72rem; letter-spacing:.14em;
+                text-transform:uppercase; color:var(--muted); display:block; margin-bottom:.5rem; }
+  .entry h2 { font-family:var(--head); font-weight:500; font-size:1.3rem; margin:0 0 .5rem;
+              line-height:1.25; }
+  .entry h2 a { color:var(--ink); text-decoration:none;
+                border-bottom:1px solid rgba(27,92,70,.35); padding-bottom:1px; }
+  .entry h2 a:hover { border-bottom-color:var(--green); }
+  .entry p { margin:0; color:var(--ink-2); }
+  .index-foot { margin-top:3.5rem; padding-top:1.6rem; border-top:1px solid var(--hair);
+                font-size:.92rem; color:var(--ink-2); }
+  .series-head { font-family:var(--mono); font-size:.7rem; letter-spacing:.14em;
+                 text-transform:uppercase; color:var(--muted); margin:0 0 1.6rem;
+                 padding-bottom:.7rem; border-bottom:1px solid var(--hair); }
+  .entry + .series-head { margin-top:3.4rem; }
+</style>
+</head>
+<body>
+<div class="note-wrap">
+  <a class="note-home" href="/" aria-label="Crinaro.AI">${svg('crinaro-ai-horizontal.svg')}</a>
+  <h1>Notes</h1>
+  <p class="standfirst">If your organization has ended up with several systems doing the same
+     thing, and nobody can point at the decision that caused it, the first three of these are one
+     argument about why that happens and what an agentic model changes about it. The next two are
+     about where the agent team itself lives, and what has to cross between there and whatever you
+     publish. The rest stand alone: how you would know any of it is working, what an agent team can
+     actually be handed, who owns the answer when two records disagree, and what changes once the
+     thing you edit is the spec rather than the prompt.</p>
+  ${SERIES.map(([key, head]) => `<p class="series-head">${head}</p>
+  ` + seriesOf(key).map((n, i) => `<div class="entry">
+    <time datetime="${n.date}">Part ${i + 1}</time>
+    <h2><a href="/notes/${n.slug}/">${n.title}</a></h2>
+    <p>${n.standfirst}</p>
+  </div>`).join('\n  ')).join('\n  ')}
+  <p class="series-head">On their own</p>
+  ${standalone.map(n => `<div class="entry">
+    <time datetime="${n.date}">${n.dateHuman}</time>
+    <h2><a href="/notes/${n.slug}/">${n.title}</a></h2>
+    <p>${n.standfirst}</p>
+  </div>`).join('\n  ')}
+  <p class="index-foot linkrow"><a class="src" href="/what-you-already-have/">What the gaps cost</a>
+     <span class="sep">&middot;</span><a class="src" href="/how-the-work-gets-done/">How the work gets done</a>
+     <span class="sep">&middot;</span><a class="src" href="/">Crinaro.AI</a></p>
+  <p class="index-foot">Written by John Kelly. If a piece of this does not hold in your
+     architecture, at your size, that is the mail worth sending:
+     <a class="src" href="mailto:${EMAIL}">${EMAIL}</a>. Today I read it myself.</p>
+</div>
+</body>
+</html>
+`);
+console.log(`       dist/notes/ — index of ${NOTES.length}`);
+
+for (const note of NOTES) {
+const other = NOTES.filter(n => n.slug !== note.slug);
+const notePath = path.join(DIST, 'notes', note.slug);
+fs.mkdirSync(notePath, { recursive: true });
+writePage(path.join(notePath, 'index.html'), `${noteHead(
+  note.title, note.standfirst, `https://crinaro.ai/notes/${note.slug}/`)}
+<meta name="author" content="${note.author}">
+<meta property="og:type" content="article">
+<style>
+${CSS}
+  .note-wrap { max-width:62rem; margin:0 auto; padding:3.5rem 1.5rem 5rem; }
+  .note-home { display:inline-block; margin-bottom:3rem; }
+  .note-home svg { width:11rem; height:auto; display:block; }
+  article h1 { font-family:var(--head); font-weight:500; font-size:clamp(1.8rem,4vw,2.6rem);
+                line-height:1.12; letter-spacing:.005em; margin:0 0 1rem; text-wrap:balance; }
+  article .standfirst { font-size:1.12rem; color:var(--ink-2); margin:0 0 1.6rem; }
+  .series-line { margin:-.6rem 0 1.4rem; font-size:.95rem; color:var(--muted); }
+  .series-line a.src { white-space:normal; }
+  .byline { font-family:var(--mono); font-size:.72rem; letter-spacing:.14em;
+            text-transform:uppercase; color:var(--muted); margin:0 0 2.6rem;
+            padding-bottom:2.6rem; border-bottom:1px solid var(--hair); }
+  article h2 { font-family:var(--head); font-weight:500; font-size:1.3rem;
+                margin:2.6rem 0 .9rem; letter-spacing:.005em; }
+  article p { margin:0 0 1.2rem; color:var(--ink-2); }
+  .note-foot, .note-foot p { text-wrap:balance; }
+  .note-foot { margin-top:3.5rem; padding-top:1.6rem; border-top:1px solid var(--hair);
+               font-size:.92rem; color:var(--ink-2); }
+  article .flow { margin:2.4rem 0 2.8rem; }
+  .onward { margin-top:3.5rem; padding-top:1.6rem; border-top:1px solid var(--hair); }
+  .onward .eyebrow { margin-bottom:.7rem; }
+  .onward h2 { margin:0 0 .5rem; font-size:1.2rem; }
+  .onward h2 a { color:var(--ink); text-decoration:none;
+                 border-bottom:1px solid rgba(27,92,70,.35); padding-bottom:1px; }
+  .onward h2 a:hover { border-bottom-color:var(--green); }
+  .onward p { margin:0; color:var(--ink-2); font-size:.97rem; }
+  .gist { margin:0 0 2.8rem; padding:1.3rem 1.5rem; background:var(--paper);
+          border-left:2px solid var(--green); }
+  .gist p { font-family:var(--mono); font-size:.68rem; letter-spacing:.14em;
+            text-transform:uppercase; color:var(--muted); margin:0 0 .8rem; }
+  .gist > div p { font-family:inherit; font-size:1rem; letter-spacing:0;
+                  text-transform:none; color:var(--ink-2); margin:0 0 .9rem; }
+  .gist > div p:last-child { margin-bottom:0; }
+  @media (min-width:62rem) {
+    article .flow svg { min-width:0; }
+  }
+</style>
+</head>
+<body>
+<div class="note-wrap">
+  <a class="note-home" href="/" aria-label="Crinaro.AI">${svg('crinaro-ai-horizontal.svg')}</a>
+  <article>
+    <h1>${note.title}</h1>
+    <p class="standfirst">${note.standfirst}</p>
+${note.series && note.part > 1 ? (() => { const all = seriesOf(note.series); return `    <p class="series-line">Part ${note.part} of ${all.length}. It starts at <a class="src" href="/notes/${all[0].slug}/">${all[0].title}</a>.</p>`; })() : ''}
+    <p class="byline">${note.author} &nbsp;·&nbsp; <time datetime="${note.date}">${note.dateHuman}</time></p>
+${note.gist ? `    <div class="gist"><p>The argument</p><div>
+      ${note.gist.map(g => `<p>${g}</p>`).join('\n      ')}
+    </div></div>` : ''}
+${note.body.trim()}
+  </article>
+${note.next ? `  <div class="onward">
+    <p class="eyebrow">Next</p>
+    <h2><a href="/notes/${note.next[0]}/">${note.next[1]}</a></h2>
+    <p>${note.next[2]}</p>
+  </div>` : ''}
+  <p class="note-foot">Written by ${note.author}. If a piece of this does not hold in your
+     architecture, at your size, that is the mail worth sending:
+     <a class="src" href="mailto:${EMAIL}">${EMAIL}</a>. Today I read it myself.${other.length ? `
+     <br>The rest are in <a class="src" href="/notes/">the notes</a>.` : ''}</p>
+</div>
+</body>
+</html>
+`);
+console.log(`       dist/notes/${note.slug}/ — bylined piece`);
+}
+
+
+const pageHead = (title, desc, url, extraCss) => `${noteHead(title, desc, url)}
+<style>
+${CSS}
+  .note-wrap p { margin:0 0 1.1rem; }
+  .note-wrap { max-width:62rem; margin:0 auto; padding:3.5rem 1.5rem 5rem; }
+  .note-home { display:inline-block; margin-bottom:3rem; }
+  .note-home svg { width:11rem; height:auto; display:block; }
+  h1 { font-family:var(--head); font-weight:500; font-size:clamp(1.8rem,4vw,2.6rem);
+       line-height:1.12; margin:0 0 1rem; }
+  .standfirst { font-size:1.12rem; color:var(--ink-2); margin:0 0 2.4rem; }
+  .written .src { font-family:inherit; font-size:inherit; letter-spacing:inherit; }
+  .written { font-family:var(--mono); font-size:.72rem; letter-spacing:.06em; color:var(--muted);
+             margin:0 0 3rem; padding-bottom:2.4rem; border-bottom:1px solid var(--hair);
+             line-height:1.9; }
+  h2 { font-family:var(--head); font-weight:500; font-size:1.35rem; margin:3rem 0 1.2rem;
+       line-height:1.25; }
+  .foot { margin-top:3.4rem; padding-top:1.8rem; border-top:1px solid var(--hair);
+          font-size:.95rem; color:var(--ink-2); }
+${extraCss}
+</style>
+</head>
+<body>
+<div class="note-wrap">
+  <a class="note-home" href="/" aria-label="Crinaro.AI">${svg('crinaro-ai-horizontal.svg')}</a>`;
+
+const optionsLink = key => {
+  const n = TOOLS.tools.filter(t => t.layer === key).length;
+  if (!n) return 'See the options';
+  if (n === 1) return 'See the one option listed';
+  return `See the ${SPELLED[n] ? SPELLED[n].toLowerCase() : n} options listed`;
+};
+
+fs.mkdirSync(path.join(DIST, 'what-you-already-have'), { recursive: true });
+writePage(path.join(DIST, 'what-you-already-have', 'index.html'), `${pageHead(
+  'Start from what you already have',
+  `${SPELLED[LAYERS.length]} things an agent setup can have, in the order they stop being optional, what leaving each one empty costs, and where to see the options.`,
+  'https://crinaro.ai/what-you-already-have/', `
+  .rows { counter-reset:lay; }
+  .row { margin:0 0 2.2rem; padding-left:2.4rem; position:relative; counter-increment:lay; }
+  .row::before { content:counter(lay); position:absolute; left:0; top:.2rem;
+                 font-family:var(--mono); font-size:.78rem; color:var(--muted); }
+  .row h3 { font-family:var(--head); font-weight:500; font-size:1.05rem; color:var(--ink);
+            margin:0 0 .6rem; line-height:1.3; }
+  .row p { margin:0 0 .6rem; color:var(--ink-2); }
+  .lbl { font-family:var(--mono); font-size:.68rem; letter-spacing:.13em;
+         text-transform:uppercase; color:var(--muted); display:block; margin-bottom:.2rem; }`)}
+  <h1>Start from what you already have</h1>
+  <p class="standfirst"><b>Owning a capability decides who is answerable. On its own it does not
+     put the facts where anyone can reach them, record why a call was made, route a question to
+     the team that owns it, or build the team that does the work</b>. Those are the five the
+     <a class="src" href="/">home page</a> sets out, and the argument behind them is
+     <a class="src" href="/notes/">in the notes</a>. This page is the machinery they run on. Some
+     of it you will already have, and the useful question is not what a greenfield build would
+     look like, it is what the gaps are costing you.</p>
+  <p class="written">Read down the list. <b>Stop at the first one you answer no to</b>, and follow
+     the link on that row to see what is listed there. It is a list rather than a review: nothing
+     on it is recommended, and a product missing from it was not rejected.</p>
+
+  <div class="rows">
+  ${LAYERS.map(([key, name, have, cost]) => `<div class="row">
+    <h3>${name}</h3>
+    <p><span class="lbl">You have it if</span>${have}</p>
+    <p><span class="lbl">Empty, it costs you</span>${cost}</p>
+    <p><a class="src" href="/what-you-already-have/options/#l-${key}">${optionsLink(key)} <span aria-hidden="true">&rarr;</span></a></p>
+  </div>`).join('\n  ')}
+  </div>
+
+  <p>The order is the order these stop being optional in, which is an argument about what depends on
+     what and not about what is good. <b>${SPELLED[LAYER_NAMES.length - LAYERS.length]} groups in
+     the options have no row here, on purpose.</b> Skills and specs, and security and secrets, are
+     not on the request path in the way these ${SPELLED[LAYERS.length].toLowerCase()} are, so an
+     order of adoption says nothing useful about them. Testing agent output is not a row either. You can buy what runs an
+     evaluation, and <a class="src" href="/what-you-already-have/options/#l-evaluate">the options</a>
+     list seven products that trace, score and test, but none decides what a good result is: those
+     cases are yours to write. Nor is distribution to teams, where the options hold one vendor
+     feature. Catalogs and registries are not a row here either, and that is not scarcity: they
+     have rows in the options.
+     What it does not have is a place in this order, and this page does not invent one. Naming that
+     is the alternative to selling you a gap as a layer.</p>
+
+  <div class="foot">
+    <p>None of this has been measured against an organization, and the ordering is reasoned from
+       what depends on what. If a row is wrong, or the order is wrong where you are,
+       <a class="src" href="mailto:${EMAIL}">say so</a>, and today I read it myself.</p>
+    <p class="linkrow"><a class="src" href="/what-you-already-have/options/">All the options, in one table</a>
+       <span class="sep">&middot;</span><a class="src" href="/notes/">Read the notes</a>
+       <span class="sep">&middot;</span><a class="src" href="/how-the-work-gets-done/">How the work gets done</a>
+       <span class="sep">&middot;</span><a class="src" href="/">Crinaro.AI</a></p>
+  </div>
+</div>
+</body>
+</html>`);
+console.log('       dist/what-you-already-have/ — where to start');
+
+const slugT = x => x.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+
+const B_ERROR_TITLE = /^(?:404\b.*|(?:page )?not found|just a moment\.*|access denied|forbidden)$/i;
+const pageName = (title, url) => B_ERROR_TITLE.test(String(title || '').trim())
+  ? String(url).replace(/^https?:\/\//, '').replace(/\/$/, '') : String(title || '');
+const escB = x => String(x).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+
+const MATRIX = TOOLS.matrix || null;
+const ROW_COND_NOTE = 'only under the condition noted under this row’s items';
+const rowCondNote = r => r.rowConditions
+  ? `<span class="cc-rc">Applies to every item above: ${r.rowConditions.map(escB).join('; ')}.</span>` : '';
+const CW_NOTE = 'filed under the company, naming no product; confirm on the page that its scope includes this product';
+const CW_REF = 'marked †, explained in the key';
+function matrixCell(c) {
+  if (!c || c.mark === null) return `<td class="cm-c"></td>`;
+  const notes = [];
+  if (c.plans) notes.push(`only on ${c.plans.join(', ')}`);
+  if (c.conditions) notes.push(`only under ${c.conditions.join('; ')}`);
+  if (c.companyWide) notes.push(CW_NOTE);
+  const said = notes.join('. ');
+  return `<td class="cm-c"><a href="${escB(c.link)}" rel="noopener"${said ? ` title="${escB(bCapM(said))}"` : ''}>${
+    c.mark}${said ? `<span class="vh"> (${escB(said)})</span>` : ''}</a>${c.companyWide ? '<span aria-hidden="true">†</span>' : ''}</td>`;
+}
+const bCapM = x => x ? x[0].toUpperCase() + x.slice(1) : x;
+const shortCol = l => l.replace('ISO/IEC ', 'ISO ').replace(/\s*\(.*\)$/, '');
+const BLANK_GROUPS = [
+  ['Not checked', ['NOT-READ']],
+  ['A page could not be read', ['UNREADABLE', 'GATED']],
+  ['Checked, not stated', ['NOT-STATED', 'BLANK']],
+  ['Pages disagree', ['CONFLICTING']],
+  ['Sent to sales', ['SALES-ONLY']],
+  ['Partly ruled out', ['PARTLY-EXCLUDED']],
+  ['You run it', ['OPERATOR']],
+];
+function blankGroups(r) {
+  for (const c of MATRIX.columns) {
+    const x = r.cells[c.key];
+    if (x.mark === null && !BLANK_GROUPS.some(([, w]) => w.includes(x.blank)))
+      throw new Error(`compliance: ${r.entry}, ${c.key}: blank word ${x.blank} has no group in BLANK_GROUPS`);
+  }
+  return BLANK_GROUPS.map(([label, words]) => {
+    const cols = MATRIX.columns.filter(c => r.cells[c.key].mark === null && words.includes(r.cells[c.key].blank));
+    return cols.length ? `<span class="cc-b"><span class="cc-bl">${label}:</span> ${
+      cols.map(c => escB(shortCol(c.label))).join(', ')}</span>` : '';
+  }).join('');
+}
+const hostOf = u => String(u).replace(/^https?:\/\//, '').replace(/\/.*$/, '');
+const citeOf = x => {
+  const sec = String(x.section).trim();
+  const has = /[\p{L}\p{N}]/u.test(sec);
+  const read = has && /[.!?]$/.test(sec) ? ' Read' : ', read';
+  return `<a href="${escB(x.page)}" rel="noopener">${escB(hostOf(x.page))}</a>${
+    has ? `, ${escB(sec)}` : ''}${read} ${escB(x.readOn)}.`;
+};
+const GEN_LABEL = 'From the vendor’s table, not a reviewed summary:';
+const wordsOf = x => x.generated !== undefined
+  ? `<span class="gen">${GEN_LABEL}</span> ${escB(x.generated)}` : escB(x.summary);
+const listOf = xs => xs.length < 3 ? xs.join(' and ') : `${xs.slice(0, -1).join(', ')} and ${xs[xs.length - 1]}`;
+const quoted = x => `"${escB(x)}"`;
+const citeLevels = it => {
+  const groups = [];
+  it.levelLocators.forEach(lc => {
+    const g = groups.find(x => x.page === lc.page && x.table === lc.table && x.row === lc.row && x.readOn === lc.readOn);
+    if (g) g.columns.push(lc.column); else groups.push({ ...lc, columns: [lc.column] });
+  });
+  return groups.map(g => `<a href="${escB(g.page)}" rel="noopener">${escB(hostOf(g.page))}</a>, table ${quoted(g.table)}, row ${
+    quoted(g.row)}, ${g.columns.length === 1 ? 'column' : 'columns'} ${listOf(g.columns.map(quoted))}, read ${escB(g.readOn)}.`).join(' ');
+};
+function restrictionsRow(t, cls) {
+  if (!MATRIX) return '';
+  const rows = MATRIX.rows.filter(r => r.entry === t.name && r.restrictions.length);
+  if (!rows.length) return '';
+  const cite = citeOf;
+  const items = rows.flatMap(r => r.restrictions.map(it => {
+    const scope = [it.condition ? `under ${it.condition}` : '', it.plans ? `on ${it.plans.join(', ')}` : '']
+      .filter(Boolean).join(', ');
+    const at = it.levels ? ` at ${listOf(it.levels.map(escB))}` : '';
+    return `<p class="rs-i"><span class="rs-l">Restriction${r.product ? `, ${escB(r.product)}` : ''}: ${
+      escB(it.about)}${at}${scope ? ` (${escB(scope)})` : ''}.</span> ${wordsOf(it)} ${it.levels ? citeLevels(it) : cite(it)}${
+      it.companyWide ? `<span aria-hidden="true">†</span><span class="vh"> (${CW_REF})</span>` : ''}</p>${
+      it.also.map(al => `<p class="rs-a">Also: ${wordsOf(al)} ${cite(al)}</p>`).join('')}`;
+  }));
+  return `<tr class="rs${cls}"><td colspan="5" data-l="Restrictions">${items.join('')}</td></tr>`;
+}
+const SELF_RUN = 'You run it, so you answer these.';
+const FORMAT_ONLY = {
+  dataHandlingAbout: [
+    'A field reading PLAN-SPECIFIC carries plans, which can name a deployment option or a region as well as a plan; a field reading CONDITIONAL carries conditions; and a field reading COMPANY-WIDE carries companyWide.',
+    'The pairing runs one way: a field can carry more than its status calls for, such as a PLAN-SPECIFIC field that also carries conditions or companyWide.',
+    'A change to that list of states or to those three pairings comes with a new format number.',
+  ],
+  restrictionsAbout: [
+    'Each restriction carries about, columns and also; exactly one of summary and generated; either page, section and readOn, where it rests on one place, or levels and levelLocators, where it rests on several cells of one row of the maker\'s table that say the same thing for different levels: levels names each level once, in the table\'s column order, and levelLocators gives, for each level in the same order, its page, table, row, column and readOn; and, where they apply, condition, plans and companyWide.',
+    'A change to those keys, or to which are required, comes with a new format number.',
+  ],
+};
+function withoutFormat(text, sentences) {
+  let out = text;
+  for (const sn of sentences) {
+    if (!out.includes(sn)) throw new Error(`FORMAT_ONLY: the record no longer says "${sn.slice(0, 60)}…"; re-read it and update the list`);
+    out = out.replace(sn, '');
+  }
+  return out.replace(/ {2,}/g, ' ').trim();
+}
+const NOT_SHOWN = 'Not shown to hold.';
+function detailParts(label, detail) {
+  if (!detail) return [shortCol(label), ''];
+  if (detail.startsWith(label + ':')) return [shortCol(label) + detail.slice(label.length), ''];
+  if (detail.startsWith(label + ' ')) return [shortCol(label), detail.slice(label.length + 1)];
+  return [shortCol(label), detail];
+}
+function complianceCell(t) {
+  if (MATRIX) MATRIX.rows.filter(r => r.entry === t.name).forEach(blankGroups);
+  if (!MATRIX) return '';
+  const rows = MATRIX.rows.filter(r => r.entry === t.name);
+  const selfRun = t.kind === 'repository' || t.kind === 'model';
+  if (!rows.length) {
+    const nl = (MATRIX.notListed || []).find(o => o.entry === t.name);
+    if (nl) return `<span class="cc-none">${NOT_SHOWN}</span> <a class="cc-why" href="#compliance-not-listed">Why</a>`;
+    if (selfRun) return `<span class="cc-none">${SELF_RUN}</span>`;
+    return `<span class="cc-none">${NOT_SHOWN}</span>`;
+  }
+  const holds = x => x.mark === 'Y' || x.mark === 'Y*';
+  return rows.map(r => {
+    const items = MATRIX.columns.filter(c => holds(r.cells[c.key])).map(c => {
+      const x = r.cells[c.key];
+      const notes = [];
+      if (x.plans) notes.push(`only on ${x.plans.join(', ')}`);
+      if (x.conditions) notes.push(`only under ${x.conditions.join('; ')}`);
+      if (x.mark === 'Y*' && !x.plans && !x.conditions && r.rowConditions) notes.push(ROW_COND_NOTE);
+      const said = notes.join('. ');
+      const heard = [...notes, ...(x.companyWide ? [CW_REF] : [])].join('. ');
+      const [nm, rest] = detailParts(c.label, x.detail);
+      const name = nm + (x.mark === 'Y*' ? '*' : '');
+      return `<a class="noext" href="${escB(x.link)}" rel="noopener"${said ? ` title="${escB(bCapM(said))}"` : ''}>${escB(name)}${
+        heard ? `<span class="vh"> (${escB(heard)})</span>` : ''}</a>${x.companyWide ? '<span aria-hidden="true">†</span>' : ''}${
+        rest ? ` <span class="cc-dt">${escB(rest)}</span>` : ''}`;
+    });
+    return `<div class="cc">${r.product ? `<span class="cc-p">${escB(r.product)}</span>` : ''}${
+      items.length ? `<span class="cc-i">${items.map(x => `<span class="cc-g">${x}</span>`).join(' ')}</span>`
+        : (r.restrictions.length ? '' : `<span class="cc-none">${NOT_SHOWN}</span>`)}${items.length ? rowCondNote(r) : ''}${r.restrictions.length ? `<span class="cc-rn">${r.restrictions.length === 1 ? 'A restriction' : 'Restrictions'} below.</span>` : ''}${
+      r.unverifiedAfter ? `<span class="cc-d">Unverified after ${r.unverifiedAfter}</span>` : ''}</div>`;
+  }).join('') + (selfRun ? `<div class="cc"><span class="cc-none">The software itself: ${SELF_RUN.toLowerCase()}</span></div>` : '');
+}
+const DH_TAG = { 'STATED-EXCLUDED': 'Ruled out', 'SALES-ONLY': 'Ask sales' };
+function dataHandlingRow(t, cls) {
+  if (!MATRIX || !MATRIX.dataHandlingColumns) return '';
+  const cols = MATRIX.dataHandlingColumns;
+  const cite = citeOf;
+  const dag = `<span aria-hidden="true">†</span><span class="vh"> (${CW_REF})</span>`;
+  const blocks = MATRIX.rows.filter(r => r.entry === t.name).map(r => {
+    const answered = cols.filter(c => r.dataHandling[c.key].status !== null);
+    if (!answered.length) return '';
+    const fields = answered.map(c => {
+      const f = r.dataHandling[c.key];
+      const scopeKey = x => JSON.stringify([x.plans || [], x.condition ? [x.condition] : (x.conditions || [])]);
+      const oneScope = f.summaries.every(sm => scopeKey(sm) === scopeKey(f.summaries[0]))
+        && scopeKey(f.summaries[0]) === scopeKey(f);
+      const scope = !oneScope ? '' : [f.plans ? `only on ${f.plans.join(', ')}` : '', f.conditions ? `only under ${f.conditions.join('; ')}` : '']
+        .filter(Boolean).join('; ');
+      const sums = f.summaries.map(sm => {
+        const sameScope = oneScope;
+        const lead = sameScope ? '' : [sm.plans ? `On ${sm.plans.join(', ')}` : '', sm.condition ? `Under ${sm.condition}` : '']
+          .filter(Boolean).join(', ');
+        const ownDag = sm.companyWide && !(f.companyWide && f.summaries.every(s => s.companyWide));
+        return `<p class="dh-i">${DH_TAG[sm.state] ? `<span class="dh-st">${DH_TAG[sm.state]}</span>` : ''}${
+          ownDag ? dag : ''} ${lead ? `${escB(lead)}: ` : ''}${wordsOf(sm)} ${cite(sm)}</p>`;
+      }).join('');
+      const tag = DH_TAG[f.status] || '';
+      const st = !tag ? '' : f.summaries.some(sm => sm.page === f.link) ? `<span class="dh-s">${tag}</span>`
+        : `<a class="dh-s noext" href="${escB(f.link)}" rel="noopener">${tag}</a>`;
+      return `<div class="dh-f"><p class="dh-h"><b>${escB(c.label)}</b> ${st}${f.companyWide ? dag : ''}${scope ? ` <span class="dh-sc">(${escB(scope)})</span>` : ''}</p>${sums}</div>`;
+    }).join('');
+    return `<details class="dh-d"><summary>Data handling${r.product ? `, ${escB(r.product)}` : ''}: what the vendor’s pages say</summary>${fields}</details>`;
+  }).filter(Boolean);
+  if (!blocks.length) return '';
+  return `<tr class="dh${cls}"><td colspan="5" data-l="Data handling">${blocks.join('')}</td></tr>`;
+}
+const toolY = t => !MATRIX ? [] : [...new Set(MATRIX.rows.filter(r => r.entry === t.name).flatMap(r =>
+  MATRIX.columns.filter(c => /^Y/.test(r.cells[c.key].mark || '')).map(c => `y-${c.key}`)))];
+const MATRIX_CSS = MATRIX ? MATRIX.columns.map(c =>
+  `  .cm-wrap:has(#f-${c.key}:checked) tbody tr:not(.y-${c.key}) { display:none; }`).join('\n') : '';
+function matrixHtml() {
+  const notListed = MATRIX ? (MATRIX.notListed || []) : [];
+  const k = (term, def) => `<dt>${term}</dt><dd>${def}</dd>`;
+  const groups = BLANK_GROUPS.map(([label, words]) => `${label} <span class="kw">(${words.join(', ')})</span>`).join('<br>');
+  return `<h2 id="compliance">Key</h2>
+  <p class="key-bound"><b>Not a compliance determination.</b> Each item repeats what the vendor’s own
+     page says, and links to it. Check that page, and your own agreement, before relying on it.</p>
+  <dl class="key">
+    ${MATRIX ? [
+      k('<span class="ks">SOC 2</span>', 'Stated on the vendor’s page for this product.'),
+      k('<span class="ks">SOC 2*</span>', 'Only on some plans, regions or conditions. Hover for which.'),
+      k('<span class="ks">SOC 2†</span>', 'Filed under the company, naming no product. Confirm on the vendor’s page that it covers this product.'),
+      k('<span class="ks">SOC 2</span> <span class="cc-dt">Type II</span>', 'Detail: the edition, report type or program the record names behind a mark. Not a grade: a mark without it is not a weaker one.'),
+      k('Restriction', 'The vendor excludes the product, or part of it, from an item, or bars using it where the item applies. Shown under the tool.'),
+      k('Not shown to hold', 'An item missing from a tool’s list, or a tool marked “Not shown to hold”: nothing found so far shows the tool holds it. The vendor may exclude it, or it may not have been found yet. Where a vendor excludes only part of it, such as one government level or one plan, that shows as a restriction under the tool, unless the vendor’s page also rules out the whole item.'),
+      k('<b>Bold name</b>', 'The product the items below it belong to.'),
+      k('You run it', 'Open-source software or model weights: whoever runs it answers these. Where the maker also hosts it, the hosted product has its own bold name above that line.'),
+      k('Data handling', 'Under a tool, folded: what the vendor’s pages say about where customer data is kept, for how long, whether it trains models, who receives it and where the product runs. Only answered questions are shown, and none is a yes or a no: read the summary.'),
+      k('Ruled out', 'Used only under data handling, for the zero-retention option and where the product can run: the vendor’s page says it does not apply to the product, or to the plan, deployment option, region, feature or condition named. Whether a vendor trains on your data is never ruled out; its answer is in the summary.'),
+      k('Ask sales', 'The vendor’s page sends you to sales for the answer.'),
+      k('Unverified after', 'Recheck the vendor’s page after this date.'),
+    ].join('\n    ') : ''}
+    ${k('Read', 'The day the description was read: <b>observed</b> on the linked page, or <b>reasoned</b> from it.')}
+  </dl>
+  ${MATRIX ? `<details class="cm-more"><summary>The compliance record’s own definitions</summary>
+  <p class="key-note">As the authors of the compliance record wrote them, in the file this page is built
+     from. Where they mention the tool list or a list of pages read, those are parts of the record
+     this site does not publish. What they call a row’s dataHandling is the Data handling line under
+     each tool here, their marks.null is the definition shown here as Blank, and their also is the list of further entries under each restriction. This page leaves out items marked No, as it does blank ones, and the record's
+     sentences that only describe its own file format: the keys each entry carries, and when the
+     format number changes.</p>
+  <p class="key-note">${escB(MATRIX.about)}</p>
+  <dl class="key key-v">
+    ${[k('Y', escB(MATRIX.marks.Y)), k('Y*', escB(MATRIX.marks['Y*'])), k('†', escB(MATRIX.marks.companyWide)),
+       k('No', escB(MATRIX.marks.No)), k('Blank', escB(MATRIX.marks.null)), k('Detail', escB(MATRIX.detailAbout)),
+       k('Restriction', escB(withoutFormat(MATRIX.restrictionsAbout, FORMAT_ONLY.restrictionsAbout))),
+       k('Row condition', escB(MATRIX.rowConditionsAbout)),
+       k('Data handling', escB(withoutFormat(MATRIX.dataHandlingAbout, FORMAT_ONLY.dataHandlingAbout)))].join('\n    ')}
+  </dl>
+  </details>` : ''}
+  <p class="key-note">A tool resting on several products passes the filter when they carry the checked
+     items between them. For where customer data goes, model by model, see
+     <a class="src" href="/what-you-already-have/customer-data/">customer data by cloud</a>.</p>${notListed.length ? `
+  <p class="key-note" id="compliance-not-listed">${notListed.map(o => `<b>${escB(o.entry)}</b>`).join(', ')}
+     ${notListed.length === 1 ? 'shows nothing because the pages it rests on do not fully cover it' : 'show nothing because the pages they rest on do not fully cover them'}.
+     The reason is in the record’s own words below.</p>
+  <details class="cm-more"><summary>Why ${notListed.length === 1 ? 'it shows' : 'they show'} nothing, in the record’s own words</summary>
+  <p class="key-note">${escB(MATRIX.notListedPreface)} ${notListed.map(o =>
+    `<b>${escB(o.entry)}</b>. ${escB(o.reason)} ${
+      o.pages.map(pg => `<a href="${escB(pg.url)}" rel="noopener">${escB(String(pg.url).replace(/^https?:\/\//, '').replace(/\/$/, ''))}</a>, read ${escB(pg.readOn)}`).join('; ')}.`).join(' ')}</p>
+  </details>` : ''}`;
+}
+fs.mkdirSync(path.join(DIST, 'what-you-already-have', 'options'), { recursive: true });
+const ATTRIB = `<p class="attrib">Every line that links a publisher’s page summarizes it,
+     quoting no more than a name, a label or a table mark; the linked page is the authority on what it says. Lines drawn from Google
+     Cloud pages summarize work created and shared by Google and used according to terms
+     described in the
+     <a href="https://creativecommons.org/licenses/by/4.0/" rel="noopener">Creative Commons 4.0 Attribution License</a>.
+     The <a href="https://aws.amazon.com/terms/" rel="noopener">AWS Site Terms</a> license AWS
+     documentation on docs.aws.amazon.com under the
+     <a href="https://creativecommons.org/licenses/by-sa/4.0/" rel="noopener">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+     Lines drawn from it are offered here under the same license. For every other publisher,
+     Microsoft and Anthropic among them, no license is claimed to their pages. All vendor, product
+     and model names and marks belong to their owners and are used only to identify the products
+     discussed; no endorsement or affiliation is implied.</p>`;
+
+writePage(path.join(DIST, 'what-you-already-have', 'options', 'index.html'), `${pageHead(
+  'The options at each layer',
+  'The tools this work has had to make a decision about, grouped by where they sit, with what each one is and the public signals readable on a stated date. A list, not a review.',
+  'https://crinaro.ai/what-you-already-have/options/', `
+  .note-wrap { max-width:62rem; }
+  .tbl { overflow-x:auto; margin:0 0 2.6rem; position:relative; }
+  table { border-collapse:collapse; width:100%; min-width:54rem; font-size:.92rem;
+           table-layout:fixed; }
+  col.c-tool { width:15%; } col.c-what { width:31%; } col.c-type { width:11%; }
+  col.c-read { width:17%; }
+  .empty { color:var(--muted); margin:0 0 2.6rem; }
+  .attrib { font-size:.8rem; color:var(--muted); }
+  td.ty { white-space:nowrap; }
+  th { font-family:var(--mono); font-size:.66rem; letter-spacing:.13em; text-transform:uppercase;
+       color:var(--muted); text-align:left; font-weight:400; padding:0 1rem .5rem 0;
+       border-bottom:1px solid var(--hair); line-height:1.35; vertical-align:bottom; }
+  td { padding:.7rem 1rem .7rem 0; border-bottom:1px solid var(--hair); vertical-align:baseline;
+       color:var(--ink-2); }
+  td.nm { overflow-wrap:anywhere; }
+  td.nm a { color:var(--ink); text-decoration:none; border-bottom:1px solid rgba(27,92,70,.35);
+            font-family:var(--head); font-weight:500; }
+  td.nm a:hover { border-bottom-color:var(--green); }
+  td.sg { font-family:var(--mono); font-size:.7rem; letter-spacing:.03em; color:var(--muted);
+          white-space:nowrap; }
+  .arch { font-family:var(--mono); font-size:.62rem; letter-spacing:.08em; text-transform:uppercase;
+          color:var(--muted); display:block; }
+  h2 { scroll-margin-top:1.5rem; }
+  .jump { font-size:.92rem; line-height:2; color:var(--ink-2); margin:0 0 2.6rem; }
+  .jump a { color:var(--ink); text-decoration:none; border-bottom:1px solid rgba(27,92,70,.3);
+            white-space:nowrap; display:inline-block; }
+  .jump a { margin-right:1.8rem; }
+  .bookmark-line { margin:0 0 1.2rem; color:var(--ink-2); }
+  .cmp { margin:.8rem 0 0; font-size:.84rem; color:var(--ink-2); line-height:1.55; }
+  .cmp-l { display:block; font-family:var(--mono); font-size:.62rem; letter-spacing:.1em;
+           text-transform:uppercase; color:var(--green); margin-bottom:.15rem; }
+  .vh { position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0);
+        white-space:nowrap; }
+  table.cm { min-width:46rem; table-layout:auto; }
+  .cm th.cm-h { white-space:normal; text-align:center; padding:0 .4rem .5rem; }
+  .cm th.cm-t { position:sticky; left:0; z-index:1; background:var(--ground); min-width:9.5rem; }
+  .cm thead th:first-child { position:sticky; left:0; z-index:1; background:var(--ground); }
+  .cm th.cm-t { font-family:var(--head); font-weight:500; text-align:left; padding:.45rem 1rem .45rem 0;
+                border-bottom:1px solid var(--hair); overflow-wrap:normal; text-transform:none;
+                letter-spacing:normal; font-size:.92rem; color:var(--ink); vertical-align:baseline; }
+  .cm th.cm-t a { color:var(--ink); text-decoration:none; border-bottom:1px solid rgba(27,92,70,.35); }
+  .cm td.cm-c { text-align:center; padding:.45rem .5rem; font-family:var(--mono); font-size:.8rem; }
+  .cm td.cm-c a { color:var(--ink); text-decoration:none; border-bottom:1px solid rgba(27,92,70,.35); }
+  .cm-f { border:0; margin:0 0 1rem; padding:0; font-size:.9rem; color:var(--ink-2); line-height:2; }
+  .cm-f legend { font-weight:500; color:var(--ink); padding:0; margin-bottom:.2rem; }
+  .cm-f label { margin-right:1.2rem; white-space:nowrap; }
+  col.c-cc { width:26%; }
+  .cc-td { font-size:.84rem; line-height:1.5; }
+  .cc + .cc { margin-top:.6rem; }
+  .cc-p { display:block; font-weight:500; color:var(--ink); }
+  .cc-i a { color:var(--ink-2); text-decoration:none; border-bottom:1px solid rgba(27,92,70,.3); }
+  .cc-none { color:var(--muted); }
+  .cc-g { white-space:nowrap; margin-right:1.35rem; }
+  .cc-why { color:var(--ink-2); }
+  .cc-b { display:block; color:var(--muted); }
+  .cc-bl { color:var(--ink-2); }
+  .cc-rn { display:block; color:var(--ink-2); font-style:italic; }
+  .cc-rc { display:block; color:var(--ink-2); font-size:.8rem; margin-top:.25rem; white-space:normal; }
+  tr.rs td { padding:.1rem 1rem .8rem 0; font-size:.84rem; line-height:1.55; color:var(--ink-2); }
+  tr.rs p { margin:.35rem 0 0; }
+  .rs-l { font-weight:500; color:var(--ink); }
+  .rs-a { padding-left:1.2rem; }
+  .rs a { color:var(--ink-2); text-decoration:none; border-bottom:1px solid rgba(27,92,70,.3); overflow-wrap:anywhere; }
+  tr.has-rs td { border-bottom:0; }
+  .cc-dt { font-size:.74rem; color:var(--muted); white-space:normal; }
+  tr.dh td { padding:.1rem 1rem .8rem 0; font-size:.84rem; line-height:1.55; color:var(--ink-2);
+             overflow-wrap:anywhere; }
+  .dh-d { margin:.35rem 0 0; }
+  .dh-d summary { cursor:pointer; color:var(--ink); font-weight:500; }
+  .dh-f { margin:.55rem 0 0 1.2rem; }
+  tr.dh p.dh-h { margin:0; }
+  tr.dh p.dh-i { margin:.15rem 0 0 1.2rem; }
+  .dh-s, .dh-st { font-size:.78rem; font-weight:500; }
+  .dh-s { color:var(--ink); }
+  a.dh-s { text-decoration:none; border-bottom:1px solid rgba(27,92,70,.3); }
+  .dh-st { color:var(--ink); margin-right:.35rem; }
+  .dh-st::after { content:':'; }
+  .dh-sc { color:var(--muted); }
+  .gen { font-style:italic; }
+  .dh a { color:var(--ink-2); text-decoration:none; border-bottom:1px solid rgba(27,92,70,.3); overflow-wrap:anywhere; }
+  .dh a.dh-s { color:var(--ink); }
+  .kw { font-family:var(--mono); font-size:.72rem; color:var(--muted); font-weight:400; }
+  @media (max-width:640px) {
+    table.lt tr.has-rs { border-bottom:0; }
+    table.lt { min-width:0; table-layout:auto; }
+    table.lt colgroup, table.lt thead { display:none; }
+    table.lt tr { display:block; border-bottom:1px solid var(--hair); padding:.7rem 0; }
+    table.lt td { display:block; border:0; padding:.15rem 0; width:auto; white-space:normal; }
+    table.lt td[data-l]::before { content:attr(data-l); display:block; font-family:var(--mono);
+      font-size:.6rem; letter-spacing:.12em; text-transform:uppercase; color:var(--muted); margin-top:.4rem; }
+  }
+  .cc-d { display:block; font-family:var(--mono); font-size:.62rem; color:var(--muted); margin-top:.15rem; }
+  .secnav { display:grid; grid-template-columns:repeat(auto-fill,minmax(13.5rem,1fr)); gap:.7rem 1.5rem;
+            margin:0 0 2rem; }
+  .secnav a { display:grid; grid-template-columns:auto 1fr; column-gap:.7rem; align-items:baseline;
+              padding:.7rem .9rem; border:1px solid var(--hair); border-radius:6px;
+              text-decoration:none; color:var(--ink); background:var(--ground); }
+  .secnav a:hover { border-color:var(--green); }
+  .sn-n { font-family:var(--mono); font-size:.7rem; color:var(--green); grid-row:span 3; }
+  .sn-l { font-family:var(--head); font-weight:500; font-size:.92rem; line-height:1.3; }
+  .sn-c { grid-column:2; font-size:.76rem; color:var(--muted); line-height:1.35; }
+  .sn-k { font-family:var(--mono); font-size:.64rem; margin-top:.2rem; }
+  .secnav a.sn-x { background:var(--paper); }
+  .secnav a.sn-x .sn-l, .secnav a.sn-x .sn-c { grid-column:1 / -1; }
+  .cm-f { border:1px solid var(--hair) !important; border-radius:6px; padding:.5rem .9rem .3rem !important;
+          min-width:0; box-sizing:border-box; margin-left:0; margin-right:0; }
+  @media (max-width:640px) {
+    .secnav { grid-template-columns:1fr 1fr; }
+    .secnav a { padding:.55rem .6rem; column-gap:.45rem; }
+    .sn-l { font-size:.82rem; }
+    .cm-f label { white-space:normal; }
+  }
+  .key-bound { margin:0 0 1rem; color:var(--ink-2); }
+  .key { display:grid; grid-template-columns:max-content 1fr; gap:.35rem 1.2rem; margin:0 0 1rem;
+         font-size:.9rem; color:var(--ink-2); }
+  .key dt { font-weight:500; color:var(--ink); }
+  .key dd { margin:0; }
+  .key { grid-template-columns:fit-content(15rem) 1fr; }
+  @media (max-width:640px) { .key { grid-template-columns:1fr; } .key dd { margin-bottom:.5rem; } }
+  .ks { font-family:var(--body); border-bottom:1px solid rgba(27,92,70,.3); }
+  .key-note { font-size:.86rem; color:var(--ink-2); line-height:1.6; }
+  .cm-more { margin:0 0 1.6rem; color:var(--ink-2); }
+  .cm-more summary { cursor:pointer; font-weight:500; color:var(--ink); margin-bottom:.8rem; }
+  .cm-key { color:var(--ink-2); padding-left:1.2rem; margin:0 0 1.2rem; }
+  .cm-key li { margin:0 0 .45rem; }
+  .cm-p { display:block; font-family:var(--body); font-weight:400; font-size:.8rem; color:var(--ink-2); }
+  .cm-nl { font-size:.9rem; color:var(--ink-2); line-height:1.6; padding-left:1.2rem; }
+  .cm-nl a { color:var(--ink); text-decoration:none; border-bottom:1px solid rgba(27,92,70,.35);
+             overflow-wrap:anywhere; }
+  .cm td.cm-d { font-family:var(--mono); font-size:.66rem; color:var(--muted); white-space:nowrap;
+                text-align:center; padding:.45rem 0 .45rem .4rem; }
+${MATRIX_CSS}
+  tr:target td { background:rgba(79,169,138,.08); }`)}
+  <h1>The options at each layer</h1>
+  <p class="standfirst">A list, not a review: nothing is ranked, and a tool missing from it was not
+     evaluated and rejected. Nobody looked. Rendered ${TOOLS.cut}.</p>
+
+  <nav class="secnav" aria-label="Sections">
+    ${LAYER_NAMES.filter(([k]) => TOOLS.tools.some(t => t.layer === k) || EMPTY_LAYER[k]).map(([k, label, sub], i) => {
+      const n = TOOLS.tools.filter(t => t.layer === k).length;
+      return `<a href="#l-${k}"><span class="sn-n">${String(i + 1).padStart(2, '0')}</span><span class="sn-l">${label}</span><span class="sn-c">${sub}</span><span class="sn-c sn-k">${n} ${n === 1 ? 'tool' : 'tools'}</span></a>`;
+    }).join('\n    ')}
+    <a href="#compliance" class="sn-x"><span class="sn-l">Key</span><span class="sn-c">How to read the tables</span></a>
+  </nav>
+
+  <div class="cm-wrap">
+  ${MATRIX ? `  <fieldset class="cm-f"><legend>Filter by compliance</legend>
+    ${MATRIX.columns.map(c => `<label><input type="checkbox" id="f-${c.key}"> ${escB(c.label)}</label>`).join('\n    ')}
+  </fieldset>` : ''}
+  ${LAYER_NAMES.map(([key, label]) => {
+    const list = TOOLS.tools.filter(t => t.layer === key)
+                            .sort((a, b) => a.name.toLowerCase().localeCompare(b.name.toLowerCase()));
+    if (!list.length) {
+      const e = EMPTY_LAYER[key];
+      if (!e) return '';
+      const rows = (e.points ? (TOOLS.alsoServed || {})[key] || [] : [])
+        .map(n => TOOLS.tools.find(t => t.name === n)).filter(Boolean);
+      let pointer = '';
+      if (rows.length) {
+        const homes = [...new Set(rows.map(r => r.layer))].map(h => {
+          const named = rows.filter(r => r.layer === h).map(r => r.name);
+          const label2 = (LAYER_NAMES.find(([k]) => k === h) || [h, h])[1];
+          return `filed under <a class="src" href="#l-${h}">${label2.toLowerCase()}</a>: `
+               + named.slice(0, -1).join(', ') + (named.length > 1 ? ' and ' : '') + named.slice(-1);
+        });
+        const n = SPELLED[rows.length] || String(rows.length);
+        pointer = ` <b>The list names ${n.toLowerCase()} ${rows.length === 1 ? 'row' : 'rows'} on `
+                + `this page as also serving this layer</b>, ${homes.join('; ')}.`;
+      }
+      return `<h2 id="l-${key}">${label}</h2>\n  <p class="empty">${e.text}${pointer}`
+           + `${e.after ? ' ' + e.after : ''}</p>`;
+    }
+    return `<h2 id="l-${key}">${label}</h2>
+  <div class="tbl"><table class="lt">
+    <colgroup><col class="c-tool"><col class="c-what">${MATRIX ? '<col class="c-cc">' : ''}<col class="c-type"><col class="c-read"></colgroup>
+    <thead><tr><th>Tool</th><th>What it is</th>${MATRIX ? '<th>Compliance</th>' : ''}<th>Type</th><th>Read</th></tr></thead>
+    <tbody>
+    ${list.map(t => { const ys = toolY(t).join(' ');
+      const dh = dataHandlingRow(t, ys ? ' ' + ys : '');
+      const rs = restrictionsRow(t, (ys ? ' ' + ys : '') + (dh ? ' has-rs' : ''));
+      const cls = [ys, rs || dh ? 'has-rs' : ''].filter(Boolean).join(' ');
+      return `<tr id="t-${slugT(t.name)}"${cls ? ` class="${cls}"` : ''}>
+      <td class="nm"><a href="${t.url}" rel="noopener">${t.name}</a>${t.archived ? '<span class="arch">archived</span>' : ''}</td>
+      <td>${(t.what.match(/^.*?[.!?](?=\s|$)/) || [t.what])[0]}${(t.compliance || []).length
+        ? `<p class="cmp"><span class="cmp-l">Data and compliance</span>${t.compliance.join(' ')}</p>` : ''}</td>
+      ${MATRIX ? `<td class="cc-td" data-l="Compliance">${complianceCell(t)}</td>` : ''}
+      <td class="ty" data-l="Type">${KIND_LABEL[t.kind] || ''}</td>
+      <td class="sg" data-l="Read">${t.basis} ${t.asOf}</td>
+    </tr>${rs ? '\n    ' + rs : ''}${dh ? '\n    ' + dh : ''}`; }).join('\n    ')}
+    </tbody>
+  </table></div>`;
+  }).filter(Boolean).join('\n\n  ')}
+  </div>
+
+  ${matrixHtml()}
+
+  <h2 id="signals">How to read a signal, on anything</h2>
+  <p>These keep working on tools that never appear here.</p>
+  ${SIGNALS.map(([name, text]) => `<p><b>${name}.</b> ${text}</p>`).join('\n  ')}
+  <p><b>And read the date, never the interval.</b> Somebody else's "updated three months ago" was
+     computed once, and it goes wrong while every input to it stays right. Do the subtraction
+     yourself, against today.</p>
+
+  ${ATTRIB}
+
+  <div class="foot">
+    <p class="linkrow"><a class="src" href="/what-you-already-have/">Back to where to start</a>
+       <span class="sep">&middot;</span><a class="src" href="/notes/">Read the notes</a>
+       <span class="sep">&middot;</span><a class="src" href="/">Crinaro.AI</a></p>
+  </div>
+</div>
+</body>
+</html>`);
+console.log('       dist/what-you-already-have/options/ — ' + TOOLS.tools.length + ' tools in a table');
+
+const esc = x => String(x).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+const FIELD_LABEL = Object.fromEntries(REG.fields);
+const PUB = { AWS: 'AWS', Microsoft: 'Microsoft', Google: 'Google', Anthropic: 'Anthropic' };
+const slug = x => x.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+function regSource(st) {
+  return `<span class="rsrc">${PUB[st.publisher] || esc(st.publisher || '')}, `
+       + `<a href="${esc(st.url)}" rel="noopener">${esc(pageName(st.page, st.url))}</a>`
+       + `${st.section ? ' › ' + esc(st.section) : ''}, read ${st.read}</span>`;
+}
+function regStatement(st) {
+  if (st.status === 'NOT-STATED')
+    return `<p class="rnone">Not stated on the pages read.</p>`;
+  if (st.status === 'NOT-LISTED')
+    return `<p class="rnone"><b>Not listed.</b> <a href="${esc(st.url)}" rel="noopener">${esc(pageName(st.page, st.url))}</a>, `
+         + `read ${st.read}, does not list this combination.</p>`;
+  let body;
+  const who = PUB[st.publisher] || esc(st.publisher || 'the vendor');
+  if (st.form === 'cell')
+    body = st.mark ? `Marked “${esc(st.mark)}” in ${who}’s table.` : `Left blank in ${who}’s table.`;
+  else body = esc(st.text || '');
+  const flag = st.status === 'STATED-EXCLUDED' ? '<b>Not offered.</b> '
+             : '';
+  return `<p class="rq">${flag}${body}<br>${regSource(st)}</p>`;
+}
+const pairLabel = p => [p.model, ...p.qualifiers].join(' · ');
+function appliesTo(c, pairs) {
+  if (pairs.length === c.pairs.length)
+    return c.pairs.length === 1 ? 'The one combination' : `Every combination`;
+  const models = [...new Set(pairs.map(p => p.model))];
+  return models.map(m => {
+    const mine = pairs.filter(p => p.model === m), all = c.pairs.filter(p => p.model === m);
+    return mine.length === all.length && all.length > 1
+      ? `${esc(m)}, every option listed`
+      : `${esc(m)}: ${mine.map(p => esc(p.qualifiers.join(' · ') || 'no option recorded')).join('; ')}`;
+  }).join('<br>');
+}
+const covers = c => [...new Set(c.pairs.map(p => p.model))].map(m =>
+  `<b>${esc(m)}</b>: ${c.pairs.filter(p => p.model === m).map(p => esc(p.qualifiers.join(' · ') || 'no option recorded')).join('; ')}`).join('<br>');
+function regRows(c) {
+  const rowFor = (p, f) => p.rows.find(r => r.fields.includes(f));
+  const keyOf = r => JSON.stringify([r.main, r.broader, r.also, r.context || []]);
+  const perField = REG.fields.map(([f]) => {
+    const groups = [];
+    for (const p of c.pairs) {
+      const r = rowFor(p, f), k = keyOf(r);
+      const g = groups.find(x => x.key === k);
+      if (g) g.pairs.push(p); else groups.push({ key: k, row: r, pairs: [p] });
+    }
+    return { fields: [f], groups, sig: JSON.stringify(groups.map(g => [g.key, g.pairs.map(pairLabel)])) };
+  });
+  const merged = [];
+  for (const r of perField) {
+    const hit = merged.find(m => m.sig === r.sig);
+    if (hit) hit.fields.push(...r.fields); else merged.push(r);
+  }
+  return merged;
+}
+fs.mkdirSync(path.join(DIST, 'what-you-already-have', 'customer-data'), { recursive: true });
+writePage(path.join(DIST, 'what-you-already-have', 'customer-data', 'index.html'), `${pageHead(
+  'Customer data, by cloud and model',
+  'What each cloud and model maker’s own pages say, summarized and linked, about where prompts are processed, what is kept, for how long and who can see it. One model on one cloud, tier and region at a time, each line dated.',
+  'https://crinaro.ai/what-you-already-have/customer-data/', `
+  .note-wrap { max-width:62rem; }
+  h2 { scroll-margin-top:1.5rem; margin-top:3.2rem; }
+  h3 { scroll-margin-top:1.5rem; font-size:1.05rem; margin:2.4rem 0 .2rem; color:var(--ink); }
+  .rmeta { font-family:var(--mono); font-size:.7rem; letter-spacing:.03em; color:var(--muted);
+           margin:0 0 .8rem; }
+  .tbl { overflow-x:auto; margin:0 0 1rem; }
+  table { border-collapse:collapse; width:100%; font-size:.92rem; table-layout:fixed; }
+  table.rt { min-width:34rem; }
+  col.c-q { width:24%; }
+  table.tiers { min-width:38rem; }
+  th { font-family:var(--mono); font-size:.66rem; letter-spacing:.13em; text-transform:uppercase;
+       color:var(--muted); text-align:left; font-weight:400; padding:0 1rem .5rem 0;
+       border-bottom:1px solid var(--hair); line-height:1.35; vertical-align:bottom; }
+  td { padding:.7rem 1rem .7rem 0; border-bottom:1px solid var(--hair); vertical-align:top;
+       color:var(--ink-2); }
+  td.fq { font-family:var(--head); font-weight:500; color:var(--ink); font-size:.88rem; }
+  .rq, .rnone { margin:0 0 .7rem; }
+  .rq:last-child, .rnone:last-child { margin-bottom:0; }
+  .rnone { color:var(--muted); }
+  .rsrc { display:block; margin-top:.25rem; font-family:var(--mono); font-size:.68rem;
+          letter-spacing:.02em; color:var(--muted); line-height:1.5; }
+  .rsrc a { color:var(--muted); }
+  .rsub { font-family:var(--mono); font-size:.62rem; letter-spacing:.06em;
+          color:var(--muted); margin:.9rem 0 .35rem; line-height:1.55; }
+  .rg + .rg { border-top:1px dashed var(--hair); margin-top:.9rem; }
+  .rg > .rsub:first-child { margin-top:.2rem; color:var(--green); }
+  .rg + .rg > .rsub:first-child { margin-top:.9rem; }
+  .jump { font-size:.92rem; line-height:1.9; color:var(--ink-2); margin:0 0 1.2rem; padding-left:1.1rem; }
+  .jump a { color:var(--ink); text-decoration:none; border-bottom:1px solid rgba(27,92,70,.3); }
+  .bound { border-left:3px solid var(--green); padding:.2rem 0 .2rem 1rem; margin:0 0 1.4rem; }
+  .attrib { font-size:.8rem; color:var(--muted); }
+  .covers { font-size:.86rem; color:var(--ink-2); line-height:1.7; margin:1.2rem 0 1rem; }
+  @media (max-width:640px) {
+    table.rt { min-width:0; }
+    table.rt colgroup, table.rt thead { display:none; }
+    table.rt tr, table.rt td { display:block; width:auto; }
+    table.rt td.fq { border-bottom:0; padding-bottom:.2rem; }
+    table.rt td { padding-top:.3rem; }
+  }`)}
+  <h1>Customer data, by cloud and model</h1>
+  <p class="standfirst"><b>If customer data can reach an agent, the first question is whether a
+     tool is an option at all.</b> This page puts what the vendors’ own pages say side by side. It
+     takes one model on one cloud, routing tier and region at a time: where prompts are processed,
+     what is kept and for how long, and who can see it.</p>
+  <div class="bound">
+  <p><b>It is not a compliance determination, and it is not your contract.</b> Every line is a
+     summary of one passage on the vendor’s own page, in plain words rather than the vendor’s, and
+     kept to what that passage covers. Each links to the page and gives the section and the date it
+     was read. Where the vendor’s page gives only a mark in a table, the line reports that mark. Read the
+     page, and your own agreement, before you rely on one.</p>
+  <p><b>It covers the call to the model and nothing else.</b> If an agent tool runs its own loop,
+     sandbox or storage, where those run is a separate question, and this page does not answer it. A
+     private model endpoint covers the model call only, not the rest of a hosted agent.</p>
+  <p><b>“Not stated”</b> means no sentence on the pages read answers it. It says nothing about what
+     a contract says.</p>
+  </div>
+  <p class="written">Covered: Claude Opus 4.8 and Claude Fable 5 on all three clouds, and GPT-4o on
+     Microsoft Foundry. A selection, not a survey. Rendered ${REG.cut}; the date on each line is the
+     day it was read. Treat every line as unverified after the date under its cloud.</p>
+
+  <h2 id="tiers">How each cloud names where a request can go</h2>
+  <p>Each cloud offers a narrow option that keeps processing in one place and wider ones that let it
+     move. The names differ, and sharing a column does not mean two clouds’ options reach equally far.</p>
+  <div class="tbl"><table class="tiers">
+    <thead><tr><th>Cloud</th><th>Narrowest</th><th>Middle</th><th>Widest</th></tr></thead>
+    <tbody>
+    ${REG.tiers.map(r => `<tr><td class="fq">${esc(r[0])}</td>${r.slice(1).map(c => `<td>${esc(c)}</td>`).join('')}</tr>`).join('\n    ')}
+    </tbody>
+  </table></div>
+
+  ${REG.clouds.map(c => `<h2 id="${slug(c.platform)}">${esc(c.platform)} (${esc(c.vendor)})</h2>
+  <p class="rmeta">Unverified after ${c.unverifiedAfter} · pages read: ${c.pages.map(pg => `<a href="${esc(pg.url)}" rel="noopener">${esc(pageName(pg.title, pg.url))}</a>`).join(' · ')}</p>
+  ${c.tiers.length ? `<div class="tbl"><table class="rt"><colgroup><col class="c-q"><col></colgroup>
+    <thead><tr><th>Option</th><th>What ${esc(c.vendor)}’s pages say it means</th></tr></thead>
+    <tbody>
+    ${c.tiers.map(t => `<tr><td class="fq">${esc(t.name)}</td><td>${t.says.map(regStatement).join('')}</td></tr>`).join('\n    ')}
+    </tbody></table></div>` : ''}
+  <p class="covers">Covered on this cloud:<br>${covers(c)}</p>
+  <div class="tbl"><table class="rt"><colgroup><col class="c-q"><col></colgroup>
+    <thead><tr><th>Question</th><th>What the vendor’s pages say, and where it applies</th></tr></thead>
+    <tbody>
+    ${regRows(c).map(r => `<tr><td class="fq">${r.fields.map(f => esc(FIELD_LABEL[f])).join('<br>')}</td><td>${
+      r.groups.map(g => `<div class="rg"><p class="rsub">${appliesTo(c, g.pairs)}</p>${regStatement(g.row.main)}${
+        g.row.also.length ? `<p class="rsub">Also on the same page</p>${g.row.also.map(regStatement).join('')}` : ''}${
+        g.row.broader.length ? `<p class="rsub">Broader, and it also applies</p>${g.row.broader.map(regStatement).join('')}` : ''}${
+        (g.row.context || []).length ? `<p class="rsub">Broader, for context only: it does not name this option or region</p>${g.row.context.map(regStatement).join('')}` : ''}</div>`).join('')
+    }</td></tr>`).join('\n    ')}
+    </tbody></table></div>`).join('\n\n  ')}
+
+  ${ATTRIB}
+
+  <div class="foot">
+    <p class="linkrow"><a class="src" href="/what-you-already-have/options/">The options at each layer</a>
+       <span class="sep">&middot;</span><a class="src" href="/what-you-already-have/">Back to where to start</a>
+       <span class="sep">&middot;</span><a class="src" href="/">Crinaro.AI</a></p>
+  </div>
+</div>
+</body>
+</html>`);
+console.log('       dist/what-you-already-have/customer-data/ — ' + REG.clouds.reduce((n, c) => n + c.pairs.length, 0) + ' model and cloud pairs');
+
+fs.writeFileSync(path.join(DIST, 'CNAME'), 'crinaro.ai\n');
+
+fs.writeFileSync(path.join(DIST, '.nojekyll'), '');
+
+fs.writeFileSync(path.join(DIST, 'robots.txt'),
+  'User-agent: *\nAllow: /\n\nSitemap: https://crinaro.ai/sitemap.xml\n');
+fs.writeFileSync(path.join(DIST, 'sitemap.xml'),
+  '<?xml version="1.0" encoding="UTF-8"?>\n' +
+  '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' +
+  '  <url><loc>https://crinaro.ai/</loc><changefreq>monthly</changefreq></url>\n' +
+  `  <url><loc>https://crinaro.ai/notes/</loc><changefreq>monthly</changefreq></url>\n` +
+  `  <url><loc>https://crinaro.ai/how-the-work-gets-done/</loc><changefreq>monthly</changefreq></url>\n` +
+  `  <url><loc>https://crinaro.ai/what-you-already-have/</loc><changefreq>monthly</changefreq></url>\n` +
+  `  <url><loc>https://crinaro.ai/what-you-already-have/options/</loc><changefreq>monthly</changefreq></url>\n` +
+  `  <url><loc>https://crinaro.ai/what-you-already-have/customer-data/</loc><changefreq>monthly</changefreq></url>\n` +
+  NOTES.map(n =>
+    `  <url><loc>https://crinaro.ai/notes/${n.slug}/</loc><lastmod>${n.date}</lastmod></url>\n`).join('') +
+  '</urlset>\n');
+
+const pageCount = (function count(dir) {
+  return fs.readdirSync(dir, { withFileTypes: true }).reduce((n, e) =>
+    n + (e.isDirectory() ? count(path.join(dir, e.name)) : (e.name.endsWith('.html') ? 1 : 0)), 0);
+})(DIST);
+
+fs.writeFileSync(path.join(DIST, 'README.md'), [
+  '# crinaro.github.io',
+  '',
+  'The published Crinaro.AI site. Static HTML, no framework, and no build step in the deploy path:',
+  'GitHub Pages serves this repo root as it stands, and the pages fetch nothing from anywhere.',
+  '',
+  '## What is here',
+  '',
+  '| Path | What it is |',
+  '|---|---|',
+  '| `index.html` | The claim, the question the page answers, and the routes into the rest |',
+  '| `notes/` | The written pieces, each argued at length |',
+  '| `what-you-already-have/` | Where to start, and what an empty layer costs |',
+  '| `how-the-work-gets-done/` | The three things the argument is run on, and the teams that maintain them |',
+  '| `email/` | The email signature images |',
+  '| `src/` | The generators and the logo SVGs |',
+  '',
+  `${SPELLED[pageCount] || pageCount} pages in all. Everything at the repo root is generated output.`,
+  '**Edit `src/build-site.js`, never `index.html`.** The next build overwrites it.',
+  '',
+  '## Rebuild',
+  '',
+  '```bash',
+  'cd src',
+  'node build-site.js      # -> the pages, CNAME, .nojekyll, robots.txt, sitemap.xml',
+  'python3 build-email.py  # -> ../email/',
+  '```',
+  '',
+  'What that needs, including the awkward part:',
+  '',
+  '- Node, for `build-site.js`. Nothing to install; it reads only the files beside it.',
+  '- `cairosvg` and `pillow` for `build-email.py`, and `cairosvg` needs the native libcairo.',
+  '- Poppins installed, for the same script. Cairo substitutes its own default silently when a face',
+  '  is missing, so the build refuses rather than shipping the signature in the wrong face.',
+  '',
+  '## Status',
+  '',
+  'This repo is output. The reasoning behind the site is in a private repository and is not here:',
+  'the decisions, the drafts, the reviews, and the checks that run before anything is published.',
+  'So this README can tell you how to rebuild the site, and cannot show you why it says what it says.',
+  '',
+  '## Privacy',
+  '',
+  'The email signature carries personal contact details. Those are kept outside this repo and are',
+  'never generated into it; the images in `email/` are the wordmark lockup and carry no contact',
+  'details. The publishing step refuses to push when a phone number or a profile link reaches this',
+  'tree. That check runs in the private repository, so it is a statement about how this is published',
+  'rather than something you can verify from here.',
+  '',
+  '## License',
+  '',
+  'Apache License 2.0. See `LICENSE` and `NOTICE`. The same license as the rest of the Crinaro',
+  'repositories, and it covers the writing here as well as the generators, with one carve-out:',
+  'lines on the two tool pages drawn from AWS documentation are CC BY-SA 4.0. `NOTICE` says which.',
+  '',
+  'It does not license the name or the mark: Apache 2.0 grants no trademark rights, so "Crinaro",',
+  '"crinaro.ai" and the ridge mark are reserved. `NOTICE` says so plainly.',
+  '',
+  '`src/fonts.css` embeds a subset of Poppins, which is not under that license. It is SIL Open Font',
+  'License 1.1, and the text is in `licenses/Poppins-OFL.txt`.',
+  '',
+].join('\n'));
+
+const LEGAL = path.join(__dirname, 'legal');
+fs.copyFileSync(path.join(LEGAL, 'LICENSE'), path.join(DIST, 'LICENSE'));
+fs.mkdirSync(path.join(DIST, 'licenses'), { recursive: true });
+fs.copyFileSync(path.join(LEGAL, 'Poppins-OFL.txt'), path.join(DIST, 'licenses', 'Poppins-OFL.txt'));
+
+fs.writeFileSync(path.join(DIST, 'NOTICE'), [
+  'crinaro.github.io',
+  'Copyright 2026 Crinaro',
+  '',
+  'Licensed under the Apache License, Version 2.0. See LICENSE.',
+  '',
+  'PROVENANCE',
+  '',
+  'The pages here and the generators in src/ were produced with model assistance',
+  'under human direction and review. No copyright is claimed in any portion that',
+  'is purely machine-generated; whatever rights are held in this work are',
+  'licensed under the Apache License, Version 2.0.',
+  '',
+  'No figure is published here for the proportion of that work which is',
+  'model-involved. This repository is generated output, and the history that',
+  'would support such a figure is not in it.',
+  '',
+  'THIRD-PARTY',
+  '',
+  'src/fonts.css embeds a Latin subset of Poppins, at weights 400, 500 and 700,',
+  'base64-encoded as woff2. Poppins is not covered by the Apache License above.',
+  'It is licensed under the SIL Open Font License, Version 1.1, whose full text',
+  'and the font\'s own copyright notice are in licenses/Poppins-OFL.txt.',
+  '',
+  'what-you-already-have/options/ and what-you-already-have/customer-data/',
+  'summarize other publishers\' pages, each line linked to its source. Lines',
+  'drawn from AWS documentation on docs.aws.amazon.com are offered under the',
+  'Creative Commons Attribution-ShareAlike 4.0 International License, as the',
+  'AWS Site Terms require, not under the Apache License above. No license is',
+  'claimed to any other publisher\'s pages. Each page\'s closing paragraph says',
+  'which license covers which lines.',
+  '',
+  'TRADEMARK',
+  '',
+  'The Apache License, Version 2.0 grants no rights in the trade names,',
+  'trademarks, service marks or product names of the licensor. "Crinaro" and',
+  '"crinaro.ai" are not licensed by that grant and are reserved.',
+  '',
+  'The ridge mark and the wordmark are reserved on the same basis. The SVG files',
+  'in src/logo/ are covered by the license as files; that grant is not permission',
+  'to use the mark as an identifier of origin.',
+  '',
+  'All vendor, product and model names and marks belong to their owners and are',
+  'used only to identify the products discussed; no endorsement or affiliation',
+  'is implied.',
+  '',
+].join('\n'));
+
+const ICON_SRC = path.join(__dirname, 'logo', 'icons');
+const ICON_DIR = path.join(DIST, 'icons');
+const WEB_ICONS = ['crinaro-favicon-16.png', 'crinaro-favicon-32.png',
+                   'crinaro-icon-180.png', 'crinaro-og-1200x630.png'];
+if (fs.existsSync(ICON_SRC)) {
+  fs.mkdirSync(ICON_DIR, { recursive: true });
+  WEB_ICONS.forEach(f => fs.copyFileSync(path.join(ICON_SRC, f), path.join(ICON_DIR, f)));
+} else {
+  console.warn('  ! logo/icons missing — run: cd logo && python3 build-icons.py');
+}
+
+const kb = (indexBytes / 1024).toFixed(1);
+console.log(`wrote dist/index.html — ${kb} KB, 0 external requests`);
+console.log('       dist/CNAME, .nojekyll, robots.txt, sitemap.xml');
+console.log(`       dist/icons/ — ${WEB_ICONS.length} files`);
