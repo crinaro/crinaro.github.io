@@ -2,3 +2,4 @@ User-agent: *
 Allow: /
 
 Sitemap: https://crinaro.ai/sitemap.xml
+Sitemap: https://crinaro.ai/catalog/sitemap.xml

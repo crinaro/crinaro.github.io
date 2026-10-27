@@ -21,8 +21,8 @@ base64-encoded as woff2. Poppins is not covered by the Apache License above.
 It is licensed under the SIL Open Font License, Version 1.1, whose full text
 and the font's own copyright notice are in licenses/Poppins-OFL.txt.
 
-what-you-already-have/options/ and what-you-already-have/customer-data/
-summarize other publishers' pages, each line linked to its source. Lines
+what-you-already-have/customer-data/ summarizes other publishers' pages,
+each line linked to its source. Lines
 drawn from AWS documentation on docs.aws.amazon.com are offered under the
 Creative Commons Attribution-ShareAlike 4.0 International License, as the
 AWS Site Terms require, not under the Apache License above. No license is

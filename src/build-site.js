@@ -238,6 +238,7 @@ const verticals = [
 
 
 const TOOLS = JSON.parse(fs.readFileSync(path.join(__dirname, 'tools.json'), 'utf8'));
+const CATALOG_LAYERS = 'https://crinaro.ai/catalog/views/by-layer/';
 const REG = JSON.parse(fs.readFileSync(path.join(__dirname, 'regulated.json'), 'utf8'));
 
 const LAYER_NAMES = [
@@ -1473,10 +1474,10 @@ const WORK_SECTIONS = `
        it. Published
        separately, and standing without it:
        <a class="src" href="/what-you-already-have/">what the gaps cost</a>, which runs the pieces
-       of infrastructure an agent setup can have in the order they stop being optional, and names
-       some of what exists at each. The layers, and the way to read a tool’s public signals, change more slowly
-       than the tools under them. The tools move on their own schedules, so the list prints dates
-       rather than intervals and says where nobody has looked.</p>
+       of infrastructure an agent setup can have in the order they stop being optional, and links
+       to what exists at each in the catalog. The layers, and the way to read a tool’s public signals, change more slowly
+       than the tools under them. The tools move on their own schedules, so the catalog that lists
+       them prints the date each line was read.</p>
   </div>
 </section>
 `;
@@ -1620,7 +1621,7 @@ ${CSS}
         <p><b>What you can use, layer by layer.</b> The options at each layer of an agent setup:
            a list, not a review, and every row carries the date it was read, so each visit shows
            you how current it is.
-           <a class="src" href="/what-you-already-have/options/">See the options</a></p>
+           <a class="src" href="${CATALOG_LAYERS}">See the catalog</a></p>
       </div>
       <ol class="refs" start="2">
         <li><a class="src" href="https://www.ey.com/en_us/newsroom/2026/09/ey-survey-finds-that-autonomous-ai-implementation-outpaces-oversight-yielding-an-ai-governance-gap">EY, AI Risk and Governance Survey, September 2026</a>:
@@ -2144,12 +2145,7 @@ ${extraCss}
 <div class="note-wrap">
   <a class="note-home" href="/" aria-label="Crinaro.AI">${svg('crinaro-ai-horizontal.svg')}</a>`;
 
-const optionsLink = key => {
-  const n = TOOLS.tools.filter(t => t.layer === key).length;
-  if (!n) return 'See the options';
-  if (n === 1) return 'See the one option listed';
-  return `See the ${SPELLED[n] ? SPELLED[n].toLowerCase() : n} options listed`;
-};
+const optionsLink = () => 'See the products at this layer';
 
 fs.mkdirSync(path.join(DIST, 'what-you-already-have'), { recursive: true });
 writePage(path.join(DIST, 'what-you-already-have', 'index.html'), `${pageHead(
@@ -2182,20 +2178,21 @@ writePage(path.join(DIST, 'what-you-already-have', 'index.html'), `${pageHead(
     <h3>${name}</h3>
     <p><span class="lbl">You have it if</span>${have}</p>
     <p><span class="lbl">Empty, it costs you</span>${cost}</p>
-    <p><a class="src" href="/what-you-already-have/options/#l-${key}">${optionsLink(key)} <span aria-hidden="true">&rarr;</span></a></p>
+    <p><a class="src" href="${CATALOG_LAYERS}#l-${key}">${optionsLink(key)} <span aria-hidden="true">&rarr;</span></a></p>
   </div>`).join('\n  ')}
   </div>
 
   <p>The order is the order these stop being optional in, which is an argument about what depends on
-     what and not about what is good. <b>${SPELLED[LAYER_NAMES.length - LAYERS.length]} groups in
-     the options have no row here, on purpose.</b> Skills and specs, and security and secrets, are
+     what and not about what is good. <b>${SPELLED[LAYER_NAMES.length + 1 - LAYERS.length]} groups in
+     the catalog have no row here, on purpose.</b> Skills and specs, and security and secrets, are
      not on the request path in the way these ${SPELLED[LAYERS.length].toLowerCase()} are, so an
      order of adoption says nothing useful about them. Testing agent output is not a row either. You can buy what runs an
-     evaluation, and <a class="src" href="/what-you-already-have/options/#l-evaluate">the options</a>
-     list seven products that trace, score and test, but none decides what a good result is: those
-     cases are yours to write. Nor is distribution to teams, where the options hold one vendor
-     feature. Catalogs and registries are not a row here either, and that is not scarcity: they
-     have rows in the options.
+     evaluation, and <a class="src" href="${CATALOG_LAYERS}#l-evaluate">the catalog</a>
+     lists products that trace, score and test, but none decides what a good result is: those
+     cases are yours to write. Code review checks what an agent changed after the request has run,
+     so it sits outside the order too. Nor is distribution to teams, where the catalog lists little.
+     Catalogs and registries are not a row here either, and that is not scarcity: they
+     have their own place in the catalog.
      What it does not have is a place in this order, and this page does not invent one. Naming that
      is the alternative to selling you a gap as a layer.</p>
 
@@ -2203,7 +2200,8 @@ writePage(path.join(DIST, 'what-you-already-have', 'index.html'), `${pageHead(
     <p>None of this has been measured against an organization, and the ordering is reasoned from
        what depends on what. If a row is wrong, or the order is wrong where you are,
        <a class="src" href="mailto:${EMAIL}">say so</a>, and today I read it myself.</p>
-    <p class="linkrow"><a class="src" href="/what-you-already-have/options/">All the options, in one table</a>
+    <p class="linkrow"><a class="src" href="${CATALOG_LAYERS}">The catalog</a>
+       <span class="sep">&middot;</span><a class="src" href="/what-you-already-have/customer-data/">Customer data, by cloud and model</a>
        <span class="sep">&middot;</span><a class="src" href="/notes/">Read the notes</a>
        <span class="sep">&middot;</span><a class="src" href="/how-the-work-gets-done/">How the work gets done</a>
        <span class="sep">&middot;</span><a class="src" href="/">Crinaro.AI</a></p>
@@ -2461,7 +2459,7 @@ const ATTRIB = `<p class="attrib">Every line that links a publisher’s page sum
      and model names and marks belong to their owners and are used only to identify the products
      discussed; no endorsement or affiliation is implied.</p>`;
 
-writePage(path.join(DIST, 'what-you-already-have', 'options', 'index.html'), `${pageHead(
+const optionsFullHtml = `${pageHead(
   'The options at each layer',
   'The tools this work has had to make a decision about, grouped by where they sit, with what each one is and the public signals readable on a stated date. A list, not a review.',
   'https://crinaro.ai/what-you-already-have/options/', `
@@ -2677,8 +2675,26 @@ ${MATRIX_CSS}
   </div>
 </div>
 </body>
+</html>`;
+void optionsFullHtml;
+writePage(path.join(DIST, 'what-you-already-have', 'options', 'index.html'), `${pageHead(
+  'The options at each layer',
+  'This list has moved into the Crinaro catalog.',
+  'https://crinaro.ai/what-you-already-have/options/', '').replace('</head>',
+  `<meta http-equiv="refresh" content="0; url=${CATALOG_LAYERS}">\n</head>`)}
+<body>
+<div class="note-wrap">
+  <h1>The options at each layer</h1>
+  <p>This list has moved into the catalog:
+     <a class="src" href="${CATALOG_LAYERS}">the products at each layer</a>.</p>
+  <div class="foot">
+    <p class="linkrow"><a class="src" href="/what-you-already-have/">Back to where to start</a>
+       <span class="sep">&middot;</span><a class="src" href="/">Crinaro.AI</a></p>
+  </div>
+</div>
+</body>
 </html>`);
-console.log('       dist/what-you-already-have/options/ — ' + TOOLS.tools.length + ' tools in a table');
+console.log('       dist/what-you-already-have/options/ — a pointer to the catalog');
 
 const esc = x => String(x).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 const FIELD_LABEL = Object.fromEntries(REG.fields);
@@ -2834,7 +2850,7 @@ writePage(path.join(DIST, 'what-you-already-have', 'customer-data', 'index.html'
   ${ATTRIB}
 
   <div class="foot">
-    <p class="linkrow"><a class="src" href="/what-you-already-have/options/">The options at each layer</a>
+    <p class="linkrow"><a class="src" href="${CATALOG_LAYERS}">The products at each layer</a>
        <span class="sep">&middot;</span><a class="src" href="/what-you-already-have/">Back to where to start</a>
        <span class="sep">&middot;</span><a class="src" href="/">Crinaro.AI</a></p>
   </div>
@@ -2848,7 +2864,8 @@ fs.writeFileSync(path.join(DIST, 'CNAME'), 'crinaro.ai\n');
 fs.writeFileSync(path.join(DIST, '.nojekyll'), '');
 
 fs.writeFileSync(path.join(DIST, 'robots.txt'),
-  'User-agent: *\nAllow: /\n\nSitemap: https://crinaro.ai/sitemap.xml\n');
+  'User-agent: *\nAllow: /\n\nSitemap: https://crinaro.ai/sitemap.xml\n'
+  + 'Sitemap: https://crinaro.ai/catalog/sitemap.xml\n');
 fs.writeFileSync(path.join(DIST, 'sitemap.xml'),
   '<?xml version="1.0" encoding="UTF-8"?>\n' +
   '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' +
@@ -2856,7 +2873,6 @@ fs.writeFileSync(path.join(DIST, 'sitemap.xml'),
   `  <url><loc>https://crinaro.ai/notes/</loc><changefreq>monthly</changefreq></url>\n` +
   `  <url><loc>https://crinaro.ai/how-the-work-gets-done/</loc><changefreq>monthly</changefreq></url>\n` +
   `  <url><loc>https://crinaro.ai/what-you-already-have/</loc><changefreq>monthly</changefreq></url>\n` +
-  `  <url><loc>https://crinaro.ai/what-you-already-have/options/</loc><changefreq>monthly</changefreq></url>\n` +
   `  <url><loc>https://crinaro.ai/what-you-already-have/customer-data/</loc><changefreq>monthly</changefreq></url>\n` +
   NOTES.map(n =>
     `  <url><loc>https://crinaro.ai/notes/${n.slug}/</loc><lastmod>${n.date}</lastmod></url>\n`).join('') +
@@ -2920,7 +2936,7 @@ fs.writeFileSync(path.join(DIST, 'README.md'), [
   '',
   'Apache License 2.0. See `LICENSE` and `NOTICE`. The same license as the rest of the Crinaro',
   'repositories, and it covers the writing here as well as the generators, with one carve-out:',
-  'lines on the two tool pages drawn from AWS documentation are CC BY-SA 4.0. `NOTICE` says which.',
+  'lines on the customer-data page drawn from AWS documentation are CC BY-SA 4.0. `NOTICE` says which.',
   '',
   'It does not license the name or the mark: Apache 2.0 grants no trademark rights, so "Crinaro",',
   '"crinaro.ai" and the ridge mark are reserved. `NOTICE` says so plainly.',
@@ -2959,8 +2975,8 @@ fs.writeFileSync(path.join(DIST, 'NOTICE'), [
   'It is licensed under the SIL Open Font License, Version 1.1, whose full text',
   'and the font\'s own copyright notice are in licenses/Poppins-OFL.txt.',
   '',
-  'what-you-already-have/options/ and what-you-already-have/customer-data/',
-  'summarize other publishers\' pages, each line linked to its source. Lines',
+  'what-you-already-have/customer-data/ summarizes other publishers\' pages,',
+  'each line linked to its source. Lines',
   'drawn from AWS documentation on docs.aws.amazon.com are offered under the',
   'Creative Commons Attribution-ShareAlike 4.0 International License, as the',
   'AWS Site Terms require, not under the Apache License above. No license is',

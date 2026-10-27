@@ -50,7 +50,7 @@ rather than something you can verify from here.
 
 Apache License 2.0. See `LICENSE` and `NOTICE`. The same license as the rest of the Crinaro
 repositories, and it covers the writing here as well as the generators, with one carve-out:
-lines on the two tool pages drawn from AWS documentation are CC BY-SA 4.0. `NOTICE` says which.
+lines on the customer-data page drawn from AWS documentation are CC BY-SA 4.0. `NOTICE` says which.
 
 It does not license the name or the mark: Apache 2.0 grants no trademark rights, so "Crinaro",
 "crinaro.ai" and the ridge mark are reserved. `NOTICE` says so plainly.

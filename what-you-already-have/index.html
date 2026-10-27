@@ -266,50 +266,52 @@
     <h3>Sandboxes for agents</h3>
     <p><span class="lbl">You have it if</span>An agent run gets a workspace that is not somebody's laptop, and two runs cannot see each other.</p>
     <p><span class="lbl">Empty, it costs you</span>Every unattended run inherits one machine's credentials and state. This is the row that stops being optional first, because a scheduled job on a laptop stops when its owner takes leave and nothing reports that it stopped.</p>
-    <p><a class="src" href="/what-you-already-have/options/#l-compute-and-isolation">See the five options listed <span aria-hidden="true">&rarr;</span></a></p>
+    <p><a class="src" href="https://crinaro.ai/catalog/views/by-layer/#l-compute-and-isolation">See the products at this layer <span aria-hidden="true">&rarr;</span></a></p>
   </div>
   <div class="row">
     <h3>Model hosting</h3>
     <p><span class="lbl">You have it if</span>You run a process that holds weights, or you have decided on purpose that you never will.</p>
     <p><span class="lbl">Empty, it costs you</span>Nothing, if you buy inference and mean it. Empty is the correct state of this row for anyone who does.</p>
-    <p><a class="src" href="/what-you-already-have/options/#l-serving">See the twenty options listed <span aria-hidden="true">&rarr;</span></a></p>
+    <p><a class="src" href="https://crinaro.ai/catalog/views/by-layer/#l-serving">See the products at this layer <span aria-hidden="true">&rarr;</span></a></p>
   </div>
   <div class="row">
     <h3>Model access and routing</h3>
     <p><span class="lbl">You have it if</span>Changing which model answers is a configuration change rather than a code change.</p>
     <p><span class="lbl">Empty, it costs you</span>Every switch becomes a code change in however many places call a model. One model and one consumer does not earn this row. A second of either does.</p>
-    <p><a class="src" href="/what-you-already-have/options/#l-gateway">See the fourteen options listed <span aria-hidden="true">&rarr;</span></a></p>
+    <p><a class="src" href="https://crinaro.ai/catalog/views/by-layer/#l-gateway">See the products at this layer <span aria-hidden="true">&rarr;</span></a></p>
   </div>
   <div class="row">
     <h3>Company knowledge for agents</h3>
     <p><span class="lbl">You have it if</span>An agent reaches your systems through a declared surface rather than through pasted text.</p>
     <p><span class="lbl">Empty, it costs you</span>Nothing records what an agent was actually given, so when a run comes back wrong there is nothing to inspect and nothing to change except the next prompt.</p>
-    <p><a class="src" href="/what-you-already-have/options/#l-context-and-tools">See the ten options listed <span aria-hidden="true">&rarr;</span></a></p>
+    <p><a class="src" href="https://crinaro.ai/catalog/views/by-layer/#l-context-and-tools">See the products at this layer <span aria-hidden="true">&rarr;</span></a></p>
   </div>
   <div class="row">
     <h3>Agent frameworks and runtimes</h3>
     <p><span class="lbl">You have it if</span>A sequence that dies halfway resumes rather than restarts.</p>
     <p><span class="lbl">Empty, it costs you</span>Long work is only as reliable as the machine it started on. This row earns its place once a run is long enough that starting it again is expensive, and before that it is easy to buy too early.</p>
-    <p><a class="src" href="/what-you-already-have/options/#l-orchestration">See the sixteen options listed <span aria-hidden="true">&rarr;</span></a></p>
+    <p><a class="src" href="https://crinaro.ai/catalog/views/by-layer/#l-orchestration">See the products at this layer <span aria-hidden="true">&rarr;</span></a></p>
   </div>
   <div class="row">
     <h3>Coding agents and assistants</h3>
     <p><span class="lbl">You have it if</span>Nobody has to read a log to know what an agent did.</p>
     <p><span class="lbl">Empty, it costs you</span>You cannot tell a working agent team from a stuck one without going and asking the person running it.</p>
-    <p><a class="src" href="/what-you-already-have/options/#l-interface">See the 42 options listed <span aria-hidden="true">&rarr;</span></a></p>
+    <p><a class="src" href="https://crinaro.ai/catalog/views/by-layer/#l-interface">See the products at this layer <span aria-hidden="true">&rarr;</span></a></p>
   </div>
   </div>
 
+  
   <p>The order is the order these stop being optional in, which is an argument about what depends on
-     what and not about what is good. <b>Five groups in
-     the options have no row here, on purpose.</b> Skills and specs, and security and secrets, are
+     what and not about what is good. <b>Six groups in
+     the catalog have no row here, on purpose.</b> Skills and specs, and security and secrets, are
      not on the request path in the way these six are, so an
      order of adoption says nothing useful about them. Testing agent output is not a row either. You can buy what runs an
-     evaluation, and <a class="src" href="/what-you-already-have/options/#l-evaluate">the options</a>
-     list seven products that trace, score and test, but none decides what a good result is: those
-     cases are yours to write. Nor is distribution to teams, where the options hold one vendor
-     feature. Catalogs and registries are not a row here either, and that is not scarcity: they
-     have rows in the options.
+     evaluation, and <a class="src" href="https://crinaro.ai/catalog/views/by-layer/#l-evaluate">the catalog</a>
+     lists products that trace, score and test, but none decides what a good result is: those
+     cases are yours to write. Code review checks what an agent changed after the request has run,
+     so it sits outside the order too. Nor is distribution to teams, where the catalog lists little.
+     Catalogs and registries are not a row here either, and that is not scarcity: they
+     have their own place in the catalog.
      What it does not have is a place in this order, and this page does not invent one. Naming that
      is the alternative to selling you a gap as a layer.</p>
 
@@ -317,7 +319,8 @@
     <p>None of this has been measured against an organization, and the ordering is reasoned from
        what depends on what. If a row is wrong, or the order is wrong where you are,
        <a class="src" href="mailto:john@crinaro.ai">say so</a>, and today I read it myself.</p>
-    <p class="linkrow"><a class="src" href="/what-you-already-have/options/">All the options, in one table</a>
+    <p class="linkrow"><a class="src" href="https://crinaro.ai/catalog/views/by-layer/">The catalog</a>
+       <span class="sep">&middot;</span><a class="src" href="/what-you-already-have/customer-data/">Customer data, by cloud and model</a>
        <span class="sep">&middot;</span><a class="src" href="/notes/">Read the notes</a>
        <span class="sep">&middot;</span><a class="src" href="/how-the-work-gets-done/">How the work gets done</a>
        <span class="sep">&middot;</span><a class="src" href="/">Crinaro.AI</a></p>
