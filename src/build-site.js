@@ -3006,11 +3006,12 @@ const WEB_ICONS = ['crinaro-favicon-16.png', 'crinaro-favicon-32.png',
 if (fs.existsSync(ICON_SRC)) {
   fs.mkdirSync(ICON_DIR, { recursive: true });
   WEB_ICONS.forEach(f => fs.copyFileSync(path.join(ICON_SRC, f), path.join(ICON_DIR, f)));
+  fs.copyFileSync(path.join(ICON_SRC, 'favicon.ico'), path.join(DIST, 'favicon.ico'));
 } else {
   console.warn('  ! logo/icons missing — run: cd logo && python3 build-icons.py');
 }
 
 const kb = (indexBytes / 1024).toFixed(1);
 console.log(`wrote dist/index.html — ${kb} KB, 0 external requests`);
-console.log('       dist/CNAME, .nojekyll, robots.txt, sitemap.xml');
+console.log('       dist/CNAME, .nojekyll, robots.txt, sitemap.xml, favicon.ico');
 console.log(`       dist/icons/ — ${WEB_ICONS.length} files`);
