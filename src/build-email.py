@@ -155,7 +155,14 @@ def rasterise_signature_pair():
         im = light if src.endswith('horizontal.svg') else _render(src, work)
         im = im.crop(box)
         h = int(round(out_w * im.height / im.width))
-        im.resize((out_w, h), Image.LANCZOS).save(os.path.join(OUT, dst))
+        # Saved at 72 x SCALE dpi. Apple Mail drops the <img> width when a
+        # signature is pasted in and sizes the image by its own resolution
+        # instead, so at the default 72 dpi a 3x file showed three times too
+        # large (John, 2026-10-29). At 216 dpi macOS reads 840px as 280pt: the
+        # display size, still sharp on a retina screen. Browsers ignore the
+        # tag, so Gmail and the HTML width are unaffected.
+        im.resize((out_w, h), Image.LANCZOS).save(os.path.join(OUT, dst),
+                                                  dpi=(72 * SCALE, 72 * SCALE))
         display_h = int(round(DISPLAY_W * im.height / im.width))
         results.append(display_h)
 
@@ -323,7 +330,17 @@ page = f'''<!doctype html>
           <code>{IMG_URL}</code> resolves.</li>
       <li>Select the whole signature, copy, paste into the editor. Formatting and links come with it.</li>
     </ol>
-    <p style="margin:1rem 0 0;color:#3D5570;font-size:.95rem;">Then, either way:</p>
+    <p style="margin:1rem 0 .5rem;"><b>C &mdash; Apple Mail. Needs the site deployed after 2026-10-29.</b></p>
+    <ol>
+      <li>Mail &rarr; Settings &rarr; Signatures. Pick the account, click <b>+</b>, and name it.
+          Untick <b>Always match my default message font</b>.</li>
+      <li>Open <code>signature-hosted.html</code> in Safari, select the whole signature, copy,
+          and paste it over the placeholder text.</li>
+      <li>Apple Mail ignores the HTML size and sizes the logo by the file's own resolution. The
+          hosted file says 216&nbsp;dpi, so it lands at 280 points wide. If it still comes in
+          large, the old file is cached: quit Mail, reopen it, and paste again.</li>
+    </ol>
+    <p style="margin:1rem 0 0;color:#3D5570;font-size:.95rem;">Then, for Gmail:</p>
     <ol>
       <li>Under <b>Signature defaults</b>, set it for new mail <em>and</em> replies.</li>
       <li>Set <b>Send mail as</b> to <code>{EMAIL}</code> as the default, or the signature will
