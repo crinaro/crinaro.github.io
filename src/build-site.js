@@ -16,7 +16,7 @@ const LOGO = path.join(__dirname, 'logo', 'ai');
 const DIST = path.join(__dirname, '..');   // repo root — Pages serves from here
 fs.mkdirSync(DIST, { recursive: true });
 
-for (const owned of ['notes', 'icons']) {
+for (const owned of ['notes', 'icons', path.join('what-you-already-have', 'customer-data')]) {
   fs.rmSync(path.join(DIST, owned), { recursive: true, force: true });
 }
 
@@ -239,6 +239,7 @@ const verticals = [
 
 const TOOLS = JSON.parse(fs.readFileSync(path.join(__dirname, 'tools.json'), 'utf8'));
 const CATALOG_LAYERS = 'https://crinaro.ai/catalog/views/by-layer/';
+const CATALOG_CUSTOMER_DATA = 'https://crinaro.ai/catalog/views/customer-data/';
 const REG = JSON.parse(fs.readFileSync(path.join(__dirname, 'regulated.json'), 'utf8'));
 
 const LAYER_NAMES = [
@@ -2201,7 +2202,7 @@ writePage(path.join(DIST, 'what-you-already-have', 'index.html'), `${pageHead(
        what depends on what. If a row is wrong, or the order is wrong where you are,
        <a class="src" href="mailto:${EMAIL}">say so</a>, and today I read it myself.</p>
     <p class="linkrow"><a class="src" href="${CATALOG_LAYERS}">The catalog</a>
-       <span class="sep">&middot;</span><a class="src" href="/what-you-already-have/customer-data/">Customer data, by cloud and model</a>
+       <span class="sep">&middot;</span><a class="src" href="${CATALOG_CUSTOMER_DATA}">Customer data, by cloud and model</a>
        <span class="sep">&middot;</span><a class="src" href="/notes/">Read the notes</a>
        <span class="sep">&middot;</span><a class="src" href="/how-the-work-gets-done/">How the work gets done</a>
        <span class="sep">&middot;</span><a class="src" href="/">Crinaro.AI</a></p>
@@ -2435,7 +2436,7 @@ function matrixHtml() {
   </details>` : ''}
   <p class="key-note">A tool resting on several products passes the filter when they carry the checked
      items between them. For where customer data goes, model by model, see
-     <a class="src" href="/what-you-already-have/customer-data/">customer data by cloud</a>.</p>${notListed.length ? `
+     <a class="src" href="${CATALOG_CUSTOMER_DATA}">customer data by cloud</a>.</p>${notListed.length ? `
   <p class="key-note" id="compliance-not-listed">${notListed.map(o => `<b>${escB(o.entry)}</b>`).join(', ')}
      ${notListed.length === 1 ? 'shows nothing because the pages it rests on do not fully cover it' : 'show nothing because the pages they rest on do not fully cover them'}.
      The reason is in the record’s own words below.</p>
@@ -2753,8 +2754,7 @@ function regRows(c) {
   }
   return merged;
 }
-fs.mkdirSync(path.join(DIST, 'what-you-already-have', 'customer-data'), { recursive: true });
-writePage(path.join(DIST, 'what-you-already-have', 'customer-data', 'index.html'), `${pageHead(
+const customerDataHtml = `${pageHead(
   'Customer data, by cloud and model',
   'What each cloud and model maker’s own pages say, summarized and linked, about where prompts are processed, what is kept, for how long and who can see it. One model on one cloud, tier and region at a time, each line dated.',
   'https://crinaro.ai/what-you-already-have/customer-data/', `
@@ -2856,8 +2856,8 @@ writePage(path.join(DIST, 'what-you-already-have', 'customer-data', 'index.html'
   </div>
 </div>
 </body>
-</html>`);
-console.log('       dist/what-you-already-have/customer-data/ — ' + REG.clouds.reduce((n, c) => n + c.pairs.length, 0) + ' model and cloud pairs');
+</html>`;
+console.log('       customer data — built, not written: it lives in the catalog');
 
 fs.writeFileSync(path.join(DIST, 'CNAME'), 'crinaro.ai\n');
 
@@ -2873,7 +2873,6 @@ fs.writeFileSync(path.join(DIST, 'sitemap.xml'),
   `  <url><loc>https://crinaro.ai/notes/</loc><changefreq>monthly</changefreq></url>\n` +
   `  <url><loc>https://crinaro.ai/how-the-work-gets-done/</loc><changefreq>monthly</changefreq></url>\n` +
   `  <url><loc>https://crinaro.ai/what-you-already-have/</loc><changefreq>monthly</changefreq></url>\n` +
-  `  <url><loc>https://crinaro.ai/what-you-already-have/customer-data/</loc><changefreq>monthly</changefreq></url>\n` +
   NOTES.map(n =>
     `  <url><loc>https://crinaro.ai/notes/${n.slug}/</loc><lastmod>${n.date}</lastmod></url>\n`).join('') +
   '</urlset>\n');
@@ -2935,8 +2934,7 @@ fs.writeFileSync(path.join(DIST, 'README.md'), [
   '## License',
   '',
   'Apache License 2.0. See `LICENSE` and `NOTICE`. The same license as the rest of the Crinaro',
-  'repositories, and it covers the writing here as well as the generators, with one carve-out:',
-  'lines on the customer-data page drawn from AWS documentation are CC BY-SA 4.0. `NOTICE` says which.',
+  'repositories, and it covers the writing here as well as the generators.',
   '',
   'It does not license the name or the mark: Apache 2.0 grants no trademark rights, so "Crinaro",',
   '"crinaro.ai" and the ridge mark are reserved. `NOTICE` says so plainly.',
@@ -2974,14 +2972,6 @@ fs.writeFileSync(path.join(DIST, 'NOTICE'), [
   'base64-encoded as woff2. Poppins is not covered by the Apache License above.',
   'It is licensed under the SIL Open Font License, Version 1.1, whose full text',
   'and the font\'s own copyright notice are in licenses/Poppins-OFL.txt.',
-  '',
-  'what-you-already-have/customer-data/ summarizes other publishers\' pages,',
-  'each line linked to its source. Lines',
-  'drawn from AWS documentation on docs.aws.amazon.com are offered under the',
-  'Creative Commons Attribution-ShareAlike 4.0 International License, as the',
-  'AWS Site Terms require, not under the Apache License above. No license is',
-  'claimed to any other publisher\'s pages. Each page\'s closing paragraph says',
-  'which license covers which lines.',
   '',
   'TRADEMARK',
   '',
