@@ -1445,8 +1445,8 @@ const WORK_SECTIONS = `
       ${factory.map(([n, d]) => `<div class="vert"><b>${n}</b><span>${d}</span></div>`).join('\n      ')}
     </div>
     <p class="note">All six are agent definitions in a private repository, so you cannot read
-       them. What they maintain is public: two plugins carrying ten installable agents and a
-       connector between them, their documentation, and a version history you can walk back. That is one product run
+       them. What they maintain is public: three plugins carrying seventeen installable agents,
+       their documentation, and a version history you can walk back. That is one product run
        this way, not an organization.</p>
     <p class="note" id="notes">Most of this is argued at length in
        <a class="src" href="/notes/">the notes</a>, where the index says which of them are one
@@ -2992,7 +2992,8 @@ fs.writeFileSync(path.join(DIST, 'NOTICE'), [
 const ICON_SRC = path.join(__dirname, 'logo', 'icons');
 const ICON_DIR = path.join(DIST, 'icons');
 const WEB_ICONS = ['crinaro-favicon-16.png', 'crinaro-favicon-32.png',
-                   'crinaro-icon-180.png', 'crinaro-og-1200x630.png'];
+                   'crinaro-icon-180.png', 'crinaro-og-1200x630.png',
+                   'crinaro-catalog-og-1200x630.png'];
 if (fs.existsSync(ICON_SRC)) {
   fs.mkdirSync(ICON_DIR, { recursive: true });
   WEB_ICONS.forEach(f => fs.copyFileSync(path.join(ICON_SRC, f), path.join(ICON_DIR, f)));
