@@ -107,7 +107,8 @@ const assets = [
   ['The plugin marketplace', 'Public · installable',
   'One of the places the AI-SDLC reference is tested, and the one in public. Plugins are ' +
    'added as problems are worked through. So far: an agent team that helps whoever installs it ' +
-   'find their next opportunity, full-time or fractional, and a connector for several mailboxes.',
+   'find their next opportunity, full-time or contract, and build their network; a plugin that ' +
+   'builds and publishes a personal site; and a connector for several mailboxes.',
    'https://github.com/crinaro/marketplace', 'Read the marketplace'],
 ];
 
