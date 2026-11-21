@@ -241,6 +241,8 @@ const verticals = [
 const TOOLS = JSON.parse(fs.readFileSync(path.join(__dirname, 'tools.json'), 'utf8'));
 const CATALOG_LAYERS = 'https://crinaro.ai/catalog/views/by-layer/';
 const CATALOG_CUSTOMER_DATA = 'https://crinaro.ai/catalog/views/customer-data/';
+const CATALOG_ENVIRONMENT = 'https://crinaro.ai/catalog/views/why-an-environment/';
+const CATALOG_PLATFORM = 'https://crinaro.ai/catalog/views/engineering-platform/';
 const REG = JSON.parse(fs.readFileSync(path.join(__dirname, 'regulated.json'), 'utf8'));
 
 const LAYER_NAMES = [
@@ -1564,15 +1566,15 @@ ${CSS}
       <p>Nobody adds fifteen people without answering them first. Agent teams are getting stood up
          without the same controls. Each question has an answer further down, and none of the
          answers is a tool.</p>
-      <p>Teams answer “Who owns this?” by adopting AI the way they already work, so it amplifies the
-         organization it lands in and costs continue to rise.
+      <p>By default, “Who owns this?” gets answered team by team: each adopts AI the way it
+         already works, so AI amplifies the organization it lands in and costs continue to rise.
          <a class="src" href="https://services.google.com/fh/files/misc/2025_state_of_ai_assisted_software_development.pdf">DORA found the amplification in AI generally</a>,
          across nearly five thousand practitioners, most of whom were not yet using agents.</p>
       <p>The other four stay nobody's job, so the system keeps the shape of the teams that built
          it: <a class="src" href="/notes/${NOTE.slug}/">why do we have five user APIs</a>.</p>
       <p>The technology is new. The problem it lands in is not: it is flow and ownership, which
-         you already manage everywhere else.</p>
-      <p>Projects and acquisitions leave the same shape behind: three teams with three answers to
+         you already manage everywhere else.
+         Projects and acquisitions leave the same shape behind: three teams with three answers to
          the same fact, and agents that read all three and answer with confidence.</p>
     </div>
     <div class="flow fig">${ownership}</div>
@@ -1645,9 +1647,9 @@ ${CSS}
       <h2>Fewer places to change,<br>year over year.</h2>
       <p>If your agent teams are working, the number of systems you have to change to deliver one
          thing the business asked for goes down. That is the measure.</p>
-      <p>The 6% who attribute 5% or more of EBIT to AI changed the work, not just the tools, three
-         times as often as everyone else. Prompt-style use makes a person faster without making the
-         work repeatable. You do not get a different number out of the same system.
+      <p>The 6% above report redesigning the work itself three times as often as everyone
+         else. Prompt-style use makes a person faster without making the work repeatable, and you do
+         not get a different number out of the same system.
          <a class="src" href="https://www.mckinsey.com/capabilities/tech-and-ai/our-insights/the-top-trends-in-tech">McKinsey's September 2026 technology outlook</a>
          puts it the same way: agentic AI is changing operating models, not just tools.</p>
 
@@ -2197,6 +2199,16 @@ writePage(path.join(DIST, 'what-you-already-have', 'index.html'), `${pageHead(
      have their own place in the catalog.
      What it does not have is a place in this order, and this page does not invent one. Naming that
      is the alternative to selling you a gap as a layer.</p>
+
+  <p>The first row's laptop problem reaches past agents. Work people build with an AI assistant
+     stays on the laptop that made it: once others rely on it, colleagues see a picture of it in
+     a slide, and it leaves with its owner. One question tells you whether customer data is part
+     of it: can people reach customer data in your production systems from their laptops? The
+     catalog sets out what an environment for that work has to do, and
+     marks the parts no product in it fills.
+     <a class="src" href="${CATALOG_ENVIRONMENT}">Why AI work needs an environment</a>
+     <span class="sep">&middot;</span>
+     <a class="src" href="${CATALOG_PLATFORM}">The requirements</a></p>
 
   <div class="foot">
     <p>None of this has been measured against an organization, and the ordering is reasoned from
