@@ -146,15 +146,26 @@ ${ROWS.map(([label, value, note, rising], i) => {
   <text x="${LX}" y="314" fill="#93B8D4" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="12">as unchanged rather than printing a 2025 figure.</text>
 </svg>`;
 
+const ANSWERS = [
+  'One team answerable for each part of the system, long after the current deadline.',
+  'One maintained source for how your systems work, written where an agent can read it. ' +
+    'Without it, agents guess. <a class="src" href="/notes/who-owns-the-answer/">Who owns the answer</a>',
+  'The why, written down by whoever made the call, at the time it was made.',
+  'The team that owns it. Each request reaches that team, so what is broken gets fixed rather ' +
+    'than worked around.',
+  'A role you stand up and staff to design agents, check their work and keep improving them, ' +
+    'not work added to the side of someone\'s desk.',
+];
+
 const stats = [
-  ['44%', 'say AI is scaling across the enterprise. The only line above that moved.',
-   'McKinsey, 1,719 respondents, p. 5', SOAI],
-  ['37%', 'say it reached EBIT. A survey answer, not an audited line.',
-   'Of respondents, not of companies, p. 12', SOAI],
-  ['6%', 'attribute 5% or more of EBIT to it. That share has not moved either.',
-   'And report significant value. McKinsey\'s AI high performers, p. 17', SOAI],
+  ['44%', 'say AI is scaling across the enterprise, up from 38% a year earlier.',
+   'McKinsey, 1,719 respondents, p.&nbsp;5', SOAI],
+  ['37%', 'say it reached EBIT, essentially unchanged from a year earlier. A survey answer, not an audited line.',
+   'Of respondents, not of companies, p.&nbsp;12', SOAI],
+  ['6%', 'attribute 5% or more of EBIT to it, unchanged from a year earlier.',
+   'And report significant value. McKinsey\'s AI high performers, p.&nbsp;17', SOAI],
   ['3 in 4', 'of that 6% report redesigning the work itself. One in four of the rest do.',
-   'Nearly three-quarters, and n = 92 against 1,429 others, p. 18', SOAI],
+   'Nearly three-quarters, and n = 92 against 1,429 others, p.&nbsp;18', SOAI],
 ];
 
 const OWN_TEAMS = ['Billing', 'Support', 'Sales'];
@@ -757,12 +768,19 @@ const CSS = `${FONTS}
   @media (min-width:44rem) { .vert { grid-template-columns:12rem 1fr; gap:2rem; align-items:baseline; } }
   .vert > b { font-family:var(--head); font-size:1.15rem; font-weight:500; color:var(--ink); }
   .vert span { color:var(--ink-2); }
+  .vert > b { text-wrap:balance; }
+  .tools .links { margin-top:auto; }
+  .tools .links .src { white-space:nowrap; }
+  .tools .links .nb { white-space:nowrap; }
 
   .band { background:var(--navy); border:0; }
   .band h2, .band h3 { color:#FFFFFF; }
   .band p { color:var(--rblue); }
   .band .eyebrow { color:var(--rblue); }
   .band .rule { background:var(--rgreen); }
+  .band .vert { border-color:var(--navy-2); }
+  .band .vert b { color:#FFFFFF; }
+  .band .vert span { color:var(--rblue); }
   .band .step { border-color:var(--navy-2); }
   .band .step .when { color:var(--rgreen); }
 
@@ -1521,22 +1539,6 @@ ${CSS}
 </header>
 
 <main>
-
-<section class="band">
-  <div class="wrap">
-    <div class="head narrow">
-      <p class="eyebrow">The method</p>
-      <h2>The whole view decides the design.</h2>
-      <p>Stand where the whole system is visible before deciding anything. The test of a decision
-         made from there is whether the team still owns and runs what was built when you come back
-         to it, and whether <em>do not build this</em> was ever an available answer. Crinaro is a
-         ridge line, from the Italian <i>crinale</i>: the crest path where you can see down both
-         sides.</p>
-    </div>
-  </div>
-</section>
-
-
 <section>
   <div class="wrap">
     <div class="head narrow">
@@ -1545,7 +1547,6 @@ ${CSS}
       <p>It is not just you. McKinsey asked 1,719 people across 97 nations for its August 2026
          report.</p>
     </div>
-    <div class="exhibit">${exhibit}</div>
     <div class="stats">
       ${stats.map(([n, claim, base, href]) => `<div class="stat">
         <b>${n}</b><p>${claim}</p>
@@ -1553,89 +1554,21 @@ ${CSS}
       </div>`).join('\n      ')}
     </div>
     <div class="head narrow">
-      <p>Those figures are leaders grading their own organizations, and a second firm reports a
-         similar distance between adoption and return.<sup class="fn">1</sup> So the question is not whether you are adopting AI. It is
-         whether the way you adopt it can move EBIT.</p>
-      <p>The AI often changes nothing, <a class="src" href="${MANIFESTO}">McKinsey's advice says</a>,
-         when the work on either side of it is left as it was. A model can predict a machine
-         failure days ahead, and maintenance still runs on the calendar. The prediction changed.
-         The way the decision gets made did not.</p>
-      <p>The way you adopt it is where the problem starts. Every team of people you run already
-         answers five questions: Who owns this? Where do they get their facts? How does a decision
-         get made? Who does the work? Who builds the team?</p>
-      <p>Nobody adds fifteen people without answering them first. Agent teams are getting stood up
-         without the same controls. Each question has an answer further down, and none of the
-         answers is a tool.</p>
-      <p>By default, “Who owns this?” gets answered team by team: each adopts AI the way it
-         already works, so AI amplifies the organization it lands in and costs continue to rise.
+      <p>AI can make the work you already do faster. On its own it does not change how that work
+         is organized, and the 6% who report significant value redesigned it three times as often
+         as everyone else. The AI often
+         changes nothing, <a class="src" href="${MANIFESTO}">McKinsey's advice says</a>, when the
+         work on either side of it is left as it was. A model can predict a machine failure days
+         ahead, and maintenance still runs on the calendar.</p>
+      <p>If your organization has done lean or value-stream work, was it for a project? When the
+         project ended, did the organization keep working that way? If not, each team adopts AI
+         the way it already works, and AI amplifies the organization it lands in, duplicates and
+         handoffs included.
          <a class="src" href="https://services.google.com/fh/files/misc/2025_state_of_ai_assisted_software_development.pdf">DORA found the amplification in AI generally</a>,
          across nearly five thousand practitioners, most of whom were not yet using agents.</p>
-      <p>The other four stay nobody's job, so the system keeps the shape of the teams that built
-         it: <a class="src" href="/notes/${NOTE.slug}/">why do we have five user APIs</a>.</p>
-      <p>The technology is new. The problem it lands in is not: it is flow and ownership, which
-         you already manage everywhere else.
-         Projects and acquisitions leave the same shape behind: three teams with three answers to
-         the same fact, and agents that read all three and answer with confidence.</p>
-    </div>
-    <div class="flow fig">${ownership}</div>
-    <div class="cols five">
-      ${problems.map(([h, b], i) => `<div class="col"><div class="rule"></div>
-        <p class="eyebrow q">${QUESTIONS[i]}</p><h3>${h}</h3><p>${b}</p></div>`).join('\n      ')}
-    </div>
-    <div class="head narrow">
-      <ol class="refs">
-        <li><a class="src" href="https://assets.kpmg.com/content/dam/kpmgsites/xx/pdf/2026/09/global-ai-pulse.pdf">KPMG, Global AI Pulse, September 2026</a>,
-          p. 7: a second firm, across two waves of its own study. 13% of 2,131 leaders were still
-          experimenting, against 22% in April, while the share reporting an established return
-          changed less, from 8% to 10%. KPMG reads movement between quarters as direction rather
-          than step change.</li>
-      </ol>
-    </div>
-  </div>
-</section>
-
-<section>
-  <div class="wrap">
-    <div class="head narrow">
-      <p class="eyebrow">Where to start</p>
-      <h2>Own what is&nbsp;nobody's job.</h2>
-      <p>If you can maintain the platform you have and keep building on it while you hit your
-         financial goals, keep going. If you cannot, this is where to start.</p>
-      <p>First, decide who owns what. Only about a third of the
-         <a class="src" href="https://kpmg.com/content/dam/kpmgsites/xx/pdf/2026/06/global-ai-pulse-q2.pdf">2,145 leaders KPMG asked</a>
-         for its June 2026 report said the roles for running AI day to day were very clear and well
-         managed.<sup class="fn">2</sup> An executive who owns AI and its controls is the start. Somebody
-         also has to own the design: each process, each system and the data behind it, and how work
-         moves between them.</p>
-      <p>Then fund an answer to each of the five questions above, and the platform they run on. None
-         of it is a tool purchase. You can buy a product that maps what you already have; you cannot
-         buy somebody answerable for keeping the map true.
-         <a class="src" href="/what-you-already-have/">What the gaps in your machinery cost</a></p>
-      <p>Budget for what ownership costs. Your delivery dates will depend on other teams' queues.
-         Teams need time before they take on the change. Removing what is already duplicated is work
-         that has to be funded, and so are the people who build the agent teams. Treating any of it
-         as free is the most expensive mistake here.</p>
-      <p>The agents are already going in,<sup class="fn">3</sup> and 74% of
-         <a class="src" href="https://www.deloitte.com/us/en/insights/topics/emerging-technologies/ai-agents-scaling-faster.html">the 3,235 leaders Deloitte asked</a>,
-         as it reported in April 2026, expected at least moderate use by 2027. Designed first, the
-         system around them can take cost out. Left as it is, they amplify the organization you run
-         today, costs included, and that is a hard result to take to a board.</p>
-      <div class="bookmark">
-        <p class="eyebrow">Worth bookmarking</p>
-        <p><b>What you can use, layer by layer.</b> The options at each layer of an agent setup:
-           a list, not a review, and every row carries the date it was read, so each visit shows
-           you how current it is.
-           <a class="src" href="${CATALOG_LAYERS}">See the catalog</a></p>
-      </div>
-      <ol class="refs" start="2">
-        <li><a class="src" href="https://www.ey.com/en_us/newsroom/2026/09/ey-survey-finds-that-autonomous-ai-implementation-outpaces-oversight-yielding-an-ai-governance-gap">EY, AI Risk and Governance Survey, September 2026</a>:
-          a different firm, on controls. Of about 180 senior AI executives at US companies using agentic AI, 49% said their
-          governance framework had not been updated for it, and 26% said they could not detect
-          unauthorized agents operating internally.</li>
-        <li>KPMG's September report again, note 1, not the June one above, p. 3: of 2,131 leaders, 38% said
-          their organization was developing or implementing multi-agent systems, and significant
-          employee adoption of AI agents had risen to 34% from 25% in April.</li>
-      </ol>
+      <p>Projects and acquisitions leave the same shape behind: three teams with three versions of
+         the same thing, and agents that read all three and answer with confidence.
+         <a class="src" href="/notes/${NOTE.slug}/">Why do we have five user APIs</a></p>
     </div>
   </div>
 </section>
@@ -1643,23 +1576,22 @@ ${CSS}
 <section class="band">
   <div class="wrap">
     <div class="head narrow">
-      <p class="eyebrow">What success looks like</p>
-      <h2>Fewer places to change,<br>year over year.</h2>
-      <p>If your agent teams are working, the number of systems you have to change to deliver one
-         thing the business asked for goes down. That is the measure.</p>
-      <p>The 6% above report redesigning the work itself three times as often as everyone
-         else. Prompt-style use makes a person faster without making the work repeatable, and you do
-         not get a different number out of the same system.
-         <a class="src" href="https://www.mckinsey.com/capabilities/tech-and-ai/our-insights/the-top-trends-in-tech">McKinsey's September 2026 technology outlook</a>
-         puts it the same way: agentic AI is changing operating models, not just tools.</p>
-
-      <p>It may simply be early: economists call the lag the
-         <a class="src" href="https://www.nber.org/papers/w25148">productivity J-curve</a>, where the
-         gain arrives only after the work around the technology is rebuilt. Either way, somebody has to
-         own the rebuilding.</p>
-      <p>Success is not more agents in more places. It is a count that goes down year over year,
-         because each thing the business asks for touches fewer systems that somebody has to keep in
-         agreement by hand.
+      <p class="eyebrow">What changes</p>
+      <h2>The methods are not new.<br>The capability is.</h2>
+      <p>Given one owner and one maintained source, agents can now carry work that has always been
+         expensive to keep straight by hand: following one fact across the systems that hold it, reading the procedures, tracing a decision back to the
+         reason somebody wrote down. In a business organized around its value streams, that means
+         cutting the handoffs that only carry information between people, and redrawing who owns
+         what. Staying organized that way is still a decision about ownership and funding.</p>
+      <p>That starts with five questions you already answer for every team of people you run.
+         Ask them of each agent team you have stood up. Unanswered, they stay nobody's job.</p>
+    </div>
+    <div class="verts">
+      ${ANSWERS.map((a, i) => `<div class="vert"><b>${QUESTIONS[i]}</b><span>${a}</span></div>`).join('\n      ')}
+    </div>
+    <div class="head narrow" style="margin-top:2.6rem">
+      <p>If your agent teams are working, the number of systems you have to change to deliver one thing the
+         business asked for goes down, year&nbsp;over&nbsp;year. That is the measure.
          <a class="src" href="/notes/${NOTE_COUNT.slug}/">${NOTE_COUNT.title}</a></p>
     </div>
   </div>
@@ -1668,33 +1600,68 @@ ${CSS}
 <section>
   <div class="wrap">
     <div class="head narrow">
-      <p class="eyebrow">Where this comes from</p>
-      <h2>Patterns learned in hard places.</h2>
-      <p>None of this is industry-specific. The experience behind it is: regulated,
-         legacy-heavy, and full of decisions that are judgment calls rather than lookups. What
-         holds up there travels.</p>
+      <p class="eyebrow">What we are building</p>
+      <h2>Tools to help you get&nbsp;there.</h2>
+      <p>All four come from one reference, AI-SDLC, for delivering work with agents. A delivery
+         lifecycle used to be an engineering practice. Once agents do the work, it is how the whole
+         organization delivers, so the reference covers the tools, the platform they run on, and
+         where shared work lives. The parts shown here are open to read now, and each keeps
+         changing.</p>
     </div>
-    <div class="verts">
-      ${verticals.map(([n, d]) => `<div class="vert"><b>${n}</b><span>${d}</span></div>`).join('\n      ')}
+    <div class="cols four tools">
+      <div class="col"><div class="rule"></div>
+        <h3>What exists, layer by layer</h3>
+        <p>The tools at each layer of an agent setup, what each one covers, and the compliance its
+           maker states, such as HIPAA or ISO 27001, with the date every row was read. It is a list, not&nbsp;a&nbsp;review.</p>
+        <p class="links"><a class="src" href="${CATALOG_LAYERS}">See the catalog</a></p></div>
+      <div class="col"><div class="rule"></div>
+        <h3>A platform for your agent teams</h3>
+        <p>You fund your products and your people. The place your agent teams run needs funding
+           too: where they work, the models they reach, the company knowledge they read, the checks
+           before anything goes live. The requirements set out what that platform has to do.</p>
+        <p class="links"><a class="src" href="${CATALOG_PLATFORM}">The requirements</a>
+           <span class="nb"><span class="sep">&middot;</span> <a class="src" href="/what-you-already-have/">Start from what you have</a></span></p></div>
+      <div class="col"><div class="rule"></div>
+        <h3>Where shared AI work should live</h3>
+        <p>Work people build with an AI assistant can stay on the laptop that made it, even once
+           others rely on it: colleagues see a picture of it in a slide, and it leaves with its
+           owner. One question shows whether customer data could be in it: can people reach
+           customer data in your production systems from their laptops? The catalog's walkthrough
+           marks the parts no product fills, and where we help close them.</p>
+        <p class="links"><a class="src" href="${CATALOG_ENVIRONMENT}">The walkthrough</a>
+           <span class="nb"><span class="sep">&middot;</span> <a class="src" href="${CATALOG_CUSTOMER_DATA}">Customer data, by cloud and model</a></span></p></div>
+      <div class="col"><div class="rule"></div>
+        <h3>How we test it</h3>
+        <p>Three agent teams keep this approach under test: one curates AI-SDLC, one maintains this site, and one runs a public marketplace of agents. Three
+           different problems on purpose, so the approach gets challenged rather than
+           confirmed.</p>
+        <p class="links"><a class="src" href="/how-the-work-gets-done/">The three teams</a></p></div>
     </div>
   </div>
 </section>
 
-
-
-<section>
+<section class="band">
   <div class="wrap">
     <div class="head narrow">
-      <p class="eyebrow">How the work gets done</p>
-      <h2>The model is under&nbsp;test, by being run.</h2>
-      <p>The model this page argues for is not described: it is run, and still changing. Three agent teams keep it under test. One curates AI-SDLC, the reference on delivering with agents that this argument
-         comes from. One maintains this brand and the page you
-         are reading. One runs a public marketplace you can open and install:
-         <a class="src" href="https://github.com/crinaro/marketplace">github.com/crinaro/marketplace</a>.
-         Three different problems on purpose, so the approach gets challenged rather than
-         confirmed.
-         <a class="src" href="/how-the-work-gets-done/">The three teams, and what each keeps
-         alive</a></p>
+      <p class="eyebrow">Where to start</p>
+      <h2>Own what is&nbsp;nobody's job.</h2>
+      <p>If you can maintain the platform you have and keep building on it while you hit your
+         financial goals, keep going. If you cannot, this is where to start.</p>
+      <p>Decide who owns what. Only about a third of the
+         <a class="src" href="https://kpmg.com/content/dam/kpmgsites/xx/pdf/2026/06/global-ai-pulse-q2.pdf">2,145 leaders KPMG asked</a>
+         for its June 2026 report said the roles for running AI day to day were very clear and well
+         managed. An executive who owns AI and its controls is the start. Somebody also has to own
+         the design: each process, each system and the data behind it.</p>
+      <p>Then fund the answers to the five questions and the platform your agent teams run on.
+         The tools above support the answers; none of them is somebody answerable for one. The cost
+         includes the people who build the agent teams, the work of removing what is already
+         duplicated, and delivery dates that now depend on other teams' queues. Treating any of it
+         as free only moves the cost somewhere harder to see.</p>
+      <p>The agents are already going in: 74% of
+         <a class="src" href="https://www.deloitte.com/us/en/insights/topics/emerging-technologies/ai-agents-scaling-faster.html">the 3,235 leaders Deloitte asked</a>,
+         as it reported in April 2026, expected at least moderate use by 2027. Designed first, the
+         system around them can take cost out. Left as it is, they amplify the organization you run
+         today, costs included, and that is a hard result to take to a board.</p>
     </div>
   </div>
 </section>
@@ -1704,16 +1671,14 @@ ${CSS}
     <div class="narrow stack">
       <p class="eyebrow">If any of this is useful</p>
       <h2>Say where it breaks.</h2>
-      <p>These are patterns, not prescriptions, and the interesting mail is the mail that says a
-         piece of it does not hold: in your architecture, at your size, with the constraints you
-         actually have. That is a conversation worth having whether or not anything follows it.</p>
+      <p>These are patterns, not prescriptions. The most useful mail says where a piece of it does
+         not hold: in your architecture, at your size, with the constraints you actually have.</p>
       <p style="margin-top:.8rem">
         <a class="src" href="mailto:${EMAIL}?subject=Crinaro">${EMAIL}</a>
       </p>
     </div>
   </div>
 </section>
-
 </main>
 
 <footer>
@@ -2200,12 +2165,8 @@ writePage(path.join(DIST, 'what-you-already-have', 'index.html'), `${pageHead(
      What it does not have is a place in this order, and this page does not invent one. Naming that
      is the alternative to selling you a gap as a layer.</p>
 
-  <p>The first row's laptop problem reaches past agents. Work people build with an AI assistant
-     stays on the laptop that made it: once others rely on it, colleagues see a picture of it in
-     a slide, and it leaves with its owner. One question tells you whether customer data is part
-     of it: can people reach customer data in your production systems from their laptops? The
-     catalog sets out what an environment for that work has to do, and
-     marks the parts no product in it fills.
+  <p>The first row's laptop problem applies to people's work too: what they build with an AI
+     assistant, and the customer data it can reach.
      <a class="src" href="${CATALOG_ENVIRONMENT}">Why AI work needs an environment</a>
      <span class="sep">&middot;</span>
      <a class="src" href="${CATALOG_PLATFORM}">The requirements</a></p>
