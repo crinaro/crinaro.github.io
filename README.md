@@ -10,7 +10,7 @@ GitHub Pages serves this repo root as it stands, and the pages fetch nothing fro
 | `index.html` | The claim, the question the page answers, and the routes into the rest |
 | `notes/` | The written pieces, each argued at length |
 | `what-you-already-have/` | Where to start, and what an empty layer costs |
-| `how-the-work-gets-done/` | The three things the argument is run on, and the teams that maintain them |
+| `how-the-work-gets-done/` | The pattern for putting agents to work, the first ninety days, and the agent teams that test part of it |
 | `email/` | The email signature images |
 | `src/` | The generators and the logo SVGs |
 

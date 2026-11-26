@@ -99,6 +99,9 @@ const factory = [
   ['Delivery verifier', 'What people actually install after the push: whether it matches what shipped, and whether a claimed fix is really in it.'],
 ];
 
+const factoryRoles = factory.map(([n]) => `${/^[aeiou]/i.test(n) ? 'an' : 'a'} ${n.toLowerCase().replace(' ', '&nbsp;')}`)
+  .join(', ').replace(/, ([^,]*)$/, ' and $1');
+
 const assets = [
   ['The AI-SDLC reference', 'Private',
    'Delivery end to end on an agentic model, across teams rather than inside one: what gets asked for, how it is built, how you know it shipped. Worked into patterns another team can pick up. It has an agent team of its own, in a private project you cannot open, so that team is not set out here.'],
@@ -112,13 +115,6 @@ const assets = [
    'https://github.com/crinaro/marketplace', 'Read the marketplace'],
 ];
 
-const STAGES = [
-  ['New capability', 'a roadmap team asks'],
-  ['Work items', 'across teams’ code'],
-  ['Agents', 'marketplace + local'],
-  ['Compute, routing', 'per role, per model'],
-  ['Checked', 'against the ask'],
-];
 const SOAI = 'https://www.mckinsey.com/capabilities/quantumblack/our-insights/the-state-of-ai';
 const MANIFESTO = 'https://www.mckinsey.com/capabilities/tech-and-ai/our-insights/the-ai-transformation-manifesto';
 
@@ -209,35 +205,28 @@ ${OWN_TEAMS.map((t, i) => {
   <text x="500" y="326" text-anchor="middle" fill="#5B6E80" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="12.5">Agents do not resolve it. They read all three and answer with confidence.</text>
 </svg>`;
 
-const BOX_W = 176, BOX_GAP = 30, BOX_Y = 26, BOX_H = 86, KB_Y = 196;
-const flow = `<svg viewBox="0 0 1000 272" role="img"
-     aria-label="A roadmap team asks for a new capability. It becomes work items across teams’ code, built by agents on routed compute, then checked against what was asked before it is accepted, with a knowledge layer underneath every stage">
-  ${STAGES.map(([t, s], i) => {
-    const x = i * (BOX_W + BOX_GAP), cx = x + BOX_W / 2;
-    return `<g>
-    <rect x="${x}" y="${BOX_Y}" width="${BOX_W}" height="${BOX_H}" rx="3" fill="#F2F6F8" stroke="#DCE4EA"/>
-    <text x="${cx}" y="${BOX_Y + 38}" text-anchor="middle" fill="#0B2545" font-family="${HEAD_SVG}" font-size="17" font-weight="500">${t}</text>
-    <text x="${cx}" y="${BOX_Y + 60}" text-anchor="middle" fill="#5B6E80" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="12.5">${s}</text>
-    <path d="M${cx} ${BOX_Y + BOX_H} L${cx} ${KB_Y}" stroke="#93B8D4" stroke-width="1.5" stroke-dasharray="3 5"/>
-  </g>`;
-  }).join('\n  ')}
-  ${STAGES.slice(1).map((_, i) => {
-    const gx = (i + 1) * (BOX_W + BOX_GAP) - BOX_GAP / 2;
-    return `<path d="M${gx - 5} ${BOX_Y + 36} l7 7 -7 7" fill="none" stroke="#1B5C46" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>`;
-  }).join('\n  ')}
-  <rect x="0" y="${KB_Y}" width="1000" height="66" rx="3" fill="#0B2545"/>
-  <text x="24" y="${KB_Y + 28}" fill="#FFFFFF" font-family="${HEAD_SVG}" font-size="16" font-weight="500">The knowledge layer</text>
-  <text x="24" y="${KB_Y + 50}" fill="#93B8D4" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="13">Current-state index, generated from the code: queried, never re-derived.</text>
+const SANS = "'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif";
+const ST_X = i => i * 254, ST_W = 226;
+const stBox = (x, y, t, sub, fill, stroke, ink) => `<rect x="${x}" y="${y}" width="${ST_W}" height="66" rx="3" fill="${fill}" stroke="${stroke}"/>
+  <text x="${x + ST_W / 2}" y="${y + 29}" text-anchor="middle" fill="${ink}" font-family="${HEAD_SVG}" font-size="16.5" font-weight="500">${t}</text>
+  <text x="${x + ST_W / 2}" y="${y + 50}" text-anchor="middle" fill="${ink}" font-family="${SANS}" font-size="13">${sub}</text>`;
+const streamNow = `<svg viewBox="0 0 988 68" role="img"
+     aria-label="Today. One customer request crosses four teams: request, records, decision and delivery. It waits at each handoff, and each team keeps its own copy of the record.">
+  ${['Request', 'Records', 'Decision', 'Delivery'].map((t, i) =>
+    stBox(ST_X(i), 1, t, 'its own copy of the record', '#F2F6F8', '#93A7B8', '#0B2545')).join('\n  ')}
+  ${[0, 1, 2].map(i => `<text x="${ST_X(i) + ST_W + 14}" y="27" text-anchor="middle" fill="#0B2545" font-family="${SANS}" font-size="12">wait</text>
+  <path d="M${ST_X(i) + ST_W + 3} 38 h22" stroke="#0B2545" stroke-width="2" stroke-dasharray="4 5"/>`).join('\n  ')}
 </svg>`;
-
-const method = [
-  ['The options',
-   'Constraints differ by organization. Each decision names the real alternatives rather than one best practice.'],
-  ['The signal',
-   'A decision table that picks between them, against things you can actually observe. Not “it depends”.'],
-  ['The trigger',
-   'The specific, felt pain that says it is time for the more complex option, so you do not buy infrastructure for a problem you do not have yet.'],
-];
+const streamThen = `<svg viewBox="0 0 988 196" role="img"
+     aria-label="Redrawn. One owner answers for the outcome of the whole path. Agents log the request, gather the records and flag gaps, and send the result on. A person makes the decision, yes or no, and writes down why. The steps read one maintained record, each only what it needs.">
+  <rect x="0" y="0" width="988" height="44" rx="3" fill="#0B2545"/>
+  <text x="494" y="28" text-anchor="middle" fill="#FFFFFF" font-family="${HEAD_SVG}" font-size="15.5" font-weight="500">One owner, answerable for the outcome</text>
+  ${[['Request', 'agent logs it'], ['Records', 'agent gathers, flags gaps'], ['Decision', 'a person, yes or no, and why'], ['Delivery', 'agent sends it on']].map(([t, sub], i) =>
+    stBox(ST_X(i), 64, t, sub, i === 2 ? '#FFFFFF' : '#EAF3EE', i === 2 ? '#0B2545' : '#A8D5C0', i === 2 ? '#0B2545' : '#1B5C46')).join('\n  ')}
+  ${[0, 1, 2].map(i => `<path d="M${ST_X(i) + ST_W + 4} 97 h19" stroke="#1B5C46" stroke-width="2"/><path d="M${ST_X(i) + ST_W + 15} 91 l8 6 -8 6" fill="none" stroke="#1B5C46" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>`).join('\n  ')}
+  <rect x="0" y="150" width="988" height="44" rx="3" fill="#1B5C46"/>
+  <text x="494" y="178" text-anchor="middle" fill="#FFFFFF" font-family="${HEAD_SVG}" font-size="15.5" font-weight="500">One maintained record. Each step reads only what it needs.</text>
+</svg>`;
 
 
 const verticals = [
@@ -250,6 +239,7 @@ const verticals = [
 
 
 const TOOLS = JSON.parse(fs.readFileSync(path.join(__dirname, 'tools.json'), 'utf8'));
+const CATALOG_HOME = 'https://crinaro.ai/catalog/';
 const CATALOG_LAYERS = 'https://crinaro.ai/catalog/views/by-layer/';
 const CATALOG_CUSTOMER_DATA = 'https://crinaro.ai/catalog/views/customer-data/';
 const CATALOG_ENVIRONMENT = 'https://crinaro.ai/catalog/views/why-an-environment/';
@@ -703,6 +693,25 @@ const CSS = `${FONTS}
   .cols { display:grid; grid-template-columns:1fr; gap:2rem; }
   @media (min-width:48rem) { .cols { grid-template-columns:repeat(3,1fr); gap:2.4rem; } }
   @media (min-width:48rem) { .cols.four { grid-template-columns:repeat(2,1fr); } }
+  @media (min-width:48rem) and (max-width:59.99rem) { .cols.months { grid-template-columns:1fr; } }
+  @media (min-width:60rem) {
+    .cols.months { grid-template-rows:repeat(6,auto); row-gap:0; }
+    .cols.months .col { display:grid; grid-row:span 6; grid-template-rows:subgrid; align-content:start; }
+  }
+  @media (min-width:48rem) and (max-width:59.99rem) { .cols.planned { grid-template-columns:1fr; } }
+  @media (min-width:60rem) {
+    .cols.planned { grid-template-rows:repeat(5,auto); row-gap:0; }
+    .cols.planned .col { display:grid; grid-row:span 5; grid-template-rows:subgrid; align-content:start; }
+  }
+  .cols.planned .rule { align-self:start; }
+  #planned .after { margin-top:1rem; }
+  #planned .cols + .after { margin-top:2.1rem; }
+  .cols.months .col .links { margin:.35rem 0 0; }
+  .cols.months .rule { align-self:start; }
+  .figure { margin:2.2rem 0 .9rem; font-family:var(--head); font-weight:500; }
+  .note.figcap { margin-top:.8rem; }
+  .flow.stream { margin:0; }
+  @media (max-width:47.99rem) { .flow.stream svg { min-width:52rem; } }
   @media (min-width:48rem) { .cols.five { grid-template-columns:repeat(2,1fr); } }
   @media (min-width:48rem) { .cols.five > .col:last-child:nth-child(odd) { grid-column:1 / -1; } }
   .col { display:flex; flex-direction:column; gap:.5rem; }
@@ -777,6 +786,7 @@ const CSS = `${FONTS}
   .band h2, .band h3 { color:#FFFFFF; }
   .band p { color:var(--rblue); }
   .band .eyebrow { color:var(--rblue); }
+  .band .months b { color:#FFFFFF; }
   .band .rule { background:var(--rgreen); }
   .band .vert { border-color:var(--navy-2); }
   .band .vert b { color:#FFFFFF; }
@@ -1439,67 +1449,195 @@ const WORK_SECTIONS = `
 <section>
   <div class="wrap">
     <div class="head narrow">
-      <p class="eyebrow">What the teams maintain</p>
-      <h2>Three assets, kept alive.</h2>
-      <p>Not projects that shipped and stopped. Each is still under maintenance by an agent&nbsp;team.
-         The last is public, so you can install it and read its history.</p>
+      <p class="eyebrow">The pattern</p>
+      <h2>Draw the work.<br>Then place the agents.</h2>
+      <p>If you can maintain the platform you have and keep building on it while you hit your
+         financial goals, keep going. If you cannot, pick one thing your customers ask for and draw
+         its whole path.</p>
+    </div>
+    <h3 class="figure">Today: one request, four teams</h3>
+    <div class="flow stream">${streamNow}</div>
+    <p class="note figcap">At every gap somebody re-enters the request, waits, and checks whose copy
+       is right. Give each team an agent and the gaps can stay.</p>
+    <h3 class="figure">Redrawn: one request, one owner</h3>
+    <div class="flow stream">${streamThen}</div>
+    <p class="note figcap">Illustrative; your steps will differ. Controls stay, and stay independent.
+       What you take out is the re-entering and the checking between copies.</p>
+    <div class="cols four" style="margin-top:3.2rem">
+      <div class="col"><div class="rule"></div>
+        <h3>Value stream: follow one request</h3>
+        <p>List every team, system and wait between the request and the customer getting it, and
+           mark where it waits longest. An agent anywhere else speeds up its own step, and the
+           request still waits. Agents can help trace the path; a&nbsp;person&nbsp;signs&nbsp;it.</p></div>
+      <div class="col"><div class="rule"></div>
+        <h3>Conway's law: systems copy your teams</h3>
+        <p>Systems tend to take the shape of the teams that build them and how those teams talk.
+           Four departments with an agent each can keep four versions of the customer. Where the
+           business needs one, its owner needs the authority and the budget to get there.
+           </p>
+        <p class="links"><a class="src" href="/notes/${NOTE.slug}/">Why do we have five user APIs</a></p></div>
+      <div class="col"><div class="rule"></div>
+        <h3>Lean: take out what adds nothing</h3>
+        <p>The same data entered twice, the report nobody opens, the approval that only passes it
+           along. Hand that to an agent and you still pay for it. Keep the steps that are controls.
+           If nobody can say why a step is there, find out before you&nbsp;cut&nbsp;it.</p></div>
+      <div class="col"><div class="rule"></div>
+        <h3>Then the agents</h3>
+        <p>Answer the <a class="src" href="/">five questions</a> for each agent team, the ones
+           already running included. Then set what it can reach, and what is checked before
+           anything goes live.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="band" id="ninety-days">
+  <div class="wrap">
+    <div class="head narrow">
+      <p class="eyebrow">The first ninety days</p>
+      <h2>One path, your&nbsp;own&nbsp;people,<br>three decisions.</h2>
+      <p>One path, a single customer request followed from start to finish, is small enough to start
+         with the people you have, and it shows whether to fund
+         the next one. Each month ends with something you can show whoever approves the money.</p>
+    </div>
+    <div class="cols months">
+      <div class="col"><div class="rule"></div>
+        <p class="eyebrow">Days 1 to 30</p>
+        <h3>Who owns the path?</h3>
+        <p>Draw it, and name one owner for the outcome. Put a name against every step, every system
+           and every agent already running. With your security lead, mark where people can reach
+           customer data in production systems from a laptop. Time the request, note what it costs, and count
+           the handoffs, the re-entries and the times somebody checks two records against each other.</p>
+        <p><b>You have:</b> one page with the path, its owner, and a name or a blank at every step.</p>
+        <div>
+        <p class="links"><a class="src" href="${CATALOG_ENVIRONMENT}">Why AI work needs an environment</a></p></div></div>
+      <div class="col"><div class="rule"></div>
+        <p class="eyebrow">Days 31 to 60</p>
+        <h3>Which copies do we&nbsp;need?</h3>
+        <p>Where two systems hold the same thing, ask whether the business needs both. If not, name
+           the one that counts and who retires the other. Settle with compliance which steps are
+           controls, and take out a handoff that only carries information. Decide who builds and
+           checks the agents, where they run and what that costs, and ask for it.</p>
+        <p><b>You have:</b> a decision on each duplicate you found, and a costed request for a place for agents to&nbsp;run.</p>
+        <div>
+        <p class="links"><a class="src" href="/notes/who-owns-the-answer/">Who owns the answer</a></p>
+        <p class="links"><a class="src" href="${CATALOG_PLATFORM}">Platform requirements</a></p>
+        <p class="links"><a class="src" href="/what-you-already-have/">Start from what you have</a></p></div></div>
+      <div class="col"><div class="rule"></div>
+        <p class="eyebrow">Days 61 to 90</p>
+        <h3>Do we fund the next one?</h3>
+        <p>Put agents, new or already running, on the lookups and handoffs that are left. People
+           keep the decisions. Time and count the same things again, with the cost of building,
+           running and checking the agents beside them. If nothing moved, stop and find&nbsp;out&nbsp;why.</p>
+        <p><b>You have:</b> a before and an after in your own numbers.</p>
+        <div>
+        <p class="links"><a class="src" href="${CATALOG_LAYERS}">The catalog</a></p>
+        <p class="links"><a class="src" href="/notes/${NOTE_COUNT.slug}/">The count, year over year</a></p></div></div>
+    </div>
+    <p class="note">The ninety days are a proposal, and we have not measured them in any
+       organization. Where a regulator, a security review or a budget cycle has to clear the agents,
+       open that on day one. The last thirty days wait for it, and so does any agent used before then. Retiring a duplicate is separate work with its own
+       budget, so look for the number of systems you change to deliver one thing to fall year over year.
+       The owner stays after day ninety.</p>
+  </div>
+</section>
+
+<section id="teams">
+  <div class="wrap">
+    <div class="head narrow">
+      <p class="eyebrow">How we test it</p>
+      <h2>Three teams of agents, three different problems.</h2>
+      <p>Each keeps one thing maintained after it was built. That tests one line above, that the
+         owner stays. None of them tests a path across departments, or the ninety days. The
+         marketplace is public, so you can read its&nbsp;history.</p>
     </div>
     <div class="cols">
       ${assets.map(([n, role, b, href, cta]) => `<div class="col"><div class="rule"></div>
         <p class="eyebrow">${role}</p><h3>${n}</h3><p>${b}</p>${href ? `
-        <p><a class="src" href="${href}">${cta} <span aria-hidden="true">&rarr;</span></a></p>` : ''}</div>`).join('\n      ')}
+        <p><a class="src" href="${href}">${cta}</a></p>` : ''}</div>`).join('\n      ')}
     </div>
-  </div>
-</section>
-
-<section>
-  <div class="wrap">
-    <div class="head narrow">
-      <p class="eyebrow">One team, in full</p>
-      <h2>A factory that maintains, not just builds.</h2>
-      <p>These six maintain the marketplace. Generating something with AI is the easy half now.
-         The other half decides whether the thing is still alive in six months: keeping the
-         documents true, the checks passing, the releases loading, and the claims about the system
-         honest. That is the half these six do, and none of them writes features.</p>
-    </div>
-    <div class="verts">
-      ${factory.map(([n, d]) => `<div class="vert"><b>${n}</b><span>${d}</span></div>`).join('\n      ')}
-    </div>
-    <p class="note">All six are agent definitions in a private repository, so you cannot read
-       them. What they maintain is public: three plugins carrying seventeen installable agents,
+    <p class="note">The marketplace is kept by six agent definitions in a private repository, so you
+       cannot read them: ${factoryRoles}. None of them writes features; they check and
+       maintain what is already there. What they maintain is public: today, three plugins carrying seventeen installable agents,
        their documentation, and a version history you can walk back. That is one product run
        this way, not an organization.</p>
-    <p class="note" id="notes">Most of this is argued at length in
-       <a class="src" href="/notes/">the notes</a>, where the index says which of them are one
-       argument with which, and where to start.</p>
+    <p class="note">The reference is on no schedule, and this page does not say it is current. The
+       parts of it that are published, the tools, the platform requirements and where shared work
+       should live, are in <a class="src" href="${CATALOG_HOME}">the&nbsp;catalog</a>.</p>
   </div>
 </section>
 
-<section>
+<section id="planned">
   <div class="wrap">
     <div class="head narrow">
-      <p class="eyebrow">Inside AI-SDLC</p>
-      <h2>One capability, across&nbsp;every team it touches.</h2>
-      <p>A roadmap team asks for a new capability in writing. The ask becomes work in other
-         teams’ code, and that work is checked against the ask before it is accepted. The diagram
-         follows one ask the whole way.</p>
+      <p class="eyebrow">Planned, not built</p>
+      <h2>Being designed now.</h2>
+      <p>These plugins are planned for the marketplace above. None is built, and none has been tried
+         in any organization. The ninety days need none of&nbsp;them.</p>
     </div>
-    <div class="flow">${flow}</div>
-    <p class="note">Every decision on that path is written down the same way, so a team that did
-       not make it can pick it up:</p>
-    <div class="cols" style="margin-top:3.2rem">
-      ${method.map(([h, b]) => `<div class="col"><div class="rule"></div>
-        <h3>${h}</h3><p>${b}</p></div>`).join('\n      ')}
+    <div class="cols planned">
+      <div class="col"><div class="rule"></div>
+        <p class="eyebrow">For the executive</p>
+        <h3>AI readiness</h3>
+        <p>This is the first to be built. It would help with the first two months above. A technical
+           executive, your own lead or an advisor would run an interview about one customer request.
+           It would cover who owns each step, what is duplicated, which agents people name as already
+           running, whether people can reach customer data in production systems from a laptop, and
+           whether they use a personal AI account for work, or could. It would ask, and would not
+           search anyone's computer. It would speak for that request's path, not for the whole&nbsp;organization.</p>
+        <p><b>You would get:</b> a report of about two pages: the owners recorded as accepting, a
+           blank wherever none is recorded, the gaps, and up to three things to consider funding,
+           or&nbsp;none.</p></div>
+      <div class="col"><div class="rule"></div>
+        <p class="eyebrow">For security, compliance and&nbsp;engineering</p>
+        <h3>AI environment readiness</h3>
+        <p>Where can your data reach an AI model, and who approved that route? It would list
+           the routes that people name or records show; it could not find one nobody mentions. It would
+           ask how people share what AI helps them make, and set your own obligations beside the
+           controls you say cover them. It could say you do not need an environment, a controlled
+           place for AI work to run,&nbsp;yet.</p>
+        <p><b>You would get:</b> a report of the routes with no approval recorded, obligations with
+           no control, controls with no evidence, what has no owner, what it could not see, and what
+           you already do that you could show&nbsp;works.</p></div>
+      <div class="col"><div class="rule"></div>
+        <p class="eyebrow">For people with work to&nbsp;share</p>
+        <h3>Publish</h3>
+        <p>Share the work itself, not a picture of it. The dashboard, report or calculator an AI
+           assistant makes you is often a web page (HTML). Publish would send it as you made it,
+           from your laptop to a service we would run, which is not built.</p>
+        <p><b>You would get:</b> one link, the audience you confirmed, and a record of what
+           was&nbsp;shared.</p></div>
     </div>
-    <p class="note">The reference is on no schedule, and this page does not say it is current. It is
-       not published, so the diagram above shows how far the work reaches, not the decisions inside
-       it. Published
-       separately, and standing without it:
-       <a class="src" href="/what-you-already-have/">what the gaps cost</a>, which runs the pieces
-       of infrastructure an agent setup can have in the order they stop being optional, and links
-       to what exists at each in the catalog. The layers, and the way to read a tool’s public signals, change more slowly
-       than the tools under them. The tools move on their own schedules, so the catalog that lists
-       them prints the date each line was read.</p>
+    <p class="after"><b>Before you publish anything, ask your security team.</b> Publish would send only
+       to an account already set up on the service, ours or one on your own systems, and would check with
+       it first. Whoever sets it up accepts the terms. Before any upload Publish would list every file, leave out key and
+       credential files, and stop if it detected a password or key in the rest. It could miss one. The
+       files would reach the service, ours unless it runs on your own systems, when you approve the upload.
+       Nobody you share with could open them until you confirm in a browser. Our advice is to keep customer
+       and confidential data out until your company has set up its own account. Publish would not enforce
+       that. In the first version you would need a Microsoft work or school account or a Google Workspace
+       account to publish, and so would anyone opening what you&nbsp;share.</p>
+    <p class="after"><b>What you do about a gap in a readiness report would be your decision.</b> Some
+       gaps need an owner or a decision, and no product closes those. Others you could close yourself:
+       the catalog's <a class="src" href="${CATALOG_PLATFORM}">platform&nbsp;requirements</a> show
+       which products can fill which part. Some rows there have no product, and you would build that part. Or you
+       could leave a gap open and say&nbsp;so.</p>
+    <p class="after"><b>Where the gap is sharing what AI helped people make,</b> check first whether a tool
+       you already pay for does it. If not, one option would be the service behind Publish. It is not
+       built. We would sell it. It would be the sharing part of an environment, and would not decide which
+       AI models people use or what goes into them. The goal is that it can run as our service or on
+       your own systems. The readiness plugins, the catalog and that service would all be ours. A
+       report's findings would name no product and would be the same whether or not you buy. Its last
+       section would link to the catalog and, once it is offered, to the&nbsp;service.</p>
+    <p class="note">All of these plugins would run first in Claude Code, in the Claude desktop app; the
+       two readiness plugins on a Mac first. Those two would be free; the AI account they run on is not. They
+       would ask questions and read the contents only of files you copy in; around those, they would
+       check only a few names and settings in the same&nbsp;project. They would stop unless told that your
+       organization agreed to that and approved the AI service they run on. They would record each
+       answer, and each owner's acceptance, and could not show who gave&nbsp;it.</p>
+    <p class="note">The two readiness plugins are designed to send us nothing. The AI provider would
+       process your answers, the files you copy in and what Publish reads, under the terms of the account
+       in use, which may not be your organization's. Leave passwords and customer records out of all of
+       it. None of these would score you, or say you are ready, secure or&nbsp;compliant.</p>
   </div>
 </section>
 `;
@@ -1602,11 +1740,11 @@ ${CSS}
     <div class="head narrow">
       <p class="eyebrow">What we are building</p>
       <h2>Tools to help you get&nbsp;there.</h2>
-      <p>All four come from one reference, AI-SDLC, for delivering work with agents. A delivery
+      <p>Of the four below, the first three come from one reference, AI-SDLC, for delivering work with agents. A delivery
          lifecycle used to be an engineering practice. Once agents do the work, it is how the whole
          organization delivers, so the reference covers the tools, the platform they run on, and
-         where shared work lives. The parts shown here are open to read now, and each keeps
-         changing.</p>
+         where shared work lives. The reference itself is private; those three parts are open to
+         read now, and each keeps changing.</p>
     </div>
     <div class="cols four tools">
       <div class="col"><div class="rule"></div>
@@ -1635,8 +1773,13 @@ ${CSS}
         <p>Three agent teams keep this approach under test: one curates AI-SDLC, one maintains this site, and one runs a public marketplace of agents. Three
            different problems on purpose, so the approach gets challenged rather than
            confirmed.</p>
-        <p class="links"><a class="src" href="/how-the-work-gets-done/">The three teams</a></p></div>
+        <p class="links"><a class="src" href="/how-the-work-gets-done/#teams">The three teams</a></p></div>
     </div>
+    <p class="note">Planned for the marketplace, and not built: AI&nbsp;readiness, on who owns each step
+       of one customer request; AI environment readiness, on where your data can reach an AI model
+       and who approved that; and Publish, for sharing the work AI helped you
+       make, not a picture of it, through a service we would run and&nbsp;sell.
+       <a class="src" href="/how-the-work-gets-done/#planned">What is planned</a></p>
   </div>
 </section>
 
@@ -1651,7 +1794,8 @@ ${CSS}
          <a class="src" href="https://kpmg.com/content/dam/kpmgsites/xx/pdf/2026/06/global-ai-pulse-q2.pdf">2,145 leaders KPMG asked</a>
          for its June 2026 report said the roles for running AI day to day were very clear and well
          managed. An executive who owns AI and its controls is the start. Somebody also has to own
-         the design: each process, each system and the data behind it.</p>
+         the design: each process, each system and the data behind it.
+         <a class="src" href="/how-the-work-gets-done/#ninety-days">The first ninety days</a></p>
       <p>Then fund the answers to the five questions and the platform your agent teams run on.
          The tools above support the answers; none of them is somebody answerable for one. The cost
          includes the people who build the agent teams, the work of removing what is already
@@ -1702,9 +1846,9 @@ const workHtml = `<!doctype html>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>How the work gets done · Crinaro.AI</title>
-<meta name="description" content="The agent teams that maintain three assets, and one capability followed across every team it touches.">
+<meta name="description" content="Draw one path through your organization, decide who owns it, then place the agents. What to decide in the first ninety days, and the part three agent teams test.">
 <meta property="og:title" content="How the work gets done">
-<meta property="og:description" content="The agent teams that maintain three assets, and one capability followed across every team it touches.">
+<meta property="og:description" content="Draw one path through your organization, decide who owns it, then place the agents. What to decide in the first ninety days, and the part three agent teams test.">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://crinaro.ai/how-the-work-gets-done/">
 <meta property="og:image" content="https://crinaro.ai/icons/crinaro-og-1200x630.png">
@@ -1728,9 +1872,9 @@ ${CSS}
   <div class="wrap">
     <a class="note-home" href="/">${svg('crinaro-ai-horizontal-reversed.svg')}</a>
     <h1>How the work&nbsp;gets done.</h1>
-    <p>The model this site argues for is run rather than described. Here are the three things it
-       is run on, the agent teams that keep each alive, and one new capability, followed from the
-       team that asks for it to the check that the finished work does what was asked.</p>
+    <p>Lean, value streams and Conway's law are not new. Agents work inside whatever you have
+       organized, so start with one thing your customers ask for and the path it takes. Here is the
+       pattern, what to decide in the first ninety days, and the part of it three agent teams test.</p>
   </div>
 </header>
 
@@ -1743,10 +1887,11 @@ ${WORK_SECTIONS}
     <div class="head narrow">
       <p class="eyebrow">Back</p>
       <h2>Where this sits.</h2>
-      <p>The argument these are run against is on the
-         <a class="src" href="/">home page</a>, worked out at length
-         <a class="src" href="/notes/">in the notes</a>, and the machinery half is
-         <a class="src" href="/what-you-already-have/">what the gaps cost</a>.</p>
+      <p>Why costs can rise when agents go in is on the <a class="src" href="/">home page</a>.
+         Ownership and duplication are worked out at length <a class="src" href="/notes/">in the
+         notes</a>. If a step
+         here does not hold in your organization, that is the mail worth sending:
+         <a class="src" href="mailto:${EMAIL}?subject=Crinaro">${EMAIL}</a>.</p>
     </div>
   </div>
 </section>
@@ -1767,7 +1912,7 @@ ${WORK_SECTIONS}
 `;
 fs.mkdirSync(path.join(DIST, 'how-the-work-gets-done'), { recursive: true });
 writePage(path.join(DIST, 'how-the-work-gets-done', 'index.html'), workHtml);
-console.log('       dist/how-the-work-gets-done/ — the three run-on-this sections');
+console.log('       dist/how-the-work-gets-done/ — the pattern, the first ninety days, the three teams');
 
 const NOTE_ANSWER = {
   slug: 'who-owns-the-answer',
@@ -2869,7 +3014,7 @@ fs.writeFileSync(path.join(DIST, 'README.md'), [
   '| `index.html` | The claim, the question the page answers, and the routes into the rest |',
   '| `notes/` | The written pieces, each argued at length |',
   '| `what-you-already-have/` | Where to start, and what an empty layer costs |',
-  '| `how-the-work-gets-done/` | The three things the argument is run on, and the teams that maintain them |',
+  '| `how-the-work-gets-done/` | The pattern for putting agents to work, the first ninety days, and the agent teams that test part of it |',
   '| `email/` | The email signature images |',
   '| `src/` | The generators and the logo SVGs |',
   '',

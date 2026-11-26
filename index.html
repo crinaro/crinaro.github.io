@@ -105,6 +105,27 @@
   
   @media (min-width:48rem) { .cols.four { grid-template-columns:repeat(2,1fr); } }
   
+  @media (min-width:48rem) and (max-width:59.99rem) { .cols.months { grid-template-columns:1fr; } }
+  @media (min-width:60rem) {
+    .cols.months { grid-template-rows:repeat(6,auto); row-gap:0; }
+    .cols.months .col { display:grid; grid-row:span 6; grid-template-rows:subgrid; align-content:start; }
+  }
+  
+  @media (min-width:48rem) and (max-width:59.99rem) { .cols.planned { grid-template-columns:1fr; } }
+  @media (min-width:60rem) {
+    .cols.planned { grid-template-rows:repeat(5,auto); row-gap:0; }
+    .cols.planned .col { display:grid; grid-row:span 5; grid-template-rows:subgrid; align-content:start; }
+  }
+  .cols.planned .rule { align-self:start; }
+  #planned .after { margin-top:1rem; }
+  #planned .cols + .after { margin-top:2.1rem; }
+  .cols.months .col .links { margin:.35rem 0 0; }
+  .cols.months .rule { align-self:start; }
+  .figure { margin:2.2rem 0 .9rem; font-family:var(--head); font-weight:500; }
+  .note.figcap { margin-top:.8rem; }
+  .flow.stream { margin:0; }
+  @media (max-width:47.99rem) { .flow.stream svg { min-width:52rem; } }
+  
   @media (min-width:48rem) { .cols.five { grid-template-columns:repeat(2,1fr); } }
   
   @media (min-width:48rem) { .cols.five > .col:last-child:nth-child(odd) { grid-column:1 / -1; } }
@@ -203,6 +224,7 @@
   .band p { color:var(--rblue); }
   
   .band .eyebrow { color:var(--rblue); }
+  .band .months b { color:#FFFFFF; }
   .band .rule { background:var(--rgreen); }
   
   .band .vert { border-color:var(--navy-2); }
@@ -354,11 +376,11 @@
       <p class="eyebrow">What we are building</p>
       <h2>Tools to help you get&nbsp;there.</h2>
       
-      <p>All four come from one reference, AI-SDLC, for delivering work with agents. A delivery
+      <p>Of the four below, the first three come from one reference, AI-SDLC, for delivering work with agents. A delivery
          lifecycle used to be an engineering practice. Once agents do the work, it is how the whole
          organization delivers, so the reference covers the tools, the platform they run on, and
-         where shared work lives. The parts shown here are open to read now, and each keeps
-         changing.</p>
+         where shared work lives. The reference itself is private; those three parts are open to
+         read now, and each keeps changing.</p>
     </div>
     <div class="cols four tools">
       <div class="col"><div class="rule"></div>
@@ -388,8 +410,14 @@
         <p>Three agent teams keep this approach under test: one curates AI-SDLC, one maintains this site, and one runs a public marketplace of agents. Three
            different problems on purpose, so the approach gets challenged rather than
            confirmed.</p>
-        <p class="links"><a class="src" href="/how-the-work-gets-done/">The three teams</a></p></div>
+        <p class="links"><a class="src" href="/how-the-work-gets-done/#teams">The three teams</a></p></div>
     </div>
+    
+    <p class="note">Planned for the marketplace, and not built: AI&nbsp;readiness, on who owns each step
+       of one customer request; AI environment readiness, on where your data can reach an AI model
+       and who approved that; and Publish, for sharing the work AI helped you
+       make, not a picture of it, through a service we would run and&nbsp;sell.
+       <a class="src" href="/how-the-work-gets-done/#planned">What is planned</a></p>
   </div>
 </section>
 
@@ -404,7 +432,8 @@
          <a class="src" href="https://kpmg.com/content/dam/kpmgsites/xx/pdf/2026/06/global-ai-pulse-q2.pdf" rel="noopener noreferrer" target="_blank">2,145 leaders KPMG asked⁠<span class="ext-m" aria-hidden="true">↗</span><span class="ext-vh"> (opens in a new tab)</span></a>
          for its June 2026 report said the roles for running AI day to day were very clear and well
          managed. An executive who owns AI and its controls is the start. Somebody also has to own
-         the design: each process, each system and the data behind it.</p>
+         the design: each process, each system and the data behind it.
+         <a class="src" href="/how-the-work-gets-done/#ninety-days">The first ninety days</a></p>
       
       <p>Then fund the answers to the five questions and the platform your agent teams run on.
          The tools above support the answers; none of them is somebody answerable for one. The cost

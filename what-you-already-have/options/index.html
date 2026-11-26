@@ -100,6 +100,27 @@
   
   @media (min-width:48rem) { .cols.four { grid-template-columns:repeat(2,1fr); } }
   
+  @media (min-width:48rem) and (max-width:59.99rem) { .cols.months { grid-template-columns:1fr; } }
+  @media (min-width:60rem) {
+    .cols.months { grid-template-rows:repeat(6,auto); row-gap:0; }
+    .cols.months .col { display:grid; grid-row:span 6; grid-template-rows:subgrid; align-content:start; }
+  }
+  
+  @media (min-width:48rem) and (max-width:59.99rem) { .cols.planned { grid-template-columns:1fr; } }
+  @media (min-width:60rem) {
+    .cols.planned { grid-template-rows:repeat(5,auto); row-gap:0; }
+    .cols.planned .col { display:grid; grid-row:span 5; grid-template-rows:subgrid; align-content:start; }
+  }
+  .cols.planned .rule { align-self:start; }
+  #planned .after { margin-top:1rem; }
+  #planned .cols + .after { margin-top:2.1rem; }
+  .cols.months .col .links { margin:.35rem 0 0; }
+  .cols.months .rule { align-self:start; }
+  .figure { margin:2.2rem 0 .9rem; font-family:var(--head); font-weight:500; }
+  .note.figcap { margin-top:.8rem; }
+  .flow.stream { margin:0; }
+  @media (max-width:47.99rem) { .flow.stream svg { min-width:52rem; } }
+  
   @media (min-width:48rem) { .cols.five { grid-template-columns:repeat(2,1fr); } }
   
   @media (min-width:48rem) { .cols.five > .col:last-child:nth-child(odd) { grid-column:1 / -1; } }
@@ -198,6 +219,7 @@
   .band p { color:var(--rblue); }
   
   .band .eyebrow { color:var(--rblue); }
+  .band .months b { color:#FFFFFF; }
   .band .rule { background:var(--rgreen); }
   
   .band .vert { border-color:var(--navy-2); }

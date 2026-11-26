@@ -4,9 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>How the work gets done · Crinaro.AI</title>
-<meta name="description" content="The agent teams that maintain three assets, and one capability followed across every team it touches.">
+<meta name="description" content="Draw one path through your organization, decide who owns it, then place the agents. What to decide in the first ninety days, and the part three agent teams test.">
 <meta property="og:title" content="How the work gets done">
-<meta property="og:description" content="The agent teams that maintain three assets, and one capability followed across every team it touches.">
+<meta property="og:description" content="Draw one path through your organization, decide who owns it, then place the agents. What to decide in the first ninety days, and the part three agent teams test.">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://crinaro.ai/how-the-work-gets-done/">
 <meta property="og:image" content="https://crinaro.ai/icons/crinaro-og-1200x630.png">
@@ -102,6 +102,27 @@
   @media (min-width:48rem) { .cols { grid-template-columns:repeat(3,1fr); gap:2.4rem; } }
   
   @media (min-width:48rem) { .cols.four { grid-template-columns:repeat(2,1fr); } }
+  
+  @media (min-width:48rem) and (max-width:59.99rem) { .cols.months { grid-template-columns:1fr; } }
+  @media (min-width:60rem) {
+    .cols.months { grid-template-rows:repeat(6,auto); row-gap:0; }
+    .cols.months .col { display:grid; grid-row:span 6; grid-template-rows:subgrid; align-content:start; }
+  }
+  
+  @media (min-width:48rem) and (max-width:59.99rem) { .cols.planned { grid-template-columns:1fr; } }
+  @media (min-width:60rem) {
+    .cols.planned { grid-template-rows:repeat(5,auto); row-gap:0; }
+    .cols.planned .col { display:grid; grid-row:span 5; grid-template-rows:subgrid; align-content:start; }
+  }
+  .cols.planned .rule { align-self:start; }
+  #planned .after { margin-top:1rem; }
+  #planned .cols + .after { margin-top:2.1rem; }
+  .cols.months .col .links { margin:.35rem 0 0; }
+  .cols.months .rule { align-self:start; }
+  .figure { margin:2.2rem 0 .9rem; font-family:var(--head); font-weight:500; }
+  .note.figcap { margin-top:.8rem; }
+  .flow.stream { margin:0; }
+  @media (max-width:47.99rem) { .flow.stream svg { min-width:52rem; } }
   
   @media (min-width:48rem) { .cols.five { grid-template-columns:repeat(2,1fr); } }
   
@@ -201,6 +222,7 @@
   .band p { color:var(--rblue); }
   
   .band .eyebrow { color:var(--rblue); }
+  .band .months b { color:#FFFFFF; }
   .band .rule { background:var(--rgreen); }
   
   .band .vert { border-color:var(--navy-2); }
@@ -241,24 +263,159 @@
   <text x="300" y="66" fill="#F2F6F8" font-family="Poppins,Futura,'Century Gothic','Avenir Next',Avenir,sans-serif" font-size="40" font-weight="500" letter-spacing="0.26em" dx="0 0 0 0 0 0 0 -5.20 -5.20 0">CRINARO<tspan fill="#4FA98A">.AI</tspan></text>
 </svg></a>
     <h1>How the work&nbsp;gets done.</h1>
-    
-    <p>The model this site argues for is run rather than described. Here are the three things it
-       is run on, the agent teams that keep each alive, and one new capability, followed from the
-       team that asks for it to the check that the finished work does what was asked.</p>
+    <p>Lean, value streams and Conway's law are not new. Agents work inside whatever you have
+       organized, so start with one thing your customers ask for and the path it takes. Here is the
+       pattern, what to decide in the first ninety days, and the part of it three agent teams test.</p>
   </div>
 </header>
 
 <main>
 
 
-
 <section>
   <div class="wrap">
     <div class="head narrow">
-      <p class="eyebrow">What the teams maintain</p>
-      <h2>Three assets, kept alive.</h2>
-      <p>Not projects that shipped and stopped. Each is still under maintenance by an agent&nbsp;team.
-         The last is public, so you can install it and read its history.</p>
+      <p class="eyebrow">The pattern</p>
+      <h2>Draw the work.<br>Then place the agents.</h2>
+      <p>If you can maintain the platform you have and keep building on it while you hit your
+         financial goals, keep going. If you cannot, pick one thing your customers ask for and draw
+         its whole path.</p>
+    </div>
+    <h3 class="figure">Today: one request, four teams</h3>
+    <div class="flow stream"><svg viewBox="0 0 988 68" role="img"
+     aria-label="Today. One customer request crosses four teams: request, records, decision and delivery. It waits at each handoff, and each team keeps its own copy of the record.">
+  <rect x="0" y="1" width="226" height="66" rx="3" fill="#F2F6F8" stroke="#93A7B8"/>
+  <text x="113" y="30" text-anchor="middle" fill="#0B2545" font-family="Poppins,Futura,'Century Gothic','Avenir Next',Avenir,sans-serif" font-size="16.5" font-weight="500">Request</text>
+  <text x="113" y="51" text-anchor="middle" fill="#0B2545" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="13">its own copy of the record</text>
+  <rect x="254" y="1" width="226" height="66" rx="3" fill="#F2F6F8" stroke="#93A7B8"/>
+  <text x="367" y="30" text-anchor="middle" fill="#0B2545" font-family="Poppins,Futura,'Century Gothic','Avenir Next',Avenir,sans-serif" font-size="16.5" font-weight="500">Records</text>
+  <text x="367" y="51" text-anchor="middle" fill="#0B2545" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="13">its own copy of the record</text>
+  <rect x="508" y="1" width="226" height="66" rx="3" fill="#F2F6F8" stroke="#93A7B8"/>
+  <text x="621" y="30" text-anchor="middle" fill="#0B2545" font-family="Poppins,Futura,'Century Gothic','Avenir Next',Avenir,sans-serif" font-size="16.5" font-weight="500">Decision</text>
+  <text x="621" y="51" text-anchor="middle" fill="#0B2545" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="13">its own copy of the record</text>
+  <rect x="762" y="1" width="226" height="66" rx="3" fill="#F2F6F8" stroke="#93A7B8"/>
+  <text x="875" y="30" text-anchor="middle" fill="#0B2545" font-family="Poppins,Futura,'Century Gothic','Avenir Next',Avenir,sans-serif" font-size="16.5" font-weight="500">Delivery</text>
+  <text x="875" y="51" text-anchor="middle" fill="#0B2545" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="13">its own copy of the record</text>
+  <text x="240" y="27" text-anchor="middle" fill="#0B2545" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="12">wait</text>
+  <path d="M229 38 h22" stroke="#0B2545" stroke-width="2" stroke-dasharray="4 5"/>
+  <text x="494" y="27" text-anchor="middle" fill="#0B2545" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="12">wait</text>
+  <path d="M483 38 h22" stroke="#0B2545" stroke-width="2" stroke-dasharray="4 5"/>
+  <text x="748" y="27" text-anchor="middle" fill="#0B2545" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="12">wait</text>
+  <path d="M737 38 h22" stroke="#0B2545" stroke-width="2" stroke-dasharray="4 5"/>
+</svg></div>
+    <p class="note figcap">At every gap somebody re-enters the request, waits, and checks whose copy
+       is right. Give each team an agent and the gaps can stay.</p>
+    <h3 class="figure">Redrawn: one request, one owner</h3>
+    <div class="flow stream"><svg viewBox="0 0 988 196" role="img"
+     aria-label="Redrawn. One owner answers for the outcome of the whole path. Agents log the request, gather the records and flag gaps, and send the result on. A person makes the decision, yes or no, and writes down why. The steps read one maintained record, each only what it needs.">
+  <rect x="0" y="0" width="988" height="44" rx="3" fill="#0B2545"/>
+  <text x="494" y="28" text-anchor="middle" fill="#FFFFFF" font-family="Poppins,Futura,'Century Gothic','Avenir Next',Avenir,sans-serif" font-size="15.5" font-weight="500">One owner, answerable for the outcome</text>
+  <rect x="0" y="64" width="226" height="66" rx="3" fill="#EAF3EE" stroke="#A8D5C0"/>
+  <text x="113" y="93" text-anchor="middle" fill="#1B5C46" font-family="Poppins,Futura,'Century Gothic','Avenir Next',Avenir,sans-serif" font-size="16.5" font-weight="500">Request</text>
+  <text x="113" y="114" text-anchor="middle" fill="#1B5C46" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="13">agent logs it</text>
+  <rect x="254" y="64" width="226" height="66" rx="3" fill="#EAF3EE" stroke="#A8D5C0"/>
+  <text x="367" y="93" text-anchor="middle" fill="#1B5C46" font-family="Poppins,Futura,'Century Gothic','Avenir Next',Avenir,sans-serif" font-size="16.5" font-weight="500">Records</text>
+  <text x="367" y="114" text-anchor="middle" fill="#1B5C46" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="13">agent gathers, flags gaps</text>
+  <rect x="508" y="64" width="226" height="66" rx="3" fill="#FFFFFF" stroke="#0B2545"/>
+  <text x="621" y="93" text-anchor="middle" fill="#0B2545" font-family="Poppins,Futura,'Century Gothic','Avenir Next',Avenir,sans-serif" font-size="16.5" font-weight="500">Decision</text>
+  <text x="621" y="114" text-anchor="middle" fill="#0B2545" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="13">a person, yes or no, and why</text>
+  <rect x="762" y="64" width="226" height="66" rx="3" fill="#EAF3EE" stroke="#A8D5C0"/>
+  <text x="875" y="93" text-anchor="middle" fill="#1B5C46" font-family="Poppins,Futura,'Century Gothic','Avenir Next',Avenir,sans-serif" font-size="16.5" font-weight="500">Delivery</text>
+  <text x="875" y="114" text-anchor="middle" fill="#1B5C46" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="13">agent sends it on</text>
+  <path d="M230 97 h19" stroke="#1B5C46" stroke-width="2"/><path d="M241 91 l8 6 -8 6" fill="none" stroke="#1B5C46" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M484 97 h19" stroke="#1B5C46" stroke-width="2"/><path d="M495 91 l8 6 -8 6" fill="none" stroke="#1B5C46" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M738 97 h19" stroke="#1B5C46" stroke-width="2"/><path d="M749 91 l8 6 -8 6" fill="none" stroke="#1B5C46" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="0" y="150" width="988" height="44" rx="3" fill="#1B5C46"/>
+  <text x="494" y="178" text-anchor="middle" fill="#FFFFFF" font-family="Poppins,Futura,'Century Gothic','Avenir Next',Avenir,sans-serif" font-size="15.5" font-weight="500">One maintained record. Each step reads only what it needs.</text>
+</svg></div>
+    <p class="note figcap">Illustrative; your steps will differ. Controls stay, and stay independent.
+       What you take out is the re-entering and the checking between copies.</p>
+    <div class="cols four" style="margin-top:3.2rem">
+      <div class="col"><div class="rule"></div>
+        <h3>Value stream: follow one request</h3>
+        <p>List every team, system and wait between the request and the customer getting it, and
+           mark where it waits longest. An agent anywhere else speeds up its own step, and the
+           request still waits. Agents can help trace the path; a&nbsp;person&nbsp;signs&nbsp;it.</p></div>
+      <div class="col"><div class="rule"></div>
+        <h3>Conway's law: systems copy your teams</h3>
+        <p>Systems tend to take the shape of the teams that build them and how those teams talk.
+           Four departments with an agent each can keep four versions of the customer. Where the
+           business needs one, its owner needs the authority and the budget to get there.
+           </p>
+        <p class="links"><a class="src" href="/notes/five-user-apis/">Why do we have five user APIs</a></p></div>
+      <div class="col"><div class="rule"></div>
+        <h3>Lean: take out what adds nothing</h3>
+        <p>The same data entered twice, the report nobody opens, the approval that only passes it
+           along. Hand that to an agent and you still pay for it. Keep the steps that are controls.
+           If nobody can say why a step is there, find out before you&nbsp;cut&nbsp;it.</p></div>
+      <div class="col"><div class="rule"></div>
+        <h3>Then the agents</h3>
+        <p>Answer the <a class="src" href="/">five questions</a> for each agent team, the ones
+           already running included. Then set what it can reach, and what is checked before
+           anything goes live.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="band" id="ninety-days">
+  <div class="wrap">
+    <div class="head narrow">
+      <p class="eyebrow">The first ninety days</p>
+      <h2>One path, your&nbsp;own&nbsp;people,<br>three decisions.</h2>
+      <p>One path, a single customer request followed from start to finish, is small enough to start
+         with the people you have, and it shows whether to fund
+         the next one. Each month ends with something you can show whoever approves the money.</p>
+    </div>
+    <div class="cols months">
+      <div class="col"><div class="rule"></div>
+        <p class="eyebrow">Days 1 to 30</p>
+        <h3>Who owns the path?</h3>
+        <p>Draw it, and name one owner for the outcome. Put a name against every step, every system
+           and every agent already running. With your security lead, mark where people can reach
+           customer data in production systems from a laptop. Time the request, note what it costs, and count
+           the handoffs, the re-entries and the times somebody checks two records against each other.</p>
+        <p><b>You have:</b> one page with the path, its owner, and a name or a blank at every step.</p>
+        <div>
+        <p class="links"><a class="src" href="https://crinaro.ai/catalog/views/why-an-environment/">Why AI work needs an environment</a></p></div></div>
+      <div class="col"><div class="rule"></div>
+        <p class="eyebrow">Days 31 to 60</p>
+        <h3>Which copies do we&nbsp;need?</h3>
+        <p>Where two systems hold the same thing, ask whether the business needs both. If not, name
+           the one that counts and who retires the other. Settle with compliance which steps are
+           controls, and take out a handoff that only carries information. Decide who builds and
+           checks the agents, where they run and what that costs, and ask for it.</p>
+        <p><b>You have:</b> a decision on each duplicate you found, and a costed request for a place for agents to&nbsp;run.</p>
+        <div>
+        <p class="links"><a class="src" href="/notes/who-owns-the-answer/">Who owns the answer</a></p>
+        <p class="links"><a class="src" href="https://crinaro.ai/catalog/views/engineering-platform/">Platform requirements</a></p>
+        <p class="links"><a class="src" href="/what-you-already-have/">Start from what you have</a></p></div></div>
+      <div class="col"><div class="rule"></div>
+        <p class="eyebrow">Days 61 to 90</p>
+        <h3>Do we fund the next one?</h3>
+        <p>Put agents, new or already running, on the lookups and handoffs that are left. People
+           keep the decisions. Time and count the same things again, with the cost of building,
+           running and checking the agents beside them. If nothing moved, stop and find&nbsp;out&nbsp;why.</p>
+        <p><b>You have:</b> a before and an after in your own numbers.</p>
+        <div>
+        <p class="links"><a class="src" href="https://crinaro.ai/catalog/views/by-layer/">The catalog</a></p>
+        <p class="links"><a class="src" href="/notes/count-the-changes/">The count, year over year</a></p></div></div>
+    </div>
+    <p class="note">The ninety days are a proposal, and we have not measured them in any
+       organization. Where a regulator, a security review or a budget cycle has to clear the agents,
+       open that on day one. The last thirty days wait for it, and so does any agent used before then. Retiring a duplicate is separate work with its own
+       budget, so look for the number of systems you change to deliver one thing to fall year over year.
+       The owner stays after day ninety.</p>
+  </div>
+</section>
+
+<section id="teams">
+  <div class="wrap">
+    <div class="head narrow">
+      <p class="eyebrow">How we test it</p>
+      <h2>Three teams of agents, three different problems.</h2>
+      <p>Each keeps one thing maintained after it was built. That tests one line above, that the
+         owner stays. None of them tests a path across departments, or the ninety days. The
+         marketplace is public, so you can read its&nbsp;history.</p>
     </div>
     <div class="cols">
       <div class="col"><div class="rule"></div>
@@ -267,111 +424,99 @@
         <p class="eyebrow">Internal · seven agents</p><h3>This brand</h3><p>The page you are reading, the deck, the identity and the rules that govern them. One agent each for the claim, the voice, the render, the argument against, the contradictions with what is already published, the path a reader actually takes, and whether the whole thing still says what its sources say.</p></div>
       <div class="col"><div class="rule"></div>
         <p class="eyebrow">Public · installable</p><h3>The plugin marketplace</h3><p>One of the places the AI-SDLC reference is tested, and the one in public. Plugins are added as problems are worked through. So far: an agent team that helps whoever installs it find their next opportunity, full-time or contract, and build their network; a plugin that builds and publishes a personal site; and a connector for several mailboxes.</p>
-        <p><a class="src" href="https://github.com/crinaro/marketplace" rel="noopener noreferrer" target="_blank">Read the marketplace <span aria-hidden="true">&rarr;</span>⁠<span class="ext-m" aria-hidden="true">↗</span><span class="ext-vh"> (opens in a new tab)</span></a></p></div>
-    </div>
-  </div>
-</section>
-
-<section>
-  <div class="wrap">
-    <div class="head narrow">
-      <p class="eyebrow">One team, in full</p>
-      <h2>A factory that maintains, not just builds.</h2>
-      <p>These six maintain the marketplace. Generating something with AI is the easy half now.
-         The other half decides whether the thing is still alive in six months: keeping the
-         documents true, the checks passing, the releases loading, and the claims about the system
-         honest. That is the half these six do, and none of them writes features.</p>
-    </div>
-    <div class="verts">
-      <div class="vert"><b>Architect</b><span>The shape of the thing: what is an agent, what is a script, what belongs in a manifest.</span></div>
-      <div class="vert"><b>Deployment auditor</b><span>Where it can actually run: a desktop, a schedule, a headless container, and whether the docs say so truthfully.</span></div>
-      <div class="vert"><b>Gate keeper</b><span>The checks. The regression suite, the fixtures, and whether the automatic run on every change agrees with what passed on the author’s machine.</span></div>
-      <div class="vert"><b>Docs steward</b><span>The written record: decisions, rulebooks, and stale claims about a system that has moved on.</span></div>
-      <div class="vert"><b>Release manager</b><span>Shipping, so it actually loads for someone. Versions, catalog, cache, and a check from a fresh session.</span></div>
-      <div class="vert"><b>Delivery verifier</b><span>What people actually install after the push: whether it matches what shipped, and whether a claimed fix is really in it.</span></div>
+        <p><a class="src" href="https://github.com/crinaro/marketplace" rel="noopener noreferrer" target="_blank">Read the marketplace⁠<span class="ext-m" aria-hidden="true">↗</span><span class="ext-vh"> (opens in a new tab)</span></a></p></div>
     </div>
     
-    <p class="note">All six are agent definitions in a private repository, so you cannot read
-       them. What they maintain is public: three plugins carrying seventeen installable agents,
+    <p class="note">The marketplace is kept by six agent definitions in a private repository, so you
+       cannot read them: an architect, a deployment&nbsp;auditor, a gate&nbsp;keeper, a docs&nbsp;steward, a release&nbsp;manager and a delivery&nbsp;verifier. None of them writes features; they check and
+       maintain what is already there. What they maintain is public: today, three plugins carrying seventeen installable agents,
        their documentation, and a version history you can walk back. That is one product run
        this way, not an organization.</p>
     
-    <p class="note" id="notes">Most of this is argued at length in
-       <a class="src" href="/notes/">the notes</a>, where the index says which of them are one
-       argument with which, and where to start.</p>
+    <p class="note">The reference is on no schedule, and this page does not say it is current. The
+       parts of it that are published, the tools, the platform requirements and where shared work
+       should live, are in <a class="src" href="https://crinaro.ai/catalog/">the&nbsp;catalog</a>.</p>
   </div>
 </section>
 
-<section>
+
+<section id="planned">
   <div class="wrap">
     <div class="head narrow">
-      <p class="eyebrow">Inside AI-SDLC</p>
-      <h2>One capability, across&nbsp;every team it touches.</h2>
-      
-      <p>A roadmap team asks for a new capability in writing. The ask becomes work in other
-         teams’ code, and that work is checked against the ask before it is accepted. The diagram
-         follows one ask the whole way.</p>
+      <p class="eyebrow">Planned, not built</p>
+      <h2>Being designed now.</h2>
+      <p>These plugins are planned for the marketplace above. None is built, and none has been tried
+         in any organization. The ninety days need none of&nbsp;them.</p>
     </div>
-    <div class="flow"><svg viewBox="0 0 1000 272" role="img"
-     aria-label="A roadmap team asks for a new capability. It becomes work items across teams’ code, built by agents on routed compute, then checked against what was asked before it is accepted, with a knowledge layer underneath every stage">
-  <g>
-    <rect x="0" y="26" width="176" height="86" rx="3" fill="#F2F6F8" stroke="#DCE4EA"/>
-    <text x="88" y="64" text-anchor="middle" fill="#0B2545" font-family="Poppins,Futura,'Century Gothic','Avenir Next',Avenir,sans-serif" font-size="17" font-weight="500">New capability</text>
-    <text x="88" y="86" text-anchor="middle" fill="#5B6E80" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="12.5">a roadmap team asks</text>
-    <path d="M88 112 L88 196" stroke="#93B8D4" stroke-width="1.5" stroke-dasharray="3 5"/>
-  </g>
-  <g>
-    <rect x="206" y="26" width="176" height="86" rx="3" fill="#F2F6F8" stroke="#DCE4EA"/>
-    <text x="294" y="64" text-anchor="middle" fill="#0B2545" font-family="Poppins,Futura,'Century Gothic','Avenir Next',Avenir,sans-serif" font-size="17" font-weight="500">Work items</text>
-    <text x="294" y="86" text-anchor="middle" fill="#5B6E80" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="12.5">across teams’ code</text>
-    <path d="M294 112 L294 196" stroke="#93B8D4" stroke-width="1.5" stroke-dasharray="3 5"/>
-  </g>
-  <g>
-    <rect x="412" y="26" width="176" height="86" rx="3" fill="#F2F6F8" stroke="#DCE4EA"/>
-    <text x="500" y="64" text-anchor="middle" fill="#0B2545" font-family="Poppins,Futura,'Century Gothic','Avenir Next',Avenir,sans-serif" font-size="17" font-weight="500">Agents</text>
-    <text x="500" y="86" text-anchor="middle" fill="#5B6E80" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="12.5">marketplace + local</text>
-    <path d="M500 112 L500 196" stroke="#93B8D4" stroke-width="1.5" stroke-dasharray="3 5"/>
-  </g>
-  <g>
-    <rect x="618" y="26" width="176" height="86" rx="3" fill="#F2F6F8" stroke="#DCE4EA"/>
-    <text x="706" y="64" text-anchor="middle" fill="#0B2545" font-family="Poppins,Futura,'Century Gothic','Avenir Next',Avenir,sans-serif" font-size="17" font-weight="500">Compute, routing</text>
-    <text x="706" y="86" text-anchor="middle" fill="#5B6E80" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="12.5">per role, per model</text>
-    <path d="M706 112 L706 196" stroke="#93B8D4" stroke-width="1.5" stroke-dasharray="3 5"/>
-  </g>
-  <g>
-    <rect x="824" y="26" width="176" height="86" rx="3" fill="#F2F6F8" stroke="#DCE4EA"/>
-    <text x="912" y="64" text-anchor="middle" fill="#0B2545" font-family="Poppins,Futura,'Century Gothic','Avenir Next',Avenir,sans-serif" font-size="17" font-weight="500">Checked</text>
-    <text x="912" y="86" text-anchor="middle" fill="#5B6E80" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="12.5">against the ask</text>
-    <path d="M912 112 L912 196" stroke="#93B8D4" stroke-width="1.5" stroke-dasharray="3 5"/>
-  </g>
-  <path d="M186 62 l7 7 -7 7" fill="none" stroke="#1B5C46" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
-  <path d="M392 62 l7 7 -7 7" fill="none" stroke="#1B5C46" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
-  <path d="M598 62 l7 7 -7 7" fill="none" stroke="#1B5C46" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
-  <path d="M804 62 l7 7 -7 7" fill="none" stroke="#1B5C46" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
-  <rect x="0" y="196" width="1000" height="66" rx="3" fill="#0B2545"/>
-  <text x="24" y="224" fill="#FFFFFF" font-family="Poppins,Futura,'Century Gothic','Avenir Next',Avenir,sans-serif" font-size="16" font-weight="500">The knowledge layer</text>
-  <text x="24" y="246" fill="#93B8D4" font-family="'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif" font-size="13">Current-state index, generated from the code: queried, never re-derived.</text>
-</svg></div>
-    <p class="note">Every decision on that path is written down the same way, so a team that did
-       not make it can pick it up:</p>
-    <div class="cols" style="margin-top:3.2rem">
+    <div class="cols planned">
       <div class="col"><div class="rule"></div>
-        <h3>The options</h3><p>Constraints differ by organization. Each decision names the real alternatives rather than one best practice.</p></div>
+        <p class="eyebrow">For the executive</p>
+        <h3>AI readiness</h3>
+        <p>This is the first to be built. It would help with the first two months above. A technical
+           executive, your own lead or an advisor would run an interview about one customer request.
+           It would cover who owns each step, what is duplicated, which agents people name as already
+           running, whether people can reach customer data in production systems from a laptop, and
+           whether they use a personal AI account for work, or could. It would ask, and would not
+           search anyone's computer. It would speak for that request's path, not for the whole&nbsp;organization.</p>
+        <p><b>You would get:</b> a report of about two pages: the owners recorded as accepting, a
+           blank wherever none is recorded, the gaps, and up to three things to consider funding,
+           or&nbsp;none.</p></div>
       <div class="col"><div class="rule"></div>
-        <h3>The signal</h3><p>A decision table that picks between them, against things you can actually observe. Not “it depends”.</p></div>
+        <p class="eyebrow">For security, compliance and&nbsp;engineering</p>
+        <h3>AI environment readiness</h3>
+        <p>Where can your data reach an AI model, and who approved that route? It would list
+           the routes that people name or records show; it could not find one nobody mentions. It would
+           ask how people share what AI helps them make, and set your own obligations beside the
+           controls you say cover them. It could say you do not need an environment, a controlled
+           place for AI work to run,&nbsp;yet.</p>
+        <p><b>You would get:</b> a report of the routes with no approval recorded, obligations with
+           no control, controls with no evidence, what has no owner, what it could not see, and what
+           you already do that you could show&nbsp;works.</p></div>
       <div class="col"><div class="rule"></div>
-        <h3>The trigger</h3><p>The specific, felt pain that says it is time for the more complex option, so you do not buy infrastructure for a problem you do not have yet.</p></div>
+        <p class="eyebrow">For people with work to&nbsp;share</p>
+        <h3>Publish</h3>
+        
+        <p>Share the work itself, not a picture of it. The dashboard, report or calculator an AI
+           assistant makes you is often a web page (HTML). Publish would send it as you made it,
+           from your laptop to a service we would run, which is not built.</p>
+        <p><b>You would get:</b> one link, the audience you confirmed, and a record of what
+           was&nbsp;shared.</p></div>
     </div>
     
-    <p class="note">The reference is on no schedule, and this page does not say it is current. It is
-       not published, so the diagram above shows how far the work reaches, not the decisions inside
-       it. Published
-       separately, and standing without it:
-       <a class="src" href="/what-you-already-have/">what the gaps cost</a>, which runs the pieces
-       of infrastructure an agent setup can have in the order they stop being optional, and links
-       to what exists at each in the catalog. The layers, and the way to read a tool’s public signals, change more slowly
-       than the tools under them. The tools move on their own schedules, so the catalog that lists
-       them prints the date each line was read.</p>
+    
+    <p class="after"><b>Before you publish anything, ask your security team.</b> Publish would send only
+       to an account already set up on the service, ours or one on your own systems, and would check with
+       it first. Whoever sets it up accepts the terms. Before any upload Publish would list every file, leave out key and
+       credential files, and stop if it detected a password or key in the rest. It could miss one. The
+       files would reach the service, ours unless it runs on your own systems, when you approve the upload.
+       Nobody you share with could open them until you confirm in a browser. Our advice is to keep customer
+       and confidential data out until your company has set up its own account. Publish would not enforce
+       that. In the first version you would need a Microsoft work or school account or a Google Workspace
+       account to publish, and so would anyone opening what you&nbsp;share.</p>
+    
+    <p class="after"><b>What you do about a gap in a readiness report would be your decision.</b> Some
+       gaps need an owner or a decision, and no product closes those. Others you could close yourself:
+       the catalog's <a class="src" href="https://crinaro.ai/catalog/views/engineering-platform/">platform&nbsp;requirements</a> show
+       which products can fill which part. Some rows there have no product, and you would build that part. Or you
+       could leave a gap open and say&nbsp;so.</p>
+    <p class="after"><b>Where the gap is sharing what AI helped people make,</b> check first whether a tool
+       you already pay for does it. If not, one option would be the service behind Publish. It is not
+       built. We would sell it. It would be the sharing part of an environment, and would not decide which
+       AI models people use or what goes into them. The goal is that it can run as our service or on
+       your own systems. The readiness plugins, the catalog and that service would all be ours. A
+       report's findings would name no product and would be the same whether or not you buy. Its last
+       section would link to the catalog and, once it is offered, to the&nbsp;service.</p>
+    
+    <p class="note">All of these plugins would run first in Claude Code, in the Claude desktop app; the
+       two readiness plugins on a Mac first. Those two would be free; the AI account they run on is not. They
+       would ask questions and read the contents only of files you copy in; around those, they would
+       check only a few names and settings in the same&nbsp;project. They would stop unless told that your
+       organization agreed to that and approved the AI service they run on. They would record each
+       answer, and each owner's acceptance, and could not show who gave&nbsp;it.</p>
+    <p class="note">The two readiness plugins are designed to send us nothing. The AI provider would
+       process your answers, the files you copy in and what Publish reads, under the terms of the account
+       in use, which may not be your organization's. Leave passwords and customer records out of all of
+       it. None of these would score you, or say you are ready, secure or&nbsp;compliant.</p>
   </div>
 </section>
 
@@ -381,10 +526,11 @@
     <div class="head narrow">
       <p class="eyebrow">Back</p>
       <h2>Where this sits.</h2>
-      <p>The argument these are run against is on the
-         <a class="src" href="/">home page</a>, worked out at length
-         <a class="src" href="/notes/">in the notes</a>, and the machinery half is
-         <a class="src" href="/what-you-already-have/">what the gaps cost</a>.</p>
+      <p>Why costs can rise when agents go in is on the <a class="src" href="/">home page</a>.
+         Ownership and duplication are worked out at length <a class="src" href="/notes/">in the
+         notes</a>. If a step
+         here does not hold in your organization, that is the mail worth sending:
+         <a class="src" href="mailto:john@crinaro.ai?subject=Crinaro">john@crinaro.ai</a>.</p>
     </div>
   </div>
 </section>
